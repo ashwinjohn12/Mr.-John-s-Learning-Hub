@@ -6,6 +6,7 @@ export function getStaticPaths() { return courses.flatMap((course) => course.uni
 interface Props { course: Course; unit: Unit }
 const { course, unit } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const hasUnit1Review = course.slug === 'grade-6-math' && unit.slug === 'positive-negative-numbers';
 ---
 <BaseLayout title={`${unit.title} | ${course.grade} ${course.shortSubject}`} description={unit.description} themeColor={course.color}>
   <div class="page-wrap" style={`--course:${course.color};--course-soft:${course.accent}`}>
@@ -19,9 +20,15 @@ const base = import.meta.env.BASE_URL;
             <span>{topic.number}</span><span><strong>{topic.title}</strong><small>{topic.summary}</small></span><em>{topic.status === 'ready' ? 'Open topic' : 'Coming next'}</em>
           </a>
         ))}
+        {hasUnit1Review && (
+          <a class="topic-row review-row" href={`${base}courses/${course.slug}/${unit.slug}/unit-review/`}>
+            <span>★</span><span><strong>Unit 1 Review & Math Arcade</strong><small>Mix all five skills, take a randomized unit check, and complete free-response integer missions.</small></span><em>Review unit</em>
+          </a>
+        )}
       </section>
     ) : (
       <section class="empty-unit"><span aria-hidden="true">✦</span><h2>This unit is mapped and ready for content.</h2><p>Topics will use the same Learn → Explore → Practise → Review structure as the working Grade 6 example.</p></section>
     )}
   </div>
 </BaseLayout>
+<style>.review-row{border-width:2px;background:linear-gradient(135deg,#fff,#f3effb)}.review-row>span:first-child{font-size:1.25rem}</style>
