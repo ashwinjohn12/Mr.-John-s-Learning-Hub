@@ -1,0 +1,10 @@
+---
+import Unit1LessonPage from '../../../../components/Unit1LessonPage.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit1RemainingContent } from '../../../../data/unit1RemainingContent';
+const course = findCourse('grade-6-math')!;
+const unit = course.units.find((item) => item.slug === 'positive-negative-numbers')!;
+const topic = unit.topics.find((item) => item.slug === 'adding-integers')!;
+const content = unit1RemainingContent['grade-6-math/positive-negative-numbers/adding-integers'];
+---
+<Unit1LessonPage {course} {unit} {topic} {content} />
