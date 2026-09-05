@@ -1,0 +1,43 @@
+---
+import type { VocabularyWord } from '../data/topicContent';
+interface Props { words: readonly VocabularyWord[] }
+const { words } = Astro.props;
+---
+<div class="vocab-widget widget" data-vocab-widget>
+  <div class="widget-topline"><span>Card <strong data-vocab-count>1 of {words.length}</strong></span><span>Tap the card to reveal</span></div>
+  <button class="vocab-card" type="button" aria-expanded="false">
+    <span class="vocab-face vocab-front"><small>TERM</small><strong data-vocab-term>{words[0].term}</strong><span>Reveal definition</span></span>
+    <span class="vocab-face vocab-back" aria-hidden="true"><small>MEANING</small><strong data-vocab-definition>{words[0].definition}</strong><span data-vocab-example>{words[0].example}</span></span>
+  </button>
+  <div class="widget-actions">
+    <button class="button secondary" type="button" data-vocab-prev>Previous</button>
+    <button class="button" type="button" data-vocab-next>Next card</button>
+  </div>
+  <script type="application/json" data-vocab-data set:html={JSON.stringify(words)}></script>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-vocab-widget]').forEach((widget) => {
+    const data = JSON.parse(widget.querySelector('[data-vocab-data]')?.textContent || '[]');
+    const card = widget.querySelector<HTMLButtonElement>('.vocab-card');
+    const term = widget.querySelector('[data-vocab-term]');
+    const definition = widget.querySelector('[data-vocab-definition]');
+    const example = widget.querySelector('[data-vocab-example]');
+    const count = widget.querySelector('[data-vocab-count]');
+    let index = 0;
+    const show = () => {
+      card?.classList.remove('is-flipped');
+      card?.setAttribute('aria-expanded', 'false');
+      if (term) term.textContent = data[index].term;
+      if (definition) definition.textContent = data[index].definition;
+      if (example) example.textContent = data[index].example;
+      if (count) count.textContent = `${index + 1} of ${data.length}`;
+    };
+    card?.addEventListener('click', () => {
+      card.classList.toggle('is-flipped');
+      card.setAttribute('aria-expanded', String(card.classList.contains('is-flipped')));
+    });
+    widget.querySelector('[data-vocab-next]')?.addEventListener('click', () => { index = (index + 1) % data.length; show(); });
+    widget.querySelector('[data-vocab-prev]')?.addEventListener('click', () => { index = (index - 1 + data.length) % data.length; show(); });
+  });
+</script>

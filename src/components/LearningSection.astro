@@ -1,0 +1,17 @@
+---
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  icon: string;
+  tone: 'idea' | 'learn' | 'vocab' | 'explore' | 'practice' | 'play' | 'review';
+}
+const { id, eyebrow, title, icon, tone } = Astro.props;
+---
+<section class={`learning-section tone-${tone}`} id={id}>
+  <header>
+    <span class="section-icon" aria-hidden="true">{icon}</span>
+    <div><p class="eyebrow">{eyebrow}</p><h2>{title}</h2></div>
+  </header>
+  <div class="section-body"><slot /></div>
+</section>

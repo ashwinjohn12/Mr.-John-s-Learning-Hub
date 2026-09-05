@@ -1,0 +1,82 @@
+---
+import type { PracticeQuestion } from '../data/topicContent';
+interface Props { questions: readonly PracticeQuestion[] }
+const { questions } = Astro.props;
+---
+<div class="widget practice-widget" data-practice-widget>
+  <div class="practice-toolbar">
+    <label>Level
+      <select data-practice-level>
+        <option value="mixed">Mixed</option>
+        <option value="foundations">Foundations</option>
+        <option value="standard">Standard</option>
+        <option value="challenge">Challenge</option>
+      </select>
+    </label>
+    <span data-practice-score>Score: 0 / 0</span>
+  </div>
+  <div class="practice-question" aria-live="polite">
+    <p class="eyebrow" data-question-number>QUESTION 1</p>
+    <h3 data-question-prompt>{questions[0].prompt}</h3>
+    <div class="choice-list" data-question-choices></div>
+    <div class="feedback" data-question-feedback hidden></div>
+    <div class="widget-actions">
+      <button class="button secondary" type="button" data-question-hint>Hint</button>
+      <button class="button" type="button" data-question-next disabled>Next question</button>
+    </div>
+  </div>
+  <script type="application/json" data-question-data set:html={JSON.stringify(questions)}></script>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-practice-widget]').forEach((widget) => {
+    const all = JSON.parse(widget.querySelector('[data-question-data]')?.textContent || '[]');
+    const level = widget.querySelector<HTMLSelectElement>('[data-practice-level]');
+    const prompt = widget.querySelector('[data-question-prompt]');
+    const number = widget.querySelector('[data-question-number]');
+    const choices = widget.querySelector<HTMLElement>('[data-question-choices]');
+    const feedback = widget.querySelector<HTMLElement>('[data-question-feedback]');
+    const score = widget.querySelector('[data-practice-score]');
+    const next = widget.querySelector<HTMLButtonElement>('[data-question-next]');
+    let pool = [...all]; let index = 0; let correct = 0; let answered = 0;
+    const shuffle = (items: any[]) => [...items].sort(() => Math.random() - 0.5);
+    const reset = () => {
+      pool = shuffle(level?.value === 'mixed' ? all : all.filter((q: any) => q.difficulty === level?.value));
+      index = 0; correct = 0; answered = 0; render();
+    };
+    const render = () => {
+      const q = pool[index % pool.length];
+      if (number) number.textContent = `QUESTION ${index + 1} · ${q.difficulty.toUpperCase()}`;
+      if (prompt) prompt.textContent = q.prompt;
+      if (feedback) { feedback.hidden = true; feedback.className = 'feedback'; feedback.textContent = ''; }
+      if (next) next.disabled = true;
+      if (choices) {
+        choices.innerHTML = q.choices.map((choice: string, i: number) => `<button type="button" data-choice="${i}"><span>${String.fromCharCode(65 + i)}</span>${choice}</button>`).join('');
+        choices.querySelectorAll<HTMLButtonElement>('button').forEach((button) => button.addEventListener('click', () => answer(Number(button.dataset.choice))));
+      }
+      if (score) score.textContent = `Score: ${correct} / ${answered}`;
+    };
+    const answer = (choice: number) => {
+      if (!next?.disabled) return;
+      const q = pool[index % pool.length];
+      answered++;
+      const isCorrect = choice === q.answer;
+      if (isCorrect) correct++;
+      choices?.querySelectorAll<HTMLButtonElement>('button').forEach((button, i) => {
+        button.disabled = true;
+        if (i === q.answer) button.classList.add('correct');
+        else if (i === choice) button.classList.add('incorrect');
+      });
+      if (feedback) { feedback.hidden = false; feedback.classList.add(isCorrect ? 'is-correct' : 'is-incorrect'); feedback.innerHTML = `<strong>${isCorrect ? 'Correct!' : 'Not quite yet.'}</strong> ${q.explain}`; }
+      if (score) score.textContent = `Score: ${correct} / ${answered}`;
+      if (next) next.disabled = false;
+    };
+    widget.querySelector('[data-question-hint]')?.addEventListener('click', () => {
+      const q = pool[index % pool.length];
+      if (feedback) { feedback.hidden = false; feedback.className = 'feedback is-hint'; feedback.innerHTML = `<strong>Hint:</strong> ${q.hint}`; }
+    });
+    next?.addEventListener('click', () => { index++; if (index >= pool.length) pool = shuffle(pool); render(); });
+    level?.addEventListener('change', reset);
+    reset();
+  });
+</script>

@@ -1,0 +1,30 @@
+<div class="widget factor-lab" data-factor-lab>
+  <div class="widget-topline"><span>🛠️ TOOL</span><span>Factor Array Lab</span></div>
+  <label for="factor-number">Choose a whole number from 2 to 36</label>
+  <div class="range-row">
+    <input id="factor-number" data-factor-input type="range" min="2" max="36" value="24" />
+    <output data-factor-output>24</output>
+  </div>
+  <div class="factor-visual" data-factor-visual aria-live="polite"></div>
+  <p class="factor-result" data-factor-result></p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-factor-lab]').forEach((lab) => {
+    const input = lab.querySelector<HTMLInputElement>('[data-factor-input]');
+    const output = lab.querySelector<HTMLOutputElement>('[data-factor-output]');
+    const visual = lab.querySelector<HTMLElement>('[data-factor-visual]');
+    const result = lab.querySelector<HTMLElement>('[data-factor-result]');
+    const render = () => {
+      const n = Number(input?.value || 2);
+      const pairs: Array<[number, number]> = [];
+      for (let i = 1; i <= Math.sqrt(n); i++) if (n % i === 0) pairs.push([i, n / i]);
+      if (output) output.value = String(n);
+      if (visual) visual.innerHTML = pairs.map(([a, b]) => `<button type="button" aria-label="${a} rows of ${b}"><span class="mini-array" style="--rows:${a};--cols:${b}">${Array(n).fill('<i></i>').join('')}</span><b>${a} × ${b}</b></button>`).join('');
+      const factors = Array.from({ length: n }, (_, i) => i + 1).filter((value) => n % value === 0);
+      if (result) result.innerHTML = `<strong>Factors of ${n}:</strong> ${factors.join(', ')}. ${factors.length === 2 ? '<span class="prime-pill">Prime</span>' : '<span class="composite-pill">Composite</span>'}`;
+    };
+    input?.addEventListener('input', render);
+    render();
+  });
+</script>

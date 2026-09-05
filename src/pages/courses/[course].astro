@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { courses, type Course } from '../../data/courses';
+export function getStaticPaths() { return courses.map((course) => ({ params: { course: course.slug }, props: { course } })); }
+interface Props { course: Course }
+const { course } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title={`${course.grade} ${course.shortSubject} | Mr. John’s Learning Hub`} description={course.description} themeColor={course.color}>
+  <div class="page-wrap" style={`--course:${course.color};--course-soft:${course.accent}`}>
+    <Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`}]} />
+    <header class="course-hero">
+      <div><p class="eyebrow">{course.subject.toUpperCase()}</p><h1>{course.grade}<br /><span>{course.shortSubject}</span></h1><p>{course.description}</p></div>
+      <div class="course-stamp"><strong>{course.units.length}</strong><span>learning<br />units</span></div>
+    </header>
+    <section class="unit-list" aria-labelledby="units-heading">
+      <div class="section-heading"><div><p class="eyebrow">COURSE MAP</p><h2 id="units-heading">Choose a unit</h2></div><p>Work in order or jump directly to the topic you need.</p></div>
+      {course.units.map((unit) => (
+        <a class="unit-row" href={`${base}courses/${course.slug}/${unit.slug}/`}>
+          <span class="unit-index">{unit.number}</span><span><strong>{unit.title}</strong><small>{unit.description}</small></span><span class="unit-count">{unit.topics.length || '—'}<small>topics</small></span><span class="round-arrow" aria-hidden="true">→</span>
+        </a>
+      ))}
+    </section>
+  </div>
+</BaseLayout>

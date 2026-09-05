@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { courses } from '../data/courses';
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout>
+  <section class="home-intro">
+    <div>
+      <p class="eyebrow">WELCOME TO YOUR LEARNING HUB</p>
+      <h1>Choose a course.<br /><span>Start making sense of it.</span></h1>
+      <p class="lead">Clear explanations, interactive tools, purposeful practice, and review—organized for the whole year.</p>
+    </div>
+    <aside class="today-card" aria-label="How learning works here">
+      <p class="eyebrow">THE LEARNING LOOP</p>
+      <ol>
+        <li><span>01</span>Understand the big idea</li>
+        <li><span>02</span>Explore and make connections</li>
+        <li><span>03</span>Practise with feedback</li>
+        <li><span>04</span>Review what needs attention</li>
+      </ol>
+    </aside>
+  </section>
+
+  <section class="course-section" id="courses">
+    <div class="section-heading"><div><p class="eyebrow">COURSES</p><h2>Where are you learning today?</h2></div><p>Five Alberta middle-school courses, one consistent learning experience.</p></div>
+    <div class="course-grid">
+      {courses.map((course) => (
+        <a class="course-card" href={`${base}courses/${course.slug}/`} style={`--course:${course.color};--course-soft:${course.accent}`}>
+          <span class="course-number">{course.grade.replace('Grade ', '')}</span>
+          <span class="subject-tag">{course.shortSubject}</span>
+          <h3>{course.grade} {course.shortSubject}</h3>
+          <p>{course.description}</p>
+          <span class="course-link">View course <span aria-hidden="true">→</span></span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="how-section" id="how-to-use">
+    <div><p class="eyebrow">HOW TO USE EACH TOPIC</p><h2>One rhythm, every time.</h2></div>
+    <div class="rhythm-grid">
+      <span>🌎<b>Big Ideas</b><small>See the purpose</small></span><span>📘<b>Understand</b><small>Learn the concepts</small></span><span>🧠<b>Vocabulary</b><small>Build the language</small></span><span>🔬<b>Explore</b><small>Investigate</small></span><span>✏️<b>Practise</b><small>Get feedback</small></span><span>🎮<b>Apply</b><small>Use what you know</small></span><span>✅<b>Review</b><small>Check readiness</small></span>
+    </div>
+  </section>
+</BaseLayout>

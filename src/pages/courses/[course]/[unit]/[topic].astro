@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import LearningSection from '../../../../components/LearningSection.astro';
+import VocabularyExplorer from '../../../../components/VocabularyExplorer.astro';
+import FactorLab from '../../../../components/FactorLab.astro';
+import PracticeEngine from '../../../../components/PracticeEngine.astro';
+import { courses, type Course, type Unit, type Topic } from '../../../../data/courses';
+import { topicContent } from '../../../../data/topicContent';
+export function getStaticPaths() { return courses.flatMap((course) => course.units.flatMap((unit) => unit.topics.filter((topic) => `${course.slug}/${unit.slug}/${topic.slug}` in topicContent).map((topic) => ({ params: { course: course.slug, unit: unit.slug, topic: topic.slug }, props: { course, unit, topic, content: topicContent[`${course.slug}/${unit.slug}/${topic.slug}` as keyof typeof topicContent] } })))); }
+interface Props { course: Course; unit: Unit; topic: Topic; content: (typeof topicContent)[keyof typeof topicContent] }
+const { course, unit, topic, content } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const sectionLinks = [['big-ideas','🌎','Big Ideas'],['understand','📘','Understand'],['vocabulary','🧠','Vocabulary'],['explore','🔬','Explore'],['practise','✏️','Practise'],['apply','🎮','Apply'],['review','✅','Review']];
+---
+<BaseLayout title={`${topic.title} | ${course.grade} ${course.shortSubject}`} description={topic.summary} themeColor={course.color}>
+  <div class="topic-shell" style={`--course:${course.color};--course-soft:${course.accent}`}>
+    <aside class="topic-sidebar">
+      <a class="back-course" href={`${base}courses/${course.slug}/${unit.slug}/`}>← {unit.title}</a>
+      <p class="eyebrow">ON THIS PAGE</p>
+      <nav aria-label="Topic sections">{sectionLinks.map(([id, icon, label]) => <a href={`#${id}`}><span>{icon}</span>{label}</a>)}</nav>
+    </aside>
+    <article class="topic-content">
+      <Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title,href:`${base}courses/${course.slug}/${unit.slug}/`},{label:topic.title}]} />
+      <header class="topic-hero">
+        <p class="eyebrow">TOPIC {topic.number} · {course.grade.toUpperCase()} {course.shortSubject.toUpperCase()}</p>
+        <h1>{topic.title}</h1><p>{topic.summary}</p>
+        <div class="learning-goals"><strong>By the end, I can…</strong>{content.goals.map((goal) => <span>{goal}</span>)}</div>
+      </header>
+
+      <LearningSection id="big-ideas" eyebrow="START HERE" title="The big idea" icon="🌎" tone="idea">
+        <p class="big-statement">{content.bigIdea}</p>
+        <p>{content.bigIdeaDetail}</p>
+        <div class="connection-strip"><strong>Think about it</strong><span>{content.connection}</span></div>
+      </LearningSection>
+
+      <LearningSection id="understand" eyebrow="LEARN" title="Build your understanding" icon="📘" tone="learn">
+        <div class="concept-grid">{content.concepts.map((concept, index) => <div><span class="concept-number">{String(index + 1).padStart(2, '0')}</span><h3>{concept.title}</h3><p>{concept.text}</p></div>)}</div>
+        <details class="misconception"><summary>Common mix-up: factors versus multiples</summary><p set:html={content.misconception}></p></details>
+      </LearningSection>
+
+      <LearningSection id="vocabulary" eyebrow="LEARN THE LANGUAGE" title="Key vocabulary" icon="🧠" tone="vocab"><VocabularyExplorer words={content.vocabulary} /></LearningSection>
+      <LearningSection id="explore" eyebrow="INVESTIGATE" title="Explore factor arrays" icon="🔬" tone="explore"><p>Move the slider. Each array represents one factor pair. What do you notice about prime numbers?</p><FactorLab /></LearningSection>
+      <LearningSection id="practise" eyebrow="CHECK YOURSELF" title="Practise with feedback" icon="✏️" tone="practice"><p>Choose a level, answer the question, and use the explanation to check your thinking.</p><PracticeEngine questions={content.questions} /></LearningSection>
+      <LearningSection id="apply" eyebrow="PLAY & APPLY" title="The Locker-Code Challenge" icon="🎮" tone="play">
+        <div class="challenge-card"><div><p class="eyebrow">MINI CHALLENGE</p><h3>Crack a three-number code</h3><p>Find a number from each clue. Use the Factor Array Lab above if you need it.</p></div><ol><li>I am prime and between 10 and 15.</li><li>I am a multiple of 6 and a factor of 36.</li><li>I have exactly three factors and I am less than 10.</li></ol><details><summary>Reveal the code</summary><p><strong>13 – 12 – 9</strong></p></details></div>
+      </LearningSection>
+      <LearningSection id="review" eyebrow="WRAP UP" title="Ready to move on?" icon="✅" tone="review">
+        <div class="review-grid">{content.review.map((item) => <label><input type="checkbox" /> {item}</label>)}</div>
+        <div class="next-step"><div><p class="eyebrow">NEXT TOPIC</p><strong>Prime Factorization</strong></div><span>Coming next →</span></div>
+      </LearningSection>
+    </article>
+  </div>
+</BaseLayout>

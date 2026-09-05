@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { courses, type Course, type Unit } from '../../../data/courses';
+export function getStaticPaths() { return courses.flatMap((course) => course.units.map((unit) => ({ params: { course: course.slug, unit: unit.slug }, props: { course, unit } }))); }
+interface Props { course: Course; unit: Unit }
+const { course, unit } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title={`${unit.title} | ${course.grade} ${course.shortSubject}`} description={unit.description} themeColor={course.color}>
+  <div class="page-wrap" style={`--course:${course.color};--course-soft:${course.accent}`}>
+    <Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title}]} />
+    <header class="unit-hero"><p class="eyebrow">UNIT {unit.number}</p><h1>{unit.title}</h1><p>{unit.description}</p></header>
+    {unit.topics.length ? (
+      <section class="topic-list">
+        <p class="eyebrow">TOPICS</p>
+        {unit.topics.map((topic) => (
+          <a class={`topic-row ${topic.status === 'planned' ? 'is-planned' : ''}`} href={topic.status === 'ready' ? `${base}courses/${course.slug}/${unit.slug}/${topic.slug}/` : undefined} aria-disabled={topic.status === 'planned' ? 'true' : undefined}>
+            <span>{topic.number}</span><span><strong>{topic.title}</strong><small>{topic.summary}</small></span><em>{topic.status === 'ready' ? 'Open topic' : 'Coming next'}</em>
+          </a>
+        ))}
+      </section>
+    ) : (
+      <section class="empty-unit"><span aria-hidden="true">✦</span><h2>This unit is mapped and ready for content.</h2><p>Topics will use the same Learn → Explore → Practise → Review structure as the working Grade 6 example.</p></section>
+    )}
+  </div>
+</BaseLayout>
