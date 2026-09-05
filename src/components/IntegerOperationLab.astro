@@ -9,17 +9,27 @@ const titles = {
 };
 ---
 <div class="operation-lab" data-operation-lab data-mode={mode}>
-  <div class="lab-title"><strong>{titles[mode]}</strong><span>Change both integers and explain the pattern.</span></div>
+  <div class="lab-title"><strong>{titles[mode]}</strong><span>Change both integers, make a prediction, then check it.</span></div>
   <div class="controls">
-    <label><span data-a-label>First integer</span><input type="range" min="-12" max="12" value={mode === 'add-strategy' ? '-8' : '-4'} data-a /><strong data-a-value></strong></label>
-    <label><span data-b-label>Second integer</span><input type="range" min="-12" max="12" value={mode === 'add-strategy' ? '13' : mode === 'subtract-model' ? '3' : '-5'} data-b /><strong data-b-value></strong></label>
+    <label><span data-a-label>First integer</span><input type="range" min="-15" max="15" value={mode === 'add-strategy' ? '-8' : '-4'} data-a /><strong data-a-value></strong></label>
+    <label><span data-b-label>Second integer</span><input type="range" min="-15" max="15" value={mode === 'add-strategy' ? '13' : mode === 'subtract-model' ? '3' : '-5'} data-b /><strong data-b-value></strong></label>
   </div>
-  <div class="equation" data-equation></div>
-  <div class="coach-grid">
-    <section><p class="mini">WHAT TO NOTICE</p><strong data-notice></strong><p data-explain></p></section>
-    <section><p class="mini">MODEL CONNECTION</p><div data-model></div></section>
+
+  <div class="prediction-box">
+    <p class="mini">PREDICT FIRST</p>
+    <strong data-prediction-prompt></strong>
+    <div class="prediction-choices" data-prediction-choices></div>
+    <p class="prediction-status" data-prediction-status aria-live="polite"></p>
   </div>
-  <div class="result" data-result></div>
+
+  <div class="reveal" data-reveal hidden>
+    <div class="equation" data-equation></div>
+    <div class="coach-grid">
+      <section><p class="mini">WHAT TO NOTICE</p><strong data-notice></strong><p data-explain></p></section>
+      <section><p class="mini">MODEL CONNECTION</p><div data-model></div></section>
+    </div>
+    <div class="result" data-result aria-live="polite"></div>
+  </div>
 </div>
 
 <script>
@@ -35,6 +45,10 @@ const titles = {
     const explain = widget.querySelector('[data-explain]');
     const model = widget.querySelector<HTMLElement>('[data-model]');
     const result = widget.querySelector('[data-result]');
+    const reveal = widget.querySelector<HTMLElement>('[data-reveal]');
+    const predictionPrompt = widget.querySelector('[data-prediction-prompt]');
+    const predictionChoices = widget.querySelector<HTMLElement>('[data-prediction-choices]');
+    const predictionStatus = widget.querySelector('[data-prediction-status]');
     const mode = widget.dataset.mode;
     const signed = (n:number) => n > 0 ? `+${n}` : `${n}`;
     const chip = (kind:'positive'|'negative') => `<span class="chip ${kind}">${kind === 'positive' ? '+1' : '−1'}</span>`;
@@ -44,19 +58,57 @@ const titles = {
       const shown = Math.min(Math.abs(n), limit);
       return Array.from({length:shown}, () => chip(kind)).join('') + (Math.abs(n) > limit ? `<span class="more">+${Math.abs(n)-limit} more</span>` : '');
     };
-    const render = () => {
+
+    const prediction = (av:number,bv:number) => {
+      if (mode === 'add-strategy') {
+        const sum = av + bv;
+        return { prompt: 'What sign will the sum have?', choices: ['Positive','Negative','Zero'], correct: sum > 0 ? 0 : sum < 0 ? 1 : 2 };
+      }
+      if (mode === 'subtract-symbolic') {
+        const inverse = -bv;
+        return { prompt: `What sign will the additive inverse of ${signed(bv)} have?`, choices: ['Positive','Negative','Zero'], correct: inverse > 0 ? 0 : inverse < 0 ? 1 : 2 };
+      }
+      const diff = av - bv;
+      return { prompt: 'Compared with the starting value, will the result be…?', choices: ['Greater','Less','The same'], correct: diff > av ? 0 : diff < av ? 1 : 2 };
+    };
+
+    const resetPrediction = () => {
+      const av = Number(a?.value ?? 0);
+      const bv = Number(b?.value ?? 0);
+      const p = prediction(av,bv);
+      if (predictionPrompt) predictionPrompt.textContent = p.prompt;
+      if (predictionStatus) predictionStatus.textContent = '';
+      if (reveal) reveal.hidden = true;
+      if (predictionChoices) {
+        predictionChoices.innerHTML = p.choices.map((label,i)=>`<button type="button" data-predict="${i}">${label}</button>`).join('');
+        predictionChoices.querySelectorAll<HTMLButtonElement>('[data-predict]').forEach((button)=>button.addEventListener('click',()=>checkPrediction(Number(button.dataset.predict),p.correct)));
+      }
+    };
+
+    const checkPrediction = (choice:number, correct:number) => {
+      predictionChoices?.querySelectorAll<HTMLButtonElement>('button').forEach((button,i)=>{
+        button.disabled = true;
+        button.setAttribute('aria-pressed', i === choice ? 'true' : 'false');
+        if (i === correct) button.classList.add('correct');
+        else if (i === choice) button.classList.add('incorrect');
+      });
+      if (predictionStatus) predictionStatus.textContent = choice === correct ? 'Good prediction! Now compare it with the model below.' : 'Good try. Use the explanation below to see what changed.';
+      if (reveal) reveal.hidden = false;
+      renderDetails();
+    };
+
+    const renderDetails = () => {
       const av = Number(a?.value ?? 0);
       const bv = Number(b?.value ?? 0);
       if (aValue) aValue.textContent = signed(av);
       if (bValue) bValue.textContent = signed(bv);
-
       if (mode === 'add-strategy') {
         if (aLabel) aLabel.textContent = 'Addend A'; if (bLabel) bLabel.textContent = 'Addend B';
         const sum = av + bv;
         const same = av === 0 || bv === 0 || Math.sign(av) === Math.sign(bv);
         if (equation) equation.textContent = `${signed(av)} + (${signed(bv)}) = ${signed(sum)}`;
         if (notice) notice.textContent = same ? 'Same direction / zero case' : 'Different signs → compare magnitudes';
-        if (explain) explain.textContent = av === 0 || bv === 0 ? 'Adding zero leaves the other integer unchanged.' : same ? `The signs match, so add ${Math.abs(av)} + ${Math.abs(bv)} and keep the common sign.` : `The signs differ, so subtract ${Math.max(Math.abs(av),Math.abs(bv))} − ${Math.min(Math.abs(av),Math.abs(bv))}. The sign comes from the addend with greater magnitude.`;
+        if (explain) explain.textContent = av === 0 || bv === 0 ? 'Adding zero leaves the other integer unchanged.' : same ? `The signs match, so add ${Math.abs(av)} + ${Math.abs(bv)} and keep the common sign.` : `The signs differ, so find the difference between ${Math.abs(av)} and ${Math.abs(bv)}. The sign comes from the addend with greater magnitude.`;
         if (model) model.innerHTML = `<div class="chips">${chips(av)} ${chips(bv)}</div><p>${same ? 'The movements reinforce one another.' : 'Opposite chips form zero pairs until only the greater magnitude remains.'}</p>`;
         if (result) result.textContent = `Sum: ${signed(sum)}`;
       } else {
@@ -64,31 +116,37 @@ const titles = {
         const diff = av - bv;
         if (mode === 'subtract-symbolic') {
           if (equation) equation.textContent = `${signed(av)} − (${signed(bv)}) = ${signed(av)} + (${signed(-bv)})`;
-          if (notice) notice.textContent = 'Keep the minuend; add the additive inverse.';
-          if (explain) explain.textContent = `The additive inverse of ${signed(bv)} is ${signed(-bv)}. Now use your addition strategy.`;
-          if (model) model.innerHTML = `<p><strong>Equivalent addition:</strong> ${signed(av)} + (${signed(-bv)}) = ${signed(diff)}</p><p>Only the subtrahend changes to its opposite.</p>`;
+          if (notice) notice.textContent = 'Keep the first integer; add the opposite of the second.';
+          if (explain) explain.textContent = `The additive inverse (opposite) of ${signed(bv)} is ${signed(-bv)}. Now use your addition strategy.`;
+          if (model) model.innerHTML = `<p><strong>Equivalent addition:</strong> ${signed(av)} + (${signed(-bv)}) = ${signed(diff)}</p><p>Only the second integer changes to its opposite.</p>`;
           if (result) result.textContent = `Difference: ${signed(diff)}`;
         } else if (mode === 'subtract-line') {
           if (equation) equation.textContent = `${signed(av)} − (${signed(bv)}) = ${signed(diff)}`;
           const direction = bv >= 0 ? 'left' : 'right';
           if (notice) notice.textContent = `Subtract ${bv >= 0 ? 'positive' : 'negative'} → move ${direction}`;
           if (explain) explain.textContent = `Start at ${signed(av)}. Move ${Math.abs(bv)} unit${Math.abs(bv)===1?'':'s'} ${direction}. You land at ${signed(diff)}.`;
-          const min=-15,max=15,pct=(n:number)=>Math.max(0,Math.min(100,((n-min)/(max-min))*100));
-          if (model) model.innerHTML = `<div class="mini-line"><i></i><span class="start" style="left:${pct(av)}%">START<br>${signed(av)}</span><span class="end" style="left:${pct(diff)}%">END<br>${signed(diff)}</span></div>`;
+          const min=-30,max=30,pct=(n:number)=>Math.max(0,Math.min(100,((n-min)/(max-min))*100));
+          if (model) model.innerHTML = `<div class="mini-line" aria-label="Number line from negative 30 to positive 30"><i></i><span class="start" style="left:${pct(av)}%">START<br>${signed(av)}</span><span class="end" style="left:${pct(diff)}%">END<br>${signed(diff)}</span></div>`;
           if (result) result.textContent = `Difference: ${signed(diff)}`;
         } else {
           if (equation) equation.textContent = `${signed(av)} − (${signed(bv)}) = ${signed(diff)}`;
           const needPositive = bv > 0 ? Math.max(0, bv - Math.max(av,0)) : 0;
           const needNegative = bv < 0 ? Math.max(0, Math.abs(bv) - Math.abs(Math.min(av,0))) : 0;
           const pairs = Math.max(needPositive, needNegative);
-          if (notice) notice.textContent = pairs ? `Add ${pairs} zero pair${pairs===1?'':'s'} first` : 'You can remove the subtrahend immediately';
+          if (notice) notice.textContent = pairs ? `Add ${pairs} zero pair${pairs===1?'':'s'} first` : 'You can remove the second integer right away';
           if (explain) explain.textContent = pairs ? `The starting model does not contain enough ${bv > 0 ? 'positive' : 'negative'} chips to remove ${signed(bv)}. Each zero pair adds one of each sign without changing the value.` : `The starting model already contains enough ${bv > 0 ? 'positive' : 'negative'} chips to remove the subtrahend.`;
           if (model) model.innerHTML = `<div class="chips">${chips(av)}</div>${pairs ? `<p>Add ${pairs} × (${chip('positive')} ${chip('negative')}) before removing ${Math.abs(bv)} ${bv>0?'positive':'negative'} chip${Math.abs(bv)===1?'':'s'}.</p>` : `<p>Remove ${Math.abs(bv)} ${bv>=0?'positive':'negative'} chip${Math.abs(bv)===1?'':'s'}.</p>`}`;
           if (result) result.textContent = `After the removal, the model has value ${signed(diff)}.`;
         }
       }
     };
-    a?.addEventListener('input',render); b?.addEventListener('input',render); render();
+
+    const updateValuesAndReset = () => {
+      const av = Number(a?.value ?? 0); const bv = Number(b?.value ?? 0);
+      if (aValue) aValue.textContent = signed(av); if (bValue) bValue.textContent = signed(bv);
+      resetPrediction();
+    };
+    a?.addEventListener('input',updateValuesAndReset); b?.addEventListener('input',updateValuesAndReset); updateValuesAndReset();
   });
 </script>
 
@@ -96,10 +154,11 @@ const titles = {
   .operation-lab{border:1px solid #d8e0ea;border-radius:18px;background:#fff;padding:1.15rem;box-shadow:0 8px 24px rgba(20,44,78,.06)}
   .lab-title{display:flex;justify-content:space-between;gap:1rem;align-items:baseline;margin-bottom:1rem}.lab-title span{color:#64748b;font-size:.9rem}
   .controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.controls label{display:grid;grid-template-columns:1fr auto;gap:.45rem;font-weight:700;align-items:center}.controls input{grid-column:1/-1;width:100%}
+  .prediction-box{margin:1rem 0;padding:1rem;border-radius:14px;background:#fff8db;border:1px solid #f1df9a}.prediction-box>strong{display:block;margin-bottom:.7rem}.prediction-choices{display:flex;gap:.55rem;flex-wrap:wrap}.prediction-choices button{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:.65rem .85rem;font-weight:800;cursor:pointer}.prediction-choices button.correct{border-color:#22c55e;background:#f0fdf4}.prediction-choices button.incorrect{border-color:#ef4444;background:#fef2f2}.prediction-status{margin:.65rem 0 0;font-weight:700;color:#475569;min-height:1.4em}
   .equation{text-align:center;font-size:1.4rem;font-weight:900;margin:1.1rem 0;padding:.8rem;border-radius:14px;background:#f5f8fc}
   .coach-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.coach-grid section{border:1px solid #e5e9ef;border-radius:14px;padding:.9rem;background:#fafbfd}.coach-grid p{line-height:1.5}.mini{font-size:.72rem;font-weight:900;letter-spacing:.08em;color:#64748b;margin:.1rem 0 .5rem}
   .chips{display:flex;gap:.32rem;flex-wrap:wrap;align-items:center}.chip{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;font-size:.72rem;font-weight:900}.positive{background:#dbeafe;color:#174ea6;border:2px solid #174ea6}.negative{background:#fce7f3;color:#9d174d;border:2px solid #9d174d}.more,.zero{font-weight:800;color:#64748b}
   .result{margin-top:1rem;padding:.85rem 1rem;border-radius:14px;background:#f0fdf4;font-weight:900}
   .mini-line{height:72px;position:relative;margin:1rem .4rem}.mini-line i{position:absolute;left:0;right:0;top:34px;height:4px;background:#334155;border-radius:999px}.mini-line span{position:absolute;top:4px;transform:translateX(-50%);font-size:.72rem;font-weight:900;text-align:center}.mini-line span:after{content:'';display:block;width:3px;height:30px;background:#174ea6;margin:.25rem auto 0}.mini-line .end{top:40px}.mini-line .end:after{display:none}
-  @media(max-width:650px){.controls,.coach-grid{grid-template-columns:1fr}.lab-title{display:grid}}
+  @media(max-width:650px){.controls,.coach-grid{grid-template-columns:1fr}.lab-title{display:grid}.prediction-choices{display:grid;grid-template-columns:1fr}}
 </style>
