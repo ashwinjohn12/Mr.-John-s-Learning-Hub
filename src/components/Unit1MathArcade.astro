@@ -1,0 +1,90 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+<div class="arcade" data-unit1-arcade data-base={base}>
+  <div class="arcade-head">
+    <div><p class="eyebrow">INTEGER QUEST</p><h3>Real-Life Math Arcade</h3><p>Solve each mission without answer choices. Build a streak by getting missions right on your first try.</p></div>
+    <div class="arcade-score"><strong data-arcade-score>0</strong><span>points</span><small data-arcade-streak>Streak: 0</small></div>
+  </div>
+  <div class="mission-card">
+    <div class="mission-meta"><span data-mission-number>Mission 1</span><span data-mission-skill></span></div>
+    <h3 data-mission-prompt></h3>
+    <label class="answer-entry"><span>Your answer</span><input type="number" step="1" data-arcade-answer /><button type="button" data-arcade-check>Check mission</button></label>
+    <div class="arcade-feedback" data-arcade-feedback aria-live="polite"></div>
+    <div class="arcade-actions"><button type="button" data-arcade-next hidden>Next mission →</button><button type="button" class="secondary" data-arcade-new>New quest</button></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-unit1-arcade]').forEach((widget) => {
+    const base = widget.dataset.base || '/';
+    const missions = [
+      { skill:'1.1 · Compare', prompt:'At sunrise it is −11 °C. By noon it is −4 °C. Enter the warmer temperature.', answer:-4, explain:'−4 is farther right on the number line than −11, so it is warmer.', lesson:'understanding-positive-negative' },
+      { skill:'1.1 · Magnitude', prompt:'A diver is at −18 m relative to sea level. Enter the magnitude of the diver’s position.', answer:18, explain:'Magnitude is distance from zero, so the magnitude of −18 is 18.', lesson:'understanding-positive-negative' },
+      { skill:'1.2 · Zero pairs', prompt:'A chip model has 9 positive chips and 13 negative chips. After removing all zero pairs, enter the value that remains.', answer:-4, explain:'Nine zero pairs cancel, leaving four negative chips.', lesson:'what-are-integers-add' },
+      { skill:'1.2 · Add with models', prompt:'A game gives you +6 points and then −10 points. Enter the total score change.', answer:-4, explain:'+6 and −6 make zero, leaving −4.', lesson:'what-are-integers-add' },
+      { skill:'1.3 · Add integers', prompt:'A bank balance changes by −$17 and then +$29. Enter the total change.', answer:12, explain:'The signs differ: 29 − 17 = 12, and the greater magnitude is positive.', lesson:'adding-integers' },
+      { skill:'1.3 · Add integers', prompt:'A team loses 8 points in one round and loses 7 more in the next. Enter the total change.', answer:-15, explain:'The signs match, so add the magnitudes and keep the negative sign.', lesson:'adding-integers' },
+      { skill:'1.4 · Subtract with models', prompt:'An elevator is at floor −3. It moves according to (−3) − (+5). Enter the new floor.', answer:-8, explain:'Subtracting +5 moves 5 units left from −3 to −8.', lesson:'subtracting-integers-models' },
+      { skill:'1.4 · Subtract a negative', prompt:'A submarine calculation is (−6) − (−9). Enter the result.', answer:3, explain:'Subtracting −9 moves 9 units right from −6 to +3.', lesson:'subtracting-integers-models' },
+      { skill:'1.5 · Equivalent addition', prompt:'Rewrite mentally, then solve: (+14) − (−8). Enter the result.', answer:22, explain:'(+14) − (−8) is equivalent to (+14) + (+8), which equals +22.', lesson:'subtracting-integers' },
+      { skill:'1.5 · Equivalent addition', prompt:'Rewrite mentally, then solve: (−20) − (−7). Enter the result.', answer:-13, explain:'(−20) − (−7) becomes (−20) + (+7) = −13.', lesson:'subtracting-integers' },
+      { skill:'Mixed · Multi-step', prompt:'A player gains 12 points, loses 19 points, then gains 5 points. Enter the total change.', answer:-2, explain:'+12 + (−19) + 5 = 17 − 19 = −2.', lesson:'adding-integers' },
+      { skill:'Mixed · Multi-step', prompt:'The temperature is −7 °C. It rises 11 °C, then falls 6 °C. Enter the final temperature.', answer:-2, explain:'−7 + 11 − 6 = +4 − 6 = −2.', lesson:'adding-integers' }
+    ];
+    const prompt = widget.querySelector('[data-mission-prompt]');
+    const skill = widget.querySelector('[data-mission-skill]');
+    const number = widget.querySelector('[data-mission-number]');
+    const input = widget.querySelector<HTMLInputElement>('[data-arcade-answer]');
+    const check = widget.querySelector<HTMLButtonElement>('[data-arcade-check]');
+    const next = widget.querySelector<HTMLButtonElement>('[data-arcade-next]');
+    const fresh = widget.querySelector<HTMLButtonElement>('[data-arcade-new]');
+    const feedback = widget.querySelector<HTMLElement>('[data-arcade-feedback]');
+    const scoreText = widget.querySelector('[data-arcade-score]');
+    const streakText = widget.querySelector('[data-arcade-streak]');
+    let pool:any[]=[]; let index=0; let score=0; let streak=0; let attempts=0;
+    const shuffle=(items:any[])=>[...items].sort(()=>Math.random()-.5);
+    const render=()=>{
+      const m=pool[index]; attempts=0;
+      if(number) number.textContent=`Mission ${index+1} of ${pool.length}`;
+      if(skill) skill.textContent=m.skill;
+      if(prompt) prompt.textContent=m.prompt;
+      if(input){input.value='';input.disabled=false;input.focus();}
+      if(check) check.disabled=false;
+      if(next) next.hidden=true;
+      if(feedback) feedback.innerHTML='';
+    };
+    const finish=()=>{
+      if(prompt) prompt.textContent='Quest complete!';
+      if(skill) skill.textContent='UNIT 1 COMPLETE';
+      if(number) number.textContent='All missions finished';
+      if(input) input.disabled=true;
+      if(check) check.disabled=true;
+      if(next) next.hidden=true;
+      if(feedback) feedback.innerHTML=`<strong>Final score: ${score} points.</strong> Start a new quest to get a different mission order.`;
+    };
+    const updateScore=()=>{if(scoreText)scoreText.textContent=`${score}`;if(streakText)streakText.textContent=`Streak: ${streak}`;};
+    const checkAnswer=()=>{
+      const m=pool[index]; const value=Number(input?.value); if(!Number.isFinite(value)) return;
+      attempts++;
+      if(value===m.answer){
+        const earned=attempts===1?100:50; score+=earned; streak=attempts===1?streak+1:0; updateScore();
+        if(feedback) feedback.innerHTML=`<strong>Mission cleared! +${earned} points.</strong> ${m.explain}`;
+        if(input) input.disabled=true; if(check) check.disabled=true; if(next) next.hidden=false;
+      } else {
+        streak=0; updateScore();
+        if(feedback) feedback.innerHTML=`<strong>Not yet.</strong> Check the sign and direction, then try again. <a href="${base}courses/grade-6-math/positive-negative-numbers/${m.lesson}/">Review the matching lesson</a>.`;
+      }
+    };
+    const reset=()=>{pool=shuffle(missions);index=0;score=0;streak=0;updateScore();render();};
+    check?.addEventListener('click',checkAnswer);
+    input?.addEventListener('keydown',(event)=>{if(event.key==='Enter'&&!check?.disabled)checkAnswer();});
+    next?.addEventListener('click',()=>{index++;index>=pool.length?finish():render();});
+    fresh?.addEventListener('click',reset);
+    reset();
+  });
+</script>
+
+<style>
+.arcade{border:1px solid #d8e0ea;border-radius:18px;background:#fff;overflow:hidden}.arcade-head{display:grid;grid-template-columns:1fr auto;gap:1.5rem;padding:1.25rem;background:linear-gradient(135deg,#fff0f5,#f3effb)}.arcade-head h3{margin:.2rem 0 .35rem}.arcade-head p{margin:.2rem 0}.arcade-score{min-width:100px;text-align:center;display:grid;align-content:center;padding:.8rem;border-radius:15px;background:#fff}.arcade-score strong{font-size:1.8rem}.arcade-score span,.arcade-score small{color:#64748b}.mission-card{padding:1.25rem}.mission-meta{display:flex;justify-content:space-between;gap:1rem;color:#64748b;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}.mission-card>h3{font-size:1.35rem;line-height:1.35;margin:1rem 0}.answer-entry{display:grid;grid-template-columns:1fr auto;gap:.65rem;align-items:end}.answer-entry span{grid-column:1/-1;font-weight:800}.answer-entry input{min-width:0;border:1px solid #cbd5e1;border-radius:11px;padding:.75rem;font-size:1.05rem}.answer-entry button,.arcade-actions button{border:0;border-radius:11px;padding:.75rem 1rem;background:#a61e4d;color:#fff;font-weight:800;cursor:pointer}.answer-entry button:disabled{opacity:.5}.arcade-feedback{min-height:3rem;margin:1rem 0;padding:.85rem;border-radius:12px;background:#f8fafc}.arcade-feedback:empty{display:none}.arcade-feedback a{color:#174ea6;font-weight:800}.arcade-actions{display:flex;gap:.65rem;flex-wrap:wrap}.arcade-actions .secondary{background:#eef3f9;color:#25364f}@media(max-width:650px){.arcade-head{grid-template-columns:1fr}.arcade-score{grid-template-columns:auto auto auto;gap:.4rem;align-items:center}.answer-entry{grid-template-columns:1fr}.mission-meta{display:grid}}
+</style>
