@@ -1,0 +1,21 @@
+<section class="symmetry-game" data-symmetry-game>
+  <div class="game-head"><div><p>INTERACTIVE CHALLENGE</p><h4>Congruence & Symmetry Detective</h4></div><span>Score <strong data-score>0</strong></span></div>
+  <div class="shape-stage" data-stage role="img" aria-label="Two shapes to compare"></div>
+  <p class="question" data-question aria-live="polite"></p>
+  <div class="answers"><button type="button" data-answer="yes">Yes</button><button type="button" data-answer="no">No</button></div>
+  <p class="feedback" data-feedback aria-live="assertive">Compare size, shape, and orientation before answering.</p>
+  <button class="next" type="button" data-next>New challenge</button>
+</section>
+<script>
+  const puzzles=[
+    {q:'Are these rectangles congruent?',yes:true,a:'width:90px;height:50px',b:'width:90px;height:50px;transform:rotate(90deg)',why:'Yes. Rotation changes orientation, not size or shape.'},
+    {q:'Are these squares congruent?',yes:false,a:'width:65px;height:65px',b:'width:90px;height:90px',why:'No. They have the same shape but different sizes.'},
+    {q:'Could reflection map one triangle exactly onto the other?',yes:true,a:'clip-path:polygon(0 100%,100% 100%,20% 0)',b:'clip-path:polygon(0 100%,100% 100%,80% 0)',why:'Yes. The triangles are mirror images with the same size and shape.'},
+    {q:'Are these two shapes congruent?',yes:true,a:'width:110px;height:55px;transform:rotate(20deg)',b:'width:110px;height:55px;transform:translateY(8px)',why:'Yes. Their positions and orientations differ, but their size and shape match.'},
+    {q:'Does this pair show reflectional symmetry?',yes:false,a:'clip-path:polygon(0 100%,100% 100%,50% 0)',b:'clip-path:polygon(0 100%,100% 100%,35% 0)',why:'No. The shapes do not map exactly onto each other.'}
+  ];
+  document.querySelectorAll<HTMLElement>('[data-symmetry-game]').forEach(game=>{let score=0,index=0,answered=false;const show=()=>{answered=false;const p=puzzles[index%puzzles.length];game.querySelector('[data-question]')!.textContent=p.q;game.querySelector('[data-stage]')!.innerHTML=`<i style="${p.a}"></i><b></b><i style="${p.b}"></i>`;game.querySelector('[data-feedback]')!.textContent='Compare size, shape, and orientation before answering.'};game.querySelectorAll<HTMLButtonElement>('[data-answer]').forEach(button=>button.addEventListener('click',()=>{if(answered)return;answered=true;const p=puzzles[index%puzzles.length],correct=(button.dataset.answer==='yes')===p.yes;if(correct)score+=2;game.querySelector('[data-score]')!.textContent=String(score);game.querySelector('[data-feedback]')!.textContent=`${correct?'Correct!':'Not quite.'} ${p.why}`}));game.querySelector('[data-next]')!.addEventListener('click',()=>{index++;show()});show()});
+</script>
+<style>
+.symmetry-game{display:grid;gap:.8rem;border:1px solid #d7e1ee;border-radius:18px;padding:1rem;background:#fff}.game-head{display:flex;justify-content:space-between;gap:1rem}.game-head p{margin:0;font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#5a6a80}.game-head h4{margin:.2rem 0}.game-head>span{height:max-content;padding:.45rem .65rem;border-radius:999px;background:#eef6ff}.shape-stage{min-height:220px;display:flex;align-items:center;justify-content:space-evenly;gap:1rem;border-radius:14px;background:linear-gradient(#eef5fd 1px,transparent 1px),linear-gradient(90deg,#eef5fd 1px,transparent 1px);background-size:24px 24px}.shape-stage i{display:block;width:85px;height:85px;background:#2f72c4;border:3px solid #123c70}.shape-stage b{height:170px;border-left:4px dashed #ef4444}.question{font-size:1.1rem;font-weight:800}.answers{display:flex;gap:.7rem}.answers button,.next{border:1px solid #174ea6;border-radius:9px;padding:.65rem 1rem;background:#174ea6;color:#fff;font-weight:800;cursor:pointer}.next{background:#fff;color:#174ea6}.feedback{min-height:3rem;padding:.75rem;border-radius:10px;background:#f5f7fa}@media(max-width:520px){.shape-stage{min-height:180px}.shape-stage i{transform:scale(.75)}}
+</style>

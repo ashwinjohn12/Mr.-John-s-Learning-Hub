@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import LearningSection from '../../../../components/LearningSection.astro';
+import VocabularyExplorer from '../../../../components/VocabularyExplorer.astro';
+import PracticeEngine from '../../../../components/PracticeEngine.astro';
+import CheckYourself from '../../../../components/CheckYourself.astro';
+import Unit2MathArcade from '../../../../components/Unit2MathArcade.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit2Lesson21Content } from '../../../../data/unit2Content';
+import { unit2RemainingContent } from '../../../../data/unit2RemainingContent';
+const course=findCourse('grade-6-math')!; const unit=course.units.find(u=>u.slug==='coordinates-design')!; const base=import.meta.env.BASE_URL;
+const contentBySlug={ 'describing-location-cartesian-plane':unit2Lesson21Content, ...unit2RemainingContent };
+const lessonData=unit.topics.map(topic=>({topic,content:contentBySlug[topic.slug as keyof typeof contentBySlug]}));
+const mixedPractice=lessonData.flatMap(x=>x.content.questions); const mixedCheck=lessonData.flatMap(x=>x.content.checkQuestions);
+const words=[
+  {term:'Ordered pair',definition:'Two coordinates written (x, y) that name one exact point.',example:'(−3, 5) means 3 left and 5 up.'},
+  {term:'Translation',definition:'A slide that moves every point the same distance and direction.',example:'[4R, 2D] is a translation.'},
+  {term:'Reflection',definition:'A flip across a mirror line.',example:'Across the y-axis, x changes sign.'},
+  {term:'Rotation',definition:'A turn around a fixed centre.',example:'A quarter-turn is 90°.'},
+  {term:'Congruent',definition:'Having exactly the same size and shape.',example:'A transformed image is congruent to its original.'},
+  {term:'Reflectional symmetry',definition:'A figure maps onto itself across a mirror line.',example:'A square has four lines of symmetry.'},
+  {term:'Rotational symmetry',definition:'A figure maps onto itself during a turn smaller than 360°.',example:'A rectangle matches after 180°.'},
+  {term:'Tessellation',definition:'A repeating pattern that covers a surface with no gaps or overlaps.',example:'An edge-to-edge square grid tessellates.'}
+];
+const sections=[['overview','🎯','Overview'],['lessons','🗺️','Lesson Map'],['vocabulary','🧠','Vocabulary'],['practice','✏️','Mixed Practice'],['check','✅','Unit Check'],['arcade','🎮','Math Arcade'],['pat','🏁','PAT-Style Review']];
+---
+<BaseLayout title={`Unit 2 Review | ${course.grade} ${course.shortSubject}`} description="Cumulative review of coordinates, transformations, congruence, symmetry, and tessellations." themeColor={course.color}>
+  <div class="topic-shell" style={`--course:${course.color};--course-soft:${course.accent}`}><aside class="topic-sidebar"><a class="back-course" href={`${base}courses/${course.slug}/${unit.slug}/`}>← {unit.title}</a><p class="eyebrow">ON THIS PAGE</p><p class="scroll-cue">Swipe sections →</p><nav aria-label="Review sections">{sections.map(([id,icon,label])=><a href={`#${id}`}><span>{icon}</span>{label}</a>)}</nav></aside>
+  <article class="topic-content"><Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title,href:`${base}courses/${course.slug}/${unit.slug}/`},{label:'Unit Review'}]} />
+    <header class="topic-hero"><p class="eyebrow">UNIT 2 REVIEW · GRADE 6 MATH</p><h1>Coordinates & Design</h1><p>Mix the skills from Lessons 2.1–2.6, target anything that feels shaky, and finish in the Transformation Mission Arcade.</p><div class="review-start"><strong>How to use this page</strong><span>Start with the checklist. Use Mixed Practice for feedback, take the Unit Check without hints, and finish with typed-answer arcade missions.</span></div></header>
+    <LearningSection id="overview" eyebrow="GET READY" title="What should I know?" icon="🎯" tone="idea"><div class="checklist-grid"><label><input type="checkbox" /> I can plot and describe points in all four quadrants.</label><label><input type="checkbox" /> I can translate every vertex by the same movement.</label><label><input type="checkbox" /> I can reflect a shape across either axis.</label><label><input type="checkbox" /> I can rotate a shape about a fixed centre.</label><label><input type="checkbox" /> I can test congruence and identify symmetry.</label><label><input type="checkbox" /> I can identify, analyze, and create tessellations.</label></div><p class="review-tip"><strong>Student tip:</strong> An unchecked box is a useful direction. Review that one lesson instead of restarting the unit.</p></LearningSection>
+    <LearningSection id="lessons" eyebrow="FIND YOUR NEXT STEP" title="Lesson map" icon="🗺️" tone="learn"><div class="lesson-map">{lessonData.map(({topic})=><a href={`${base}courses/${course.slug}/${unit.slug}/${topic.slug}/`}><span>{topic.number}</span><div><strong>{topic.title}</strong><small>{topic.summary}</small></div><em>Review →</em></a>)}</div></LearningSection>
+    <LearningSection id="vocabulary" eyebrow="LEARN THE LANGUAGE" title="Mixed vocabulary review" icon="🧠" tone="vocab"><VocabularyExplorer words={words} /></LearningSection>
+    <LearningSection id="practice" eyebrow="PRACTISE WITH SUPPORT" title="Mixed Unit 2 practice" icon="✏️" tone="practice"><p>Questions come from all six lessons. Draw a small Cartesian plane when a transformation is hard to picture.</p><PracticeEngine questions={mixedPractice} /></LearningSection>
+    <LearningSection id="check" eyebrow="UNIT CHECK" title="Can you mix all six skills?" icon="✅" tone="review"><p>This assessment selects 10 questions from a separate cumulative bank. A new set gives you a different mix.</p><CheckYourself questions={mixedCheck} count={10} /></LearningSection>
+    <LearningSection id="arcade" eyebrow="PLAY & APPLY" title="Transformation Mission Arcade" icon="🎮" tone="play"><p>No multiple choice here. Enter coordinates and measurements, earn points, and follow the lesson link when you need help.</p><Unit2MathArcade /></LearningSection>
+    <LearningSection id="pat" eyebrow="PAT-STYLE THINKING" title="Explain, transform, and justify" icon="🏁" tone="review"><div class="pat-stack">
+      <article><h3>1 · Coordinate reasoning</h3><p>A point is in Quadrant III, 4 units from the y-axis and 7 units from the x-axis. Name it and explain both signs.</p><details><summary>Show a strong answer</summary><p>(−4, −7). Quadrant III is left and down, so both coordinates are negative.</p></details></article>
+      <article><h3>2 · Compare transformations</h3><p>Explain one way a translation and reflection are alike and one way they differ.</p><details><summary>Show a strong answer</summary><p>Both preserve size and shape. A translation keeps orientation, while a reflection reverses orientation across a mirror line.</p></details></article>
+      <article><h3>3 · Rotation reasoning</h3><p>Why does the centre of rotation not need a prime label in this unit?</p><details><summary>Show a strong answer</summary><p>The centre is fixed, so its image is the same point as the original.</p></details></article>
+      <article><h3>4 · Design test</h3><p>A pattern repeats congruent tiles but contains small gaps. Is it a tessellation? Explain.</p><details><summary>Show a strong answer</summary><p>No. Repetition is not enough; a tessellation must cover the surface with no gaps and no overlaps.</p></details></article>
+    </div><div class="finish-card"><div><p class="eyebrow">UNIT 2 COMPLETE</p><strong>Ready for Unit 3?</strong><span>If your Unit Check and explanations feel strong, continue. Otherwise, use the lesson map for one focused review.</span></div><a class="button" href={`${base}courses/${course.slug}/number-operations/`}>Open Unit 3 →</a></div></LearningSection>
+  </article></div>
+</BaseLayout>
+<style>
+.review-start{display:grid;grid-template-columns:auto 1fr;gap:1rem;margin-top:1.2rem;padding:1rem;border-radius:16px;background:var(--course-soft);line-height:1.55}.checklist-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}.checklist-grid label{display:flex;gap:.6rem;align-items:flex-start;padding:.9rem;border:1px solid #e3e9f0;border-radius:13px}.review-tip{margin-top:1rem;padding:.85rem 1rem;border-radius:12px;background:#fff8db}.lesson-map,.pat-stack{display:grid;gap:.75rem}.lesson-map a{display:grid;grid-template-columns:52px 1fr auto;gap:1rem;align-items:center;padding:1rem;border:1px solid #dfe5ee;border-radius:13px;text-decoration:none}.lesson-map a>span,.lesson-map em{color:var(--course);font-weight:900}.lesson-map strong,.lesson-map small{display:block}.lesson-map small{color:#64748b}.lesson-map em{font-style:normal}.pat-stack article{border:1px solid #dfe5ee;border-radius:14px;padding:1rem}.pat-stack h3{margin:.1rem 0 .5rem}.finish-card{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;margin-top:1rem;padding:1.1rem;border-radius:15px;background:#edf9f0}.finish-card>div{display:grid;gap:.25rem}.finish-card .eyebrow{margin:0}.finish-card a{text-decoration:none}.scroll-cue{display:none}@media(max-width:760px){.review-start,.checklist-grid,.finish-card{grid-template-columns:1fr}.topic-hero{padding-top:2rem;padding-bottom:3rem}.topic-hero h1{font-size:clamp(2.2rem,11vw,3.25rem);line-height:1.04}.lesson-map a{grid-template-columns:44px 1fr}.lesson-map em{grid-column:2}.scroll-cue{display:block;margin:-.35rem 0 .45rem;color:#64748b;font-size:.76rem;font-weight:700}}
+</style>

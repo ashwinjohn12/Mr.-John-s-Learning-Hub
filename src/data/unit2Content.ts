@@ -119,5 +119,5 @@ export const unit2Lesson21Content: TopicContent = {
   extension: ['Create one point in each quadrant that is exactly 5 units from the y-axis.','Design two different polygons that share one vertex at the origin.','Explain why no point on an axis can be in a quadrant.','Find all possible fourth vertices that could complete a parallelogram from three chosen points.'],
   pat: { title: 'PAT-STYLE THINKING', prompt: 'Point P is in Quadrant II. It is 4 units from the y-axis and 7 units from the x-axis. Which ordered pair represents P? A) (4, 7) B) (−4, 7) C) (−7, 4) D) (4, −7)', answer: 'B. Quadrant II is left and up, so x is negative and y is positive. The distances give magnitudes 4 and 7: P(−4, 7).' },
   review: ['I can label a Cartesian plane.','I can read and write ordered pairs in the correct order.','I can locate points in all quadrants and on the axes.','I can use signs to identify a quadrant.','I can plot and describe polygon vertices.'],
-  next: { title: 'Translating Shapes in the Cartesian Plane', slug: 'translating-shapes', status: 'planned' }
+  next: { title: 'Translating Shapes in the Cartesian Plane', slug: 'translating-shapes', status: 'ready' }
 };

@@ -6,6 +6,9 @@ import VocabularyExplorer from './VocabularyExplorer.astro';
 import PracticeEngine from './PracticeEngine.astro';
 import CheckYourself from './CheckYourself.astro';
 import CoordinatePlaneLab from './CoordinatePlaneLab.astro';
+import GeometryTransformLab from './GeometryTransformLab.astro';
+import SymmetryChallenge from './SymmetryChallenge.astro';
+import TessellationBuilder from './TessellationBuilder.astro';
 import type { Course, Unit, Topic } from '../data/courses';
 import type { TopicContent } from '../data/topicContent';
 
@@ -14,6 +17,14 @@ const { course, unit, topic, content } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const sectionLinks = [['overview','🎯','Overview'],['big-ideas','🌎','Big Ideas'],['understand','📘','Understand'],['examples','🧩','Examples'],['vocabulary','🧠','Vocabulary'],['explore','🔬','Explore'],['practise','✏️','Practise'],['check','✅','Check Yourself'],['apply','🎮','Apply'],['review','🏁','Review']];
 const nextHref = content.next.slug && content.next.status === 'ready' ? `${base}courses/${course.slug}/${unit.slug}/${content.next.slug}/` : null;
+const homeNotes: Record<string,string> = {
+  'describing-location-cartesian-plane': 'Cover your picture, keep only the coordinate list, and re-plot it later. If the same picture appears, your coordinates were precise.',
+  'translating-shapes': 'Trace the shape twice on separate scraps of paper, then slide one copy across a hand-drawn grid.',
+  'reflecting-shapes': 'Fold tracing paper along the chosen axis, or count equal spaces on both sides of the mirror line.',
+  'rotating-shapes': 'Trace the figure, hold the centre down with a pencil tip, and turn the tracing paper.',
+  'congruence-symmetry': 'Trace one figure and move the tracing over the other to test for an exact match.',
+  'tessellations': 'Cut one paper tile and trace it repeatedly; the on-page builder also works without extra materials.'
+};
 ---
 <BaseLayout title={`${topic.title} | ${course.grade} ${course.shortSubject}`} description={topic.summary} themeColor={course.color}>
   <div class="topic-shell" style={`--course:${course.color};--course-soft:${course.accent}`}>
@@ -42,7 +53,7 @@ const nextHref = content.next.slug && content.next.status === 'ready' ? `${base}
 
       <LearningSection id="understand" eyebrow="LEARN" title="Build your understanding" icon="📘" tone="learn">
         <div class="concept-grid detailed">{content.concepts.map((concept,index)=><div><span class="concept-number">{String(index+1).padStart(2,'0')}</span><h3>{concept.title}</h3><p>{concept.text}</p>{concept.remember && <p class="remember"><strong>Remember:</strong> {concept.remember}</p>}</div>)}</div>
-        <div class="quadrant-key" aria-label="Quadrant sign patterns"><div><strong>I</strong><span>(+, +)</span><small>right, up</small></div><div><strong>II</strong><span>(−, +)</span><small>left, up</small></div><div><strong>III</strong><span>(−, −)</span><small>left, down</small></div><div><strong>IV</strong><span>(+, −)</span><small>right, down</small></div></div>
+        {topic.slug === 'describing-location-cartesian-plane' && <div class="quadrant-key" aria-label="Quadrant sign patterns"><div><strong>I</strong><span>(+, +)</span><small>right, up</small></div><div><strong>II</strong><span>(−, +)</span><small>left, up</small></div><div><strong>III</strong><span>(−, −)</span><small>left, down</small></div><div><strong>IV</strong><span>(+, −)</span><small>right, down</small></div></div>}
         <div class="mixups"><p class="mini-label">COMMON MIX-UPS</p>{content.misconceptions.map((item)=><details class="misconception"><summary>{item.title}</summary><p>{item.text}</p></details>)}</div>
       </LearningSection>
 
@@ -51,8 +62,15 @@ const nextHref = content.next.slug && content.next.status === 'ready' ? `${base}
 
       <LearningSection id="explore" eyebrow="INVESTIGATE" title="Explore it for yourself" icon="🔬" tone="explore">
         <p class="section-lead">{content.explorePrompt}</p>
-        <div class="explore-stack"><div><h3>Tool 1 · Four-Quadrant Explorer</h3><p>Click any point or use the sliders. Connect its ordered pair, directions, axis or quadrant, and distance from the axes.</p><CoordinatePlaneLab mode="explore" /></div><div><h3>Tool 2 · Coordinate Target</h3><p>Read each ordered pair and hit its exact location. A first-try answer builds your score and streak.</p><CoordinatePlaneLab mode="target" /></div></div>
-        <article class="hands-on-card"><p class="eyebrow">OFF-SCREEN ACTIVITY</p><h3>{content.handsOn.title}</h3><ol>{content.handsOn.instructions.map((item)=><li>{item}</li>)}</ol><p><strong>Reflect:</strong> {content.handsOn.reflect}</p><p class="home-note"><strong>Working on your own?</strong> Cover your picture, keep only the coordinate list, and re-plot it later. If the same picture appears, your coordinates were precise.</p></article>
+        <div class="explore-stack">
+          {topic.slug === 'describing-location-cartesian-plane' && <><div><h3>Tool 1 · Four-Quadrant Explorer</h3><p>Click any point or use the sliders. Connect its ordered pair, directions, axis or quadrant, and distance from the axes.</p><CoordinatePlaneLab mode="explore" /></div><div><h3>Tool 2 · Coordinate Target</h3><p>Read each ordered pair and hit its exact location. A first-try answer builds your score and streak.</p><CoordinatePlaneLab mode="target" /></div></>}
+          {topic.slug === 'translating-shapes' && <div><h3>Translation Lab</h3><p>Change both movement components, predict A′, and compare all three vertex pairs.</p><GeometryTransformLab mode="translate" /></div>}
+          {topic.slug === 'reflecting-shapes' && <div><h3>Reflection Lab</h3><p>Switch the mirror axis, predict A′, and look for equal perpendicular distance.</p><GeometryTransformLab mode="reflect" /></div>}
+          {topic.slug === 'rotating-shapes' && <div><h3>Rotation Lab</h3><p>Turn the triangle about vertex A, then compare equivalent angles and directions.</p><GeometryTransformLab mode="rotate" /></div>}
+          {topic.slug === 'congruence-symmetry' && <div><h3>Congruence & Symmetry Detective</h3><p>Decide first, then use the explanation to test your evidence.</p><SymmetryChallenge /></div>}
+          {topic.slug === 'tessellations' && <div><h3>Tessellation Builder</h3><p>Experiment with tile shape, spacing, colour, and the two requirements for a tessellation.</p><TessellationBuilder /></div>}
+        </div>
+        <article class="hands-on-card"><p class="eyebrow">OFF-SCREEN ACTIVITY</p><h3>{content.handsOn.title}</h3><ol>{content.handsOn.instructions.map((item)=><li>{item}</li>)}</ol><p><strong>Reflect:</strong> {content.handsOn.reflect}</p><p class="home-note"><strong>Working on your own?</strong> {homeNotes[topic.slug]}</p></article>
       </LearningSection>
 
       <LearningSection id="practise" eyebrow="PRACTISE WITH SUPPORT" title="Build confidence with feedback" icon="✏️" tone="practice"><p>{content.practiceIntro}</p><PracticeEngine questions={content.questions} /></LearningSection>

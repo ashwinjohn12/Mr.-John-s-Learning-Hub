@@ -1,0 +1,55 @@
+---
+interface Props { mode: 'translate' | 'reflect' | 'rotate' }
+const { mode } = Astro.props;
+const titles = { translate: 'Translation Lab', reflect: 'Reflection Lab', rotate: 'Rotation Lab' };
+const descriptions = {
+  translate: 'Slide the triangle. Every vertex moves the same horizontal and vertical distance.',
+  reflect: 'Flip the triangle over the x-axis or y-axis. Compare each point with its image.',
+  rotate: 'Turn the triangle about vertex A. The centre of rotation stays fixed.'
+};
+---
+<section class="transform-lab" data-transform-lab data-mode={mode}>
+  <div class="lab-title"><div><p class="mini-label">INTERACTIVE MODEL</p><h4>{titles[mode]}</h4></div><span class="status-pill" data-status aria-live="polite"></span></div>
+  <p>{descriptions[mode]}</p>
+  <div class="lab-layout">
+    <svg data-plane viewBox="0 0 520 520" role="img" aria-label={`Cartesian plane showing an original triangle and its ${mode} image`}>
+      <rect x="20" y="20" width="480" height="480" rx="14" class="plot-bg" />
+      <g class="grid" aria-hidden="true">{Array.from({length:21},(_,i)=>20+i*24).map((p)=><><line x1={p} y1="20" x2={p} y2="500"/><line x1="20" y1={p} x2="500" y2={p}/></>)}</g>
+      <g class="axes" aria-hidden="true"><line x1="20" y1="260" x2="500" y2="260"/><line x1="260" y1="20" x2="260" y2="500"/></g>
+      <g data-original></g><g data-motion aria-hidden="true"></g><g data-image></g>
+    </svg>
+    <div class="controls">
+      {mode === 'translate' && <><label>Horizontal move <strong data-dx-output>3 right</strong><input data-dx type="range" min="-4" max="4" value="3" /></label><label>Vertical move <strong data-dy-output>2 up</strong><input data-dy type="range" min="-4" max="4" value="2" /></label></>}
+      {mode === 'reflect' && <fieldset><legend>Line of reflection</legend><label><input type="radio" name="reflect-axis" value="x" checked /> x-axis</label><label><input type="radio" name="reflect-axis" value="y" /> y-axis</label></fieldset>}
+      {mode === 'rotate' && <><label>Angle<select data-angle><option value="90">90°</option><option value="180">180°</option><option value="270">270°</option></select></label><fieldset><legend>Direction</legend><label><input type="radio" name="rotation-direction" value="cw" checked /> clockwise</label><label><input type="radio" name="rotation-direction" value="ccw" /> counter-clockwise</label></fieldset></>}
+      <div class="coordinate-table"><strong>Vertex coordinates</strong><div class="table-head"><span>Point</span><span>Original</span><span>Image</span></div><div data-coordinate-rows></div></div>
+      <div class="predict-box"><strong>Predict A′ before checking</strong><div><label>x <input data-predict-x type="number" min="-10" max="10" /></label><label>y <input data-predict-y type="number" min="-10" max="10" /></label></div><button type="button" data-check>Check A′</button><span data-feedback aria-live="polite">Use the movement to predict the new coordinates.</span></div>
+      <button class="secondary" type="button" data-reset>Reset model</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  type Point={x:number,y:number,label:string};
+  const palette={original:'#174ea6',image:'#f59e0b'};
+  const map=(p:Point)=>`${260+p.x*24},${260-p.y*24}`;
+  document.querySelectorAll<HTMLElement>('[data-transform-lab]').forEach((lab)=>{
+    const mode=lab.dataset.mode as 'translate'|'reflect'|'rotate';
+    const originalGroup=lab.querySelector<SVGGElement>('[data-original]')!,imageGroup=lab.querySelector<SVGGElement>('[data-image]')!,motion=lab.querySelector<SVGGElement>('[data-motion]')!;
+    const originals:Record<string,Point[]>={translate:[{x:-5,y:-2,label:'A'},{x:-2,y:-2,label:'B'},{x:-4,y:1,label:'C'}],reflect:[{x:2,y:2,label:'A'},{x:6,y:2,label:'B'},{x:4,y:5,label:'C'}],rotate:[{x:-3,y:-2,label:'A'},{x:1,y:-2,label:'B'},{x:-3,y:2,label:'C'}]};
+    const base=originals[mode]; let image:Point[]=[];
+    const draw=(group:SVGGElement,points:Point[],color:string,prime=false)=>{group.innerHTML=`<polygon points="${points.map(map).join(' ')}" fill="${color}22" stroke="${color}" stroke-width="4" stroke-linejoin="round"></polygon>`+points.map(p=>`<g transform="translate(${map(p)})"><circle r="7" fill="${color}"></circle><text x="11" y="-9" fill="#1f334d" font-size="16" font-weight="900">${p.label}${prime?'′':''}</text></g>`).join('')};
+    const rotatePoint=(p:Point,angle:number)=>{const a=base[0],dx=p.x-a.x,dy=p.y-a.y,n=((angle%360)+360)%360;let rx=dx,ry=dy;if(n===90){rx=-dy;ry=dx}else if(n===180){rx=-dx;ry=-dy}else if(n===270){rx=dy;ry=-dx}return{x:a.x+rx,y:a.y+ry,label:p.label}};
+    const word=(value:number,pos:string,neg:string)=>value===0?'0 units':`${Math.abs(value)} ${value>0?pos:neg}`;
+    const rows=(reveal=false)=>{lab.querySelector('[data-coordinate-rows]')!.innerHTML=base.map((p,i)=>`<div><span>${p.label}</span><span>(${p.x}, ${p.y})</span><span>${reveal?`(${image[i].x}, ${image[i].y})`:'?'}</span></div>`).join('')};
+    const update=()=>{if(mode==='translate'){const dx=Number((lab.querySelector('[data-dx]') as HTMLInputElement).value),dy=Number((lab.querySelector('[data-dy]') as HTMLInputElement).value);image=base.map(p=>({...p,x:p.x+dx,y:p.y+dy}));lab.querySelector('[data-dx-output]')!.textContent=word(dx,'right','left');lab.querySelector('[data-dy-output]')!.textContent=word(dy,'up','down');lab.querySelector('[data-status]')!.textContent=`[${Math.abs(dx)}${dx>=0?'R':'L'}, ${Math.abs(dy)}${dy>=0?'U':'D'}]`;motion.innerHTML=''}else if(mode==='reflect'){const axis=(lab.querySelector('input[name="reflect-axis"]:checked') as HTMLInputElement).value;image=base.map(p=>({...p,x:axis==='y'?-p.x:p.x,y:axis==='x'?-p.y:p.y}));lab.querySelector('[data-status]')!.textContent=`Across the ${axis}-axis`;motion.innerHTML=`<line x1="${axis==='y'?260:20}" y1="${axis==='x'?260:20}" x2="${axis==='y'?260:500}" y2="${axis==='x'?260:500}" stroke="#ef4444" stroke-width="7" stroke-dasharray="10 8"></line>`}else{const angle=Number((lab.querySelector('[data-angle]') as HTMLSelectElement).value),dir=(lab.querySelector('input[name="rotation-direction"]:checked') as HTMLInputElement).value;const signed=dir==='ccw'?angle:-angle;image=base.map(p=>rotatePoint(p,signed));lab.querySelector('[data-status]')!.textContent=`${angle}° ${dir==='cw'?'clockwise':'counter-clockwise'}`;const a=base[0];motion.innerHTML=`<circle cx="${260+a.x*24}" cy="${260-a.y*24}" r="14" fill="none" stroke="#ef4444" stroke-width="4"></circle>`};draw(originalGroup,base,palette.original);draw(imageGroup,image,palette.image,true);rows();lab.querySelector('[data-feedback]')!.textContent='Use the movement to predict the new coordinates.'};
+    lab.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',update));
+    lab.querySelector('[data-check]')!.addEventListener('click',()=>{const x=(lab.querySelector('[data-predict-x]') as HTMLInputElement).value,y=(lab.querySelector('[data-predict-y]') as HTMLInputElement).value;if(x===''||y===''){lab.querySelector('[data-feedback]')!.textContent='Enter both coordinates before checking.';return}rows(true);lab.querySelector('[data-feedback]')!.textContent=Number(x)===image[0].x&&Number(y)===image[0].y?`Correct! A′ is (${image[0].x}, ${image[0].y}).`:`Check x first, then y. A′ is (${image[0].x}, ${image[0].y}).`});
+    lab.querySelector('[data-reset]')!.addEventListener('click',()=>{lab.querySelectorAll<HTMLInputElement>('input[type="number"]').forEach(i=>i.value='');if(mode==='translate'){(lab.querySelector('[data-dx]') as HTMLInputElement).value='3';(lab.querySelector('[data-dy]') as HTMLInputElement).value='2'}if(mode==='reflect')(lab.querySelector('input[value="x"]') as HTMLInputElement).checked=true;if(mode==='rotate'){(lab.querySelector('[data-angle]') as HTMLSelectElement).value='90';(lab.querySelector('input[value="cw"]') as HTMLInputElement).checked=true}update()});update();
+  });
+</script>
+
+<style>
+.transform-lab{border:1px solid #d7e1ee;border-radius:18px;padding:1rem;background:#fff;box-shadow:0 12px 30px rgba(24,78,166,.08)}.lab-title{display:flex;justify-content:space-between;gap:1rem;align-items:start}.lab-title h4{margin:.15rem 0;font-size:1.15rem}.mini-label{margin:0;font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#5a6a80}.status-pill{padding:.4rem .65rem;border-radius:999px;background:#fff4d6;color:#7a4b00;font-weight:800}.lab-layout{display:grid;grid-template-columns:minmax(300px,1.25fr) minmax(250px,.75fr);gap:1rem}.lab-layout svg{width:100%;aspect-ratio:1}.plot-bg{fill:#f8fbff;stroke:#cbd8e8;stroke-width:2}.grid line{stroke:#dce6f2}.axes line{stroke:#1d3557;stroke-width:3}.controls{display:grid;gap:.8rem}.controls>label{display:grid;grid-template-columns:1fr auto;gap:.35rem;font-weight:800}.controls>label input,.controls>label select{grid-column:1/-1}.controls fieldset{display:flex;gap:1rem;border:1px solid #dce4ed;border-radius:12px;padding:.7rem}.controls legend{font-weight:800}.coordinate-table{display:grid;gap:.4rem;padding:.8rem;border-radius:12px;background:#f5f7fa}.table-head,.coordinate-table [data-coordinate-rows]>div{display:grid;grid-template-columns:.5fr 1fr 1fr;gap:.35rem}.table-head{font-size:.78rem;font-weight:900;color:#5a6a80}.coordinate-table [data-coordinate-rows]>div{padding:.25rem 0;border-top:1px solid #dce4ed;font-variant-numeric:tabular-nums}.predict-box{display:grid;gap:.6rem;padding:.8rem;border-radius:12px;background:#eef6ff}.predict-box>div{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}.predict-box label{display:grid;grid-template-columns:auto 1fr;gap:.4rem;align-items:center;font-weight:800}.predict-box input{min-width:0;padding:.5rem;border:1px solid #b9c8da;border-radius:8px}.predict-box button,.secondary{border:1px solid #174ea6;border-radius:9px;padding:.65rem .8rem;background:#174ea6;color:#fff;font:800 .9rem system-ui;cursor:pointer}.secondary{background:#fff;color:#174ea6}
+@media(max-width:760px){.lab-layout{grid-template-columns:1fr}.lab-title{display:grid}.transform-lab{padding:.75rem}}
+</style>

@@ -52,11 +52,11 @@ export const courses: Course[] = [
         slug: 'coordinates-design', number: '02', title: 'Coordinates & Design', description: 'Locate, transform, and analyze shapes on the Cartesian plane.',
         topics: [
           { slug: 'describing-location-cartesian-plane', number: '2.1', title: 'Describing Location on a Cartesian Plane', summary: 'Connect two number lines to form a Cartesian plane, then locate and describe points and polygon vertices with ordered pairs.', status: 'ready' },
-          { slug: 'translating-shapes', number: '2.2', title: 'Translating Shapes in the Cartesian Plane', summary: 'Slide shapes and describe how each vertex moves.', status: 'planned' },
-          { slug: 'reflecting-shapes', number: '2.3', title: 'Reflecting Shapes in the Cartesian Plane', summary: 'Create and describe mirror images across lines of reflection.', status: 'planned' },
-          { slug: 'rotating-shapes', number: '2.4', title: 'Rotating Shapes in the Cartesian Plane', summary: 'Turn shapes around a point and track their vertices.', status: 'planned' },
-          { slug: 'congruence-symmetry', number: '2.5', title: 'Congruence & Symmetry', summary: 'Compare shapes and analyze reflectional and rotational symmetry.', status: 'planned' },
-          { slug: 'tessellations', number: '2.6', title: 'Tessellations', summary: 'Create repeating designs that cover a surface without gaps or overlaps.', status: 'planned' }
+          { slug: 'translating-shapes', number: '2.2', title: 'Translating Shapes in the Cartesian Plane', summary: 'Slide shapes and describe how each vertex moves.', status: 'ready' },
+          { slug: 'reflecting-shapes', number: '2.3', title: 'Reflecting Shapes in the Cartesian Plane', summary: 'Create and describe mirror images across lines of reflection.', status: 'ready' },
+          { slug: 'rotating-shapes', number: '2.4', title: 'Rotating Shapes in the Cartesian Plane', summary: 'Turn shapes around a point and track their vertices.', status: 'ready' },
+          { slug: 'congruence-symmetry', number: '2.5', title: 'Congruence & Symmetry', summary: 'Compare shapes and analyze reflectional and rotational symmetry.', status: 'ready' },
+          { slug: 'tessellations', number: '2.6', title: 'Tessellations', summary: 'Create repeating designs that cover a surface without gaps or overlaps.', status: 'ready' }
         ]
       },
       { slug: 'number-operations', number: '03', title: 'Number Operations', description: 'Explore prime factorization, powers, and order of operations.', topics: [] },
