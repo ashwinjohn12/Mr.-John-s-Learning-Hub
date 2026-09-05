@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import LearningSection from '../../../../components/LearningSection.astro';
+import VocabularyExplorer from '../../../../components/VocabularyExplorer.astro';
+import PracticeEngine from '../../../../components/PracticeEngine.astro';
+import CheckYourself from '../../../../components/CheckYourself.astro';
+import Unit1MathArcade from '../../../../components/Unit1MathArcade.astro';
+import { findCourse } from '../../../../data/courses';
+import { topicContent } from '../../../../data/topicContent';
+import { unit1RemainingContent } from '../../../../data/unit1RemainingContent';
+import { applyUnit1Enhancements } from '../../../../data/unit1Enhancements';
+
+const course = findCourse('grade-6-math')!;
+const unit = course.units.find((item) => item.slug === 'positive-negative-numbers')!;
+const base = import.meta.env.BASE_URL;
+const allBase = { ...topicContent, ...unit1RemainingContent };
+const lessonData = unit.topics.map((topic) => {
+  const key = `${course.slug}/${unit.slug}/${topic.slug}`;
+  return { topic, content: applyUnit1Enhancements(key, allBase[key]) };
+});
+const mixedPractice = lessonData.flatMap(({content}) => content.questions);
+const mixedCheck = lessonData.flatMap(({content}) => content.checkQuestions);
+const reviewWords = [
+  { term:'Magnitude', definition:'How far a number is from zero.', example:'The magnitude of −8 is 8.' },
+  { term:'Integer', definition:'A whole number, its negative opposite, or zero.', example:'−5, 0, and +12 are integers.' },
+  { term:'Additive inverse', definition:'A number with the same magnitude and the opposite sign.', example:'+6 and −6 are additive inverses.' },
+  { term:'Zero pair', definition:'A positive unit and a negative unit that combine to make zero.', example:'+1 and −1 make a zero pair.' },
+  { term:'Sum', definition:'The answer to an addition question.', example:'The sum of −4 and +9 is +5.' },
+  { term:'Minuend', definition:'The first, or starting, number in a subtraction question.', example:'In −7 − (+3), −7 is the minuend.' },
+  { term:'Subtrahend', definition:'The number being taken away.', example:'In −7 − (+3), +3 is the subtrahend.' },
+  { term:'Difference', definition:'The answer to a subtraction question.', example:'The difference in 5 − 8 is −3.' },
+  { term:'Equivalent', definition:'Different math statements that have the same value.', example:'5 − 2 and 5 + (−2) are equivalent.' },
+  { term:'Commutative property', definition:'In addition, changing the order of addends does not change the sum.', example:'−3 + 8 = 8 + (−3).' }
+];
+const sectionLinks = [['overview','🎯','Overview'],['lessons','🗺️','Lesson Map'],['vocabulary','🧠','Vocabulary'],['practice','✏️','Mixed Practice'],['check','✅','Unit Check'],['arcade','🎮','Math Arcade'],['pat','🏁','PAT-Style Review']];
+---
+<BaseLayout title={`Unit 1 Review | ${course.grade} ${course.shortSubject}`} description="Cumulative review of positive and negative numbers and integer operations." themeColor={course.color}>
+  <div class="topic-shell" style={`--course:${course.color};--course-soft:${course.accent}`}>
+    <aside class="topic-sidebar">
+      <a class="back-course" href={`${base}courses/${course.slug}/${unit.slug}/`}>← {unit.title}</a>
+      <p class="eyebrow">ON THIS PAGE</p><p class="scroll-cue">Swipe sections →</p>
+      <nav aria-label="Review sections">{sectionLinks.map(([id,icon,label])=><a href={`#${id}`}><span>{icon}</span>{label}</a>)}</nav>
+    </aside>
+    <article class="topic-content">
+      <Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title,href:`${base}courses/${course.slug}/${unit.slug}/`},{label:'Unit Review'}]} />
+      <header class="topic-hero"><p class="eyebrow">UNIT 1 REVIEW · GRADE 6 MATH</p><h1>Positive & Negative Numbers</h1><p>Mix the skills from Lessons 1.1–1.5, find what still needs practice, and finish with the Integer Quest Math Arcade.</p><div class="review-start"><strong>How to use this page</strong><span>Start with the checklist. Practise anything that feels shaky. Then try the Unit Check without hints and finish with the Math Arcade.</span></div></header>
+
+      <LearningSection id="overview" eyebrow="GET READY" title="What should I know?" icon="🎯" tone="idea">
+        <div class="checklist-grid">
+          <label><input type="checkbox" /> I can compare and order positive and negative numbers.</label>
+          <label><input type="checkbox" /> I can explain magnitude and identify integers.</label>
+          <label><input type="checkbox" /> I can use additive inverses and zero pairs.</label>
+          <label><input type="checkbox" /> I can add integers using models and efficient strategies.</label>
+          <label><input type="checkbox" /> I can subtract integers using chips or a number line.</label>
+          <label><input type="checkbox" /> I can rewrite subtraction as addition of the opposite.</label>
+        </div>
+        <p class="review-tip"><strong>Student tip:</strong> An unchecked box is not a failure—it tells you exactly what to review next.</p>
+      </LearningSection>
+
+      <LearningSection id="lessons" eyebrow="FIND YOUR NEXT STEP" title="Lesson map" icon="🗺️" tone="learn">
+        <div class="lesson-map">{lessonData.map(({topic})=><a href={`${base}courses/${course.slug}/${unit.slug}/${topic.slug}/`}><span>{topic.number}</span><div><strong>{topic.title}</strong><small>{topic.summary}</small></div><em>Review →</em></a>)}</div>
+      </LearningSection>
+
+      <LearningSection id="vocabulary" eyebrow="LEARN THE LANGUAGE" title="Mixed vocabulary review" icon="🧠" tone="vocab"><VocabularyExplorer words={reviewWords} /></LearningSection>
+
+      <LearningSection id="practice" eyebrow="PRACTISE WITH SUPPORT" title="Mixed Unit 1 practice" icon="✏️" tone="practice"><p>Questions are pulled from all five lessons. Choose a difficulty or leave it on Mixed. If you miss something, use the explanation and the lesson map above.</p><PracticeEngine questions={mixedPractice} /></LearningSection>
+
+      <LearningSection id="check" eyebrow="UNIT CHECK" title="Can you mix all five skills?" icon="✅" tone="review"><p>This assessment pulls 10 questions from a large bank across the whole unit. There are no hints, and a new set gives you a different mix.</p><CheckYourself questions={mixedCheck} count={10} /></LearningSection>
+
+      <LearningSection id="arcade" eyebrow="PLAY & APPLY" title="Integer Quest Math Arcade" icon="🎮" tone="play"><p>No multiple choice here. Solve real-life integer missions, type your answer, build a streak, and earn points.</p><Unit1MathArcade /></LearningSection>
+
+      <LearningSection id="pat" eyebrow="PAT-STYLE THINKING" title="Explain, model, and choose a strategy" icon="🏁" tone="review">
+        <div class="pat-stack">
+          <article><h3>1 · Compare</h3><p>Two Alberta winter temperatures are −14 °C and −6 °C. Which is warmer? Explain using a number line or distance from zero.</p><details><summary>Show a strong answer</summary><p>−6 °C is warmer because −6 is farther right on the number line than −14. It is the greater number.</p></details></article>
+          <article><h3>2 · Add</h3><p>A game score changes by −18, then +27. Find the total change and explain how magnitude helps.</p><details><summary>Show a strong answer</summary><p>The signs are different. 27 has the greater magnitude, so 27 − 18 = 9 and the result is +9.</p></details></article>
+          <article><h3>3 · Subtract with meaning</h3><p>Explain why (+4) − (−7) is greater than +4.</p><details><summary>Show a strong answer</summary><p>Subtracting a negative means removing negative value. On a number line, it moves 7 units right, so (+4) − (−7) = +11.</p></details></article>
+          <article><h3>4 · Connect subtraction and addition</h3><p>Rewrite (−12) − (+5) as addition and solve.</p><details><summary>Show a strong answer</summary><p>Keep −12 and add the opposite of +5: (−12) + (−5) = −17.</p></details></article>
+        </div>
+        <div class="finish-card"><div><p class="eyebrow">UNIT 1 COMPLETE</p><strong>Ready for Unit 2?</strong><span>If your Unit Check and explanations feel strong, move on. If not, use the lesson map to target one skill instead of restarting the whole unit.</span></div><a class="button" href={`${base}courses/${course.slug}/coordinates-design/`}>Open Unit 2 →</a></div>
+      </LearningSection>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+.review-start{display:grid;grid-template-columns:auto 1fr;gap:1rem;margin-top:1.2rem;padding:1rem 1.1rem;border-radius:16px;background:var(--course-soft);line-height:1.55}.checklist-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}.checklist-grid label{display:flex;gap:.6rem;align-items:flex-start;padding:.9rem;border:1px solid #e3e9f0;border-radius:13px}.checklist-grid input{margin-top:.3rem}.review-tip{margin-top:1rem;padding:.85rem 1rem;border-radius:12px;background:#fff8db}.lesson-map{display:grid;gap:.7rem}.lesson-map a{display:grid;grid-template-columns:52px 1fr auto;gap:1rem;align-items:center;padding:1rem;border:1px solid #dfe5ee;border-radius:13px;text-decoration:none}.lesson-map a>span{color:var(--course);font-weight:900}.lesson-map strong,.lesson-map small{display:block}.lesson-map small{color:#64748b}.lesson-map em{font-style:normal;color:var(--course);font-weight:800}.pat-stack{display:grid;gap:.8rem}.pat-stack article{border:1px solid #dfe5ee;border-radius:14px;padding:1rem}.pat-stack h3{margin:.1rem 0 .5rem}.finish-card{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;margin-top:1rem;padding:1.1rem;border-radius:15px;background:#edf9f0}.finish-card>div{display:grid;gap:.25rem}.finish-card .eyebrow{margin:0}.finish-card a{text-decoration:none}.scroll-cue{display:none}@media(max-width:760px){.review-start,.checklist-grid,.finish-card{grid-template-columns:1fr}.topic-hero{padding-top:2rem;padding-bottom:3rem}.topic-hero h1{font-size:clamp(2.2rem,11vw,3.25rem);line-height:1.04}.lesson-map a{grid-template-columns:44px 1fr}.lesson-map em{grid-column:2}.scroll-cue{display:block;margin:-.35rem 0 .45rem;color:#64748b;font-size:.76rem;font-weight:700}}
+</style>
