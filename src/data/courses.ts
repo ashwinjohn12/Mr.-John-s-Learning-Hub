@@ -43,9 +43,9 @@ export const courses: Course[] = [
         topics: [
           { slug: 'understanding-positive-negative', number: '1.1', title: 'Understanding & Comparing Positive and Negative Numbers', summary: 'Use real-life contexts and number lines to understand direction, magnitude, comparison, and order.', status: 'ready' },
           { slug: 'what-are-integers-add', number: '1.2', title: 'What Are Integers and How Do You Add Them?', summary: 'Build integer addition with additive inverses, zero pairs, chips, and number-line models.', status: 'ready' },
-          { slug: 'adding-integers', number: '1.3', title: 'Adding Integers', summary: 'Move from models to efficient symbolic strategies for adding integers.', status: 'planned' },
-          { slug: 'subtracting-integers-models', number: '1.4', title: 'Subtracting Integers Using Models', summary: 'Represent integer subtraction using chips and number-line models.', status: 'planned' },
-          { slug: 'subtracting-integers', number: '1.5', title: 'Subtracting Integers', summary: 'Use relationships between addition and subtraction to calculate differences.', status: 'planned' }
+          { slug: 'adding-integers', number: '1.3', title: 'Adding Integers', summary: 'Move from models to efficient symbolic strategies for adding integers.', status: 'ready' },
+          { slug: 'subtracting-integers-models', number: '1.4', title: 'Subtracting Integers Using Models', summary: 'Represent integer subtraction using chips and number-line models.', status: 'ready' },
+          { slug: 'subtracting-integers', number: '1.5', title: 'Subtracting Integers', summary: 'Use relationships between addition and subtraction to calculate differences.', status: 'ready' }
         ]
       },
       { slug: 'coordinates-design', number: '02', title: 'Coordinates & Design', description: 'Locate, transform, and analyze shapes on the Cartesian plane.', topics: [] },
