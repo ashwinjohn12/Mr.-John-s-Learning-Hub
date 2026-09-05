@@ -1,9 +1,13 @@
 ---
 interface Props { mode: 'compare' | 'add' }
 const { mode } = Astro.props;
-const ticks = Array.from({ length: 21 }, (_, i) => i - 10);
+const lineMin = mode === 'add' ? -20 : -10;
+const lineMax = mode === 'add' ? 20 : 10;
+const ticks = mode === 'add'
+  ? Array.from({ length: 21 }, (_, i) => (i - 10) * 2)
+  : Array.from({ length: 21 }, (_, i) => i - 10);
 ---
-<div class="integer-line-widget" data-integer-line data-mode={mode}>
+<div class="integer-line-widget" data-integer-line data-mode={mode} data-min={lineMin} data-max={lineMax}>
   <div class="line-controls">
     <label>
       <span>{mode === 'compare' ? 'Number A' : 'First addend'}</span>
@@ -17,10 +21,10 @@ const ticks = Array.from({ length: 21 }, (_, i) => i - 10);
     </label>
   </div>
 
-  <div class="number-line" aria-label="Interactive number line from negative ten to positive ten">
+  <div class="number-line" aria-label={`Interactive number line from ${lineMin} to ${lineMax}`}>
     <div class="axis"></div>
-    {ticks.map((tick) => (
-      <span class={`tick ${tick === 0 ? 'zero' : ''}`} style={`--p:${((tick + 10) / 20) * 100}%`}>
+    {ticks.map((tick, index) => (
+      <span class={`tick ${tick === 0 ? 'zero' : ''} ${index % 2 === 1 ? 'sparse-label' : ''}`} style={`--p:${((tick - lineMin) / (lineMax - lineMin)) * 100}%`}>
         <i></i><small>{tick}</small>
       </span>
     ))}
@@ -47,8 +51,10 @@ const ticks = Array.from({ length: 21 }, (_, i) => i - 10);
     const result = widget.querySelector('[data-result]');
     const explanation = widget.querySelector('[data-explanation]');
     const mode = widget.dataset.mode;
+    const min = Number(widget.dataset.min ?? -10);
+    const max = Number(widget.dataset.max ?? 10);
     const signed = (n: number) => n > 0 ? `+${n}` : `${n}`;
-    const pct = (n: number) => `${Math.max(0, Math.min(100, ((n + 10) / 20) * 100))}%`;
+    const pct = (n: number) => `${Math.max(0, Math.min(100, ((n - min) / (max - min)) * 100))}%`;
 
     const render = () => {
       const av = Number(a?.value ?? 0);
@@ -62,7 +68,7 @@ const ticks = Array.from({ length: 21 }, (_, i) => i - 10);
         const symbol = av === bv ? '=' : av > bv ? '>' : '<';
         if (result) result.textContent = `${signed(av)} ${symbol} ${signed(bv)}`;
         if (explanation) {
-          const direction = av === bv ? 'the same position' : av > bv ? `${signed(av)} is farther right` : `${signed(bv)} is farther right`;
+          const direction = av === bv ? 'Both numbers are at the same position' : av > bv ? `${signed(av)} is farther right` : `${signed(bv)} is farther right`;
           explanation.textContent = `${direction}. Magnitudes: ${Math.abs(av)} and ${Math.abs(bv)}. The number farther right has the greater value.`;
         }
       } else {
@@ -99,5 +105,10 @@ const ticks = Array.from({ length: 21 }, (_, i) => i - 10);
   .line-explanation{border-radius:14px;background:#f4f7fb;padding:.9rem 1rem}
   .line-explanation strong{font-size:1.15rem}
   .line-explanation p{margin:.3rem 0 0}
-  @media(max-width:650px){.line-controls{grid-template-columns:1fr}.number-line{margin-left:.25rem;margin-right:.25rem}.tick small{font-size:.6rem}}
+  @media(max-width:650px){
+    .line-controls{grid-template-columns:1fr}
+    .number-line{margin-left:.25rem;margin-right:.25rem}
+    .tick small{font-size:.62rem}
+    .tick.sparse-label small{display:none}
+  }
 </style>
