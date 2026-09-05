@@ -1,0 +1,97 @@
+---
+interface Props { topic: string }
+const { topic } = Astro.props;
+---
+
+{topic === 'rotating-shapes' && (
+  <section class="outcome-boost vertex-check" data-vertex-check>
+    <div class="boost-head"><div><p class="mini-label">CURRICULUM CHECKPOINT</p><h4>Rotate a polygon about one of its vertices</h4></div><span>2.4 focus</span></div>
+    <p>The red point A is the centre of rotation, so A stays fixed. Predict where B′ lands after a 90° counter-clockwise turn, then reveal the full polygon.</p>
+    <div class="vertex-layout">
+      <svg viewBox="0 0 420 320" role="img" aria-label="Triangle ABC on a coordinate grid rotating 90 degrees counter-clockwise about vertex A">
+        <rect x="10" y="10" width="400" height="300" rx="14" class="plot-bg" />
+        <g class="grid" aria-hidden="true">{Array.from({length:17},(_,i)=>10+i*25).map((p)=><line x1={p} y1="10" x2={p} y2="310"/>)}{Array.from({length:13},(_,i)=>10+i*25).map((p)=><line x1="10" y1={p} x2="410" y2={p}/>)}</g>
+        <g class="axes" aria-hidden="true"><line x1="10" y1="210" x2="410" y2="210"/><line x1="210" y1="10" x2="210" y2="310"/></g>
+        <polygon points="135,260 235,260 135,160" class="original" />
+        <g class="labels"><circle cx="135" cy="260" r="7" class="centre"/><text x="119" y="282">A(−3, −2)</text><circle cx="235" cy="260" r="6"/><text x="242" y="278">B(1, −2)</text><circle cx="135" cy="160" r="6"/><text x="64" y="148">C(−3, 2)</text></g>
+        <g data-image hidden><polygon points="135,260 135,160 35,260" class="image"/><circle cx="135" cy="160" r="6"/><text x="142" y="183">B′(−3, 2)</text><circle cx="35" cy="260" r="6"/><text x="18" y="285">C′(−7, −2)</text></g>
+      </svg>
+      <div class="checkpoint-panel">
+        <p><strong>Question:</strong> Where will B(1, −2) land?</p>
+        <div class="coord-input"><label>x <input data-x type="number" /></label><label>y <input data-y type="number" /></label></div>
+        <button type="button" data-check>Check B′</button>
+        <p data-feedback aria-live="polite">Think relative to A: B is 4 units to the right of the centre.</p>
+        <button type="button" class="secondary" data-reveal>Reveal full rotated polygon</button>
+        <div class="reasoning"><strong>What must stay true?</strong><ul><li>A stays fixed.</li><li>AB and AC keep their lengths.</li><li>Each segment turns through the same 90° angle.</li></ul></div>
+      </div>
+    </div>
+  </section>
+)}
+
+{topic === 'congruence-symmetry' && (
+  <section class="outcome-boost superimpose" data-superimpose>
+    <div class="boost-head"><div><p class="mini-label">CURRICULUM CHECKPOINT</p><h4>Two transformations + superimposing</h4></div><span>2.5 focus</span></div>
+    <p>Choose two transformations that move the blue triangle exactly onto the dashed target. If the image superimposes perfectly, you have evidence that the two triangles are congruent.</p>
+    <div class="super-layout">
+      <svg viewBox="0 0 520 320" role="img" aria-label="Coordinate grid with an original triangle, a target triangle, and a transformed image">
+        <rect x="10" y="10" width="500" height="300" rx="14" class="plot-bg" />
+        <g class="grid" aria-hidden="true">{Array.from({length:21},(_,i)=>10+i*25).map((p)=><line x1={p} y1="10" x2={p} y2="310"/>)}{Array.from({length:13},(_,i)=>10+i*25).map((p)=><line x1="10" y1={p} x2="510" y2={p}/>)}</g>
+        <g class="axes" aria-hidden="true"><line x1="10" y1="210" x2="510" y2="210"/><line x1="260" y1="10" x2="260" y2="310"/></g>
+        <polygon data-original points="285,185 360,185 285,135" class="original" />
+        <polygon data-target points="385,185 310,185 385,135" class="target" />
+        <polygon data-result points="285,185 360,185 285,135" class="result" />
+      </svg>
+      <div class="checkpoint-panel">
+        <label>First transformation<select data-first><option value="none">Choose…</option><option value="reflectY">Reflect across the y-axis</option><option value="translate6R">Translate 6 right</option><option value="rotate180">Rotate 180° about the origin</option></select></label>
+        <label>Second transformation<select data-second><option value="none">Choose…</option><option value="reflectY">Reflect across the y-axis</option><option value="translate6R">Translate 6 right</option><option value="rotate180">Rotate 180° about the origin</option></select></label>
+        <button type="button" data-apply>Apply both transformations</button>
+        <p data-feedback aria-live="polite">A combined transformation means performing one move, then another.</p>
+        <div class="reasoning"><strong>Evidence of congruence</strong><p>When the solid image lies exactly on the dashed target, the corresponding sides and angles match. Position and orientation can change without changing size or shape.</p></div>
+      </div>
+    </div>
+  </section>
+)}
+
+{topic === 'tessellations' && (
+  <section class="outcome-boost investigation" data-tess-investigation>
+    <div class="boost-head"><div><p class="mini-label">CURRICULUM INVESTIGATION</p><h4>Find tessellations in objects, art, and architecture</h4></div><span>2.6 focus</span></div>
+    <p>Study each design as evidence. Ask: Does it repeat? Are there gaps? Are there overlaps? Which transformations move one part of the pattern onto another?</p>
+    <div class="investigation-grid">
+      <button type="button" class="investigation-card" data-case="floor"><span class="pattern floor" aria-hidden="true"></span><strong>Floor tiles</strong><small>object / interior design</small></button>
+      <button type="button" class="investigation-card" data-case="brick"><span class="pattern brick" aria-hidden="true"></span><strong>Brick wall</strong><small>architecture</small></button>
+      <button type="button" class="investigation-card" data-case="mosaic"><span class="pattern mosaic" aria-hidden="true"></span><strong>Geometric mosaic</strong><small>art / design</small></button>
+      <button type="button" class="investigation-card" data-case="circles"><span class="pattern circles" aria-hidden="true"></span><strong>Circle print</strong><small>non-example to test</small></button>
+    </div>
+    <div class="investigation-result" data-result aria-live="polite"><strong>Choose a design.</strong><span>Describe the evidence before opening the explanation.</span></div>
+    <details class="culture-note"><summary>Studying culturally inspired geometric designs</summary><p>First Nations, Métis, and Inuit designs can contain rich symmetry and repeating geometry. Use a reliable source that names the community, artist, or tradition when possible. Describe the mathematics you can observe, and learn the design’s context rather than assuming that every pattern has the same meaning.</p></details>
+  </section>
+)}
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-vertex-check]').forEach(card=>{
+    const x=card.querySelector<HTMLInputElement>('[data-x]')!,y=card.querySelector<HTMLInputElement>('[data-y]')!,feedback=card.querySelector<HTMLElement>('[data-feedback]')!,image=card.querySelector<SVGGElement>('[data-image]')!;
+    card.querySelector('[data-check]')!.addEventListener('click',()=>{if(x.value===''||y.value===''){feedback.textContent='Enter both coordinates first.';return}feedback.textContent=Number(x.value)===-3&&Number(y.value)===2?'Correct. B is 4 units right of A, so a 90° counter-clockwise turn puts B′ 4 units above A at (−3, 2).':'Not yet. Hold A fixed and turn the segment AB one quarter-turn counter-clockwise.'});
+    card.querySelector('[data-reveal]')!.addEventListener('click',()=>{image.hidden=false;feedback.textContent='The full image is A(−3, −2), B′(−3, 2), C′(−7, −2). Every vertex turned around A and kept the same distance from A.'});
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-superimpose]').forEach(card=>{
+    const first=card.querySelector<HTMLSelectElement>('[data-first]')!,second=card.querySelector<HTMLSelectElement>('[data-second]')!,result=card.querySelector<SVGPolygonElement>('[data-result]')!,feedback=card.querySelector<HTMLElement>('[data-feedback]')!;
+    type P=[number,number]; const original:P[]=[[1,1],[4,1],[1,3]]; const target:P[]=[[5,1],[2,1],[5,3]];
+    const apply=(pts:P[],op:string):P[]=>op==='reflectY'?pts.map(([x,y])=>[-x,y]):op==='translate6R'?pts.map(([x,y])=>[x+6,y]):op==='rotate180'?pts.map(([x,y])=>[-x,-y]):pts;
+    const screen=(pts:P[])=>pts.map(([x,y])=>`${260+x*25},${210-y*25}`).join(' ');
+    card.querySelector('[data-apply]')!.addEventListener('click',()=>{let pts=apply(original,first.value);pts=apply(pts,second.value);result.setAttribute('points',screen(pts));const match=pts.every((p,i)=>p[0]===target[i][0]&&p[1]===target[i][1]);feedback.textContent=match?'Exact superimposition! Reflect across the y-axis first, then translate 6 units right. The image and target occupy the same boundary, so the figures are congruent.':'The image does not superimpose yet. Order matters: apply the first transformation, then transform that image again.'});
+  });
+
+  const cases:Record<string,[string,string]>={
+    floor:['Tessellation','The squares repeat by translation and cover the surface with no gaps or overlaps. The completed pattern also has reflectional and rotational symmetry.'],
+    brick:['Tessellation','The rectangles repeat in offset rows. Translation builds the wall pattern, and the tiles cover the surface without gaps or overlaps.'],
+    mosaic:['Tessellation','The geometric pieces repeat to cover the surface. Look for translations and turns that move one repeating unit onto another.'],
+    circles:['Not a tessellation','The circles repeat, but curved gaps remain between neighbouring circles. Repetition alone is not enough.']
+  };
+  document.querySelectorAll<HTMLElement>('[data-tess-investigation]').forEach(card=>{const result=card.querySelector<HTMLElement>('[data-result]')!;card.querySelectorAll<HTMLButtonElement>('[data-case]').forEach(button=>button.addEventListener('click',()=>{const info=cases[button.dataset.case!];result.innerHTML=`<strong>${info[0]}</strong><span>${info[1]}</span>`}))});
+</script>
+
+<style>
+.outcome-boost{margin-top:1rem;border:2px solid #cfdced;border-radius:18px;padding:1rem;background:#fff;box-shadow:0 12px 28px rgba(23,78,166,.07)}.boost-head{display:flex;justify-content:space-between;gap:1rem;align-items:start}.boost-head h4{margin:.15rem 0;font-size:1.15rem}.boost-head>span{padding:.4rem .65rem;border-radius:999px;background:#eef6ff;color:#174ea6;font-weight:900;font-size:.78rem}.mini-label{margin:0;font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#5a6a80}.vertex-layout,.super-layout{display:grid;grid-template-columns:minmax(300px,1.25fr) minmax(250px,.75fr);gap:1rem}.vertex-layout svg,.super-layout svg{width:100%;border:1px solid #dce4ed;border-radius:14px}.plot-bg{fill:#f8fbff}.grid line{stroke:#e3ebf5}.axes line{stroke:#40536c;stroke-width:2}.original{fill:#174ea622;stroke:#174ea6;stroke-width:4}.image,.result{fill:#f59e0b2b;stroke:#f59e0b;stroke-width:4}.target{fill:none;stroke:#ef4444;stroke-width:4;stroke-dasharray:9 7}.labels circle{fill:#174ea6}.labels .centre{fill:#ef4444}.labels text{font-size:13px;font-weight:900;fill:#24364c}.checkpoint-panel{display:grid;gap:.8rem;align-content:start}.checkpoint-panel label{display:grid;gap:.35rem;font-weight:800}.checkpoint-panel select,.coord-input input{padding:.58rem;border:1px solid #b9c8da;border-radius:9px}.coord-input{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}.coord-input label{grid-template-columns:auto 1fr;align-items:center}.checkpoint-panel button{border:1px solid #174ea6;border-radius:9px;padding:.65rem .8rem;background:#174ea6;color:#fff;font-weight:800;cursor:pointer}.checkpoint-panel .secondary{background:#fff;color:#174ea6}.reasoning{padding:.8rem;border-radius:12px;background:#f5f8fc}.reasoning p,.reasoning ul{margin:.35rem 0}.investigation-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem}.investigation-card{display:grid;gap:.4rem;text-align:left;border:1px solid #d7e1ee;border-radius:14px;padding:.7rem;background:#fff;cursor:pointer}.investigation-card:hover,.investigation-card:focus-visible{outline:3px solid #bcd5f4}.investigation-card small{color:#64748b}.pattern{height:100px;border-radius:10px;border:1px solid #cbd8e8;background-color:#f8fbff}.floor{background-image:linear-gradient(#174ea6 2px,transparent 2px),linear-gradient(90deg,#174ea6 2px,transparent 2px);background-size:24px 24px}.brick{background-image:linear-gradient(#8b5e3c 2px,transparent 2px),linear-gradient(90deg,#8b5e3c 2px,transparent 2px);background-size:48px 24px;background-position:0 0,0 0}.mosaic{background-image:linear-gradient(30deg,#174ea6 12%,transparent 12.5%,transparent 87%,#174ea6 87.5%,#174ea6),linear-gradient(150deg,#f59e0b 12%,transparent 12.5%,transparent 87%,#f59e0b 87.5%,#f59e0b);background-size:48px 48px}.circles{background-image:radial-gradient(circle at center,#174ea6 0 9px,transparent 10px);background-size:28px 28px}.investigation-result{display:grid;gap:.25rem;margin-top:.8rem;padding:.85rem;border-radius:12px;background:#f5f8fc}.culture-note{margin-top:.8rem;padding:.75rem .85rem;border-radius:12px;background:#fffaf0;border:1px solid #f0dfb7}.culture-note p{line-height:1.6}
+@media(max-width:800px){.vertex-layout,.super-layout{grid-template-columns:1fr}.investigation-grid{grid-template-columns:repeat(2,1fr)}.boost-head{display:grid}}@media(max-width:480px){.investigation-grid{grid-template-columns:1fr}}
+</style>
