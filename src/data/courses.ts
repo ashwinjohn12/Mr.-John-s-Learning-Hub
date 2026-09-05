@@ -48,7 +48,17 @@ export const courses: Course[] = [
           { slug: 'subtracting-integers', number: '1.5', title: 'Subtracting Integers', summary: 'Use relationships between addition and subtraction to calculate differences.', status: 'ready' }
         ]
       },
-      { slug: 'coordinates-design', number: '02', title: 'Coordinates & Design', description: 'Locate, transform, and analyze shapes on the Cartesian plane.', topics: [] },
+      {
+        slug: 'coordinates-design', number: '02', title: 'Coordinates & Design', description: 'Locate, transform, and analyze shapes on the Cartesian plane.',
+        topics: [
+          { slug: 'describing-location-cartesian-plane', number: '2.1', title: 'Describing Location on a Cartesian Plane', summary: 'Connect two number lines to form a Cartesian plane, then locate and describe points and polygon vertices with ordered pairs.', status: 'ready' },
+          { slug: 'translating-shapes', number: '2.2', title: 'Translating Shapes in the Cartesian Plane', summary: 'Slide shapes and describe how each vertex moves.', status: 'planned' },
+          { slug: 'reflecting-shapes', number: '2.3', title: 'Reflecting Shapes in the Cartesian Plane', summary: 'Create and describe mirror images across lines of reflection.', status: 'planned' },
+          { slug: 'rotating-shapes', number: '2.4', title: 'Rotating Shapes in the Cartesian Plane', summary: 'Turn shapes around a point and track their vertices.', status: 'planned' },
+          { slug: 'congruence-symmetry', number: '2.5', title: 'Congruence & Symmetry', summary: 'Compare shapes and analyze reflectional and rotational symmetry.', status: 'planned' },
+          { slug: 'tessellations', number: '2.6', title: 'Tessellations', summary: 'Create repeating designs that cover a surface without gaps or overlaps.', status: 'planned' }
+        ]
+      },
       { slug: 'number-operations', number: '03', title: 'Number Operations', description: 'Explore prime factorization, powers, and order of operations.', topics: [] },
       { slug: 'decimals-fractions', number: '04', title: 'Operations on Decimals & Fractions', description: 'Develop flexible strategies for operations with fractions and decimal numbers.', topics: [] },
       { slug: 'ratios-rates', number: '05', title: 'Ratios & Rates', description: 'Compare quantities and use proportional thinking in real situations.', topics: [] },

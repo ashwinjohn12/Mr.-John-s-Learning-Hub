@@ -1,0 +1,130 @@
+---
+interface Props { mode?: 'explore' | 'target' }
+const { mode = 'explore' } = Astro.props;
+const uid = `coordinate-${mode}`;
+---
+<section class="coordinate-lab" data-coordinate-lab data-mode={mode} aria-labelledby={`${uid}-title`}>
+  <div class="lab-heading">
+    <div>
+      <p class="mini-label">{mode === 'target' ? 'COORDINATE MISSION' : 'FOUR-QUADRANT EXPLORER'}</p>
+      <h4 id={`${uid}-title`}>{mode === 'target' ? 'Find the hidden target' : 'Move a point across the plane'}</h4>
+    </div>
+    {mode === 'target' && <div class="score" aria-label="Game score"><span>Score <strong data-score>0</strong></span><span>Streak <strong data-streak>0</strong></span></div>}
+  </div>
+
+  {mode === 'target' ? (
+    <div class="mission" data-mission aria-live="polite">Click <strong data-target-name>point A</strong> at <strong data-target>(3, 4)</strong>.</div>
+  ) : (
+    <p class="lab-instructions">Click or tap the grid, or use the sliders. Watch how the ordered pair, directions, and quadrant stay connected.</p>
+  )}
+
+  <div class="plane-layout">
+    <div class="plane-wrap">
+      <svg class="coordinate-plane" data-plane viewBox="0 0 520 520" role="img" aria-label={mode === 'target' ? 'Clickable Cartesian plane from negative 10 to positive 10 on both axes' : 'Interactive Cartesian plane from negative 10 to positive 10 on both axes'} tabindex="0">
+        <rect x="20" y="20" width="480" height="480" rx="14" class="plot-bg" />
+        <g class="grid-lines" aria-hidden="true">
+          {Array.from({length:21},(_,i)=>20+i*24).map((p)=><><line x1={p} y1="20" x2={p} y2="500"/><line x1="20" y1={p} x2="500" y2={p}/></>)}
+        </g>
+        <g class="axes" aria-hidden="true"><line x1="20" y1="260" x2="500" y2="260"/><line x1="260" y1="20" x2="260" y2="500"/></g>
+        <g class="arrowheads" aria-hidden="true"><path d="M500 260l-12-7v14z"/><path d="M20 260l12-7v14z"/><path d="M260 20l-7 12h14z"/><path d="M260 500l-7-12h14z"/></g>
+        <g class="axis-labels" aria-hidden="true">
+          <text x="490" y="248">+x</text><text x="25" y="248">−x</text><text x="270" y="34">+y</text><text x="270" y="494">−y</text>
+          <text x="370" y="150">I</text><text x="145" y="150">II</text><text x="145" y="385">III</text><text x="370" y="385">IV</text>
+          {[-10,-5,5,10].map((n)=><text x={260+n*24} y="278" text-anchor="middle">{n}</text>)}
+          {[-10,-5,5,10].map((n)=><text x="248" y={264-n*24} text-anchor="end">{n}</text>)}
+          <text x="248" y="278" text-anchor="end">0</text>
+        </g>
+        <g data-guide class="point-guide" aria-hidden="true"><line data-guide-x/><line data-guide-y/></g>
+        <g data-marker class="point-marker" aria-hidden="true"><circle r="10"/><circle r="3"/><text data-marker-label x="14" y="-14">P</text></g>
+      </svg>
+      <p class="plane-tip">Remember: move along <strong>x first</strong>, then move along <strong>y</strong>.</p>
+    </div>
+
+    <div class="coordinate-panel">
+      {mode === 'explore' ? (
+        <>
+          <div class="coordinate-readout" aria-live="polite"><span>Point P</span><strong data-pair>(3, 4)</strong><small data-quadrant>Quadrant I</small></div>
+          <label>x-coordinate <span data-x-output>3</span><input data-x type="range" min="-10" max="10" value="3" /></label>
+          <label>y-coordinate <span data-y-output>4</span><input data-y type="range" min="-10" max="10" value="4" /></label>
+          <div class="direction-card"><strong>Travel from the origin</strong><span data-directions>3 units right, then 4 units up.</span></div>
+          <button class="secondary-button" type="button" data-random>Try a random point</button>
+        </>
+      ) : (
+        <>
+          <div class="target-help"><strong>How to play</strong><span>Read the ordered pair. Click its exact location. You earn 2 points on the first try and 1 point after a miss.</span></div>
+          <div class="coordinate-entry" aria-label="Enter a target coordinate">
+            <label>x <input data-guess-x type="number" min="-10" max="10" inputmode="numeric" /></label>
+            <label>y <input data-guess-y type="number" min="-10" max="10" inputmode="numeric" /></label>
+            <button class="secondary-button" type="button" data-submit-guess>Plot my point</button>
+          </div>
+          <div class="game-feedback" data-feedback aria-live="assertive">Choose the target point on the plane.</div>
+          <button class="secondary-button" type="button" data-new-target>New target</button>
+          <button class="text-button" type="button" data-reset>Reset score</button>
+        </>
+      )}
+    </div>
+  </div>
+</section>
+
+<script>
+  const describe = (x:number,y:number) => {
+    if (x===0 && y===0) return 'the origin';
+    if (y===0) return 'on the x-axis';
+    if (x===0) return 'on the y-axis';
+    if (x>0 && y>0) return 'Quadrant I';
+    if (x<0 && y>0) return 'Quadrant II';
+    if (x<0 && y<0) return 'Quadrant III';
+    return 'Quadrant IV';
+  };
+  const directions = (x:number,y:number) => {
+    const horizontal = x===0 ? 'stay at x = 0' : `${Math.abs(x)} unit${Math.abs(x)===1?'':'s'} ${x>0?'right':'left'}`;
+    const vertical = y===0 ? 'stay at y = 0' : `${Math.abs(y)} unit${Math.abs(y)===1?'':'s'} ${y>0?'up':'down'}`;
+    return `${horizontal}, then ${vertical}.`;
+  };
+  document.querySelectorAll<HTMLElement>('[data-coordinate-lab]').forEach((lab) => {
+    const svg = lab.querySelector<SVGSVGElement>('[data-plane]')!;
+    const marker = lab.querySelector<SVGGElement>('[data-marker]')!;
+    const markerLabel = lab.querySelector<SVGTextElement>('[data-marker-label]')!;
+    const guideX = lab.querySelector<SVGLineElement>('[data-guide-x]')!;
+    const guideY = lab.querySelector<SVGLineElement>('[data-guide-y]')!;
+    const mode = lab.dataset.mode;
+    let x = 3, y = 4, targetX = 3, targetY = 4, score = 0, streak = 0, attempts = 0, round = 0;
+    const setMarker = (px:number,py:number,label='P') => {
+      marker.setAttribute('transform',`translate(${260+px*24} ${260-py*24})`);
+      markerLabel.textContent=label;
+      guideX.setAttribute('x1','260'); guideX.setAttribute('y1',String(260-py*24)); guideX.setAttribute('x2',String(260+px*24)); guideX.setAttribute('y2',String(260-py*24));
+      guideY.setAttribute('x1',String(260+px*24)); guideY.setAttribute('y1','260'); guideY.setAttribute('x2',String(260+px*24)); guideY.setAttribute('y2',String(260-py*24));
+    };
+    const readPoint = (event:PointerEvent) => {
+      const rect=svg.getBoundingClientRect();
+      const vx=(event.clientX-rect.left)/rect.width*520;
+      const vy=(event.clientY-rect.top)/rect.height*520;
+      return {x:Math.max(-10,Math.min(10,Math.round((vx-260)/24))),y:Math.max(-10,Math.min(10,Math.round((260-vy)/24)))};
+    };
+    if(mode==='explore'){
+      const xInput=lab.querySelector<HTMLInputElement>('[data-x]')!, yInput=lab.querySelector<HTMLInputElement>('[data-y]')!;
+      const update=()=>{x=Number(xInput.value);y=Number(yInput.value);setMarker(x,y);lab.querySelector('[data-pair]')!.textContent=`(${x}, ${y})`;lab.querySelector('[data-quadrant]')!.textContent=describe(x,y);lab.querySelector('[data-directions]')!.textContent=directions(x,y);lab.querySelector('[data-x-output]')!.textContent=String(x);lab.querySelector('[data-y-output]')!.textContent=String(y)};
+      xInput.addEventListener('input',update);yInput.addEventListener('input',update);
+      svg.addEventListener('pointerdown',(event)=>{const p=readPoint(event);xInput.value=String(p.x);yInput.value=String(p.y);update()});
+      svg.addEventListener('keydown',(event)=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key))return;event.preventDefault();if(event.key==='ArrowLeft')xInput.value=String(Math.max(-10,Number(xInput.value)-1));if(event.key==='ArrowRight')xInput.value=String(Math.min(10,Number(xInput.value)+1));if(event.key==='ArrowUp')yInput.value=String(Math.min(10,Number(yInput.value)+1));if(event.key==='ArrowDown')yInput.value=String(Math.max(-10,Number(yInput.value)-1));update()});
+      lab.querySelector('[data-random]')!.addEventListener('click',()=>{xInput.value=String(Math.floor(Math.random()*21)-10);yInput.value=String(Math.floor(Math.random()*21)-10);update()});
+      update();
+    } else {
+      const names=['A','B','C','D','E','F'];
+      const feedback=lab.querySelector<HTMLElement>('[data-feedback]')!;
+      const guessX=lab.querySelector<HTMLInputElement>('[data-guess-x]')!, guessY=lab.querySelector<HTMLInputElement>('[data-guess-y]')!;
+      const newTarget=()=>{targetX=Math.floor(Math.random()*21)-10;targetY=Math.floor(Math.random()*21)-10;round++;attempts=0;marker.style.opacity='0';guessX.value='';guessY.value='';lab.querySelector('[data-target]')!.textContent=`(${targetX}, ${targetY})`;lab.querySelector('[data-target-name]')!.textContent=`point ${names[(round-1)%names.length]}`;feedback.textContent='Choose the target point on the plane.'};
+      const checkGuess=(p:{x:number,y:number})=>{attempts++;setMarker(p.x,p.y,names[(round-1)%names.length]);marker.style.opacity='1';if(p.x===targetX&&p.y===targetY){const earned=attempts===1?2:1;score+=earned;streak=attempts===1?streak+1:0;feedback.textContent=`Hit! (${p.x}, ${p.y}) is correct. You earned ${earned} point${earned===1?'':'s'}.`;lab.querySelector('[data-score]')!.textContent=String(score);lab.querySelector('[data-streak]')!.textContent=String(streak);setTimeout(newTarget,900)}else{streak=0;lab.querySelector('[data-streak]')!.textContent='0';feedback.textContent=`That was (${p.x}, ${p.y}), ${describe(p.x,p.y)}. Try the target again.`}};
+      svg.addEventListener('pointerdown',(event)=>checkGuess(readPoint(event)));
+      lab.querySelector('[data-submit-guess]')!.addEventListener('click',()=>{const px=Number(guessX.value),py=Number(guessY.value);if(guessX.value===''||guessY.value===''||px < -10||px > 10||py < -10||py > 10){feedback.textContent='Enter both coordinates from −10 to 10.';return}checkGuess({x:px,y:py})});
+      lab.querySelector('[data-new-target]')!.addEventListener('click',newTarget);
+      lab.querySelector('[data-reset]')!.addEventListener('click',()=>{score=0;streak=0;lab.querySelector('[data-score]')!.textContent='0';lab.querySelector('[data-streak]')!.textContent='0';newTarget()});
+      newTarget();
+    }
+  });
+</script>
+
+<style>
+.coordinate-lab{border:1px solid #d7e1ee;border-radius:18px;padding:1rem;background:#fff;box-shadow:0 12px 30px rgba(24,78,166,.08)}.lab-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}.lab-heading h4{margin:.15rem 0;font-size:1.15rem}.lab-instructions{margin:.5rem 0 1rem;color:#526174}.plane-layout{display:grid;grid-template-columns:minmax(280px,1.35fr) minmax(220px,.65fr);gap:1rem;align-items:start}.plane-wrap{min-width:0}.coordinate-plane{display:block;width:100%;max-width:620px;aspect-ratio:1;border-radius:14px;touch-action:none;cursor:crosshair}.plot-bg{fill:#f8fbff;stroke:#cbd8e8;stroke-width:2}.grid-lines line{stroke:#dce6f2;stroke-width:1}.grid-lines line:nth-child(10n+1){stroke:#c7d5e6}.axes line{stroke:#1d3557;stroke-width:3}.arrowheads{fill:#1d3557}.axis-labels{font:700 13px system-ui;fill:#465a73}.axis-labels text:nth-child(n+5):nth-child(-n+8){font-size:24px;fill:#9aabc1}.point-guide line{stroke:#2878d0;stroke-width:2;stroke-dasharray:7 6}.point-marker circle:first-child{fill:#ffb703;stroke:#8a4f00;stroke-width:3}.point-marker circle:nth-child(2){fill:#5c3500}.point-marker text{font:900 17px system-ui;fill:#16365f}.plane-tip{margin:.55rem 0 0;text-align:center;color:#526174;font-size:.9rem}.coordinate-panel{display:grid;gap:.9rem}.coordinate-readout{display:grid;gap:.2rem;padding:1rem;border-radius:14px;background:#eef6ff}.coordinate-readout strong{font-size:2rem;color:#174ea6}.coordinate-readout small{font-weight:800;color:#425a78}.coordinate-panel label{display:grid;grid-template-columns:1fr auto;gap:.35rem;font-weight:800}.coordinate-panel input{grid-column:1/-1;width:100%}.direction-card,.target-help{display:grid;gap:.25rem;padding:.85rem;border-radius:12px;background:#f5f7fa;color:#526174}.direction-card strong,.target-help strong{color:#24364b}.secondary-button,.text-button{border-radius:10px;padding:.72rem .9rem;font:800 .9rem system-ui;cursor:pointer}.secondary-button{border:1px solid #174ea6;background:#174ea6;color:white}.text-button{border:0;background:transparent;color:#174ea6}.mission{margin:.7rem 0 1rem;padding:.8rem 1rem;border-radius:12px;background:#fff7d6;font-size:1.05rem}.score{display:flex;gap:.45rem;flex-wrap:wrap}.score span{padding:.4rem .6rem;border-radius:999px;background:#eef6ff;color:#425a78}.game-feedback{min-height:4.1rem;padding:.85rem;border-radius:12px;background:#f5f7fa;font-weight:700;color:#31465f}.mini-label{margin:0;font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#5a6a80}.coordinate-entry{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.coordinate-entry label{grid-template-columns:auto 1fr;align-items:center}.coordinate-entry input{grid-column:auto;min-width:0;padding:.6rem;border:1px solid #b9c8da;border-radius:8px;font:inherit}.coordinate-entry button{grid-column:1/-1}
+@media(max-width:760px){.plane-layout{grid-template-columns:1fr}.coordinate-lab{padding:.75rem}.lab-heading{display:grid}.score{justify-content:flex-start}.axis-labels text:nth-child(n+5):nth-child(-n+8){font-size:20px}}
+</style>

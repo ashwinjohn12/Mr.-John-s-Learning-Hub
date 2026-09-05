@@ -1,0 +1,9 @@
+---
+import Unit2LessonPage from '../../../../components/Unit2LessonPage.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit2Lesson21Content } from '../../../../data/unit2Content';
+const course = findCourse('grade-6-math')!;
+const unit = course.units.find((item) => item.slug === 'coordinates-design')!;
+const topic = unit.topics.find((item) => item.slug === 'describing-location-cartesian-plane')!;
+---
+<Unit2LessonPage {course} {unit} {topic} content={unit2Lesson21Content} />
