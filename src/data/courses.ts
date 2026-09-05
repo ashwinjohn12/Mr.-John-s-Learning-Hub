@@ -36,22 +36,24 @@ export const courses: Course[] = [
     description: 'Build number sense, mathematical reasoning, and confidence through models, examples, practice, and purposeful challenges.',
     units: [
       {
-        slug: 'number',
+        slug: 'positive-negative-numbers',
         number: '01',
-        title: 'Number',
-        description: 'Explore number relationships, operations, and efficient strategies.',
+        title: 'Positive & Negative Numbers',
+        description: 'Use direction, magnitude, models, and number lines to understand and operate with integers.',
         topics: [
-          { slug: 'factors-and-multiples', number: '1.1', title: 'Factors & Multiples', summary: 'Use arrays and division to uncover the structure of whole numbers.', status: 'ready' },
-          { slug: 'prime-factorization', number: '1.2', title: 'Prime Factorization', summary: 'Represent composite numbers as products of prime factors.', status: 'planned' },
-          { slug: 'order-of-operations', number: '1.3', title: 'Order of Operations', summary: 'Apply a shared order to evaluate numerical expressions.', status: 'planned' }
+          { slug: 'understanding-positive-negative', number: '1.1', title: 'Understanding & Comparing Positive and Negative Numbers', summary: 'Use real-life contexts and number lines to understand direction, magnitude, comparison, and order.', status: 'ready' },
+          { slug: 'what-are-integers-add', number: '1.2', title: 'What Are Integers and How Do You Add Them?', summary: 'Build integer addition with additive inverses, zero pairs, chips, and number-line models.', status: 'ready' },
+          { slug: 'adding-integers', number: '1.3', title: 'Adding Integers', summary: 'Move from models to efficient symbolic strategies for adding integers.', status: 'planned' },
+          { slug: 'subtracting-integers-models', number: '1.4', title: 'Subtracting Integers Using Models', summary: 'Represent integer subtraction using chips and number-line models.', status: 'planned' },
+          { slug: 'subtracting-integers', number: '1.5', title: 'Subtracting Integers', summary: 'Use relationships between addition and subtraction to calculate differences.', status: 'planned' }
         ]
       },
-      { slug: 'integers', number: '02', title: 'Integers', description: 'Represent and compare quantities above and below zero.', topics: [] },
-      { slug: 'decimals', number: '03', title: 'Decimals', description: 'Connect place value to decimal operations and estimation.', topics: [] },
-      { slug: 'fractions-ratios-percent', number: '04', title: 'Fractions, Ratios & Percent', description: 'Reason proportionally using visual models and real situations.', topics: [] },
-      { slug: 'patterns-algebra', number: '05', title: 'Patterns & Algebra', description: 'Describe relationships with tables, expressions, and equations.', topics: [] },
-      { slug: 'geometry-measurement', number: '06', title: 'Geometry & Measurement', description: 'Analyze shapes, coordinates, area, and volume.', topics: [] },
-      { slug: 'statistics-probability', number: '07', title: 'Statistics & Probability', description: 'Collect, interpret, and communicate information from data.', topics: [] }
+      { slug: 'coordinates-design', number: '02', title: 'Coordinates & Design', description: 'Locate, transform, and analyze shapes on the Cartesian plane.', topics: [] },
+      { slug: 'number-operations', number: '03', title: 'Number Operations', description: 'Explore prime factorization, powers, and order of operations.', topics: [] },
+      { slug: 'decimals-fractions', number: '04', title: 'Operations on Decimals & Fractions', description: 'Develop flexible strategies for operations with fractions and decimal numbers.', topics: [] },
+      { slug: 'ratios-rates', number: '05', title: 'Ratios & Rates', description: 'Compare quantities and use proportional thinking in real situations.', topics: [] },
+      { slug: 'patterns-algebra', number: '06', title: 'Patterns & Algebra', description: 'Describe relationships with tables, expressions, and equations.', topics: [] },
+      { slug: 'statistics-probability', number: '07', title: 'Statistics & Probability', description: 'Collect, interpret, and communicate information from data and chance.', topics: [] }
     ]
   },
   {

@@ -1,0 +1,63 @@
+<div class="sign-sort" data-sign-sort>
+  <div class="sort-card">
+    <p class="eyebrow">REAL-LIFE SIGN SORT</p>
+    <h3 data-sort-prompt></h3>
+    <p data-sort-help>Choose the number type that best represents the situation.</p>
+  </div>
+  <div class="sort-actions">
+    <button type="button" data-sort-choice="negative">Negative</button>
+    <button type="button" data-sort-choice="zero">Zero</button>
+    <button type="button" data-sort-choice="positive">Positive</button>
+  </div>
+  <div class="sort-feedback" data-sort-feedback aria-live="polite"></div>
+  <button class="next-card" type="button" data-sort-next>New situation</button>
+</div>
+
+<script>
+  const situations = [
+    { prompt: 'A temperature of 9 °C below zero', answer: 'negative', explain: 'Below zero is the negative direction.' },
+    { prompt: 'A deposit of $35 into an account', answer: 'positive', explain: 'A deposit adds value in this simplified model.' },
+    { prompt: 'Sea level', answer: 'zero', explain: 'Sea level is the reference point in this context.' },
+    { prompt: 'An elevator parked 4 floors below ground level', answer: 'negative', explain: 'Below the reference floor is negative.' },
+    { prompt: 'A gain of 6 points', answer: 'positive', explain: 'A gain is a positive change.' },
+    { prompt: 'No change in a game score', answer: 'zero', explain: 'No change is represented by zero.' },
+    { prompt: 'A submarine 18 m below sea level', answer: 'negative', explain: 'Below sea level is negative.' },
+    { prompt: 'A lookout 120 m above sea level', answer: 'positive', explain: 'Above sea level is positive.' }
+  ];
+  document.querySelectorAll<HTMLElement>('[data-sign-sort]').forEach((widget) => {
+    const prompt = widget.querySelector('[data-sort-prompt]');
+    const feedback = widget.querySelector<HTMLElement>('[data-sort-feedback]');
+    let current = situations[0];
+    const next = () => {
+      current = situations[Math.floor(Math.random() * situations.length)];
+      if (prompt) prompt.textContent = current.prompt;
+      if (feedback) feedback.textContent = '';
+      widget.querySelectorAll<HTMLButtonElement>('[data-sort-choice]').forEach((b)=>{b.disabled=false;b.classList.remove('correct','incorrect')});
+    };
+    widget.querySelectorAll<HTMLButtonElement>('[data-sort-choice]').forEach((button)=>{
+      button.addEventListener('click',()=>{
+        const choice = button.dataset.sortChoice;
+        const correct = choice === current.answer;
+        widget.querySelectorAll<HTMLButtonElement>('[data-sort-choice]').forEach((b)=>{b.disabled=true;if(b.dataset.sortChoice===current.answer)b.classList.add('correct')});
+        if(!correct) button.classList.add('incorrect');
+        if(feedback) feedback.innerHTML = `<strong>${correct ? 'Correct!' : 'Try the model.'}</strong> ${current.explain}`;
+      });
+    });
+    widget.querySelector('[data-sort-next]')?.addEventListener('click',next);
+    next();
+  });
+</script>
+
+<style>
+  .sign-sort{border:1px solid #d8e0ea;border-radius:18px;background:#fff;padding:1.15rem}
+  .sort-card{min-height:120px;padding:1rem;border-radius:14px;background:#f4f7fb}
+  .sort-card h3{margin:.35rem 0}
+  .sort-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin:1rem 0}
+  .sort-actions button,.next-card{border:0;border-radius:12px;padding:.8rem .7rem;font-weight:800;cursor:pointer}
+  .sort-actions button{background:#eef3f9;color:#25364f}
+  .sort-actions button.correct{background:#dcfce7;color:#166534}
+  .sort-actions button.incorrect{background:#fee2e2;color:#991b1b}
+  .sort-feedback{min-height:28px}
+  .next-card{background:#174ea6;color:#fff;margin-top:.6rem}
+  @media(max-width:520px){.sort-actions{grid-template-columns:1fr}}
+</style>

@@ -1,0 +1,73 @@
+---
+import type { PracticeQuestion } from '../data/topicContent';
+interface Props { questions: readonly PracticeQuestion[]; count?: number }
+const { questions, count = 5 } = Astro.props;
+---
+<div class="check-widget" data-check-widget data-count={count}>
+  <div class="check-top">
+    <div><p class="eyebrow">NO HINTS THIS TIME</p><h3>Random 5-question check</h3></div>
+    <span data-check-score>0 / 5</span>
+  </div>
+  <div data-check-stage></div>
+  <div class="check-actions">
+    <button type="button" data-check-next disabled>Next</button>
+    <button type="button" data-check-restart>New set</button>
+  </div>
+  <script type="application/json" data-check-data set:html={JSON.stringify(questions)}></script>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-check-widget]').forEach((widget)=>{
+    const all = JSON.parse(widget.querySelector('[data-check-data]')?.textContent || '[]');
+    const count = Math.min(Number(widget.dataset.count || 5), all.length);
+    const stage = widget.querySelector<HTMLElement>('[data-check-stage]');
+    const scoreText = widget.querySelector('[data-check-score]');
+    const nextBtn = widget.querySelector<HTMLButtonElement>('[data-check-next]');
+    const restartBtn = widget.querySelector<HTMLButtonElement>('[data-check-restart]');
+    let pool:any[]=[]; let index=0; let correct=0; let answered=false;
+    const shuffle=(items:any[])=>[...items].sort(()=>Math.random()-.5);
+    const render=()=>{
+      if(index>=pool.length){
+        if(stage) stage.innerHTML = `<div class="check-finish"><p class="eyebrow">SET COMPLETE</p><h3>You scored ${correct} / ${pool.length}</h3><p>${correct === pool.length ? 'Excellent. You are ready for the next challenge.' : correct >= Math.ceil(pool.length*.7) ? 'Good work. Review any explanations you missed, then try a new set.' : 'Use the Learn and Explore sections again, then try another set.'}</p></div>`;
+        if(nextBtn) nextBtn.disabled=true;
+        return;
+      }
+      const q=pool[index];
+      answered=false;
+      if(nextBtn) nextBtn.disabled=true;
+      if(stage) {
+        stage.innerHTML=`<p class="question-count">Question ${index+1} of ${pool.length}</p><h3>${q.prompt}</h3><div class="check-choices">${q.choices.map((c:string,i:number)=>`<button type="button" data-check-choice="${i}"><span>${String.fromCharCode(65+i)}</span>${c}</button>`).join('')}</div><div class="check-feedback" data-check-feedback></div>`;
+        stage.querySelectorAll<HTMLButtonElement>('[data-check-choice]').forEach((button)=>button.addEventListener('click',()=>answer(Number(button.dataset.checkChoice))));
+      }
+      if(scoreText) scoreText.textContent=`${correct} / ${pool.length}`;
+    };
+    const answer=(choice:number)=>{
+      if(answered) return; answered=true;
+      const q=pool[index]; const isCorrect=choice===q.answer; if(isCorrect) correct++;
+      stage?.querySelectorAll<HTMLButtonElement>('[data-check-choice]').forEach((button,i)=>{button.disabled=true;if(i===q.answer)button.classList.add('correct');else if(i===choice)button.classList.add('incorrect')});
+      const feedback=stage?.querySelector<HTMLElement>('[data-check-feedback]');
+      if(feedback) feedback.innerHTML=`<strong>${isCorrect ? 'Correct!' : 'Not quite.'}</strong> ${q.explain}`;
+      if(scoreText) scoreText.textContent=`${correct} / ${pool.length}`;
+      if(nextBtn) nextBtn.disabled=false;
+    };
+    const reset=()=>{pool=shuffle(all).slice(0,count);index=0;correct=0;render()};
+    nextBtn?.addEventListener('click',()=>{index++;render()});
+    restartBtn?.addEventListener('click',reset);
+    reset();
+  });
+</script>
+
+<style>
+  .check-widget{border:1px solid #d8e0ea;border-radius:18px;background:#fff;padding:1.15rem}
+  .check-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;border-bottom:1px solid #e8edf3;padding-bottom:.9rem}
+  .check-top h3{margin:.2rem 0 0}.check-top>span{font-size:1.15rem;font-weight:900}
+  .question-count{font-weight:800;color:#5f6f84;margin:1rem 0 .2rem}
+  .check-choices{display:grid;gap:.6rem;margin:1rem 0}
+  .check-choices button{display:flex;gap:.7rem;align-items:center;text-align:left;border:1px solid #d9e1eb;border-radius:12px;background:#fff;padding:.75rem;cursor:pointer}
+  .check-choices button span{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#eef3f9;font-weight:800}
+  .check-choices button.correct{border-color:#22c55e;background:#f0fdf4}.check-choices button.incorrect{border-color:#ef4444;background:#fef2f2}
+  .check-feedback{min-height:28px;margin:.5rem 0}.check-actions{display:flex;gap:.7rem;margin-top:.8rem}
+  .check-actions button{border:0;border-radius:11px;padding:.7rem 1rem;font-weight:800;cursor:pointer;background:#174ea6;color:#fff}
+  .check-actions button:last-child{background:#eef3f9;color:#25364f}.check-actions button:disabled{opacity:.45;cursor:not-allowed}
+  .check-finish{padding:1.2rem 0}
+</style>

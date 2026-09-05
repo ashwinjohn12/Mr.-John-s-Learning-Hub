@@ -1,0 +1,103 @@
+---
+interface Props { mode: 'compare' | 'add' }
+const { mode } = Astro.props;
+const ticks = Array.from({ length: 21 }, (_, i) => i - 10);
+---
+<div class="integer-line-widget" data-integer-line data-mode={mode}>
+  <div class="line-controls">
+    <label>
+      <span>{mode === 'compare' ? 'Number A' : 'First addend'}</span>
+      <input type="range" min="-10" max="10" value={mode === 'compare' ? '-3' : '5'} step="1" data-a />
+      <strong data-a-value>{mode === 'compare' ? '-3' : '+5'}</strong>
+    </label>
+    <label>
+      <span>{mode === 'compare' ? 'Number B' : 'Second addend'}</span>
+      <input type="range" min="-10" max="10" value={mode === 'compare' ? '-8' : '-7'} step="1" data-b />
+      <strong data-b-value>{mode === 'compare' ? '-8' : '-7'}</strong>
+    </label>
+  </div>
+
+  <div class="number-line" aria-label="Interactive number line from negative ten to positive ten">
+    <div class="axis"></div>
+    {ticks.map((tick) => (
+      <span class={`tick ${tick === 0 ? 'zero' : ''}`} style={`--p:${((tick + 10) / 20) * 100}%`}>
+        <i></i><small>{tick}</small>
+      </span>
+    ))}
+    <span class="marker marker-a" data-marker-a><b>A</b></span>
+    <span class="marker marker-b" data-marker-b><b>B</b></span>
+    {mode === 'add' && <span class="marker marker-sum" data-marker-sum><b>SUM</b></span>}
+  </div>
+
+  <div class="line-explanation" aria-live="polite">
+    <strong data-result></strong>
+    <p data-explanation></p>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-integer-line]').forEach((widget) => {
+    const a = widget.querySelector<HTMLInputElement>('[data-a]');
+    const b = widget.querySelector<HTMLInputElement>('[data-b]');
+    const aText = widget.querySelector('[data-a-value]');
+    const bText = widget.querySelector('[data-b-value]');
+    const markerA = widget.querySelector<HTMLElement>('[data-marker-a]');
+    const markerB = widget.querySelector<HTMLElement>('[data-marker-b]');
+    const markerSum = widget.querySelector<HTMLElement>('[data-marker-sum]');
+    const result = widget.querySelector('[data-result]');
+    const explanation = widget.querySelector('[data-explanation]');
+    const mode = widget.dataset.mode;
+    const signed = (n: number) => n > 0 ? `+${n}` : `${n}`;
+    const pct = (n: number) => `${Math.max(0, Math.min(100, ((n + 10) / 20) * 100))}%`;
+
+    const render = () => {
+      const av = Number(a?.value ?? 0);
+      const bv = Number(b?.value ?? 0);
+      if (aText) aText.textContent = signed(av);
+      if (bText) bText.textContent = signed(bv);
+      if (markerA) markerA.style.left = pct(av);
+      if (markerB) markerB.style.left = pct(bv);
+
+      if (mode === 'compare') {
+        const symbol = av === bv ? '=' : av > bv ? '>' : '<';
+        if (result) result.textContent = `${signed(av)} ${symbol} ${signed(bv)}`;
+        if (explanation) {
+          const direction = av === bv ? 'the same position' : av > bv ? `${signed(av)} is farther right` : `${signed(bv)} is farther right`;
+          explanation.textContent = `${direction}. Magnitudes: ${Math.abs(av)} and ${Math.abs(bv)}. The number farther right has the greater value.`;
+        }
+      } else {
+        const sum = av + bv;
+        if (markerSum) markerSum.style.left = pct(sum);
+        if (result) result.textContent = `${signed(av)} + (${signed(bv)}) = ${signed(sum)}`;
+        if (explanation) explanation.textContent = `Start at 0, move ${Math.abs(av)} unit${Math.abs(av) === 1 ? '' : 's'} ${av >= 0 ? 'right' : 'left'}, then ${Math.abs(bv)} unit${Math.abs(bv) === 1 ? '' : 's'} ${bv >= 0 ? 'right' : 'left'}. You finish at ${signed(sum)}.`;
+      }
+    };
+    a?.addEventListener('input', render);
+    b?.addEventListener('input', render);
+    render();
+  });
+</script>
+
+<style>
+  .integer-line-widget{border:1px solid #d8e0ea;border-radius:18px;background:#fff;padding:1.15rem;box-shadow:0 8px 24px rgba(20,44,78,.06)}
+  .line-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+  .line-controls label{display:grid;grid-template-columns:1fr auto;gap:.45rem;align-items:center;font-weight:700}
+  .line-controls input{grid-column:1/-1;width:100%}
+  .line-controls strong{font-size:1.1rem}
+  .number-line{height:116px;position:relative;margin:1.6rem .8rem .7rem}
+  .axis{position:absolute;left:0;right:0;top:54px;height:4px;border-radius:999px;background:#25364f}
+  .tick{position:absolute;left:var(--p);top:45px;transform:translateX(-50%);text-align:center}
+  .tick i{display:block;width:2px;height:20px;background:#7a8ba2;margin:auto}
+  .tick small{display:block;margin-top:.25rem;font-size:.72rem}
+  .tick.zero i{height:28px;margin-top:-4px;background:#25364f}
+  .marker{position:absolute;top:8px;transform:translateX(-50%);transition:left .15s ease;z-index:2}
+  .marker b{display:grid;place-items:center;min-width:31px;height:31px;padding:0 .35rem;border-radius:999px;background:#174ea6;color:#fff;font-size:.7rem;box-shadow:0 4px 10px rgba(23,78,166,.22)}
+  .marker-b{top:77px}
+  .marker-b b{background:#7a3e9d}
+  .marker-sum{top:30px}
+  .marker-sum b{background:#087f5b;min-width:44px}
+  .line-explanation{border-radius:14px;background:#f4f7fb;padding:.9rem 1rem}
+  .line-explanation strong{font-size:1.15rem}
+  .line-explanation p{margin:.3rem 0 0}
+  @media(max-width:650px){.line-controls{grid-template-columns:1fr}.number-line{margin-left:.25rem;margin-right:.25rem}.tick small{font-size:.6rem}}
+</style>
