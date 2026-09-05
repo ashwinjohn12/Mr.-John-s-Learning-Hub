@@ -9,6 +9,7 @@ import CoordinatePlaneLab from './CoordinatePlaneLab.astro';
 import GeometryTransformLab from './GeometryTransformLab.astro';
 import SymmetryChallenge from './SymmetryChallenge.astro';
 import TessellationBuilder from './TessellationBuilder.astro';
+import Unit2OutcomeBoost from './Unit2OutcomeBoost.astro';
 import type { Course, Unit, Topic } from '../data/courses';
 import type { TopicContent } from '../data/topicContent';
 
@@ -17,6 +18,18 @@ const { course, unit, topic, content } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const sectionLinks = [['overview','🎯','Overview'],['big-ideas','🌎','Big Ideas'],['understand','📘','Understand'],['examples','🧩','Examples'],['vocabulary','🧠','Vocabulary'],['explore','🔬','Explore'],['practise','✏️','Practise'],['check','✅','Check Yourself'],['apply','🎮','Apply'],['review','🏁','Review']];
 const nextHref = content.next.slug && content.next.status === 'ready' ? `${base}courses/${course.slug}/${unit.slug}/${content.next.slug}/` : null;
+const curriculumGoalBoosts: Record<string,string[]> = {
+  'rotating-shapes': ['verify a polygon rotation about one of its own vertices, not only about the origin.'],
+  'congruence-symmetry': ['visualize and describe a combination of two transformations that relates two shapes.','demonstrate congruence by superimposing one shape exactly on another.'],
+  'tessellations': ['investigate tessellations found in objects, art, and architecture and describe the symmetry or transformations I notice.']
+};
+const curriculumSuccessBoosts: Record<string,string[]> = {
+  'rotating-shapes': ['I can keep a chosen polygon vertex fixed and rotate every other vertex around it.'],
+  'congruence-symmetry': ['I can apply two transformations in sequence and describe the result.','I can use an exact superimposed match as evidence of congruence.'],
+  'tessellations': ['I can use evidence from a real object, artwork, or architectural pattern to decide whether it is a tessellation and describe its symmetry.']
+};
+const displayedGoals = [...content.goals, ...(curriculumGoalBoosts[topic.slug] ?? [])];
+const displayedSuccessCriteria = [...content.successCriteria, ...(curriculumSuccessBoosts[topic.slug] ?? [])];
 const homeNotes: Record<string,string> = {
   'describing-location-cartesian-plane': 'Cover your picture, keep only the coordinate list, and re-plot it later. If the same picture appears, your coordinates were precise.',
   'translating-shapes': 'Trace the shape twice on separate scraps of paper, then slide one copy across a hand-drawn grid.',
@@ -42,9 +55,9 @@ const homeNotes: Record<string,string> = {
       </header>
 
       <LearningSection id="overview" eyebrow="GET READY" title="What you need & where you are going" icon="🎯" tone="idea">
-        <div class="overview-grid"><div><p class="mini-label">BEFORE YOU START</p><ul>{content.prerequisites.map((item)=><li>{item}</li>)}</ul></div><div><p class="mini-label">BY THE END, I CAN…</p><ul>{content.goals.map((goal)=><li>{goal}</li>)}</ul></div></div>
+        <div class="overview-grid"><div><p class="mini-label">BEFORE YOU START</p><ul>{content.prerequisites.map((item)=><li>{item}</li>)}</ul></div><div><p class="mini-label">BY THE END, I CAN…</p><ul>{displayedGoals.map((goal)=><li>{goal}</li>)}</ul></div></div>
         <div class="lesson-meta"><span><strong>Time:</strong> {content.estimatedTime}</span><span><strong>Materials:</strong> {content.materials.join(' · ')}</span></div>
-        <details class="success-box"><summary>How will I know I understand it?</summary><ul>{content.successCriteria.map((item)=><li>{item}</li>)}</ul></details>
+        <details class="success-box"><summary>How will I know I understand it?</summary><ul>{displayedSuccessCriteria.map((item)=><li>{item}</li>)}</ul></details>
       </LearningSection>
 
       <LearningSection id="big-ideas" eyebrow="START HERE" title="The big idea" icon="🌎" tone="idea">
@@ -69,6 +82,7 @@ const homeNotes: Record<string,string> = {
           {topic.slug === 'rotating-shapes' && <div><h3>Rotation Lab</h3><p>Turn the triangle about vertex A, then compare equivalent angles and directions.</p><GeometryTransformLab mode="rotate" /></div>}
           {topic.slug === 'congruence-symmetry' && <div><h3>Congruence & Symmetry Detective</h3><p>Decide first, then use the explanation to test your evidence.</p><SymmetryChallenge /></div>}
           {topic.slug === 'tessellations' && <div><h3>Tessellation Builder</h3><p>Experiment with tile shape, spacing, colour, and the two requirements for a tessellation.</p><TessellationBuilder /></div>}
+          <Unit2OutcomeBoost topic={topic.slug} />
         </div>
         <article class="hands-on-card"><p class="eyebrow">OFF-SCREEN ACTIVITY</p><h3>{content.handsOn.title}</h3><ol>{content.handsOn.instructions.map((item)=><li>{item}</li>)}</ol><p><strong>Reflect:</strong> {content.handsOn.reflect}</p><p class="home-note"><strong>Working on your own?</strong> {homeNotes[topic.slug]}</p></article>
       </LearningSection>
