@@ -5,10 +5,10 @@ const { questions, count = 5 } = Astro.props;
 ---
 <div class="check-widget" data-check-widget data-count={count}>
   <div class="check-top">
-    <div><p class="eyebrow">NO HINTS THIS TIME</p><h3>Random 5-question check</h3></div>
-    <span data-check-score>0 / 5</span>
+    <div><p class="eyebrow">NO HINTS THIS TIME</p><h3>Random {count}-question check</h3></div>
+    <span data-check-score aria-live="polite">0 / {count}</span>
   </div>
-  <div data-check-stage></div>
+  <div data-check-stage aria-live="polite"></div>
   <div class="check-actions">
     <button type="button" data-check-next disabled>Next</button>
     <button type="button" data-check-restart>New set</button>
@@ -28,7 +28,7 @@ const { questions, count = 5 } = Astro.props;
     const shuffle=(items:any[])=>[...items].sort(()=>Math.random()-.5);
     const render=()=>{
       if(index>=pool.length){
-        if(stage) stage.innerHTML = `<div class="check-finish"><p class="eyebrow">SET COMPLETE</p><h3>You scored ${correct} / ${pool.length}</h3><p>${correct === pool.length ? 'Excellent. You are ready for the next challenge.' : correct >= Math.ceil(pool.length*.7) ? 'Good work. Review any explanations you missed, then try a new set.' : 'Use the Learn and Explore sections again, then try another set.'}</p></div>`;
+        if(stage) stage.innerHTML = `<div class="check-finish" role="status"><p class="eyebrow">SET COMPLETE</p><h3>You scored ${correct} / ${pool.length}</h3><p>${correct === pool.length ? 'Excellent. You are ready for the next challenge.' : correct >= Math.ceil(pool.length*.7) ? 'Good work. Review any explanations you missed, then try a new set.' : 'Use the Learn and Explore sections again, then try another set.'}</p></div>`;
         if(nextBtn) nextBtn.disabled=true;
         return;
       }
@@ -36,7 +36,7 @@ const { questions, count = 5 } = Astro.props;
       answered=false;
       if(nextBtn) nextBtn.disabled=true;
       if(stage) {
-        stage.innerHTML=`<p class="question-count">Question ${index+1} of ${pool.length}</p><h3>${q.prompt}</h3><div class="check-choices">${q.choices.map((c:string,i:number)=>`<button type="button" data-check-choice="${i}"><span>${String.fromCharCode(65+i)}</span>${c}</button>`).join('')}</div><div class="check-feedback" data-check-feedback></div>`;
+        stage.innerHTML=`<p class="question-count">Question ${index+1} of ${pool.length}</p><h3>${q.prompt}</h3><div class="check-choices">${q.choices.map((c:string,i:number)=>`<button type="button" data-check-choice="${i}"><span>${String.fromCharCode(65+i)}</span>${c}</button>`).join('')}</div><div class="check-feedback" data-check-feedback role="status"></div>`;
         stage.querySelectorAll<HTMLButtonElement>('[data-check-choice]').forEach((button)=>button.addEventListener('click',()=>answer(Number(button.dataset.checkChoice))));
       }
       if(scoreText) scoreText.textContent=`${correct} / ${pool.length}`;
