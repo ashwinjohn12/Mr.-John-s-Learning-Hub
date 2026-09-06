@@ -1,0 +1,127 @@
+<section class="decimal-product-lab" data-product-lab>
+  <div class="lab-head">
+    <p class="eyebrow">DECIMAL PRODUCT STUDIO</p>
+    <h3>Estimate, name the units, build the product</h3>
+    <p>Work from A to D. The goal is to understand the product before using a compact algorithm.</p>
+  </div>
+
+  <article class="lab-part">
+    <div class="part-tag">A · ESTIMATE GATE</div>
+    <h4>Put the product in a reasonable range first</h4>
+    <p class="prompt" data-estimate-prompt></p>
+    <div class="choice-row" data-estimate-choices></div>
+    <p class="feedback" data-estimate-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-estimate>New estimate</button>
+  </article>
+
+  <article class="lab-part">
+    <div class="part-tag">B · PLACE-VALUE PRODUCT BUILDER</div>
+    <h4>Name the decimal unit before multiplying</h4>
+    <p class="prompt" data-unit-prompt></p>
+    <div class="unit-flow" data-unit-flow></div>
+    <div class="choice-row" data-unit-choices></div>
+    <p class="feedback" data-unit-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-unit>New place-value product</button>
+  </article>
+
+  <article class="lab-part">
+    <div class="part-tag">C · PARTIAL-PRODUCT BOARD</div>
+    <h4>Complete the missing area-model product</h4>
+    <p class="prompt" data-partial-prompt></p>
+    <div class="partial-grid" data-partial-grid></div>
+    <div class="choice-row" data-partial-choices></div>
+    <p class="feedback" data-partial-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-partial>New partial-product challenge</button>
+  </article>
+
+  <article class="lab-part">
+    <div class="part-tag">D · ALGORITHM TRANSLATOR</div>
+    <h4>Explain where the decimal belongs</h4>
+    <p class="prompt" data-alg-prompt></p>
+    <div class="choice-row" data-alg-choices></div>
+    <p class="feedback" data-alg-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-alg>New translation</button>
+  </article>
+
+  <article class="practice-bridge">
+    <p class="eyebrow">READY FOR PRACTICE?</p>
+    <h4>Transfer the studio thinking to paper</h4>
+    <p>Set up <strong>4.2 × 6</strong> on paper before you move on.</p>
+    <ol>
+      <li>Estimate: the answer should be close to 4 × 6 = 24.</li>
+      <li>Read 4.2 as <strong>42 tenths</strong>.</li>
+      <li>Multiply 42 × 6, then rename the tenths.</li>
+    </ol>
+    <details><summary>Check my reasoning</summary><div class="paper-check"><code>42 tenths × 6 = 252 tenths</code><span>→</span><strong>25.2</strong></div><p>If that chain makes sense, you are ready for supported Practice.</p></details>
+  </article>
+</section>
+
+<script>
+  const root = document.querySelector('[data-product-lab]');
+  if (root) {
+    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const shuffle = (arr) => [...arr].sort(() => Math.random() - .5);
+
+    const estimateBank = [
+      { prompt: '6 × 4.71', choices: ['between 2.4 and 3', 'between 24 and 30', 'between 240 and 300'], answer: 'between 24 and 30', why: '4.71 is between 4 and 5, so 6 × 4.71 is between 6×4 = 24 and 6×5 = 30.' },
+      { prompt: '8 × 7.3', choices: ['between 5.6 and 6.4', 'between 56 and 64', 'between 560 and 640'], answer: 'between 56 and 64', why: '7.3 is between 7 and 8, so the product is between 56 and 64.' },
+      { prompt: '12 × 4.3', choices: ['between 4 and 5', 'between 48 and 60', 'between 480 and 600'], answer: 'between 48 and 60', why: '4.3 is between 4 and 5, so 12×4.3 is between 48 and 60.' }
+    ];
+    let estimateQ;
+    const renderEstimate = () => {
+      estimateQ = pick(estimateBank);
+      root.querySelector('[data-estimate-prompt]').textContent = `Before calculating ${estimateQ.prompt}, choose the most reasonable range.`;
+      const box = root.querySelector('[data-estimate-choices]'); box.innerHTML = '';
+      shuffle(estimateQ.choices).forEach(text => {
+        const b = document.createElement('button'); b.type='button'; b.textContent=text;
+        b.onclick=()=>{const fb=root.querySelector('[data-estimate-feedback]'); if(text===estimateQ.answer){fb.textContent=`✓ ${estimateQ.why}`;fb.className='feedback good'}else{fb.textContent=`Try again. Round the decimal factor to nearby natural numbers. ${estimateQ.why}`;fb.className='feedback try'}};
+        box.appendChild(b);
+      });
+      root.querySelector('[data-estimate-feedback]').textContent='';
+    };
+
+    const unitBank = [
+      { prompt:'4 × 2.1', start:'2.1 = 21 tenths', middle:'4 × 21 tenths = 84 tenths', answer:'8.4', choices:['0.84','8.4','84'], why:'84 tenths = 8.4.' },
+      { prompt:'2 × 2.13', start:'2.13 = 213 hundredths', middle:'2 × 213 hundredths = 426 hundredths', answer:'4.26', choices:['0.426','4.26','42.6'], why:'426 hundredths = 4.26.' },
+      { prompt:'5 × 1.25', start:'1.25 = 125 hundredths', middle:'5 × 125 hundredths = 625 hundredths', answer:'6.25', choices:['0.625','6.25','62.5'], why:'625 hundredths = 6.25.' }
+    ];
+    let unitQ;
+    const renderUnit = () => {
+      unitQ=pick(unitBank); root.querySelector('[data-unit-prompt]').textContent=`Complete ${unitQ.prompt} by following the place-value units.`;
+      const flow=root.querySelector('[data-unit-flow]'); flow.innerHTML=`<span>${unitQ.start}</span><b>→</b><span>${unitQ.middle}</span><b>→</b><span>?</span>`;
+      const box=root.querySelector('[data-unit-choices]'); box.innerHTML='';
+      shuffle(unitQ.choices).forEach(text=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.onclick=()=>{const fb=root.querySelector('[data-unit-feedback]');if(text===unitQ.answer){fb.textContent=`✓ ${unitQ.why}`;fb.className='feedback good';flow.lastElementChild.textContent=unitQ.answer}else{fb.textContent='Check the unit name. Tenths or hundredths must be renamed back into decimal notation.';fb.className='feedback try'}};box.appendChild(b)});
+      root.querySelector('[data-unit-feedback]').textContent='';
+    };
+
+    const partialBank = [
+      { prompt:'34 × 5.7', rows:[['30 × 5','150'],['30 × 0.7','21'],['4 × 5','20'],['4 × 0.7','?']], answer:'2.8', choices:['0.28','2.8','28'], total:'193.8' },
+      { prompt:'12 × 4.3', rows:[['10 × 4','40'],['10 × 0.3','3'],['2 × 4','8'],['2 × 0.3','?']], answer:'0.6', choices:['0.06','0.6','6'], total:'51.6' },
+      { prompt:'23 × 2.4', rows:[['20 × 2','40'],['20 × 0.4','8'],['3 × 2','6'],['3 × 0.4','?']], answer:'1.2', choices:['0.12','1.2','12'], total:'55.2' }
+    ];
+    let partialQ;
+    const renderPartial=()=>{
+      partialQ=pick(partialBank);root.querySelector('[data-partial-prompt]').textContent=`For ${partialQ.prompt}, find the missing partial product.`;
+      const grid=root.querySelector('[data-partial-grid]');grid.innerHTML='';partialQ.rows.forEach(([expr,val])=>{const d=document.createElement('div');d.innerHTML=`<strong>${expr}</strong><span>${val}</span>`;grid.appendChild(d)});
+      const box=root.querySelector('[data-partial-choices]');box.innerHTML='';shuffle(partialQ.choices).forEach(text=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.onclick=()=>{const fb=root.querySelector('[data-partial-feedback]');if(text===partialQ.answer){fb.textContent=`✓ Correct. Add all four partial products to get ${partialQ.total}.`;fb.className='feedback good'}else{fb.textContent='Look at the decimal part as a place-value unit before multiplying.';fb.className='feedback try'}};box.appendChild(b)});root.querySelector('[data-partial-feedback]').textContent='';
+    };
+
+    const algBank=[
+      {prompt:'12.8 × 39 gives 4992 when 128 × 39 is calculated. Why is the final product 499.2?',answer:'12.8 is 128 tenths, so the result is 4992 tenths = 499.2.',choices:['12.8 is 128 tenths, so the result is 4992 tenths = 499.2.','The decimal points must line up vertically.','Multiplication always moves a decimal one place left.']},
+      {prompt:'4 × 10.3 and 4 × 103 use the same digits. Why are the products 41.2 and 412?',answer:'10.3 is one tenth of 103, so its product is one tenth as large.',choices:['10.3 is one tenth of 103, so its product is one tenth as large.','Decimals always make products smaller than 1.','The decimal point is ignored until the end.']},
+      {prompt:'Why can 5 × $1.25 be calculated as 5 × 125 cents?',answer:'$1.25 is 125 cents, so the multiplication uses a natural-number count of cents.',choices:['$1.25 is 125 cents, so the multiplication uses a natural-number count of cents.','Money must always be converted to dollars after multiplying decimal points.','The cents are not part of the value.']}
+    ];
+    let algQ;
+    const renderAlg=()=>{algQ=pick(algBank);root.querySelector('[data-alg-prompt]').textContent=algQ.prompt;const box=root.querySelector('[data-alg-choices]');box.innerHTML='';shuffle(algQ.choices).forEach(text=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.onclick=()=>{const fb=root.querySelector('[data-alg-feedback]');if(text===algQ.answer){fb.textContent='✓ That explanation uses place value, not a shortcut.';fb.className='feedback good'}else{fb.textContent='Try again. Choose the explanation that names the value or unit represented by the decimal factor.';fb.className='feedback try'}};box.appendChild(b)});root.querySelector('[data-alg-feedback]').textContent='';};
+
+    root.querySelector('[data-new-estimate]').addEventListener('click',renderEstimate);
+    root.querySelector('[data-new-unit]').addEventListener('click',renderUnit);
+    root.querySelector('[data-new-partial]').addEventListener('click',renderPartial);
+    root.querySelector('[data-new-alg]').addEventListener('click',renderAlg);
+    renderEstimate();renderUnit();renderPartial();renderAlg();
+  }
+</script>
+
+<style>
+.decimal-product-lab{display:grid;gap:1rem}.lab-head,.lab-part,.practice-bridge{border:1px solid #dbe4ee;border-radius:16px;padding:1rem;background:#fff}.lab-head{background:#f5f9ff}.lab-head h3,.lab-part h4,.practice-bridge h4{margin:.25rem 0 .55rem}.part-tag,.eyebrow{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#31598b}.prompt{font-weight:750}.choice-row{display:flex;gap:.55rem;flex-wrap:wrap;margin:.7rem 0}.choice-row button,.secondary{border:1px solid #b9c9dc;border-radius:10px;padding:.6rem .8rem;background:#fff;font:inherit;font-weight:800;cursor:pointer}.choice-row button:hover{background:#eef5ff}.secondary{background:#f7f9fc}.unit-flow{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:.75rem 0}.unit-flow span{padding:.65rem;border-radius:10px;background:#eef5ff;font-weight:850}.partial-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem;margin:.75rem 0}.partial-grid>div{display:flex;justify-content:space-between;gap:.8rem;padding:.7rem;border:1px solid #dce4ee;border-radius:10px;background:#f8fafc}.feedback{min-height:1.5rem;margin:.65rem 0 0;font-weight:750}.feedback.good{color:#17633b}.feedback.try{color:#8a4b08}.practice-bridge{background:#f5f9ff}.practice-bridge ol{padding-left:1.2rem}.paper-check{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin:.7rem 0}.paper-check code{padding:.5rem .65rem;border-radius:8px;background:#fff;font-weight:850}@media(max-width:650px){.choice-row button{width:100%;text-align:left}.partial-grid{grid-template-columns:1fr}}
+</style>
