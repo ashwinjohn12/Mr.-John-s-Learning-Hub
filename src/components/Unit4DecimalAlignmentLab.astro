@@ -1,24 +1,36 @@
 <section class="decimal-lab" data-decimal-lab>
   <div class="lab-head">
     <p class="eyebrow">DECIMAL ALIGNMENT LAB</p>
-    <h3>Dock the place values before you calculate</h3>
-    <p>Work from A to D. Each part focuses on a different reason decimal algorithms work.</p>
+    <h3>Match the place-value units before you calculate</h3>
+    <p>Work from A to D. In every part, ask the same question: <strong>what does each digit represent?</strong></p>
   </div>
 
   <article class="lab-part">
     <div class="part-tag">A · PLACE-VALUE DOCK</div>
-    <h4>Shift the second number until equal place values line up</h4>
+    <h4>Dock the second number in the correct place-value columns</h4>
     <p class="prompt" data-align-prompt></p>
-    <div class="place-labels" aria-hidden="true"><span>Tens</span><span>Ones</span><span>·</span><span>Tenths</span><span>Hundredths</span><span>Thousandths</span></div>
-    <div class="align-board" aria-label="Decimal alignment board">
-      <pre data-align-top></pre>
-      <pre data-align-bottom></pre>
+    <p class="micro-note">Use the <strong>decimal-point column</strong> as your landmark. When the decimal points match, ones are under ones, tenths are under tenths, and so on.</p>
+
+    <div class="dock-wrap" aria-label="Place-value alignment board">
+      <div class="place-grid place-head" aria-hidden="true">
+        <span>Tens</span><span>Ones</span><span>·</span><span>Tenths</span><span>Hundredths</span><span>Thousandths</span><span>Ten-thousandths</span>
+      </div>
+      <div class="number-line">
+        <span class="operation-space" aria-hidden="true"></span>
+        <div class="place-grid" data-align-top></div>
+      </div>
+      <div class="number-line">
+        <span class="operation" data-align-op></span>
+        <div class="place-grid movable" data-align-bottom></div>
+      </div>
     </div>
+
     <div class="control-row">
       <button type="button" data-shift-left>← Shift left</button>
-      <button type="button" data-check-align>Check alignment</button>
+      <button type="button" data-check-align>Check my alignment</button>
       <button type="button" data-shift-right>Shift right →</button>
     </div>
+    <details class="hint-box"><summary>Need a hint?</summary><p>Ignore the last digits. Find the decimal point in each number and move the second number until both decimal points are in the same vertical column.</p></details>
     <p class="feedback" data-align-feedback aria-live="polite"></p>
     <button class="secondary" type="button" data-new-align>New alignment</button>
   </article>
@@ -53,6 +65,22 @@
     <p class="feedback" data-scale-feedback aria-live="polite"></p>
     <button class="secondary" type="button" data-new-scale>New scale challenge</button>
   </article>
+
+  <article class="practice-bridge">
+    <p class="eyebrow">READY FOR PRACTICE?</p>
+    <h4>Move the lab thinking onto paper</h4>
+    <p>Before you leave Explore, set up <strong>6.2 + 0.47</strong> on paper. Do these three things:</p>
+    <ol>
+      <li>Estimate the answer first. It should be close to 7.</li>
+      <li>Rename 6.2 if a placeholder zero helps you see the columns.</li>
+      <li>Line up equal place-value units before calculating.</li>
+    </ol>
+    <details>
+      <summary>Check my setup</summary>
+      <div class="paper-check"><code>6.20 + 0.47</code><span>→</span><strong>6.67</strong></div>
+      <p>If your setup matches, you are ready for supported Practice. If not, try Part A and Part B once more before moving on.</p>
+    </details>
+  </article>
 </section>
 
 <script>
@@ -60,43 +88,73 @@
   if (root) {
     const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
     const shuffle = (arr) => [...arr].sort(() => Math.random() - .5);
+    const placeNames = ['tens', 'ones', 'decimal point', 'tenths', 'hundredths', 'thousandths', 'ten-thousandths'];
 
     const alignBank = [
       { a: '3.4', b: '0.056', op: '+', result: '3.456' },
       { a: '12.45', b: '8.7632', op: '+', result: '21.2132' },
       { a: '7.3', b: '0.845', op: '−', result: '6.455' },
-      { a: '10.05428', b: '9.4567', op: '+', result: '19.51098' }
+      { a: '15.6347', b: '2.925', op: '+', result: '18.5597' }
     ];
+
+    const canonicalCells = (text) => {
+      const [whole, fraction = ''] = text.split('.');
+      const cells = Array(7).fill('');
+      const wholeDigits = whole.split('');
+      cells[1] = wholeDigits.at(-1) || '';
+      cells[0] = wholeDigits.at(-2) || '';
+      cells[2] = '.';
+      for (let i = 0; i < Math.min(4, fraction.length); i++) cells[3 + i] = fraction[i];
+      return cells;
+    };
+
+    const shiftedCells = (text, shift) => {
+      const source = canonicalCells(text);
+      const output = Array(7).fill('');
+      source.forEach((value, index) => {
+        if (!value) return;
+        const target = index + shift;
+        if (target >= 0 && target < output.length) output[target] = value;
+      });
+      return output;
+    };
+
+    const renderCells = (container, cells) => {
+      container.innerHTML = '';
+      cells.forEach((value, index) => {
+        const cell = document.createElement('span');
+        cell.className = `place-cell ${index === 2 ? 'decimal-column' : ''}`;
+        cell.textContent = value;
+        cell.setAttribute('aria-label', value ? `${value}, ${placeNames[index]}` : `empty ${placeNames[index]}`);
+        container.appendChild(cell);
+      });
+    };
+
     let alignQ;
-    let topStart = 5;
-    let bottomStart = 5;
-    let correctStart = 5;
-    const boardWidth = 24;
-    const makeRow = (text, start, prefix = '') => `${prefix}${' '.repeat(Math.max(0, start - prefix.length))}${text}`.padEnd(boardWidth, ' ');
+    let shift = 0;
     const renderAlignRows = () => {
-      root.querySelector('[data-align-top]').textContent = makeRow(alignQ.a, topStart);
-      root.querySelector('[data-align-bottom]').textContent = makeRow(alignQ.b, bottomStart, alignQ.op);
+      renderCells(root.querySelector('[data-align-top]'), canonicalCells(alignQ.a));
+      renderCells(root.querySelector('[data-align-bottom]'), shiftedCells(alignQ.b, shift));
+      root.querySelector('[data-align-op]').textContent = alignQ.op;
     };
     const renderAlign = () => {
       alignQ = pick(alignBank);
-      topStart = 6;
-      correctStart = topStart + alignQ.a.indexOf('.') - alignQ.b.indexOf('.');
-      const offsets = [-2, -1, 1, 2];
-      bottomStart = Math.max(2, correctStart + pick(offsets));
-      root.querySelector('[data-align-prompt]').textContent = `${alignQ.a} ${alignQ.op} ${alignQ.b}. Move the second number until its decimal point is directly under the first decimal point.`;
+      shift = pick([-2, -1, 1, 2]);
+      root.querySelector('[data-align-prompt]').textContent = `${alignQ.a} ${alignQ.op} ${alignQ.b}. The second number starts in the wrong columns. Shift it until the place values match.`;
       root.querySelector('[data-align-feedback]').textContent = '';
       renderAlignRows();
     };
-    root.querySelector('[data-shift-left]').addEventListener('click', () => { bottomStart = Math.max(2, bottomStart - 1); renderAlignRows(); });
-    root.querySelector('[data-shift-right]').addEventListener('click', () => { bottomStart = Math.min(14, bottomStart + 1); renderAlignRows(); });
+    root.querySelector('[data-shift-left]').addEventListener('click', () => { shift = Math.max(-2, shift - 1); renderAlignRows(); });
+    root.querySelector('[data-shift-right]').addEventListener('click', () => { shift = Math.min(2, shift + 1); renderAlignRows(); });
     root.querySelector('[data-check-align]').addEventListener('click', () => {
       const fb = root.querySelector('[data-align-feedback]');
-      if (bottomStart === correctStart) {
-        fb.textContent = `✓ Docked! Decimal points match, so equal place-value units are in the same columns. The calculation gives ${alignQ.result}.`;
+      if (shift === 0) {
+        fb.textContent = `✓ Docked! The decimal points share one column, so equal place-value units match. Now calculate: ${alignQ.a} ${alignQ.op} ${alignQ.b} = ${alignQ.result}.`;
         fb.className = 'feedback good';
       } else {
-        const direction = bottomStart < correctStart ? 'right' : 'left';
-        fb.textContent = `Not yet. Shift the second number ${direction} until the decimal points are in the same column.`;
+        const direction = shift < 0 ? 'right' : 'left';
+        const spaces = Math.abs(shift);
+        fb.textContent = `Not yet. The second number is ${spaces} place-value column${spaces === 1 ? '' : 's'} too far ${shift < 0 ? 'left' : 'right'}. Shift it ${direction}.`;
         fb.className = 'feedback try';
       }
     });
@@ -128,11 +186,11 @@
 
     const errorBank = [
       {
-        work: '  5.8\n+0.47\n─────\n 5.127',
-        prompt: 'What caused the error?',
-        choices: ['The last digits were lined up instead of equal place values.', 'A zero was added to 5.8.', 'Addition cannot be used with decimals.'],
+        work: '  5.8\n+0.47',
+        prompt: 'Before calculating, what is wrong with this setup?',
+        choices: ['The decimal points are not aligned, so equal place values are in different columns.', 'A zero must never be added to a decimal.', 'Addition cannot be used with decimals.'],
         answer: 0,
-        why: 'Write 5.8 as 5.80, then align the decimal points. The correct sum is 6.27.'
+        why: 'Rewrite 5.8 as 5.80, then put 0.47 underneath with decimal points aligned. The sum is 6.27.'
       },
       {
         work: ' 12.45\n− 8.7632',
@@ -215,5 +273,5 @@
 </script>
 
 <style>
-.decimal-lab{display:grid;gap:1rem}.lab-head,.lab-part{border:1px solid #dbe4ee;border-radius:16px;padding:1rem;background:#fff}.lab-head{background:#f5f9ff}.lab-head h3,.lab-part h4{margin:.25rem 0 .55rem}.part-tag,.eyebrow{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#31598b}.prompt{font-weight:750}.place-labels{display:grid;grid-template-columns:repeat(6,minmax(65px,1fr));gap:.25rem;margin:.7rem 0 .25rem;font-size:.72rem;font-weight:800;color:#5c6c80;text-align:center}.align-board{overflow-x:auto;padding:.8rem;border-radius:12px;background:#101828;color:#f8fafc}.align-board pre{margin:.1rem 0;font:800 1.25rem/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.08em;white-space:pre}.control-row,.choice-row{display:flex;gap:.55rem;flex-wrap:wrap;margin:.75rem 0}.control-row button,.choice-row button,.secondary{border:1px solid #b9c9dc;border-radius:10px;padding:.6rem .8rem;background:#fff;font:inherit;font-weight:800;cursor:pointer}.control-row button:hover,.choice-row button:hover{background:#eef5ff}.secondary{background:#f7f9fc}.error-work{white-space:pre-wrap;font:800 1.05rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:.8rem;border-radius:12px;background:#f7f9fc;border:1px solid #e2e8f0}.feedback{min-height:1.5rem;margin:.65rem 0 0;font-weight:750}.feedback.good{color:#17633b}.feedback.try{color:#8a4b08}@media(max-width:700px){.place-labels{display:none}.control-row button,.choice-row button{width:100%;text-align:left}.align-board pre{font-size:1.05rem}}
+.decimal-lab{display:grid;gap:1rem}.lab-head,.lab-part,.practice-bridge{border:1px solid #dbe4ee;border-radius:16px;padding:1rem;background:#fff}.lab-head{background:#f5f9ff}.lab-head h3,.lab-part h4,.practice-bridge h4{margin:.25rem 0 .55rem}.part-tag,.eyebrow{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#31598b}.prompt{font-weight:750}.micro-note{margin:.6rem 0;padding:.65rem .75rem;border-radius:10px;background:#f7f9fc;color:#45566d}.dock-wrap{overflow-x:auto;margin:.8rem 0;border:1px solid #cbd7e6;border-radius:14px;background:#f8fbff;padding:.65rem;min-width:0}.place-grid{display:grid;grid-template-columns:repeat(7,minmax(82px,1fr));min-width:690px}.place-head span{display:grid;place-items:center;min-height:44px;padding:.3rem;text-align:center;font-size:.72rem;font-weight:900;color:#506078;border-bottom:2px solid #8da8c7}.place-head span:nth-child(3){font-size:1.2rem}.number-line{display:grid;grid-template-columns:34px minmax(690px,1fr);align-items:stretch;min-width:724px}.operation,.operation-space{display:grid;place-items:center;font-size:1.35rem;font-weight:900}.place-cell{display:grid;place-items:center;min-height:58px;border-right:1px solid #d9e3ef;border-bottom:1px solid #d9e3ef;background:#fff;font:900 1.35rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.place-cell:first-child{border-left:1px solid #d9e3ef}.decimal-column{background:#eaf3ff;border-left:2px solid #79a3d2;border-right:2px solid #79a3d2}.movable .place-cell{background:#fffdf3}.movable .decimal-column{background:#fff1b8}.control-row,.choice-row{display:flex;gap:.55rem;flex-wrap:wrap;margin:.75rem 0}.control-row button,.choice-row button,.secondary{border:1px solid #b9c9dc;border-radius:10px;padding:.6rem .8rem;background:#fff;font:inherit;font-weight:800;cursor:pointer}.control-row button:hover,.choice-row button:hover{background:#eef5ff}.secondary{background:#f7f9fc}.hint-box{margin:.55rem 0}.hint-box summary,.practice-bridge summary{cursor:pointer;font-weight:850}.error-work{white-space:pre-wrap;font:800 1.05rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:.8rem;border-radius:12px;background:#f7f9fc;border:1px solid #e2e8f0}.feedback{min-height:1.5rem;margin:.65rem 0 0;font-weight:750}.feedback.good{color:#17633b}.feedback.try{color:#8a4b08}.practice-bridge{border:2px solid #abc6e6;background:#f4f9ff}.practice-bridge ol{padding-left:1.2rem}.practice-bridge li{margin:.4rem 0}.paper-check{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin:.75rem 0}.paper-check code,.paper-check strong{padding:.55rem .7rem;border-radius:9px;background:#fff;border:1px solid #d3deea;font-size:1.05rem}@media(max-width:700px){.control-row button,.choice-row button{width:100%;text-align:left}.dock-wrap{padding:.45rem}.place-grid{grid-template-columns:repeat(7,78px);min-width:546px}.number-line{grid-template-columns:30px 546px;min-width:576px}.place-cell{min-height:52px;font-size:1.15rem}.place-head span{font-size:.66rem}}
 </style>
