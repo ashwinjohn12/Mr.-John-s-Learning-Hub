@@ -1,0 +1,237 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+<div class="arcade" data-unit4-arcade data-base={base}>
+  <div class="arcade-head">
+    <div>
+      <p class="eyebrow">FRACTION & DECIMAL CITY QUEST</p>
+      <h3>Unit 4 Math Arcade</h3>
+      <p>Complete 12 real-world missions—exactly two from each Unit 4 lesson. No multiple choice. Type the value or fraction that solves the situation.</p>
+    </div>
+    <div class="arcade-score"><strong data-arcade-score>0</strong><span>points</span><small data-arcade-streak>Streak: 0</small></div>
+  </div>
+
+  <div class="mission-card">
+    <div class="mission-meta"><span data-mission-number>Mission 1</span><span data-mission-skill></span></div>
+    <h3 data-mission-prompt></h3>
+    <p class="answer-format" data-answer-format></p>
+    <label class="answer-entry">
+      <span>Your answer</span>
+      <input type="text" inputmode="decimal" autocomplete="off" data-arcade-answer />
+      <button type="button" data-arcade-check>Check mission</button>
+    </label>
+    <div class="arcade-feedback" data-arcade-feedback aria-live="polite"></div>
+    <div class="arcade-actions">
+      <button type="button" data-arcade-next hidden>Next mission →</button>
+      <button type="button" class="secondary" data-arcade-new>New quest</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-unit4-arcade]').forEach((widget) => {
+    const base = widget.dataset.base || '/';
+    const missions = [
+      {
+        skill:'4.1 · Add fractions',
+        prompt:'Community Garden: one bed uses 3/4 bag of soil mix and another uses 2/3 bag. How many bags are used altogether?',
+        accepted:['17/12','1 5/12'],
+        format:'Enter an exact fraction or mixed number.',
+        explain:'3/4 = 9/12 and 2/3 = 8/12, so the total is 17/12 = 1 5/12 bags.',
+        lesson:'adding-subtracting-fractions'
+      },
+      {
+        skill:'4.1 · Subtract fractions',
+        prompt:'Art Studio: you have 2 1/3 litres of paint and use 3/4 litre. How much paint remains?',
+        accepted:['19/12','1 7/12'],
+        format:'Enter an exact fraction or mixed number.',
+        explain:'2 1/3 = 28/12 and 3/4 = 9/12. The difference is 19/12 = 1 7/12 litres.',
+        lesson:'adding-subtracting-fractions'
+      },
+      {
+        skill:'4.2 · Repeated fraction groups',
+        prompt:'Breakfast Station: each batch needs 3/4 cup of oats. Five batches are made. How many cups of oats are needed?',
+        accepted:['15/4','3 3/4'],
+        format:'Enter an exact fraction or mixed number.',
+        explain:'5 × 3/4 = 15/4 = 3 3/4 cups.',
+        lesson:'multiplying-fractions'
+      },
+      {
+        skill:'4.2 · Fraction of a quantity',
+        prompt:'Volunteer Crew: 2/5 of 30 volunteers are assigned to the garden. How many volunteers are assigned there?',
+        numeric:12,
+        format:'Enter a whole number.',
+        explain:'One fifth of 30 is 6, so two fifths is 12 volunteers.',
+        lesson:'multiplying-fractions'
+      },
+      {
+        skill:'4.3 · Equal sharing',
+        prompt:'Pizza Hub: 5 pizzas are shared equally among 4 families. How many pizzas does each family receive?',
+        accepted:['5/4','1 1/4','1.25'],
+        format:'Enter a fraction, mixed number, or decimal.',
+        explain:'5 ÷ 4 = 5/4 = 1 1/4 = 1.25 pizzas per family.',
+        lesson:'fractions-equal-shares'
+      },
+      {
+        skill:'4.3 · Exact quotient',
+        prompt:'Trail Snack Station: 7 granola bars are shared equally among 9 hikers. What exact fraction of a bar does each hiker receive?',
+        accepted:['7/9'],
+        format:'Enter the exact fraction.',
+        explain:'Equal sharing is division: 7 ÷ 9 = 7/9 of a bar per hiker.',
+        lesson:'fractions-equal-shares'
+      },
+      {
+        skill:'4.4 · Add decimals',
+        prompt:'Science Field Day: one team walks 12.45 km in the morning and 8.7632 km in the afternoon. What total distance do they walk?',
+        numeric:21.2132,
+        format:'Enter the decimal distance.',
+        explain:'Align equal place-value units: 12.4500 + 8.7632 = 21.2132 km.',
+        lesson:'adding-subtracting-decimals'
+      },
+      {
+        skill:'4.4 · Subtract decimals',
+        prompt:'School Store: you start with $50.00 and spend $17.85. How much money remains?',
+        numeric:32.15,
+        format:'Enter the amount in dollars.',
+        explain:'50.00 − 17.85 = 32.15, so $32.15 remains.',
+        lesson:'adding-subtracting-decimals'
+      },
+      {
+        skill:'4.5 · Decimal product',
+        prompt:'Ticket Booth: six activity tickets cost $3.75 each. What is the total cost?',
+        numeric:22.5,
+        format:'Enter the dollar amount.',
+        explain:'6 × 3.75 = 22.50, so the total cost is $22.50.',
+        lesson:'multiplying-decimals'
+      },
+      {
+        skill:'4.5 · Place-value multiplication',
+        prompt:'Mapping Crew: a route segment is 12.8 km long. The same distance is travelled 39 times during data collection. What total distance is travelled?',
+        numeric:499.2,
+        format:'Enter the decimal distance.',
+        explain:'12.8 is 128 tenths. 128 × 39 = 4992 tenths = 499.2 km.',
+        lesson:'multiplying-decimals'
+      },
+      {
+        skill:'4.6 · Decimal quotient',
+        prompt:'Notebook Shop: five identical notebooks cost $18.35 altogether. What is the cost of one notebook?',
+        numeric:3.67,
+        format:'Enter the dollar amount.',
+        explain:'18.35 ÷ 5 = 3.67, so each notebook costs $3.67.',
+        lesson:'dividing-decimals'
+      },
+      {
+        skill:'4.6 · Interpret a remainder',
+        prompt:'Field Trip Vans: 37 students need rides. Each van holds 4 students. What is the minimum number of vans needed?',
+        numeric:10,
+        format:'Enter a whole number.',
+        explain:'37 ÷ 4 = 9 R1. Nine vans are full, but the remaining student still needs a van, so 10 vans are required.',
+        lesson:'dividing-decimals'
+      }
+    ];
+
+    const prompt = widget.querySelector('[data-mission-prompt]');
+    const skill = widget.querySelector('[data-mission-skill]');
+    const number = widget.querySelector('[data-mission-number]');
+    const format = widget.querySelector('[data-answer-format]');
+    const input = widget.querySelector<HTMLInputElement>('[data-arcade-answer]');
+    const check = widget.querySelector<HTMLButtonElement>('[data-arcade-check]');
+    const next = widget.querySelector<HTMLButtonElement>('[data-arcade-next]');
+    const fresh = widget.querySelector<HTMLButtonElement>('[data-arcade-new]');
+    const feedback = widget.querySelector<HTMLElement>('[data-arcade-feedback]');
+    const scoreText = widget.querySelector('[data-arcade-score]');
+    const streakText = widget.querySelector('[data-arcade-streak]');
+    let pool:any[] = [];
+    let index = 0;
+    let score = 0;
+    let streak = 0;
+    let attempts = 0;
+
+    const shuffle = (items:any[]) => [...items].sort(() => Math.random() - .5);
+    const normalize = (value:string) => value
+      .toLowerCase()
+      .trim()
+      .replace(/\$/g, '')
+      .replace(/,/g, '')
+      .replace(/\s*\/\s*/g, '/')
+      .replace(/\s+/g, ' ');
+
+    const isCorrect = (mission:any, raw:string) => {
+      const cleaned = normalize(raw);
+      if ('numeric' in mission) {
+        const value = Number(cleaned);
+        return Number.isFinite(value) && Math.abs(value - mission.numeric) < 1e-9;
+      }
+      return (mission.accepted || []).some((answer:string) => normalize(answer) === cleaned);
+    };
+
+    const updateScore = () => {
+      if (scoreText) scoreText.textContent = `${score}`;
+      if (streakText) streakText.textContent = `Streak: ${streak}`;
+    };
+
+    const render = () => {
+      const m = pool[index];
+      attempts = 0;
+      if (number) number.textContent = `Mission ${index + 1} of ${pool.length}`;
+      if (skill) skill.textContent = m.skill;
+      if (prompt) prompt.textContent = m.prompt;
+      if (format) format.textContent = m.format;
+      if (input) { input.value = ''; input.disabled = false; input.focus(); }
+      if (check) check.disabled = false;
+      if (next) next.hidden = true;
+      if (feedback) feedback.innerHTML = '';
+    };
+
+    const finish = () => {
+      if (prompt) prompt.textContent = 'City Quest complete!';
+      if (skill) skill.textContent = 'UNIT 4 COMPLETE';
+      if (number) number.textContent = 'All 12 missions finished';
+      if (format) format.textContent = 'You completed two missions from every lesson.';
+      if (input) input.disabled = true;
+      if (check) check.disabled = true;
+      if (next) next.hidden = true;
+      if (feedback) feedback.innerHTML = `<strong>Final score: ${score} points.</strong> Start a new quest to shuffle the mission order and try for a stronger streak.`;
+    };
+
+    const checkAnswer = () => {
+      const m = pool[index];
+      const raw = input?.value || '';
+      if (!raw.trim()) return;
+      attempts++;
+      if (isCorrect(m, raw)) {
+        const earned = attempts === 1 ? 100 : 50;
+        score += earned;
+        streak = attempts === 1 ? streak + 1 : 0;
+        updateScore();
+        if (feedback) feedback.innerHTML = `<strong>Mission cleared! +${earned} points.</strong> ${m.explain}`;
+        if (input) input.disabled = true;
+        if (check) check.disabled = true;
+        if (next) next.hidden = false;
+      } else {
+        streak = 0;
+        updateScore();
+        if (feedback) feedback.innerHTML = `<strong>Not yet.</strong> Recheck the units, estimate, model, or operation. <a href="${base}courses/grade-6-math/decimals-fractions/${m.lesson}/">Review Lesson ${m.skill.split(' · ')[0]}</a> if you need a refresher.`;
+      }
+    };
+
+    const reset = () => {
+      pool = shuffle(missions);
+      index = 0;
+      score = 0;
+      streak = 0;
+      updateScore();
+      render();
+    };
+
+    check?.addEventListener('click', checkAnswer);
+    input?.addEventListener('keydown', (event) => { if (event.key === 'Enter' && !check?.disabled) checkAnswer(); });
+    next?.addEventListener('click', () => { index++; index >= pool.length ? finish() : render(); });
+    fresh?.addEventListener('click', reset);
+    reset();
+  });
+</script>
+
+<style>
+.arcade{border:1px solid #d8e0ea;border-radius:18px;background:#fff;overflow:hidden}.arcade-head{display:grid;grid-template-columns:1fr auto;gap:1.5rem;padding:1.25rem;background:linear-gradient(135deg,#eef6ff,#f7f0ff)}.arcade-head h3{margin:.2rem 0 .35rem}.arcade-head p{margin:.2rem 0}.arcade-score{min-width:100px;text-align:center;display:grid;align-content:center;padding:.8rem;border-radius:15px;background:#fff}.arcade-score strong{font-size:1.8rem}.arcade-score span,.arcade-score small{color:#64748b}.mission-card{padding:1.25rem}.mission-meta{display:flex;justify-content:space-between;gap:1rem;color:#64748b;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}.mission-card>h3{font-size:1.35rem;line-height:1.35;margin:1rem 0 .45rem}.answer-format{margin:.2rem 0 1rem;color:#5b6b7f;font-weight:700}.answer-entry{display:grid;grid-template-columns:1fr auto;gap:.65rem;align-items:end}.answer-entry span{grid-column:1/-1;font-weight:800}.answer-entry input{min-width:0;border:1px solid #cbd5e1;border-radius:11px;padding:.75rem;font-size:1.05rem}.answer-entry button,.arcade-actions button{border:0;border-radius:11px;padding:.75rem 1rem;background:#174ea6;color:#fff;font-weight:800;cursor:pointer}.answer-entry button:disabled{opacity:.5}.arcade-feedback{min-height:3rem;margin:1rem 0;padding:.85rem;border-radius:12px;background:#f8fafc}.arcade-feedback:empty{display:none}.arcade-feedback a{color:#174ea6;font-weight:800}.arcade-actions{display:flex;gap:.65rem;flex-wrap:wrap}.arcade-actions .secondary{background:#eef3f9;color:#25364f}@media(max-width:650px){.arcade-head{grid-template-columns:1fr}.arcade-score{grid-template-columns:auto auto auto;gap:.4rem;align-items:center}.answer-entry{grid-template-columns:1fr}.mission-meta{display:grid}}
+</style>
