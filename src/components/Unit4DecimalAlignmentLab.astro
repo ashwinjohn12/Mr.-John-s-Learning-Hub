@@ -1,0 +1,219 @@
+<section class="decimal-lab" data-decimal-lab>
+  <div class="lab-head">
+    <p class="eyebrow">DECIMAL ALIGNMENT LAB</p>
+    <h3>Dock the place values before you calculate</h3>
+    <p>Work from A to D. Each part focuses on a different reason decimal algorithms work.</p>
+  </div>
+
+  <article class="lab-part">
+    <div class="part-tag">A · PLACE-VALUE DOCK</div>
+    <h4>Shift the second number until equal place values line up</h4>
+    <p class="prompt" data-align-prompt></p>
+    <div class="place-labels" aria-hidden="true"><span>Tens</span><span>Ones</span><span>·</span><span>Tenths</span><span>Hundredths</span><span>Thousandths</span></div>
+    <div class="align-board" aria-label="Decimal alignment board">
+      <pre data-align-top></pre>
+      <pre data-align-bottom></pre>
+    </div>
+    <div class="control-row">
+      <button type="button" data-shift-left>← Shift left</button>
+      <button type="button" data-check-align>Check alignment</button>
+      <button type="button" data-shift-right>Shift right →</button>
+    </div>
+    <p class="feedback" data-align-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-align>New alignment</button>
+  </article>
+
+  <article class="lab-part">
+    <div class="part-tag">B · ZERO PLACEHOLDER TEST</div>
+    <h4>Does the value change?</h4>
+    <p class="prompt" data-zero-prompt></p>
+    <div class="choice-row">
+      <button type="button" data-zero-answer="same">Same value</button>
+      <button type="button" data-zero-answer="different">Different value</button>
+    </div>
+    <p class="feedback" data-zero-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-zero>New zero test</button>
+  </article>
+
+  <article class="lab-part">
+    <div class="part-tag">C · DECIMAL ERROR DETECTIVE</div>
+    <h4>Find the first place-value mistake</h4>
+    <div class="error-work" data-error-work></div>
+    <p class="prompt" data-error-prompt></p>
+    <div class="choice-row" data-error-choices></div>
+    <p class="feedback" data-error-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-error>New error</button>
+  </article>
+
+  <article class="lab-part">
+    <div class="part-tag">D · SCALE CONNECTION</div>
+    <h4>Predict the decimal answer from a familiar calculation</h4>
+    <p class="prompt" data-scale-prompt></p>
+    <div class="choice-row" data-scale-choices></div>
+    <p class="feedback" data-scale-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-scale>New scale challenge</button>
+  </article>
+</section>
+
+<script>
+  const root = document.querySelector('[data-decimal-lab]');
+  if (root) {
+    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const shuffle = (arr) => [...arr].sort(() => Math.random() - .5);
+
+    const alignBank = [
+      { a: '3.4', b: '0.056', op: '+', result: '3.456' },
+      { a: '12.45', b: '8.7632', op: '+', result: '21.2132' },
+      { a: '7.3', b: '0.845', op: '−', result: '6.455' },
+      { a: '10.05428', b: '9.4567', op: '+', result: '19.51098' }
+    ];
+    let alignQ;
+    let topStart = 5;
+    let bottomStart = 5;
+    let correctStart = 5;
+    const boardWidth = 24;
+    const makeRow = (text, start, prefix = '') => `${prefix}${' '.repeat(Math.max(0, start - prefix.length))}${text}`.padEnd(boardWidth, ' ');
+    const renderAlignRows = () => {
+      root.querySelector('[data-align-top]').textContent = makeRow(alignQ.a, topStart);
+      root.querySelector('[data-align-bottom]').textContent = makeRow(alignQ.b, bottomStart, alignQ.op);
+    };
+    const renderAlign = () => {
+      alignQ = pick(alignBank);
+      topStart = 6;
+      correctStart = topStart + alignQ.a.indexOf('.') - alignQ.b.indexOf('.');
+      const offsets = [-2, -1, 1, 2];
+      bottomStart = Math.max(2, correctStart + pick(offsets));
+      root.querySelector('[data-align-prompt]').textContent = `${alignQ.a} ${alignQ.op} ${alignQ.b}. Move the second number until its decimal point is directly under the first decimal point.`;
+      root.querySelector('[data-align-feedback]').textContent = '';
+      renderAlignRows();
+    };
+    root.querySelector('[data-shift-left]').addEventListener('click', () => { bottomStart = Math.max(2, bottomStart - 1); renderAlignRows(); });
+    root.querySelector('[data-shift-right]').addEventListener('click', () => { bottomStart = Math.min(14, bottomStart + 1); renderAlignRows(); });
+    root.querySelector('[data-check-align]').addEventListener('click', () => {
+      const fb = root.querySelector('[data-align-feedback]');
+      if (bottomStart === correctStart) {
+        fb.textContent = `✓ Docked! Decimal points match, so equal place-value units are in the same columns. The calculation gives ${alignQ.result}.`;
+        fb.className = 'feedback good';
+      } else {
+        const direction = bottomStart < correctStart ? 'right' : 'left';
+        fb.textContent = `Not yet. Shift the second number ${direction} until the decimal points are in the same column.`;
+        fb.className = 'feedback try';
+      }
+    });
+
+    const zeroBank = [
+      { prompt: '5.8 and 5.80', same: true, why: '5.80 has 0 extra hundredths, so it is the same value as 5.8.' },
+      { prompt: '12.45 and 12.4500', same: true, why: 'Trailing zeros can show empty thousandths and ten-thousandths without changing 12.45.' },
+      { prompt: '3.7 and 3.07', same: false, why: '3.7 has 7 tenths, while 3.07 has 7 hundredths.' },
+      { prompt: '0.6 and 0.600', same: true, why: 'Both represent 6 tenths.' },
+      { prompt: '8.05 and 8.50', same: false, why: '8.05 has 5 hundredths; 8.50 has 5 tenths.' }
+    ];
+    let zeroQ;
+    const renderZero = () => {
+      zeroQ = pick(zeroBank);
+      root.querySelector('[data-zero-prompt]').textContent = `Compare ${zeroQ.prompt}.`;
+      root.querySelector('[data-zero-feedback]').textContent = '';
+    };
+    root.querySelectorAll('[data-zero-answer]').forEach(btn => btn.addEventListener('click', () => {
+      const fb = root.querySelector('[data-zero-feedback]');
+      const saysSame = btn.dataset.zeroAnswer === 'same';
+      if (saysSame === zeroQ.same) {
+        fb.textContent = `✓ Correct. ${zeroQ.why}`;
+        fb.className = 'feedback good';
+      } else {
+        fb.textContent = `Look at the place value of each digit. ${zeroQ.why}`;
+        fb.className = 'feedback try';
+      }
+    }));
+
+    const errorBank = [
+      {
+        work: '  5.8\n+0.47\n─────\n 5.127',
+        prompt: 'What caused the error?',
+        choices: ['The last digits were lined up instead of equal place values.', 'A zero was added to 5.8.', 'Addition cannot be used with decimals.'],
+        answer: 0,
+        why: 'Write 5.8 as 5.80, then align the decimal points. The correct sum is 6.27.'
+      },
+      {
+        work: ' 12.45\n− 8.7632',
+        prompt: 'What should happen before using the subtraction algorithm?',
+        choices: ['Rewrite 12.45 as 12.4500 and align decimal points.', 'Move 8.7632 until the final 2 is under the final 5.', 'Delete the decimal points.'],
+        answer: 0,
+        why: '12.45 = 12.4500. Placeholder zeros make all place-value columns visible.'
+      },
+      {
+        work: '3.8 < 3.745\n“745 has more digits than 8.”',
+        prompt: 'What is wrong with the comparison?',
+        choices: ['More digits do not automatically mean a larger decimal.', 'The comparison is correct.', 'Tenths are smaller than thousandths.'],
+        answer: 0,
+        why: 'Write 3.8 as 3.800. Then compare equal place values: 3.800 > 3.745.'
+      }
+    ];
+    let errorQ;
+    const renderError = () => {
+      errorQ = pick(errorBank);
+      root.querySelector('[data-error-work]').textContent = errorQ.work;
+      root.querySelector('[data-error-prompt]').textContent = errorQ.prompt;
+      const box = root.querySelector('[data-error-choices]');
+      box.innerHTML = '';
+      shuffle(errorQ.choices.map((text, index) => ({ text, index }))).forEach(choice => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = choice.text;
+        b.onclick = () => {
+          const fb = root.querySelector('[data-error-feedback]');
+          if (choice.index === errorQ.answer) {
+            fb.textContent = `✓ Correct. ${errorQ.why}`;
+            fb.className = 'feedback good';
+          } else {
+            fb.textContent = `Try again. Focus on which place-value units are being compared or combined. ${errorQ.why}`;
+            fb.className = 'feedback try';
+          }
+        };
+        box.appendChild(b);
+      });
+      root.querySelector('[data-error-feedback]').textContent = '';
+    };
+
+    const scaleBank = [
+      { prompt: '153 + 481 = 634. What is 15.3 + 48.1?', correct: '63.4', choices: ['6.34', '63.4', '634'], why: 'Both addends are one tenth as large, so the sum is one tenth as large.' },
+      { prompt: '481 − 153 = 328. What is 48.1 − 15.3?', correct: '32.8', choices: ['3.28', '32.8', '328'], why: 'Both numbers are one tenth as large, so the difference is one tenth as large.' },
+      { prompt: '62 + 35 = 97. What is 0.62 + 0.35?', correct: '0.97', choices: ['0.097', '0.97', '9.7'], why: 'Both addends are one hundredth as large, so the sum is one hundredth as large.' },
+      { prompt: '900 − 275 = 625. What is 9.00 − 2.75?', correct: '6.25', choices: ['0.625', '6.25', '62.5'], why: 'Both values are one hundredth as large, so the difference is one hundredth as large.' }
+    ];
+    let scaleQ;
+    const renderScale = () => {
+      scaleQ = pick(scaleBank);
+      root.querySelector('[data-scale-prompt]').textContent = scaleQ.prompt;
+      const box = root.querySelector('[data-scale-choices]');
+      box.innerHTML = '';
+      shuffle(scaleQ.choices).forEach(text => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = text;
+        b.onclick = () => {
+          const fb = root.querySelector('[data-scale-feedback]');
+          if (text === scaleQ.correct) {
+            fb.textContent = `✓ Correct. ${scaleQ.why}`;
+            fb.className = 'feedback good';
+          } else {
+            fb.textContent = `Check how the place values changed before calculating. ${scaleQ.why}`;
+            fb.className = 'feedback try';
+          }
+        };
+        box.appendChild(b);
+      });
+      root.querySelector('[data-scale-feedback]').textContent = '';
+    };
+
+    root.querySelector('[data-new-align]').addEventListener('click', renderAlign);
+    root.querySelector('[data-new-zero]').addEventListener('click', renderZero);
+    root.querySelector('[data-new-error]').addEventListener('click', renderError);
+    root.querySelector('[data-new-scale]').addEventListener('click', renderScale);
+    renderAlign(); renderZero(); renderError(); renderScale();
+  }
+</script>
+
+<style>
+.decimal-lab{display:grid;gap:1rem}.lab-head,.lab-part{border:1px solid #dbe4ee;border-radius:16px;padding:1rem;background:#fff}.lab-head{background:#f5f9ff}.lab-head h3,.lab-part h4{margin:.25rem 0 .55rem}.part-tag,.eyebrow{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#31598b}.prompt{font-weight:750}.place-labels{display:grid;grid-template-columns:repeat(6,minmax(65px,1fr));gap:.25rem;margin:.7rem 0 .25rem;font-size:.72rem;font-weight:800;color:#5c6c80;text-align:center}.align-board{overflow-x:auto;padding:.8rem;border-radius:12px;background:#101828;color:#f8fafc}.align-board pre{margin:.1rem 0;font:800 1.25rem/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.08em;white-space:pre}.control-row,.choice-row{display:flex;gap:.55rem;flex-wrap:wrap;margin:.75rem 0}.control-row button,.choice-row button,.secondary{border:1px solid #b9c9dc;border-radius:10px;padding:.6rem .8rem;background:#fff;font:inherit;font-weight:800;cursor:pointer}.control-row button:hover,.choice-row button:hover{background:#eef5ff}.secondary{background:#f7f9fc}.error-work{white-space:pre-wrap;font:800 1.05rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:.8rem;border-radius:12px;background:#f7f9fc;border:1px solid #e2e8f0}.feedback{min-height:1.5rem;margin:.65rem 0 0;font-weight:750}.feedback.good{color:#17633b}.feedback.try{color:#8a4b08}@media(max-width:700px){.place-labels{display:none}.control-row button,.choice-row button{width:100%;text-align:left}.align-board pre{font-size:1.05rem}}
+</style>
