@@ -63,7 +63,12 @@
       const [sn, sd] = simplify(rem, d);
       return whole ? `${whole} ${sn}/${sd}` : `${sn}/${sd}`;
     };
-    const singular = (word) => word.endsWith('ies') ? `${word.slice(0, -3)}y` : word.endsWith('s') ? word.slice(0, -1) : word;
+    const singular = (word) => {
+      if (word === 'loaves') return 'loaf';
+      if (word.endsWith('ies')) return `${word.slice(0, -3)}y`;
+      if (word.endsWith('s')) return word.slice(0, -1);
+      return word;
+    };
 
     const shareBank = [
       { total: 5, groups: 4, item: 'pizzas', who: 'families' },
@@ -94,7 +99,7 @@
 
     const renderShare = () => {
       shareQ = pick(shareBank);
-      root.querySelector('[data-share-prompt]').textContent = `${shareQ.total} ${shareQ.item} are shared equally among ${shareQ.groups} ${shareQ.who}. Choose the amount each group receives.`;
+      root.querySelector('[data-share-prompt]').textContent = `${shareQ.total} ${shareQ.item} are shared equally among ${shareQ.groups} ${shareQ.who}. Choose the fraction that represents each group's share.`;
       const visual = root.querySelector('[data-share-visual]');
       visual.innerHTML = '';
       for (let i = 0; i < shareQ.total; i++) {
@@ -104,10 +109,10 @@
         visual.appendChild(w);
       }
       const exact = `${shareQ.total}/${shareQ.groups}`;
-      const mixedForm = mixed(shareQ.total, shareQ.groups);
       const reversed = `${shareQ.groups}/${shareQ.total}`;
-      const distractor = shareQ.total > shareQ.groups ? `${Math.floor(shareQ.total / shareQ.groups)}/${shareQ.groups}` : `${shareQ.total}/${shareQ.total}`;
-      const opts = [exact, mixedForm, reversed, distractor].filter((v, i, a) => a.indexOf(v) === i).slice(0, 3).sort(() => Math.random() - .5);
+      const distractor1 = shareQ.total > shareQ.groups ? `${Math.floor(shareQ.total / shareQ.groups)}/${shareQ.groups}` : `${shareQ.total}/${shareQ.total}`;
+      const distractor2 = shareQ.total > shareQ.groups ? `${shareQ.total + shareQ.groups}/${shareQ.groups}` : `${shareQ.groups}/${shareQ.groups}`;
+      const opts = [exact, reversed, distractor1, distractor2].filter((v, i, a) => a.indexOf(v) === i).slice(0, 3).sort(() => Math.random() - .5);
       const box = root.querySelector('[data-share-choices]');
       box.innerHTML = '';
       opts.forEach(text => {
@@ -116,12 +121,12 @@
         b.textContent = text;
         b.onclick = () => {
           const fb = root.querySelector('[data-share-feedback]');
-          if (text === exact || text === mixedForm) {
-            fb.textContent = `✓ Yes. The total stays first: ${shareQ.total} ÷ ${shareQ.groups}. Now look at the equal-share model below.`;
+          if (text === exact) {
+            fb.textContent = `✓ Yes. ${shareQ.total} ÷ ${shareQ.groups} = ${exact}. That same share can also be written as ${mixed(shareQ.total, shareQ.groups)}. Look at the equal-share model below.`;
             fb.className = 'feedback good';
             showShareResult();
           } else {
-            fb.textContent = 'Try again. Ask: what total amount is being shared, and how many equal shares are being made?';
+            fb.textContent = 'Try again. In fraction form, the total quantity is the numerator and the number of equal shares is the denominator.';
             fb.className = 'feedback try';
           }
         };
