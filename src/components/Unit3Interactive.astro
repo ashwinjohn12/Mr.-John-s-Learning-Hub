@@ -1,0 +1,77 @@
+---
+interface Props { mode: 'factors' | 'powers' | 'order' }
+const { mode } = Astro.props;
+---
+<div class="u3-tool" data-u3-tool={mode}>
+  {mode === 'factors' && (
+    <>
+      <div class="tool-head"><div><p class="eyebrow">FACTOR LAB</p><h3>Prime Factor Explorer</h3><p>Choose a number, predict whether it is prime or composite, then uncover its factor structure.</p></div></div>
+      <div class="controls"><label>Number <input type="number" min="2" max="500" value="84" data-factor-number /></label><button type="button" data-factor-check>Analyze number</button></div>
+      <div class="result-grid"><article><p class="mini-label">CLASSIFICATION</p><strong data-factor-class></strong><span data-factor-pairs></span></article><article><p class="mini-label">PRIME FACTORIZATION</p><strong data-factor-primes></strong><span data-factor-checkline></span></article></div>
+      <div class="quick-row"><span>Try:</span>{[29,36,60,84,97,126].map((n)=><button type="button" data-factor-quick={n}>{n}</button>)}</div>
+    </>
+  )}
+  {mode === 'powers' && (
+    <>
+      <div class="tool-head"><div><p class="eyebrow">POWER LAB</p><h3>Power Translator</h3><p>Change the base and exponent. Compare power notation, repeated multiplication, and value.</p></div></div>
+      <div class="dual-controls"><label>Base <input type="range" min="2" max="10" value="3" data-power-base /><strong data-power-base-label>3</strong></label><label>Exponent <input type="range" min="2" max="6" value="4" data-power-exp /><strong data-power-exp-label>4</strong></label></div>
+      <div class="power-display"><span data-power-symbol>3⁴</span><span>=</span><span data-power-expanded>3 × 3 × 3 × 3</span><span>=</span><strong data-power-value>81</strong></div>
+      <div class="result-grid"><article><p class="mini-label">BASE</p><strong data-power-base-note>3</strong><span>The repeated factor.</span></article><article><p class="mini-label">EXPONENT</p><strong data-power-exp-note>4</strong><span>The number of copies of the base.</span></article></div>
+      <div class="divisibility-note" data-power-divisibility>Because 3 is a factor of 3⁴, 3⁴ is divisible by 3.</div>
+    </>
+  )}
+  {mode === 'order' && (
+    <>
+      <div class="tool-head"><div><p class="eyebrow">ORDER LAB</p><h3>What Happens Next?</h3><p>Choose the part that should be evaluated next. The goal is to understand priority, not memorize an acronym.</p></div></div>
+      <div class="expression-card"><span data-order-expression></span></div>
+      <div class="choice-grid" data-order-choices></div>
+      <div class="tool-feedback" data-order-feedback aria-live="polite"></div>
+      <div class="order-actions"><button type="button" data-order-new>New expression</button></div>
+      <div class="priority-guide"><strong>Conventional order</strong><span>1 · Parentheses</span><span>2 · Powers</span><span>3 · Multiplication & Division — left to right</span><span>4 · Addition & Subtraction — left to right</span></div>
+    </>
+  )}
+</div>
+
+<script>
+  const superscript = (n:number) => String(n).replace(/0/g,'⁰').replace(/1/g,'¹').replace(/2/g,'²').replace(/3/g,'³').replace(/4/g,'⁴').replace(/5/g,'⁵').replace(/6/g,'⁶').replace(/7/g,'⁷').replace(/8/g,'⁸').replace(/9/g,'⁹');
+
+  document.querySelectorAll<HTMLElement>('[data-u3-tool="factors"]').forEach((widget) => {
+    const input=widget.querySelector<HTMLInputElement>('[data-factor-number]');
+    const classification=widget.querySelector('[data-factor-class]');
+    const pairs=widget.querySelector('[data-factor-pairs]');
+    const primes=widget.querySelector('[data-factor-primes]');
+    const checkline=widget.querySelector('[data-factor-checkline]');
+    const factorize=(value:number)=>{const out:number[]=[];let n=value;for(let p=2;p*p<=n;p++){while(n%p===0){out.push(p);n/=p;}}if(n>1)out.push(n);return out;};
+    const render=()=>{const n=Math.max(2,Math.min(500,Math.round(Number(input?.value)||2)));if(input)input.value=String(n);const factors:number[]=[];for(let i=1;i<=Math.sqrt(n);i++){if(n%i===0){factors.push(i);if(i!==n/i)factors.push(n/i);}}factors.sort((a,b)=>a-b);const pf=factorize(n);if(classification)classification.textContent=factors.length===2?'Prime':'Composite';if(pairs)pairs.textContent=`Factors: ${factors.join(', ')}`;if(primes)primes.textContent=factors.length===2?`${n} is already prime`:`${n} = ${pf.join(' × ')}`;if(checkline)checkline.textContent=factors.length===2?'It cannot be split into smaller natural-number factors other than 1 and itself.':`Check: ${pf.join(' × ')} = ${n}`;};
+    widget.querySelector('[data-factor-check]')?.addEventListener('click',render);
+    widget.querySelectorAll<HTMLButtonElement>('[data-factor-quick]').forEach((button)=>button.addEventListener('click',()=>{if(input)input.value=button.dataset.factorQuick||'2';render();}));
+    input?.addEventListener('keydown',(event)=>{if(event.key==='Enter')render();});render();
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-u3-tool="powers"]').forEach((widget) => {
+    const base=widget.querySelector<HTMLInputElement>('[data-power-base]'); const exp=widget.querySelector<HTMLInputElement>('[data-power-exp]');
+    const render=()=>{const b=Number(base?.value||3);const e=Number(exp?.value||4);const symbol=`${b}${superscript(e)}`;const expanded=Array(e).fill(String(b)).join(' × ');const value=b**e;
+      const set=(sel:string,text:string)=>{const el=widget.querySelector(sel);if(el)el.textContent=text;};
+      set('[data-power-base-label]',String(b));set('[data-power-exp-label]',String(e));set('[data-power-symbol]',symbol);set('[data-power-expanded]',expanded);set('[data-power-value]',String(value));set('[data-power-base-note]',String(b));set('[data-power-exp-note]',String(e));set('[data-power-divisibility]',`Because ${b} is a factor of ${symbol}, ${symbol} is divisible by ${b}.`);
+    };
+    base?.addEventListener('input',render);exp?.addEventListener('input',render);render();
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-u3-tool="order"]').forEach((widget) => {
+    const items=[
+      {expression:'8 + 3 × 4',choices:['8 + 3','3 × 4','8 + 4'],answer:1,explain:'There are no parentheses or powers, so multiplication/division comes before addition/subtraction.'},
+      {expression:'5 × (9 − 6)',choices:['5 × 9','9 − 6','5 × 6'],answer:1,explain:'Evaluate the operation inside parentheses first.'},
+      {expression:'7 + 2³ × 5',choices:['7 + 2','2³','3 × 5'],answer:1,explain:'Powers are evaluated before multiplication and addition.'},
+      {expression:'24 ÷ 6 × 2',choices:['6 × 2','24 ÷ 6','24 ÷ 2'],answer:1,explain:'Multiplication and division share priority, so work from left to right.'},
+      {expression:'15 − 8 + 3',choices:['8 + 3','15 − 8','15 + 3'],answer:1,explain:'Addition and subtraction share priority, so work from left to right.'},
+      {expression:'4 + 2 × (3² − 5)',choices:['4 + 2','2 × 3²','3²'],answer:2,explain:'Inside the parentheses, evaluate the power before subtracting 5.'}
+    ];
+    const expression=widget.querySelector('[data-order-expression]');const choices=widget.querySelector<HTMLElement>('[data-order-choices]');const feedback=widget.querySelector<HTMLElement>('[data-order-feedback]');let current=0;
+    const render=()=>{current=Math.floor(Math.random()*items.length);const item=items[current];if(expression)expression.textContent=item.expression;if(feedback)feedback.textContent='';if(choices){choices.innerHTML='';item.choices.forEach((choice,index)=>{const button=document.createElement('button');button.type='button';button.textContent=choice;button.addEventListener('click',()=>{if(feedback)feedback.innerHTML=index===item.answer?`<strong>Yes.</strong> ${item.explain}`:`<strong>Not yet.</strong> ${item.explain}`;});choices.appendChild(button);});}};
+    widget.querySelector('[data-order-new]')?.addEventListener('click',render);render();
+  });
+</script>
+
+<style>
+.u3-tool{border:1px solid #d9e2ec;border-radius:18px;background:#fff;overflow:hidden}.tool-head{padding:1rem 1.1rem;background:#f7faff}.tool-head h3{margin:.15rem 0 .35rem}.tool-head p{margin:.2rem 0}.controls,.dual-controls{display:flex;gap:1rem;align-items:end;flex-wrap:wrap;padding:1rem}.controls label,.dual-controls label{display:grid;gap:.35rem;font-weight:800}.controls input{border:1px solid #cbd5e1;border-radius:10px;padding:.65rem;max-width:140px}.controls button,.quick-row button,.choice-grid button,.order-actions button{border:0;border-radius:10px;padding:.65rem .85rem;background:#174ea6;color:#fff;font-weight:800;cursor:pointer}.result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;padding:0 1rem 1rem}.result-grid article{display:grid;gap:.35rem;padding:1rem;border:1px solid #e2e8f0;border-radius:14px}.result-grid strong{font-size:1.2rem}.result-grid span{color:#526174}.mini-label{font-size:.72rem;font-weight:900;letter-spacing:.08em;color:#64748b;margin:0}.quick-row{display:flex;gap:.45rem;align-items:center;flex-wrap:wrap;padding:0 1rem 1rem}.quick-row button{background:#eef3f9;color:#174ea6}.dual-controls{display:grid;grid-template-columns:1fr 1fr}.dual-controls label{grid-template-columns:auto 1fr auto;align-items:center}.power-display{display:flex;gap:.65rem;align-items:center;justify-content:center;flex-wrap:wrap;margin:0 1rem 1rem;padding:1.2rem;border-radius:14px;background:#f8fafc;font-size:1.3rem}.power-display>span:first-child{font-size:1.6rem;font-weight:900}.divisibility-note,.tool-feedback{margin:0 1rem 1rem;padding:.85rem 1rem;border-radius:12px;background:#eef8f1}.expression-card{margin:1rem;padding:1.2rem;text-align:center;border-radius:14px;background:#f8fafc;font-size:1.65rem;font-weight:900}.choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;padding:0 1rem 1rem}.choice-grid button{background:#eef3f9;color:#25364f}.order-actions{padding:0 1rem 1rem}.priority-guide{display:grid;gap:.35rem;padding:1rem;background:#fff8db}.priority-guide strong{margin-bottom:.2rem}@media(max-width:650px){.result-grid,.dual-controls,.choice-grid{grid-template-columns:1fr}.dual-controls label{grid-template-columns:auto 1fr auto}.power-display{font-size:1rem}.expression-card{font-size:1.35rem}}
+</style>
