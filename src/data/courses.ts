@@ -80,8 +80,8 @@ export const courses: Course[] = [
           { slug: 'multiplying-fractions', number: '4.2', title: 'Multiplying Fractions', summary: 'Interpret and calculate multiplication between natural numbers and fractions using models, repeated addition, and part-of reasoning.', status: 'ready' },
           { slug: 'fractions-equal-shares', number: '4.3', title: 'Relating Fractions to Equal Shares', summary: 'Connect equal sharing, fractions, division statements, quotients, and decimal representations.', status: 'ready' },
           { slug: 'adding-subtracting-decimals', number: '4.4', title: 'Adding & Subtracting Decimal Numbers', summary: 'Use place value and standard algorithms to solve decimal addition and subtraction problems.', status: 'ready' },
-          { slug: 'multiplying-decimals', number: '4.5', title: 'Multiplying Decimal Numbers', summary: 'Multiply decimal numbers by natural numbers, estimate products, and solve money and measurement problems.', status: 'planned' },
-          { slug: 'dividing-decimals', number: '4.6', title: 'Dividing Decimal Numbers', summary: 'Divide decimal numbers by natural numbers, interpret remainders as decimals, estimate quotients, and solve problems.', status: 'planned' }
+          { slug: 'multiplying-decimals', number: '4.5', title: 'Multiplying Decimal Numbers', summary: 'Multiply decimal numbers by natural numbers, estimate products, and solve money and measurement problems.', status: 'ready' },
+          { slug: 'dividing-decimals', number: '4.6', title: 'Dividing Decimal Numbers', summary: 'Divide decimal numbers by natural numbers, interpret remainders as decimals, estimate quotients, and solve problems.', status: 'ready' }
         ]
       },
       { slug: 'ratios-rates', number: '05', title: 'Ratios & Rates', description: 'Compare quantities and use proportional thinking in real situations.', topics: [] },
