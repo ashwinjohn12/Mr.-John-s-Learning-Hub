@@ -77,7 +77,7 @@ export const courses: Course[] = [
         description: 'Build flexible, visual, and efficient strategies for fraction and decimal operations in real situations.',
         topics: [
           { slug: 'adding-subtracting-fractions', number: '4.1', title: 'Adding & Subtracting Fractions', summary: 'Use equivalent fractions and common denominators to add and subtract fractions with related and unrelated denominators.', status: 'ready' },
-          { slug: 'multiplying-fractions', number: '4.2', title: 'Multiplying Fractions', summary: 'Interpret and calculate multiplication between natural numbers and fractions using models, repeated addition, and part-of reasoning.', status: 'planned' },
+          { slug: 'multiplying-fractions', number: '4.2', title: 'Multiplying Fractions', summary: 'Interpret and calculate multiplication between natural numbers and fractions using models, repeated addition, and part-of reasoning.', status: 'ready' },
           { slug: 'fractions-equal-shares', number: '4.3', title: 'Relating Fractions to Equal Shares', summary: 'Connect equal sharing, fractions, division statements, quotients, and decimal representations.', status: 'planned' },
           { slug: 'adding-subtracting-decimals', number: '4.4', title: 'Adding & Subtracting Decimal Numbers', summary: 'Use place value and standard algorithms to solve decimal addition and subtraction problems.', status: 'planned' },
           { slug: 'multiplying-decimals', number: '4.5', title: 'Multiplying Decimal Numbers', summary: 'Multiply decimal numbers by natural numbers, estimate products, and solve money and measurement problems.', status: 'planned' },
