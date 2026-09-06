@@ -1,0 +1,12 @@
+---
+import Unit4MappedLessonPage from '../../../../components/Unit4MappedLessonPage.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit4RemainingContent } from '../../../../data/unit4RemainingContent';
+
+const course = findCourse('grade-6-math')!;
+const unit = course.units.find((item) => item.slug === 'decimals-fractions')!;
+const topic = unit.topics.find((item) => item.slug === 'multiplying-fractions')!;
+const key = 'grade-6-math/decimals-fractions/multiplying-fractions';
+const content = unit4RemainingContent[key];
+---
+<Unit4MappedLessonPage {course} {unit} {topic} {content} variant="multiply" />
