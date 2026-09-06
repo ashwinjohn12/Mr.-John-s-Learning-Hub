@@ -8,11 +8,15 @@ import CheckYourself from '../../../../components/CheckYourself.astro';
 import Unit3MathArcade from '../../../../components/Unit3MathArcade.astro';
 import { findCourse } from '../../../../data/courses';
 import { unit3Content } from '../../../../data/unit3Content';
+import { applyUnit3Enhancements } from '../../../../data/unit3Enhancements';
 
 const course = findCourse('grade-6-math')!;
 const unit = course.units.find((item) => item.slug === 'number-operations')!;
 const base = import.meta.env.BASE_URL;
-const lessonData = unit.topics.map((topic) => ({ topic, content: unit3Content[`${course.slug}/${unit.slug}/${topic.slug}`] }));
+const lessonData = unit.topics.map((topic) => {
+  const key = `${course.slug}/${unit.slug}/${topic.slug}`;
+  return { topic, content: applyUnit3Enhancements(key, unit3Content[key]) };
+});
 const mixedPractice = lessonData.flatMap(({content}) => content.questions).map((question) => question.prompt === 'Which expression has a value of 18?'
   ? { ...question, choices: ['6 + 2 × 3','(6 + 2) × 3','6 + 2³','36 ÷ 6 × 3'], answer: 3, explain: 'Multiplication and division share priority, so 36 ÷ 6 × 3 = 6 × 3 = 18.' }
   : question);
@@ -63,7 +67,7 @@ const sectionLinks = [['overview','🎯','Overview'],['lessons','🗺️','Lesso
 
       <LearningSection id="practice" eyebrow="PRACTISE WITH SUPPORT" title="Mixed Unit 3 practice" icon="✏️" tone="practice"><p>Questions are pulled from all three lessons. Choose a difficulty or leave it on Mixed. Use the explanations to identify the exact concept you need to revisit.</p><PracticeEngine questions={mixedPractice} /></LearningSection>
 
-      <LearningSection id="check" eyebrow="UNIT CHECK" title="Can you mix all three skills?" icon="✅" tone="review"><p>This assessment pulls 10 questions from a separate bank across the whole unit. A new set gives you a different mix.</p><CheckYourself questions={mixedCheck} count={10} /></LearningSection>
+      <LearningSection id="check" eyebrow="UNIT CHECK" title="Can you mix all three skills?" icon="✅" tone="review"><p>This assessment pulls 10 questions from a larger separate bank across the whole unit. A new set gives you a different mix.</p><CheckYourself questions={mixedCheck} count={10} /></LearningSection>
 
       <LearningSection id="arcade" eyebrow="PLAY & APPLY" title="Number Lab Quest Math Arcade" icon="🎮" tone="play"><p>No multiple choice here. Solve number-structure and expression missions, type your answer, build a streak, and earn points.</p><Unit3MathArcade /></LearningSection>
 
