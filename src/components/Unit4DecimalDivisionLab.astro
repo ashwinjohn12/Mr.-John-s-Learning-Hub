@@ -2,7 +2,7 @@
   <div class="lab-head">
     <p class="eyebrow">DECIMAL DIVISION LAB</p>
     <h3>Share, decompose, interpret, and check</h3>
-    <p>Work from A to E. Keep asking: <strong>what is being shared, into how many groups, and what does the remainder mean?</strong></p>
+    <p>Work from A to F. Keep asking: <strong>what is being shared, into how many groups, and what does the remainder mean?</strong></p>
   </div>
 
   <article class="lab-part">
@@ -50,6 +50,19 @@
     <div class="choice-row" data-scale-choices></div>
     <p class="feedback" data-scale-feedback aria-live="polite"></p>
     <button class="secondary" type="button" data-new-scale>New scale challenge</button>
+  </article>
+
+  <article class="lab-part">
+    <div class="part-tag">F · ALGORITHM STEPPER</div>
+    <h4>Compress the same thinking into the standard algorithm</h4>
+    <p class="prompt" data-stepper-prompt></p>
+    <div class="stepper-work" data-stepper-work></div>
+    <div class="control-row">
+      <button type="button" data-step-back>← Previous</button>
+      <button type="button" data-step-next>Next step →</button>
+    </div>
+    <p class="feedback" data-stepper-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-stepper>New algorithm</button>
   </article>
 
   <article class="practice-bridge">
@@ -119,15 +132,33 @@
     let scaleQ;
     const renderScale=()=>{scaleQ=pick(scaleBank);root.querySelector('[data-scale-prompt]').textContent=scaleQ.prompt;const box=root.querySelector('[data-scale-choices]');box.innerHTML='';shuffle(scaleQ.choices).forEach(text=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.onclick=()=>{const fb=root.querySelector('[data-scale-feedback]');if(text===scaleQ.answer){fb.textContent=`✓ ${scaleQ.why}`;fb.className='feedback good'}else{fb.textContent='Compare the size of the dividends while keeping the divisor fixed.';fb.className='feedback try'}};box.appendChild(b)});root.querySelector('[data-scale-feedback]').textContent='';};
 
+    const stepperBank = [
+      { prompt:'15.6 ÷ 12', steps:['Estimate first: 15.6 ÷ 12 should be a little more than 1.','12 fits into 15.6 one whole time. Record 1 in the quotient.','Subtract 12, leaving 3.6. The remaining amount is still part of the dividend.','3.6 ÷ 12 = 0.3, so record 3 tenths in the quotient.','Combine the quotient parts: 1 + 0.3 = 1.3. Check: 1.3 × 12 = 15.6.'], result:'1.3' },
+      { prompt:'108 ÷ 15', steps:['Estimate first: 108 ÷ 15 should be a little more than 7.','15 × 7 = 105. Record 7 in the quotient and subtract 105 from 108.','The remainder is 3. Write 108 as 108.0 so the 3 wholes can become 30 tenths.','30 tenths ÷ 15 = 2 tenths. Record 0.2 in the quotient.','The quotient is 7.2. Check: 7.2 × 15 = 108.'], result:'7.2' }
+    ];
+    let stepperQ, stepIndex = 0;
+    const renderStepper=()=>{
+      stepperQ=pick(stepperBank);stepIndex=0;root.querySelector('[data-stepper-prompt]').textContent=`Step through ${stepperQ.prompt}. Use Next step only after you understand the current line.`;renderStep();
+    };
+    const renderStep=()=>{
+      const work=root.querySelector('[data-stepper-work]');work.innerHTML='';
+      stepperQ.steps.slice(0,stepIndex+1).forEach((text,index)=>{const d=document.createElement('div');d.className='algorithm-step';d.innerHTML=`<span>${index+1}</span><p>${text}</p>`;work.appendChild(d)});
+      const fb=root.querySelector('[data-stepper-feedback]');fb.textContent=stepIndex===stepperQ.steps.length-1?`✓ Finished. The quotient is ${stepperQ.result}.`:`Step ${stepIndex+1} of ${stepperQ.steps.length}.`;
+      fb.className=stepIndex===stepperQ.steps.length-1?'feedback good':'feedback';
+    };
+    root.querySelector('[data-step-next]').addEventListener('click',()=>{if(stepIndex<stepperQ.steps.length-1){stepIndex++;renderStep();}});
+    root.querySelector('[data-step-back]').addEventListener('click',()=>{if(stepIndex>0){stepIndex--;renderStep();}});
+    root.querySelector('[data-new-stepper]').addEventListener('click',renderStepper);
+
     root.querySelector('[data-new-share]').addEventListener('click',renderShare);
     root.querySelector('[data-new-partial]').addEventListener('click',renderPartial);
     root.querySelector('[data-new-remainder]').addEventListener('click',renderRemainder);
     root.querySelector('[data-new-estimate]').addEventListener('click',renderEstimate);
     root.querySelector('[data-new-scale]').addEventListener('click',renderScale);
-    renderShare();renderPartial();renderRemainder();renderEstimate();renderScale();
+    renderShare();renderPartial();renderRemainder();renderEstimate();renderScale();renderStepper();
   }
 </script>
 
 <style>
-.decimal-division-lab{display:grid;gap:1rem}.lab-head,.lab-part,.practice-bridge{border:1px solid #dbe4ee;border-radius:16px;padding:1rem;background:#fff}.lab-head{background:#f5f9ff}.lab-head h3,.lab-part h4,.practice-bridge h4{margin:.25rem 0 .55rem}.part-tag,.eyebrow{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#31598b}.prompt{font-weight:750}.choice-row{display:flex;gap:.55rem;flex-wrap:wrap;margin:.7rem 0}.choice-row button,.secondary{border:1px solid #b9c9dc;border-radius:10px;padding:.6rem .8rem;background:#fff;font:inherit;font-weight:800;cursor:pointer}.choice-row button:hover{background:#eef5ff}.secondary{background:#f7f9fc}.share-flow{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:.75rem 0}.share-flow span{padding:.65rem;border-radius:10px;background:#eef5ff;font-weight:850}.partial-board{display:grid;gap:.45rem;margin:.75rem 0}.partial-board>div{padding:.7rem;border:1px solid #dce4ee;border-radius:10px;background:#f8fafc;font-weight:850}.feedback{min-height:1.5rem;margin:.65rem 0 0;font-weight:750}.feedback.good{color:#17633b}.feedback.try{color:#8a4b08}.practice-bridge{background:#f5f9ff}.practice-bridge ol{padding-left:1.2rem}.paper-check{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin:.7rem 0}.paper-check code{padding:.5rem .65rem;border-radius:8px;background:#fff;font-weight:850}@media(max-width:650px){.choice-row button{width:100%;text-align:left}}
+.decimal-division-lab{display:grid;gap:1rem}.lab-head,.lab-part,.practice-bridge{border:1px solid #dbe4ee;border-radius:16px;padding:1rem;background:#fff}.lab-head{background:#f5f9ff}.lab-head h3,.lab-part h4,.practice-bridge h4{margin:.25rem 0 .55rem}.part-tag,.eyebrow{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#31598b}.prompt{font-weight:750}.choice-row,.control-row{display:flex;gap:.55rem;flex-wrap:wrap;margin:.7rem 0}.choice-row button,.control-row button,.secondary{border:1px solid #b9c9dc;border-radius:10px;padding:.6rem .8rem;background:#fff;font:inherit;font-weight:800;cursor:pointer}.choice-row button:hover,.control-row button:hover{background:#eef5ff}.secondary{background:#f7f9fc}.share-flow{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:.75rem 0}.share-flow span{padding:.65rem;border-radius:10px;background:#eef5ff;font-weight:850}.partial-board{display:grid;gap:.45rem;margin:.75rem 0}.partial-board>div{padding:.7rem;border:1px solid #dce4ee;border-radius:10px;background:#f8fafc;font-weight:850}.stepper-work{display:grid;gap:.5rem;margin:.75rem 0}.algorithm-step{display:grid;grid-template-columns:auto 1fr;gap:.65rem;align-items:start;padding:.75rem;border:1px solid #dce4ee;border-radius:10px;background:#f8fafc}.algorithm-step span{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#31598b;color:#fff;font-weight:900}.algorithm-step p{margin:.15rem 0}.feedback{min-height:1.5rem;margin:.65rem 0 0;font-weight:750}.feedback.good{color:#17633b}.feedback.try{color:#8a4b08}.practice-bridge{background:#f5f9ff}.practice-bridge ol{padding-left:1.2rem}.paper-check{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin:.7rem 0}.paper-check code{padding:.5rem .65rem;border-radius:8px;background:#fff;font-weight:850}@media(max-width:650px){.choice-row button,.control-row button{width:100%;text-align:left}}
 </style>
