@@ -1,0 +1,84 @@
+---
+---
+<div class="power-lab" data-power-lab>
+  <section class="lab-stage">
+    <div class="stage-head"><span>1</span><div><p class="eyebrow">POWER ANATOMY</p><h3>What does each number do?</h3><p>Identify the base and exponent before the multiplication is revealed.</p></div></div>
+    <div class="power-card"><strong data-anatomy-power>4³</strong></div>
+    <div class="anatomy-grid"><div><p class="mini-label">WHICH IS THE BASE?</p><div class="choice-row" data-base-choices></div></div><div><p class="mini-label">WHICH IS THE EXPONENT?</p><div class="choice-row" data-exp-choices></div></div></div>
+    <div class="lab-feedback" data-anatomy-feedback aria-live="polite"></div>
+    <button type="button" class="secondary" data-anatomy-new>Try another power</button>
+  </section>
+
+  <section class="lab-stage">
+    <div class="stage-head"><span>2</span><div><p class="eyebrow">POWER TRANSLATOR</p><h3>Match the repeated multiplication</h3><p>Count identical factors and choose the power that says exactly the same thing.</p></div></div>
+    <div class="translation-card" data-translation-prompt>3 × 3 × 3 × 3</div>
+    <div class="choice-grid" data-translation-choices></div>
+    <div class="lab-feedback" data-translation-feedback aria-live="polite"></div>
+    <button type="button" class="secondary" data-translation-new>New translation</button>
+  </section>
+
+  <section class="lab-stage">
+    <div class="stage-head"><span>3</span><div><p class="eyebrow">PRIME FACTOR COMPRESSOR</p><h3>Group repeated prime factors</h3><p>Connect this lesson back to 3.1 by rewriting repeated prime factors with powers.</p></div></div>
+    <div class="translation-card" data-compress-prompt>2 × 2 × 2 × 3 × 3</div>
+    <div class="choice-grid" data-compress-choices></div>
+    <div class="lab-feedback" data-compress-feedback aria-live="polite"></div>
+    <button type="button" class="secondary" data-compress-new>New factorization</button>
+  </section>
+</div>
+
+<script>
+  const superscript=(n:number)=>String(n).replace(/0/g,'⁰').replace(/1/g,'¹').replace(/2/g,'²').replace(/3/g,'³').replace(/4/g,'⁴').replace(/5/g,'⁵').replace(/6/g,'⁶').replace(/7/g,'⁷').replace(/8/g,'⁸').replace(/9/g,'⁹');
+  const shuffle=<T,>(items:T[])=>[...items].sort(()=>Math.random()-.5);
+  document.querySelectorAll<HTMLElement>('[data-power-lab]').forEach((widget)=>{
+    const anatomyPool=[{b:2,e:5},{b:3,e:4},{b:4,e:3},{b:5,e:2},{b:6,e:3},{b:7,e:4}];
+    const anatomyPower=widget.querySelector<HTMLElement>('[data-anatomy-power]');
+    const baseChoices=widget.querySelector<HTMLElement>('[data-base-choices]');
+    const expChoices=widget.querySelector<HTMLElement>('[data-exp-choices]');
+    const anatomyFeedback=widget.querySelector<HTMLElement>('[data-anatomy-feedback]');
+    let anatomy=anatomyPool[0]; let baseRight=false; let expRight=false;
+    const renderAnatomy=()=>{
+      anatomy=shuffle(anatomyPool)[0];baseRight=false;expRight=false;
+      if(anatomyPower)anatomyPower.textContent=`${anatomy.b}${superscript(anatomy.e)}`;
+      if(anatomyFeedback)anatomyFeedback.innerHTML='';
+      const renderChoices=(container:HTMLElement|null,correct:number,type:'base'|'exp')=>{
+        if(!container)return;container.innerHTML='';
+        shuffle([anatomy.b,anatomy.e]).forEach((value)=>{const button=document.createElement('button');button.type='button';button.textContent=String(value);button.addEventListener('click',()=>{
+          const right=value===correct;if(type==='base')baseRight=right;else expRight=right;
+          if(anatomyFeedback){
+            if(baseRight&&expRight) anatomyFeedback.innerHTML=`<strong>Yes.</strong> The base ${anatomy.b} is the repeated factor and the exponent ${anatomy.e} counts ${anatomy.e} copies: ${Array(anatomy.e).fill(anatomy.b).join(' × ')}.`;
+            else anatomyFeedback.innerHTML=right?'<strong>That part is correct.</strong> Now identify the other part.':'<strong>Not yet.</strong> The base is the full-sized repeated factor; the exponent is the small raised count.';
+          }
+        });container.appendChild(button);});
+      };
+      renderChoices(baseChoices,anatomy.b,'base');renderChoices(expChoices,anatomy.e,'exp');
+    };
+    widget.querySelector('[data-anatomy-new]')?.addEventListener('click',renderAnatomy);
+
+    const translations=[
+      {expanded:'2 × 2 × 2 × 2 × 2',answer:'2⁵',choices:['2⁵','5²','2 × 5','10²']},
+      {expanded:'3 × 3 × 3 × 3',answer:'3⁴',choices:['4³','3⁴','3 × 4','12²']},
+      {expanded:'5 × 5 × 5',answer:'5³',choices:['3⁵','5³','5 × 3','15²']},
+      {expanded:'7 × 7',answer:'7²',choices:['2⁷','7²','7 × 2','14²']},
+      {expanded:'4 × 4 × 4 × 4',answer:'4⁴',choices:['4⁴','4 × 4','8²','16⁴']}
+    ];
+    const transPrompt=widget.querySelector<HTMLElement>('[data-translation-prompt]');const transChoices=widget.querySelector<HTMLElement>('[data-translation-choices]');const transFeedback=widget.querySelector<HTMLElement>('[data-translation-feedback]');let trans=translations[0];
+    const renderTranslation=()=>{trans=shuffle(translations)[0];if(transPrompt)transPrompt.textContent=trans.expanded;if(transFeedback)transFeedback.innerHTML='';if(transChoices){transChoices.innerHTML='';shuffle(trans.choices).forEach((choice)=>{const button=document.createElement('button');button.type='button';button.textContent=choice;button.addEventListener('click',()=>{if(transFeedback)transFeedback.innerHTML=choice===trans.answer?`<strong>Correct.</strong> ${trans.answer} names the repeated factor and how many copies appear.`:'<strong>Try again.</strong> Find the number that repeats, then count how many times it appears.';});transChoices.appendChild(button);});}};
+    widget.querySelector('[data-translation-new]')?.addEventListener('click',renderTranslation);
+
+    const compressions=[
+      {expanded:'2 × 2 × 2 × 3 × 3',answer:'2³ × 3²',choices:['2³ × 3²','2² × 3³','6⁵','2⁵ × 3⁵']},
+      {expanded:'2 × 2 × 5 × 5 × 5',answer:'2² × 5³',choices:['2² × 5³','2³ × 5²','10⁵','7⁵']},
+      {expanded:'3 × 3 × 3 × 7 × 7',answer:'3³ × 7²',choices:['3³ × 7²','3² × 7³','21⁵','10⁵']},
+      {expanded:'2 × 2 × 2 × 2 × 3',answer:'2⁴ × 3',choices:['2⁴ × 3','2³ × 3²','6⁴','2⁵ × 3']}
+    ];
+    const compressPrompt=widget.querySelector<HTMLElement>('[data-compress-prompt]');const compressChoices=widget.querySelector<HTMLElement>('[data-compress-choices]');const compressFeedback=widget.querySelector<HTMLElement>('[data-compress-feedback]');let compress=compressions[0];
+    const renderCompress=()=>{compress=shuffle(compressions)[0];if(compressPrompt)compressPrompt.textContent=compress.expanded;if(compressFeedback)compressFeedback.innerHTML='';if(compressChoices){compressChoices.innerHTML='';shuffle(compress.choices).forEach((choice)=>{const button=document.createElement('button');button.type='button';button.textContent=choice;button.addEventListener('click',()=>{if(compressFeedback)compressFeedback.innerHTML=choice===compress.answer?`<strong>Correct.</strong> ${compress.answer} keeps the same prime factors but groups repeated copies.`:'<strong>Not quite.</strong> Count the 2s, 3s, 5s, or 7s separately. Each repeated prime gets its own exponent.';});compressChoices.appendChild(button);});}};
+    widget.querySelector('[data-compress-new]')?.addEventListener('click',renderCompress);
+
+    renderAnatomy();renderTranslation();renderCompress();
+  });
+</script>
+
+<style>
+.power-lab{display:grid;gap:1rem}.lab-stage{border:1px solid #d9e2ec;border-radius:18px;background:#fff;padding:1rem}.stage-head{display:grid;grid-template-columns:42px 1fr;gap:.8rem;align-items:start}.stage-head>span{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#174ea6;color:#fff;font-weight:900}.stage-head h3{margin:.1rem 0 .25rem}.stage-head p{margin:.15rem 0}.power-card,.translation-card{margin:1rem 0;padding:1.1rem;text-align:center;border-radius:14px;background:#f8fafc}.power-card strong{font-size:2.5rem}.translation-card{font-size:1.3rem;font-weight:900}.anatomy-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}.choice-row,.choice-grid{display:flex;gap:.55rem;flex-wrap:wrap}.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.choice-row button,.choice-grid button{border:0;border-radius:10px;padding:.65rem .9rem;background:#174ea6;color:#fff;font-weight:800;cursor:pointer}.choice-grid button{background:#eef3f9;color:#25364f}.secondary{margin-top:.7rem;border:0;border-radius:10px;padding:.6rem .85rem;background:#eef3f9;color:#25364f;font-weight:800;cursor:pointer}.lab-feedback{margin-top:.8rem;padding:.8rem .9rem;border-radius:12px;background:#f8fafc;min-height:1.25rem}.lab-feedback:empty{display:none}.mini-label{font-size:.72rem;font-weight:900;letter-spacing:.08em;color:#64748b;margin:0 0 .45rem}@media(max-width:650px){.anatomy-grid,.choice-grid{grid-template-columns:1fr}.stage-head{grid-template-columns:36px 1fr}}
+</style>
