@@ -59,7 +59,17 @@ export const courses: Course[] = [
           { slug: 'tessellations', number: '2.6', title: 'Tessellations', summary: 'Create repeating designs that cover a surface without gaps or overlaps.', status: 'ready' }
         ]
       },
-      { slug: 'number-operations', number: '03', title: 'Number Operations', description: 'Explore prime factorization, powers, and order of operations.', topics: [] },
+      {
+        slug: 'number-operations',
+        number: '03',
+        title: 'Number Operations',
+        description: 'Use prime factors, powers, and the conventional order of operations to reveal and work with number structure.',
+        topics: [
+          { slug: 'prime-factorization-divisibility', number: '3.1', title: 'Prime Factorization & Divisibility', summary: 'Break composite numbers into prime factors and use factor structure to reason about common factors and divisibility.', status: 'ready' },
+          { slug: 'expressing-powers', number: '3.2', title: 'Expressing Powers', summary: 'Represent repeated multiplication with powers and connect powers to prime factorization and divisibility.', status: 'ready' },
+          { slug: 'operations-parentheses-powers', number: '3.3', title: 'Operations with Parentheses & Powers', summary: 'Evaluate multi-step numerical expressions by understanding grouping, powers, and equal-priority operations.', status: 'ready' }
+        ]
+      },
       { slug: 'decimals-fractions', number: '04', title: 'Operations on Decimals & Fractions', description: 'Develop flexible strategies for operations with fractions and decimal numbers.', topics: [] },
       { slug: 'ratios-rates', number: '05', title: 'Ratios & Rates', description: 'Compare quantities and use proportional thinking in real situations.', topics: [] },
       { slug: 'patterns-algebra', number: '06', title: 'Patterns & Algebra', description: 'Describe relationships with tables, expressions, and equations.', topics: [] },
