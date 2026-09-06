@@ -1,0 +1,138 @@
+<section class="u4-lab multiplier-lab" data-multiplier-lab>
+  <div class="lab-head">
+    <p class="eyebrow">FRACTION MULTIPLIER LAB</p>
+    <h3>Four ways to understand the multiplication</h3>
+    <p>Work from A to D. Make a prediction before revealing each explanation.</p>
+  </div>
+
+  <article class="lab-part">
+    <div class="part-tag">A · GROUPS BUILDER</div>
+    <h4>What multiplication statement matches the model?</h4>
+    <p class="prompt" data-groups-prompt></p>
+    <div class="group-model" data-groups-model aria-label="Repeated fraction groups"></div>
+    <div class="choice-row" data-groups-choices></div>
+    <p class="feedback" data-groups-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-groups>New groups</button>
+  </article>
+
+  <article class="lab-part">
+    <div class="part-tag">B · PART-OF MACHINE</div>
+    <h4>Find a fraction of a quantity in two steps</h4>
+    <p class="prompt" data-part-prompt></p>
+    <div class="quantity-dots" data-part-dots aria-label="Quantity model"></div>
+    <div class="two-stage">
+      <label>Step 1 · One part is <input inputmode="numeric" data-one-part /> items.</label>
+      <button type="button" data-check-one>Check step 1</button>
+      <div class="stage-two" data-stage-two hidden>
+        <label>Step 2 · The requested fraction is <input inputmode="numeric" data-final-part /> items.</label>
+        <button type="button" data-check-final>Check answer</button>
+      </div>
+    </div>
+    <p class="feedback" data-part-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-part>New quantity</button>
+  </article>
+
+  <article class="lab-part">
+    <div class="part-tag">C · PRODUCT PREDICTOR</div>
+    <h4>Predict the size before calculating</h4>
+    <p class="prompt" data-predict-prompt></p>
+    <div class="choice-row" data-predict-choices>
+      <button type="button" data-prediction="less">Less than the natural number</button>
+      <button type="button" data-prediction="equal">Equal to the natural number</button>
+      <button type="button" data-prediction="greater">Greater than the natural number</button>
+    </div>
+    <p class="feedback" data-predict-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-predict>New prediction</button>
+  </article>
+
+  <article class="lab-part">
+    <div class="part-tag">D · DIVIDE CONNECTION</div>
+    <h4>Match a unit fraction to division</h4>
+    <p class="prompt" data-divide-prompt></p>
+    <div class="choice-row" data-divide-choices></div>
+    <p class="feedback" data-divide-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-divide>New connection</button>
+  </article>
+</section>
+
+<script>
+  const root = document.querySelector('[data-multiplier-lab]');
+  if (root) {
+    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const gcd = (a,b) => b ? gcd(b, a % b) : a;
+    const frac = (n,d) => {
+      const g = gcd(Math.abs(n),Math.abs(d));
+      const nn=n/g, dd=d/g;
+      if (dd===1) return `${nn}`;
+      return `${nn}/${dd}`;
+    };
+
+    const groupsBank = [
+      { groups:3,n:2,d:5 }, { groups:4,n:1,d:3 }, { groups:5,n:2,d:7 }, { groups:2,n:3,d:4 }
+    ];
+    let groupsQ;
+    const renderGroups = () => {
+      groupsQ = pick(groupsBank);
+      root.querySelector('[data-groups-prompt]').textContent = `The model shows ${groupsQ.groups} equal groups of ${groupsQ.n}/${groupsQ.d}.`;
+      const model = root.querySelector('[data-groups-model]');
+      model.innerHTML = '';
+      for (let g=0; g<groupsQ.groups; g++) {
+        const bar=document.createElement('div'); bar.className='mini-bar';
+        for(let i=0;i<groupsQ.d;i++){const cell=document.createElement('span'); if(i<groupsQ.n) cell.className='fill'; bar.appendChild(cell)}
+        model.appendChild(bar);
+      }
+      const correct=`${groupsQ.groups} × ${groupsQ.n}/${groupsQ.d}`;
+      const choices=[correct,`${groupsQ.n} × ${groupsQ.groups}/${groupsQ.d}`,`${groupsQ.groups}/${groupsQ.d} × ${groupsQ.n}`].sort(()=>Math.random()-.5);
+      const box=root.querySelector('[data-groups-choices]'); box.innerHTML='';
+      choices.forEach(text=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.onclick=()=>{const fb=root.querySelector('[data-groups-feedback]'); if(text===correct){fb.textContent=`✓ Yes. ${correct} means ${groupsQ.groups} groups of ${groupsQ.n}/${groupsQ.d}. The product is ${frac(groupsQ.groups*groupsQ.n,groupsQ.d)}.`;fb.className='feedback good'}else{fb.textContent='Try again. The first factor should tell how many equal groups are shown.';fb.className='feedback try'}};box.appendChild(b)});
+      root.querySelector('[data-groups-feedback]').textContent='';
+    };
+
+    const partBank=[
+      {n:3,d:4,total:20},{n:2,d:3,total:18},{n:5,d:6,total:24},{n:3,d:5,total:30}
+    ];
+    let partQ;
+    const renderPart=()=>{
+      partQ=pick(partBank);
+      root.querySelector('[data-part-prompt]').textContent=`Find ${partQ.n}/${partQ.d} of ${partQ.total}. First find one ${partQ.d}th.`;
+      const dots=root.querySelector('[data-part-dots]');dots.innerHTML='';
+      for(let i=0;i<partQ.total;i++){const s=document.createElement('span');dots.appendChild(s)}
+      root.querySelector('[data-one-part]').value='';root.querySelector('[data-final-part]').value='';root.querySelector('[data-stage-two]').hidden=true;root.querySelector('[data-part-feedback]').textContent='';
+    };
+    root.querySelector('[data-check-one]').addEventListener('click',()=>{
+      const one=partQ.total/partQ.d; const val=Number(root.querySelector('[data-one-part]').value);const fb=root.querySelector('[data-part-feedback]');
+      if(val===one){fb.textContent=`✓ Correct. ${partQ.total} ÷ ${partQ.d} = ${one}, so one ${partQ.d}th is ${one}. Now take ${partQ.n} of those parts.`;fb.className='feedback good';root.querySelector('[data-stage-two]').hidden=false}else{fb.textContent=`Not yet. Split ${partQ.total} into ${partQ.d} equal groups. What is ${partQ.total} ÷ ${partQ.d}?`;fb.className='feedback try'}
+    });
+    root.querySelector('[data-check-final]').addEventListener('click',()=>{
+      const one=partQ.total/partQ.d, ans=one*partQ.n,val=Number(root.querySelector('[data-final-part]').value),fb=root.querySelector('[data-part-feedback]');
+      if(val===ans){fb.textContent=`✓ Exactly. ${partQ.n}/${partQ.d} of ${partQ.total} = ${partQ.n} × ${one} = ${ans}.`;fb.className='feedback good'}else{fb.textContent=`You found one part. Now multiply that amount by the numerator ${partQ.n}.`;fb.className='feedback try'}
+    });
+
+    const predictBank=[
+      {whole:9,n:2,d:3,a:'less'},{whole:6,n:5,d:4,a:'greater'},{whole:12,n:1,d:1,a:'equal'},{whole:8,n:7,d:8,a:'less'},{whole:5,n:3,d:2,a:'greater'}
+    ];
+    let predictQ;
+    const renderPredict=()=>{predictQ=pick(predictBank);root.querySelector('[data-predict-prompt]').textContent=`Before calculating: ${predictQ.whole} × ${predictQ.n}/${predictQ.d}. How should the product compare with ${predictQ.whole}?`;root.querySelector('[data-predict-feedback]').textContent=''};
+    root.querySelectorAll('[data-prediction]').forEach(btn=>btn.addEventListener('click',()=>{const fb=root.querySelector('[data-predict-feedback]');const choice=btn.dataset.prediction;if(choice===predictQ.a){const factor=predictQ.n/predictQ.d;const why=factor<1?'The fractional factor is between 0 and 1, so you are taking only part of the quantity.':factor===1?'The fractional factor equals 1, so the quantity stays the same.':'The fractional factor is greater than 1, so the product is larger.';fb.textContent=`✓ ${why} The exact product is ${frac(predictQ.whole*predictQ.n,predictQ.d)}.`;fb.className='feedback good'}else{fb.textContent='Try again. Compare the fractional factor with 1 before doing any arithmetic.';fb.className='feedback try'}}));
+
+    const divideBank=[
+      {whole:24,d:6},{whole:35,d:5},{whole:32,d:8},{whole:18,d:3}
+    ];
+    let divideQ;
+    const renderDivide=()=>{
+      divideQ=pick(divideBank);root.querySelector('[data-divide-prompt]').textContent=`Which division expression has the same value as 1/${divideQ.d} × ${divideQ.whole}?`;
+      const correct=`${divideQ.whole} ÷ ${divideQ.d}`;const choices=[correct,`${divideQ.d} ÷ ${divideQ.whole}`,`${divideQ.whole} × ${divideQ.d}`].sort(()=>Math.random()-.5);const box=root.querySelector('[data-divide-choices]');box.innerHTML='';
+      choices.forEach(text=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.onclick=()=>{const fb=root.querySelector('[data-divide-feedback]');if(text===correct){fb.textContent=`✓ Yes. One ${divideQ.d}th means split ${divideQ.whole} into ${divideQ.d} equal parts: ${correct} = ${divideQ.whole/divideQ.d}.`;fb.className='feedback good'}else{fb.textContent='Try again. A unit fraction tells how many equal parts the whole is divided into.';fb.className='feedback try'}};box.appendChild(b)});root.querySelector('[data-divide-feedback]').textContent='';
+    };
+
+    root.querySelector('[data-new-groups]').addEventListener('click',renderGroups);
+    root.querySelector('[data-new-part]').addEventListener('click',renderPart);
+    root.querySelector('[data-new-predict]').addEventListener('click',renderPredict);
+    root.querySelector('[data-new-divide]').addEventListener('click',renderDivide);
+    renderGroups();renderPart();renderPredict();renderDivide();
+  }
+</script>
+
+<style>
+.u4-lab{display:grid;gap:1rem}.lab-head,.lab-part{border:1px solid #dbe4ee;border-radius:16px;padding:1rem;background:#fff}.lab-head{background:#f5f9ff}.lab-head h3,.lab-part h4{margin:.25rem 0 .55rem}.part-tag,.eyebrow{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#31598b}.prompt{font-weight:750}.choice-row{display:flex;gap:.55rem;flex-wrap:wrap;margin:.7rem 0}.choice-row button,.two-stage button,.secondary{border:1px solid #b9c9dc;border-radius:10px;padding:.6rem .8rem;background:white;font:inherit;font-weight:800;cursor:pointer}.choice-row button:hover,.two-stage button:hover{background:#eef5ff}.secondary{margin-top:.55rem;background:#f7f9fc}.group-model{display:flex;gap:.45rem;flex-wrap:wrap;margin:.75rem 0}.mini-bar{display:grid;grid-auto-flow:column;grid-auto-columns:28px;height:32px;border:2px solid #6d7f93;border-radius:7px;overflow:hidden}.mini-bar span{border-right:1px solid #9aabba;background:#fff}.mini-bar span:last-child{border-right:0}.mini-bar .fill{background:#dbeafe}.quantity-dots{display:grid;grid-template-columns:repeat(10,20px);gap:6px;margin:.7rem 0}.quantity-dots span{width:20px;height:20px;border-radius:50%;background:#dbeafe;border:1px solid #8da8c7}.two-stage{display:grid;gap:.65rem;align-items:start}.two-stage label{display:flex;gap:.45rem;align-items:center;flex-wrap:wrap}.two-stage input{width:78px;padding:.5rem;border:1px solid #b9c9dc;border-radius:8px;font:inherit}.feedback{min-height:1.5rem;margin:.65rem 0 0;font-weight:750}.feedback.good{color:#17633b}.feedback.try{color:#8a4b08}@media(max-width:650px){.quantity-dots{grid-template-columns:repeat(8,20px)}.choice-row button{width:100%;text-align:left}}
+</style>
