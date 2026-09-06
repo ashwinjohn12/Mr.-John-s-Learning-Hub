@@ -6,7 +6,7 @@ const base = import.meta.env.BASE_URL;
     <div>
       <p class="eyebrow">FRACTION & DECIMAL CITY QUEST</p>
       <h3>Unit 4 Math Arcade</h3>
-      <p>Complete 12 real-world missions—exactly two from each Unit 4 lesson. No multiple choice. Type the value or fraction that solves the situation.</p>
+      <p>Each quest draws 12 real-world missions from a 24-mission bank—exactly two from every Unit 4 lesson. No multiple choice. Type the value or fraction that solves the situation.</p>
     </div>
     <div class="arcade-score"><strong data-arcade-score>0</strong><span>points</span><small data-arcade-streak>Streak: 0</small></div>
   </div>
@@ -17,7 +17,7 @@ const base = import.meta.env.BASE_URL;
     <p class="answer-format" data-answer-format></p>
     <label class="answer-entry">
       <span>Your answer</span>
-      <input type="text" inputmode="decimal" autocomplete="off" data-arcade-answer />
+      <input type="text" autocomplete="off" data-arcade-answer />
       <button type="button" data-arcade-check>Check mission</button>
     </label>
     <div class="arcade-feedback" data-arcade-feedback aria-live="polite"></div>
@@ -29,105 +29,91 @@ const base = import.meta.env.BASE_URL;
 </div>
 
 <script>
+  const gcd = (a:number, b:number):number => b ? gcd(b, a % b) : Math.abs(a);
+  const normalize = (value:string) => value
+    .toLowerCase()
+    .trim()
+    .replace(/\$/g, '')
+    .replace(/,/g, '')
+    .replace(/\s*\/\s*/g, '/')
+    .replace(/\s+/g, ' ');
+
+  const parseMathValue = (raw:string) => {
+    const cleaned = normalize(raw);
+    const mixed = cleaned.match(/^(-?\d+)\s+(\d+)\/(\d+)$/);
+    if (mixed) {
+      const whole = Number(mixed[1]);
+      const num = Number(mixed[2]);
+      const den = Number(mixed[3]);
+      if (!den) return null;
+      const signedNum = whole < 0 ? whole * den - num : whole * den + num;
+      return { value:signedNum / den, kind:'mixed', num:signedNum, den };
+    }
+    const fraction = cleaned.match(/^(-?\d+)\/(\d+)$/);
+    if (fraction) {
+      const num = Number(fraction[1]);
+      const den = Number(fraction[2]);
+      if (!den) return null;
+      return { value:num / den, kind:'fraction', num, den };
+    }
+    const value = Number(cleaned);
+    if (Number.isFinite(value)) return { value, kind:'number', num:null, den:null };
+    return null;
+  };
+
+  const injectSynthesis = () => {
+    const stack = document.querySelector('#pat .pat-stack');
+    if (!stack || stack.querySelector('[data-unit4-synthesis]')) return;
+    stack.insertAdjacentHTML('beforeend', `
+      <article data-unit4-synthesis style="border:2px solid #9ab7dc;border-radius:16px;padding:1rem;background:#f4f8ff">
+        <p class="lesson-chip">SYNTHESIS · 4.1 + 4.2</p>
+        <h3>Community Kitchen Challenge</h3>
+        <p>A kitchen starts with 6 cups of oats. Four breakfast batches each use 3/4 cup. A second recipe then uses another 1 2/3 cups. How many cups remain? Show one complete plan and explain why your operations make sense.</p>
+        <details><summary>Show a strong answer</summary><p>First find the amount used by the four batches: 4 × 3/4 = 3 cups. Add the second recipe: 3 + 1 2/3 = 4 2/3 cups used. Subtract from the starting amount: 6 − 4 2/3 = 1 1/3 cups remaining. Multiplication represents repeated equal batches; subtraction compares the total used with the starting supply.</p></details>
+      </article>
+      <article data-unit4-synthesis style="border:2px solid #9ab7dc;border-radius:16px;padding:1rem;background:#f4f8ff">
+        <p class="lesson-chip">SYNTHESIS · 4.4 + 4.5 + 4.6</p>
+        <h3>Fundraiser Money Challenge</h3>
+        <p>A class sells 18 activity passes for $3.75 each. Supplies cost $24.86. The remaining money is shared equally among 4 project teams. Estimate first, then find the exact amount each team receives and explain how the estimate helps you check the result.</p>
+        <details><summary>Show a strong answer</summary><p>Estimate: 18 × $4 is about $72; after about $25 of supplies, about $47 remains, so each team should receive a little under $12. Exact work: 18 × $3.75 = $67.50. Then $67.50 − $24.86 = $42.64. Finally, $42.64 ÷ 4 = $10.66 per team. $10.66 fits the estimated range, so the result is reasonable.</p></details>
+      </article>`);
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', injectSynthesis);
+  else injectSynthesis();
+
   document.querySelectorAll<HTMLElement>('[data-unit4-arcade]').forEach((widget) => {
     const base = widget.dataset.base || '/';
     const missions = [
-      {
-        skill:'4.1 · Add fractions',
-        prompt:'Community Garden: one bed uses 3/4 bag of soil mix and another uses 2/3 bag. How many bags are used altogether?',
-        accepted:['17/12','1 5/12'],
-        format:'Enter an exact fraction or mixed number.',
-        explain:'3/4 = 9/12 and 2/3 = 8/12, so the total is 17/12 = 1 5/12 bags.',
-        lesson:'adding-subtracting-fractions'
-      },
-      {
-        skill:'4.1 · Subtract fractions',
-        prompt:'Art Studio: you have 2 1/3 litres of paint and use 3/4 litre. How much paint remains?',
-        accepted:['19/12','1 7/12'],
-        format:'Enter an exact fraction or mixed number.',
-        explain:'2 1/3 = 28/12 and 3/4 = 9/12. The difference is 19/12 = 1 7/12 litres.',
-        lesson:'adding-subtracting-fractions'
-      },
-      {
-        skill:'4.2 · Repeated fraction groups',
-        prompt:'Breakfast Station: each batch needs 3/4 cup of oats. Five batches are made. How many cups of oats are needed?',
-        accepted:['15/4','3 3/4'],
-        format:'Enter an exact fraction or mixed number.',
-        explain:'5 × 3/4 = 15/4 = 3 3/4 cups.',
-        lesson:'multiplying-fractions'
-      },
-      {
-        skill:'4.2 · Fraction of a quantity',
-        prompt:'Volunteer Crew: 2/5 of 30 volunteers are assigned to the garden. How many volunteers are assigned there?',
-        numeric:12,
-        format:'Enter a whole number.',
-        explain:'One fifth of 30 is 6, so two fifths is 12 volunteers.',
-        lesson:'multiplying-fractions'
-      },
-      {
-        skill:'4.3 · Equal sharing',
-        prompt:'Pizza Hub: 5 pizzas are shared equally among 4 families. How many pizzas does each family receive?',
-        accepted:['5/4','1 1/4','1.25'],
-        format:'Enter a fraction, mixed number, or decimal.',
-        explain:'5 ÷ 4 = 5/4 = 1 1/4 = 1.25 pizzas per family.',
-        lesson:'fractions-equal-shares'
-      },
-      {
-        skill:'4.3 · Exact quotient',
-        prompt:'Trail Snack Station: 7 granola bars are shared equally among 9 hikers. What exact fraction of a bar does each hiker receive?',
-        accepted:['7/9'],
-        format:'Enter the exact fraction.',
-        explain:'Equal sharing is division: 7 ÷ 9 = 7/9 of a bar per hiker.',
-        lesson:'fractions-equal-shares'
-      },
-      {
-        skill:'4.4 · Add decimals',
-        prompt:'Science Field Day: one team walks 12.45 km in the morning and 8.7632 km in the afternoon. What total distance do they walk?',
-        numeric:21.2132,
-        format:'Enter the decimal distance.',
-        explain:'Align equal place-value units: 12.4500 + 8.7632 = 21.2132 km.',
-        lesson:'adding-subtracting-decimals'
-      },
-      {
-        skill:'4.4 · Subtract decimals',
-        prompt:'School Store: you start with $50.00 and spend $17.85. How much money remains?',
-        numeric:32.15,
-        format:'Enter the amount in dollars.',
-        explain:'50.00 − 17.85 = 32.15, so $32.15 remains.',
-        lesson:'adding-subtracting-decimals'
-      },
-      {
-        skill:'4.5 · Decimal product',
-        prompt:'Ticket Booth: six activity tickets cost $3.75 each. What is the total cost?',
-        numeric:22.5,
-        format:'Enter the dollar amount.',
-        explain:'6 × 3.75 = 22.50, so the total cost is $22.50.',
-        lesson:'multiplying-decimals'
-      },
-      {
-        skill:'4.5 · Place-value multiplication',
-        prompt:'Mapping Crew: a route segment is 12.8 km long. The same distance is travelled 39 times during data collection. What total distance is travelled?',
-        numeric:499.2,
-        format:'Enter the decimal distance.',
-        explain:'12.8 is 128 tenths. 128 × 39 = 4992 tenths = 499.2 km.',
-        lesson:'multiplying-decimals'
-      },
-      {
-        skill:'4.6 · Decimal quotient',
-        prompt:'Notebook Shop: five identical notebooks cost $18.35 altogether. What is the cost of one notebook?',
-        numeric:3.67,
-        format:'Enter the dollar amount.',
-        explain:'18.35 ÷ 5 = 3.67, so each notebook costs $3.67.',
-        lesson:'dividing-decimals'
-      },
-      {
-        skill:'4.6 · Interpret a remainder',
-        prompt:'Field Trip Vans: 37 students need rides. Each van holds 4 students. What is the minimum number of vans needed?',
-        numeric:10,
-        format:'Enter a whole number.',
-        explain:'37 ÷ 4 = 9 R1. Nine vans are full, but the remaining student still needs a van, so 10 vans are required.',
-        lesson:'dividing-decimals'
-      }
+      { skill:'4.1 · Add fractions', prompt:'Community Garden: one bed uses 3/4 bag of soil mix and another uses 2/3 bag. How many bags are used altogether?', fraction:[17,12], fractionRequired:true, simplest:'17/12 or 1 5/12', format:'Enter an exact fraction or mixed number. Equivalent fractions are accepted.', explain:'3/4 = 9/12 and 2/3 = 8/12, so the total is 17/12 = 1 5/12 bags.', lesson:'adding-subtracting-fractions' },
+      { skill:'4.1 · Subtract fractions', prompt:'Art Studio: you have 2 1/3 litres of paint and use 3/4 litre. How much paint remains?', fraction:[19,12], fractionRequired:true, simplest:'19/12 or 1 7/12', format:'Enter an exact fraction or mixed number. Equivalent fractions are accepted.', explain:'2 1/3 = 28/12 and 3/4 = 9/12. The difference is 19/12 = 1 7/12 litres.', lesson:'adding-subtracting-fractions' },
+      { skill:'4.1 · Add mixed numbers', prompt:'Trail Crew: one section is 1 1/2 km and the next is 2 3/4 km. What is the combined distance?', fraction:[17,4], fractionRequired:true, simplest:'17/4 or 4 1/4', format:'Enter an exact fraction or mixed number. Equivalent fractions are accepted.', explain:'1 1/2 + 2 3/4 = 1 2/4 + 2 3/4 = 3 5/4 = 4 1/4 km.', lesson:'adding-subtracting-fractions' },
+      { skill:'4.1 · Subtract unlike fractions', prompt:'Drink Station: a jug holds 2 1/2 L. After 5/6 L is poured out, how much remains?', fraction:[5,3], fractionRequired:true, simplest:'5/3 or 1 2/3', format:'Enter an exact fraction or mixed number. Equivalent fractions are accepted.', explain:'2 1/2 = 15/6. Then 15/6 − 5/6 = 10/6 = 5/3 = 1 2/3 L.', lesson:'adding-subtracting-fractions' },
+
+      { skill:'4.2 · Repeated fraction groups', prompt:'Breakfast Station: each batch needs 3/4 cup of oats. Five batches are made. How many cups of oats are needed?', fraction:[15,4], fractionRequired:true, simplest:'15/4 or 3 3/4', format:'Enter an exact fraction or mixed number. Equivalent fractions are accepted.', explain:'5 × 3/4 = 15/4 = 3 3/4 cups.', lesson:'multiplying-fractions' },
+      { skill:'4.2 · Fraction of a quantity', prompt:'Volunteer Crew: 2/5 of 30 volunteers are assigned to the garden. How many volunteers are assigned there?', numeric:12, format:'Enter a whole number.', explain:'One fifth of 30 is 6, so two fifths is 12 volunteers.', lesson:'multiplying-fractions' },
+      { skill:'4.2 · Repeated groups', prompt:'Art Club: seven posters each need 2/3 m of ribbon. How many metres of ribbon are needed altogether?', fraction:[14,3], fractionRequired:true, simplest:'14/3 or 4 2/3', format:'Enter an exact fraction or mixed number. Equivalent fractions are accepted.', explain:'7 × 2/3 = 14/3 = 4 2/3 m.', lesson:'multiplying-fractions' },
+      { skill:'4.2 · Fraction of a collection', prompt:'Library Display: 3/4 of 28 new books are placed on the feature shelf. How many books are on the feature shelf?', numeric:21, format:'Enter a whole number.', explain:'One fourth of 28 is 7, and three fourths is 3 × 7 = 21 books.', lesson:'multiplying-fractions' },
+
+      { skill:'4.3 · Equal sharing', prompt:'Pizza Hub: 5 pizzas are shared equally among 4 families. How many pizzas does each family receive?', fraction:[5,4], fractionRequired:false, simplest:'5/4, 1 1/4, or 1.25', format:'Enter a fraction, mixed number, or decimal. Equivalent forms are accepted.', explain:'5 ÷ 4 = 5/4 = 1 1/4 = 1.25 pizzas per family.', lesson:'fractions-equal-shares' },
+      { skill:'4.3 · Exact quotient', prompt:'Trail Snack Station: 7 granola bars are shared equally among 9 hikers. What exact fraction of a bar does each hiker receive?', fraction:[7,9], fractionRequired:true, simplest:'7/9', format:'Enter an exact fraction. Equivalent fractions are accepted.', explain:'Equal sharing is division: 7 ÷ 9 = 7/9 of a bar per hiker.', lesson:'fractions-equal-shares' },
+      { skill:'4.3 · Share greater than one', prompt:'Bake Sale: 8 cakes are shared equally among 5 tables. How many cakes does each table receive?', fraction:[8,5], fractionRequired:false, simplest:'8/5, 1 3/5, or 1.6', format:'Enter a fraction, mixed number, or decimal.', explain:'8 ÷ 5 = 8/5 = 1 3/5 = 1.6 cakes per table.', lesson:'fractions-equal-shares' },
+      { skill:'4.3 · Money sharing', prompt:'Prize Fund: $12 is shared equally among 5 students. How much does each student receive?', fraction:[12,5], fractionRequired:false, simplest:'12/5, 2 2/5, or 2.4', format:'Enter a fraction, mixed number, or decimal amount.', explain:'12 ÷ 5 = 12/5 = 2 2/5 = 2.4, so each student receives $2.40.', lesson:'fractions-equal-shares' },
+
+      { skill:'4.4 · Add decimals', prompt:'Science Field Day: one team walks 12.45 km in the morning and 8.7632 km in the afternoon. What total distance do they walk?', numeric:21.2132, format:'Enter the decimal distance.', explain:'Align equal place-value units: 12.4500 + 8.7632 = 21.2132 km.', lesson:'adding-subtracting-decimals' },
+      { skill:'4.4 · Subtract decimals', prompt:'School Store: you start with $50.00 and spend $17.85. How much money remains?', numeric:32.15, format:'Enter the amount in dollars.', explain:'50.00 − 17.85 = 32.15, so $32.15 remains.', lesson:'adding-subtracting-decimals' },
+      { skill:'4.4 · Unequal decimal lengths', prompt:'Aquarium Study: two fish travel 7.305 m and 12.8 m. What is their combined distance?', numeric:20.105, format:'Enter the decimal distance.', explain:'Write 12.8 as 12.800, then 7.305 + 12.800 = 20.105 m.', lesson:'adding-subtracting-decimals' },
+      { skill:'4.4 · Regrouping decimals', prompt:'Track Meet: a 30.000 s reference time is compared with a 8.672 s split. What is the difference?', numeric:21.328, format:'Enter the decimal time.', explain:'30.000 − 8.672 = 21.328 seconds.', lesson:'adding-subtracting-decimals' },
+
+      { skill:'4.5 · Decimal product', prompt:'Ticket Booth: six activity tickets cost $3.75 each. What is the total cost?', numeric:22.5, format:'Enter the dollar amount.', explain:'6 × 3.75 = 22.50, so the total cost is $22.50.', lesson:'multiplying-decimals' },
+      { skill:'4.5 · Place-value multiplication', prompt:'Mapping Crew: a route segment is 12.8 km long. The same distance is travelled 39 times during data collection. What total distance is travelled?', numeric:499.2, format:'Enter the decimal distance.', explain:'12.8 is 128 tenths. 128 × 39 = 4992 tenths = 499.2 km.', lesson:'multiplying-decimals' },
+      { skill:'4.5 · Two-digit natural factor', prompt:'Garden Centre: 14 bags each contain 6.4 kg of soil. What is the total mass?', numeric:89.6, format:'Enter the decimal mass.', explain:'14 × 6.4 = 89.6 kg. An estimate of 14 × 6 ≈ 84 shows the answer is reasonable.', lesson:'multiplying-decimals' },
+      { skill:'4.5 · Money multiplication', prompt:'Class Event: 24 students each pay $3.75 for an activity. How much money is collected?', numeric:90, format:'Enter the dollar amount.', explain:'24 × 3.75 = 90, so $90.00 is collected.', lesson:'multiplying-decimals' },
+
+      { skill:'4.6 · Decimal quotient', prompt:'Notebook Shop: five identical notebooks cost $18.35 altogether. What is the cost of one notebook?', numeric:3.67, format:'Enter the dollar amount.', explain:'18.35 ÷ 5 = 3.67, so each notebook costs $3.67.', lesson:'dividing-decimals' },
+      { skill:'4.6 · Interpret a remainder', prompt:'Field Trip Vans: 37 students need rides. Each van holds 4 students. What is the minimum number of vans needed?', numeric:10, format:'Enter a whole number.', explain:'37 ÷ 4 = 9 R1. Nine vans are full, but the remaining student still needs a van, so 10 vans are required.', lesson:'dividing-decimals' },
+      { skill:'4.6 · Two-digit divisor', prompt:'Survey Route: 92.5 km is divided equally among 25 route sections. How long is each section?', numeric:3.7, format:'Enter the decimal distance.', explain:'92.5 ÷ 25 = 3.7 km. Since 25 × 3.7 = 92.5, the quotient checks.', lesson:'dividing-decimals' },
+      { skill:'4.6 · Remainder left over', prompt:'Snack Share: 535 granola bars are shared as evenly as possible among 58 students, but bars must stay whole. How many whole bars can each student receive?', numeric:9, format:'Enter a whole number.', explain:'535 ÷ 58 = 9 R13. Each student can receive 9 whole bars, with 13 bars left over.', lesson:'dividing-decimals' }
     ];
 
     const prompt = widget.querySelector('[data-mission-prompt]');
@@ -148,21 +134,18 @@ const base = import.meta.env.BASE_URL;
     let attempts = 0;
 
     const shuffle = (items:any[]) => [...items].sort(() => Math.random() - .5);
-    const normalize = (value:string) => value
-      .toLowerCase()
-      .trim()
-      .replace(/\$/g, '')
-      .replace(/,/g, '')
-      .replace(/\s*\/\s*/g, '/')
-      .replace(/\s+/g, ' ');
+    const lessonTags = ['4.1','4.2','4.3','4.4','4.5','4.6'];
+    const buildQuest = () => shuffle(lessonTags.flatMap((tag) => shuffle(missions.filter((mission) => mission.skill.startsWith(tag))).slice(0, 2)));
 
-    const isCorrect = (mission:any, raw:string) => {
-      const cleaned = normalize(raw);
-      if ('numeric' in mission) {
-        const value = Number(cleaned);
-        return Number.isFinite(value) && Math.abs(value - mission.numeric) < 1e-9;
-      }
-      return (mission.accepted || []).some((answer:string) => normalize(answer) === cleaned);
+    const checkMission = (mission:any, raw:string) => {
+      const parsed = parseMathValue(raw);
+      if (!parsed) return { correct:false, parsed:null, unsimplified:false };
+      if ('numeric' in mission) return { correct:Math.abs(parsed.value - mission.numeric) < 1e-9, parsed, unsimplified:false };
+      const target = mission.fraction[0] / mission.fraction[1];
+      const kindAllowed = !mission.fractionRequired || parsed.kind === 'fraction' || parsed.kind === 'mixed';
+      const correct = kindAllowed && Math.abs(parsed.value - target) < 1e-9;
+      const unsimplified = correct && parsed.den && parsed.num !== null && gcd(Math.abs(parsed.num), parsed.den) > 1;
+      return { correct, parsed, unsimplified };
     };
 
     const updateScore = () => {
@@ -187,11 +170,11 @@ const base = import.meta.env.BASE_URL;
       if (prompt) prompt.textContent = 'City Quest complete!';
       if (skill) skill.textContent = 'UNIT 4 COMPLETE';
       if (number) number.textContent = 'All 12 missions finished';
-      if (format) format.textContent = 'You completed two missions from every lesson.';
+      if (format) format.textContent = 'You completed two randomly selected missions from every lesson.';
       if (input) input.disabled = true;
       if (check) check.disabled = true;
       if (next) next.hidden = true;
-      if (feedback) feedback.innerHTML = `<strong>Final score: ${score} points.</strong> Start a new quest to shuffle the mission order and try for a stronger streak.`;
+      if (feedback) feedback.innerHTML = `<strong>Final score: ${score} points.</strong> Start a new quest to draw a different balanced set from the 24-mission bank.`;
     };
 
     const checkAnswer = () => {
@@ -199,24 +182,29 @@ const base = import.meta.env.BASE_URL;
       const raw = input?.value || '';
       if (!raw.trim()) return;
       attempts++;
-      if (isCorrect(m, raw)) {
+      const result = checkMission(m, raw);
+      if (result.correct) {
         const earned = attempts === 1 ? 100 : 50;
         score += earned;
         streak = attempts === 1 ? streak + 1 : 0;
         updateScore();
-        if (feedback) feedback.innerHTML = `<strong>Mission cleared! +${earned} points.</strong> ${m.explain}`;
+        const simplifyNote = result.unsimplified && m.simplest
+          ? ` <strong>Your value is equivalent and correct.</strong> A simplest form is ${m.simplest}.`
+          : '';
+        if (feedback) feedback.innerHTML = `<strong>Mission cleared! +${earned} points.</strong> ${m.explain}${simplifyNote}`;
         if (input) input.disabled = true;
         if (check) check.disabled = true;
         if (next) next.hidden = false;
       } else {
         streak = 0;
         updateScore();
-        if (feedback) feedback.innerHTML = `<strong>Not yet.</strong> Recheck the units, estimate, model, or operation. <a href="${base}courses/grade-6-math/decimals-fractions/${m.lesson}/">Review Lesson ${m.skill.split(' · ')[0]}</a> if you need a refresher.`;
+        const formatReminder = m.fractionRequired ? ' This mission asks for an exact fraction or mixed number rather than a decimal approximation.' : '';
+        if (feedback) feedback.innerHTML = `<strong>Not yet.</strong>${formatReminder} Recheck the units, estimate, model, or operation. <a href="${base}courses/grade-6-math/decimals-fractions/${m.lesson}/">Review Lesson ${m.skill.split(' · ')[0]}</a> if you need a refresher.`;
       }
     };
 
     const reset = () => {
-      pool = shuffle(missions);
+      pool = buildQuest();
       index = 0;
       score = 0;
       streak = 0;
