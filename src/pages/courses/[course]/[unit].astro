@@ -8,9 +8,11 @@ const { course, unit } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-negative-numbers'
   ? { title:'Unit 1 Review & Math Arcade', summary:'Mix all five skills, take a randomized unit check, and complete free-response integer missions.' }
-  : course.slug === 'grade-6-math' && unit.slug === 'number-operations'
-    ? { title:'Unit 3 Review & Math Arcade', summary:'Mix prime factors, powers, and order of operations, then complete the Number Lab Quest.' }
-    : null;
+  : course.slug === 'grade-6-math' && unit.slug === 'coordinates-design'
+    ? { title:'Unit 2 Review & Math Arcade', summary:'Mix coordinates, transformations, congruence, symmetry, and tessellations, then complete the Transformation Mission Arcade.' }
+    : course.slug === 'grade-6-math' && unit.slug === 'number-operations'
+      ? { title:'Unit 3 Review & Math Arcade', summary:'Mix prime factors, powers, and order of operations, then complete the Number Lab Quest.' }
+      : null;
 ---
 <BaseLayout title={`${unit.title} | ${course.grade} ${course.shortSubject}`} description={unit.description} themeColor={course.color}>
   <div class="page-wrap" style={`--course:${course.color};--course-soft:${course.accent}`}>
