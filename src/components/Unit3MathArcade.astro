@@ -3,7 +3,7 @@ const base = import.meta.env.BASE_URL;
 ---
 <div class="arcade" data-unit3-arcade data-base={base}>
   <div class="arcade-head">
-    <div><p class="eyebrow">NUMBER LAB QUEST</p><h3>Unit 3 Math Arcade</h3><p>Solve real-life number missions without multiple choice. Build a streak by clearing missions correctly on your first try.</p></div>
+    <div><p class="eyebrow">NUMBER LAB QUEST</p><h3>Unit 3 Math Arcade</h3><p>Use Unit 3 ideas to solve game, packing, coding, and score-system missions. No multiple choice—type the value that completes each mission.</p></div>
     <div class="arcade-score"><strong data-arcade-score>0</strong><span>points</span><small data-arcade-streak>Streak: 0</small></div>
   </div>
   <div class="mission-card">
@@ -19,18 +19,18 @@ const base = import.meta.env.BASE_URL;
   document.querySelectorAll<HTMLElement>('[data-unit3-arcade]').forEach((widget) => {
     const base = widget.dataset.base || '/';
     const missions = [
-      { skill:'3.1 · Factors', prompt:'A club has 48 badges and wants equal groups of 6. Enter the number of groups.', answer:8, explain:'48 ÷ 6 = 8, so 6 is a factor of 48.', lesson:'prime-factorization-divisibility' },
-      { skill:'3.1 · Prime factors', prompt:'The prime factorization is 2 × 2 × 3 × 5. Enter the original number.', answer:60, explain:'2 × 2 × 3 × 5 = 60.', lesson:'prime-factorization-divisibility' },
-      { skill:'3.1 · Common factors', prompt:'84 = 2 × 2 × 3 × 7 and 126 = 2 × 3 × 3 × 7. Enter the greatest common factor.', answer:42, explain:'The largest shared product is 2 × 3 × 7 = 42.', lesson:'prime-factorization-divisibility' },
-      { skill:'3.1 · Divisibility', prompt:'A number has factors 2 × 2 × 3 × 7. Enter the quotient when the number is divided by 14.', answer:6, explain:'The number is 84, and 84 ÷ 14 = 6.', lesson:'prime-factorization-divisibility' },
-      { skill:'3.2 · Powers', prompt:'A game multiplies 4 × 4 × 4. Enter the value.', answer:64, explain:'4³ = 4 × 4 × 4 = 64.', lesson:'expressing-powers' },
-      { skill:'3.2 · Powers', prompt:'Evaluate 3⁴. Enter the value.', answer:81, explain:'3⁴ = 3 × 3 × 3 × 3 = 81.', lesson:'expressing-powers' },
-      { skill:'3.2 · Prime factor powers', prompt:'A prime factorization is 2³ × 3². Enter the original number.', answer:72, explain:'2³ = 8 and 3² = 9, so 8 × 9 = 72.', lesson:'expressing-powers' },
-      { skill:'3.2 · Power meaning', prompt:'The power 5³ contains how many factors of 5? Enter the number of factors.', answer:3, explain:'The exponent 3 counts the number of factors of the base 5.', lesson:'expressing-powers' },
-      { skill:'3.3 · Order', prompt:'Evaluate 18 − 2 × 5.', answer:8, explain:'Multiply first: 2 × 5 = 10, then 18 − 10 = 8.', lesson:'operations-parentheses-powers' },
-      { skill:'3.3 · Equal priority', prompt:'Evaluate 24 ÷ 6 × 2.', answer:8, explain:'Multiplication and division share priority: 24 ÷ 6 = 4, then 4 × 2 = 8.', lesson:'operations-parentheses-powers' },
-      { skill:'3.3 · Parentheses & powers', prompt:'Evaluate 5 + 2 × (3² − 4).', answer:15, explain:'3² = 9, then 9 − 4 = 5, then 2 × 5 = 10, then 5 + 10 = 15.', lesson:'operations-parentheses-powers' },
-      { skill:'Mixed · Number structure', prompt:'A number is 2³ × 5. Enter its value.', answer:40, explain:'2³ = 8 and 8 × 5 = 40.', lesson:'expressing-powers' }
+      { skill:'3.1 · Packing factors', prompt:'Supply Station: 72 pencils must be packed with 8 pencils in every box. How many equal boxes can be filled with none left over?', answer:9, explain:'72 ÷ 8 = 9. The exact grouping shows that 8 is a factor of 72.', lesson:'prime-factorization-divisibility' },
+      { skill:'3.1 · Prime-factor code', prompt:'Factory Scanner: a crate code is 2 × 2 × 3 × 5. The scanner needs the original crate number. What number should you enter?', answer:60, explain:'Multiplying the prime factors gives 2 × 2 × 3 × 5 = 60.', lesson:'prime-factorization-divisibility' },
+      { skill:'3.1 · Shared factors', prompt:'Team Packing: 84 red tiles and 126 blue tiles must be split into the same number of equal packs. Their shared prime factors can build 2 × 3 × 7 packs. How many packs is that?', answer:42, explain:'2 × 3 × 7 = 42, so 42 is a common factor of both amounts. Each pack can contain 2 red and 3 blue tiles.', lesson:'prime-factorization-divisibility' },
+      { skill:'3.1 · Divisibility', prompt:'Cargo Gate: a shipment contains 84 tokens and each case must hold 14. How many full cases pass through the gate?', answer:6, explain:'84 ÷ 14 = 6, so 14 divides 84 exactly.', lesson:'prime-factorization-divisibility' },
+      { skill:'3.2 · Exponent meaning', prompt:'Game Code: the same multiplier appears as 4 × 4 × 4 × 4. If the code is rewritten as 4 to a power, what exponent should the programmer use?', answer:4, explain:'The exponent counts the four repeated factors, so the compact code is 4⁴.', lesson:'expressing-powers' },
+      { skill:'3.2 · Power value', prompt:'Energy Core: a robot receives 3³ energy units. How many energy units does the power represent?', answer:27, explain:'3³ = 3 × 3 × 3 = 27.', lesson:'expressing-powers' },
+      { skill:'3.2 · Prime-factor powers', prompt:'Compression Chip: the chip stores a number as 2³ × 3². What original number will the chip rebuild?', answer:72, explain:'2³ = 8 and 3² = 9, so 8 × 9 = 72.', lesson:'expressing-powers' },
+      { skill:'3.2 · Code repair', prompt:'Bug Fix: a programmer meant to use 5⁴ but accidentally calculated 5 × 4. What value should the correct power produce?', answer:625, explain:'5⁴ means 5 × 5 × 5 × 5 = 625. The exponent counts copies of the base.', lesson:'expressing-powers' },
+      { skill:'3.3 · Score formula', prompt:'Arcade Scoreboard: the score rule is 18 − 2 × 5. What score should appear on the screen?', answer:8, explain:'Multiply first: 2 × 5 = 10, then 18 − 10 = 8.', lesson:'operations-parentheses-powers' },
+      { skill:'3.3 · Equal-priority conveyor', prompt:'Conveyor Control: the machine uses 48 ÷ 8 × 3 to set its speed. What value should the controller use?', answer:18, explain:'Division and multiplication share priority, so work left to right: 48 ÷ 8 = 6, then 6 × 3 = 18.', lesson:'operations-parentheses-powers' },
+      { skill:'3.3 · Power vault', prompt:'Vault Code: the lock evaluates 5 + 2 × (3² − 4). What final number opens the vault?', answer:15, explain:'3² = 9, then 9 − 4 = 5, then 2 × 5 = 10, then 5 + 10 = 15.', lesson:'operations-parentheses-powers' },
+      { skill:'Mixed · Number structure', prompt:'Final Build: a machine part number is stored as 2³ × 5, then 6 is added to it. What final part number is produced?', answer:46, explain:'2³ = 8, then 8 × 5 = 40, and 40 + 6 = 46.', lesson:'expressing-powers' }
     ];
     const prompt = widget.querySelector('[data-mission-prompt]');
     const skill = widget.querySelector('[data-mission-skill]');
