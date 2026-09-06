@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import LearningSection from '../../../../components/LearningSection.astro';
+import VocabularyExplorer from '../../../../components/VocabularyExplorer.astro';
+import PracticeEngine from '../../../../components/PracticeEngine.astro';
+import CheckYourself from '../../../../components/CheckYourself.astro';
+import Unit3MathArcade from '../../../../components/Unit3MathArcade.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit3Content } from '../../../../data/unit3Content';
+
+const course = findCourse('grade-6-math')!;
+const unit = course.units.find((item) => item.slug === 'number-operations')!;
+const base = import.meta.env.BASE_URL;
+const lessonData = unit.topics.map((topic) => ({ topic, content: unit3Content[`${course.slug}/${unit.slug}/${topic.slug}`] }));
+const mixedPractice = lessonData.flatMap(({content}) => content.questions);
+const mixedCheck = lessonData.flatMap(({content}) => content.checkQuestions);
+const reviewWords = [
+  { term:'Factor', definition:'A natural number that divides another number exactly.', example:'6 is a factor of 24.' },
+  { term:'Prime number', definition:'A natural number greater than 1 with exactly two factors.', example:'29 is prime.' },
+  { term:'Composite number', definition:'A natural number greater than 1 with more than two factors.', example:'36 is composite.' },
+  { term:'Prime factorization', definition:'A number written as a product of prime factors only.', example:'60 = 2 × 2 × 3 × 5.' },
+  { term:'Divisible', definition:'Able to be divided with a remainder of 0.', example:'84 is divisible by 14.' },
+  { term:'Power', definition:'A compact representation of repeated multiplication of the same factor.', example:'3⁴ represents 3 × 3 × 3 × 3.' },
+  { term:'Base', definition:'The repeated factor in a power.', example:'In 5³, the base is 5.' },
+  { term:'Exponent', definition:'The number of repeated factors in a power.', example:'In 5³, the exponent is 3.' },
+  { term:'Parentheses', definition:'Grouping symbols showing which part of an expression is handled first.', example:'(6 + 2) × 3.' },
+  { term:'Order of operations', definition:'The conventional sequence for evaluating numerical expressions.', example:'Parentheses, powers, multiplication/division left to right, addition/subtraction left to right.' }
+];
+const sectionLinks = [['overview','🎯','Overview'],['lessons','🗺️','Lesson Map'],['vocabulary','🧠','Vocabulary'],['practice','✏️','Mixed Practice'],['check','✅','Unit Check'],['arcade','🎮','Math Arcade'],['pat','🏁','PAT-Style Review']];
+---
+<BaseLayout title={`Unit 3 Review | ${course.grade} ${course.shortSubject}`} description="Cumulative review of prime factorization, powers, and order of operations." themeColor={course.color}>
+  <div class="topic-shell" style={`--course:${course.color};--course-soft:${course.accent}`}>
+    <aside class="topic-sidebar">
+      <a class="back-course" href={`${base}courses/${course.slug}/${unit.slug}/`}>← {unit.title}</a>
+      <p class="eyebrow">ON THIS PAGE</p><p class="scroll-cue">Swipe sections →</p>
+      <nav aria-label="Review sections">{sectionLinks.map(([id,icon,label])=><a href={`#${id}`}><span>{icon}</span>{label}</a>)}</nav>
+    </aside>
+    <article class="topic-content">
+      <Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title,href:`${base}courses/${course.slug}/${unit.slug}/`},{label:'Unit Review'}]} />
+      <header class="topic-hero"><p class="eyebrow">UNIT 3 REVIEW · GRADE 6 MATH</p><h1>Number Operations</h1><p>Mix prime factors, powers, and order of operations. Use the lesson map to target one skill, then test yourself with a fresh mixed set and the Number Lab Quest.</p><div class="review-start"><strong>How to use this page</strong><span>Start with the checklist. Practise anything that feels shaky. Then try the Unit Check without hints and finish with the Math Arcade.</span></div></header>
+
+      <LearningSection id="overview" eyebrow="GET READY" title="What should I know?" icon="🎯" tone="idea">
+        <div class="checklist-grid">
+          <label><input type="checkbox" /> I can identify factors and classify prime and composite numbers.</label>
+          <label><input type="checkbox" /> I can find and check a prime factorization.</label>
+          <label><input type="checkbox" /> I can use prime factors to reason about common factors and divisibility.</label>
+          <label><input type="checkbox" /> I can identify a base and exponent and explain what each means.</label>
+          <label><input type="checkbox" /> I can translate between powers and repeated multiplication.</label>
+          <label><input type="checkbox" /> I can evaluate expressions with parentheses and powers.</label>
+          <label><input type="checkbox" /> I can handle multiplication/division and addition/subtraction from left to right within each equal-priority group.</label>
+        </div>
+        <p class="review-tip"><strong>Student tip:</strong> An unchecked box tells you exactly what to review next. You do not need to restart the whole unit.</p>
+      </LearningSection>
+
+      <LearningSection id="lessons" eyebrow="FIND YOUR NEXT STEP" title="Lesson map" icon="🗺️" tone="learn">
+        <div class="lesson-map">{lessonData.map(({topic})=><a href={`${base}courses/${course.slug}/${unit.slug}/${topic.slug}/`}><span>{topic.number}</span><div><strong>{topic.title}</strong><small>{topic.summary}</small></div><em>Review →</em></a>)}</div>
+      </LearningSection>
+
+      <LearningSection id="vocabulary" eyebrow="LEARN THE LANGUAGE" title="Mixed vocabulary review" icon="🧠" tone="vocab"><VocabularyExplorer words={reviewWords} /></LearningSection>
+
+      <LearningSection id="practice" eyebrow="PRACTISE WITH SUPPORT" title="Mixed Unit 3 practice" icon="✏️" tone="practice"><p>Questions are pulled from all three lessons. Choose a difficulty or leave it on Mixed. Use the explanations to identify the exact concept you need to revisit.</p><PracticeEngine questions={mixedPractice} /></LearningSection>
+
+      <LearningSection id="check" eyebrow="UNIT CHECK" title="Can you mix all three skills?" icon="✅" tone="review"><p>This assessment pulls 10 questions from a separate bank across the whole unit. A new set gives you a different mix.</p><CheckYourself questions={mixedCheck} count={10} /></LearningSection>
+
+      <LearningSection id="arcade" eyebrow="PLAY & APPLY" title="Number Lab Quest Math Arcade" icon="🎮" tone="play"><p>No multiple choice here. Solve number-structure and expression missions, type your answer, build a streak, and earn points.</p><Unit3MathArcade /></LearningSection>
+
+      <LearningSection id="pat" eyebrow="PAT-STYLE THINKING" title="Explain, justify, and choose a strategy" icon="🏁" tone="review">
+        <div class="pat-stack">
+          <article><h3>1 · Prime factorization</h3><p>Explain why 72 = 2 × 2 × 2 × 3 × 3 is a prime factorization but 72 = 8 × 9 is not.</p><details><summary>Show a strong answer</summary><p>The first expression uses only prime factors. The second uses 8 and 9, which are composite and can still be factored.</p></details></article>
+          <article><h3>2 · Powers</h3><p>Explain the difference between 4³ and 4 × 3.</p><details><summary>Show a strong answer</summary><p>4³ means three factors of 4: 4 × 4 × 4 = 64. The expression 4 × 3 means one multiplication and equals 12.</p></details></article>
+          <article><h3>3 · Equal priority</h3><p>Evaluate 36 ÷ 6 × 3 and explain why multiplication does not automatically happen first.</p><details><summary>Show a strong answer</summary><p>Multiplication and division have equal priority, so work left to right: 36 ÷ 6 = 6, then 6 × 3 = 18.</p></details></article>
+          <article><h3>4 · Full expression</h3><p>Evaluate 6 + 2 × (5 − 2)² and show one justified step at a time.</p><details><summary>Show a strong answer</summary><p>5 − 2 = 3, then 3² = 9, then 2 × 9 = 18, then 6 + 18 = 24.</p></details></article>
+        </div>
+        <div class="finish-card"><div><p class="eyebrow">UNIT 3 COMPLETE</p><strong>Ready for Unit 4?</strong><span>If your mixed check and explanations feel strong, move on. Otherwise, choose one lesson from the map and target that skill.</span></div><a class="button" href={`${base}courses/${course.slug}/decimals-fractions/`}>Open Unit 4 →</a></div>
+      </LearningSection>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+.review-start{display:grid;grid-template-columns:auto 1fr;gap:1rem;margin-top:1.2rem;padding:1rem 1.1rem;border-radius:16px;background:var(--course-soft);line-height:1.55}.checklist-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}.checklist-grid label{display:flex;gap:.6rem;align-items:flex-start;padding:.9rem;border:1px solid #e3e9f0;border-radius:13px}.checklist-grid input{margin-top:.3rem}.review-tip{margin-top:1rem;padding:.85rem 1rem;border-radius:12px;background:#fff8db}.lesson-map{display:grid;gap:.7rem}.lesson-map a{display:grid;grid-template-columns:52px 1fr auto;gap:1rem;align-items:center;padding:1rem;border:1px solid #dfe5ee;border-radius:13px;text-decoration:none}.lesson-map a>span{color:var(--course);font-weight:900}.lesson-map strong,.lesson-map small{display:block}.lesson-map small{color:#64748b}.lesson-map em{font-style:normal;color:var(--course);font-weight:800}.pat-stack{display:grid;gap:.8rem}.pat-stack article{border:1px solid #dfe5ee;border-radius:14px;padding:1rem}.pat-stack h3{margin:.1rem 0 .5rem}.finish-card{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;margin-top:1rem;padding:1.1rem;border-radius:15px;background:#edf9f0}.finish-card>div{display:grid;gap:.25rem}.finish-card .eyebrow{margin:0}.finish-card a{text-decoration:none}.scroll-cue{display:none}@media(max-width:760px){.review-start,.checklist-grid,.finish-card{grid-template-columns:1fr}.topic-hero{padding-top:2rem;padding-bottom:3rem}.topic-hero h1{font-size:clamp(2.2rem,11vw,3.25rem);line-height:1.04}.lesson-map a{grid-template-columns:44px 1fr}.lesson-map em{grid-column:2}.scroll-cue{display:block;margin:-.35rem 0 .45rem;color:#64748b;font-size:.76rem;font-weight:700}}
+</style>
