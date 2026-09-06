@@ -6,7 +6,11 @@ export function getStaticPaths() { return courses.flatMap((course) => course.uni
 interface Props { course: Course; unit: Unit }
 const { course, unit } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const hasUnit1Review = course.slug === 'grade-6-math' && unit.slug === 'positive-negative-numbers';
+const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-negative-numbers'
+  ? { title:'Unit 1 Review & Math Arcade', summary:'Mix all five skills, take a randomized unit check, and complete free-response integer missions.' }
+  : course.slug === 'grade-6-math' && unit.slug === 'number-operations'
+    ? { title:'Unit 3 Review & Math Arcade', summary:'Mix prime factors, powers, and order of operations, then complete the Number Lab Quest.' }
+    : null;
 ---
 <BaseLayout title={`${unit.title} | ${course.grade} ${course.shortSubject}`} description={unit.description} themeColor={course.color}>
   <div class="page-wrap" style={`--course:${course.color};--course-soft:${course.accent}`}>
@@ -20,9 +24,9 @@ const hasUnit1Review = course.slug === 'grade-6-math' && unit.slug === 'positive
             <span>{topic.number}</span><span><strong>{topic.title}</strong><small>{topic.summary}</small></span><em>{topic.status === 'ready' ? 'Open topic' : 'Coming next'}</em>
           </a>
         ))}
-        {hasUnit1Review && (
+        {reviewInfo && (
           <a class="topic-row review-row" href={`${base}courses/${course.slug}/${unit.slug}/unit-review/`}>
-            <span>★</span><span><strong>Unit 1 Review & Math Arcade</strong><small>Mix all five skills, take a randomized unit check, and complete free-response integer missions.</small></span><em>Review unit</em>
+            <span>★</span><span><strong>{reviewInfo.title}</strong><small>{reviewInfo.summary}</small></span><em>Review unit</em>
           </a>
         )}
       </section>
