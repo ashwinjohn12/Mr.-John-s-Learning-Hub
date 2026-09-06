@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import LearningSection from '../../../../components/LearningSection.astro';
+import VocabularyExplorer from '../../../../components/VocabularyExplorer.astro';
+import PracticeEngine from '../../../../components/PracticeEngine.astro';
+import Unit4BalancedCheck from '../../../../components/Unit4BalancedCheck.astro';
+import Unit4MathArcade from '../../../../components/Unit4MathArcade.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit4Content } from '../../../../data/unit4Content';
+import { unit4RemainingContent } from '../../../../data/unit4RemainingContent';
+import { unit4DecimalContent } from '../../../../data/unit4DecimalContent';
+import { unit4Lesson45QAContent } from '../../../../data/unit4Lesson45Enhancements';
+import { unit4Lesson46Content } from '../../../../data/unit4Lesson46Content';
+import { applyUnit4StudentEnhancements } from '../../../../data/unit4StudentEnhancements';
+import { applyUnit4BridgeEnhancements } from '../../../../data/unit4BridgeEnhancements';
+
+const course = findCourse('grade-6-math')!;
+const unit = course.units.find((item) => item.slug === 'decimals-fractions')!;
+const base = import.meta.env.BASE_URL;
+
+const contentBySlug = {
+  'adding-subtracting-fractions': applyUnit4StudentEnhancements(
+    'grade-6-math/decimals-fractions/adding-subtracting-fractions',
+    unit4Content['grade-6-math/decimals-fractions/adding-subtracting-fractions']
+  ),
+  'multiplying-fractions': unit4RemainingContent['grade-6-math/decimals-fractions/multiplying-fractions'],
+  'fractions-equal-shares': applyUnit4BridgeEnhancements(
+    'grade-6-math/decimals-fractions/fractions-equal-shares',
+    unit4RemainingContent['grade-6-math/decimals-fractions/fractions-equal-shares']
+  ),
+  'adding-subtracting-decimals': unit4DecimalContent['grade-6-math/decimals-fractions/adding-subtracting-decimals'],
+  'multiplying-decimals': unit4Lesson45QAContent,
+  'dividing-decimals': unit4Lesson46Content
+};
+
+const lessonData = unit.topics.map((topic) => ({
+  topic,
+  content: contentBySlug[topic.slug as keyof typeof contentBySlug]
+}));
+
+const mixedPractice = lessonData.flatMap(({ topic, content }) =>
+  content.questions.map((question) => ({
+    ...question,
+    prompt: `${topic.number} · ${question.prompt}`
+  }))
+);
+
+const balancedGroups = lessonData.map(({ topic, content }) => ({
+  label: `Lesson ${topic.number} · ${topic.title}`,
+  questions: content.checkQuestions,
+  count: 2
+}));
+
+const reviewWords = [
+  { term:'Equivalent fractions', definition:'Fractions that use different numerators and denominators but represent the same value.', example:'1/2 = 2/4 = 3/6.' },
+  { term:'Common denominator', definition:'A denominator shared by equivalent forms of two or more fractions.', example:'12 is a common denominator for thirds and fourths.' },
+  { term:'Lowest common denominator (LCD)', definition:'The least common multiple of the denominators.', example:'The LCD of 6 and 8 is 24.' },
+  { term:'Unit fraction', definition:'A fraction with numerator 1.', example:'1/5 is a unit fraction.' },
+  { term:'Factor', definition:'A number being multiplied.', example:'In 4 × 2.1, 4 and 2.1 are factors.' },
+  { term:'Product', definition:'The result of multiplication.', example:'The product of 4 and 2.1 is 8.4.' },
+  { term:'Equal sharing', definition:'Dividing a total into groups that each receive the same amount.', example:'5 pizzas shared among 4 families gives 5/4 pizza per family.' },
+  { term:'Quotient', definition:'The result of division.', example:'The quotient of 9.6 ÷ 4 is 2.4.' },
+  { term:'Vinculum', definition:'The fraction bar, which can also represent division.', example:'5/4 can be read as 5 ÷ 4.' },
+  { term:'Exact', definition:'A value that represents an amount without rounding.', example:'7/9 is an exact share even though its decimal repeats.' },
+  { term:'Place value', definition:'The value a digit has because of its position in a number.', example:'In 4.26, the 2 represents two tenths.' },
+  { term:'Estimate', definition:'A reasonable approximate value used to predict or check an answer.', example:'113.4 ÷ 18 is about 5.' },
+  { term:'Standard algorithm', definition:'An efficient written procedure built from place-value reasoning.', example:'Standard algorithms can be used for decimal addition, subtraction, multiplication, and division.' },
+  { term:'Partial product', definition:'One product created after decomposing factors.', example:'30 × 0.7 = 21 is a partial product in 34 × 5.7.' },
+  { term:'Area model', definition:'A rectangular model that organizes multiplication or division using decomposed parts.', example:'34 × 5.7 can be represented with four smaller rectangles.' },
+  { term:'Dividend', definition:'The amount being divided.', example:'In 49.2 ÷ 3, 49.2 is the dividend.' },
+  { term:'Divisor', definition:'The number the dividend is divided by.', example:'In 49.2 ÷ 3, 3 is the divisor.' },
+  { term:'Remainder', definition:'The amount left after making as many equal groups as possible.', example:'15 ÷ 2 = 7 R1.' },
+  { term:'Compatible numbers', definition:'Nearby numbers chosen because they are easy to calculate with mentally.', example:'Use 100 ÷ 20 to estimate 113.4 ÷ 18.' },
+  { term:'Reasonable', definition:'An answer that fits the expected size and context of a problem.', example:'An estimate can help decide whether a decimal product or quotient is reasonable.' }
+];
+
+const sectionLinks = [
+  ['overview','🎯','Overview'],
+  ['lessons','🗺️','Lesson Map'],
+  ['vocabulary','🧠','Vocabulary'],
+  ['practice','✏️','Mixed Practice'],
+  ['check','✅','Unit Check'],
+  ['arcade','🎮','Math Arcade'],
+  ['pat','🏁','PAT-Style Review']
+];
+---
+<BaseLayout title={`Unit 4 Review | ${course.grade} ${course.shortSubject}`} description="Balanced review of fraction and decimal operations across all six Unit 4 lessons." themeColor={course.color}>
+  <div class="topic-shell" style={`--course:${course.color};--course-soft:${course.accent}`}>
+    <aside class="topic-sidebar">
+      <a class="back-course" href={`${base}courses/${course.slug}/${unit.slug}/`}>← {unit.title}</a>
+      <p class="eyebrow">ON THIS PAGE</p><p class="scroll-cue">Swipe sections →</p>
+      <nav aria-label="Review sections">{sectionLinks.map(([id,icon,label]) => <a href={`#${id}`}><span>{icon}</span>{label}</a>)}</nav>
+    </aside>
+
+    <article class="topic-content">
+      <Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title,href:`${base}courses/${course.slug}/${unit.slug}/`},{label:'Unit Review'}]} />
+
+      <header class="topic-hero">
+        <p class="eyebrow">UNIT 4 REVIEW · GRADE 6 MATH</p>
+        <h1>Operations on Decimals & Fractions</h1>
+        <p>Connect fraction operations, equal sharing, decimal place value, estimation, multiplication, and division. This review is balanced so every lesson matters.</p>
+        <div class="review-start"><strong>How to use this page</strong><span>Check the skills you already own. Use Mixed Practice for support, take the 12-question balanced Unit Check without hints, then finish with the Fraction & Decimal City Quest.</span></div>
+      </header>
+
+      <LearningSection id="overview" eyebrow="GET READY" title="What should I know?" icon="🎯" tone="idea">
+        <div class="checklist-groups">
+          <article><p class="lesson-chip">4.1 · Add & subtract fractions</p><label><input type="checkbox" /> I can make common denominators using equivalent fractions.</label><label><input type="checkbox" /> I can add or subtract fractions and mixed numbers and simplify the result.</label></article>
+          <article><p class="lesson-chip">4.2 · Multiply fractions</p><label><input type="checkbox" /> I can interpret natural number × fraction as repeated groups.</label><label><input type="checkbox" /> I can find a fraction of a natural-number quantity and connect unit fractions to division.</label></article>
+          <article><p class="lesson-chip">4.3 · Equal shares</p><label><input type="checkbox" /> I can connect equal sharing, division statements, and fractions.</label><label><input type="checkbox" /> I can choose whether a fraction, mixed number, or decimal communicates a share best.</label></article>
+          <article><p class="lesson-chip">4.4 · Add & subtract decimals</p><label><input type="checkbox" /> I can align equal place-value units before adding or subtracting decimals.</label><label><input type="checkbox" /> I can use estimation and placeholder zeros to check decimal calculations.</label></article>
+          <article><p class="lesson-chip">4.5 · Multiply decimals</p><label><input type="checkbox" /> I can explain a decimal product using tenths/hundredths or partial products.</label><label><input type="checkbox" /> I can estimate and use a standard algorithm to multiply a decimal by a natural number.</label></article>
+          <article><p class="lesson-chip">4.6 · Divide decimals</p><label><input type="checkbox" /> I can divide a decimal by a natural number using place value, partial quotients, or a standard algorithm.</label><label><input type="checkbox" /> I can decide what a remainder means in a real situation and estimate a reasonable quotient.</label></article>
+        </div>
+        <p class="review-tip"><strong>Student tip:</strong> Do not restart the whole unit because one box is unchecked. Open that lesson, review the matching section, then come back here.</p>
+      </LearningSection>
+
+      <LearningSection id="lessons" eyebrow="FIND YOUR NEXT STEP" title="Six-lesson map" icon="🗺️" tone="learn">
+        <div class="lesson-map">{lessonData.map(({ topic }) => <a href={`${base}courses/${course.slug}/${unit.slug}/${topic.slug}/`}><span>{topic.number}</span><div><strong>{topic.title}</strong><small>{topic.summary}</small></div><em>Review →</em></a>)}</div>
+      </LearningSection>
+
+      <LearningSection id="vocabulary" eyebrow="LEARN THE LANGUAGE" title="Mixed Unit 4 vocabulary" icon="🧠" tone="vocab">
+        <p class="section-lead">Fractions and decimals share many ideas: units, operations, estimates, and representations. Use the vocabulary cards to connect the language across the whole unit.</p>
+        <VocabularyExplorer words={reviewWords} />
+      </LearningSection>
+
+      <LearningSection id="practice" eyebrow="PRACTISE WITH SUPPORT" title="Mixed Unit 4 practice" icon="✏️" tone="practice">
+        <p>Every lesson contributes its full supported Practice bank. The lesson number at the start of each prompt tells you where to return if you need a refresher. Use hints and explanations here—this is the place to learn from mistakes.</p>
+        <PracticeEngine questions={mixedPractice} />
+      </LearningSection>
+
+      <LearningSection id="check" eyebrow="UNIT CHECK" title="Can you mix all six skills?" icon="✅" tone="review">
+        <p>Every set contains exactly <strong>2 questions from each lesson</strong> for a total of 12. Questions are randomized within each lesson and then shuffled, so coverage stays balanced while the order changes.</p>
+        <Unit4BalancedCheck groups={balancedGroups} />
+      </LearningSection>
+
+      <LearningSection id="arcade" eyebrow="PLAY & APPLY" title="Fraction & Decimal City Quest Math Arcade" icon="🎮" tone="play">
+        <p>No multiple choice here. Solve 12 applied missions—two from every lesson—in recipes, gardens, fair sharing, field-day data, shopping, routes, and transportation. Type your answer, earn points, and build a streak.</p>
+        <Unit4MathArcade />
+      </LearningSection>
+
+      <LearningSection id="pat" eyebrow="PAT-STYLE THINKING" title="Explain, justify, and choose a strategy" icon="🏁" tone="review">
+        <div class="pat-stack">
+          <article><p class="lesson-chip">4.1</p><h3>Common denominators</h3><p>A student solves 1/4 + 1/6 using twenty-fourths instead of twelfths and still gets 5/12 after simplifying. Is the strategy valid? Explain.</p><details><summary>Show a strong answer</summary><p>Yes. Twenty-fourths are a valid common unit: 1/4 = 6/24 and 1/6 = 4/24, so the sum is 10/24 = 5/12. Twelfths would be more efficient because 12 is the lowest common denominator, but the other strategy still preserves the values.</p></details></article>
+
+          <article><p class="lesson-chip">4.2</p><h3>Multiplication meaning</h3><p>Explain two different ways to interpret 4 × 2/5 and why the product does not require changing the denominator.</p><details><summary>Show a strong answer</summary><p>It can mean four groups of 2/5, so 2/5 + 2/5 + 2/5 + 2/5 = 8/5. It can also be connected to taking repeated fifth-sized parts. The denominator stays 5 because the size of each fractional unit stays fifths.</p></details></article>
+
+          <article><p class="lesson-chip">4.3</p><h3>Fraction as quotient</h3><p>Five pizzas are shared equally among four families. Explain why 5 ÷ 4, 5/4, 1 1/4, and 1.25 all represent the same share.</p><details><summary>Show a strong answer</summary><p>Equal sharing is division, so each share is 5 ÷ 4. A fraction bar also means division, so 5 ÷ 4 = 5/4. The improper fraction is 1 1/4 as a mixed number, and one quarter equals 0.25, so the decimal is 1.25.</p></details></article>
+
+          <article><p class="lesson-chip">4.4</p><h3>Decimal alignment</h3><p>A student writes 5.8 + 0.47 with the final digits lined up instead of the decimal points. Explain the mathematical error without saying only “line up the decimals.”</p><details><summary>Show a strong answer</summary><p>The digits must be combined with digits representing the same place-value units. Ones belong with ones, tenths with tenths, and hundredths with hundredths. Aligning decimal points is the visible result of matching equal place-value units.</p></details></article>
+
+          <article><p class="lesson-chip">4.5</p><h3>Decimal product</h3><p>Without using a decimal-point shortcut, explain why 12.8 × 39 = 499.2 if 128 × 39 = 4992.</p><details><summary>Show a strong answer</summary><p>12.8 is 128 tenths. Multiplying 128 tenths by 39 gives 4992 tenths. Renaming 4992 tenths in decimal notation gives 499.2. An estimate near 13 × 40 = 520 also shows the result is reasonable.</p></details></article>
+
+          <article><p class="lesson-chip">4.6</p><h3>Remainder in context</h3><p>The calculation 15 ÷ 2 gives 7 R1. Explain why this could mean 7 bracelets with 1 charm left, 8 seats needed, or $7.50 per person.</p><details><summary>Show a strong answer</summary><p>The arithmetic does not change, but the context does. A partial bracelet may not count, so the extra charm stays left over. A person cannot be left without a seat, so another whole seat is needed. Money can be regrouped into smaller units, so the remainder can continue as 50 cents in each equal share.</p></details></article>
+        </div>
+
+        <div class="finish-card">
+          <div><p class="eyebrow">UNIT 4 COMPLETE</p><strong>You connected fractions, decimals, estimation, and the four operations.</strong><span>Use your Unit Check results to decide whether you are ready to move on or whether one lesson deserves a quick revisit.</span></div>
+          <a class="button" href={`${base}courses/${course.slug}/`}>Back to Grade 6 Math →</a>
+        </div>
+      </LearningSection>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+.review-start{display:grid;grid-template-columns:auto 1fr;gap:1rem;margin-top:1.2rem;padding:1rem 1.1rem;border-radius:16px;background:var(--course-soft);line-height:1.55}.checklist-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.checklist-groups article{display:grid;gap:.55rem;padding:1rem;border:1px solid #e3e9f0;border-radius:14px;background:#fff}.checklist-groups label{display:flex;gap:.55rem;align-items:flex-start;line-height:1.45}.checklist-groups input{margin-top:.25rem}.lesson-chip{display:inline-flex;width:max-content;margin:0 0 .25rem;padding:.28rem .55rem;border-radius:999px;background:var(--course-soft);color:var(--course);font-size:.76rem;font-weight:900}.review-tip{margin-top:1rem;padding:.85rem 1rem;border-radius:12px;background:#fff8db}.lesson-map{display:grid;gap:.7rem}.lesson-map a{display:grid;grid-template-columns:52px 1fr auto;gap:1rem;align-items:center;padding:1rem;border:1px solid #dfe5ee;border-radius:13px;text-decoration:none}.lesson-map a>span{color:var(--course);font-weight:900}.lesson-map strong,.lesson-map small{display:block}.lesson-map small{color:#64748b}.lesson-map em{font-style:normal;color:var(--course);font-weight:800}.section-lead{color:#4b5b70;line-height:1.6}.pat-stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.pat-stack article{border:1px solid #dfe5ee;border-radius:14px;padding:1rem}.pat-stack h3{margin:.1rem 0 .5rem}.finish-card{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;margin-top:1rem;padding:1.1rem;border-radius:15px;background:#edf9f0}.finish-card>div{display:grid;gap:.25rem}.finish-card .eyebrow{margin:0}.finish-card a{text-decoration:none}.scroll-cue{display:none}@media(max-width:760px){.review-start,.checklist-groups,.pat-stack,.finish-card{grid-template-columns:1fr}.topic-hero{padding-top:2rem;padding-bottom:3rem}.topic-hero h1{font-size:clamp(2.1rem,10vw,3.15rem);line-height:1.04}.lesson-map a{grid-template-columns:44px 1fr}.lesson-map em{grid-column:2}.scroll-cue{display:block;margin:-.35rem 0 .45rem;color:#64748b;font-size:.76rem;font-weight:700}}
+</style>
