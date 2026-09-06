@@ -13,7 +13,9 @@ const course = findCourse('grade-6-math')!;
 const unit = course.units.find((item) => item.slug === 'number-operations')!;
 const base = import.meta.env.BASE_URL;
 const lessonData = unit.topics.map((topic) => ({ topic, content: unit3Content[`${course.slug}/${unit.slug}/${topic.slug}`] }));
-const mixedPractice = lessonData.flatMap(({content}) => content.questions);
+const mixedPractice = lessonData.flatMap(({content}) => content.questions).map((question) => question.prompt === 'Which expression has a value of 18?'
+  ? { ...question, choices: ['6 + 2 × 3','(6 + 2) × 3','6 + 2³','36 ÷ 6 × 3'], answer: 3, explain: 'Multiplication and division share priority, so 36 ÷ 6 × 3 = 6 × 3 = 18.' }
+  : question);
 const mixedCheck = lessonData.flatMap(({content}) => content.checkQuestions);
 const reviewWords = [
   { term:'Factor', definition:'A natural number that divides another number exactly.', example:'6 is a factor of 24.' },
