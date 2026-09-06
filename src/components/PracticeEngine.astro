@@ -13,6 +13,18 @@ const { questions } = Astro.props;
         <option value="challenge">Challenge</option>
       </select>
     </label>
+    <label data-practice-lesson-wrap hidden>Lesson
+      <select data-practice-lesson>
+        <option value="all">All six · balanced</option>
+        <option value="4.1">4.1</option>
+        <option value="4.2">4.2</option>
+        <option value="4.3">4.3</option>
+        <option value="4.4">4.4</option>
+        <option value="4.5">4.5</option>
+        <option value="4.6">4.6</option>
+      </select>
+    </label>
+    <span data-practice-balance hidden>Balanced set · 2 per lesson</span>
     <span data-practice-score>Score: 0 / 0</span>
   </div>
   <div class="practice-question" aria-live="polite">
@@ -32,31 +44,84 @@ const { questions } = Astro.props;
   document.querySelectorAll<HTMLElement>('[data-practice-widget]').forEach((widget) => {
     const all = JSON.parse(widget.querySelector('[data-question-data]')?.textContent || '[]');
     const level = widget.querySelector<HTMLSelectElement>('[data-practice-level]');
+    const lesson = widget.querySelector<HTMLSelectElement>('[data-practice-lesson]');
+    const lessonWrap = widget.querySelector<HTMLElement>('[data-practice-lesson-wrap]');
+    const balanceNote = widget.querySelector<HTMLElement>('[data-practice-balance]');
     const prompt = widget.querySelector('[data-question-prompt]');
     const number = widget.querySelector('[data-question-number]');
     const choices = widget.querySelector<HTMLElement>('[data-question-choices]');
     const feedback = widget.querySelector<HTMLElement>('[data-question-feedback]');
     const score = widget.querySelector('[data-practice-score]');
     const next = widget.querySelector<HTMLButtonElement>('[data-question-next]');
-    let pool = [...all]; let index = 0; let correct = 0; let answered = 0;
-    const shuffle = (items: any[]) => [...items].sort(() => Math.random() - 0.5);
-    const reset = () => {
-      pool = shuffle(level?.value === 'mixed' ? all : all.filter((q: any) => q.difficulty === level?.value));
-      index = 0; correct = 0; answered = 0; render();
+    const lessonTags = ['4.1','4.2','4.3','4.4','4.5','4.6'];
+    const hasAllUnit4Lessons = lessonTags.every((tag) => all.some((q:any) => String(q.prompt || '').startsWith(`${tag} ·`)));
+    if (hasAllUnit4Lessons) {
+      if (lessonWrap) lessonWrap.hidden = false;
+      if (balanceNote) balanceNote.hidden = false;
+    }
+
+    let pool:any[] = [];
+    let index = 0;
+    let correct = 0;
+    let answered = 0;
+    let balancedMode = false;
+    const shuffle = (items:any[]) => [...items].sort(() => Math.random() - 0.5);
+    const byLevel = (items:any[]) => level?.value === 'mixed' ? items : items.filter((q:any) => q.difficulty === level?.value);
+
+    const buildPool = () => {
+      balancedMode = Boolean(hasAllUnit4Lessons && (!lesson || lesson.value === 'all'));
+      if (balancedMode) {
+        return shuffle(lessonTags.flatMap((tag) => {
+          const lessonQuestions = all.filter((q:any) => String(q.prompt || '').startsWith(`${tag} ·`));
+          const preferred = shuffle(byLevel(lessonQuestions));
+          const selected = preferred.slice(0, 2);
+          if (selected.length < 2) {
+            const used = new Set(selected.map((q:any) => q.prompt));
+            selected.push(...shuffle(lessonQuestions.filter((q:any) => !used.has(q.prompt))).slice(0, 2 - selected.length));
+          }
+          return selected;
+        }));
+      }
+
+      const lessonFiltered = hasAllUnit4Lessons && lesson && lesson.value !== 'all'
+        ? all.filter((q:any) => String(q.prompt || '').startsWith(`${lesson.value} ·`))
+        : all;
+      const preferred = byLevel(lessonFiltered);
+      return shuffle(preferred.length ? preferred : lessonFiltered);
     };
+
+    const reset = () => {
+      pool = buildPool();
+      index = 0;
+      correct = 0;
+      answered = 0;
+      if (next) next.textContent = 'Next question';
+      if (balanceNote) balanceNote.hidden = !balancedMode;
+      render();
+    };
+
     const render = () => {
+      if (!pool.length) {
+        if (prompt) prompt.textContent = 'No questions are available for this filter yet.';
+        if (choices) choices.innerHTML = '';
+        if (next) next.disabled = true;
+        return;
+      }
       const q = pool[index % pool.length];
-      if (number) number.textContent = `QUESTION ${index + 1} · ${q.difficulty.toUpperCase()}`;
+      if (number) number.textContent = balancedMode
+        ? `QUESTION ${index + 1} OF ${pool.length} · ${q.difficulty.toUpperCase()}`
+        : `QUESTION ${index + 1} · ${q.difficulty.toUpperCase()}`;
       if (prompt) prompt.textContent = q.prompt;
       if (feedback) { feedback.hidden = true; feedback.className = 'feedback'; feedback.textContent = ''; }
-      if (next) next.disabled = true;
+      if (next) { next.disabled = true; next.textContent = 'Next question'; }
       if (choices) {
-        choices.innerHTML = q.choices.map((choice: string, i: number) => `<button type="button" data-choice="${i}"><span>${String.fromCharCode(65 + i)}</span>${choice}</button>`).join('');
+        choices.innerHTML = q.choices.map((choice:string, i:number) => `<button type="button" data-choice="${i}"><span>${String.fromCharCode(65 + i)}</span>${choice}</button>`).join('');
         choices.querySelectorAll<HTMLButtonElement>('button').forEach((button) => button.addEventListener('click', () => answer(Number(button.dataset.choice))));
       }
       if (score) score.textContent = `Score: ${correct} / ${answered}`;
     };
-    const answer = (choice: number) => {
+
+    const answer = (choice:number) => {
       if (!next?.disabled) return;
       const q = pool[index % pool.length];
       answered++;
@@ -67,16 +132,43 @@ const { questions } = Astro.props;
         if (i === q.answer) button.classList.add('correct');
         else if (i === choice) button.classList.add('incorrect');
       });
-      if (feedback) { feedback.hidden = false; feedback.classList.add(isCorrect ? 'is-correct' : 'is-incorrect'); feedback.innerHTML = `<strong>${isCorrect ? 'Correct!' : 'Not quite yet.'}</strong> ${q.explain}`; }
+      if (feedback) {
+        feedback.hidden = false;
+        feedback.classList.add(isCorrect ? 'is-correct' : 'is-incorrect');
+        feedback.innerHTML = `<strong>${isCorrect ? 'Correct!' : 'Not quite yet.'}</strong> ${q.explain}`;
+      }
       if (score) score.textContent = `Score: ${correct} / ${answered}`;
-      if (next) next.disabled = false;
+      if (next) {
+        next.disabled = false;
+        if (balancedMode && index === pool.length - 1) next.textContent = 'New balanced set';
+      }
     };
+
     widget.querySelector('[data-question-hint]')?.addEventListener('click', () => {
+      if (!pool.length) return;
       const q = pool[index % pool.length];
-      if (feedback) { feedback.hidden = false; feedback.className = 'feedback is-hint'; feedback.innerHTML = `<strong>Hint:</strong> ${q.hint}`; }
+      if (feedback) {
+        feedback.hidden = false;
+        feedback.className = 'feedback is-hint';
+        feedback.innerHTML = `<strong>Hint:</strong> ${q.hint}`;
+      }
     });
-    next?.addEventListener('click', () => { index++; if (index >= pool.length) pool = shuffle(pool); render(); });
+
+    next?.addEventListener('click', () => {
+      if (balancedMode && index === pool.length - 1) {
+        reset();
+        return;
+      }
+      index++;
+      if (index >= pool.length) pool = shuffle(pool);
+      render();
+    });
     level?.addEventListener('change', reset);
+    lesson?.addEventListener('change', reset);
     reset();
   });
 </script>
+
+<style>
+.practice-toolbar{display:flex;gap:.8rem;align-items:end;flex-wrap:wrap}.practice-toolbar label{display:grid;gap:.25rem}.practice-toolbar select{min-width:135px}.practice-toolbar [data-practice-balance]{padding:.4rem .65rem;border-radius:999px;background:#eef6ff;color:#31577f;font-size:.78rem;font-weight:850}.practice-toolbar [data-practice-score]{margin-left:auto;font-weight:850}@media(max-width:600px){.practice-toolbar [data-practice-score]{margin-left:0;width:100%}}
+</style>
