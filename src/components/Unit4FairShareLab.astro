@@ -2,30 +2,31 @@
   <div class="lab-head">
     <p class="eyebrow">FAIR SHARE STUDIO</p>
     <h3>Share, translate, and choose the best form</h3>
-    <p>Work from A to D. The goal is to connect the story, fraction, division, and final representation.</p>
+    <p>Work from A to D. Try each part more than once. The goal is to connect the story, equal shares, fraction, division, and final representation.</p>
   </div>
 
   <article class="lab-part">
     <div class="part-tag">A · SHARE THE WHOLES</div>
     <h4>How much does each group receive?</h4>
     <p class="prompt" data-share-prompt></p>
-    <div class="share-visual" data-share-visual aria-label="Equal sharing model"></div>
+    <div class="share-visual" data-share-visual aria-label="Objects to be shared equally"></div>
     <div class="choice-row" data-share-choices></div>
+    <div class="share-result" data-share-result hidden></div>
     <p class="feedback" data-share-feedback aria-live="polite"></p>
     <button class="secondary" type="button" data-new-share>New share</button>
   </article>
 
   <article class="lab-part">
-    <div class="part-tag">B · TWO METHODS, SAME SHARE</div>
-    <h4>Compare two ways to share</h4>
-    <p>Method 1 gives out whole items first, then partitions the leftover. Method 2 cuts every whole into equal pieces before sharing.</p>
+    <div class="part-tag">B · COMPARE TWO SHARING METHODS</div>
+    <h4>Do both methods really make the same equal share?</h4>
+    <p class="prompt" data-method-prompt></p>
     <div class="method-grid">
-      <div><strong>Share wholes first</strong><p data-method-one></p></div>
-      <div><strong>Cut every whole first</strong><p data-method-two></p></div>
+      <div><strong>Method 1</strong><p data-method-one></p></div>
+      <div><strong>Method 2</strong><p data-method-two></p></div>
     </div>
     <div class="choice-row">
-      <button type="button" data-method-answer="same">They give the same amount</button>
-      <button type="button" data-method-answer="different">They give different amounts</button>
+      <button type="button" data-method-answer="same">Same amount per group</button>
+      <button type="button" data-method-answer="different">Different amount per group</button>
     </div>
     <p class="feedback" data-method-feedback aria-live="polite"></p>
     <button class="secondary" type="button" data-new-method>New comparison</button>
@@ -42,7 +43,7 @@
 
   <article class="lab-part">
     <div class="part-tag">D · BEST REPRESENTATION</div>
-    <h4>Which form communicates the answer best?</h4>
+    <h4>Which form communicates the answer best here?</h4>
     <p class="prompt" data-best-prompt></p>
     <div class="choice-row" data-best-choices></div>
     <p class="feedback" data-best-feedback aria-live="polite"></p>
@@ -53,71 +54,231 @@
 <script>
   const root = document.querySelector('[data-fair-share-lab]');
   if (root) {
-    const pick = (arr) => arr[Math.floor(Math.random()*arr.length)];
-    const gcd=(a,b)=>b?gcd(b,a%b):a;
-    const simplify=(n,d)=>{const g=gcd(n,d);return[n/g,d/g]};
-    const mixed=(n,d)=>{const whole=Math.floor(n/d),rem=n%d;if(rem===0)return `${whole}`;const [sn,sd]=simplify(rem,d);return whole?`${whole} ${sn}/${sd}`:`${sn}/${sd}`};
+    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const gcd = (a, b) => b ? gcd(b, a % b) : a;
+    const simplify = (n, d) => { const g = gcd(n, d); return [n / g, d / g]; };
+    const mixed = (n, d) => {
+      const whole = Math.floor(n / d), rem = n % d;
+      if (rem === 0) return `${whole}`;
+      const [sn, sd] = simplify(rem, d);
+      return whole ? `${whole} ${sn}/${sd}` : `${sn}/${sd}`;
+    };
+    const singular = (word) => word.endsWith('ies') ? `${word.slice(0, -3)}y` : word.endsWith('s') ? word.slice(0, -1) : word;
 
-    const shareBank=[
-      {total:5,groups:4,item:'pizzas',who:'families'},
-      {total:7,groups:3,item:'pies',who:'tables'},
-      {total:3,groups:5,item:'trays',who:'groups'},
-      {total:8,groups:6,item:'loaves',who:'families'}
+    const shareBank = [
+      { total: 5, groups: 4, item: 'pizzas', who: 'families' },
+      { total: 7, groups: 3, item: 'pies', who: 'tables' },
+      { total: 3, groups: 5, item: 'trays', who: 'groups' },
+      { total: 8, groups: 6, item: 'loaves', who: 'families' }
     ];
+
     let shareQ;
-    const renderShare=()=>{
-      shareQ=pick(shareBank);root.querySelector('[data-share-prompt]').textContent=`${shareQ.total} ${shareQ.item} are shared equally among ${shareQ.groups} ${shareQ.who}.`;
-      const visual=root.querySelector('[data-share-visual]');visual.innerHTML='';
-      for(let i=0;i<shareQ.total;i++){const w=document.createElement('div');w.className='whole-card';w.textContent='1 whole';visual.appendChild(w)}
-      const correct=`${shareQ.total}/${shareQ.groups}`;const opts=[correct,`${shareQ.groups}/${shareQ.total}`,mixed(shareQ.total,shareQ.groups)].filter((v,i,a)=>a.indexOf(v)===i);
-      if(opts.length<3)opts.push(`${shareQ.total+shareQ.groups}/${shareQ.groups}`);
-      opts.sort(()=>Math.random()-.5);const box=root.querySelector('[data-share-choices]');box.innerHTML='';
-      opts.forEach(text=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.onclick=()=>{const fb=root.querySelector('[data-share-feedback]');if(text===correct||text===mixed(shareQ.total,shareQ.groups)){fb.textContent=`✓ Yes. ${shareQ.total} ÷ ${shareQ.groups} = ${correct} = ${mixed(shareQ.total,shareQ.groups)} per ${shareQ.who.slice(0,-1)}.`;fb.className='feedback good'}else{fb.textContent='Try again. Put the total quantity in the numerator and the number of equal shares in the denominator.';fb.className='feedback try'}};box.appendChild(b)});root.querySelector('[data-share-feedback]').textContent='';
+    const showShareResult = () => {
+      const result = root.querySelector('[data-share-result]');
+      result.innerHTML = '';
+      const eq = document.createElement('p');
+      eq.className = 'share-equation';
+      eq.textContent = `${shareQ.total} ÷ ${shareQ.groups} = ${shareQ.total}/${shareQ.groups} = ${mixed(shareQ.total, shareQ.groups)}`;
+      result.appendChild(eq);
+      const groups = document.createElement('div');
+      groups.className = 'group-grid';
+      for (let i = 0; i < shareQ.groups; i++) {
+        const card = document.createElement('div');
+        card.className = 'group-card';
+        card.innerHTML = `<strong>${singular(shareQ.who)} ${i + 1}</strong><span>${mixed(shareQ.total, shareQ.groups)} ${singular(shareQ.item)}</span>`;
+        groups.appendChild(card);
+      }
+      result.appendChild(groups);
+      result.hidden = false;
     };
 
+    const renderShare = () => {
+      shareQ = pick(shareBank);
+      root.querySelector('[data-share-prompt]').textContent = `${shareQ.total} ${shareQ.item} are shared equally among ${shareQ.groups} ${shareQ.who}. Choose the amount each group receives.`;
+      const visual = root.querySelector('[data-share-visual]');
+      visual.innerHTML = '';
+      for (let i = 0; i < shareQ.total; i++) {
+        const w = document.createElement('div');
+        w.className = 'whole-card';
+        w.textContent = `1 ${singular(shareQ.item)}`;
+        visual.appendChild(w);
+      }
+      const exact = `${shareQ.total}/${shareQ.groups}`;
+      const mixedForm = mixed(shareQ.total, shareQ.groups);
+      const reversed = `${shareQ.groups}/${shareQ.total}`;
+      const distractor = shareQ.total > shareQ.groups ? `${Math.floor(shareQ.total / shareQ.groups)}/${shareQ.groups}` : `${shareQ.total}/${shareQ.total}`;
+      const opts = [exact, mixedForm, reversed, distractor].filter((v, i, a) => a.indexOf(v) === i).slice(0, 3).sort(() => Math.random() - .5);
+      const box = root.querySelector('[data-share-choices]');
+      box.innerHTML = '';
+      opts.forEach(text => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = text;
+        b.onclick = () => {
+          const fb = root.querySelector('[data-share-feedback]');
+          if (text === exact || text === mixedForm) {
+            fb.textContent = `✓ Yes. The total stays first: ${shareQ.total} ÷ ${shareQ.groups}. Now look at the equal-share model below.`;
+            fb.className = 'feedback good';
+            showShareResult();
+          } else {
+            fb.textContent = 'Try again. Ask: what total amount is being shared, and how many equal shares are being made?';
+            fb.className = 'feedback try';
+          }
+        };
+        box.appendChild(b);
+      });
+      root.querySelector('[data-share-feedback]').textContent = '';
+      const result = root.querySelector('[data-share-result]');
+      result.hidden = true;
+      result.innerHTML = '';
+    };
+
+    const methodBank = [
+      {
+        prompt: '5 pizzas are shared among 4 families.',
+        one: 'Give each family 1 whole pizza. Cut the 1 leftover pizza into 4 equal quarters and give each family 1 quarter.',
+        two: 'Cut every pizza into 4 equal quarters. There are 20 quarters, so give each family 5 quarters.',
+        same: true,
+        why: 'Both methods give each family 5/4 = 1 1/4 pizzas.'
+      },
+      {
+        prompt: '7 pies are shared among 3 tables.',
+        one: 'Give each table 2 whole pies. Cut the 1 leftover pie into thirds and give each table 1 third.',
+        two: 'Cut every pie into thirds. There are 21 thirds, so give each table 7 thirds.',
+        same: true,
+        why: 'Both methods give each table 7/3 = 2 1/3 pies.'
+      },
+      {
+        prompt: '8 loaves are shared among 6 families.',
+        one: 'Give each family 1 whole loaf. Divide the 2 leftover loaves into 6 equal shares, so each family receives another 1/3 loaf.',
+        two: 'Cut each loaf into 8 equal pieces and give each family 1 piece from every loaf.',
+        same: false,
+        why: 'Method 1 gives 8/6 = 4/3 = 1 1/3 loaves. Method 2 gives 8 pieces of size 1/8, which is only 1 loaf per family. The number of pieces must match the number of equal shares.'
+      },
+      {
+        prompt: '3 trays are shared among 5 groups.',
+        one: 'Cut each tray into 5 equal parts and give each group 1 part from every tray.',
+        two: 'Cut each tray into 3 equal parts and give each group 1 part from each tray.',
+        same: false,
+        why: 'Method 1 gives each group 3/5 of a tray. Method 2 creates thirds, not fifths, so it cannot make 5 equal shares.'
+      }
+    ];
     let methodQ;
-    const renderMethod=()=>{
-      methodQ=pick(shareBank.filter(q=>q.total>q.groups));const whole=Math.floor(methodQ.total/methodQ.groups),rem=methodQ.total%methodQ.groups;
-      root.querySelector('[data-method-one]').textContent=`Give each ${methodQ.who.slice(0,-1)} ${whole} whole first. Then divide the ${rem} remaining ${methodQ.item} into ${methodQ.groups} equal shares.`;
-      root.querySelector('[data-method-two]').textContent=`Cut all ${methodQ.total} ${methodQ.item} into ${methodQ.groups} equal pieces each, then distribute the pieces evenly.`;
-      root.querySelector('[data-method-feedback]').textContent='';
+    const renderMethod = () => {
+      methodQ = pick(methodBank);
+      root.querySelector('[data-method-prompt]').textContent = methodQ.prompt;
+      root.querySelector('[data-method-one]').textContent = methodQ.one;
+      root.querySelector('[data-method-two]').textContent = methodQ.two;
+      root.querySelector('[data-method-feedback]').textContent = '';
     };
-    root.querySelectorAll('[data-method-answer]').forEach(btn=>btn.addEventListener('click',()=>{const fb=root.querySelector('[data-method-feedback]');if(btn.dataset.methodAnswer==='same'){fb.textContent=`✓ Correct. Both methods produce ${methodQ.total}/${methodQ.groups} = ${mixed(methodQ.total,methodQ.groups)} for each share.`;fb.className='feedback good'}else{fb.textContent='Look again. The cutting order changes the model, but not the total amount or the number of equal shares.';fb.className='feedback try'}}));
+    root.querySelectorAll('[data-method-answer]').forEach(btn => btn.addEventListener('click', () => {
+      const fb = root.querySelector('[data-method-feedback]');
+      const saysSame = btn.dataset.methodAnswer === 'same';
+      if (saysSame === methodQ.same) {
+        fb.textContent = `✓ Correct. ${methodQ.why}`;
+        fb.className = 'feedback good';
+      } else {
+        fb.textContent = `Look closely at the size of the pieces and the number of equal shares. ${methodQ.why}`;
+        fb.className = 'feedback try';
+      }
+    }));
 
-    const translateBank=[
-      {text:'9 metres of ribbon shared into 4 equal lengths',correct:'9 ÷ 4 = 9/4'},
-      {text:'3 cakes shared among 5 people',correct:'3 ÷ 5 = 3/5'},
-      {text:'7 litres shared among 2 jugs',correct:'7 ÷ 2 = 7/2'},
-      {text:'8 pies shared among 3 families',correct:'8 ÷ 3 = 8/3'}
+    const translateBank = [
+      { text: '9 metres of ribbon shared into 4 equal lengths', correct: '9 ÷ 4 = 9/4' },
+      { text: '3 cakes shared among 5 people', correct: '3 ÷ 5 = 3/5' },
+      { text: '7 litres shared among 2 jugs', correct: '7 ÷ 2 = 7/2' },
+      { text: '8 pies shared among 3 families', correct: '8 ÷ 3 = 8/3' }
     ];
     let transQ;
-    const renderTranslate=()=>{
-      transQ=pick(translateBank);root.querySelector('[data-translate-prompt]').textContent=transQ.text;
-      const [a,b]=transQ.correct.split(' = ');const nums=a.split(' ÷ ');const wrong1=`${nums[1]} ÷ ${nums[0]} = ${nums[1]}/${nums[0]}`;const wrong2=`${nums[0]} × ${nums[1]} = ${Number(nums[0])*Number(nums[1])}`;
-      const choices=[transQ.correct,wrong1,wrong2].sort(()=>Math.random()-.5);const box=root.querySelector('[data-translate-choices]');box.innerHTML='';
-      choices.forEach(text=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.onclick=()=>{const fb=root.querySelector('[data-translate-feedback]');if(text===transQ.correct){fb.textContent='✓ Correct. The quantity being shared stays first: it is the dividend and numerator.';fb.className='feedback good'}else{fb.textContent='Try again. Ask: what total amount is being shared, and how many equal shares are needed?';fb.className='feedback try'}};box.appendChild(b)});root.querySelector('[data-translate-feedback]').textContent='';
+    const renderTranslate = () => {
+      transQ = pick(translateBank);
+      root.querySelector('[data-translate-prompt]').textContent = transQ.text;
+      const [a] = transQ.correct.split(' = ');
+      const nums = a.split(' ÷ ');
+      const wrong1 = `${nums[1]} ÷ ${nums[0]} = ${nums[1]}/${nums[0]}`;
+      const wrong2 = `${nums[0]} × ${nums[1]} = ${Number(nums[0]) * Number(nums[1])}`;
+      const choices = [transQ.correct, wrong1, wrong2].sort(() => Math.random() - .5);
+      const box = root.querySelector('[data-translate-choices]');
+      box.innerHTML = '';
+      choices.forEach(text => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = text;
+        b.onclick = () => {
+          const fb = root.querySelector('[data-translate-feedback]');
+          if (text === transQ.correct) {
+            fb.textContent = '✓ Correct. The total quantity is the dividend and numerator; the number of equal shares is the divisor and denominator.';
+            fb.className = 'feedback good';
+          } else {
+            fb.textContent = 'Try again. Keep the story order: total quantity ÷ number of equal shares.';
+            fb.className = 'feedback try';
+          }
+        };
+        box.appendChild(b);
+      });
+      root.querySelector('[data-translate-feedback]').textContent = '';
     };
 
-    const bestBank=[
-      {prompt:'$19 is shared equally between 2 people.',correct:'Decimal: $9.50',why:'Money is normally communicated in dollars and cents, so $9.50 is the clearest practical form.'},
-      {prompt:'5 identical bars are shared among 9 athletes.',correct:'Fraction: 5/9',why:'5/9 is exact, while a finite rounded decimal would only approximate the repeating decimal.'},
-      {prompt:'5 pizzas are shared among 4 families.',correct:'Mixed number: 1 1/4 pizzas',why:'A mixed number clearly communicates that each family gets one whole pizza and one quarter more.'},
-      {prompt:'10 metres of ribbon is cut into 4 equal lengths.',correct:'Decimal: 2.5 m',why:'A decimal is practical for metric measurement, though 5/2 m is equivalent.'}
+    const bestBank = [
+      {
+        prompt: '$19 is shared equally between 2 people. You are writing the amount each person should pay.',
+        choices: ['$19/2 each', '$9 1/2 each', '$9.50 each'],
+        correct: '$9.50 each',
+        why: 'All three represent the same value, but dollars and cents are normally written as $9.50.'
+      },
+      {
+        prompt: '5 identical snack bars are shared among 9 athletes. You want an exact amount, not a rounded estimate.',
+        choices: ['5/9 of a bar', '0.56 of a bar', '0.6 of a bar'],
+        correct: '5/9 of a bar',
+        why: '5/9 is exact. The decimals shown are rounded approximations of a repeating decimal.'
+      },
+      {
+        prompt: '5 pizzas are shared among 4 families. You want to show how many whole pizzas and what extra fraction each family gets.',
+        choices: ['5/4 pizzas', '1 1/4 pizzas', '1.25 pizzas'],
+        correct: '1 1/4 pizzas',
+        why: 'All three values are equivalent, but 1 1/4 directly shows one whole pizza plus one quarter more.'
+      },
+      {
+        prompt: '10 metres of ribbon is cut into 4 equal lengths. You are recording each length on a metric measurement chart.',
+        choices: ['10/4 m', '2 1/2 m', '2.5 m'],
+        correct: '2.5 m',
+        why: 'All three are equivalent, but 2.5 m is a natural decimal form for metric measurement.'
+      }
     ];
     let bestQ;
-    const renderBest=()=>{
-      bestQ=pick(bestBank);root.querySelector('[data-best-prompt]').textContent=bestQ.prompt;const choices=['Fraction: 5/9','Mixed number: 1 1/4 pizzas','Decimal: $9.50','Decimal: 2.5 m'].filter((v,i,a)=>v===bestQ.correct||Math.random()>.45).slice(0,3);if(!choices.includes(bestQ.correct))choices[0]=bestQ.correct;while(choices.length<3){const alt=pick(['Fraction form','Mixed-number form','Decimal form']);if(!choices.includes(alt))choices.push(alt)}choices.sort(()=>Math.random()-.5);const box=root.querySelector('[data-best-choices]');box.innerHTML='';
-      choices.forEach(text=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.onclick=()=>{const fb=root.querySelector('[data-best-feedback]');if(text===bestQ.correct){fb.textContent=`✓ ${bestQ.why}`;fb.className='feedback good'}else{fb.textContent='That form may be mathematically equivalent, but choose the one that communicates the amount most naturally in this context.';fb.className='feedback try'}};box.appendChild(b)});root.querySelector('[data-best-feedback]').textContent='';
+    const renderBest = () => {
+      bestQ = pick(bestBank);
+      root.querySelector('[data-best-prompt]').textContent = bestQ.prompt;
+      const choices = [...bestQ.choices].sort(() => Math.random() - .5);
+      const box = root.querySelector('[data-best-choices]');
+      box.innerHTML = '';
+      choices.forEach(text => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = text;
+        b.onclick = () => {
+          const fb = root.querySelector('[data-best-feedback]');
+          if (text === bestQ.correct) {
+            fb.textContent = `✓ ${bestQ.why}`;
+            fb.className = 'feedback good';
+          } else {
+            fb.textContent = `That value may be equivalent or close, but it is not the clearest choice for the goal in this story. ${bestQ.why}`;
+            fb.className = 'feedback try';
+          }
+        };
+        box.appendChild(b);
+      });
+      root.querySelector('[data-best-feedback]').textContent = '';
     };
 
-    root.querySelector('[data-new-share]').addEventListener('click',renderShare);
-    root.querySelector('[data-new-method]').addEventListener('click',renderMethod);
-    root.querySelector('[data-new-translate]').addEventListener('click',renderTranslate);
-    root.querySelector('[data-new-best]').addEventListener('click',renderBest);
-    renderShare();renderMethod();renderTranslate();renderBest();
+    root.querySelector('[data-new-share]').addEventListener('click', renderShare);
+    root.querySelector('[data-new-method]').addEventListener('click', renderMethod);
+    root.querySelector('[data-new-translate]').addEventListener('click', renderTranslate);
+    root.querySelector('[data-new-best]').addEventListener('click', renderBest);
+    renderShare(); renderMethod(); renderTranslate(); renderBest();
   }
 </script>
 
 <style>
-.u4-lab{display:grid;gap:1rem}.lab-head,.lab-part{border:1px solid #dbe4ee;border-radius:16px;padding:1rem;background:#fff}.lab-head{background:#f5f9ff}.lab-head h3,.lab-part h4{margin:.25rem 0 .55rem}.part-tag,.eyebrow{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#31598b}.prompt{font-weight:750}.choice-row{display:flex;gap:.55rem;flex-wrap:wrap;margin:.7rem 0}.choice-row button,.secondary{border:1px solid #b9c9dc;border-radius:10px;padding:.6rem .8rem;background:#fff;font:inherit;font-weight:800;cursor:pointer}.choice-row button:hover{background:#eef5ff}.secondary{background:#f7f9fc;margin-top:.55rem}.share-visual{display:flex;gap:.45rem;flex-wrap:wrap;margin:.7rem 0}.whole-card{padding:.6rem .75rem;border:2px solid #8da8c7;border-radius:9px;background:#dbeafe;font-weight:800}.method-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}.method-grid>div{padding:.8rem;border-radius:12px;background:#f7f9fc;border:1px solid #e2e8f0}.feedback{min-height:1.5rem;margin:.65rem 0 0;font-weight:750}.feedback.good{color:#17633b}.feedback.try{color:#8a4b08}@media(max-width:650px){.method-grid{grid-template-columns:1fr}.choice-row button{width:100%;text-align:left}}
+.u4-lab{display:grid;gap:1rem}.lab-head,.lab-part{border:1px solid #dbe4ee;border-radius:16px;padding:1rem;background:#fff}.lab-head{background:#f5f9ff}.lab-head h3,.lab-part h4{margin:.25rem 0 .55rem}.part-tag,.eyebrow{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#31598b}.prompt{font-weight:750}.choice-row{display:flex;gap:.55rem;flex-wrap:wrap;margin:.7rem 0}.choice-row button,.secondary{border:1px solid #b9c9dc;border-radius:10px;padding:.6rem .8rem;background:#fff;font:inherit;font-weight:800;cursor:pointer}.choice-row button:hover{background:#eef5ff}.secondary{background:#f7f9fc;margin-top:.55rem}.share-visual{display:flex;gap:.45rem;flex-wrap:wrap;margin:.7rem 0}.whole-card{padding:.6rem .75rem;border:2px solid #8da8c7;border-radius:9px;background:#dbeafe;font-weight:800}.share-result{margin:.8rem 0;padding:.85rem;border:1px solid #bed1e8;border-radius:12px;background:#f4f9ff}.share-equation{margin:0 0 .65rem;font-weight:900;font-size:1.05rem}.group-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.5rem}.group-card{display:grid;gap:.2rem;padding:.65rem;border-radius:10px;background:#fff;border:1px solid #d6e2ef}.group-card span{color:#45566d}.method-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}.method-grid>div{padding:.8rem;border-radius:12px;background:#f7f9fc;border:1px solid #e2e8f0}.feedback{min-height:1.5rem;margin:.65rem 0 0;font-weight:750}.feedback.good{color:#17633b}.feedback.try{color:#8a4b08}@media(max-width:650px){.method-grid{grid-template-columns:1fr}.choice-row button{width:100%;text-align:left}}
 </style>
