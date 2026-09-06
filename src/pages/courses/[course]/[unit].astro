@@ -9,7 +9,7 @@ const base = import.meta.env.BASE_URL;
 const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-negative-numbers'
   ? { title:'Unit 1 Review & Math Arcade', summary:'Mix all five skills, take a randomized unit check, and complete free-response integer missions.' }
   : course.slug === 'grade-6-math' && unit.slug === 'coordinates-design'
-    ? { title:'Unit 2 Review & Math Arcade', summary:'Mix coordinates, transformations, congruence, symmetry, and tessellations, then complete the Transformation Mission Arcade.' }
+    ? { title:'Unit 2 Review & Math Arcade', summary:'Review all six lessons, mix coordinates and transformations, and complete the Transformation Mission Arcade.' }
     : course.slug === 'grade-6-math' && unit.slug === 'number-operations'
       ? { title:'Unit 3 Review & Math Arcade', summary:'Mix prime factors, powers, and order of operations, then complete the Number Lab Quest.' }
       : null;
@@ -27,7 +27,7 @@ const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-neg
           </a>
         ))}
         {reviewInfo && (
-          <a class="topic-row review-row" href={`${base}courses/${course.slug}/${unit.slug}/unit-review/`}>
+          <a id="unit-review-link" class="topic-row review-row" href={`${base}courses/${course.slug}/${unit.slug}/unit-review/`} aria-label={`${reviewInfo.title} — open unit review`}>
             <span>★</span><span><strong>{reviewInfo.title}</strong><small>{reviewInfo.summary}</small></span><em>Review unit</em>
           </a>
         )}
