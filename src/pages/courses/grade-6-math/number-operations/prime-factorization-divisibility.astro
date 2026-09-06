@@ -2,9 +2,11 @@
 import Unit3LessonPage from '../../../../components/Unit3LessonPage.astro';
 import { findCourse } from '../../../../data/courses';
 import { unit3Content } from '../../../../data/unit3Content';
+import { applyUnit3ConsistencyEnhancements } from '../../../../data/unit3ConsistencyEnhancements';
 const course = findCourse('grade-6-math')!;
 const unit = course.units.find((item) => item.slug === 'number-operations')!;
 const topic = unit.topics.find((item) => item.slug === 'prime-factorization-divisibility')!;
-const content = unit3Content['grade-6-math/number-operations/prime-factorization-divisibility'];
+const key = 'grade-6-math/number-operations/prime-factorization-divisibility';
+const content = applyUnit3ConsistencyEnhancements(key, unit3Content[key]);
 ---
 <Unit3LessonPage {course} {unit} {topic} {content} />
