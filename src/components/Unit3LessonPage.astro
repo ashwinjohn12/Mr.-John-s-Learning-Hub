@@ -6,11 +6,14 @@ import VocabularyExplorer from './VocabularyExplorer.astro';
 import PracticeEngine from './PracticeEngine.astro';
 import CheckYourself from './CheckYourself.astro';
 import Unit3Interactive from './Unit3Interactive.astro';
+import Unit3FactorLab from './Unit3FactorLab.astro';
 import type { Course, Unit, Topic } from '../data/courses';
 import type { TopicContent } from '../data/topicContent';
+import { applyUnit3Enhancements } from '../data/unit3Enhancements';
 
 interface Props { course: Course; unit: Unit; topic: Topic; content: TopicContent }
-const { course, unit, topic, content } = Astro.props;
+const { course, unit, topic, content: rawContent } = Astro.props;
+const content = applyUnit3Enhancements(`${course.slug}/${unit.slug}/${topic.slug}`, rawContent);
 const base = import.meta.env.BASE_URL;
 const sectionLinks = [['overview','🎯','Overview'],['big-ideas','🌎','Big Ideas'],['understand','📘','Understand'],['examples','🧩','Examples'],['vocabulary','🧠','Vocabulary'],['explore','🔬','Explore'],['practise','✏️','Practise'],['check','✅','Check Yourself'],['apply','🎮','Apply'],['review','🏁','Review']];
 const nextHref = content.next.slug && content.next.status === 'ready' ? `${base}courses/${course.slug}/${unit.slug}/${content.next.slug}/` : null;
@@ -20,7 +23,7 @@ const toolModes: Record<string,'factors'|'powers'|'order'> = {
   'operations-parentheses-powers': 'order'
 };
 const toolCopy: Record<string,{title:string; text:string}> = {
-  'prime-factorization-divisibility': { title:'Prime Factor Explorer', text:'Test numbers, reveal every factor, and compare the complete factor list with the prime factorization.' },
+  'prime-factorization-divisibility': { title:'Factor Lab', text:'Predict prime or composite, build a factor tree yourself, and then use prime factors as evidence for divisibility.' },
   'expressing-powers': { title:'Power Translator', text:'Move between power notation, repeated multiplication, and value while keeping the jobs of the base and exponent clear.' },
   'operations-parentheses-powers': { title:'What Happens Next?', text:'Choose the next part of an expression to evaluate and use the feedback to explain the conventional order.' }
 };
@@ -71,13 +74,42 @@ const practiceQuestions = content.questions.map((question) => question.prompt ==
 
       <LearningSection id="examples" eyebrow="WATCH THE THINKING" title="Worked examples" icon="🧩" tone="learn">
         <div class="example-stack">{content.examples.map((example)=><article class="worked-example"><p class="eyebrow">{example.title}</p><h3>{example.problem}</h3><ol>{example.steps.map((step)=><li>{step}</li>)}</ol><div class="example-answer"><strong>Answer:</strong> {example.answer}</div></article>)}</div>
+        {topic.slug === 'prime-factorization-divisibility' && (
+          <article class="factor-tree-example">
+            <p class="eyebrow">VISUAL MODEL · EXAMPLE 2</p>
+            <h3>One factor tree for 72</h3>
+            <p>Composite branches keep splitting. Prime branches stop.</p>
+            <div class="static-tree" aria-label="Factor tree showing 72 split into 8 and 9, 8 split into 2 and 4, 4 split into 2 and 2, and 9 split into 3 and 3">
+              <div class="static-branch">
+                <span class="static-node">72</span>
+                <div class="static-children">
+                  <div class="static-branch">
+                    <span class="static-node">8</span>
+                    <div class="static-children">
+                      <div class="static-branch"><span class="static-node prime-leaf">2</span></div>
+                      <div class="static-branch">
+                        <span class="static-node">4</span>
+                        <div class="static-children"><div class="static-branch"><span class="static-node prime-leaf">2</span></div><div class="static-branch"><span class="static-node prime-leaf">2</span></div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="static-branch">
+                    <span class="static-node">9</span>
+                    <div class="static-children"><div class="static-branch"><span class="static-node prime-leaf">3</span></div><div class="static-branch"><span class="static-node prime-leaf">3</span></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tree-conclusion"><strong>Prime leaves:</strong> 2 × 2 × 2 × 3 × 3 = 72</div>
+          </article>
+        )}
       </LearningSection>
 
       <LearningSection id="vocabulary" eyebrow="LEARN THE LANGUAGE" title="Key vocabulary" icon="🧠" tone="vocab"><VocabularyExplorer words={content.vocabulary} /></LearningSection>
 
       <LearningSection id="explore" eyebrow="INVESTIGATE" title="Explore it for yourself" icon="🔬" tone="explore">
         <p class="section-lead">{content.explorePrompt}</p>
-        <div class="explore-stack"><div><h3>{tool?.title}</h3><p>{tool?.text}</p>{toolMode && <Unit3Interactive mode={toolMode} />}</div></div>
+        <div class="explore-stack"><div><h3>{tool?.title}</h3><p>{tool?.text}</p>{topic.slug === 'prime-factorization-divisibility' ? <Unit3FactorLab /> : toolMode && <Unit3Interactive mode={toolMode} />}</div></div>
         <article class="hands-on-card"><p class="eyebrow">OFF-SCREEN ACTIVITY</p><h3>{content.handsOn.title}</h3><ol>{content.handsOn.instructions.map((item)=><li>{item}</li>)}</ol><p><strong>Reflect:</strong> {content.handsOn.reflect}</p><p class="home-note"><strong>Working on your own?</strong> {homeNotes[topic.slug]}</p></article>
       </LearningSection>
 
@@ -98,6 +130,6 @@ const practiceQuestions = content.questions.map((question) => question.prompt ==
 </BaseLayout>
 
 <style>
-.hook-card{display:grid;grid-template-columns:auto 1fr;gap:1rem;margin-top:1.2rem;padding:1rem 1.1rem;border-radius:16px;background:var(--course-soft,#eef4ff);line-height:1.55}.hook-card>div{display:grid;align-content:start;gap:.2rem}.hook-card small{display:block;max-width:200px;color:#526174;font-weight:600}.overview-grid,.wrap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.overview-grid>div,.wrap-grid>div{border:1px solid #e3e9f0;border-radius:16px;padding:1rem;background:#fff}.wrap-grid>div:last-child{grid-column:1/-1}.mini-label{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#5a6a80}.overview-grid ul,.wrap-grid ul,.worked-example ol,.hands-on-card ol,.lesson-challenge ol{padding-left:1.2rem}.overview-grid li,.wrap-grid li,.worked-example li,.hands-on-card li,.lesson-challenge li{margin:.38rem 0}.lesson-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;padding:.85rem 1rem;border-radius:14px;background:#f5f7fa}.success-box{margin-top:1rem}.concept-grid.detailed>div{position:relative}.remember{padding:.65rem .75rem;border-radius:10px;background:#f5f8fc}.mixups{margin-top:1.2rem}.example-stack,.explore-stack{display:grid;gap:1rem}.worked-example,.hands-on-card,.pat-card{border:1px solid #dce4ed;border-radius:16px;padding:1rem 1.1rem;background:#fff}.worked-example h3{margin:.25rem 0 .7rem}.example-answer{margin-top:.8rem;padding:.75rem .85rem;border-radius:12px;background:#f0fdf4}.explore-stack>div{display:grid;gap:.55rem}.explore-stack h3{margin-bottom:0}.explore-stack p{margin-top:0}.hands-on-card{margin-top:1rem;background:#fffdf5}.home-note{margin-top:1rem;padding:.8rem .9rem;border-radius:12px;background:#f5f8fc}.section-lead{font-size:1.05rem}.lesson-challenge{display:grid;gap:.8rem}.pat-card{margin:1rem 0;background:#f8fafc}.pat-card h3{font-size:1rem;line-height:1.5}.next-step a{text-decoration:none}.scroll-cue{display:none}
+.hook-card{display:grid;grid-template-columns:auto 1fr;gap:1rem;margin-top:1.2rem;padding:1rem 1.1rem;border-radius:16px;background:var(--course-soft,#eef4ff);line-height:1.55}.hook-card>div{display:grid;align-content:start;gap:.2rem}.hook-card small{display:block;max-width:200px;color:#526174;font-weight:600}.overview-grid,.wrap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.overview-grid>div,.wrap-grid>div{border:1px solid #e3e9f0;border-radius:16px;padding:1rem;background:#fff}.wrap-grid>div:last-child{grid-column:1/-1}.mini-label{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#5a6a80}.overview-grid ul,.wrap-grid ul,.worked-example ol,.hands-on-card ol,.lesson-challenge ol{padding-left:1.2rem}.overview-grid li,.wrap-grid li,.worked-example li,.hands-on-card li,.lesson-challenge li{margin:.38rem 0}.lesson-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;padding:.85rem 1rem;border-radius:14px;background:#f5f7fa}.success-box{margin-top:1rem}.concept-grid.detailed>div{position:relative}.remember{padding:.65rem .75rem;border-radius:10px;background:#f5f8fc}.mixups{margin-top:1.2rem}.example-stack,.explore-stack{display:grid;gap:1rem}.worked-example,.hands-on-card,.pat-card,.factor-tree-example{border:1px solid #dce4ed;border-radius:16px;padding:1rem 1.1rem;background:#fff}.worked-example h3,.factor-tree-example h3{margin:.25rem 0 .7rem}.example-answer{margin-top:.8rem;padding:.75rem .85rem;border-radius:12px;background:#f0fdf4}.factor-tree-example{margin-top:1rem;background:#f8fafc}.static-tree{display:grid;justify-items:center;overflow:auto;padding:1rem .5rem}.static-branch{display:grid;justify-items:center;min-width:72px;position:relative}.static-node{display:grid;place-items:center;min-width:48px;height:40px;padding:0 .45rem;border:2px solid #94a3b8;border-radius:12px;background:#fff;font-weight:900}.static-node.prime-leaf{border-style:dashed}.static-children{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:1.35rem;position:relative}.static-children:before{content:'';position:absolute;top:-.7rem;left:25%;right:25%;border-top:2px solid #cbd5e1}.static-children>.static-branch:before{content:'';position:absolute;top:-1.35rem;height:.65rem;border-left:2px solid #cbd5e1}.tree-conclusion{text-align:center;padding:.75rem;border-radius:12px;background:#eef6ff}.explore-stack>div{display:grid;gap:.55rem}.explore-stack h3{margin-bottom:0}.explore-stack p{margin-top:0}.hands-on-card{margin-top:1rem;background:#fffdf5}.home-note{margin-top:1rem;padding:.8rem .9rem;border-radius:12px;background:#f5f8fc}.section-lead{font-size:1.05rem}.lesson-challenge{display:grid;gap:.8rem}.pat-card{margin:1rem 0;background:#f8fafc}.pat-card h3{font-size:1rem;line-height:1.5}.next-step a{text-decoration:none}.scroll-cue{display:none}
 @media(max-width:760px){.overview-grid,.wrap-grid{grid-template-columns:1fr}.wrap-grid>div:last-child{grid-column:auto}.hook-card{grid-template-columns:1fr}.hook-card small{max-width:none}.topic-hero{padding-top:2rem;padding-bottom:3rem}.topic-hero h1{font-size:clamp(2.2rem,11vw,3.25rem);line-height:1.04}.scroll-cue{display:block;margin:-.35rem 0 .45rem;color:#64748b;font-size:.76rem;font-weight:700}.topic-sidebar nav{scrollbar-width:thin}}
 </style>
