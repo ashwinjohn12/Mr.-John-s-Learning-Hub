@@ -1,0 +1,58 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+<div class="arcade" data-unit3-arcade data-base={base}>
+  <div class="arcade-head">
+    <div><p class="eyebrow">NUMBER LAB QUEST</p><h3>Unit 3 Math Arcade</h3><p>Solve real-life number missions without multiple choice. Build a streak by clearing missions correctly on your first try.</p></div>
+    <div class="arcade-score"><strong data-arcade-score>0</strong><span>points</span><small data-arcade-streak>Streak: 0</small></div>
+  </div>
+  <div class="mission-card">
+    <div class="mission-meta"><span data-mission-number>Mission 1</span><span data-mission-skill></span></div>
+    <h3 data-mission-prompt></h3>
+    <label class="answer-entry"><span>Your answer</span><input type="number" step="1" data-arcade-answer /><button type="button" data-arcade-check>Check mission</button></label>
+    <div class="arcade-feedback" data-arcade-feedback aria-live="polite"></div>
+    <div class="arcade-actions"><button type="button" data-arcade-next hidden>Next mission →</button><button type="button" class="secondary" data-arcade-new>New quest</button></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-unit3-arcade]').forEach((widget) => {
+    const base = widget.dataset.base || '/';
+    const missions = [
+      { skill:'3.1 · Factors', prompt:'A club has 48 badges and wants equal groups of 6. Enter the number of groups.', answer:8, explain:'48 ÷ 6 = 8, so 6 is a factor of 48.', lesson:'prime-factorization-divisibility' },
+      { skill:'3.1 · Prime factors', prompt:'The prime factorization is 2 × 2 × 3 × 5. Enter the original number.', answer:60, explain:'2 × 2 × 3 × 5 = 60.', lesson:'prime-factorization-divisibility' },
+      { skill:'3.1 · Common factors', prompt:'84 = 2 × 2 × 3 × 7 and 126 = 2 × 3 × 3 × 7. Enter the greatest common factor.', answer:42, explain:'The largest shared product is 2 × 3 × 7 = 42.', lesson:'prime-factorization-divisibility' },
+      { skill:'3.1 · Divisibility', prompt:'A number has factors 2 × 2 × 3 × 7. Enter the quotient when the number is divided by 14.', answer:6, explain:'The number is 84, and 84 ÷ 14 = 6.', lesson:'prime-factorization-divisibility' },
+      { skill:'3.2 · Powers', prompt:'A game multiplies 4 × 4 × 4. Enter the value.', answer:64, explain:'4³ = 4 × 4 × 4 = 64.', lesson:'expressing-powers' },
+      { skill:'3.2 · Powers', prompt:'Evaluate 3⁴. Enter the value.', answer:81, explain:'3⁴ = 3 × 3 × 3 × 3 = 81.', lesson:'expressing-powers' },
+      { skill:'3.2 · Prime factor powers', prompt:'A prime factorization is 2³ × 3². Enter the original number.', answer:72, explain:'2³ = 8 and 3² = 9, so 8 × 9 = 72.', lesson:'expressing-powers' },
+      { skill:'3.2 · Power meaning', prompt:'The power 5³ contains how many factors of 5? Enter the number of factors.', answer:3, explain:'The exponent 3 counts the number of factors of the base 5.', lesson:'expressing-powers' },
+      { skill:'3.3 · Order', prompt:'Evaluate 18 − 2 × 5.', answer:8, explain:'Multiply first: 2 × 5 = 10, then 18 − 10 = 8.', lesson:'operations-parentheses-powers' },
+      { skill:'3.3 · Equal priority', prompt:'Evaluate 24 ÷ 6 × 2.', answer:8, explain:'Multiplication and division share priority: 24 ÷ 6 = 4, then 4 × 2 = 8.', lesson:'operations-parentheses-powers' },
+      { skill:'3.3 · Parentheses & powers', prompt:'Evaluate 5 + 2 × (3² − 4).', answer:15, explain:'3² = 9, then 9 − 4 = 5, then 2 × 5 = 10, then 5 + 10 = 15.', lesson:'operations-parentheses-powers' },
+      { skill:'Mixed · Number structure', prompt:'A number is 2³ × 5. Enter its value.', answer:40, explain:'2³ = 8 and 8 × 5 = 40.', lesson:'expressing-powers' }
+    ];
+    const prompt = widget.querySelector('[data-mission-prompt]');
+    const skill = widget.querySelector('[data-mission-skill]');
+    const number = widget.querySelector('[data-mission-number]');
+    const input = widget.querySelector<HTMLInputElement>('[data-arcade-answer]');
+    const check = widget.querySelector<HTMLButtonElement>('[data-arcade-check]');
+    const next = widget.querySelector<HTMLButtonElement>('[data-arcade-next]');
+    const fresh = widget.querySelector<HTMLButtonElement>('[data-arcade-new]');
+    const feedback = widget.querySelector<HTMLElement>('[data-arcade-feedback]');
+    const scoreText = widget.querySelector('[data-arcade-score]');
+    const streakText = widget.querySelector('[data-arcade-streak]');
+    let pool:any[]=[]; let index=0; let score=0; let streak=0; let attempts=0;
+    const shuffle=(items:any[])=>[...items].sort(()=>Math.random()-.5);
+    const render=()=>{const m=pool[index];attempts=0;if(number)number.textContent=`Mission ${index+1} of ${pool.length}`;if(skill)skill.textContent=m.skill;if(prompt)prompt.textContent=m.prompt;if(input){input.value='';input.disabled=false;input.focus();}if(check)check.disabled=false;if(next)next.hidden=true;if(feedback)feedback.innerHTML='';};
+    const finish=()=>{if(prompt)prompt.textContent='Quest complete!';if(skill)skill.textContent='UNIT 3 COMPLETE';if(number)number.textContent='All missions finished';if(input)input.disabled=true;if(check)check.disabled=true;if(next)next.hidden=true;if(feedback)feedback.innerHTML=`<strong>Final score: ${score} points.</strong> Start a new quest for a different mission order.`;};
+    const updateScore=()=>{if(scoreText)scoreText.textContent=`${score}`;if(streakText)streakText.textContent=`Streak: ${streak}`;};
+    const checkAnswer=()=>{const m=pool[index];const value=Number(input?.value);if(!Number.isFinite(value))return;attempts++;if(value===m.answer){const earned=attempts===1?100:50;score+=earned;streak=attempts===1?streak+1:0;updateScore();if(feedback)feedback.innerHTML=`<strong>Mission cleared! +${earned} points.</strong> ${m.explain}`;if(input)input.disabled=true;if(check)check.disabled=true;if(next)next.hidden=false;}else{streak=0;updateScore();if(feedback)feedback.innerHTML=`<strong>Not yet.</strong> Recheck the number structure or operation order, then try again. <a href="${base}courses/grade-6-math/number-operations/${m.lesson}/">Review the matching lesson</a>.`;}};
+    const reset=()=>{pool=shuffle(missions);index=0;score=0;streak=0;updateScore();render();};
+    check?.addEventListener('click',checkAnswer);input?.addEventListener('keydown',(event)=>{if(event.key==='Enter'&&!check?.disabled)checkAnswer();});next?.addEventListener('click',()=>{index++;index>=pool.length?finish():render();});fresh?.addEventListener('click',reset);reset();
+  });
+</script>
+
+<style>
+.arcade{border:1px solid #d8e0ea;border-radius:18px;background:#fff;overflow:hidden}.arcade-head{display:grid;grid-template-columns:1fr auto;gap:1.5rem;padding:1.25rem;background:linear-gradient(135deg,#eef6ff,#f3effb)}.arcade-head h3{margin:.2rem 0 .35rem}.arcade-head p{margin:.2rem 0}.arcade-score{min-width:100px;text-align:center;display:grid;align-content:center;padding:.8rem;border-radius:15px;background:#fff}.arcade-score strong{font-size:1.8rem}.arcade-score span,.arcade-score small{color:#64748b}.mission-card{padding:1.25rem}.mission-meta{display:flex;justify-content:space-between;gap:1rem;color:#64748b;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}.mission-card>h3{font-size:1.35rem;line-height:1.35;margin:1rem 0}.answer-entry{display:grid;grid-template-columns:1fr auto;gap:.65rem;align-items:end}.answer-entry span{grid-column:1/-1;font-weight:800}.answer-entry input{min-width:0;border:1px solid #cbd5e1;border-radius:11px;padding:.75rem;font-size:1.05rem}.answer-entry button,.arcade-actions button{border:0;border-radius:11px;padding:.75rem 1rem;background:#174ea6;color:#fff;font-weight:800;cursor:pointer}.answer-entry button:disabled{opacity:.5}.arcade-feedback{min-height:3rem;margin:1rem 0;padding:.85rem;border-radius:12px;background:#f8fafc}.arcade-feedback:empty{display:none}.arcade-feedback a{color:#174ea6;font-weight:800}.arcade-actions{display:flex;gap:.65rem;flex-wrap:wrap}.arcade-actions .secondary{background:#eef3f9;color:#25364f}@media(max-width:650px){.arcade-head{grid-template-columns:1fr}.arcade-score{grid-template-columns:auto auto auto;gap:.4rem;align-items:center}.answer-entry{grid-template-columns:1fr}.mission-meta{display:grid}}
+</style>
