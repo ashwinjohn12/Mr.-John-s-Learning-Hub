@@ -1,0 +1,11 @@
+---
+import Unit4DecimalDivisionLessonPage from '../../../../components/Unit4DecimalDivisionLessonPage.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit4Lesson46Content } from '../../../../data/unit4Lesson46Content';
+
+const course = findCourse('grade-6-math')!;
+const unit = course.units.find((item) => item.slug === 'decimals-fractions')!;
+const topic = unit.topics.find((item) => item.slug === 'dividing-decimals')!;
+const content = unit4Lesson46Content;
+---
+<Unit4DecimalDivisionLessonPage {course} {unit} {topic} {content} />
