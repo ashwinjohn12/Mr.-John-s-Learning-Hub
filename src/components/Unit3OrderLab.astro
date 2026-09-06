@@ -6,7 +6,7 @@
     <div class="expression-card" data-step-expression></div>
     <div class="choice-grid" data-step-choices></div>
     <div class="lab-feedback" data-step-feedback aria-live="polite"></div>
-    <button type="button" class="secondary" data-step-new>New expression</button>
+    <div class="step-actions"><button type="button" data-step-next hidden>Next step →</button><button type="button" class="secondary" data-step-new>New expression</button></div>
   </section>
 
   <section class="lab-stage">
@@ -56,9 +56,39 @@
         {expression:'12 + 1',choices:['12 + 1','Stop at 12'],answer:0,explain:'Complete the remaining addition.'}
       ],final:'13'}
     ];
-    const stepExpression=widget.querySelector<HTMLElement>('[data-step-expression]');const stepChoices=widget.querySelector<HTMLElement>('[data-step-choices]');const stepFeedback=widget.querySelector<HTMLElement>('[data-step-feedback]');let activeSet=stepSets[0];let stepIndex=0;
-    const renderStep=()=>{const step=activeSet.steps[stepIndex];if(stepExpression)stepExpression.textContent=step.expression;if(stepFeedback)stepFeedback.innerHTML='';if(stepChoices){stepChoices.innerHTML='';step.choices.forEach((choice,index)=>{const button=document.createElement('button');button.type='button';button.textContent=choice;button.addEventListener('click',()=>{if(index===step.answer){if(stepIndex===activeSet.steps.length-1){if(stepExpression)stepExpression.textContent=activeSet.final;if(stepFeedback)stepFeedback.innerHTML=`<strong>Complete.</strong> ${step.explain} The value is ${activeSet.final}.`;if(stepChoices)stepChoices.innerHTML='';}else{if(stepFeedback)stepFeedback.innerHTML=`<strong>Yes.</strong> ${step.explain}`;stepIndex++;setTimeout(renderStep,450);}}else if(stepFeedback)stepFeedback.innerHTML=`<strong>Not yet.</strong> ${step.explain}`;});stepChoices.appendChild(button);});}};
-    const newStepper=()=>{activeSet=shuffle(stepSets)[0];stepIndex=0;renderStep();};widget.querySelector('[data-step-new]')?.addEventListener('click',newStepper);
+    const stepExpression=widget.querySelector<HTMLElement>('[data-step-expression]');
+    const stepChoices=widget.querySelector<HTMLElement>('[data-step-choices]');
+    const stepFeedback=widget.querySelector<HTMLElement>('[data-step-feedback]');
+    const stepNext=widget.querySelector<HTMLButtonElement>('[data-step-next]');
+    let activeSet=stepSets[0];let stepIndex=0;
+    const renderStep=()=>{
+      const step=activeSet.steps[stepIndex];
+      if(stepExpression)stepExpression.textContent=step.expression;
+      if(stepFeedback)stepFeedback.innerHTML='';
+      if(stepNext)stepNext.hidden=true;
+      if(stepChoices){
+        stepChoices.innerHTML='';
+        step.choices.forEach((choice,index)=>{
+          const button=document.createElement('button');button.type='button';button.textContent=choice;
+          button.addEventListener('click',()=>{
+            if(index===step.answer){
+              stepChoices.querySelectorAll('button').forEach((item)=>{(item as HTMLButtonElement).disabled=true;});
+              if(stepIndex===activeSet.steps.length-1){
+                if(stepExpression)stepExpression.textContent=activeSet.final;
+                if(stepFeedback)stepFeedback.innerHTML=`<strong>Complete.</strong> ${step.explain} The value is ${activeSet.final}.`;
+              } else {
+                if(stepFeedback)stepFeedback.innerHTML=`<strong>Yes.</strong> ${step.explain} Read this explanation, then choose Next step when you are ready.`;
+                if(stepNext)stepNext.hidden=false;
+              }
+            } else if(stepFeedback) stepFeedback.innerHTML=`<strong>Not yet.</strong> ${step.explain}`;
+          });
+          stepChoices.appendChild(button);
+        });
+      }
+    };
+    const newStepper=()=>{activeSet=shuffle(stepSets)[0];stepIndex=0;renderStep();};
+    stepNext?.addEventListener('click',()=>{if(stepIndex<activeSet.steps.length-1){stepIndex++;renderStep();}});
+    widget.querySelector('[data-step-new]')?.addEventListener('click',newStepper);
 
     const priorityItems=[
       {expression:'24 ÷ 6 × 2',choices:['24 ÷ 6','6 × 2'],answer:'24 ÷ 6',explain:'Division and multiplication share priority, so use the leftmost operation first.'},
@@ -82,5 +112,5 @@
 </script>
 
 <style>
-.order-lab{display:grid;gap:1rem}.lab-stage{border:1px solid #d9e2ec;border-radius:18px;background:#fff;padding:1rem}.stage-head{display:grid;grid-template-columns:42px 1fr;gap:.8rem;align-items:start}.stage-head>span{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#174ea6;color:#fff;font-weight:900}.stage-head h3{margin:.1rem 0 .25rem}.stage-head p{margin:.15rem 0}.expression-card{margin:1rem 0;padding:1.1rem;text-align:center;border-radius:14px;background:#f8fafc;font-size:1.45rem;font-weight:900}.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}.choice-grid button{border:0;border-radius:10px;padding:.7rem .9rem;background:#eef3f9;color:#25364f;font-weight:800;cursor:pointer}.secondary{margin-top:.7rem;border:0;border-radius:10px;padding:.6rem .85rem;background:#eef3f9;color:#25364f;font-weight:800;cursor:pointer}.lab-feedback{margin-top:.8rem;padding:.8rem .9rem;border-radius:12px;background:#f8fafc;min-height:1.25rem}.lab-feedback:empty{display:none}.student-work{display:grid;gap:.5rem;margin:1rem 0}.student-work>div{display:grid;grid-template-columns:70px 1fr;gap:.7rem;align-items:center;padding:.7rem;border-radius:12px;background:#f8fafc}.student-work small{color:#64748b;font-weight:800}.student-work strong{font-size:1.05rem}.priority-guide{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;padding:1rem;border-radius:16px;background:#fff8db}.priority-guide>div{display:grid;grid-template-columns:auto 1fr;gap:.55rem;align-items:center;padding:.7rem;border-radius:12px;background:#fff}.priority-guide strong{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#174ea6;color:#fff}.priority-guide span{font-weight:900}.priority-guide small{display:block;color:#64748b;font-weight:700;margin-top:.15rem}@media(max-width:700px){.choice-grid,.priority-guide{grid-template-columns:1fr}.stage-head{grid-template-columns:36px 1fr}}
+.order-lab{display:grid;gap:1rem}.lab-stage{border:1px solid #d9e2ec;border-radius:18px;background:#fff;padding:1rem}.stage-head{display:grid;grid-template-columns:42px 1fr;gap:.8rem;align-items:start}.stage-head>span{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#174ea6;color:#fff;font-weight:900}.stage-head h3{margin:.1rem 0 .25rem}.stage-head p{margin:.15rem 0}.expression-card{margin:1rem 0;padding:1.1rem;text-align:center;border-radius:14px;background:#f8fafc;font-size:1.45rem;font-weight:900}.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}.choice-grid button{border:0;border-radius:10px;padding:.7rem .9rem;background:#eef3f9;color:#25364f;font-weight:800;cursor:pointer}.choice-grid button:disabled{opacity:.55;cursor:default}.secondary,.step-actions>[data-step-next]{margin-top:.7rem;border:0;border-radius:10px;padding:.6rem .85rem;font-weight:800;cursor:pointer}.secondary{background:#eef3f9;color:#25364f}.step-actions>[data-step-next]{background:#174ea6;color:#fff}.step-actions{display:flex;gap:.55rem;flex-wrap:wrap}.lab-feedback{margin-top:.8rem;padding:.8rem .9rem;border-radius:12px;background:#f8fafc;min-height:1.25rem}.lab-feedback:empty{display:none}.student-work{display:grid;gap:.5rem;margin:1rem 0}.student-work>div{display:grid;grid-template-columns:70px 1fr;gap:.7rem;align-items:center;padding:.7rem;border-radius:12px;background:#f8fafc}.student-work small{color:#64748b;font-weight:800}.student-work strong{font-size:1.05rem}.priority-guide{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;padding:1rem;border-radius:16px;background:#fff8db}.priority-guide>div{display:grid;grid-template-columns:auto 1fr;gap:.55rem;align-items:center;padding:.7rem;border-radius:12px;background:#fff}.priority-guide strong{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#174ea6;color:#fff}.priority-guide span{font-weight:900}.priority-guide small{display:block;color:#64748b;font-weight:700;margin-top:.15rem}@media(max-width:700px){.choice-grid,.priority-guide{grid-template-columns:1fr}.stage-head{grid-template-columns:36px 1fr}}
 </style>
