@@ -1,0 +1,133 @@
+<section class="decimal-division-lab" data-division-lab>
+  <div class="lab-head">
+    <p class="eyebrow">DECIMAL DIVISION LAB</p>
+    <h3>Share, decompose, interpret, and check</h3>
+    <p>Work from A to E. Keep asking: <strong>what is being shared, into how many groups, and what does the remainder mean?</strong></p>
+  </div>
+
+  <article class="lab-part">
+    <div class="part-tag">A · EQUAL-SHARE BOARD</div>
+    <h4>Share place-value units equally</h4>
+    <p class="prompt" data-share-prompt></p>
+    <div class="share-flow" data-share-flow></div>
+    <div class="choice-row" data-share-choices></div>
+    <p class="feedback" data-share-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-share>New share</button>
+  </article>
+
+  <article class="lab-part">
+    <div class="part-tag">B · PARTIAL-QUOTIENT BUILDER</div>
+    <h4>Break the dividend into friendly parts</h4>
+    <p class="prompt" data-partial-prompt></p>
+    <div class="partial-board" data-partial-board></div>
+    <div class="choice-row" data-partial-choices></div>
+    <p class="feedback" data-partial-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-partial>New decomposition</button>
+  </article>
+
+  <article class="lab-part">
+    <div class="part-tag">C · REMAINDER DECISION ROOM</div>
+    <h4>What should the remainder mean in this story?</h4>
+    <p class="prompt" data-remainder-prompt></p>
+    <div class="choice-row" data-remainder-choices></div>
+    <p class="feedback" data-remainder-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-remainder>New context</button>
+  </article>
+
+  <article class="lab-part">
+    <div class="part-tag">D · COMPATIBLE-NUMBER ESTIMATOR</div>
+    <h4>Choose an estimate before dividing exactly</h4>
+    <p class="prompt" data-estimate-prompt></p>
+    <div class="choice-row" data-estimate-choices></div>
+    <p class="feedback" data-estimate-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-estimate>New estimate</button>
+  </article>
+
+  <article class="lab-part">
+    <div class="part-tag">E · SCALE CONNECTION</div>
+    <h4>Use a known quotient to predict a decimal quotient</h4>
+    <p class="prompt" data-scale-prompt></p>
+    <div class="choice-row" data-scale-choices></div>
+    <p class="feedback" data-scale-feedback aria-live="polite"></p>
+    <button class="secondary" type="button" data-new-scale>New scale challenge</button>
+  </article>
+
+  <article class="practice-bridge">
+    <p class="eyebrow">READY FOR PRACTICE?</p>
+    <h4>Move the lab thinking onto paper</h4>
+    <p>Solve <strong>49.2 ÷ 3</strong> using friendly parts.</p>
+    <ol>
+      <li>Estimate first: 48 ÷ 3 is 16, so the answer should be a little more than 16.</li>
+      <li>Decompose 49.2 into <strong>48 + 1.2</strong>.</li>
+      <li>Find each partial quotient, then add them.</li>
+    </ol>
+    <details><summary>Check my reasoning</summary><div class="paper-check"><code>48 ÷ 3 = 16</code><code>1.2 ÷ 3 = 0.4</code><span>→</span><strong>16.4</strong></div><p>If you can explain why 0.4 is four tenths, you are ready for supported Practice.</p></details>
+  </article>
+</section>
+
+<script>
+  const root = document.querySelector('[data-division-lab]');
+  if (root) {
+    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const shuffle = (arr) => [...arr].sort(() => Math.random() - .5);
+
+    const shareBank = [
+      { prompt:'9.6 ÷ 4', start:'9.6 = 96 tenths', middle:'96 tenths ÷ 4 = 24 tenths', answer:'2.4', choices:['0.24','2.4','24'], why:'24 tenths = 2.4.' },
+      { prompt:'4.26 ÷ 2', start:'4.26 = 426 hundredths', middle:'426 hundredths ÷ 2 = 213 hundredths', answer:'2.13', choices:['0.213','2.13','21.3'], why:'213 hundredths = 2.13.' },
+      { prompt:'0.8 ÷ 4', start:'0.8 = 8 tenths', middle:'8 tenths ÷ 4 = 2 tenths', answer:'0.2', choices:['0.02','0.2','2'], why:'2 tenths = 0.2.' }
+    ];
+    let shareQ;
+    const renderShare=()=>{
+      shareQ=pick(shareBank);root.querySelector('[data-share-prompt]').textContent=`Complete ${shareQ.prompt} using place-value units.`;
+      const flow=root.querySelector('[data-share-flow]');flow.innerHTML=`<span>${shareQ.start}</span><b>→</b><span>${shareQ.middle}</span><b>→</b><span>?</span>`;
+      const box=root.querySelector('[data-share-choices]');box.innerHTML='';shuffle(shareQ.choices).forEach(text=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.onclick=()=>{const fb=root.querySelector('[data-share-feedback]');if(text===shareQ.answer){fb.textContent=`✓ ${shareQ.why}`;fb.className='feedback good';flow.lastElementChild.textContent=shareQ.answer}else{fb.textContent='Check the place-value unit before renaming the quotient as a decimal.';fb.className='feedback try'}};box.appendChild(b)});root.querySelector('[data-share-feedback]').textContent='';
+    };
+
+    const partialBank=[
+      {prompt:'15.6 ÷ 12',pieces:['12 ÷ 12 = 1','3.6 ÷ 12 = ?'],answer:'0.3',choices:['0.03','0.3','3'],total:'1.3'},
+      {prompt:'18.2 ÷ 14',pieces:['14 ÷ 14 = 1','2.8 ÷ 14 = 0.2','1.4 ÷ 14 = ?'],answer:'0.1',choices:['0.01','0.1','1'],total:'1.3'},
+      {prompt:'49.2 ÷ 3',pieces:['48 ÷ 3 = 16','1.2 ÷ 3 = ?'],answer:'0.4',choices:['0.04','0.4','4'],total:'16.4'}
+    ];
+    let partialQ;
+    const renderPartial=()=>{
+      partialQ=pick(partialBank);root.querySelector('[data-partial-prompt]').textContent=`For ${partialQ.prompt}, complete the missing partial quotient.`;
+      const board=root.querySelector('[data-partial-board]');board.innerHTML='';partialQ.pieces.forEach(piece=>{const d=document.createElement('div');d.textContent=piece;board.appendChild(d)});
+      const box=root.querySelector('[data-partial-choices]');box.innerHTML='';shuffle(partialQ.choices).forEach(text=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.onclick=()=>{const fb=root.querySelector('[data-partial-feedback]');if(text===partialQ.answer){fb.textContent=`✓ Add the partial quotients to get ${partialQ.total}.`;fb.className='feedback good'}else{fb.textContent='Rename the decimal part as tenths or hundredths, then divide by the divisor.';fb.className='feedback try'}};box.appendChild(b)});root.querySelector('[data-partial-feedback]').textContent='';
+    };
+
+    const remainderBank=[
+      {prompt:'15 charms are used to make bracelets with 2 charms each.',choices:['7 complete bracelets with 1 charm left','7.5 bracelets','8 complete bracelets'],answer:'7 complete bracelets with 1 charm left',why:'Only whole completed bracelets count, so the remainder stays left over.'},
+      {prompt:'15 students need seats that hold 2 people each.',choices:['7 seats','7.5 seats','8 seats'],answer:'8 seats',why:'The leftover student still needs another whole seat, so the answer rounds up.'},
+      {prompt:'$15 is shared equally between 2 people.',choices:['$7 each and $1 left','$7.50 each','$8 each'],answer:'$7.50 each',why:'Money can be regrouped into smaller units, so the remainder becomes 50 cents per person.'}
+    ];
+    let remainderQ;
+    const renderRemainder=()=>{remainderQ=pick(remainderBank);root.querySelector('[data-remainder-prompt]').textContent=`15 ÷ 2 = 7 R1. ${remainderQ.prompt}`;const box=root.querySelector('[data-remainder-choices]');box.innerHTML='';shuffle(remainderQ.choices).forEach(text=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.onclick=()=>{const fb=root.querySelector('[data-remainder-feedback]');if(text===remainderQ.answer){fb.textContent=`✓ ${remainderQ.why}`;fb.className='feedback good'}else{fb.textContent=`The arithmetic is the same, but the context changes what the remainder means. ${remainderQ.why}`;fb.className='feedback try'}};box.appendChild(b)});root.querySelector('[data-remainder-feedback]').textContent='';};
+
+    const estimateBank=[
+      {prompt:'113.4 ÷ 18',answer:'about 5',choices:['about 0.5','about 5','about 50'],why:'100 ÷ 20 = 5, using nearby compatible numbers.'},
+      {prompt:'182.4 ÷ 38',answer:'about 5',choices:['about 0.5','about 5','about 50'],why:'200 ÷ 40 = 5.'},
+      {prompt:'87.2 ÷ 29',answer:'about 3',choices:['about 0.3','about 3','about 30'],why:'90 ÷ 30 = 3.'}
+    ];
+    let estimateQ;
+    const renderEstimate=()=>{estimateQ=pick(estimateBank);root.querySelector('[data-estimate-prompt]').textContent=`Choose a useful estimate for ${estimateQ.prompt}.`;const box=root.querySelector('[data-estimate-choices]');box.innerHTML='';shuffle(estimateQ.choices).forEach(text=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.onclick=()=>{const fb=root.querySelector('[data-estimate-feedback]');if(text===estimateQ.answer){fb.textContent=`✓ ${estimateQ.why}`;fb.className='feedback good'}else{fb.textContent=`Choose nearby numbers that divide easily. ${estimateQ.why}`;fb.className='feedback try'}};box.appendChild(b)});root.querySelector('[data-estimate-feedback]').textContent='';};
+
+    const scaleBank=[
+      {prompt:'925 ÷ 25 = 37. What is 92.5 ÷ 25?',answer:'3.7',choices:['0.37','3.7','37'],why:'92.5 is one tenth of 925, so the quotient is one tenth of 37.'},
+      {prompt:'124 ÷ 5 = 24.8. What is 12.4 ÷ 5?',answer:'2.48',choices:['0.248','2.48','24.8'],why:'12.4 is one tenth of 124, so the quotient is one tenth of 24.8.'},
+      {prompt:'630 ÷ 14 is ten times 63 ÷ 14. Why?',answer:'The dividend is ten times as large while the divisor stays the same.',choices:['The dividend is ten times as large while the divisor stays the same.','The divisor is ten times as large.','Division automatically adds a zero.'],why:'Scaling only the dividend by 10 scales the quotient by 10.'}
+    ];
+    let scaleQ;
+    const renderScale=()=>{scaleQ=pick(scaleBank);root.querySelector('[data-scale-prompt]').textContent=scaleQ.prompt;const box=root.querySelector('[data-scale-choices]');box.innerHTML='';shuffle(scaleQ.choices).forEach(text=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.onclick=()=>{const fb=root.querySelector('[data-scale-feedback]');if(text===scaleQ.answer){fb.textContent=`✓ ${scaleQ.why}`;fb.className='feedback good'}else{fb.textContent='Compare the size of the dividends while keeping the divisor fixed.';fb.className='feedback try'}};box.appendChild(b)});root.querySelector('[data-scale-feedback]').textContent='';};
+
+    root.querySelector('[data-new-share]').addEventListener('click',renderShare);
+    root.querySelector('[data-new-partial]').addEventListener('click',renderPartial);
+    root.querySelector('[data-new-remainder]').addEventListener('click',renderRemainder);
+    root.querySelector('[data-new-estimate]').addEventListener('click',renderEstimate);
+    root.querySelector('[data-new-scale]').addEventListener('click',renderScale);
+    renderShare();renderPartial();renderRemainder();renderEstimate();renderScale();
+  }
+</script>
+
+<style>
+.decimal-division-lab{display:grid;gap:1rem}.lab-head,.lab-part,.practice-bridge{border:1px solid #dbe4ee;border-radius:16px;padding:1rem;background:#fff}.lab-head{background:#f5f9ff}.lab-head h3,.lab-part h4,.practice-bridge h4{margin:.25rem 0 .55rem}.part-tag,.eyebrow{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#31598b}.prompt{font-weight:750}.choice-row{display:flex;gap:.55rem;flex-wrap:wrap;margin:.7rem 0}.choice-row button,.secondary{border:1px solid #b9c9dc;border-radius:10px;padding:.6rem .8rem;background:#fff;font:inherit;font-weight:800;cursor:pointer}.choice-row button:hover{background:#eef5ff}.secondary{background:#f7f9fc}.share-flow{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:.75rem 0}.share-flow span{padding:.65rem;border-radius:10px;background:#eef5ff;font-weight:850}.partial-board{display:grid;gap:.45rem;margin:.75rem 0}.partial-board>div{padding:.7rem;border:1px solid #dce4ee;border-radius:10px;background:#f8fafc;font-weight:850}.feedback{min-height:1.5rem;margin:.65rem 0 0;font-weight:750}.feedback.good{color:#17633b}.feedback.try{color:#8a4b08}.practice-bridge{background:#f5f9ff}.practice-bridge ol{padding-left:1.2rem}.paper-check{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin:.7rem 0}.paper-check code{padding:.5rem .65rem;border-radius:8px;background:#fff;font-weight:850}@media(max-width:650px){.choice-row button{width:100%;text-align:left}}
+</style>
