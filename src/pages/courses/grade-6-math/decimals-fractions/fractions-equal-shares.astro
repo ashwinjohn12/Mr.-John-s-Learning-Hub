@@ -2,11 +2,12 @@
 import Unit4MappedLessonPage from '../../../../components/Unit4MappedLessonPageV2.astro';
 import { findCourse } from '../../../../data/courses';
 import { unit4RemainingContent } from '../../../../data/unit4RemainingContent';
+import { applyUnit4BridgeEnhancements } from '../../../../data/unit4BridgeEnhancements';
 
 const course = findCourse('grade-6-math')!;
 const unit = course.units.find((item) => item.slug === 'decimals-fractions')!;
 const topic = unit.topics.find((item) => item.slug === 'fractions-equal-shares')!;
 const key = 'grade-6-math/decimals-fractions/fractions-equal-shares';
-const content = unit4RemainingContent[key];
+const content = applyUnit4BridgeEnhancements(key, unit4RemainingContent[key]);
 ---
 <Unit4MappedLessonPage {course} {unit} {topic} {content} variant="share" />
