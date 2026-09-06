@@ -9,7 +9,7 @@
     <div class="part-tag">A · PLACE-VALUE DOCK</div>
     <h4>Dock the second number in the correct place-value columns</h4>
     <p class="prompt" data-align-prompt></p>
-    <p class="micro-note">Use the <strong>decimal-point column</strong> as your landmark. When the decimal points match, ones are under ones, tenths are under tenths, and so on.</p>
+    <p class="micro-note">Use the <strong>decimal-point column</strong> as your landmark. When the decimal points match, ones are under ones, tenths are under tenths, and so on. <span class="mobile-cue">On a small screen, swipe the grid sideways to see every column.</span></p>
 
     <div class="dock-wrap" aria-label="Place-value alignment board">
       <div class="place-grid place-head" aria-hidden="true">
@@ -92,17 +92,17 @@
 
     const alignBank = [
       { a: '3.4', b: '0.056', op: '+', result: '3.456' },
-      { a: '12.45', b: '8.7632', op: '+', result: '21.2132' },
       { a: '7.3', b: '0.845', op: '−', result: '6.455' },
-      { a: '15.6347', b: '2.925', op: '+', result: '18.5597' }
+      { a: '5.8', b: '0.47', op: '+', result: '6.27' },
+      { a: '6.25', b: '0.8', op: '+', result: '7.05' }
     ];
 
     const canonicalCells = (text) => {
       const [whole, fraction = ''] = text.split('.');
       const cells = Array(7).fill('');
       const wholeDigits = whole.split('');
-      cells[1] = wholeDigits.at(-1) || '';
-      cells[0] = wholeDigits.at(-2) || '';
+      cells[1] = wholeDigits[wholeDigits.length - 1] || '';
+      cells[0] = wholeDigits[wholeDigits.length - 2] || '';
       cells[2] = '.';
       for (let i = 0; i < Math.min(4, fraction.length); i++) cells[3 + i] = fraction[i];
       return cells;
@@ -139,13 +139,13 @@
     };
     const renderAlign = () => {
       alignQ = pick(alignBank);
-      shift = pick([-2, -1, 1, 2]);
+      shift = pick([-1, 1]);
       root.querySelector('[data-align-prompt]').textContent = `${alignQ.a} ${alignQ.op} ${alignQ.b}. The second number starts in the wrong columns. Shift it until the place values match.`;
       root.querySelector('[data-align-feedback]').textContent = '';
       renderAlignRows();
     };
-    root.querySelector('[data-shift-left]').addEventListener('click', () => { shift = Math.max(-2, shift - 1); renderAlignRows(); });
-    root.querySelector('[data-shift-right]').addEventListener('click', () => { shift = Math.min(2, shift + 1); renderAlignRows(); });
+    root.querySelector('[data-shift-left]').addEventListener('click', () => { shift = Math.max(-1, shift - 1); renderAlignRows(); });
+    root.querySelector('[data-shift-right]').addEventListener('click', () => { shift = Math.min(1, shift + 1); renderAlignRows(); });
     root.querySelector('[data-check-align]').addEventListener('click', () => {
       const fb = root.querySelector('[data-align-feedback]');
       if (shift === 0) {
@@ -153,8 +153,7 @@
         fb.className = 'feedback good';
       } else {
         const direction = shift < 0 ? 'right' : 'left';
-        const spaces = Math.abs(shift);
-        fb.textContent = `Not yet. The second number is ${spaces} place-value column${spaces === 1 ? '' : 's'} too far ${shift < 0 ? 'left' : 'right'}. Shift it ${direction}.`;
+        fb.textContent = `Not yet. The second number is one place-value column too far ${shift < 0 ? 'left' : 'right'}. Shift it ${direction}.`;
         fb.className = 'feedback try';
       }
     });
@@ -273,5 +272,5 @@
 </script>
 
 <style>
-.decimal-lab{display:grid;gap:1rem}.lab-head,.lab-part,.practice-bridge{border:1px solid #dbe4ee;border-radius:16px;padding:1rem;background:#fff}.lab-head{background:#f5f9ff}.lab-head h3,.lab-part h4,.practice-bridge h4{margin:.25rem 0 .55rem}.part-tag,.eyebrow{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#31598b}.prompt{font-weight:750}.micro-note{margin:.6rem 0;padding:.65rem .75rem;border-radius:10px;background:#f7f9fc;color:#45566d}.dock-wrap{overflow-x:auto;margin:.8rem 0;border:1px solid #cbd7e6;border-radius:14px;background:#f8fbff;padding:.65rem;min-width:0}.place-grid{display:grid;grid-template-columns:repeat(7,minmax(82px,1fr));min-width:690px}.place-head span{display:grid;place-items:center;min-height:44px;padding:.3rem;text-align:center;font-size:.72rem;font-weight:900;color:#506078;border-bottom:2px solid #8da8c7}.place-head span:nth-child(3){font-size:1.2rem}.number-line{display:grid;grid-template-columns:34px minmax(690px,1fr);align-items:stretch;min-width:724px}.operation,.operation-space{display:grid;place-items:center;font-size:1.35rem;font-weight:900}.place-cell{display:grid;place-items:center;min-height:58px;border-right:1px solid #d9e3ef;border-bottom:1px solid #d9e3ef;background:#fff;font:900 1.35rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.place-cell:first-child{border-left:1px solid #d9e3ef}.decimal-column{background:#eaf3ff;border-left:2px solid #79a3d2;border-right:2px solid #79a3d2}.movable .place-cell{background:#fffdf3}.movable .decimal-column{background:#fff1b8}.control-row,.choice-row{display:flex;gap:.55rem;flex-wrap:wrap;margin:.75rem 0}.control-row button,.choice-row button,.secondary{border:1px solid #b9c9dc;border-radius:10px;padding:.6rem .8rem;background:#fff;font:inherit;font-weight:800;cursor:pointer}.control-row button:hover,.choice-row button:hover{background:#eef5ff}.secondary{background:#f7f9fc}.hint-box{margin:.55rem 0}.hint-box summary,.practice-bridge summary{cursor:pointer;font-weight:850}.error-work{white-space:pre-wrap;font:800 1.05rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:.8rem;border-radius:12px;background:#f7f9fc;border:1px solid #e2e8f0}.feedback{min-height:1.5rem;margin:.65rem 0 0;font-weight:750}.feedback.good{color:#17633b}.feedback.try{color:#8a4b08}.practice-bridge{border:2px solid #abc6e6;background:#f4f9ff}.practice-bridge ol{padding-left:1.2rem}.practice-bridge li{margin:.4rem 0}.paper-check{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin:.75rem 0}.paper-check code,.paper-check strong{padding:.55rem .7rem;border-radius:9px;background:#fff;border:1px solid #d3deea;font-size:1.05rem}@media(max-width:700px){.control-row button,.choice-row button{width:100%;text-align:left}.dock-wrap{padding:.45rem}.place-grid{grid-template-columns:repeat(7,78px);min-width:546px}.number-line{grid-template-columns:30px 546px;min-width:576px}.place-cell{min-height:52px;font-size:1.15rem}.place-head span{font-size:.66rem}}
+.decimal-lab{display:grid;gap:1rem}.lab-head,.lab-part,.practice-bridge{border:1px solid #dbe4ee;border-radius:16px;padding:1rem;background:#fff}.lab-head{background:#f5f9ff}.lab-head h3,.lab-part h4,.practice-bridge h4{margin:.25rem 0 .55rem}.part-tag,.eyebrow{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#31598b}.prompt{font-weight:750}.micro-note{margin:.6rem 0;padding:.65rem .75rem;border-radius:10px;background:#f7f9fc;color:#45566d}.mobile-cue{display:none}.dock-wrap{overflow-x:auto;margin:.8rem 0;border:1px solid #cbd7e6;border-radius:14px;background:#f8fbff;padding:.65rem;min-width:0}.place-grid{display:grid;grid-template-columns:repeat(7,minmax(82px,1fr));min-width:690px}.place-head span{display:grid;place-items:center;min-height:44px;padding:.3rem;text-align:center;font-size:.72rem;font-weight:900;color:#506078;border-bottom:2px solid #8da8c7}.place-head span:nth-child(3){font-size:1.2rem}.number-line{display:grid;grid-template-columns:34px minmax(690px,1fr);align-items:stretch;min-width:724px}.operation,.operation-space{display:grid;place-items:center;font-size:1.35rem;font-weight:900}.place-cell{display:grid;place-items:center;min-height:58px;border-right:1px solid #d9e3ef;border-bottom:1px solid #d9e3ef;background:#fff;font:900 1.35rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.place-cell:first-child{border-left:1px solid #d9e3ef}.decimal-column{background:#eaf3ff;border-left:2px solid #79a3d2;border-right:2px solid #79a3d2}.movable .place-cell{background:#fffdf3}.movable .decimal-column{background:#fff1b8}.control-row,.choice-row{display:flex;gap:.55rem;flex-wrap:wrap;margin:.75rem 0}.control-row button,.choice-row button,.secondary{border:1px solid #b9c9dc;border-radius:10px;padding:.6rem .8rem;background:#fff;font:inherit;font-weight:800;cursor:pointer}.control-row button:hover,.choice-row button:hover{background:#eef5ff}.secondary{background:#f7f9fc}.hint-box{margin:.55rem 0}.hint-box summary,.practice-bridge summary{cursor:pointer;font-weight:850}.error-work{white-space:pre-wrap;font:800 1.05rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:.8rem;border-radius:12px;background:#f7f9fc;border:1px solid #e2e8f0}.feedback{min-height:1.5rem;margin:.65rem 0 0;font-weight:750}.feedback.good{color:#17633b}.feedback.try{color:#8a4b08}.practice-bridge{border:2px solid #abc6e6;background:#f4f9ff}.practice-bridge ol{padding-left:1.2rem}.practice-bridge li{margin:.4rem 0}.paper-check{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin:.75rem 0}.paper-check code,.paper-check strong{padding:.55rem .7rem;border-radius:9px;background:#fff;border:1px solid #d3deea;font-size:1.05rem}@media(max-width:700px){.mobile-cue{display:inline}.control-row button,.choice-row button{width:100%;text-align:left}.dock-wrap{padding:.45rem}.place-grid{grid-template-columns:repeat(7,78px);min-width:546px}.number-line{grid-template-columns:30px 546px;min-width:576px}.place-cell{min-height:52px;font-size:1.15rem}.place-head span{font-size:.66rem}}
 </style>
