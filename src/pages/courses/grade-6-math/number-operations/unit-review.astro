@@ -4,33 +4,45 @@ import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
 import LearningSection from '../../../../components/LearningSection.astro';
 import VocabularyExplorer from '../../../../components/VocabularyExplorer.astro';
 import PracticeEngine from '../../../../components/PracticeEngine.astro';
-import CheckYourself from '../../../../components/CheckYourself.astro';
+import Unit3BalancedCheck from '../../../../components/Unit3BalancedCheck.astro';
 import Unit3MathArcade from '../../../../components/Unit3MathArcade.astro';
 import { findCourse } from '../../../../data/courses';
 import { unit3Content } from '../../../../data/unit3Content';
 import { applyUnit3Enhancements } from '../../../../data/unit3Enhancements';
+import { applyUnit3ConsistencyEnhancements } from '../../../../data/unit3ConsistencyEnhancements';
 
 const course = findCourse('grade-6-math')!;
 const unit = course.units.find((item) => item.slug === 'number-operations')!;
 const base = import.meta.env.BASE_URL;
 const lessonData = unit.topics.map((topic) => {
   const key = `${course.slug}/${unit.slug}/${topic.slug}`;
-  return { topic, content: applyUnit3Enhancements(key, unit3Content[key]) };
+  const enhanced = applyUnit3Enhancements(key, unit3Content[key]);
+  return { topic, content: applyUnit3ConsistencyEnhancements(key, enhanced) };
 });
 const mixedPractice = lessonData.flatMap(({content}) => content.questions).map((question) => question.prompt === 'Which expression has a value of 18?'
   ? { ...question, choices: ['6 + 2 × 3','(6 + 2) × 3','6 + 2³','36 ÷ 6 × 3'], answer: 3, explain: 'Multiplication and division share priority, so 36 ÷ 6 × 3 = 6 × 3 = 18.' }
   : question);
-const mixedCheck = lessonData.flatMap(({content}) => content.checkQuestions);
+const balancedGroups = lessonData.map(({topic,content}, index) => ({
+  label: `Lesson ${topic.number} · ${topic.title}`,
+  questions: content.checkQuestions,
+  count: index === 2 ? 4 : 3
+}));
 const reviewWords = [
   { term:'Factor', definition:'A natural number that divides another number exactly.', example:'6 is a factor of 24.' },
+  { term:'Common factor', definition:'A factor shared by two or more numbers.', example:'6 is a common factor of 18 and 24.' },
   { term:'Prime number', definition:'A natural number greater than 1 with exactly two factors.', example:'29 is prime.' },
   { term:'Composite number', definition:'A natural number greater than 1 with more than two factors.', example:'36 is composite.' },
+  { term:'Prime factor', definition:'A factor that is also a prime number.', example:'2, 3, and 5 are the prime factors in 60 = 2 × 2 × 3 × 5.' },
   { term:'Prime factorization', definition:'A number written as a product of prime factors only.', example:'60 = 2 × 2 × 3 × 5.' },
   { term:'Divisible', definition:'Able to be divided with a remainder of 0.', example:'84 is divisible by 14.' },
   { term:'Power', definition:'A compact representation of repeated multiplication of the same factor.', example:'3⁴ represents 3 × 3 × 3 × 3.' },
   { term:'Base', definition:'The repeated factor in a power.', example:'In 5³, the base is 5.' },
   { term:'Exponent', definition:'The number of repeated factors in a power.', example:'In 5³, the exponent is 3.' },
+  { term:'Repeated multiplication', definition:'Multiplication in which the same factor appears again and again.', example:'4 × 4 × 4 is repeated multiplication.' },
+  { term:'Numerical expression', definition:'A mathematical phrase made of numbers and operations that represents a value.', example:'8 + 3 × 4 is a numerical expression.' },
   { term:'Parentheses', definition:'Grouping symbols showing which part of an expression is handled first.', example:'(6 + 2) × 3.' },
+  { term:'Evaluate', definition:'Find the value of an expression.', example:'Evaluate 2³ + 1 to get 9.' },
+  { term:'Equal priority', definition:'Operations handled at the same stage and completed from left to right.', example:'Multiplication and division have equal priority.' },
   { term:'Order of operations', definition:'The conventional sequence for evaluating numerical expressions.', example:'Parentheses, powers, multiplication/division left to right, addition/subtraction left to right.' }
 ];
 const sectionLinks = [['overview','🎯','Overview'],['lessons','🗺️','Lesson Map'],['vocabulary','🧠','Vocabulary'],['practice','✏️','Mixed Practice'],['check','✅','Unit Check'],['arcade','🎮','Math Arcade'],['pat','🏁','PAT-Style Review']];
@@ -44,7 +56,7 @@ const sectionLinks = [['overview','🎯','Overview'],['lessons','🗺️','Lesso
     </aside>
     <article class="topic-content">
       <Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title,href:`${base}courses/${course.slug}/${unit.slug}/`},{label:'Unit Review'}]} />
-      <header class="topic-hero"><p class="eyebrow">UNIT 3 REVIEW · GRADE 6 MATH</p><h1>Number Operations</h1><p>Mix prime factors, powers, and order of operations. Use the lesson map to target one skill, then test yourself with a fresh mixed set and the Number Lab Quest.</p><div class="review-start"><strong>How to use this page</strong><span>Start with the checklist. Practise anything that feels shaky. Then try the Unit Check without hints and finish with the Math Arcade.</span></div></header>
+      <header class="topic-hero"><p class="eyebrow">UNIT 3 REVIEW · GRADE 6 MATH</p><h1>Number Operations</h1><p>Mix prime factors, powers, and order of operations. Use the lesson map to target one skill, then test yourself with a balanced whole-unit check and the Number Lab Quest.</p><div class="review-start"><strong>How to use this page</strong><span>Start with the checklist. Practise anything that feels shaky. Then try the balanced Unit Check without hints and finish with the Math Arcade.</span></div></header>
 
       <LearningSection id="overview" eyebrow="GET READY" title="What should I know?" icon="🎯" tone="idea">
         <div class="checklist-grid">
@@ -67,9 +79,9 @@ const sectionLinks = [['overview','🎯','Overview'],['lessons','🗺️','Lesso
 
       <LearningSection id="practice" eyebrow="PRACTISE WITH SUPPORT" title="Mixed Unit 3 practice" icon="✏️" tone="practice"><p>Questions are pulled from all three lessons. Choose a difficulty or leave it on Mixed. Use the explanations to identify the exact concept you need to revisit.</p><PracticeEngine questions={mixedPractice} /></LearningSection>
 
-      <LearningSection id="check" eyebrow="UNIT CHECK" title="Can you mix all three skills?" icon="✅" tone="review"><p>This assessment pulls 10 questions from a larger separate bank across the whole unit. A new set gives you a different mix.</p><CheckYourself questions={mixedCheck} count={10} /></LearningSection>
+      <LearningSection id="check" eyebrow="UNIT CHECK" title="Can you mix all three skills?" icon="✅" tone="review"><p>Every 10-question set is deliberately balanced: 3 questions from Lesson 3.1, 3 from Lesson 3.2, and 4 from Lesson 3.3. The questions inside each lesson group are still randomized, so every set can feel different while covering the whole unit.</p><Unit3BalancedCheck groups={balancedGroups} /></LearningSection>
 
-      <LearningSection id="arcade" eyebrow="PLAY & APPLY" title="Number Lab Quest Math Arcade" icon="🎮" tone="play"><p>No multiple choice here. Solve number-structure and expression missions, type your answer, build a streak, and earn points.</p><Unit3MathArcade /></LearningSection>
+      <LearningSection id="arcade" eyebrow="PLAY & APPLY" title="Number Lab Quest Math Arcade" icon="🎮" tone="play"><p>No multiple choice here. Use Unit 3 ideas in packing, coding, machine, and score-system missions, type your answer, build a streak, and earn points.</p><Unit3MathArcade /></LearningSection>
 
       <LearningSection id="pat" eyebrow="PAT-STYLE THINKING" title="Explain, justify, and choose a strategy" icon="🏁" tone="review">
         <div class="pat-stack">
@@ -78,7 +90,7 @@ const sectionLinks = [['overview','🎯','Overview'],['lessons','🗺️','Lesso
           <article><h3>3 · Equal priority</h3><p>Evaluate 36 ÷ 6 × 3 and explain why multiplication does not automatically happen first.</p><details><summary>Show a strong answer</summary><p>Multiplication and division have equal priority, so work left to right: 36 ÷ 6 = 6, then 6 × 3 = 18.</p></details></article>
           <article><h3>4 · Full expression</h3><p>Evaluate 6 + 2 × (5 − 2)² and show one justified step at a time.</p><details><summary>Show a strong answer</summary><p>5 − 2 = 3, then 3² = 9, then 2 × 9 = 18, then 6 + 18 = 24.</p></details></article>
         </div>
-        <div class="finish-card"><div><p class="eyebrow">UNIT 3 COMPLETE</p><strong>Ready for Unit 4?</strong><span>If your mixed check and explanations feel strong, move on. Otherwise, choose one lesson from the map and target that skill.</span></div><a class="button" href={`${base}courses/${course.slug}/decimals-fractions/`}>Open Unit 4 →</a></div>
+        <div class="finish-card"><div><p class="eyebrow">UNIT 3 COMPLETE</p><strong>Nice work finishing Number Operations.</strong><span>Return to Grade 6 Math to revisit another unit. Unit 4 will become the next step once its lessons are ready.</span></div><a class="button" href={`${base}courses/${course.slug}/`}>Back to Grade 6 Math →</a></div>
       </LearningSection>
     </article>
   </div>
