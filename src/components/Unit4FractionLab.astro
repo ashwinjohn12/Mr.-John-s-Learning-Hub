@@ -1,8 +1,10 @@
 <div class="fraction-lab" data-fraction-lab>
   <section class="lab-panel" data-lcd-panel>
-    <div class="lab-head"><div><p class="eyebrow">PART A · DENOMINATOR DETECTIVE</p><h3>Find the shared unit</h3></div><button type="button" class="secondary" data-lcd-new>New pair</button></div>
+    <div class="lab-head"><div><p class="eyebrow">PART A · DENOMINATOR DETECTIVE</p><h3>Find the most efficient shared unit</h3></div><button type="button" class="secondary" data-lcd-new>New pair</button></div>
     <p data-lcd-question></p>
     <div class="bar-stage" data-lcd-bars></div>
+    <button type="button" class="hint-button" data-lcd-hint>Show a hint</button>
+    <p class="hint-text" data-lcd-hint-text hidden></p>
     <div class="choice-grid" data-lcd-choices></div>
     <div class="lab-feedback" data-lcd-feedback aria-live="polite"></div>
   </section>
@@ -11,37 +13,53 @@
     <div class="lab-head"><div><p class="eyebrow">PART B · EQUIVALENT FRACTION BUILDER</p><h3>Rename without changing the value</h3></div><button type="button" class="secondary" data-equivalent-new>New fraction</button></div>
     <p data-equivalent-question></p>
     <div class="bar-stage" data-equivalent-bars></div>
+    <button type="button" class="hint-button" data-equivalent-hint>Show a hint</button>
+    <p class="hint-text" data-equivalent-hint-text hidden></p>
     <div class="choice-grid" data-equivalent-choices></div>
     <div class="lab-feedback" data-equivalent-feedback aria-live="polite"></div>
   </section>
 
   <section class="lab-panel" data-solve-panel>
-    <div class="lab-head"><div><p class="eyebrow">PART C · FRACTION SOLVER</p><h3>Choose a common unit and solve</h3></div><button type="button" class="secondary" data-solve-new>New challenge</button></div>
+    <div class="lab-head"><div><p class="eyebrow">PART C · FRACTION SOLVER</p><h3>Choose the common unit before the answer</h3></div><button type="button" class="secondary" data-solve-new>New challenge</button></div>
     <p data-solve-question></p>
-    <div class="choice-grid" data-solve-choices></div>
+    <div class="bar-stage" data-solve-bars></div>
+
+    <div class="solve-step">
+      <p class="step-label"><span>1</span><strong>Choose an efficient common denominator</strong></p>
+      <div class="choice-grid" data-solve-common-choices></div>
+    </div>
+
+    <div class="solve-step" data-solve-answer-step hidden>
+      <p class="step-label"><span>2</span><strong>Now solve using the renamed fractions</strong></p>
+      <div class="choice-grid" data-solve-answer-choices></div>
+    </div>
+
     <div class="lab-feedback" data-solve-feedback aria-live="polite"></div>
   </section>
 </div>
 
 <script>
   document.querySelectorAll<HTMLElement>('[data-fraction-lab]').forEach((lab) => {
+    type Fraction = [number, number];
     const lcdTasks = [
-      { a:[1,2], b:[1,6], answer:'6', choices:['4','6','8','12'], explain:'6 is the first shared multiple of 2 and 6. Halves can be renamed as sixths because 1/2 = 3/6.' },
-      { a:[3,4], b:[1,8], answer:'8', choices:['4','8','16','32'], explain:'4 and 8 are related denominators. Since 4 × 2 = 8, eighths are already the lowest shared unit.' },
-      { a:[1,3], b:[1,4], answer:'12', choices:['7','8','12','24'], explain:'3 and 4 are unrelated. Their first shared multiple is 12, so twelfths are the lowest common unit.' },
-      { a:[5,6], b:[1,4], answer:'12', choices:['10','12','18','24'], explain:'The first shared multiple of 6 and 4 is 12. That lets both fractions be renamed in twelfths.' }
+      { a:[1,2] as Fraction, b:[1,6] as Fraction, answer:'6', choices:['4','6','8','12'], hint:'List a few multiples of 2 and 6. Which number appears first in both lists?', explain:'6 is the first shared multiple of 2 and 6. Halves can be renamed as sixths because 1/2 = 3/6. Other common denominators could work, but 6 is the smallest and most efficient here.' },
+      { a:[3,4] as Fraction, b:[1,8] as Fraction, answer:'8', choices:['4','8','16','32'], hint:'Ask whether one denominator is already a multiple of the other.', explain:'4 and 8 are related denominators. Since 4 × 2 = 8, eighths are already the lowest shared unit.' },
+      { a:[1,3] as Fraction, b:[1,4] as Fraction, answer:'12', choices:['7','8','12','24'], hint:'Try multiples of 3: 3, 6, 9, 12… and multiples of 4: 4, 8, 12…', explain:'3 and 4 are unrelated. Their first shared multiple is 12, so twelfths are the most efficient common unit.' },
+      { a:[5,6] as Fraction, b:[1,4] as Fraction, answer:'12', choices:['10','12','18','24'], hint:'Look for the first number that is a multiple of both 6 and 4.', explain:'The first shared multiple of 6 and 4 is 12. That lets both fractions be renamed in twelfths.' }
     ];
+
     const equivalentTasks = [
-      { from:[2,3], target:12, answer:'8', choices:['4','6','8','9'], explain:'3 × 4 = 12, so multiply the numerator by the same factor: 2 × 4 = 8. Therefore 2/3 = 8/12.' },
-      { from:[3,4], target:12, answer:'9', choices:['6','8','9','10'], explain:'4 × 3 = 12, so 3 × 3 = 9. Therefore 3/4 = 9/12.' },
-      { from:[5,6], target:18, answer:'15', choices:['10','12','15','16'], explain:'6 × 3 = 18, so 5 × 3 = 15. Therefore 5/6 = 15/18.' },
-      { from:[3,5], target:20, answer:'12', choices:['8','10','12','15'], explain:'5 × 4 = 20, so 3 × 4 = 12. Therefore 3/5 = 12/20.' }
+      { from:[2,3] as Fraction, target:12, answer:'8', choices:['4','6','8','9'], hint:'3 became 12 by multiplying by 4. What must happen to the numerator?', explain:'3 × 4 = 12, so multiply the numerator by the same factor: 2 × 4 = 8. Therefore 2/3 = 8/12.' },
+      { from:[3,4] as Fraction, target:12, answer:'9', choices:['6','8','9','10'], hint:'4 became 12 by multiplying by 3. Use that same factor on 3.', explain:'4 × 3 = 12, so 3 × 3 = 9. Therefore 3/4 = 9/12.' },
+      { from:[5,6] as Fraction, target:18, answer:'15', choices:['10','12','15','16'], hint:'6 became 18 by multiplying by 3. Keep the value equal by doing the same to 5.', explain:'6 × 3 = 18, so 5 × 3 = 15. Therefore 5/6 = 15/18.' },
+      { from:[3,5] as Fraction, target:20, answer:'12', choices:['8','10','12','15'], hint:'5 became 20 by multiplying by 4. Use that same factor on the numerator.', explain:'5 × 4 = 20, so 3 × 4 = 12. Therefore 3/5 = 12/20.' }
     ];
+
     const solveTasks = [
-      { prompt:'3/4 + 1/8', answer:'7/8', choices:['4/12','7/8','4/8','1'], explain:'Use eighths: 3/4 = 6/8. Then 6/8 + 1/8 = 7/8.' },
-      { prompt:'5/6 − 1/4', answer:'7/12', choices:['4/2','7/12','4/10','3/8'], explain:'Use twelfths: 5/6 = 10/12 and 1/4 = 3/12. Then 10/12 − 3/12 = 7/12.' },
-      { prompt:'2/3 + 3/4', answer:'1 5/12', choices:['5/7','11/12','1 5/12','1 1/7'], explain:'Use twelfths: 2/3 = 8/12 and 3/4 = 9/12. The sum is 17/12 = 1 5/12.' },
-      { prompt:'7/10 − 1/5', answer:'1/2', choices:['6/5','1/2','6/10','3/10'], explain:'Use tenths: 1/5 = 2/10. Then 7/10 − 2/10 = 5/10 = 1/2.' }
+      { left:[3,4] as Fraction, right:[1,8] as Fraction, op:'+', common:'8', commonChoices:['4','8','16','32'], answer:'7/8', answerChoices:['4/12','7/8','4/8','1'], explain:'3/4 becomes 6/8. Then 6/8 + 1/8 = 7/8.' },
+      { left:[5,6] as Fraction, right:[1,4] as Fraction, op:'−', common:'12', commonChoices:['10','12','18','24'], answer:'7/12', answerChoices:['4/2','7/12','4/10','3/8'], explain:'5/6 becomes 10/12 and 1/4 becomes 3/12. Then 10/12 − 3/12 = 7/12.' },
+      { left:[2,3] as Fraction, right:[3,4] as Fraction, op:'+', common:'12', commonChoices:['7','10','12','24'], answer:'1 5/12', answerChoices:['5/7','11/12','1 5/12','1 1/7'], explain:'2/3 becomes 8/12 and 3/4 becomes 9/12. The sum is 17/12 = 1 5/12.' },
+      { left:[7,10] as Fraction, right:[1,5] as Fraction, op:'−', common:'10', commonChoices:['5','10','15','50'], answer:'1/2', answerChoices:['6/5','1/2','6/10','3/10'], explain:'1/5 becomes 2/10. Then 7/10 − 2/10 = 5/10 = 1/2.' }
     ];
 
     const shuffle = <T,>(items:T[]) => [...items].sort(() => Math.random() - .5);
@@ -52,30 +70,33 @@
       return next;
     };
 
-    const makeBar = (numerator:number, denominator:number, label:string) => {
+    const makeBar = (numerator:number, denominator:number, label:string, muted=false) => {
       const row = document.createElement('div'); row.className='fraction-row';
       const name = document.createElement('span'); name.className='fraction-row-label'; name.textContent=label;
-      const bar = document.createElement('div'); bar.className='fraction-bar'; bar.style.gridTemplateColumns=`repeat(${denominator}, minmax(0,1fr))`;
+      const bar = document.createElement('div'); bar.className=`fraction-bar${muted ? ' muted' : ''}`; bar.style.gridTemplateColumns=`repeat(${denominator}, minmax(0,1fr))`;
       for (let i=0;i<denominator;i++) { const piece=document.createElement('span'); piece.className=i<numerator?'filled':''; bar.appendChild(piece); }
       row.append(name,bar); return row;
     };
 
-    const renderChoices = (host:Element | null, choices:string[], answer:string, feedback:HTMLElement | null, explain:string) => {
+    const renderChoices = (host:Element | null, choices:string[], answer:string, onCorrect:()=>void, onWrong:()=>void) => {
       if (!host) return;
       host.replaceChildren();
       shuffle(choices).forEach((choice) => {
         const button=document.createElement('button'); button.type='button'; button.textContent=choice;
         button.addEventListener('click', () => {
           host.querySelectorAll('button').forEach((item) => item.classList.remove('correct','wrong'));
-          if (choice === answer) {
-            button.classList.add('correct');
-            if (feedback) feedback.innerHTML=`<strong>Yes.</strong> ${explain}`;
-          } else {
-            button.classList.add('wrong');
-            if (feedback) feedback.innerHTML='<strong>Not yet.</strong> Check whether your fractions are being renamed with the same-sized unit.';
-          }
+          if (choice === answer) { button.classList.add('correct'); onCorrect(); }
+          else { button.classList.add('wrong'); onWrong(); }
         });
         host.appendChild(button);
+      });
+    };
+
+    const connectHint = (button:HTMLButtonElement | null, text:HTMLElement | null) => {
+      button?.addEventListener('click', () => {
+        if (!text) return;
+        text.hidden = !text.hidden;
+        button.textContent = text.hidden ? 'Show a hint' : 'Hide hint';
       });
     };
 
@@ -84,13 +105,21 @@
     const lcdChoices=lab.querySelector('[data-lcd-choices]');
     const lcdFeedback=lab.querySelector<HTMLElement>('[data-lcd-feedback]');
     const lcdNew=lab.querySelector<HTMLButtonElement>('[data-lcd-new]');
+    const lcdHint=lab.querySelector<HTMLButtonElement>('[data-lcd-hint]');
+    const lcdHintText=lab.querySelector<HTMLElement>('[data-lcd-hint-text]');
+    connectHint(lcdHint,lcdHintText);
     let lcdIndex=-1;
     const renderLCD=()=>{
       lcdIndex=chooseTask(lcdTasks,lcdIndex); const task=lcdTasks[lcdIndex];
-      if (lcdQuestion) lcdQuestion.textContent=`What is the lowest common denominator for ${task.a[0]}/${task.a[1]} and ${task.b[0]}/${task.b[1]}?`;
-      if (lcdBars) { lcdBars.replaceChildren(makeBar(task.a[0],task.a[1],`${task.a[0]}/${task.a[1]}`),makeBar(task.b[0],task.b[1],`${task.b[0]}/${task.b[1]}`)); }
-      if (lcdFeedback) lcdFeedback.textContent='Choose the first shared multiple, not just any large number.';
-      renderChoices(lcdChoices,task.choices,task.answer,lcdFeedback,task.explain);
+      if (lcdQuestion) lcdQuestion.textContent=`Which is the most efficient common denominator for ${task.a[0]}/${task.a[1]} and ${task.b[0]}/${task.b[1]}?`;
+      if (lcdBars) lcdBars.replaceChildren(makeBar(task.a[0],task.a[1],`${task.a[0]}/${task.a[1]}`),makeBar(task.b[0],task.b[1],`${task.b[0]}/${task.b[1]}`));
+      if (lcdFeedback) lcdFeedback.textContent='Choose the smallest shared multiple you can use for both denominators.';
+      if (lcdHintText) { lcdHintText.textContent=task.hint; lcdHintText.hidden=true; }
+      if (lcdHint) lcdHint.textContent='Show a hint';
+      renderChoices(lcdChoices,task.choices,task.answer,
+        ()=>{ if (lcdFeedback) lcdFeedback.innerHTML=`<strong>Yes.</strong> ${task.explain}`; },
+        ()=>{ if (lcdFeedback) lcdFeedback.innerHTML='<strong>Not yet.</strong> Look for a number both denominators divide into evenly. Use the hint if you need it.'; }
+      );
     };
     lcdNew?.addEventListener('click',renderLCD); renderLCD();
 
@@ -99,31 +128,66 @@
     const eqChoices=lab.querySelector('[data-equivalent-choices]');
     const eqFeedback=lab.querySelector<HTMLElement>('[data-equivalent-feedback]');
     const eqNew=lab.querySelector<HTMLButtonElement>('[data-equivalent-new]');
+    const eqHint=lab.querySelector<HTMLButtonElement>('[data-equivalent-hint]');
+    const eqHintText=lab.querySelector<HTMLElement>('[data-equivalent-hint-text]');
+    connectHint(eqHint,eqHintText);
     let eqIndex=-1;
     const renderEquivalent=()=>{
       eqIndex=chooseTask(equivalentTasks,eqIndex); const task=equivalentTasks[eqIndex];
       if (eqQuestion) eqQuestion.textContent=`Rename ${task.from[0]}/${task.from[1]} with denominator ${task.target}. What numerator belongs in ?/${task.target}?`;
-      if (eqBars) { eqBars.replaceChildren(makeBar(task.from[0],task.from[1],`${task.from[0]}/${task.from[1]}`)); }
-      if (eqFeedback) eqFeedback.textContent='Find the factor that changes the old denominator into the target denominator. Use that same factor on the numerator.';
-      renderChoices(eqChoices,task.choices,task.answer,eqFeedback,task.explain);
+      if (eqBars) eqBars.replaceChildren(makeBar(task.from[0],task.from[1],`${task.from[0]}/${task.from[1]}`),makeBar(0,task.target,`?/${task.target}`,true));
+      if (eqFeedback) eqFeedback.textContent='Keep the amount the same while changing the name of the fraction.';
+      if (eqHintText) { eqHintText.textContent=task.hint; eqHintText.hidden=true; }
+      if (eqHint) eqHint.textContent='Show a hint';
+      renderChoices(eqChoices,task.choices,task.answer,
+        ()=>{
+          if (eqFeedback) eqFeedback.innerHTML=`<strong>Yes.</strong> ${task.explain}`;
+          if (eqBars) eqBars.replaceChildren(makeBar(task.from[0],task.from[1],`${task.from[0]}/${task.from[1]}`),makeBar(Number(task.answer),task.target,`${task.answer}/${task.target}`));
+        },
+        ()=>{ if (eqFeedback) eqFeedback.innerHTML='<strong>Not yet.</strong> The numerator and denominator must be multiplied by the same factor. Use the hint if you need it.'; }
+      );
     };
     eqNew?.addEventListener('click',renderEquivalent); renderEquivalent();
 
     const solveQuestion=lab.querySelector<HTMLElement>('[data-solve-question]');
-    const solveChoices=lab.querySelector('[data-solve-choices]');
+    const solveBars=lab.querySelector('[data-solve-bars]');
+    const solveCommonChoices=lab.querySelector('[data-solve-common-choices]');
+    const solveAnswerStep=lab.querySelector<HTMLElement>('[data-solve-answer-step]');
+    const solveAnswerChoices=lab.querySelector('[data-solve-answer-choices]');
     const solveFeedback=lab.querySelector<HTMLElement>('[data-solve-feedback]');
     const solveNew=lab.querySelector<HTMLButtonElement>('[data-solve-new]');
     let solveIndex=-1;
+
+    const scaled = (fraction:Fraction, common:number):Fraction => [fraction[0] * (common / fraction[1]), common];
+
     const renderSolve=()=>{
       solveIndex=chooseTask(solveTasks,solveIndex); const task=solveTasks[solveIndex];
-      if (solveQuestion) solveQuestion.textContent=`Solve ${task.prompt}.`;
-      if (solveFeedback) solveFeedback.textContent='Before choosing, decide what common denominator you would use and rename both fractions mentally or on paper.';
-      renderChoices(solveChoices,task.choices,task.answer,solveFeedback,task.explain);
+      const prompt=`${task.left[0]}/${task.left[1]} ${task.op} ${task.right[0]}/${task.right[1]}`;
+      if (solveQuestion) solveQuestion.textContent=`Solve ${prompt}. Do Step 1 before looking for the final answer.`;
+      if (solveBars) solveBars.replaceChildren(makeBar(task.left[0],task.left[1],`${task.left[0]}/${task.left[1]}`),makeBar(task.right[0],task.right[1],`${task.right[0]}/${task.right[1]}`));
+      if (solveAnswerStep) solveAnswerStep.hidden=true;
+      if (solveAnswerChoices) solveAnswerChoices.replaceChildren();
+      if (solveFeedback) solveFeedback.textContent='Start by choosing an efficient common denominator.';
+
+      renderChoices(solveCommonChoices,task.commonChoices,task.common,
+        ()=>{
+          const common=Number(task.common);
+          const leftScaled=scaled(task.left,common); const rightScaled=scaled(task.right,common);
+          if (solveBars) solveBars.replaceChildren(makeBar(leftScaled[0],leftScaled[1],`${leftScaled[0]}/${leftScaled[1]}`),makeBar(rightScaled[0],rightScaled[1],`${rightScaled[0]}/${rightScaled[1]}`));
+          if (solveAnswerStep) solveAnswerStep.hidden=false;
+          if (solveFeedback) solveFeedback.innerHTML=`<strong>Good first step.</strong> Both fractions are now written in ${common}ths. Use the renamed fractions shown above to finish.`;
+          renderChoices(solveAnswerChoices,task.answerChoices,task.answer,
+            ()=>{ if (solveFeedback) solveFeedback.innerHTML=`<strong>Correct.</strong> ${task.explain}`; },
+            ()=>{ if (solveFeedback) solveFeedback.innerHTML='<strong>Check the renamed fractions.</strong> Now that the denominators match, combine only the numerators and simplify if needed.'; }
+          );
+        },
+        ()=>{ if (solveFeedback) solveFeedback.innerHTML='<strong>Not yet.</strong> Find a shared multiple of the two denominators. Smaller is usually more efficient.'; }
+      );
     };
     solveNew?.addEventListener('click',renderSolve); renderSolve();
   });
 </script>
 
 <style>
-.fraction-lab{display:grid;gap:1rem}.lab-panel{border:1px solid #dfe7f1;border-radius:16px;padding:1rem;background:#fff}.lab-head{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start}.lab-head h3{margin:.15rem 0}.lab-head .eyebrow{margin:0}.secondary{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:.55rem .75rem;font-weight:800;cursor:pointer}.bar-stage{display:grid;gap:.55rem;margin:.9rem 0}.fraction-row{display:grid;grid-template-columns:54px 1fr;gap:.7rem;align-items:center}.fraction-row-label{font-weight:900}.fraction-bar{display:grid;border:2px solid #26354a;border-radius:8px;overflow:hidden;min-height:38px}.fraction-bar span{border-right:1px solid #9aa8bb;background:#fff}.fraction-bar span:last-child{border-right:0}.fraction-bar span.filled{background:var(--course-soft,#dbeafe)}.choice-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.55rem;margin:.8rem 0}.choice-grid button{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:.7rem .5rem;font-weight:900;cursor:pointer}.choice-grid button:hover{border-color:var(--course)}.choice-grid button.correct{border-color:#15803d;background:#eefbf2}.choice-grid button.wrong{border-color:#b91c1c;background:#fff1f1}.lab-feedback{min-height:48px;padding:.7rem .8rem;border-radius:10px;background:#f7f9fc;line-height:1.5}@media(max-width:680px){.lab-head{display:grid}.choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.fraction-lab{display:grid;gap:1rem}.lab-panel{border:1px solid #dfe7f1;border-radius:16px;padding:1rem;background:#fff}.lab-head{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start}.lab-head h3{margin:.15rem 0}.lab-head .eyebrow{margin:0}.secondary,.hint-button{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:.55rem .75rem;font-weight:800;cursor:pointer}.hint-button{margin:.1rem 0 .5rem;font-size:.86rem}.hint-text{margin:.2rem 0 .7rem;padding:.65rem .75rem;border-radius:10px;background:#fff8db;line-height:1.45}.bar-stage{display:grid;gap:.55rem;margin:.9rem 0}.fraction-row{display:grid;grid-template-columns:62px 1fr;gap:.7rem;align-items:center}.fraction-row-label{font-weight:900}.fraction-bar{display:grid;border:2px solid #26354a;border-radius:8px;overflow:hidden;min-height:40px}.fraction-bar.muted{border-style:dashed}.fraction-bar span{border-right:1px solid #9aa8bb;background:#fff}.fraction-bar span:last-child{border-right:0}.fraction-bar span.filled{background:var(--course-soft,#dbeafe)}.choice-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.55rem;margin:.8rem 0}.choice-grid button{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:.72rem .5rem;font-weight:900;cursor:pointer}.choice-grid button:hover{border-color:var(--course)}.choice-grid button.correct{border-color:#15803d;background:#eefbf2}.choice-grid button.wrong{border-color:#b91c1c;background:#fff1f1}.lab-feedback{min-height:48px;padding:.7rem .8rem;border-radius:10px;background:#f7f9fc;line-height:1.5}.solve-step{margin-top:.75rem;padding:.75rem;border:1px solid #e1e7ef;border-radius:12px;background:#fbfcfe}.step-label{display:flex;gap:.55rem;align-items:center;margin:0}.step-label span{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--course);color:#fff;font-weight:900}.step-label strong{font-size:.95rem}@media(max-width:680px){.lab-head{display:grid}.choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.fraction-row{grid-template-columns:54px 1fr}}
 </style>
