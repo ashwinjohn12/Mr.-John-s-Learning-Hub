@@ -17,7 +17,10 @@ const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-neg
 <BaseLayout title={`${unit.title} | ${course.grade} ${course.shortSubject}`} description={unit.description} themeColor={course.color}>
   <div class="page-wrap" style={`--course:${course.color};--course-soft:${course.accent}`}>
     <Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title}]} />
-    <header class="unit-hero"><p class="eyebrow">UNIT {unit.number}</p><h1>{unit.title}</h1><p>{unit.description}</p></header>
+    <header class="unit-hero">
+      <p class="eyebrow">UNIT {unit.number}</p><h1>{unit.title}</h1><p>{unit.description}</p>
+      {reviewInfo && <a class="unit-review-cta" href={`${base}courses/${course.slug}/${unit.slug}/unit-review/`}>★ {reviewInfo.title} →</a>}
+    </header>
     {unit.topics.length ? (
       <section class="topic-list">
         <p class="eyebrow">TOPICS</p>
@@ -37,4 +40,8 @@ const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-neg
     )}
   </div>
 </BaseLayout>
-<style>.review-row{border-width:2px;background:linear-gradient(135deg,#fff,#f3effb)}.review-row>span:first-child{font-size:1.25rem}</style>
+<style>
+.review-row{border-width:2px;background:linear-gradient(135deg,#fff,#f3effb)}.review-row>span:first-child{font-size:1.25rem}
+.unit-review-cta{display:inline-flex;align-items:center;gap:.4rem;margin-top:1rem;padding:.75rem 1rem;border-radius:12px;background:#fff;color:var(--course);font-weight:900;text-decoration:none;box-shadow:0 1px 0 rgba(15,23,42,.08)}
+.unit-review-cta:hover{text-decoration:underline}
+</style>
