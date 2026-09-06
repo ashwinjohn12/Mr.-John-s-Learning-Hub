@@ -70,7 +70,20 @@ export const courses: Course[] = [
           { slug: 'operations-parentheses-powers', number: '3.3', title: 'Operations with Parentheses & Powers', summary: 'Evaluate multi-step numerical expressions by understanding grouping, powers, and equal-priority operations.', status: 'ready' }
         ]
       },
-      { slug: 'decimals-fractions', number: '04', title: 'Operations on Decimals & Fractions', description: 'Develop flexible strategies for operations with fractions and decimal numbers.', topics: [] },
+      {
+        slug: 'decimals-fractions',
+        number: '04',
+        title: 'Operations on Decimals & Fractions',
+        description: 'Build flexible, visual, and efficient strategies for fraction and decimal operations in real situations.',
+        topics: [
+          { slug: 'adding-subtracting-fractions', number: '4.1', title: 'Adding & Subtracting Fractions', summary: 'Use equivalent fractions and common denominators to add and subtract fractions with related and unrelated denominators.', status: 'ready' },
+          { slug: 'multiplying-fractions', number: '4.2', title: 'Multiplying Fractions', summary: 'Interpret and calculate multiplication between natural numbers and fractions using models, repeated addition, and part-of reasoning.', status: 'planned' },
+          { slug: 'fractions-equal-shares', number: '4.3', title: 'Relating Fractions to Equal Shares', summary: 'Connect equal sharing, fractions, division statements, quotients, and decimal representations.', status: 'planned' },
+          { slug: 'adding-subtracting-decimals', number: '4.4', title: 'Adding & Subtracting Decimal Numbers', summary: 'Use place value and standard algorithms to solve decimal addition and subtraction problems.', status: 'planned' },
+          { slug: 'multiplying-decimals', number: '4.5', title: 'Multiplying Decimal Numbers', summary: 'Multiply decimal numbers by natural numbers, estimate products, and solve money and measurement problems.', status: 'planned' },
+          { slug: 'dividing-decimals', number: '4.6', title: 'Dividing Decimal Numbers', summary: 'Divide decimal numbers by natural numbers, interpret remainders as decimals, estimate quotients, and solve problems.', status: 'planned' }
+        ]
+      },
       { slug: 'ratios-rates', number: '05', title: 'Ratios & Rates', description: 'Compare quantities and use proportional thinking in real situations.', topics: [] },
       { slug: 'patterns-algebra', number: '06', title: 'Patterns & Algebra', description: 'Describe relationships with tables, expressions, and equations.', topics: [] },
       { slug: 'statistics-probability', number: '07', title: 'Statistics & Probability', description: 'Collect, interpret, and communicate information from data and chance.', topics: [] }
