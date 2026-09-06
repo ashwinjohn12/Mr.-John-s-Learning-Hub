@@ -31,6 +31,9 @@ const homeNotes: Record<string,string> = {
 };
 const toolMode = toolModes[topic.slug];
 const tool = toolCopy[topic.slug];
+const practiceQuestions = content.questions.map((question) => question.prompt === 'Which expression has a value of 18?'
+  ? { ...question, choices: ['6 + 2 × 3','(6 + 2) × 3','6 + 2³','36 ÷ 6 × 3'], answer: 3, explain: 'Multiplication and division share priority, so 36 ÷ 6 × 3 = 6 × 3 = 18.' }
+  : question);
 ---
 <BaseLayout title={`${topic.title} | ${course.grade} ${course.shortSubject}`} description={topic.summary} themeColor={course.color}>
   <div class="topic-shell" style={`--course:${course.color};--course-soft:${course.accent}`}>
@@ -78,7 +81,7 @@ const tool = toolCopy[topic.slug];
         <article class="hands-on-card"><p class="eyebrow">OFF-SCREEN ACTIVITY</p><h3>{content.handsOn.title}</h3><ol>{content.handsOn.instructions.map((item)=><li>{item}</li>)}</ol><p><strong>Reflect:</strong> {content.handsOn.reflect}</p><p class="home-note"><strong>Working on your own?</strong> {homeNotes[topic.slug]}</p></article>
       </LearningSection>
 
-      <LearningSection id="practise" eyebrow="PRACTISE WITH SUPPORT" title="Build confidence with feedback" icon="✏️" tone="practice"><p>{content.practiceIntro}</p><PracticeEngine questions={content.questions} /></LearningSection>
+      <LearningSection id="practise" eyebrow="PRACTISE WITH SUPPORT" title="Build confidence with feedback" icon="✏️" tone="practice"><p>{content.practiceIntro}</p><PracticeEngine questions={practiceQuestions} /></LearningSection>
 
       <LearningSection id="check" eyebrow="CHECK YOURSELF" title="Can you do it on your own?" icon="✅" tone="review"><p>This bank is separate from the practice questions. Each new set randomly selects five questions from a larger bank, so a new set should feel genuinely different.</p><CheckYourself questions={content.checkQuestions} count={5} /></LearningSection>
 
