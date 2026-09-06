@@ -13,5 +13,6 @@ export const unit4Lesson45QAContent: TopicContent = {
       };
     }
     return question;
-  })
+  }),
+  next: { title: 'Dividing Decimal Numbers', slug: 'dividing-decimals', status: 'ready' }
 };
