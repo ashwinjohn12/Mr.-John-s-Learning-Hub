@@ -23,7 +23,7 @@ const gameTitle=variant==='parallelogram'?'Glass Wall Mission':variant==='triang
  <LearningSection id="overview" eyebrow="GET READY" title={overviewTitle} icon="🎯" tone="idea">
   <div class="overview-grid"><div><p class="mini-label">BEFORE YOU START</p><ul>{visiblePrerequisites.map(item=><li>{item}</li>)}</ul></div><div><p class="mini-label">TODAY'S MISSION</p><ul>{visibleGoals.map(goal=><li>{goal}</li>)}</ul></div></div>
   <div class="lesson-meta"><span><strong>{variant==='volume'?'Suggested time:':'Time:'}</strong> {content.estimatedTime}</span><span><strong>Materials:</strong> {content.materials.join(' · ')}</span></div>
-  {variant==='volume'&&<p class="split-note"><strong>Take it in two parts:</strong> The resource's printed 16-minute timing is not realistic for its full investigation sequence, so this page is designed for two learning sessions.</p>}
+  {variant==='volume'&&<p class="split-note"><strong>Take it in two parts:</strong> This lesson includes several investigations. You do not need to finish everything at once.</p>}
   <p class="start-note"><strong>Best place to begin:</strong> Read the Big Idea and visual model first. In Measurement, seeing why the relationship works matters more than memorizing a rule.</p>
   <details class="success-box"><summary>How will I know I understand it?</summary><ul>{content.successCriteria.map(item=><li>{item}</li>)}</ul></details>
  </LearningSection>
