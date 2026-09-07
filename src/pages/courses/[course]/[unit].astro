@@ -16,7 +16,9 @@ const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-neg
         ? { title:'Unit 4 Review & Math Arcade', summary:'Review all six fraction and decimal lessons, take a balanced Unit Check, and complete the Fraction & Decimal City Quest.' }
         : course.slug === 'grade-6-math' && unit.slug === 'ratios-rates'
           ? { title:'Unit 5 Review & Math Arcade', summary:'Connect percent, equivalent ratios, proportions, and unit rates, take a balanced Unit Check, and complete the Ratio & Rate Expedition.' }
-          : null;
+          : course.slug === 'grade-6-math' && unit.slug === 'algebra'
+            ? { title:'Unit 6 Review & Math Arcade', summary:'Connect simplifying expressions, balance models, inverse operations, and verification, then complete the Algebra Lab Escape.' }
+            : null;
 ---
 <BaseLayout title={`${unit.title} | ${course.grade} ${course.shortSubject}`} description={unit.description} themeColor={course.color}>
   <div class="page-wrap" style={`--course:${course.color};--course-soft:${course.accent}`}>
