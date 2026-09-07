@@ -1,0 +1,62 @@
+---
+interface Props { variant:'experiment'|'relative'|'analyze' }
+const { variant }=Astro.props;
+const title=variant==='experiment'?'Carnival Experiment Inspector':variant==='relative'?'Data Reporter Challenge':'Sample Size Detective';
+---
+<div class="stats-game" data-unit9-game={variant}>
+ <div class="game-top"><div><p class="eyebrow">{title.toUpperCase()}</p><h3 data-title>Round 1 of 3</h3></div><span data-score>0 points</span></div><div class="progress"><span data-progress></span></div><div data-stage aria-live="polite"></div><div class="actions"><button type="button" data-next hidden>Next round →</button><button type="button" class="soft" data-restart>Play again</button></div>
+</div>
+<script>
+const banks:any={
+ experiment:[
+  [
+   {prompt:'A fair six-sided number cube is rolled. How many possible outcomes are there?',choices:['2','4','6','12'],answer:2,explain:'The outcomes are 1 through 6.'},
+   {prompt:'Which setup gives two equally likely outcomes?',choices:['Bag with 9 red and 1 blue','Fair coin','Spinner with 3 red sections and 1 blue','Unequal cards'],answer:1,explain:'Heads and tails on a fair coin have the same chance.'},
+   {prompt:'A four-equal-section spinner is spun 8 times. Must every colour appear twice?',choices:['Yes','No','Only if fair'],answer:1,explain:'Equal chance does not guarantee equal short-run counts.'}
+  ],
+  [
+   {prompt:'Results are H,T,H,H,T,H. What is the frequency of heads?',choices:['2','3','4','6'],answer:2,explain:'Heads appears four times.'},
+   {prompt:'A possible outcome never appears in 12 trials. What can you conclude?',choices:['It is impossible','It may still be possible','It must happen next'],answer:1,explain:'Frequency 0 in one sample does not remove an outcome from the possible set.'},
+   {prompt:'What makes a four-colour spinner fair?',choices:['Each colour appears once in the first four spins','Equal chance for each colour','No repeats'],answer:1,explain:'Fairness is built into equal likelihood, not a specific result pattern.'}
+  ]
+ ],
+ relative:[
+  [
+   {prompt:'8 outcomes out of 20 gives what relative frequency?',choices:['20%','40%','60%','80%'],answer:1,explain:'8/20=0.40=40%.'},
+   {prompt:'0.25 is equivalent to...',choices:['2.5%','25%','250%'],answer:1,explain:'0.25=25/100=25%.'},
+   {prompt:'Which denominator belongs in a relative-frequency fraction?',choices:['Category count','Total sample size','Largest frequency'],answer:1,explain:'Relative frequency is category count over total.'}
+  ],
+  [
+   {prompt:'Class A: 10/20 choose art. Class B: 20/40 choose art. Compare.',choices:['A is greater','B is greater','Same relative frequency'],answer:2,explain:'Both are 50%.'},
+   {prompt:'Three categories total 35%, 25%, and 20%. What must the fourth be?',choices:['10%','20%','30%'],answer:1,explain:'The known categories total 80%, leaving 20%.'},
+   {prompt:'25% of 120 is...',choices:['20','30','40'],answer:1,explain:'One quarter of 120 is 30.'}
+  ]
+ ],
+ analyze:[
+  [
+   {prompt:'Which sample usually gives a more reliable estimate?',choices:['10 trials','50 trials','500 trials'],answer:2,explain:'More trials generally give a stronger long-run estimate.'},
+   {prompt:'Two fair-coin samples have different head percentages. Best explanation?',choices:['One must be wrong','Random variation','Coins change probability'],answer:1,explain:'Random samples naturally vary.'},
+   {prompt:'The law of large numbers says...',choices:['Every large sample is perfect','More trials generally improve estimates','The next outcome becomes certain'],answer:1,explain:'It describes improved long-run estimation, not certainty.'}
+  ],
+  [
+   {prompt:'9/10 heads versus 49/100 heads. Which is stronger evidence for a fair coin?',choices:['9/10','49/100','Same evidence'],answer:1,explain:'The 100-toss sample is much larger and close to the expected 50%.'},
+   {prompt:'A fair four-colour spinner is tested 400 times. Expected count per colour is about...',choices:['25','50','100'],answer:2,explain:'25% of 400 is 100.'},
+   {prompt:'Which wording is strongest?',choices:['The data proves red will happen next.','The data suggests red is likely about 25% of the time.','Red is guaranteed 25 times every 100.'],answer:1,explain:'Statistical conclusions should describe evidence and uncertainty.'}
+  ]
+ ]
+};
+
+document.querySelectorAll<HTMLElement>('[data-unit9-game]').forEach(game=>{
+ const variant=game.dataset.unit9Game||'experiment',stage=game.querySelector<HTMLElement>('[data-stage]'),title=game.querySelector('[data-title]'),scoreEl=game.querySelector('[data-score]'),progress=game.querySelector<HTMLElement>('[data-progress]'),next=game.querySelector<HTMLButtonElement>('[data-next]'),restart=game.querySelector<HTMLButtonElement>('[data-restart]');let round=0,score=0,selected:any[]=[],locked=false;
+ const choose=()=>banks[variant].map((bank:any[])=>bank[Math.floor(Math.random()*bank.length)]);const setTop=()=>{if(title)title.textContent=`Round ${round+1} of 3`;if(scoreEl)scoreEl.textContent=`${score} points`;if(progress)progress.style.width=`${round/3*100}%`;if(next)next.hidden=true;};
+ const renderQuick=()=>{setTop();locked=false;const q=selected[round];if(stage)stage.innerHTML=`<p class="round-label">MISSION ${round+1}</p><h3>${q.prompt}</h3><div class="choices">${q.choices.map((c:string,i:number)=>`<button type="button" data-choice="${i}">${c}</button>`).join('')}</div><div class="feedback" data-feedback hidden></div>`;stage?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach(b=>b.addEventListener('click',()=>answerQuick(Number(b.dataset.choice))));};
+ const answerQuick=(choice:number)=>{if(locked)return;locked=true;const q=selected[round],ok=choice===q.answer;if(ok)score+=100;stage?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach((b,i)=>{b.disabled=true;if(i===q.answer)b.classList.add('correct');else if(i===choice)b.classList.add('incorrect')});const f=stage?.querySelector<HTMLElement>('[data-feedback]');if(f){f.hidden=false;f.innerHTML=`<strong>${ok?'Mission solved!':'Use this clue:'}</strong> ${q.explain}`;}if(scoreEl)scoreEl.textContent=`${score} points`;if(progress)progress.style.width=`${(round+1)/3*100}%`;if(next){next.hidden=false;next.textContent='Next round →';}};
+ const renderFinal=()=>{setTop();locked=false;if(!stage)return;if(variant==='experiment'){stage.innerHTML=`<p class="round-label">DESIGN MISSION</p><h3>A carnival spinner has 8 equal sections and 4 colours. How many sections should each colour receive to make the colours equally likely?</h3><label class="answer-box">sections per colour <input type="number" data-final-input/></label><button class="submit-final" data-final-submit>Check design</button><div class="feedback" data-feedback hidden></div>`;}else if(variant==='relative'){stage.innerHTML=`<p class="round-label">REPORTER MISSION</p><h3>A survey has 18 of 30 students choosing option A. A second has 28 of 50 choosing A. Which group has the larger relative frequency?</h3><div class="choices"><button data-final-choice="0">First group</button><button data-final-choice="1">Second group</button><button data-final-choice="2">They are equal</button></div><div class="feedback" data-feedback hidden></div>`;}else{stage.innerHTML=`<p class="round-label">EVIDENCE MISSION</p><h3>Three fair-spinner tests report red near 25%: 4/10, 13/50, and 51/200. Which sample should usually guide the strongest prediction?</h3><div class="choices"><button data-final-choice="10">10 trials</button><button data-final-choice="50">50 trials</button><button data-final-choice="200">200 trials</button></div><div class="feedback" data-feedback hidden></div>`;}
+  if(variant==='experiment')stage.querySelector<HTMLButtonElement>('[data-final-submit]')?.addEventListener('click',()=>finishFinal(Number(stage.querySelector<HTMLInputElement>('[data-final-input]')?.value)===2,'8 equal sections ÷ 4 colours = 2 equal sections per colour.'));
+  else stage.querySelectorAll<HTMLButtonElement>('[data-final-choice]').forEach(b=>b.addEventListener('click',()=>{const v=Number(b.dataset.finalChoice);finishFinal(variant==='relative'?v===0:v===200,variant==='relative'?'18/30=60% while 28/50=56%, so the first group has the larger relative frequency.':'All three are plausible, but 51/200=25.5% is supported by the largest sample and is close to the expected 25%.');}));
+ };
+ const finishFinal=(ok:boolean,explain:string)=>{if(locked)return;locked=true;if(ok)score+=100;const f=stage?.querySelector<HTMLElement>('[data-feedback]');if(f){f.hidden=false;f.innerHTML=`<strong>${ok?'Decision works!':'Not yet.'}</strong> ${explain}`;}stage?.querySelectorAll<HTMLButtonElement>('button').forEach(b=>b.disabled=true);stage?.querySelectorAll<HTMLInputElement>('input').forEach(i=>i.disabled=true);if(scoreEl)scoreEl.textContent=`${score} points`;if(progress)progress.style.width='100%';if(next){next.hidden=false;next.textContent='Finish mission';}};
+ const finish=()=>{if(stage)stage.innerHTML=`<div class="finish"><div class="trophy">🏆</div><p class="eyebrow">MISSION COMPLETE</p><h3>${score===300?'Statistics Specialist':'Data Explorer'}</h3><p>You earned ${score} / 300 points. Play again for fresh quick rounds.</p></div>`;if(next)next.hidden=true;if(progress)progress.style.width='100%';};const render=()=>round<2?renderQuick():renderFinal();const reset=()=>{selected=choose();round=0;score=0;render();};next?.addEventListener('click',()=>{if(round===2){finish();return;}round++;render();});restart?.addEventListener('click',reset);reset();
+});
+</script>
+<style>.stats-game{border:1px solid #d8e0ea;border-radius:18px;background:#fff;padding:1rem}.game-top{display:flex;justify-content:space-between;gap:1rem;align-items:start}.game-top h3{margin:.15rem 0}.game-top>span{font-weight:900;padding:.45rem .65rem;border-radius:10px;background:var(--course-soft)}.progress{height:9px;border-radius:99px;background:#e9eef5;overflow:hidden;margin:.8rem 0}.progress span{display:block;height:100%;width:0;background:var(--course);transition:width .25s}.round-label{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#64748b}.choices{display:grid;gap:.55rem;margin:1rem 0}.choices button,.submit-final{border:1px solid #dbe3ec;border-radius:12px;padding:.75rem;text-align:left;background:#fff;font-weight:800;cursor:pointer}.choices button.correct{background:#f0fdf4;border-color:#22c55e}.choices button.incorrect{background:#fef2f2;border-color:#ef4444}.feedback{padding:.75rem .85rem;border-radius:11px;background:#f7f9fc;margin-top:.8rem}.actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem}.actions button,.submit-final{border:0;border-radius:11px;padding:.7rem .95rem;background:var(--course);color:#fff;font-weight:850;cursor:pointer}.actions .soft{background:#eef3f9;color:#25364f}.answer-box{display:flex;gap:.5rem;align-items:center;font-weight:900;margin:1rem 0}.answer-box input{max-width:120px;border:2px solid #ccd6e2;border-radius:10px;padding:.65rem;font:inherit}.finish{text-align:center;padding:1.1rem}.trophy{font-size:2.4rem}@media(max-width:650px){.game-top{display:grid}.game-top>span{justify-self:start}}</style>

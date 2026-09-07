@@ -6,7 +6,7 @@ export function getStaticPaths() { return courses.flatMap((course) => course.uni
 interface Props { course: Course; unit: Unit }
 const { course, unit } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const patternsLive = course.slug === 'grade-6-math' && unit.slug === 'patterns';
+const builtGrade6Override = course.slug === 'grade-6-math' && ['patterns','statistics'].includes(unit.slug);
 const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-negative-numbers'
   ? { title:'Unit 1 Review & Math Arcade', summary:'Mix all five skills, take a randomized unit check, and complete free-response integer missions.' }
   : course.slug === 'grade-6-math' && unit.slug === 'coordinates-design'
@@ -23,7 +23,9 @@ const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-neg
               ? { title:'Unit 7 Review & Math Arcade', summary:'Connect parallelogram and triangle area, composite shapes, and volume, take a balanced Unit Check, and complete the Measurement Design Arcade.' }
               : course.slug === 'grade-6-math' && unit.slug === 'patterns'
                 ? { title:'Unit 8 Review & Math Arcade', summary:'Connect function rules, tables, ordered pairs, graphs, equations, predictions, and backward reasoning, then complete the Function Lab Arcade.' }
-                : null;
+                : course.slug === 'grade-6-math' && unit.slug === 'statistics'
+                  ? { title:'Unit 9 Review & Statistics Arcade', summary:'Connect fair experiments, relative frequency, sample size, predictions, and data reliability, then complete the Statistics Lab Arcade.' }
+                  : null;
 ---
 <BaseLayout title={`${unit.title} | ${course.grade} ${course.shortSubject}`} description={unit.description} themeColor={course.color}>
   <div class="page-wrap" style={`--course:${course.color};--course-soft:${course.accent}`}>
@@ -36,7 +38,7 @@ const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-neg
       <section class="topic-list">
         <p class="eyebrow">TOPICS</p>
         {unit.topics.map((topic) => {
-          const topicLive = topic.status === 'ready' || patternsLive;
+          const topicLive = topic.status === 'ready' || builtGrade6Override;
           return (
           <a class={`topic-row ${!topicLive ? 'is-planned' : ''}`} href={topicLive ? `${base}courses/${course.slug}/${unit.slug}/${topic.slug}/` : undefined} aria-disabled={!topicLive ? 'true' : undefined}>
             <span>{topic.number}</span><span><strong>{topic.title}</strong><small>{topic.summary}</small></span><em>{topicLive ? 'Open topic' : 'Coming next'}</em>

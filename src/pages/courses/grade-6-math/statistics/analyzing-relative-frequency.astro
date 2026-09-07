@@ -1,0 +1,7 @@
+---
+import Unit9StatisticsLessonPage from '../../../../components/Unit9StatisticsLessonPage.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit9Content } from '../../../../data/unit9Content';
+const course=findCourse('grade-6-math')!;const unit=course.units.find(item=>item.slug==='statistics')!;const topic=unit.topics.find(item=>item.slug==='analyzing-relative-frequency')!;const content=unit9Content['grade-6-math/statistics/analyzing-relative-frequency'];
+---
+<Unit9StatisticsLessonPage {course} {unit} {topic} {content} variant="analyze" />

@@ -1,0 +1,7 @@
+---
+import Unit9StatisticsLessonPage from '../../../../components/Unit9StatisticsLessonPage.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit9Content } from '../../../../data/unit9Content';
+const course=findCourse('grade-6-math')!;const unit=course.units.find(item=>item.slug==='statistics')!;const topic=unit.topics.find(item=>item.slug==='conducting-experiments')!;const content=unit9Content['grade-6-math/statistics/conducting-experiments'];
+---
+<Unit9StatisticsLessonPage {course} {unit} {topic} {content} variant="experiment" />

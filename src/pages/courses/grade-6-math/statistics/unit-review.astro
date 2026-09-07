@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import LearningSection from '../../../../components/LearningSection.astro';
+import VocabularyExplorer from '../../../../components/VocabularyExplorer.astro';
+import Unit9BalancedPractice from '../../../../components/Unit9BalancedPractice.astro';
+import Unit9BalancedCheck from '../../../../components/Unit9BalancedCheck.astro';
+import Unit9MathArcade from '../../../../components/Unit9MathArcade.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit9Content } from '../../../../data/unit9Content';
+const course=findCourse('grade-6-math')!;const unit=course.units.find(item=>item.slug==='statistics')!;const base=import.meta.env.BASE_URL;
+const contentBySlug={
+ 'conducting-experiments':unit9Content['grade-6-math/statistics/conducting-experiments'],
+ 'relative-frequency':unit9Content['grade-6-math/statistics/relative-frequency'],
+ 'analyzing-relative-frequency':unit9Content['grade-6-math/statistics/analyzing-relative-frequency']
+};
+const lessonData=unit.topics.map(topic=>({topic,content:contentBySlug[topic.slug as keyof typeof contentBySlug]}));
+const practiceGroups=lessonData.map(({topic,content})=>({label:`Lesson ${topic.number} · ${topic.title}`,questions:content.questions,count:3}));
+const checkGroups=lessonData.map(({topic,content})=>({label:`Lesson ${topic.number} · ${topic.title}`,questions:content.checkQuestions,count:3}));
+const reviewWords=[
+ {term:'Experiment',definition:'A repeatable activity with a set of possible outcomes.',example:'Rolling a number cube many times.'},
+ {term:'Outcome',definition:'A possible or observed result of an experiment.',example:'Rolling a 5.'},
+ {term:'Equally likely',definition:'Having the same chance of occurring.',example:'Heads and tails on a fair coin.'},
+ {term:'Frequency',definition:'The number of times a category or outcome occurs.',example:'Heads occurs 18 times.'},
+ {term:'Relative frequency',definition:'A category frequency compared with the whole sample.',example:'18 out of 30 = 60%.'},
+ {term:'Sample size',definition:'The total number of observations or trials.',example:'A 200-roll experiment has sample size 200.'},
+ {term:'Likelihood',definition:'How likely an outcome is estimated to be.',example:'Data may suggest red occurs about 25% of the time.'},
+ {term:'Variation',definition:'Natural differences between repeated random samples.',example:'Two groups can get different head percentages.'},
+ {term:'Law of large numbers',definition:'More trials generally give a better estimate of expected likelihood.',example:'Coin-toss percentages often stabilize as many tosses accumulate.'}
+];
+---
+<BaseLayout title="Unit 9 Review & Statistics Arcade | Grade 6 Math" description="Review experiments, relative frequency, sample size, and statistical reasoning." themeColor={course.color}>
+<div class="page-wrap" style={`--course:${course.color};--course-soft:${course.accent}`}>
+ <Breadcrumbs items={[{label:'Home',href:base},{label:'Grade 6 Math',href:`${base}courses/grade-6-math/`},{label:'Statistics',href:`${base}courses/grade-6-math/statistics/`},{label:'Unit Review'}]}/>
+ <header class="review-hero"><p class="eyebrow">UNIT 9 · STATISTICS</p><h1>Statistics Review<br/><span>& Math Arcade</span></h1><p>Connect fair experiments, organized data, relative frequency, predictions, sample size, and careful evidence-based conclusions.</p></header>
+
+ <LearningSection id="overview" eyebrow="START SMART" title="What should I review?" icon="🎯" tone="idea">
+  <p>Use the checklist to target the lesson you need. One unchecked box does not mean you need to restart the whole unit.</p>
+  <div class="readiness-grid">
+   <article><p class="eyebrow">9.1 · EXPERIMENTS</p><label><input type="checkbox"/> I can list possible outcomes.</label><label><input type="checkbox"/> I can identify equally likely outcomes.</label><label><input type="checkbox"/> I can organize trial data in a frequency table.</label></article>
+   <article><p class="eyebrow">9.2 · RELATIVE FREQUENCY</p><label><input type="checkbox"/> I can compare a category count with the total.</label><label><input type="checkbox"/> I can write relative frequency as a fraction, decimal, and percent.</label><label><input type="checkbox"/> I can use relative frequency to make a prediction.</label></article>
+   <article><p class="eyebrow">9.3 · ANALYSIS</p><label><input type="checkbox"/> I can compare samples of different sizes.</label><label><input type="checkbox"/> I can explain random variation and the effect of sample size.</label><label><input type="checkbox"/> I can choose stronger evidence and state a careful conclusion.</label></article>
+  </div>
+ </LearningSection>
+
+ <LearningSection id="lesson-map" eyebrow="TARGET YOUR REVIEW" title="Unit 9 lesson map" icon="🗺️" tone="learn">
+  <div class="lesson-map">{lessonData.map(({topic,content})=><a href={`${base}courses/grade-6-math/statistics/${topic.slug}/`}><span>{topic.number}</span><div><strong>{topic.title}</strong><small>{content.bigIdea}</small></div><b>Review →</b></a>)}</div>
+  <div class="unit-story"><strong>The Unit 9 story</strong><span>run an experiment → organize the counts → compare each part with the whole → use sample size to judge the strength of the evidence</span></div>
+ </LearningSection>
+
+ <LearningSection id="vocabulary" eyebrow="LANGUAGE CHECK" title="Mixed Unit 9 vocabulary" icon="🧠" tone="vocab"><VocabularyExplorer words={reviewWords}/></LearningSection>
+ <LearningSection id="practice" eyebrow="PRACTISE WITH SUPPORT" title="Balanced Unit 9 practice" icon="✏️" tone="practice"><p>Complete a finite supported set: exactly three questions from each lesson. Use hints and explanations to repair gaps before the independent check.</p><Unit9BalancedPractice groups={practiceGroups}/></LearningSection>
+ <LearningSection id="check" eyebrow="INDEPENDENT UNIT CHECK" title="Can you connect all three lessons?" icon="✅" tone="review"><p>This check is balanced 3 + 3 + 3. There are no hints, but every answer still includes an explanation after you commit.</p><Unit9BalancedCheck groups={checkGroups}/></LearningSection>
+ <LearningSection id="arcade" eyebrow="MATH ARCADE" title="Statistics Lab Arcade" icon="🎮" tone="play"><p>Every quest selects exactly two free-response missions from each lesson. No answer choices—use the experiment, proportion, or sample-size evidence and enter the number.</p><Unit9MathArcade/></LearningSection>
+
+ <LearningSection id="reasoning" eyebrow="PAT-STYLE REASONING" title="Explain what the data really says" icon="🧩" tone="learn">
+  <div class="reasoning-grid">
+   <article><p class="eyebrow">9.1</p><h3>A fair coin gives 7 heads in 10 tosses. Does that prove heads is more likely?</h3><details><summary>Strong answer</summary><p>No. Fairness describes equal chance on each toss. A small random sample can be uneven, so 7 heads does not prove the underlying chances changed.</p></details></article>
+   <article><p class="eyebrow">9.2</p><h3>One class has 15 of 30 choose basketball. Another has 24 of 48. Which class has the greater relative frequency?</h3><details><summary>Strong answer</summary><p>Neither. 15/30=50% and 24/48=50%. The raw counts differ, but the part-to-whole relationships are the same.</p></details></article>
+   <article><p class="eyebrow">9.3</p><h3>Why might 51 heads in 100 tosses be stronger evidence for a fair coin than 9 heads in 10 tosses?</h3><details><summary>Strong answer</summary><p>The 100-toss sample contains much more data and gives 51%, close to the expected 50%. The 10-toss sample is more easily affected by short-run random variation.</p></details></article>
+  </div>
+  <article class="synthesis"><p class="eyebrow">WHOLE-UNIT SYNTHESIS</p><h3>A four-colour spinner is designed with equal sections.</h3><ol><li>List what makes the four outcomes equally likely.</li><li>A student spins 20 times and gets red 8 times. Find red's relative frequency.</li><li>Another student spins 200 times and gets red 52 times. Find red's relative frequency.</li><li>Compare both results with the expected 25%.</li><li>Which sample should usually support the stronger estimate, and why?</li></ol><details><summary>Show a strong solution</summary><p>Equal sections give each colour the same chance. The first sample gives 8/20=40%. The second gives 52/200=26%. Both can occur in a fair random experiment, but the 200-spin sample is much larger and its 26% is close to the expected 25%, so it usually supports the stronger estimate.</p></details></article>
+ </LearningSection>
+
+ <LearningSection id="finish" eyebrow="GRADE 6 COURSE MILESTONE" title="Finish Unit 9" icon="🏁" tone="review">
+  <div class="finish-card"><div><p class="eyebrow">COURSE CONTENT COMPLETE</p><h3>You have reached the end of the mapped Grade 6 Math units.</h3><p>If one Statistics lesson is shaky, use the lesson map above. If the unit feels solid, return to the Grade 6 course page and use the unit reviews throughout the course for cumulative preparation.</p></div><span>1 → 9</span></div>
+  <div class="final-links">{lessonData.map(({topic})=><a class="button secondary" href={`${base}courses/grade-6-math/statistics/${topic.slug}/`}>Review {topic.number}</a>)}<a class="button" href={`${base}courses/grade-6-math/`}>Grade 6 Math overview →</a></div>
+ </LearningSection>
+</div>
+</BaseLayout>
+<style>
+.review-hero{padding:2rem 0 1rem}.review-hero h1{font-size:clamp(2.4rem,7vw,5rem);line-height:.94;margin:.35rem 0}.review-hero h1 span{color:var(--course)}.review-hero>p:last-child{max-width:760px;font-size:1.08rem;color:#526174}.readiness-grid,.reasoning-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}.readiness-grid article,.reasoning-grid article,.synthesis,.finish-card{border:1px solid #dfe5ee;border-radius:15px;padding:1rem;background:#fff}.readiness-grid label{display:block;margin:.55rem 0}.lesson-map{display:grid;gap:.65rem}.lesson-map a{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;padding:.9rem;border:1px solid #dfe5ee;border-radius:13px;text-decoration:none;color:inherit;background:#fff}.lesson-map a>span{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--course-soft);font-weight:900}.lesson-map small{display:block;margin-top:.2rem;color:#617086}.lesson-map b{color:var(--course)}.unit-story{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem;padding:.8rem;border-radius:11px;background:var(--course-soft)}.synthesis{margin-top:1rem;background:#f8fafc}.synthesis ol{padding-left:1.2rem}.synthesis li{margin:.45rem 0}.finish-card{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:linear-gradient(135deg,#fff,var(--course-soft))}.finish-card>span{font-size:2rem;font-weight:900;color:var(--course);white-space:nowrap}.final-links{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem}.final-links a{text-decoration:none}@media(max-width:760px){.readiness-grid,.reasoning-grid{grid-template-columns:1fr}.lesson-map a{grid-template-columns:auto 1fr}.lesson-map b{grid-column:2}.review-hero{padding-top:1rem}.finish-card{display:grid}}
+</style>
