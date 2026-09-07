@@ -5,3 +5,7 @@ import { unit7Content } from '../../../../data/unit7Content';
 const course=findCourse('grade-6-math')!;const unit=course.units.find(item=>item.slug==='measurement')!;const topic=unit.topics.find(item=>item.slug==='understanding-volume')!;const content=unit7Content['grade-6-math/measurement/understanding-volume'];
 ---
 <Unit7MeasurementLessonPage {course} {unit} {topic} {content} variant="volume" />
+<script>
+const note=document.querySelector<HTMLElement>('.split-note');
+if(note) note.innerHTML='<strong>Take it in two parts:</strong> This lesson includes several investigations. You do not need to finish everything at once.';
+</script>
