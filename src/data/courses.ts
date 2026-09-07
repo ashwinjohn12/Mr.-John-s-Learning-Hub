@@ -95,7 +95,17 @@ export const courses: Course[] = [
           { slug: 'unit-rates', number: '5.3', title: 'Unit Rates', summary: 'Interpret and calculate unit rates to compare quantities and make decisions in real-life situations.', status: 'ready' }
         ]
       },
-      { slug: 'patterns-algebra', number: '06', title: 'Patterns & Algebra', description: 'Describe relationships with tables, expressions, and equations.', topics: [] },
+      {
+        slug: 'algebra',
+        number: '06',
+        title: 'Algebra',
+        description: 'Simplify algebraic expressions, preserve equality with models, solve equations using inverse operations, and verify solutions.',
+        topics: [
+          { slug: 'simplifying-algebraic-expressions', number: '6.1', title: 'Simplifying Algebraic Expressions', summary: 'Identify like terms, combine coefficients, use algebraic properties, and recognize equivalent expressions.', status: 'ready' },
+          { slug: 'solving-equations', number: '6.2', title: 'Solving Equations', summary: 'Use balance and algebra-tile models to preserve equality, isolate variables, and solve one- and two-operation equations.', status: 'ready' },
+          { slug: 'solving-equations-algebraically', number: '6.3', title: 'Solving Equations Algebraically', summary: 'Move from models to efficient inverse-operation steps, simplify when needed, and verify solutions using LHS and RHS.', status: 'ready' }
+        ]
+      },
       { slug: 'statistics-probability', number: '07', title: 'Statistics & Probability', description: 'Collect, interpret, and communicate information from data and chance.', topics: [] }
     ]
   },
