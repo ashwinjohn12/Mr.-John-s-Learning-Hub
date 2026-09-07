@@ -1,11 +1,140 @@
 <div class="game" data-ratio-game>
-  <div class="game-head"><div><p class="eyebrow">RECIPE REMIX</p><h3>Keep the flavour the same</h3><p>Scale each recipe without changing the ingredient relationship.</p></div><div class="meter"><strong data-round-label>Round 1 of 3</strong><span><i data-progress></i></span></div></div>
-  <section data-round="1" class="round active"><p class="round-tag">ROUND 1 · SCALE UP</p><h3>A smoothie uses 2 scoops fruit for every 3 scoops yogurt. You want 8 scoops of fruit. How much yogurt?</h3><div class="choices"><button data-choice="9">9 scoops</button><button data-choice="10">10 scoops</button><button data-choice="12">12 scoops</button><button data-choice="14">14 scoops</button></div><p class="feedback" data-feedback></p></section>
-  <section data-round="2" class="round" hidden><p class="round-tag">ROUND 2 · KEEP THE MIX</p><h3>A trail mix uses 3 cups cereal for every 2 cups raisins. Which larger batch has the same relationship?</h3><div class="choices"><button data-choice="a">6 cereal : 5 raisins</button><button data-choice="b">9 cereal : 6 raisins</button><button data-choice="c">12 cereal : 10 raisins</button><button data-choice="d">15 cereal : 8 raisins</button></div><p class="feedback" data-feedback></p></section>
-  <section data-round="3" class="round" hidden><p class="round-tag">ROUND 3 · FIX THE RECIPE</p><h3>A soup recipe is 4 cups broth : 3 cups vegetables. Someone writes 12 : 8 for a triple batch. What should the second term be?</h3><div class="answer-row"><input type="number" data-final-answer aria-label="Correct vegetable amount"><button data-final-check>Check recipe</button></div><p class="feedback" data-feedback></p></section>
-  <div class="complete" data-complete hidden><p class="eyebrow">MISSION COMPLETE</p><h3>🏆 Ratio Recipe Master</h3><p>You kept every recipe proportional by scaling both terms together.</p><button type="button" data-restart>Play again</button></div>
+  <div class="game-head"><div><p class="eyebrow">RECIPE REMIX</p><h3>Keep the flavour the same</h3><p>Scale each recipe without changing the ingredient relationship. A new play gives you a fresh recipe mix.</p></div><div class="meter"><strong data-round-label>Round 1 of 3</strong><span><i data-progress></i></span></div></div>
+
+  <section data-round="1" class="round active">
+    <p class="round-tag">ROUND 1 · SCALE UP</p>
+    <h3 data-prompt></h3>
+    <div class="choices" data-choices></div>
+    <p class="feedback" data-feedback>Find the scale factor first, then use it on the other ingredient.</p>
+    <button type="button" class="next-round" data-next disabled>Next round →</button>
+  </section>
+
+  <section data-round="2" class="round" hidden>
+    <p class="round-tag">ROUND 2 · KEEP THE MIX</p>
+    <h3 data-prompt></h3>
+    <div class="choices" data-choices></div>
+    <p class="feedback" data-feedback>Look for one factor that works for both terms.</p>
+    <button type="button" class="next-round" data-next disabled>Next round →</button>
+  </section>
+
+  <section data-round="3" class="round" hidden>
+    <p class="round-tag">ROUND 3 · FIX THE RECIPE</p>
+    <h3 data-prompt></h3>
+    <div class="answer-row"><input type="number" inputmode="decimal" data-final-answer aria-label="Missing recipe amount"><button type="button" data-final-check>Check recipe</button></div>
+    <p class="feedback" data-feedback>Scale both ingredients by the same factor.</p>
+    <button type="button" class="next-round" data-next disabled>See results →</button>
+  </section>
+
+  <div class="complete" data-complete hidden><p class="eyebrow">MISSION COMPLETE</p><h3>🏆 Ratio Recipe Master</h3><p>You kept every recipe proportional by scaling both terms together.</p><div class="finish-grid"><span>✓ Scale up</span><span>✓ Match a ratio</span><span>✓ Fix a recipe</span></div><button type="button" data-restart>Play a new mix</button></div>
 </div>
+
 <script>
- document.querySelectorAll<HTMLElement>('[data-ratio-game]').forEach(game=>{let round=1;const progress=game.querySelector<HTMLElement>('[data-progress]');const label=game.querySelector('[data-round-label]');const show=(n:number)=>{round=n;game.querySelectorAll<HTMLElement>('[data-round]').forEach(el=>{const active=Number(el.dataset.round)===n;el.hidden=!active;el.classList.toggle('active',active)});if(progress)progress.style.width=`${(n-1)/3*100}%`;if(label)label.textContent=`Round ${n} of 3`;};const advance=(section:HTMLElement,msg:string)=>{const f=section.querySelector<HTMLElement>('[data-feedback]');if(f)f.innerHTML=`<strong>Correct.</strong> ${msg}`;setTimeout(()=>show(round+1),450)};game.querySelector('[data-round="1"]')?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach(b=>b.addEventListener('click',()=>{const s=game.querySelector<HTMLElement>('[data-round="1"]')!;if(b.dataset.choice==='12')advance(s,'2 became 8 by ×4, so 3 × 4 = 12.');else{s.querySelector<HTMLElement>('[data-feedback]')!.innerHTML='<strong>Not yet.</strong> Find the scale factor from 2 to 8 first.';}}));game.querySelector('[data-round="2"]')?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach(b=>b.addEventListener('click',()=>{const s=game.querySelector<HTMLElement>('[data-round="2"]')!;if(b.dataset.choice==='b')advance(s,'3 : 2 scaled by ×3 becomes 9 : 6.');else{s.querySelector<HTMLElement>('[data-feedback]')!.innerHTML='<strong>Not yet.</strong> Both terms need the same scale factor.';}}));const final=game.querySelector<HTMLInputElement>('[data-final-answer]');game.querySelector('[data-final-check]')?.addEventListener('click',()=>{const s=game.querySelector<HTMLElement>('[data-round="3"]')!;if(Number(final?.value)===9){s.hidden=true;game.querySelector<HTMLElement>('[data-complete]')!.hidden=false;if(progress)progress.style.width='100%';if(label)label.textContent='3 rounds complete';}else{s.querySelector<HTMLElement>('[data-feedback]')!.innerHTML='<strong>Not yet.</strong> A triple batch multiplies both 4 and 3 by 3.';}});game.querySelector('[data-restart]')?.addEventListener('click',()=>{game.querySelector<HTMLElement>('[data-complete]')!.hidden=true;if(final)final.value='';game.querySelectorAll<HTMLElement>('[data-feedback]').forEach(f=>f.textContent='');show(1)});show(1);});
+  document.querySelectorAll<HTMLElement>('[data-ratio-game]').forEach((game) => {
+    const banks = {
+      1: [
+        { prompt:'A smoothie uses 2 scoops fruit for every 3 scoops yogurt. You want 8 scoops of fruit. How much yogurt?', choices:['9 scoops','10 scoops','12 scoops','14 scoops'], correct:2, explain:'2 became 8 by ×4, so 3 × 4 = 12 scoops of yogurt.' },
+        { prompt:'A lemonade mix uses 1 cup lemon juice for every 4 cups water. You use 3 cups lemon juice. How much water keeps the taste the same?', choices:['8 cups','10 cups','12 cups','16 cups'], correct:2, explain:'1 became 3 by ×3, so 4 × 3 = 12 cups of water.' },
+        { prompt:'A snack mix uses 3 cups cereal for every 2 cups raisins. You use 12 cups cereal. How many cups of raisins are needed?', choices:['6 cups','8 cups','9 cups','10 cups'], correct:1, explain:'3 became 12 by ×4, so 2 × 4 = 8 cups of raisins.' }
+      ],
+      2: [
+        { prompt:'A trail mix uses 3 cups cereal for every 2 cups raisins. Which larger batch has the same relationship?', choices:['6 : 5','9 : 6','12 : 10','15 : 8'], correct:1, explain:'3 : 2 scaled by ×3 becomes 9 : 6.' },
+        { prompt:'A fruit drink uses 2 cups concentrate for every 5 cups water. Which larger batch keeps the same flavour?', choices:['4 : 8','6 : 15','8 : 15','10 : 20'], correct:1, explain:'2 : 5 scaled by ×3 becomes 6 : 15.' },
+        { prompt:'A soup mix uses 4 cups broth for every 3 cups vegetables. Which batch has the same relationship?', choices:['8 : 5','10 : 9','12 : 9','16 : 10'], correct:2, explain:'4 : 3 scaled by ×3 becomes 12 : 9.' }
+      ],
+      3: [
+        { prompt:'A soup recipe is 4 cups broth : 3 cups vegetables. Someone writes 12 : 8 for a triple batch. What should the second term be?', answer:9, explain:'A triple batch multiplies both terms by 3: 4 × 3 = 12 and 3 × 3 = 9.' },
+        { prompt:'A dip uses 2 cups yogurt : 5 spoonfuls seasoning. An enlarged batch starts 8 : ?. What should the missing term be?', answer:20, explain:'2 became 8 by ×4, so 5 × 4 = 20.' },
+        { prompt:'A drink mix is 3 cups juice : 4 cups water. A larger batch starts 15 : ?. What should the missing term be?', answer:20, explain:'3 became 15 by ×5, so 4 × 5 = 20.' }
+      ]
+    };
+
+    const rounds = Array.from(game.querySelectorAll<HTMLElement>('[data-round]'));
+    const complete = game.querySelector<HTMLElement>('[data-complete]');
+    const progress = game.querySelector<HTMLElement>('[data-progress]');
+    const label = game.querySelector<HTMLElement>('[data-round-label]');
+    let quest:any[] = [];
+    let current = 1;
+
+    const pick = (items:any[]) => items[Math.floor(Math.random() * items.length)];
+
+    const renderRound = (roundNumber:number) => {
+      current = roundNumber;
+      rounds.forEach((round) => { round.hidden = Number(round.dataset.round) !== roundNumber; });
+      if (complete) complete.hidden = true;
+      if (label) label.textContent = `Round ${roundNumber} of 3`;
+      if (progress) progress.style.width = `${((roundNumber - 1) / 3) * 100}%`;
+      const section = game.querySelector<HTMLElement>(`[data-round="${roundNumber}"]`);
+      const scenario = quest[roundNumber - 1];
+      const prompt = section?.querySelector<HTMLElement>('[data-prompt]');
+      const feedback = section?.querySelector<HTMLElement>('[data-feedback]');
+      const next = section?.querySelector<HTMLButtonElement>('[data-next]');
+      if (prompt) prompt.textContent = scenario.prompt;
+      if (next) next.disabled = true;
+      if (feedback) feedback.textContent = roundNumber === 1 ? 'Find the scale factor first, then use it on the other ingredient.' : roundNumber === 2 ? 'Look for one factor that works for both terms.' : 'Scale both ingredients by the same factor.';
+
+      if (roundNumber < 3) {
+        const choices = section?.querySelector<HTMLElement>('[data-choices]');
+        if (choices) {
+          choices.innerHTML = scenario.choices.map((choice:string, index:number) => `<button type="button" data-choice="${index}">${choice}</button>`).join('');
+          choices.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach((button) => button.addEventListener('click', () => {
+            if (!next?.disabled) return;
+            const index = Number(button.dataset.choice);
+            if (index === scenario.correct) {
+              choices.querySelectorAll<HTMLButtonElement>('button').forEach((choice) => { choice.disabled = true; });
+              button.classList.add('correct');
+              if (feedback) feedback.innerHTML = `<strong>Correct.</strong> ${scenario.explain}`;
+              if (next) next.disabled = false;
+            } else {
+              button.classList.add('incorrect');
+              setTimeout(() => button.classList.remove('incorrect'), 500);
+              if (feedback) feedback.innerHTML = '<strong>Not yet.</strong> Find how one term changed, then use that same factor on the other term.';
+            }
+          }));
+        }
+      } else {
+        const input = section?.querySelector<HTMLInputElement>('[data-final-answer]');
+        if (input) input.value = '';
+      }
+    };
+
+    game.querySelectorAll<HTMLButtonElement>('[data-next]').forEach((button) => button.addEventListener('click', () => {
+      if (button.disabled) return;
+      if (current < 3) renderRound(current + 1);
+      else {
+        rounds.forEach((round) => { round.hidden = true; });
+        if (complete) complete.hidden = false;
+        if (progress) progress.style.width = '100%';
+        if (label) label.textContent = '3 rounds complete';
+      }
+    }));
+
+    game.querySelector('[data-final-check]')?.addEventListener('click', () => {
+      const section = game.querySelector<HTMLElement>('[data-round="3"]');
+      const input = section?.querySelector<HTMLInputElement>('[data-final-answer]');
+      const feedback = section?.querySelector<HTMLElement>('[data-feedback]');
+      const next = section?.querySelector<HTMLButtonElement>('[data-next]');
+      const scenario = quest[2];
+      if (!input?.value) { if (feedback) feedback.innerHTML = '<strong>Add an answer first.</strong>'; return; }
+      if (Math.abs(Number(input.value) - scenario.answer) < .001) {
+        if (feedback) feedback.innerHTML = `<strong>Correct.</strong> ${scenario.explain}`;
+        if (next) next.disabled = false;
+        input.disabled = true;
+      } else if (feedback) feedback.innerHTML = '<strong>Not yet.</strong> Find the scale factor, then apply it to the missing term.';
+    });
+
+    const buildQuest = () => {
+      quest = [pick(banks[1]), pick(banks[2]), pick(banks[3])];
+      const finalInput = game.querySelector<HTMLInputElement>('[data-final-answer]');
+      if (finalInput) { finalInput.disabled = false; finalInput.value = ''; }
+      game.querySelectorAll<HTMLButtonElement>('[data-next]').forEach((button) => { button.disabled = true; });
+      renderRound(1);
+    };
+
+    game.querySelector('[data-restart]')?.addEventListener('click', buildQuest);
+    buildQuest();
+  });
 </script>
-<style>.game{border:1px solid #d9e2ec;border-radius:18px;background:#fff;padding:1rem}.game-head{display:flex;justify-content:space-between;gap:1rem;align-items:start}.game-head h3{margin:.2rem 0}.meter{min-width:170px;display:grid;gap:.35rem;font-size:.78rem;font-weight:900}.meter>span{height:9px;background:#e8edf3;border-radius:999px;overflow:hidden}.meter i{display:block;height:100%;background:var(--course);transition:width .25s}.round{margin-top:1rem;padding:1rem;border-radius:14px;background:#f8fafc}.round-tag{font-size:.72rem;font-weight:900;letter-spacing:.06em;color:#64748b}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}.choices button,.answer-row button,.complete button{border:0;border-radius:11px;padding:.75rem;background:var(--course);color:#fff;font-weight:900;cursor:pointer}.answer-row{display:flex;gap:.6rem}.answer-row input{flex:1;padding:.7rem;border:1px solid #cbd5e1;border-radius:10px}.feedback{min-height:26px;padding-top:.6rem}.complete{text-align:center;padding:1.4rem}.complete h3{font-size:1.5rem}@media(max-width:650px){.game-head,.choices{display:grid}.answer-row{display:grid}}</style>
+
+<style>
+.game{border:1px solid #d9e2ec;border-radius:18px;background:#fff;padding:1rem}.game-head{display:flex;justify-content:space-between;gap:1rem;align-items:start}.game-head h3{margin:.2rem 0}.meter{min-width:170px;display:grid;gap:.35rem;font-size:.78rem;font-weight:900}.meter>span{height:9px;background:#e8edf3;border-radius:999px;overflow:hidden}.meter i{display:block;height:100%;background:var(--course);transition:width .25s}.round{margin-top:1rem;padding:1rem;border-radius:14px;background:#f8fafc}.round-tag{font-size:.72rem;font-weight:900;letter-spacing:.06em;color:#64748b}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}.choices button,.answer-row button,.complete button,.next-round{border:0;border-radius:11px;padding:.75rem;background:var(--course);color:#fff;font-weight:900;cursor:pointer}.choices button.correct{outline:2px solid #22c55e;background:#15803d}.choices button.incorrect{outline:2px solid #ef4444}.choices button:disabled{cursor:default}.answer-row{display:flex;gap:.6rem}.answer-row input{flex:1;padding:.7rem;border:1px solid #cbd5e1;border-radius:10px}.feedback{min-height:26px;padding:.7rem .8rem;margin-top:.7rem;border-radius:10px;background:#fff}.next-round{margin-top:.6rem}.next-round:disabled{opacity:.4;cursor:not-allowed}.complete{text-align:center;padding:1.4rem}.complete h3{font-size:1.5rem}.finish-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;margin:1rem 0}.finish-grid span{padding:.65rem;border-radius:10px;background:#f1f5f9;font-weight:800}@media(max-width:650px){.game-head,.choices,.answer-row,.finish-grid{display:grid}.meter{min-width:0}}
+</style>
