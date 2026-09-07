@@ -84,7 +84,17 @@ export const courses: Course[] = [
           { slug: 'dividing-decimals', number: '4.6', title: 'Dividing Decimal Numbers', summary: 'Divide decimal numbers by natural numbers, interpret remainders as decimals, estimate quotients, and solve problems.', status: 'ready' }
         ]
       },
-      { slug: 'ratios-rates', number: '05', title: 'Ratios & Rates', description: 'Compare quantities and use proportional thinking in real situations.', topics: [] },
+      {
+        slug: 'ratios-rates',
+        number: '05',
+        title: 'Ratios & Rates',
+        description: 'Connect fractions, decimals, percentages, ratios, proportions, and unit rates to compare quantities and solve real situations.',
+        topics: [
+          { slug: 'relating-fractions-decimals-percentages', number: '5.1', title: 'Relating Fractions, Decimal Numbers, and Percentages', summary: 'Connect fractions, decimals, ratios, and percentages, then use proportional reasoning to find a percent, a part, or a whole.', status: 'ready' },
+          { slug: 'equivalent-ratios', number: '5.2', title: 'Equivalent Ratios', summary: 'Create and compare equivalent ratios, use proportions, and solve problems involving ratios, rates, and proportional relationships.', status: 'planned' },
+          { slug: 'unit-rates', number: '5.3', title: 'Unit Rates', summary: 'Interpret and calculate unit rates to compare quantities and make decisions in real-life situations.', status: 'planned' }
+        ]
+      },
       { slug: 'patterns-algebra', number: '06', title: 'Patterns & Algebra', description: 'Describe relationships with tables, expressions, and equations.', topics: [] },
       { slug: 'statistics-probability', number: '07', title: 'Statistics & Probability', description: 'Collect, interpret, and communicate information from data and chance.', topics: [] }
     ]
