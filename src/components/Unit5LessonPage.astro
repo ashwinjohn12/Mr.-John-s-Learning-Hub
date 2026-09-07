@@ -1,0 +1,112 @@
+---
+import Grade6LessonFrame from './Grade6LessonFrame.astro';
+import LearningSection from './LearningSection.astro';
+import VocabularyExplorer from './VocabularyExplorer.astro';
+import PracticeEngine from './PracticeEngine.astro';
+import CheckYourself from './CheckYourself.astro';
+import Unit5PercentLab from './Unit5PercentLab.astro';
+import type { Course, Unit, Topic } from '../data/courses';
+import type { TopicContent } from '../data/topicContent';
+
+interface Props { course: Course; unit: Unit; topic: Topic; content: TopicContent }
+const { course, unit, topic, content } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const nextHref = content.next.slug && content.next.status === 'ready' ? `${base}courses/${course.slug}/${unit.slug}/${content.next.slug}/` : null;
+const coreExamples = content.examples.slice(0, 2);
+const advancedExamples = content.examples.slice(2);
+---
+<Grade6LessonFrame {course} {unit} {topic} hook={content.hook} compactMobileHero mobileHeroSize="clamp(1.9rem,9vw,2.9rem)">
+  <LearningSection id="overview" eyebrow="GET READY" title="What you need & where you are going" icon="🎯" tone="idea">
+    <div class="overview-grid"><div><p class="mini-label">BEFORE YOU START</p><ul>{content.prerequisites.map((item)=><li>{item}</li>)}</ul></div><div><p class="mini-label">BY THE END, I CAN…</p><ul>{content.goals.map((goal)=><li>{goal}</li>)}</ul></div></div>
+    <div class="lesson-meta"><span><strong>Time:</strong> {content.estimatedTime}</span><span><strong>Materials:</strong> {content.materials.join(' · ')}</span></div>
+    <div class="student-path" aria-label="Suggested lesson path">
+      <p class="mini-label">A GOOD WAY TO WORK THROUGH THIS LESSON</p>
+      <div class="path-steps">
+        <div><strong>1 · Learn</strong><span>Big Idea → Understand → Examples</span></div>
+        <div><strong>2 · Explore</strong><span>Vocabulary → Percent Lab → 100-grid</span></div>
+        <div><strong>3 · Show it</strong><span>Practise → Check Yourself → Apply → Review</span></div>
+      </div>
+      <p class="path-note"><strong>Working on your own?</strong> You can stop after Explore and finish the practice/check sections later.</p>
+    </div>
+    <details class="success-box"><summary>How will I know I understand it?</summary><ul>{content.successCriteria.map((item)=><li>{item}</li>)}</ul></details>
+  </LearningSection>
+
+  <LearningSection id="big-ideas" eyebrow="START HERE" title="The big idea" icon="🌎" tone="idea">
+    <p class="big-statement">{content.bigIdea}</p>
+    <p>{content.bigIdeaDetail}</p>
+    <div class="three-step-rule" aria-label="Three-step percent thinking routine">
+      <div><span>1</span><strong>Name the whole</strong><small>What amount represents 100%?</small></div>
+      <div><span>2</span><strong>Connect to 100</strong><small>Write or picture an equivalent relationship.</small></div>
+      <div><span>3</span><strong>Scale and check</strong><small>Find the missing value and test whether it makes sense.</small></div>
+    </div>
+    <div class="connection-strip"><strong>Think about it</strong><span>{content.connection}</span></div>
+  </LearningSection>
+
+  <LearningSection id="understand" eyebrow="LEARN" title="Build your understanding" icon="📘" tone="learn">
+    <div class="concept-grid detailed">{content.concepts.map((concept,index)=><div><span class="concept-number">{String(index+1).padStart(2,'0')}</span><h3>{concept.title}</h3><p>{concept.text}</p>{concept.remember && <p class="remember"><strong>Remember:</strong> {concept.remember}</p>}</div>)}</div>
+
+    <article class="relationship-card">
+      <p class="eyebrow">VISUAL MODEL · SAME RELATIONSHIP</p>
+      <h3>One amount can have several correct names</h3>
+      <div class="quarter-model" aria-label="One quarter is equal to 0.25 and 25 percent"><span class="filled"></span><span></span><span></span><span></span></div>
+      <div class="representation-flow"><span>1/4</span><b>=</b><span>25/100</span><b>=</b><span>0.25</span><b>=</b><span>25%</span></div>
+      <p class="model-note"><strong>What changed?</strong> The representation. <strong>What stayed the same?</strong> The amount of the whole being described.</p>
+    </article>
+
+    <article class="decision-card">
+      <p class="eyebrow">QUICK DECISION GUIDE</p>
+      <h3>What is the problem asking you to find?</h3>
+      <div class="decision-steps">
+        <div><strong>Find the part</strong><span>“What is 30% of 80?” The whole and percent are known.</span></div>
+        <div><strong>Find the percent</strong><span>“18 is what percent of 60?” The part and whole are known.</span></div>
+        <div><strong>Find the whole</strong><span>“12 is 25% of what number?” The part and percent are known.</span></div>
+      </div>
+    </article>
+
+    <div class="mixups"><p class="mini-label">COMMON MIX-UPS</p>{content.misconceptions.map((item)=><details class="misconception"><summary>{item.title}</summary><p>{item.text}</p></details>)}</div>
+  </LearningSection>
+
+  <LearningSection id="examples" eyebrow="WATCH THE THINKING" title="Worked examples" icon="🧩" tone="learn">
+    <p class="section-lead">Start with the two core examples. Then open the stretch examples to practise finding a whole and solving a multi-step money problem.</p>
+    <div class="example-stack">{coreExamples.map((example)=><article class="worked-example"><p class="eyebrow">{example.title}</p><h3>{example.problem}</h3><ol>{example.steps.map((step)=><li>{step}</li>)}</ol><div class="example-answer"><strong>Answer:</strong> {example.answer}</div></article>)}</div>
+    {advancedExamples.length > 0 && (
+      <details class="advanced-examples">
+        <summary>Ready for a stretch? Open Examples 3 and 4</summary>
+        <div class="example-stack advanced-stack">{advancedExamples.map((example)=><article class="worked-example"><p class="eyebrow">{example.title}</p><h3>{example.problem}</h3><ol>{example.steps.map((step)=><li>{step}</li>)}</ol><div class="example-answer"><strong>Answer:</strong> {example.answer}</div></article>)}</div>
+      </details>
+    )}
+
+    <article class="strategy-card">
+      <p class="eyebrow">STRATEGY SNAPSHOT</p>
+      <h3>Build a harder percent from friendly percents</h3>
+      <div class="strategy-flow"><span>15% of 200</span><b>→</b><span>10% = 20<br>5% = 10</span><b>→</b><span>20 + 10 = 30</span></div>
+      <p>You do not need a new rule for every percentage. Use relationships you already know and combine them.</p>
+    </article>
+  </LearningSection>
+
+  <LearningSection id="vocabulary" eyebrow="LEARN THE LANGUAGE" title="Key vocabulary" icon="🧠" tone="vocab"><VocabularyExplorer words={content.vocabulary} /></LearningSection>
+
+  <LearningSection id="explore" eyebrow="INVESTIGATE" title="Explore it for yourself" icon="🔬" tone="explore">
+    <p class="section-lead">{content.explorePrompt}</p>
+    <div class="explore-stack"><div><h3>Percent Lab</h3><p>Work from Part A to Part C. Make a prediction before checking whenever the lab asks for an answer.</p><Unit5PercentLab /></div></div>
+    <article class="hands-on-card"><p class="eyebrow">OFF-SCREEN ACTIVITY</p><h3>{content.handsOn.title}</h3><ol>{content.handsOn.instructions.map((item)=><li>{item}</li>)}</ol><p><strong>Reflect:</strong> {content.handsOn.reflect}</p><p class="home-note"><strong>Working on your own?</strong> Draw the 10 × 10 grid on paper. It does not need to be perfect—just make sure it has 100 equal spaces.</p></article>
+  </LearningSection>
+
+  <LearningSection id="practise" eyebrow="PRACTISE WITH SUPPORT" title="Build confidence with feedback" icon="✏️" tone="practice"><p>{content.practiceIntro}</p><PracticeEngine questions={content.questions} /></LearningSection>
+
+  <LearningSection id="check" eyebrow="CHECK YOURSELF" title="Can you do it on your own?" icon="✅" tone="review"><p>You will get five random questions each time. This bank is separate from the supported practice above, so use it when you want to see what you can do independently. Choose <strong>New set</strong> for another mix.</p><CheckYourself questions={content.checkQuestions} count={5} /></LearningSection>
+
+  <LearningSection id="apply" eyebrow="PLAY & APPLY" title={content.application.title} icon="🎮" tone="play"><div class="challenge-card lesson-challenge"><div><p class="eyebrow">REAL-LIFE CHALLENGE</p><p>{content.application.scenario}</p></div><ol>{content.application.tasks.map((task)=><li>{task}</li>)}</ol><details><summary>Check the core ideas</summary><p>{content.application.reveal}</p></details></div></LearningSection>
+
+  <LearningSection id="review" eyebrow="WRAP UP" title="Ready to move on?" icon="🏁" tone="review">
+    <div class="wrap-grid"><div><p class="mini-label">LESSON SUMMARY</p><ul>{content.summary.map((item)=><li>{item}</li>)}</ul></div><div><p class="mini-label">IF YOU NEED SUPPORT</p><ul>{content.support.map((item)=><li>{item}</li>)}</ul></div><div><p class="mini-label">IF YOU WANT A CHALLENGE</p><ul>{content.extension.map((item)=><li>{item}</li>)}</ul></div></div>
+    <article class="pat-card"><p class="eyebrow">{content.pat.title}</p><h3>{content.pat.prompt}</h3><details><summary>Show answer</summary><p>{content.pat.answer}</p></details></article>
+    <div class="review-grid">{content.review.map((item)=><label><input type="checkbox" /> {item}</label>)}</div>
+    <div class="next-step"><div><p class="eyebrow">NEXT STEP</p><strong>{content.next.title}</strong><small>{content.next.status === 'planned' ? 'Lesson 5.2 is mapped and will be built next. Use the checklist above to decide what you want to practise again before then.' : 'Continue when you are ready.'}</small></div>{nextHref ? <a class="button" href={nextHref}>Open →</a> : <span class="coming-next">Coming next</span>}</div>
+  </LearningSection>
+</Grade6LessonFrame>
+
+<style>
+.overview-grid,.wrap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.overview-grid>div,.wrap-grid>div{border:1px solid #e3e9f0;border-radius:16px;padding:1rem;background:#fff}.wrap-grid>div:last-child{grid-column:1/-1}.mini-label{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#5a6a80}.overview-grid ul,.wrap-grid ul,.worked-example ol,.hands-on-card ol,.lesson-challenge ol{padding-left:1.2rem}.overview-grid li,.wrap-grid li,.worked-example li,.hands-on-card li,.lesson-challenge li{margin:.38rem 0}.lesson-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;padding:.85rem 1rem;border-radius:14px;background:#f5f7fa}.student-path{margin-top:1rem;padding:1rem;border:1px solid #dfe5ee;border-radius:14px;background:#fff}.path-steps,.three-step-rule,.decision-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem}.path-steps>div,.three-step-rule>div,.decision-steps>div{display:grid;gap:.25rem;padding:.8rem;border-radius:12px;background:#f7f9fc}.path-steps strong,.three-step-rule strong,.decision-steps strong{font-weight:900}.path-steps span,.three-step-rule small,.decision-steps span{color:#526174;line-height:1.45}.path-note{margin:.8rem 0 0;padding:.7rem;border-radius:10px;background:#fff8db}.success-box{margin-top:1rem}.three-step-rule{margin:1rem 0}.three-step-rule>div{border:1px solid #dfe5ee;background:#fff}.three-step-rule>div>span{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--course);color:#fff;font-weight:900}.concept-grid.detailed>div{position:relative}.remember{padding:.65rem .75rem;border-radius:10px;background:#f5f8fc}.mixups{margin-top:1.2rem}.example-stack,.explore-stack{display:grid;gap:1rem}.worked-example,.hands-on-card,.pat-card,.relationship-card,.strategy-card,.decision-card{border:1px solid #dfe5ee;border-radius:16px;padding:1rem;background:#fff}.worked-example h3,.hands-on-card h3,.relationship-card h3,.strategy-card h3,.decision-card h3{margin:.25rem 0 .75rem}.example-answer{margin-top:.8rem;padding:.75rem;border-radius:10px;background:var(--course-soft)}.relationship-card,.strategy-card,.decision-card{margin-top:1rem}.quarter-model{display:grid;grid-template-columns:repeat(4,1fr);min-height:58px;border:2px solid #24364d;border-radius:10px;overflow:hidden;margin:.8rem 0}.quarter-model span{border-right:1px solid #94a3b8}.quarter-model span:last-child{border-right:0}.quarter-model .filled{background:var(--course-soft)}.representation-flow,.strategy-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:.5rem;align-items:center}.representation-flow span,.strategy-flow span{padding:.75rem;border-radius:12px;background:var(--course-soft);text-align:center;font-weight:900}.representation-flow b,.strategy-flow b{text-align:center}.model-note{padding:.75rem;border-radius:10px;background:#f7f9fc}.decision-steps>div{border-left:4px solid var(--course-soft);background:#f8fafc}.advanced-examples{margin-top:1rem;border:1px solid #dfe5ee;border-radius:14px;background:#f8fafc}.advanced-examples>summary{cursor:pointer;padding:1rem;font-weight:900}.advanced-stack{padding:0 1rem 1rem}.strategy-flow{grid-template-columns:1fr auto 1fr auto 1fr}.section-lead{margin-bottom:1rem}.hands-on-card{margin-top:1rem}.home-note{padding:.75rem;border-radius:10px;background:#f7f9fc}.lesson-challenge{display:grid;gap:.8rem}.pat-card{margin-top:1rem;background:#f8fafc}.next-step small{display:block;margin-top:.2rem;color:#64748b;line-height:1.4}.coming-next{font-weight:900;color:#64748b}
+@media(max-width:760px){.overview-grid,.wrap-grid,.path-steps,.three-step-rule,.decision-steps{grid-template-columns:1fr}.wrap-grid>div:last-child{grid-column:auto}.representation-flow,.strategy-flow{grid-template-columns:1fr}.representation-flow b,.strategy-flow b{transform:rotate(90deg)}.student-path{padding:.85rem}}
+</style>
