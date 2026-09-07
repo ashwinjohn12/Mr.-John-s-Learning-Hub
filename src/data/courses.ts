@@ -106,7 +106,40 @@ export const courses: Course[] = [
           { slug: 'solving-equations-algebraically', number: '6.3', title: 'Solving Equations Algebraically', summary: 'Move from models to efficient inverse-operation steps, simplify when needed, and verify solutions using LHS and RHS.', status: 'ready' }
         ]
       },
-      { slug: 'statistics-probability', number: '07', title: 'Statistics & Probability', description: 'Collect, interpret, and communicate information from data and chance.', topics: [] }
+      {
+        slug: 'measurement',
+        number: '07',
+        title: 'Measurement',
+        description: 'Build area from rectangles to parallelograms and triangles, decompose composite shapes, and model volume with cubic units.',
+        topics: [
+          { slug: 'area-parallelogram', number: '7.1', title: 'Area of a Parallelogram', summary: 'Rearrange parallelograms into rectangles, use base and perpendicular height to find area, and determine missing dimensions.', status: 'planned' },
+          { slug: 'area-triangle', number: '7.2', title: 'Area of a Triangle', summary: 'Connect triangles to parallelograms, understand why triangle area is half of base times perpendicular height, and solve area problems.', status: 'planned' },
+          { slug: 'area-composite-shapes', number: '7.3', title: 'Area of Composite Shapes', summary: 'Decompose composite shapes in different ways, find missing dimensions, and combine familiar areas to determine a total area.', status: 'planned' },
+          { slug: 'understanding-volume', number: '7.4', title: 'Understanding Volume', summary: 'Model volume with cubic units and layers, distinguish volume from capacity, and solve problems involving right rectangular prisms.', status: 'planned' }
+        ]
+      },
+      {
+        slug: 'patterns',
+        number: '08',
+        title: 'Patterns',
+        description: 'Investigate functions as relationships between changing quantities and connect rules, tables, graphs, ordered pairs, and equations.',
+        topics: [
+          { slug: 'investigating-functions-tables-graphs', number: '8.1', title: 'Investigating Functions in Tables and Graphs', summary: 'Identify independent and dependent variables, explore function machines, and describe rules that connect inputs to outputs.', status: 'planned' },
+          { slug: 'representing-functions', number: '8.2', title: 'Representing Functions', summary: 'Represent the same function with tables, ordered pairs, Cartesian graphs, growing patterns, and algebraic equations.', status: 'planned' },
+          { slug: 'solving-problems-functions', number: '8.3', title: 'Solving Problems Involving Functions', summary: 'Use function rules to determine outputs, work backward to find inputs, make predictions, and solve real-life problems.', status: 'planned' }
+        ]
+      },
+      {
+        slug: 'statistics',
+        number: '09',
+        title: 'Statistics',
+        description: 'Conduct experiments, represent relative frequency in multiple forms, and use sample data to reason about likelihood and predictions.',
+        topics: [
+          { slug: 'conducting-experiments', number: '9.1', title: 'Conducting Experiments', summary: 'Identify possible and equally likely outcomes, collect categorized experimental data, and compare predictions with results.', status: 'planned' },
+          { slug: 'relative-frequency', number: '9.2', title: 'Relative Frequency', summary: 'Compare frequency with the total, express relative frequency as fractions, decimals, and percentages, and use data to describe likelihood.', status: 'planned' },
+          { slug: 'analyzing-relative-frequency', number: '9.3', title: 'Analyzing Relative Frequency', summary: 'Compare experimental samples, use relative frequency to make predictions, and investigate how larger sample sizes improve estimates.', status: 'planned' }
+        ]
+      }
     ]
   },
   {
