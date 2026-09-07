@@ -1,11 +1,139 @@
 <div class="game" data-rate-game>
-  <div class="game-head"><div><p class="eyebrow">RATE RACE</p><h3>Compare, decide, explain</h3><p>Use unit rates to clear three real-world missions.</p></div><div class="meter"><strong data-round-label>Round 1 of 3</strong><span><i data-progress></i></span></div></div>
-  <section class="round" data-round="1"><p class="round-tag">ROUND 1 · BEST BUY</p><h3>Which is the better deal: 3 notebooks for $6.00 or 5 notebooks for $9.00?</h3><div class="choices"><button data-choice="a">3 for $6</button><button data-choice="b">5 for $9</button></div><p class="feedback" data-feedback></p></section>
-  <section class="round" data-round="2" hidden><p class="round-tag">ROUND 2 · SPEED CHECK</p><h3>Runner A travels 10 km in 2 h. Runner B travels 18 km in 3 h. Who is faster?</h3><div class="choices"><button data-choice="a">Runner A</button><button data-choice="b">Runner B</button><button data-choice="same">Same speed</button></div><p class="feedback" data-feedback></p></section>
-  <section class="round" data-round="3" hidden><p class="round-tag">ROUND 3 · EXTEND THE RATE</p><h3>A printer makes 30 pages in 2 min. How many pages can it make in 8 min?</h3><div class="answer-row"><input type="number" data-final-answer aria-label="Pages printed"><button data-final-check>Check answer</button></div><p class="feedback" data-feedback></p></section>
-  <div class="complete" data-complete hidden><p class="eyebrow">MISSION COMPLETE</p><h3>🏆 Unit Rate Navigator</h3><p>You compared different totals fairly by converting them to the same “per 1” basis.</p><button type="button" data-restart>Play again</button></div>
+  <div class="game-head"><div><p class="eyebrow">RATE RACE</p><h3>Compare, decide, explain</h3><p>Use unit rates to clear three real-world missions. A new play gives you a fresh set of comparisons.</p></div><div class="meter"><strong data-round-label>Round 1 of 3</strong><span><i data-progress></i></span></div></div>
+
+  <section class="round" data-round="1">
+    <p class="round-tag">ROUND 1 · BEST BUY</p>
+    <h3 data-prompt></h3>
+    <div class="choices" data-choices></div>
+    <p class="feedback" data-feedback>Compare the cost for exactly one item.</p>
+    <button type="button" class="next-round" data-next disabled>Next round →</button>
+  </section>
+
+  <section class="round" data-round="2" hidden>
+    <p class="round-tag">ROUND 2 · SPEED CHECK</p>
+    <h3 data-prompt></h3>
+    <div class="choices" data-choices></div>
+    <p class="feedback" data-feedback>Convert both speeds to the same “per 1” time unit.</p>
+    <button type="button" class="next-round" data-next disabled>Next round →</button>
+  </section>
+
+  <section class="round" data-round="3" hidden>
+    <p class="round-tag">ROUND 3 · EXTEND THE RATE</p>
+    <h3 data-prompt></h3>
+    <div class="answer-row"><input type="number" step="0.01" inputmode="decimal" data-final-answer aria-label="Rate extension answer"><button type="button" data-final-check>Check answer</button></div>
+    <p class="feedback" data-feedback>Find the unit rate first, then scale to the new amount.</p>
+    <button type="button" class="next-round" data-next disabled>See results →</button>
+  </section>
+
+  <div class="complete" data-complete hidden><p class="eyebrow">MISSION COMPLETE</p><h3>🏆 Unit Rate Navigator</h3><p>You compared different totals fairly by converting them to the same “per 1” basis.</p><div class="finish-grid"><span>✓ Best buy</span><span>✓ Speed check</span><span>✓ Extend a rate</span></div><button type="button" data-restart>Play a new race</button></div>
 </div>
+
 <script>
- document.querySelectorAll<HTMLElement>('[data-rate-game]').forEach(game=>{let round=1;const progress=game.querySelector<HTMLElement>('[data-progress]');const label=game.querySelector('[data-round-label]');const show=(n:number)=>{round=n;game.querySelectorAll<HTMLElement>('[data-round]').forEach(el=>el.hidden=Number(el.dataset.round)!==n);if(progress)progress.style.width=`${(n-1)/3*100}%`;if(label)label.textContent=`Round ${n} of 3`;};const success=(section:HTMLElement,text:string)=>{section.querySelector<HTMLElement>('[data-feedback]')!.innerHTML=`<strong>Correct.</strong> ${text}`;setTimeout(()=>show(round+1),450)};game.querySelector('[data-round="1"]')?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach(b=>b.addEventListener('click',()=>{const s=game.querySelector<HTMLElement>('[data-round="1"]')!;if(b.dataset.choice==='b')success(s,'$6 ÷ 3 = $2.00 each, while $9 ÷ 5 = $1.80 each.');else s.querySelector<HTMLElement>('[data-feedback]')!.innerHTML='<strong>Not yet.</strong> Compare the cost for exactly one notebook.';}));game.querySelector('[data-round="2"]')?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach(b=>b.addEventListener('click',()=>{const s=game.querySelector<HTMLElement>('[data-round="2"]')!;if(b.dataset.choice==='b')success(s,'Runner A is 5 km/h and Runner B is 6 km/h.');else s.querySelector<HTMLElement>('[data-feedback]')!.innerHTML='<strong>Not yet.</strong> Convert both distances to kilometres per 1 hour.';}));const final=game.querySelector<HTMLInputElement>('[data-final-answer]');game.querySelector('[data-final-check]')?.addEventListener('click',()=>{const s=game.querySelector<HTMLElement>('[data-round="3"]')!;if(Number(final?.value)===120){s.hidden=true;game.querySelector<HTMLElement>('[data-complete]')!.hidden=false;if(progress)progress.style.width='100%';if(label)label.textContent='3 rounds complete';}else s.querySelector<HTMLElement>('[data-feedback]')!.innerHTML='<strong>Not yet.</strong> Find pages per minute first.';});game.querySelector('[data-restart]')?.addEventListener('click',()=>{game.querySelector<HTMLElement>('[data-complete]')!.hidden=true;if(final)final.value='';game.querySelectorAll<HTMLElement>('[data-feedback]').forEach(f=>f.textContent='');show(1)});show(1);});
+  document.querySelectorAll<HTMLElement>('[data-rate-game]').forEach((game) => {
+    const banks = {
+      1: [
+        { prompt:'Which is the better deal: 3 notebooks for $6.00 or 5 notebooks for $9.00?', choices:['3 for $6','5 for $9'], correct:1, explain:'$6 ÷ 3 = $2.00 each, while $9 ÷ 5 = $1.80 each. The second deal has the lower unit price.' },
+        { prompt:'Which is the better deal: 6 cans for $9.00 or 5 cans for $8.50?', choices:['6 for $9','5 for $8.50'], correct:0, explain:'$9 ÷ 6 = $1.50 per can, while $8.50 ÷ 5 = $1.70 per can. The first deal is cheaper per can.' },
+        { prompt:'Which is the better deal: 10 pencils for $4.50 or 6 pencils for $2.40?', choices:['10 for $4.50','6 for $2.40'], correct:1, explain:'$4.50 ÷ 10 = $0.45 each, while $2.40 ÷ 6 = $0.40 each. The second deal has the lower unit price.' }
+      ],
+      2: [
+        { prompt:'Runner A travels 10 km in 2 h. Runner B travels 18 km in 3 h. Who is faster?', choices:['Runner A','Runner B','Same speed'], correct:1, explain:'Runner A is 5 km/h and Runner B is 6 km/h, so Runner B is faster.' },
+        { prompt:'Cyclist A travels 24 km in 2 h. Cyclist B travels 39 km in 3 h. Who is faster?', choices:['Cyclist A','Cyclist B','Same speed'], correct:1, explain:'Cyclist A is 12 km/h and Cyclist B is 13 km/h, so Cyclist B is faster.' },
+        { prompt:'Scooter A travels 18 km in 3 h. Scooter B travels 16 km in 2 h. Which is faster?', choices:['Scooter A','Scooter B','Same speed'], correct:1, explain:'Scooter A is 6 km/h and Scooter B is 8 km/h, so Scooter B is faster.' }
+      ],
+      3: [
+        { prompt:'A printer makes 30 pages in 2 min. How many pages can it make in 8 min?', answer:120, explain:'30 ÷ 2 = 15 pages per minute; 15 × 8 = 120 pages.' },
+        { prompt:'A car travels 180 km in 2 h. How far will it travel in 5 h at the same rate?', answer:450, explain:'180 ÷ 2 = 90 km/h; 90 × 5 = 450 km.' },
+        { prompt:'A recipe uses 6 cups flour for 3 eggs. How many cups of flour are needed for 7 eggs?', answer:14, explain:'6 ÷ 3 = 2 cups per egg; 2 × 7 = 14 cups.' }
+      ]
+    };
+
+    const rounds = Array.from(game.querySelectorAll<HTMLElement>('[data-round]'));
+    const complete = game.querySelector<HTMLElement>('[data-complete]');
+    const progress = game.querySelector<HTMLElement>('[data-progress]');
+    const label = game.querySelector<HTMLElement>('[data-round-label]');
+    let quest:any[] = [];
+    let current = 1;
+    const pick = (items:any[]) => items[Math.floor(Math.random() * items.length)];
+
+    const renderRound = (roundNumber:number) => {
+      current = roundNumber;
+      rounds.forEach((round) => { round.hidden = Number(round.dataset.round) !== roundNumber; });
+      if (complete) complete.hidden = true;
+      if (label) label.textContent = `Round ${roundNumber} of 3`;
+      if (progress) progress.style.width = `${((roundNumber - 1) / 3) * 100}%`;
+      const section = game.querySelector<HTMLElement>(`[data-round="${roundNumber}"]`);
+      const scenario = quest[roundNumber - 1];
+      const prompt = section?.querySelector<HTMLElement>('[data-prompt]');
+      const feedback = section?.querySelector<HTMLElement>('[data-feedback]');
+      const next = section?.querySelector<HTMLButtonElement>('[data-next]');
+      if (prompt) prompt.textContent = scenario.prompt;
+      if (next) next.disabled = true;
+      if (feedback) feedback.textContent = roundNumber === 1 ? 'Compare the cost for exactly one item.' : roundNumber === 2 ? 'Convert both speeds to the same “per 1” time unit.' : 'Find the unit rate first, then scale to the new amount.';
+
+      if (roundNumber < 3) {
+        const choices = section?.querySelector<HTMLElement>('[data-choices]');
+        if (choices) {
+          choices.innerHTML = scenario.choices.map((choice:string, index:number) => `<button type="button" data-choice="${index}">${choice}</button>`).join('');
+          choices.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach((button) => button.addEventListener('click', () => {
+            if (!next?.disabled) return;
+            const index = Number(button.dataset.choice);
+            if (index === scenario.correct) {
+              choices.querySelectorAll<HTMLButtonElement>('button').forEach((choice) => { choice.disabled = true; });
+              button.classList.add('correct');
+              if (feedback) feedback.innerHTML = `<strong>Correct.</strong> ${scenario.explain}`;
+              if (next) next.disabled = false;
+            } else {
+              button.classList.add('incorrect');
+              setTimeout(() => button.classList.remove('incorrect'), 500);
+              if (feedback) feedback.innerHTML = roundNumber === 1 ? '<strong>Not yet.</strong> Find the cost for 1 item in each deal.' : '<strong>Not yet.</strong> Find each distance per 1 hour before comparing.';
+            }
+          }));
+        }
+      } else {
+        const input = section?.querySelector<HTMLInputElement>('[data-final-answer]');
+        if (input) input.value = '';
+      }
+    };
+
+    game.querySelectorAll<HTMLButtonElement>('[data-next]').forEach((button) => button.addEventListener('click', () => {
+      if (button.disabled) return;
+      if (current < 3) renderRound(current + 1);
+      else {
+        rounds.forEach((round) => { round.hidden = true; });
+        if (complete) complete.hidden = false;
+        if (progress) progress.style.width = '100%';
+        if (label) label.textContent = '3 rounds complete';
+      }
+    }));
+
+    game.querySelector('[data-final-check]')?.addEventListener('click', () => {
+      const section = game.querySelector<HTMLElement>('[data-round="3"]');
+      const input = section?.querySelector<HTMLInputElement>('[data-final-answer]');
+      const feedback = section?.querySelector<HTMLElement>('[data-feedback]');
+      const next = section?.querySelector<HTMLButtonElement>('[data-next]');
+      const scenario = quest[2];
+      if (!input?.value) { if (feedback) feedback.innerHTML = '<strong>Add an answer first.</strong>'; return; }
+      if (Math.abs(Number(input.value) - scenario.answer) < .01) {
+        if (feedback) feedback.innerHTML = `<strong>Correct.</strong> ${scenario.explain}`;
+        if (next) next.disabled = false;
+        input.disabled = true;
+      } else if (feedback) feedback.innerHTML = '<strong>Not yet.</strong> Find the amount per 1 first, then scale it to the new quantity.';
+    });
+
+    const buildQuest = () => {
+      quest = [pick(banks[1]), pick(banks[2]), pick(banks[3])];
+      const input = game.querySelector<HTMLInputElement>('[data-final-answer]');
+      if (input) { input.disabled = false; input.value = ''; }
+      game.querySelectorAll<HTMLButtonElement>('[data-next]').forEach((button) => { button.disabled = true; });
+      renderRound(1);
+    };
+
+    game.querySelector('[data-restart]')?.addEventListener('click', buildQuest);
+    buildQuest();
+  });
 </script>
-<style>.game{border:1px solid #d9e2ec;border-radius:18px;background:#fff;padding:1rem}.game-head{display:flex;justify-content:space-between;gap:1rem;align-items:start}.game-head h3{margin:.2rem 0}.meter{min-width:170px;display:grid;gap:.35rem;font-size:.78rem;font-weight:900}.meter>span{height:9px;background:#e8edf3;border-radius:999px;overflow:hidden}.meter i{display:block;height:100%;background:var(--course);transition:width .25s}.round{margin-top:1rem;padding:1rem;border-radius:14px;background:#f8fafc}.round-tag{font-size:.72rem;font-weight:900;letter-spacing:.06em;color:#64748b}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}.choices button,.answer-row button,.complete button{border:0;border-radius:11px;padding:.75rem;background:var(--course);color:#fff;font-weight:900;cursor:pointer}.answer-row{display:flex;gap:.6rem}.answer-row input{flex:1;padding:.7rem;border:1px solid #cbd5e1;border-radius:10px}.feedback{min-height:26px;padding-top:.6rem}.complete{text-align:center;padding:1.4rem}.complete h3{font-size:1.5rem}@media(max-width:650px){.game-head,.choices,.answer-row{display:grid}}</style>
+
+<style>
+.game{border:1px solid #d9e2ec;border-radius:18px;background:#fff;padding:1rem}.game-head{display:flex;justify-content:space-between;gap:1rem;align-items:start}.game-head h3{margin:.2rem 0}.meter{min-width:170px;display:grid;gap:.35rem;font-size:.78rem;font-weight:900}.meter>span{height:9px;background:#e8edf3;border-radius:999px;overflow:hidden}.meter i{display:block;height:100%;background:var(--course);transition:width .25s}.round{margin-top:1rem;padding:1rem;border-radius:14px;background:#f8fafc}.round-tag{font-size:.72rem;font-weight:900;letter-spacing:.06em;color:#64748b}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}.choices button,.answer-row button,.complete button,.next-round{border:0;border-radius:11px;padding:.75rem;background:var(--course);color:#fff;font-weight:900;cursor:pointer}.choices button.correct{outline:2px solid #22c55e;background:#15803d}.choices button.incorrect{outline:2px solid #ef4444}.choices button:disabled{cursor:default}.answer-row{display:flex;gap:.6rem}.answer-row input{flex:1;padding:.7rem;border:1px solid #cbd5e1;border-radius:10px}.feedback{min-height:26px;padding:.7rem .8rem;margin-top:.7rem;border-radius:10px;background:#fff}.next-round{margin-top:.6rem}.next-round:disabled{opacity:.4;cursor:not-allowed}.complete{text-align:center;padding:1.4rem}.complete h3{font-size:1.5rem}.finish-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;margin:1rem 0}.finish-grid span{padding:.65rem;border-radius:10px;background:#f1f5f9;font-weight:800}@media(max-width:650px){.game-head,.choices,.answer-row,.finish-grid{display:grid}.meter{min-width:0}}
+</style>
