@@ -12,6 +12,8 @@ interface Props {
   hookWidth?: string;
   compactMobileHero?: boolean;
   mobileHeroSize?: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
 }
 
 const {
@@ -22,7 +24,9 @@ const {
   hookPrompt = 'Make a prediction. You are not expected to know the answer yet.',
   hookWidth = '200px',
   compactMobileHero = false,
-  mobileHeroSize = 'clamp(2.2rem,11vw,3.25rem)'
+  mobileHeroSize = 'clamp(2.2rem,11vw,3.25rem)',
+  heroTitle = topic.title,
+  heroSubtitle = topic.summary
 } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const sectionLinks = [
@@ -54,8 +58,8 @@ const sectionLinks = [
       <Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title,href:`${base}courses/${course.slug}/${unit.slug}/`},{label:topic.title}]} />
       <header class:list={['topic-hero', { 'compact-mobile-hero': compactMobileHero }]}>
         <p class="eyebrow">LESSON {topic.number} · {course.grade.toUpperCase()} {course.shortSubject.toUpperCase()}</p>
-        <h1>{topic.title}</h1>
-        <p>{topic.summary}</p>
+        <h1>{heroTitle}</h1>
+        <p>{heroSubtitle}</p>
         <div class="hook-card"><div><strong>Start with this</strong><small>{hookPrompt}</small></div><span>{hook}</span></div>
       </header>
       <slot />
