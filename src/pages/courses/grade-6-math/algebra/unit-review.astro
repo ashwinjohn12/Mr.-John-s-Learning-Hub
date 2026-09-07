@@ -3,7 +3,7 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
 import LearningSection from '../../../../components/LearningSection.astro';
 import VocabularyExplorer from '../../../../components/VocabularyExplorer.astro';
-import PracticeEngine from '../../../../components/PracticeEngine.astro';
+import Unit6BalancedPractice from '../../../../components/Unit6BalancedPractice.astro';
 import Unit6BalancedCheck from '../../../../components/Unit6BalancedCheck.astro';
 import Unit6MathArcade from '../../../../components/Unit6MathArcade.astro';
 import { findCourse } from '../../../../data/courses';
@@ -17,7 +17,7 @@ const contentBySlug = {
   'solving-equations-algebraically': unit6Content['grade-6-math/algebra/solving-equations-algebraically']
 };
 const lessonData = unit.topics.map((topic) => ({ topic, content: contentBySlug[topic.slug as keyof typeof contentBySlug] }));
-const mixedPractice = lessonData.flatMap(({topic,content}) => content.questions.map((q) => ({...q,prompt:`${topic.number} · ${q.prompt}`})));
+const practiceGroups = lessonData.map(({topic,content}) => ({ label:`Lesson ${topic.number} · ${topic.title}`, questions:content.questions, count:3 }));
 const balancedGroups = lessonData.map(({topic,content}) => ({ label:`Lesson ${topic.number} · ${topic.title}`, questions:content.checkQuestions, count:3 }));
 const reviewWords = [
   {term:'Algebraic expression',definition:'A mathematical phrase containing numbers, operations, and possibly variables, but no equal sign.',example:'4x + 7.'},
@@ -45,8 +45,8 @@ const sectionLinks=[['overview','🎯','Overview'],['lessons','🗺️','Lesson 
       <LearningSection id="overview" eyebrow="GET READY" title="What should I know?" icon="🎯" tone="idea">
         <div class="checklist-groups">
           <article><p class="lesson-chip">6.1 · Simplifying Expressions</p><label><input type="checkbox" /> I can identify and combine like terms.</label><label><input type="checkbox" /> I can keep unlike terms separate and distribute correctly.</label><label><input type="checkbox" /> I can recognize equivalent expressions.</label></article>
-          <article><p class="lesson-chip">6.2 · Solving Equations</p><label><input type="checkbox" /> I can distinguish an expression from an equation.</label><label><input type="checkbox" /> I can preserve equality using a balance or tile model.</label><label><input type="checkbox" /> I can use zero pairs and equal sharing to solve.</label></article>
-          <article><p class="lesson-chip">6.3 · Algebraic Solving</p><label><input type="checkbox" /> I can choose inverse operations and record balanced steps.</label><label><input type="checkbox" /> I can simplify before solving when needed.</label><label><input type="checkbox" /> I can verify a solution using LHS = RHS.</label></article>
+          <article><p class="lesson-chip">6.2 · Solving Equations with Models</p><label><input type="checkbox" /> I can distinguish an expression from an equation.</label><label><input type="checkbox" /> I can preserve equality using a balance or tile model.</label><label><input type="checkbox" /> I can use zero pairs and equal sharing to solve.</label></article>
+          <article><p class="lesson-chip">6.3 · Solving Equations Step by Step</p><label><input type="checkbox" /> I can choose inverse operations and record balanced steps.</label><label><input type="checkbox" /> I can simplify before solving when needed.</label><label><input type="checkbox" /> I can verify a solution using LHS = RHS.</label></article>
         </div><p class="review-tip"><strong>Student tip:</strong> If one box is unchecked, review that one idea instead of restarting the entire unit.</p>
       </LearningSection>
 
@@ -54,7 +54,7 @@ const sectionLinks=[['overview','🎯','Overview'],['lessons','🗺️','Lesson 
 
       <LearningSection id="vocabulary" eyebrow="LEARN THE LANGUAGE" title="Mixed Unit 6 vocabulary" icon="🧠" tone="vocab"><p class="section-lead">Notice the progression: expressions describe quantities, equations compare equal quantities, inverse operations solve the balance, and verification checks the result.</p><VocabularyExplorer words={reviewWords} /></LearningSection>
 
-      <LearningSection id="practice" eyebrow="PRACTISE WITH SUPPORT" title="Mixed Unit 6 practice" icon="✏️" tone="practice"><p>The full supported Practice banks from all three lessons are mixed here. The lesson number tells you where to return for a refresher. Hints and explanations are available because this section is for learning from mistakes.</p><PracticeEngine questions={mixedPractice} /></LearningSection>
+      <LearningSection id="practice" eyebrow="PRACTISE WITH SUPPORT" title="Balanced Unit 6 practice" icon="✏️" tone="practice"><p>Complete a supported 9-question set with exactly <strong>3 questions from each lesson</strong>. Hints and explanations are available because this section is for learning from mistakes. When you finish, choose More Practice for a fresh balanced set.</p><Unit6BalancedPractice groups={practiceGroups} /></LearningSection>
 
       <LearningSection id="check" eyebrow="UNIT CHECK" title="Can you connect all three Algebra lessons?" icon="✅" tone="review"><p>Every set contains exactly <strong>3 questions from each lesson</strong> for a balanced total of 9. There are no hints. A new set changes the questions while keeping lesson coverage fair.</p><Unit6BalancedCheck groups={balancedGroups} /></LearningSection>
 
