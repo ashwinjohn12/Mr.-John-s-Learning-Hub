@@ -1,0 +1,190 @@
+<div class="percent-lab" data-percent-lab>
+  <section class="lab-panel">
+    <div class="lab-head">
+      <div><p class="eyebrow">PART A · SAME AMOUNT, DIFFERENT NAMES</p><h3>Connect a fraction, decimal, and percent</h3></div>
+    </div>
+    <label class="field-label">Choose a fraction
+      <select data-convert-select>
+        <option value="1/2">1/2</option>
+        <option value="1/4">1/4</option>
+        <option value="3/4">3/4</option>
+        <option value="1/5">1/5</option>
+        <option value="2/5">2/5</option>
+        <option value="3/5">3/5</option>
+        <option value="1/10">1/10</option>
+      </select>
+    </label>
+    <div class="hundred-grid" data-hundred-grid aria-label="100-square percent model"></div>
+    <div class="representation-row" data-representations></div>
+    <p class="lab-feedback">Each box names the same shaded amount in a different way.</p>
+  </section>
+
+  <section class="lab-panel">
+    <div class="lab-head">
+      <div><p class="eyebrow">PART B · PERCENT OF A NUMBER</p><h3>Predict before you reveal the strategy</h3></div>
+      <button type="button" class="secondary" data-new-percent>New values</button>
+    </div>
+    <div class="slider-grid">
+      <label><span>Percent</span><input type="range" min="5" max="95" step="5" value="25" data-percent-range><strong data-percent-label>25%</strong></label>
+      <label><span>Whole</span><input type="range" min="20" max="200" step="10" value="80" data-whole-range><strong data-whole-label>80</strong></label>
+    </div>
+    <div class="percent-bar" aria-hidden="true"><span data-percent-bar></span></div>
+    <p class="challenge-line" data-percent-question>What is 25% of 80?</p>
+    <div class="answer-row"><input type="number" step="0.01" inputmode="decimal" data-percent-answer aria-label="Your answer"><button type="button" data-check-percent>Check</button></div>
+    <button type="button" class="hint-button" data-show-percent-strategy>Show a strategy</button>
+    <div class="strategy-box" data-percent-strategy hidden></div>
+    <div class="lab-feedback" data-percent-feedback aria-live="polite">Estimate first. Your answer should be between 0 and the whole.</div>
+  </section>
+
+  <section class="lab-panel">
+    <div class="lab-head">
+      <div><p class="eyebrow">PART C · WHAT IS MISSING?</p><h3>Find the part, percent, or whole</h3></div>
+      <button type="button" class="secondary" data-new-missing>New challenge</button>
+    </div>
+    <div class="missing-type" data-missing-type></div>
+    <p class="challenge-line" data-missing-question></p>
+    <div class="answer-row"><input type="number" step="0.01" inputmode="decimal" data-missing-answer aria-label="Your answer"><button type="button" data-check-missing>Check</button></div>
+    <button type="button" class="hint-button" data-missing-hint-button>Show a hint</button>
+    <p class="hint-text" data-missing-hint hidden></p>
+    <div class="lab-feedback" data-missing-feedback aria-live="polite">First name the missing value: part, percent, or whole.</div>
+  </section>
+</div>
+
+<script>
+  document.querySelectorAll('[data-percent-lab]').forEach((lab) => {
+    const convertSelect = lab.querySelector('[data-convert-select]');
+    const grid = lab.querySelector('[data-hundred-grid]');
+    const representations = lab.querySelector('[data-representations]');
+
+    const renderConversion = () => {
+      if (!convertSelect || !grid || !representations) return;
+      const [num, den] = convertSelect.value.split('/').map(Number);
+      const decimal = num / den;
+      const percent = Math.round(decimal * 100);
+      grid.replaceChildren();
+      for (let i = 0; i < 100; i += 1) {
+        const cell = document.createElement('span');
+        if (i < percent) cell.className = 'filled';
+        grid.appendChild(cell);
+      }
+      representations.innerHTML = `<span><small>FRACTION</small><strong>${num}/${den}</strong></span><b>=</b><span><small>OUT OF 100</small><strong>${percent}/100</strong></span><b>=</b><span><small>DECIMAL</small><strong>${decimal.toFixed(2).replace(/0$/, '')}</strong></span><b>=</b><span><small>PERCENT</small><strong>${percent}%</strong></span>`;
+      grid.setAttribute('aria-label', `${percent} of 100 squares shaded`);
+    };
+    convertSelect?.addEventListener('change', renderConversion);
+    renderConversion();
+
+    const percentRange = lab.querySelector('[data-percent-range]');
+    const wholeRange = lab.querySelector('[data-whole-range]');
+    const percentLabel = lab.querySelector('[data-percent-label]');
+    const wholeLabel = lab.querySelector('[data-whole-label]');
+    const percentBar = lab.querySelector('[data-percent-bar]');
+    const percentQuestion = lab.querySelector('[data-percent-question]');
+    const percentAnswer = lab.querySelector('[data-percent-answer]');
+    const percentFeedback = lab.querySelector('[data-percent-feedback]');
+    const percentStrategy = lab.querySelector('[data-percent-strategy]');
+    const strategyButton = lab.querySelector('[data-show-percent-strategy]');
+
+    const formatNumber = (value) => Number.isInteger(value) ? String(value) : value.toFixed(2).replace(/0+$/, '').replace(/\.$/, '');
+    const currentPercentResult = () => Number(percentRange.value) * Number(wholeRange.value) / 100;
+
+    const resetPercent = () => {
+      const p = Number(percentRange.value);
+      const whole = Number(wholeRange.value);
+      if (percentLabel) percentLabel.textContent = `${p}%`;
+      if (wholeLabel) wholeLabel.textContent = String(whole);
+      if (percentBar) percentBar.style.width = `${p}%`;
+      if (percentQuestion) percentQuestion.textContent = `What is ${p}% of ${whole}?`;
+      if (percentAnswer) percentAnswer.value = '';
+      if (percentFeedback) percentFeedback.textContent = 'Estimate first. Your answer should be between 0 and the whole.';
+      if (percentStrategy) percentStrategy.hidden = true;
+      if (strategyButton) strategyButton.textContent = 'Show a strategy';
+    };
+
+    percentRange?.addEventListener('input', resetPercent);
+    wholeRange?.addEventListener('input', resetPercent);
+    lab.querySelector('[data-new-percent]')?.addEventListener('click', () => {
+      const percentChoices = [5, 10, 15, 20, 25, 30, 40, 50, 60, 75, 80];
+      const wholeChoices = [40, 50, 60, 80, 90, 100, 120, 150, 160, 180, 200];
+      percentRange.value = String(percentChoices[Math.floor(Math.random() * percentChoices.length)]);
+      wholeRange.value = String(wholeChoices[Math.floor(Math.random() * wholeChoices.length)]);
+      resetPercent();
+    });
+    lab.querySelector('[data-check-percent]')?.addEventListener('click', () => {
+      const expected = currentPercentResult();
+      const entered = Number(percentAnswer?.value);
+      if (!percentAnswer?.value) {
+        if (percentFeedback) percentFeedback.innerHTML = '<strong>Add an answer first.</strong> Make a prediction before checking.';
+        return;
+      }
+      if (Math.abs(entered - expected) < 0.01) {
+        if (percentFeedback) percentFeedback.innerHTML = `<strong>Correct.</strong> ${percentRange.value}% of ${wholeRange.value} is ${formatNumber(expected)}.`;
+      } else if (percentFeedback) {
+        percentFeedback.innerHTML = '<strong>Not yet.</strong> Try a benchmark such as 10%, 5%, 25%, or 50%, or show the strategy below.';
+      }
+    });
+    strategyButton?.addEventListener('click', () => {
+      if (!percentStrategy) return;
+      percentStrategy.hidden = !percentStrategy.hidden;
+      strategyButton.textContent = percentStrategy.hidden ? 'Show a strategy' : 'Hide strategy';
+      if (!percentStrategy.hidden) {
+        const p = Number(percentRange.value);
+        const whole = Number(wholeRange.value);
+        const result = currentPercentResult();
+        percentStrategy.innerHTML = `<strong>Use the relationship to 100:</strong><br>${p}% = ${p}/100<br>${whole} × ${p} ÷ 100 = <strong>${formatNumber(result)}</strong><br><small>Check: because ${p}% is less than 100%, the result should be less than ${whole}.</small>`;
+      }
+    });
+    resetPercent();
+
+    const missingTasks = [
+      { type: 'FIND THE WHOLE', question: '12 is 25% of what number?', answer: 48, hint: '25% is one-quarter. If one quarter is 12, how large are four quarters?', explain: '25% = 1/4, so the whole is 12 × 4 = 48.' },
+      { type: 'FIND THE PERCENT', question: '18 is what percent of 60?', answer: 30, hint: 'Simplify 18/60, then write the fraction out of 100.', explain: '18/60 = 3/10 = 30/100, so the answer is 30%.' },
+      { type: 'FIND THE PART', question: '40% of 25 is what amount?', answer: 10, hint: '10% of 25 is 2.5. How many groups of 10% make 40%?', explain: '10% of 25 is 2.5, so 40% is 4 × 2.5 = 10.' },
+      { type: 'FIND THE WHOLE', question: '8 is 20% of what number?', answer: 40, hint: '20% is one-fifth. If one fifth is 8, build all five fifths.', explain: '20% = 1/5, so the whole is 8 × 5 = 40.' },
+      { type: 'FIND THE PERCENT', question: '21 out of 70 is what percent?', answer: 30, hint: '21/70 simplifies to 3/10.', explain: '3/10 = 30/100, so 21 out of 70 is 30%.' },
+      { type: 'FIND THE PART', question: 'A $120 jacket is 25% off. What is the discount amount?', answer: 30, hint: '25% is one-quarter.', explain: 'One-quarter of $120 is $30, so the discount is $30.' }
+    ];
+    const missingType = lab.querySelector('[data-missing-type]');
+    const missingQuestion = lab.querySelector('[data-missing-question]');
+    const missingAnswer = lab.querySelector('[data-missing-answer]');
+    const missingHint = lab.querySelector('[data-missing-hint]');
+    const missingHintButton = lab.querySelector('[data-missing-hint-button]');
+    const missingFeedback = lab.querySelector('[data-missing-feedback]');
+    let missingIndex = -1;
+
+    const renderMissing = () => {
+      let next = Math.floor(Math.random() * missingTasks.length);
+      if (missingTasks.length > 1) while (next === missingIndex) next = Math.floor(Math.random() * missingTasks.length);
+      missingIndex = next;
+      const task = missingTasks[missingIndex];
+      if (missingType) missingType.textContent = task.type;
+      if (missingQuestion) missingQuestion.textContent = task.question;
+      if (missingAnswer) missingAnswer.value = '';
+      if (missingHint) { missingHint.textContent = task.hint; missingHint.hidden = true; }
+      if (missingHintButton) missingHintButton.textContent = 'Show a hint';
+      if (missingFeedback) missingFeedback.textContent = 'First name the missing value: part, percent, or whole.';
+    };
+    lab.querySelector('[data-new-missing]')?.addEventListener('click', renderMissing);
+    missingHintButton?.addEventListener('click', () => {
+      if (!missingHint) return;
+      missingHint.hidden = !missingHint.hidden;
+      missingHintButton.textContent = missingHint.hidden ? 'Show a hint' : 'Hide hint';
+    });
+    lab.querySelector('[data-check-missing]')?.addEventListener('click', () => {
+      const task = missingTasks[missingIndex];
+      const entered = Number(missingAnswer?.value);
+      if (!missingAnswer?.value) {
+        if (missingFeedback) missingFeedback.innerHTML = '<strong>Add an answer first.</strong> Make a prediction before checking.';
+      } else if (Math.abs(entered - task.answer) < 0.01) {
+        if (missingFeedback) missingFeedback.innerHTML = `<strong>Correct.</strong> ${task.explain}`;
+      } else if (missingFeedback) {
+        missingFeedback.innerHTML = '<strong>Not yet.</strong> Decide what is missing, then use an equivalent ratio or a benchmark percentage.';
+      }
+    });
+    renderMissing();
+  });
+</script>
+
+<style>
+.percent-lab{display:grid;gap:1rem}.lab-panel{border:1px solid #dce4ed;border-radius:18px;padding:1rem;background:#fff;box-shadow:0 8px 24px rgba(15,23,42,.04)}.lab-head{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start}.lab-head h3{margin:.2rem 0 .8rem}.lab-head .eyebrow{margin:0}.secondary,.answer-row button{border:0;border-radius:10px;padding:.65rem .85rem;background:var(--course);color:#fff;font-weight:900;cursor:pointer}.secondary{background:#eef3f8;color:#24364d}.field-label{display:grid;gap:.35rem;max-width:220px;font-weight:800}.field-label select{padding:.65rem;border:1px solid #cbd5e1;border-radius:10px;background:#fff;font:inherit}.hundred-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;max-width:360px;margin:1rem 0;padding:4px;border:2px solid #24364d;border-radius:10px;background:#dbe3ec}.hundred-grid span{aspect-ratio:1;background:#fff;border-radius:2px}.hundred-grid .filled{background:var(--course)}.representation-row{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}.representation-row>span{display:grid;gap:.15rem;min-width:100px;padding:.7rem .8rem;border-radius:12px;background:var(--course-soft)}.representation-row small{font-size:.68rem;font-weight:900;letter-spacing:.06em;color:#526174}.representation-row strong{font-size:1.05rem}.representation-row b{font-size:1.2rem}.lab-feedback,.strategy-box,.hint-text{margin:.85rem 0 0;padding:.75rem .85rem;border-radius:12px;background:#f7f9fc;line-height:1.5}.slider-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.slider-grid label{display:grid;gap:.4rem;padding:.8rem;border-radius:12px;background:#f7f9fc}.slider-grid span{font-weight:800}.slider-grid strong{font-size:1.15rem}.percent-bar{height:22px;margin:1rem 0;border-radius:999px;background:#e5eaf0;overflow:hidden}.percent-bar span{display:block;height:100%;background:var(--course);transition:width .2s}.challenge-line{font-size:1.15rem;font-weight:900}.answer-row{display:flex;gap:.55rem;max-width:420px}.answer-row input{min-width:0;flex:1;padding:.7rem .8rem;border:1px solid #cbd5e1;border-radius:10px;font:inherit}.hint-button{margin-top:.65rem;border:0;background:transparent;color:var(--course);font-weight:900;cursor:pointer;padding:.35rem 0}.missing-type{display:inline-flex;margin:.2rem 0 .4rem;padding:.35rem .55rem;border-radius:999px;background:var(--course-soft);font-size:.72rem;font-weight:900;letter-spacing:.06em}.strategy-box small{color:#526174}
+@media(max-width:700px){.lab-head{display:grid}.secondary{justify-self:start}.slider-grid{grid-template-columns:1fr}.representation-row>span{min-width:calc(50% - 1.5rem)}.hundred-grid{max-width:100%}.answer-row{max-width:none}}
+</style>
