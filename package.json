@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "audit:grade6": "node scripts/audit-grade6.mjs",
     "preview": "astro preview"
   },
   "dependencies": {

@@ -1,6 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from './Breadcrumbs.astro';
+import Grade6LessonFrame from './Grade6LessonFrame.astro';
 import LearningSection from './LearningSection.astro';
 import VocabularyExplorer from './VocabularyExplorer.astro';
 import PracticeEngine from './PracticeEngine.astro';
@@ -12,29 +11,11 @@ import type { TopicContent } from '../data/topicContent';
 interface Props { course: Course; unit: Unit; topic: Topic; content: TopicContent }
 const { course, unit, topic, content } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const sectionLinks = [['overview','🎯','Overview'],['big-ideas','🌎','Big Ideas'],['understand','📘','Understand'],['examples','🧩','Examples'],['vocabulary','🧠','Vocabulary'],['explore','🔬','Explore'],['practise','✏️','Practise'],['check','✅','Check Yourself'],['apply','🎮','Apply'],['review','🏁','Review']];
 const nextHref = content.next.slug && content.next.status === 'ready' ? `${base}courses/${course.slug}/${unit.slug}/${content.next.slug}/` : null;
 const coreExamples = content.examples.slice(0, 2);
 const advancedExamples = content.examples.slice(2);
 ---
-<BaseLayout title={`${topic.title} | ${course.grade} ${course.shortSubject}`} description={topic.summary} themeColor={course.color}>
-  <div class="topic-shell" style={`--course:${course.color};--course-soft:${course.accent}`}>
-    <aside class="topic-sidebar">
-      <a class="back-course" href={`${base}courses/${course.slug}/${unit.slug}/`}>← {unit.title}</a>
-      <p class="eyebrow">ON THIS PAGE</p>
-      <p class="scroll-cue">Swipe sections →</p>
-      <nav aria-label="Lesson sections">{sectionLinks.map(([id,icon,label]) => <a href={`#${id}`}><span>{icon}</span>{label}</a>)}</nav>
-    </aside>
-
-    <article class="topic-content">
-      <Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title,href:`${base}courses/${course.slug}/${unit.slug}/`},{label:topic.title}]} />
-
-      <header class="topic-hero">
-        <p class="eyebrow">LESSON {topic.number} · {course.grade.toUpperCase()} {course.shortSubject.toUpperCase()}</p>
-        <h1>{topic.title}</h1>
-        <p>{topic.summary}</p>
-        <div class="hook-card"><div><strong>Start with this</strong><small>Make a prediction. You are not expected to know the answer yet.</small></div><span>{content.hook}</span></div>
-      </header>
+<Grade6LessonFrame {course} {unit} {topic} hook={content.hook} hookWidth="210px">
 
       <LearningSection id="overview" eyebrow="GET READY" title="What you need & where you are going" icon="🎯" tone="idea">
         <div class="overview-grid"><div><p class="mini-label">BEFORE YOU START</p><ul>{content.prerequisites.map(item => <li>{item}</li>)}</ul></div><div><p class="mini-label">BY THE END, I CAN…</p><ul>{content.goals.map(goal => <li>{goal}</li>)}</ul></div></div>
@@ -115,9 +96,7 @@ const advancedExamples = content.examples.slice(2);
         <div class="review-grid">{content.review.map(item => <label><input type="checkbox" /> {item}</label>)}</div>
         <div class="next-step"><div><p class="eyebrow">NEXT STEP</p><strong>{content.next.title}</strong><small>{content.next.status === 'planned' ? 'Lesson 4.5 is coming soon. Use the checklist above to decide what you want to practise again first.' : 'Continue when you are ready.'}</small></div>{nextHref ? <a class="button" href={nextHref}>Open →</a> : <span class="coming-next">Coming soon</span>}</div>
       </LearningSection>
-    </article>
-  </div>
-</BaseLayout>
+ </Grade6LessonFrame>
 
 <style>
 .hook-card{display:grid;grid-template-columns:auto 1fr;gap:1rem;margin-top:1.2rem;padding:1rem 1.1rem;border-radius:16px;background:var(--course-soft,#eef4ff);line-height:1.55}.hook-card>div{display:grid;align-content:start;gap:.2rem}.hook-card small{display:block;max-width:210px;color:#526174;font-weight:600}.overview-grid,.wrap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.overview-grid>div,.wrap-grid>div{border:1px solid #e3e9f0;border-radius:16px;padding:1rem;background:#fff}.wrap-grid>div:last-child{grid-column:1/-1}.mini-label{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#5a6a80}.overview-grid ul,.wrap-grid ul,.worked-example ol,.hands-on-card ol,.lesson-challenge ol{padding-left:1.2rem}.overview-grid li,.wrap-grid li,.worked-example li,.hands-on-card li,.lesson-challenge li{margin:.38rem 0}.lesson-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;padding:.85rem 1rem;border-radius:14px;background:#f5f7fa}.student-path{margin-top:1rem;padding:1rem;border:1px solid #dfe5ee;border-radius:14px;background:#fff}.path-steps,.three-step-rule,.decision-steps,.bridge-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem}.bridge-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.path-steps>div,.three-step-rule>div,.decision-steps>div,.bridge-grid>div{display:grid;gap:.25rem;padding:.8rem;border-radius:12px;background:#f7f9fc}.three-step-rule{margin:1rem 0}.three-step-rule>div{border:1px solid #dfe5ee;background:#fff}.three-step-rule>div>span{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--course);color:#fff;font-weight:900}.path-note{margin:.8rem 0 0;padding:.7rem;border-radius:10px;background:#fff8db}.success-box{margin-top:1rem}.remember{padding:.65rem .75rem;border-radius:10px;background:#f5f8fc}.bridge-card,.alignment-card,.decision-card,.worked-example,.hands-on-card,.pat-card,.snapshot-card{border:1px solid #dfe5ee;border-radius:16px;padding:1rem;background:#fff;margin-top:1rem}.bridge-card h3,.alignment-card h3,.decision-card h3,.worked-example h3,.hands-on-card h3,.snapshot-card h3{margin:.25rem 0 .75rem}.bridge-grid code{margin-top:.35rem;padding:.5rem;border-radius:8px;background:#edf3fa;font:800 .95rem ui-monospace,monospace}.alignment-demo{display:grid;place-items:center;margin:.8rem 0;padding:1rem;border-radius:12px;background:#101828;color:#fff}.alignment-demo pre{margin:0;font:800 1.25rem/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.model-note{padding:.7rem;border-radius:10px;background:#eef6ff}.mixups{margin-top:1.2rem}.example-stack,.explore-stack{display:grid;gap:1rem}.example-answer{margin-top:.8rem;padding:.7rem;border-radius:10px;background:var(--course-soft,#eef4ff)}.advanced-examples{margin-top:1rem}.advanced-examples summary{cursor:pointer;font-weight:900}.advanced-stack{margin-top:1rem}.snapshot-flow{display:flex;gap:.55rem;align-items:center;flex-wrap:wrap}.snapshot-flow span{padding:.55rem .7rem;border-radius:10px;background:#eef4ff;font-weight:900}.home-note{padding:.65rem;border-radius:10px;background:#fff8db}.lesson-challenge{display:grid;gap:1rem}.review-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;margin:1rem 0}.review-grid label{padding:.75rem;border:1px solid #dfe5ee;border-radius:12px;background:#fff}.next-step{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:1rem;padding:1rem;border-radius:16px;background:#f5f7fa}.next-step>div{display:grid;gap:.2rem}.next-step small{color:#526174}.coming-next{font-weight:900;color:#64748b}.section-lead{color:#48576b;line-height:1.6}@media(max-width:760px){.overview-grid,.wrap-grid,.path-steps,.three-step-rule,.decision-steps,.bridge-grid,.review-grid{grid-template-columns:1fr}.wrap-grid>div:last-child{grid-column:auto}.hook-card{grid-template-columns:1fr}.next-step{align-items:flex-start;flex-direction:column}}

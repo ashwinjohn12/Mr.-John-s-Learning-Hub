@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import type { Course, Unit, Topic } from '../data/courses';
+
+interface Props {
+  course: Course;
+  unit: Unit;
+  topic: Topic;
+  hook: string;
+  hookPrompt?: string;
+  hookWidth?: string;
+  compactMobileHero?: boolean;
+  mobileHeroSize?: string;
+}
+
+const {
+  course,
+  unit,
+  topic,
+  hook,
+  hookPrompt = 'Make a prediction. You are not expected to know the answer yet.',
+  hookWidth = '200px',
+  compactMobileHero = false,
+  mobileHeroSize = 'clamp(2.2rem,11vw,3.25rem)'
+} = Astro.props;
+const base = import.meta.env.BASE_URL;
+const sectionLinks = [
+  ['overview', '🎯', 'Overview'],
+  ['big-ideas', '🌎', 'Big Ideas'],
+  ['understand', '📘', 'Understand'],
+  ['examples', '🧩', 'Examples'],
+  ['vocabulary', '🧠', 'Vocabulary'],
+  ['explore', '🔬', 'Explore'],
+  ['practise', '✏️', 'Practise'],
+  ['check', '✅', 'Check Yourself'],
+  ['apply', '🎮', 'Apply'],
+  ['review', '🏁', 'Review']
+];
+---
+
+<BaseLayout title={`${topic.title} | ${course.grade} ${course.shortSubject}`} description={topic.summary} themeColor={course.color}>
+  <div class="topic-shell" style={`--course:${course.color};--course-soft:${course.accent};--hook-width:${hookWidth};--mobile-hero-size:${mobileHeroSize}`}>
+    <aside class="topic-sidebar">
+      <a class="back-course" href={`${base}courses/${course.slug}/${unit.slug}/`}>← {unit.title}</a>
+      <p class="eyebrow">ON THIS PAGE</p>
+      <p class="scroll-cue">Swipe sections →</p>
+      <nav aria-label="Lesson sections">
+        {sectionLinks.map(([id, icon, label]) => <a href={`#${id}`}><span>{icon}</span>{label}</a>)}
+      </nav>
+    </aside>
+
+    <article class="topic-content">
+      <Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title,href:`${base}courses/${course.slug}/${unit.slug}/`},{label:topic.title}]} />
+      <header class:list={['topic-hero', { 'compact-mobile-hero': compactMobileHero }]}>
+        <p class="eyebrow">LESSON {topic.number} · {course.grade.toUpperCase()} {course.shortSubject.toUpperCase()}</p>
+        <h1>{topic.title}</h1>
+        <p>{topic.summary}</p>
+        <div class="hook-card"><div><strong>Start with this</strong><small>{hookPrompt}</small></div><span>{hook}</span></div>
+      </header>
+      <slot />
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .hook-card{display:grid;grid-template-columns:auto 1fr;gap:1rem;margin-top:1.2rem;padding:1rem 1.1rem;border-radius:16px;background:var(--course-soft,#eef4ff);line-height:1.55}
+  .hook-card>div{display:grid;align-content:start;gap:.2rem}
+  .hook-card small{display:block;max-width:var(--hook-width);color:#526174;font-weight:600}
+  .scroll-cue{display:none}
+  @media(max-width:760px){
+    .hook-card{grid-template-columns:1fr}
+    .hook-card small{max-width:none}
+    .scroll-cue{display:block;margin:-.35rem 0 .45rem;color:#64748b;font-size:.76rem;font-weight:700}
+    .topic-sidebar nav{scrollbar-width:thin}
+    .compact-mobile-hero{padding-top:2rem;padding-bottom:3rem}
+    .compact-mobile-hero h1{font-size:var(--mobile-hero-size);line-height:1.04}
+  }
+</style>
