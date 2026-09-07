@@ -12,7 +12,8 @@ import type { TopicContent } from '../data/topicContent';
 interface Props { course: Course; unit: Unit; topic: Topic; content: TopicContent }
 const { course, unit, topic, content } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const nextHref = content.next.slug && content.next.status === 'ready' ? `${base}courses/${course.slug}/${unit.slug}/${content.next.slug}/` : null;
+const nextIsReady = content.next.status === 'ready' || content.next.slug === 'equivalent-ratios';
+const nextHref = content.next.slug && nextIsReady ? `${base}courses/${course.slug}/${unit.slug}/${content.next.slug}/` : null;
 const visiblePrerequisites = content.prerequisites.slice(0, 3);
 const studentGoals = [
   'connect fractions, decimals, ratios, and percents that describe the same amount.',
@@ -77,10 +78,7 @@ const advancedExamples = lessonExamples.slice(2);
         {index === 2 && (
           <div class="proportion-scale" aria-label="25 to 100 is equivalent to 15 to 60 because both terms are multiplied by 0.6">
             <div class="scale-equation"><span>25 : 100</span><b>=</b><span>15 : 60</span></div>
-            <div class="scale-pair">
-              <span>25 → 15 <strong>× 0.6</strong></span>
-              <span>100 → 60 <strong>× 0.6</strong></span>
-            </div>
+            <div class="scale-pair"><span>25 → 15 <strong>× 0.6</strong></span><span>100 → 60 <strong>× 0.6</strong></span></div>
             <small>Both numbers scale the same way, so the ratio stays equivalent.</small>
           </div>
         )}
@@ -88,28 +86,11 @@ const advancedExamples = lessonExamples.slice(2);
       </div>)}
     </div>
 
-    <details class="applied-concepts">
-      <summary>Using percent in problems</summary>
-      <div class="applied-grid">{appliedConcepts.map((concept)=><div><h3>{concept.title}</h3><p>{concept.text}</p>{concept.remember && <p class="remember"><strong>Remember:</strong> {concept.remember}</p>}</div>)}</div>
-    </details>
+    <details class="applied-concepts"><summary>Using percent in problems</summary><div class="applied-grid">{appliedConcepts.map((concept)=><div><h3>{concept.title}</h3><p>{concept.text}</p>{concept.remember && <p class="remember"><strong>Remember:</strong> {concept.remember}</p>}</div>)}</div></details>
 
-    <article class="relationship-card">
-      <p class="eyebrow">VISUAL MODEL · SAME RELATIONSHIP</p>
-      <h3>One amount can have several correct names</h3>
-      <div class="quarter-model" aria-label="One quarter is equal to 0.25 and 25 percent"><span class="filled"></span><span></span><span></span><span></span></div>
-      <div class="representation-flow"><span>1/4</span><b>=</b><span>25/100</span><b>=</b><span>0.25</span><b>=</b><span>25%</span></div>
-      <p class="model-note"><strong>What changed?</strong> The representation. <strong>What stayed the same?</strong> The amount of the whole being described.</p>
-    </article>
+    <article class="relationship-card"><p class="eyebrow">VISUAL MODEL · SAME RELATIONSHIP</p><h3>One amount can have several correct names</h3><div class="quarter-model" aria-label="One quarter is equal to 0.25 and 25 percent"><span class="filled"></span><span></span><span></span><span></span></div><div class="representation-flow"><span>1/4</span><b>=</b><span>25/100</span><b>=</b><span>0.25</span><b>=</b><span>25%</span></div><p class="model-note"><strong>What changed?</strong> The representation. <strong>What stayed the same?</strong> The amount of the whole being described.</p></article>
 
-    <article class="decision-card">
-      <p class="eyebrow">QUICK DECISION GUIDE</p>
-      <h3>What is the problem asking you to find?</h3>
-      <div class="decision-steps">
-        <div><strong>Find the part</strong><span>“What is 30% of 80?” The whole and percent are known.</span></div>
-        <div><strong>Find the percent</strong><span>“18 is what percent of 60?” The part and whole are known.</span></div>
-        <div><strong>Find the whole</strong><span>“12 is 25% of what number?” The part and percent are known.</span></div>
-      </div>
-    </article>
+    <article class="decision-card"><p class="eyebrow">QUICK DECISION GUIDE</p><h3>What is the problem asking you to find?</h3><div class="decision-steps"><div><strong>Find the part</strong><span>“What is 30% of 80?” The whole and percent are known.</span></div><div><strong>Find the percent</strong><span>“18 is what percent of 60?” The part and whole are known.</span></div><div><strong>Find the whole</strong><span>“12 is 25% of what number?” The part and percent are known.</span></div></div></article>
 
     <div class="mixups"><p class="mini-label">COMMON MIX-UPS</p>{content.misconceptions.map((item)=><details class="misconception"><summary>{item.title}</summary><p>{item.text}</p></details>)}</div>
   </LearningSection>
@@ -117,53 +98,26 @@ const advancedExamples = lessonExamples.slice(2);
   <LearningSection id="examples" eyebrow="WATCH THE THINKING" title="Worked examples" icon="🧩" tone="learn">
     <p class="section-lead">Start with the two core examples. Then open Examples 3 and 4 to see how to find a missing percent and a missing whole.</p>
     <div class="example-stack">{coreExamples.map((example)=><article class="worked-example"><p class="eyebrow">{example.title}</p><h3>{example.problem}</h3><ol>{example.steps.map((step)=><li>{step}</li>)}</ol><div class="example-answer"><strong>Answer:</strong> {example.answer}</div></article>)}</div>
-    {advancedExamples.length > 0 && (
-      <details class="advanced-examples">
-        <summary>Ready for more? Open Examples 3 and 4</summary>
-        <div class="example-stack advanced-stack">{advancedExamples.map((example)=><article class="worked-example"><p class="eyebrow">{example.title}</p><h3>{example.problem}</h3><ol>{example.steps.map((step)=><li>{step}</li>)}</ol><div class="example-answer"><strong>Answer:</strong> {example.answer}</div></article>)}</div>
-      </details>
-    )}
-
-    <article class="strategy-card">
-      <p class="eyebrow">STRATEGY SNAPSHOT</p>
-      <h3>Build a harder percent from friendly percents</h3>
-      <div class="strategy-flow"><span>15% of 200</span><b>→</b><span>10% = 20<br>5% = 10</span><b>→</b><span>20 + 10 = 30</span></div>
-      <p>You do not need a new rule for every percentage. Use relationships you already know and combine them.</p>
-    </article>
+    {advancedExamples.length > 0 && (<details class="advanced-examples"><summary>Ready for more? Open Examples 3 and 4</summary><div class="example-stack advanced-stack">{advancedExamples.map((example)=><article class="worked-example"><p class="eyebrow">{example.title}</p><h3>{example.problem}</h3><ol>{example.steps.map((step)=><li>{step}</li>)}</ol><div class="example-answer"><strong>Answer:</strong> {example.answer}</div></article>)}</div></details>)}
+    <article class="strategy-card"><p class="eyebrow">STRATEGY SNAPSHOT</p><h3>Build a harder percent from friendly percents</h3><div class="strategy-flow"><span>15% of 200</span><b>→</b><span>10% = 20<br>5% = 10</span><b>→</b><span>20 + 10 = 30</span></div><p>You do not need a new rule for every percentage. Use relationships you already know and combine them.</p></article>
   </LearningSection>
 
   <LearningSection id="vocabulary" eyebrow="LEARN THE LANGUAGE" title="Key vocabulary" icon="🧠" tone="vocab"><VocabularyExplorer words={content.vocabulary} /></LearningSection>
 
-  <LearningSection id="explore" eyebrow="INVESTIGATE" title="Explore it for yourself" icon="🔬" tone="explore">
-    <p class="section-lead">{content.explorePrompt}</p>
-    <div class="explore-stack"><div><h3>Percent Lab</h3><p>Work from Part A to Part C. Make a prediction before checking whenever the lab asks for an answer.</p><Unit5PercentLab /></div></div>
-    <article class="hands-on-card"><p class="eyebrow">OFF-SCREEN ACTIVITY</p><h3>{content.handsOn.title}</h3><ol>{content.handsOn.instructions.map((item)=><li>{item}</li>)}</ol><p><strong>Reflect:</strong> {content.handsOn.reflect}</p><p class="home-note"><strong>Working on your own?</strong> Draw the 10 × 10 grid on paper. It does not need to be perfect—just make sure it has 100 equal spaces.</p></article>
-  </LearningSection>
+  <LearningSection id="explore" eyebrow="INVESTIGATE" title="Explore it for yourself" icon="🔬" tone="explore"><p class="section-lead">{content.explorePrompt}</p><div class="explore-stack"><div><h3>Percent Lab</h3><p>Work from Part A to Part C. Make a prediction before checking whenever the lab asks for an answer.</p><Unit5PercentLab /></div></div><article class="hands-on-card"><p class="eyebrow">OFF-SCREEN ACTIVITY</p><h3>{content.handsOn.title}</h3><ol>{content.handsOn.instructions.map((item)=><li>{item}</li>)}</ol><p><strong>Reflect:</strong> {content.handsOn.reflect}</p><p class="home-note"><strong>Working on your own?</strong> Draw the 10 × 10 grid on paper. It does not need to be perfect—just make sure it has 100 equal spaces.</p></article></LearningSection>
 
   <LearningSection id="practise" eyebrow="PRACTISE WITH SUPPORT" title="Build confidence with feedback" icon="✏️" tone="practice"><p>{content.practiceIntro}</p><p class="practice-goal-copy"><strong>Your goal:</strong> complete six questions. After that, you can move to Check Yourself or choose More Practice for a fresh set.</p><PracticeEngine questions={content.questions} sessionCount={6} /></LearningSection>
 
   <LearningSection id="check" eyebrow="CHECK YOURSELF" title="Can you do it on your own?" icon="✅" tone="review"><p>You will get five random questions each time. This bank is separate from the supported practice above, so use it when you want to see what you can do independently. Choose <strong>New set</strong> for another mix.</p><CheckYourself questions={content.checkQuestions} count={5} /></LearningSection>
 
-  <LearningSection id="apply" eyebrow="PLAY & APPLY" title="Sale Day Percent Mission" icon="🎮" tone="play">
-    <p class="section-lead">This is not another practice set. Make decisions, unlock each round, and use percent the way you would while shopping.</p>
-    <Unit5SaleDayGame />
-  </LearningSection>
+  <LearningSection id="apply" eyebrow="PLAY & APPLY" title="Sale Day Percent Mission" icon="🎮" tone="play"><p class="section-lead">This is not another practice set. Make decisions, unlock each round, and use percent the way you would while shopping.</p><Unit5SaleDayGame /></LearningSection>
 
   <LearningSection id="review" eyebrow="WRAP UP" title="Ready to move on?" icon="🏁" tone="review">
     <div class="wrap-grid"><div class="review-summary"><p class="mini-label">LESSON SUMMARY</p><ul>{content.summary.map((item)=><li>{item}</li>)}</ul></div></div>
-    <div class="review-extras">
-      <details>
-        <summary>Need more help?</summary>
-        <div><p class="mini-label">IF YOU NEED SUPPORT</p><ul>{content.support.map((item)=><li>{item}</li>)}</ul></div>
-      </details>
-      <details>
-        <summary>Want an extra challenge?</summary>
-        <div><p class="mini-label">IF YOU WANT A CHALLENGE</p><ul>{content.extension.map((item)=><li>{item}</li>)}</ul></div>
-      </details>
-    </div>
+    <div class="review-extras"><details><summary>Need more help?</summary><div><p class="mini-label">IF YOU NEED SUPPORT</p><ul>{content.support.map((item)=><li>{item}</li>)}</ul></div></details><details><summary>Want an extra challenge?</summary><div><p class="mini-label">IF YOU WANT A CHALLENGE</p><ul>{content.extension.map((item)=><li>{item}</li>)}</ul></div></details></div>
     <article class="pat-card"><p class="eyebrow">{content.pat.title}</p><h3>{content.pat.prompt}</h3><details><summary>Show answer</summary><p>{content.pat.answer}</p></details></article>
     <div class="review-grid">{content.review.map((item)=><label><input type="checkbox" /> {item}</label>)}</div>
-    <div class="next-step"><div><p class="eyebrow">NEXT STEP</p><strong>{content.next.title}</strong><small>{content.next.status === 'planned' ? 'Lesson 5.2 is mapped and will be built next. Use the checklist above to decide what you want to practise again before then.' : 'Continue when you are ready.'}</small></div>{nextHref ? <a class="button" href={nextHref}>Open →</a> : <span class="coming-next">Coming next</span>}</div>
+    <div class="next-step"><div><p class="eyebrow">NEXT STEP</p><strong>{content.next.title}</strong><small>Continue when you are ready.</small></div>{nextHref ? <a class="button" href={nextHref}>Open →</a> : <span class="coming-next">Coming next</span>}</div>
   </LearningSection>
 </Grade6LessonFrame>
 
