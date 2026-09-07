@@ -27,7 +27,7 @@ const total = groups.reduce((sum, group) => sum + group.count, 0);
     const buildPool = () => shuffle(groups.flatMap((group:any) => shuffle(group.questions).slice(0, Math.min(group.count, group.questions.length)).map((q:any) => ({...q, lessonLabel:group.label}))));
     const render = () => {
       if (index >= pool.length) {
-        if (stage) stage.innerHTML = `<div class="check-finish"><p class="eyebrow">SET COMPLETE</p><h3>You scored ${correct} / ${pool.length}</h3><p>${correct === pool.length ? 'Excellent. You connected percent, equivalent ratios, and unit rates across the whole unit.' : correct >= Math.ceil(pool.length*.75) ? 'Strong work. Use the lesson label on anything you missed, review that idea, and try a new balanced set.' : 'Use the lesson map below the score to target the skills you missed, then try another balanced set.'}</p></div>`;
+        if (stage) stage.innerHTML = `<div class="check-finish"><p class="eyebrow">SET COMPLETE</p><h3>You scored ${correct} / ${pool.length}</h3><p>${correct === pool.length ? 'Excellent. You connected percent, equivalent ratios, and unit rates across the whole unit.' : correct >= Math.ceil(pool.length*.75) ? 'Strong work. Use the lesson label on anything you missed, return to the lesson map above, review that idea, and then try a new balanced set.' : 'Use the lesson labels from the questions you missed, return to the lesson map above, and target those skills before trying another balanced set.'}</p></div>`;
         if (nextBtn) nextBtn.disabled = true; return;
       }
       const q=pool[index]; answered=false; if(nextBtn) nextBtn.disabled=true;
