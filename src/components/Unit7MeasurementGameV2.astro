@@ -1,0 +1,103 @@
+---
+interface Props { variant:'parallelogram'|'triangle'|'composite'|'volume' }
+const { variant } = Astro.props;
+const title = variant==='parallelogram'?'Glass Wall Mission':variant==='triangle'?'Pennant Designer':variant==='composite'?'Park Planner Challenge':'Storage Stack Challenge';
+---
+<div class="measurement-game" data-unit7-game-v2={variant}>
+  <div class="game-top"><div><p class="eyebrow">{title.toUpperCase()}</p><h3 data-game-title>Round 1 of 3</h3></div><span data-game-score>0 points</span></div>
+  <div class="progress"><span data-game-progress></span></div>
+  <div data-game-stage aria-live="polite"></div>
+  <div class="game-actions"><button type="button" data-game-check hidden>Check design</button><button type="button" data-game-next hidden>Next round →</button><button type="button" class="soft" data-game-restart>Play again</button></div>
+</div>
+
+<script>
+const choiceBanks:any={
+ parallelogram:[
+  [
+   {prompt:'A glass panel has base 12 m, perpendicular height 5 m, and slanted side 7 m. How much glass is needed?',choices:['35 m²','60 m²','84 m²'],answer:1,explain:'Use base × perpendicular height: 12 × 5 = 60 m².'},
+   {prompt:'A mural panel has base 9 m and perpendicular height 6 m. Its slanted side is 8 m. Area?',choices:['48 m²','54 m²','72 m²'],answer:1,explain:'The slanted side is not used. 9 × 6 = 54 m².'},
+   {prompt:'A solar panel is a parallelogram with base 14 m and perpendicular height 4 m. Area?',choices:['18 m²','56 m²','72 m²'],answer:1,explain:'14 × 4 = 56 m².'}
+  ],
+  [
+   {prompt:'A panel must have area 72 m² and perpendicular height 6 m. What base should the designer use?',choices:['10 m','12 m','18 m'],answer:1,explain:'72 ÷ 6 = 12 m.'},
+   {prompt:'A window has area 63 m² and base 9 m. What perpendicular height is needed?',choices:['7 m','8 m','9 m'],answer:0,explain:'63 ÷ 9 = 7 m.'},
+   {prompt:'A flower bed has area 52.5 m² and base 7 m. Height?',choices:['6.5 m','7.5 m','8.5 m'],answer:1,explain:'52.5 ÷ 7 = 7.5 m.'}
+  ]
+ ],
+ triangle:[
+  [
+   {prompt:'A school pennant has base 10 in and perpendicular height 8 in. How much felt is needed?',choices:['40 in²','80 in²','90 in²'],answer:0,explain:'10 × 8 ÷ 2 = 40 in².'},
+   {prompt:'A triangular flag has base 12 cm and height 7 cm. Area?',choices:['42 cm²','84 cm²','19 cm²'],answer:0,explain:'12 × 7 ÷ 2 = 42 cm².'},
+   {prompt:'A triangular sail has base 9 ft and height 6 ft. Area?',choices:['27 ft²','54 ft²','15 ft²'],answer:0,explain:'9 × 6 ÷ 2 = 27 ft².'}
+  ],
+  [
+   {prompt:'A matching parallelogram has area 70 cm². What is the area of one triangle made by its diagonal?',choices:['35 cm²','70 cm²','140 cm²'],answer:0,explain:'A diagonal makes two congruent triangles, so each is half.'},
+   {prompt:'A matching parallelogram has area 48 m². One diagonal creates two equal triangles. Each area?',choices:['12 m²','24 m²','48 m²'],answer:1,explain:'48 ÷ 2 = 24 m².'},
+   {prompt:'A triangle is paired with a congruent copy to make a 60 yd² parallelogram. Triangle area?',choices:['20 yd²','30 yd²','60 yd²'],answer:1,explain:'One of two congruent halves is 30 yd².'}
+  ]
+ ],
+ composite:[
+  [
+   {prompt:'A sign is a 10×4 rectangle plus a roof triangle with b=10,h=3. Total area?',choices:['40','55','70'],answer:1,explain:'40 + 15 = 55 square units.'},
+   {prompt:'A garden is a 6×5 rectangle plus a triangle with b=6,h=4. Total?',choices:['36','42','48'],answer:1,explain:'30 + 12 = 42.'},
+   {prompt:'A logo combines parallelogram b=8,h=5 and triangle b=6,h=4. Total?',choices:['46','52','64'],answer:1,explain:'40 + 12 = 52.'}
+  ],
+  [
+   {prompt:'A 12×8 field has a 4×3 rectangular corner removed. Remaining area?',choices:['84','92','96'],answer:0,explain:'96 − 12 = 84.'},
+   {prompt:'A 15×10 stage has a 5×4 cutout. Remaining area?',choices:['120','130','150'],answer:1,explain:'150 − 20 = 130.'},
+   {prompt:'A 14×9 wall has two 3×2 windows removed. Paintable area?',choices:['108','114','120'],answer:1,explain:'126 − 12 = 114.'}
+  ]
+ ],
+ volume:[
+  [
+   {prompt:'A storage box has a 4×3 base and is 5 layers high. Volume?',choices:['12 cm³','20 cm³','60 cm³'],answer:2,explain:'Base area 12 × 5 layers = 60 cm³.'},
+   {prompt:'A crate measures 5×2×4 cm. Volume?',choices:['20 cm³','40 cm³','80 cm³'],answer:1,explain:'5 × 2 × 4 = 40 cm³.'},
+   {prompt:'A prism has 8 cubes in each layer and 6 layers. Volume?',choices:['14 cm³','48 cm³','64 cm³'],answer:1,explain:'8 × 6 = 48 cubic units.'}
+  ],
+  [
+   {prompt:'A container has volume 72 cm³ and base area 24 cm². Height?',choices:['2 cm','3 cm','4 cm'],answer:1,explain:'72 ÷ 24 = 3 cm.'},
+   {prompt:'A box volume is 84 m³ with base area 28 m². Height?',choices:['3 m','4 m','6 m'],answer:0,explain:'84 ÷ 28 = 3 m.'},
+   {prompt:'A prism volume is 60 cm³. It has a 5×3 base. Height?',choices:['3 cm','4 cm','5 cm'],answer:1,explain:'Base area 15; 60 ÷ 15 = 4 cm.'}
+  ]
+ ]
+};
+
+const designBanks:any={
+ parallelogram:[{target:80,base:10,height:8,slant:2},{target:72,base:12,height:6,slant:3},{target:60,base:10,height:6,slant:4}],
+ triangle:[{target:48,base:12,height:8},{target:36,base:9,height:8},{target:60,base:12,height:10}],
+ composite:[
+  {title:'Community garden',outer:'12 × 8 rectangle',cut:'4 × 3 corner cutout',total:84,correct:'subtract',choices:[['Add the cutout','96 + 12'],['Subtract the cutout','96 − 12'],['Add all side lengths','12 + 8 + 4 + 3']]},
+  {title:'Stage floor',outer:'15 × 10 rectangle',cut:'5 × 4 equipment bay removed',total:130,correct:'subtract',choices:[['Subtract the cutout','150 − 20'],['Add the cutout','150 + 20'],['Use perimeter','2(15 + 10)']]},
+  {title:'Paintable wall',outer:'14 × 9 rectangle',cut:'two 3 × 2 windows removed',total:114,correct:'two',choices:[['Subtract one window','126 − 6'],['Subtract both windows','126 − 12'],['Add both windows','126 + 12']]}
+ ],
+ volume:[{target:120,length:5,width:4,height:6},{target:96,length:4,width:4,height:6},{target:72,length:4,width:3,height:6}]
+};
+
+document.querySelectorAll<HTMLElement>('[data-unit7-game-v2]').forEach(game=>{
+ const variant=game.dataset.unit7GameV2||'parallelogram',rounds=choiceBanks[variant],stage=game.querySelector<HTMLElement>('[data-game-stage]'),scoreEl=game.querySelector('[data-game-score]'),titleEl=game.querySelector('[data-game-title]'),progress=game.querySelector<HTMLElement>('[data-game-progress]'),next=game.querySelector<HTMLButtonElement>('[data-game-next]'),restart=game.querySelector<HTMLButtonElement>('[data-game-restart]'),check=game.querySelector<HTMLButtonElement>('[data-game-check]');let selected:any[]=[];let design:any=null;let round=0;let score=0;let locked=false;
+ const pick=(bank:any[])=>bank[Math.floor(Math.random()*bank.length)];
+ const choose=()=>rounds.map((bank:any[])=>pick(bank));
+ const setScore=()=>{if(scoreEl)scoreEl.textContent=`${score} points`;};
+ const showFeedback=(ok:boolean,text:string)=>{const f=stage?.querySelector<HTMLElement>('[data-game-feedback]');if(f){f.hidden=false;f.innerHTML=`<strong>${ok?'Mission solved!':'Try this reasoning:'}</strong> ${text}`;}};
+ const prepareNext=()=>{if(next){next.hidden=false;next.textContent=round===2?'Finish mission':'Next round →';}if(progress)progress.style.width=`${((round+1)/3)*100}%`;};
+ const renderChoice=()=>{const q=selected[round];locked=false;if(titleEl)titleEl.textContent=`Round ${round+1} of 3`;if(check)check.hidden=true;if(next)next.hidden=true;if(stage)stage.innerHTML=`<p class="round-label">MISSION ${round+1}</p><h3>${q.prompt}</h3><div class="game-choices">${q.choices.map((c:string,i:number)=>`<button type="button" data-choice="${i}">${c}</button>`).join('')}</div><div class="game-feedback" data-game-feedback hidden></div>`;stage?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach(b=>b.addEventListener('click',()=>answerChoice(Number(b.dataset.choice))));};
+ const answerChoice=(choice:number)=>{if(locked)return;locked=true;const q=selected[round],ok=choice===q.answer;if(ok)score+=100;stage?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach((b,i)=>{b.disabled=true;if(i===q.answer)b.classList.add('correct');else if(i===choice)b.classList.add('incorrect')});showFeedback(ok,q.explain);setScore();prepareNext();};
+ const renderDesign=()=>{locked=false;design=pick(designBanks[variant]);if(titleEl)titleEl.textContent='Round 3 of 3 · Design decision';if(next)next.hidden=true;if(check){check.hidden=false;check.disabled=false;}if(progress)progress.style.width='66.7%';
+  if(variant==='parallelogram'){if(stage)stage.innerHTML=`<p class="round-label">DESIGN MISSION</p><h3>Design a glass panel with exactly ${design.target} m² of area.</h3><p>Adjust base and 90° height. Slant changes the look, but not the target area.</p><div class="design-preview para-preview" data-preview><span>▱</span><strong data-design-area>${design.base*design.height} m²</strong></div><div class="design-controls"><label>Base <input type="range" min="5" max="16" value="${design.base}" data-d-base /><output data-d-base-out>${design.base}</output></label><label>90° height <input type="range" min="4" max="10" value="${design.height}" data-d-height /><output data-d-height-out>${design.height}</output></label><label>Slant <input type="range" min="1" max="5" value="${design.slant}" data-d-slant /><output data-d-slant-out>${design.slant}</output></label></div><div class="game-feedback" data-game-feedback hidden></div>`;wireDesignSliders();}
+  else if(variant==='triangle'){if(stage)stage.innerHTML=`<p class="round-label">DESIGN MISSION</p><h3>Design a pennant with exactly ${design.target} in² of felt.</h3><p>Adjust base and 90° height until base × height ÷ 2 hits the target.</p><div class="design-preview tri-preview"><span>△</span><strong data-design-area>${design.base*design.height/2} in²</strong></div><div class="design-controls two"><label>Base <input type="range" min="6" max="16" value="${design.base}" data-d-base /><output data-d-base-out>${design.base}</output></label><label>90° height <input type="range" min="4" max="12" value="${design.height}" data-d-height /><output data-d-height-out>${design.height}</output></label></div><div class="game-feedback" data-game-feedback hidden></div>`;wireDesignSliders();}
+  else if(variant==='composite'){if(stage)stage.innerHTML=`<p class="round-label">PLANNING DECISION</p><h3>${design.title}: ${design.outer} with ${design.cut}.</h3><p>Choose the decomposition strategy that calculates the remaining area most directly.</p><div class="mini-shape"><div class="notched-shape"></div><strong>Target region = ${design.total} units²</strong></div><div class="strategy-choices">${design.choices.map((c:any,i:number)=>`<button type="button" data-strategy="${i}" data-kind="${i===1?'subtract':i===0?'first':'other'}"><strong>${c[0]}</strong><span>${c[1]}</span></button>`).join('')}</div><div class="game-feedback" data-game-feedback hidden></div>`;if(check)check.hidden=true;stage?.querySelectorAll<HTMLButtonElement>('[data-strategy]').forEach((b,i)=>b.addEventListener('click',()=>answerStrategy(i)));}
+  else {if(stage)stage.innerHTML=`<p class="round-label">DESIGN MISSION</p><h3>Build a storage prism with exactly ${design.target} cm³ of volume.</h3><p>Adjust length, width, and height until the product matches the target.</p><div class="design-preview volume-preview"><span>▰</span><strong data-design-area>${design.length*design.width*design.height} cm³</strong></div><div class="design-controls"><label>Length <input type="range" min="2" max="10" value="${design.length}" data-d-length /><output data-d-length-out>${design.length}</output></label><label>Width <input type="range" min="2" max="6" value="${design.width}" data-d-width /><output data-d-width-out>${design.width}</output></label><label>Height <input type="range" min="2" max="10" value="${design.height}" data-d-vheight /><output data-d-vheight-out>${design.height}</output></label></div><div class="game-feedback" data-game-feedback hidden></div>`;wireDesignSliders();}
+ };
+ const wireDesignSliders=()=>{stage?.querySelectorAll<HTMLInputElement>('input[type="range"]').forEach(el=>el.addEventListener('input',()=>{if(variant==='parallelogram'){const b=stage?.querySelector<HTMLInputElement>('[data-d-base]'),h=stage?.querySelector<HTMLInputElement>('[data-d-height]'),s=stage?.querySelector<HTMLInputElement>('[data-d-slant]');if(b&&h){stage!.querySelector('[data-d-base-out]')!.textContent=b.value;stage!.querySelector('[data-d-height-out]')!.textContent=h.value;if(s)stage!.querySelector('[data-d-slant-out]')!.textContent=s.value;stage!.querySelector('[data-design-area]')!.textContent=`${Number(b.value)*Number(h.value)} m²`;}}else if(variant==='triangle'){const b=stage?.querySelector<HTMLInputElement>('[data-d-base]'),h=stage?.querySelector<HTMLInputElement>('[data-d-height]');if(b&&h){stage!.querySelector('[data-d-base-out]')!.textContent=b.value;stage!.querySelector('[data-d-height-out]')!.textContent=h.value;stage!.querySelector('[data-design-area]')!.textContent=`${Number(b.value)*Number(h.value)/2} in²`;}}else if(variant==='volume'){const l=stage?.querySelector<HTMLInputElement>('[data-d-length]'),w=stage?.querySelector<HTMLInputElement>('[data-d-width]'),h=stage?.querySelector<HTMLInputElement>('[data-d-vheight]');if(l&&w&&h){stage!.querySelector('[data-d-length-out]')!.textContent=l.value;stage!.querySelector('[data-d-width-out]')!.textContent=w.value;stage!.querySelector('[data-d-vheight-out]')!.textContent=h.value;stage!.querySelector('[data-design-area]')!.textContent=`${Number(l.value)*Number(w.value)*Number(h.value)} cm³`;}}}));};
+ const answerDesign=()=>{if(locked)return;let value=0,text='';if(variant==='parallelogram'){const b=Number(stage?.querySelector<HTMLInputElement>('[data-d-base]')?.value),h=Number(stage?.querySelector<HTMLInputElement>('[data-d-height]')?.value);value=b*h;text=`${b} × ${h} = ${value} m². The slant can change without changing area.`;}else if(variant==='triangle'){const b=Number(stage?.querySelector<HTMLInputElement>('[data-d-base]')?.value),h=Number(stage?.querySelector<HTMLInputElement>('[data-d-height]')?.value);value=b*h/2;text=`${b} × ${h} ÷ 2 = ${value} in².`;}else if(variant==='volume'){const l=Number(stage?.querySelector<HTMLInputElement>('[data-d-length]')?.value),w=Number(stage?.querySelector<HTMLInputElement>('[data-d-width]')?.value),h=Number(stage?.querySelector<HTMLInputElement>('[data-d-vheight]')?.value);value=l*w*h;text=`${l} × ${w} × ${h} = ${value} cm³.`;}const ok=Math.abs(value-design.target)<.001;if(ok){locked=true;score+=100;if(check)check.disabled=true;stage?.querySelectorAll<HTMLInputElement>('input').forEach(i=>i.disabled=true);showFeedback(true,`${text} Your design meets the target exactly.`);setScore();prepareNext();}else showFeedback(false,`${text} Adjust the dimensions until you reach ${design.target}.`);};
+ const answerStrategy=(i:number)=>{if(locked)return;const chosen=design.choices[i],correctIndex=design.choices.findIndex((c:any)=>c[0].toLowerCase().includes(design.correct==='two'?'both':'subtract'));const ok=i===correctIndex;if(ok){locked=true;score+=100;stage?.querySelectorAll<HTMLButtonElement>('[data-strategy]').forEach((b,j)=>{b.disabled=true;if(j===correctIndex)b.classList.add('correct');else if(j===i)b.classList.add('incorrect')});showFeedback(true,`${chosen[1]} = ${design.total}. This method uses the outside rectangle and removes only the missing region.`);setScore();prepareNext();}else showFeedback(false,'Look for a method that covers the wanted region exactly once without adding the missing cutout.');};
+ const render=()=>{setScore();if(round<2)renderChoice();else renderDesign();};
+ const finish=()=>{if(stage)stage.innerHTML=`<div class="game-finish"><div class="trophy">🏆</div><p class="eyebrow">MISSION COMPLETE</p><h3>${score===300?'Measurement Designer':'Mission Complete'}</h3><p>You earned ${score} / 300 points. Play again for fresh calculations and a new design target.</p></div>`;if(next)next.hidden=true;if(check)check.hidden=true;if(progress)progress.style.width='100%';};
+ const reset=()=>{selected=choose();round=0;score=0;locked=false;if(check){check.hidden=true;check.disabled=false;}render();};
+ check?.addEventListener('click',answerDesign);next?.addEventListener('click',()=>{if(round===2){finish();return;}round++;render();});restart?.addEventListener('click',reset);reset();
+});
+</script>
+
+<style>
+.measurement-game{border:1px solid #d8e0ea;border-radius:18px;background:#fff;padding:1.1rem}.game-top{display:flex;justify-content:space-between;gap:1rem;align-items:start}.game-top h3{margin:.15rem 0}.game-top>span{font-weight:900;padding:.45rem .65rem;border-radius:10px;background:var(--course-soft)}.progress{height:9px;border-radius:99px;background:#e9eef5;overflow:hidden;margin:.8rem 0}.progress span{display:block;height:100%;width:0;background:var(--course);transition:width .25s}.round-label{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#64748b}.game-choices,.strategy-choices{display:grid;gap:.55rem;margin:1rem 0}.game-choices button,.strategy-choices button{border:1px solid #dbe3ec;border-radius:12px;padding:.75rem;text-align:left;background:#fff;font-weight:800;cursor:pointer}.strategy-choices button{display:grid;gap:.2rem}.strategy-choices button span{color:#64748b}.game-choices button.correct,.strategy-choices button.correct{background:#f0fdf4;border-color:#22c55e}.game-choices button.incorrect,.strategy-choices button.incorrect{background:#fef2f2;border-color:#ef4444}.game-feedback{padding:.75rem .85rem;border-radius:11px;background:#f7f9fc;margin-top:.8rem}.game-actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem}.game-actions button{border:0;border-radius:11px;padding:.7rem .95rem;background:var(--course);color:#fff;font-weight:850;cursor:pointer}.game-actions .soft{background:#eef3f9;color:#25364f}.game-actions button:disabled{opacity:.5}.design-preview{display:flex;align-items:center;justify-content:center;gap:1rem;padding:1rem;border-radius:14px;background:#f7fafc;margin:.9rem 0}.design-preview span{font-size:3rem}.design-preview strong{font-size:1.35rem}.design-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.65rem}.design-controls.two{grid-template-columns:repeat(2,minmax(0,1fr))}.design-controls label{display:grid;gap:.3rem;padding:.7rem;border-radius:11px;background:#f7f9fc;font-weight:850}.design-controls output{font-weight:900;color:var(--course)}.mini-shape{display:flex;align-items:center;justify-content:center;gap:1rem;margin:.9rem 0;padding:1rem;border-radius:14px;background:#f7fafc}.notched-shape{width:150px;height:95px;background:var(--course-soft);border:3px solid var(--course);clip-path:polygon(0 0,100% 0,100% 55%,65% 55%,65% 100%,0 100%)}.game-finish{text-align:center;padding:1.1rem}.trophy{font-size:2.4rem}@media(max-width:650px){.game-top,.design-controls,.design-controls.two{display:grid;grid-template-columns:1fr}.game-top>span{justify-self:start}.mini-shape{display:grid;text-align:center}.notched-shape{margin:auto}}
+</style>
