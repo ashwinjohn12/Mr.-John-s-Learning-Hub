@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import LearningSection from '../../../../components/LearningSection.astro';
+import VocabularyExplorer from '../../../../components/VocabularyExplorer.astro';
+import Unit8BalancedPractice from '../../../../components/Unit8BalancedPractice.astro';
+import Unit8BalancedCheck from '../../../../components/Unit8BalancedCheck.astro';
+import Unit8MathArcade from '../../../../components/Unit8MathArcade.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit8Content } from '../../../../data/unit8Content';
+const course=findCourse('grade-6-math')!;const unit=course.units.find(item=>item.slug==='patterns')!;const base=import.meta.env.BASE_URL;
+const contentBySlug={
+ 'investigating-functions-tables-graphs':unit8Content['grade-6-math/patterns/investigating-functions-tables-graphs'],
+ 'representing-functions':unit8Content['grade-6-math/patterns/representing-functions'],
+ 'solving-problems-functions':unit8Content['grade-6-math/patterns/solving-problems-functions']
+};
+const lessonData=unit.topics.map(topic=>({topic,content:contentBySlug[topic.slug as keyof typeof contentBySlug]}));
+const practiceGroups=lessonData.map(({topic,content})=>({label:`Lesson ${topic.number} · ${topic.title}`,questions:content.questions,count:3}));
+const checkGroups=lessonData.map(({topic,content})=>({label:`Lesson ${topic.number} · ${topic.title}`,questions:content.checkQuestions,count:3}));
+const reviewWords=[
+ {term:'Function',definition:'A relationship in which each input has exactly one output.',example:'A rule such as y=2x+1 is a function.'},
+ {term:'Independent variable',definition:'The input value selected or known first.',example:'Usually represented by x.'},
+ {term:'Dependent variable',definition:'The output value determined from the input.',example:'Usually represented by y.'},
+ {term:'Table of values',definition:'A table listing corresponding input and output values.',example:'Each row can become one ordered pair.'},
+ {term:'Ordered pair',definition:'A pair written (x,y) that records an input and its output.',example:'(3,7).'},
+ {term:'Graph',definition:'A visual display of ordered pairs on a Cartesian plane.',example:'Inputs are x-coordinates and outputs are y-coordinates.'},
+ {term:'Algebraic equation',definition:'An equation that describes a function rule.',example:'y=4x−1.'},
+ {term:'Constant change',definition:'The fixed change in outputs as consecutive inputs increase by 1.',example:'5,9,13 has constant change 4.'},
+ {term:'Verify',definition:'Check a proposed input or output in the original function.',example:'Substitute x back into the rule.'}
+];
+---
+<BaseLayout title="Unit 8 Review & Math Arcade | Grade 6 Math" description="Review functions, representations, and function problem solving." themeColor={course.color}>
+<div class="page-wrap" style={`--course:${course.color};--course-soft:${course.accent}`}>
+ <Breadcrumbs items={[{label:'Home',href:base},{label:'Grade 6 Math',href:`${base}courses/grade-6-math/`},{label:'Patterns',href:`${base}courses/grade-6-math/patterns/`},{label:'Unit Review'}]}/>
+ <header class="review-hero"><p class="eyebrow">UNIT 8 · PATTERNS</p><h1>Functions Review<br/><span>& Math Arcade</span></h1><p>Connect function rules, variables, tables, ordered pairs, graphs, equations, predictions, and backward reasoning.</p></header>
+
+ <LearningSection id="overview" eyebrow="START SMART" title="What should I review?" icon="🎯" tone="idea">
+  <p>Use the checklist to target the lesson you need. One unchecked box does not mean you need to restart the whole unit.</p>
+  <div class="readiness-grid">
+   <article><p class="eyebrow">8.1 · FUNCTION RELATIONSHIPS</p><label><input type="checkbox"/> I can identify independent and dependent variables.</label><label><input type="checkbox"/> I can decide whether a relationship is a function.</label><label><input type="checkbox"/> I can discover and test an input-output rule.</label></article>
+   <article><p class="eyebrow">8.2 · REPRESENTATIONS</p><label><input type="checkbox"/> I can move between tables, pairs, graphs, and equations.</label><label><input type="checkbox"/> I keep x/input and y/output in the correct order.</label><label><input type="checkbox"/> I can recognize different views of the same function.</label></article>
+   <article><p class="eyebrow">8.3 · SOLVING</p><label><input type="checkbox"/> I can calculate outputs from inputs.</label><label><input type="checkbox"/> I can work backward from outputs to inputs.</label><label><input type="checkbox"/> I can verify and interpret a function solution.</label></article>
+  </div>
+ </LearningSection>
+
+ <LearningSection id="lesson-map" eyebrow="TARGET YOUR REVIEW" title="Unit 8 lesson map" icon="🗺️" tone="learn">
+  <div class="lesson-map">{lessonData.map(({topic,content})=><a href={`${base}courses/grade-6-math/patterns/${topic.slug}/`}><span>{topic.number}</span><div><strong>{topic.title}</strong><small>{content.bigIdea}</small></div><b>Review →</b></a>)}</div>
+  <div class="unit-story"><strong>The Unit 8 story</strong><span>discover the relationship → represent it in multiple ways → use it forward and backward</span></div>
+ </LearningSection>
+
+ <LearningSection id="vocabulary" eyebrow="LANGUAGE CHECK" title="Mixed Unit 8 vocabulary" icon="🧠" tone="vocab"><VocabularyExplorer words={reviewWords}/></LearningSection>
+
+ <LearningSection id="practice" eyebrow="PRACTISE WITH SUPPORT" title="Balanced Unit 8 practice" icon="✏️" tone="practice"><p>Complete a finite supported set: exactly three questions from each lesson. Use hints and explanations to repair gaps before the independent check.</p><Unit8BalancedPractice groups={practiceGroups}/></LearningSection>
+
+ <LearningSection id="check" eyebrow="INDEPENDENT UNIT CHECK" title="Can you connect all three lessons?" icon="✅" tone="review"><p>This check is balanced 3 + 3 + 3. There are no hints, but every answer still includes an explanation after you commit.</p><Unit8BalancedCheck groups={checkGroups}/></LearningSection>
+
+ <LearningSection id="arcade" eyebrow="MATH ARCADE" title="Function Lab Arcade" icon="🎮" tone="play"><p>Every quest selects exactly two free-response missions from each lesson. No answer choices—use the relationship and enter the number.</p><Unit8MathArcade/></LearningSection>
+
+ <LearningSection id="reasoning" eyebrow="PAT-STYLE REASONING" title="Explain the relationship" icon="🧩" tone="learn">
+  <div class="reasoning-grid">
+   <article><p class="eyebrow">8.1</p><h3>A table repeats output 7 for inputs 2 and 4. Is that enough to make it not a function?</h3><details><summary>Strong answer</summary><p>No. Different inputs may share the same output. It only fails to be a function if one input has two different outputs.</p></details></article>
+   <article><p class="eyebrow">8.2</p><h3>A graph shows (4,8), but the equation is y=2x+1. Explain the mismatch.</h3><details><summary>Strong answer</summary><p>Substituting x=4 gives y=9, so the plotted point should be (4,9). The graph and equation do not currently represent the same function.</p></details></article>
+   <article><p class="eyebrow">8.3</p><h3>A fare follows y=3x+5. Explain how to find x if the fare is $32.</h3><details><summary>Strong answer</summary><p>Work backward: 32−5=27, then 27÷3=9. Verify by substituting x=9: 3(9)+5=32.</p></details></article>
+  </div>
+  <article class="synthesis"><p class="eyebrow">WHOLE-UNIT SYNTHESIS</p><h3>One function: y = 4x + 3</h3><ol><li>Explain which variable is independent and dependent.</li><li>Make three input-output pairs.</li><li>Describe how those pairs would appear in a table and graph.</li><li>Find y when x=6.</li><li>Find x when y=35 and verify it.</li></ol><details><summary>Show a strong solution</summary><p>x is the independent/input variable and y is the dependent/output variable. Example pairs are (0,3), (1,7), and (2,11). The table lists those pairs and the graph plots those same coordinates. For x=6, y=27. For y=35: 35=4x+3, so 32=4x and x=8. Check: 4(8)+3=35.</p></details></article>
+ </LearningSection>
+
+ <LearningSection id="finish" eyebrow="READY FOR WHAT'S NEXT?" title="Finish Unit 8" icon="🏁" tone="review">
+  <p>If one lesson is still shaky, use the lesson map rather than restarting the unit. If all three feel solid, Unit 9 Statistics is the final Grade 6 unit.</p>
+  <div class="final-links">{lessonData.map(({topic})=><a class="button secondary" href={`${base}courses/grade-6-math/patterns/${topic.slug}/`}>Review {topic.number}</a>)}<a class="button" href={`${base}courses/grade-6-math/statistics/`}>Open Unit 9 →</a></div>
+ </LearningSection>
+</div>
+</BaseLayout>
+<style>
+.review-hero{padding:2rem 0 1rem}.review-hero h1{font-size:clamp(2.4rem,7vw,5rem);line-height:.94;margin:.35rem 0}.review-hero h1 span{color:var(--course)}.review-hero>p:last-child{max-width:760px;font-size:1.08rem;color:#526174}.readiness-grid,.reasoning-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}.readiness-grid article,.reasoning-grid article,.synthesis{border:1px solid #dfe5ee;border-radius:15px;padding:1rem;background:#fff}.readiness-grid label{display:block;margin:.55rem 0}.lesson-map{display:grid;gap:.65rem}.lesson-map a{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;padding:.9rem;border:1px solid #dfe5ee;border-radius:13px;text-decoration:none;color:inherit;background:#fff}.lesson-map a>span{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--course-soft);font-weight:900}.lesson-map small{display:block;margin-top:.2rem;color:#617086}.lesson-map b{color:var(--course)}.unit-story{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem;padding:.8rem;border-radius:11px;background:var(--course-soft)}.synthesis{margin-top:1rem;background:#f8fafc}.synthesis ol{padding-left:1.2rem}.synthesis li{margin:.45rem 0}.final-links{display:flex;gap:.6rem;flex-wrap:wrap}.final-links a{text-decoration:none}@media(max-width:760px){.readiness-grid,.reasoning-grid{grid-template-columns:1fr}.lesson-map a{grid-template-columns:auto 1fr}.lesson-map b{grid-column:2}.review-hero{padding-top:1rem}}
+</style>

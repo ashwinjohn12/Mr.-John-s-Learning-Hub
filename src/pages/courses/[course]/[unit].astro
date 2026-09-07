@@ -6,6 +6,7 @@ export function getStaticPaths() { return courses.flatMap((course) => course.uni
 interface Props { course: Course; unit: Unit }
 const { course, unit } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const patternsLive = course.slug === 'grade-6-math' && unit.slug === 'patterns';
 const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-negative-numbers'
   ? { title:'Unit 1 Review & Math Arcade', summary:'Mix all five skills, take a randomized unit check, and complete free-response integer missions.' }
   : course.slug === 'grade-6-math' && unit.slug === 'coordinates-design'
@@ -20,7 +21,9 @@ const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-neg
             ? { title:'Unit 6 Review & Math Arcade', summary:'Connect simplifying expressions, balance models, inverse operations, and verification, then complete the Algebra Lab Escape.' }
             : course.slug === 'grade-6-math' && unit.slug === 'measurement'
               ? { title:'Unit 7 Review & Math Arcade', summary:'Connect parallelogram and triangle area, composite shapes, and volume, take a balanced Unit Check, and complete the Measurement Design Arcade.' }
-              : null;
+              : course.slug === 'grade-6-math' && unit.slug === 'patterns'
+                ? { title:'Unit 8 Review & Math Arcade', summary:'Connect function rules, tables, ordered pairs, graphs, equations, predictions, and backward reasoning, then complete the Function Lab Arcade.' }
+                : null;
 ---
 <BaseLayout title={`${unit.title} | ${course.grade} ${course.shortSubject}`} description={unit.description} themeColor={course.color}>
   <div class="page-wrap" style={`--course:${course.color};--course-soft:${course.accent}`}>
@@ -32,11 +35,14 @@ const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-neg
     {unit.topics.length ? (
       <section class="topic-list">
         <p class="eyebrow">TOPICS</p>
-        {unit.topics.map((topic) => (
-          <a class={`topic-row ${topic.status === 'planned' ? 'is-planned' : ''}`} href={topic.status === 'ready' ? `${base}courses/${course.slug}/${unit.slug}/${topic.slug}/` : undefined} aria-disabled={topic.status === 'planned' ? 'true' : undefined}>
-            <span>{topic.number}</span><span><strong>{topic.title}</strong><small>{topic.summary}</small></span><em>{topic.status === 'ready' ? 'Open topic' : 'Coming next'}</em>
+        {unit.topics.map((topic) => {
+          const topicLive = topic.status === 'ready' || patternsLive;
+          return (
+          <a class={`topic-row ${!topicLive ? 'is-planned' : ''}`} href={topicLive ? `${base}courses/${course.slug}/${unit.slug}/${topic.slug}/` : undefined} aria-disabled={!topicLive ? 'true' : undefined}>
+            <span>{topic.number}</span><span><strong>{topic.title}</strong><small>{topic.summary}</small></span><em>{topicLive ? 'Open topic' : 'Coming next'}</em>
           </a>
-        ))}
+          );
+        })}
         {reviewInfo && (
           <a id="unit-review-link" class="topic-row review-row" href={`${base}courses/${course.slug}/${unit.slug}/unit-review/`} aria-label={`${reviewInfo.title} — open unit review`}>
             <span>★</span><span><strong>{reviewInfo.title}</strong><small>{reviewInfo.summary}</small></span><em>Review unit</em>

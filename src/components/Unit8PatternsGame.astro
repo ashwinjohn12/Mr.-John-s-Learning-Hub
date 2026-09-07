@@ -1,0 +1,71 @@
+---
+interface Props { variant:'investigate'|'represent'|'solve' }
+const { variant }=Astro.props;
+const title=variant==='investigate'?'Function Machine Inspector':variant==='represent'?'Representation Relay':'Function Detective Mission';
+---
+<div class="patterns-game" data-unit8-game={variant}>
+ <div class="game-top"><div><p class="eyebrow">{title.toUpperCase()}</p><h3 data-title>Round 1 of 3</h3></div><span data-score>0 points</span></div>
+ <div class="progress"><span data-progress></span></div>
+ <div data-stage aria-live="polite"></div>
+ <div class="actions"><button type="button" data-next hidden>Next round →</button><button type="button" class="soft" data-restart>Play again</button></div>
+</div>
+<script>
+const quick:any={
+ investigate:[
+  [
+   {prompt:'A plant height is recorded every week. Which is the independent variable?',choices:['plant height','week number','both','neither'],answer:1,explain:'Week is the input; plant height depends on time.'},
+   {prompt:'A game score changes with the number of targets hit. Which is dependent?',choices:['targets hit','score','player name','round number always'],answer:1,explain:'The score depends on how many targets are hit.'},
+   {prompt:'In input → rule → output, which part is the dependent variable?',choices:['input','rule','output','all three'],answer:2,explain:'The output depends on the input and rule.'}
+  ],
+  [
+   {prompt:'Which table breaks the function rule?',choices:['1→4, 2→6, 3→8','1→5, 2→5, 3→7','2→6, 2→9, 3→10'],answer:2,explain:'Input 2 has two different outputs.'},
+   {prompt:'Is 1→3, 2→5, 1→3, 3→5 a function?',choices:['Yes','No','Only if outputs are unique'],answer:0,explain:'Repeated input 1 keeps the same output. Repeated outputs are allowed.'},
+   {prompt:'A machine always outputs 7. Is it a function?',choices:['Yes','No','Only for input 7'],answer:0,explain:'Every input still has exactly one output: 7.'}
+  ]
+ ],
+ represent:[
+  [
+   {prompt:'Table row x=4, y=11 becomes which ordered pair?',choices:['(11,4)','(4,11)','(4,4)'],answer:1,explain:'Ordered pairs are written (x,y).'},
+   {prompt:'Which axis usually represents the independent variable?',choices:['x-axis','y-axis','either must be dependent'],answer:0,explain:'The independent variable is usually x.'},
+   {prompt:'Which equation means “triple input, then add 1”?',choices:['y=3x+1','y=x+3','y=3(x+1)'],answer:0,explain:'Triple x gives 3x, then add 1.'}
+  ],
+  [
+   {prompt:'Which pair belongs to y=2x+3?',choices:['(4,8)','(4,11)','(3,4)'],answer:1,explain:'2(4)+3=11.'},
+   {prompt:'Pairs (1,5),(2,9),(3,13) match...',choices:['y=4x+1','y=5x','y=3x+2'],answer:0,explain:'4x+1 gives 5,9,13.'},
+   {prompt:'A graph point (3,10) is checked against y=3x+1. What happens?',choices:['It matches','It should be (3,9)','It should be (10,3)'],answer:0,explain:'3(3)+1=10, so the point matches.'}
+  ]
+ ],
+ solve:[
+  [
+   {prompt:'For y=3x+2, find y when x=5.',choices:['15','17','18'],answer:1,explain:'3(5)+2=17.'},
+   {prompt:'For y=4x+1, find y when x=6.',choices:['24','25','28'],answer:1,explain:'4(6)+1=25.'},
+   {prompt:'For y=2x+7, x=4 gives...',choices:['11','15','18'],answer:1,explain:'2(4)+7=15.'}
+  ],
+  [
+   {prompt:'For y=5x+2, y=32. Find x.',choices:['5','6','7'],answer:1,explain:'32−2=30; 30÷5=6.'},
+   {prompt:'For y=3x+5, y=26. Find x.',choices:['6','7','8'],answer:1,explain:'26−5=21; 21÷3=7.'},
+   {prompt:'For y=4x+3, y=35. Find x.',choices:['7','8','9'],answer:1,explain:'35−3=32; 32÷4=8.'}
+  ]
+ ]
+};
+document.querySelectorAll<HTMLElement>('[data-unit8-game]').forEach(game=>{
+ const variant=game.dataset.unit8Game||'investigate';const stage=game.querySelector<HTMLElement>('[data-stage]');const title=game.querySelector('[data-title]');const scoreEl=game.querySelector('[data-score]');const progress=game.querySelector<HTMLElement>('[data-progress]');const next=game.querySelector<HTMLButtonElement>('[data-next]');const restart=game.querySelector<HTMLButtonElement>('[data-restart]');let round=0,score=0,selected:any[]=[],locked=false;
+ const choose=()=>quick[variant].map((bank:any[])=>bank[Math.floor(Math.random()*bank.length)]);
+ const setTop=()=>{if(title)title.textContent=`Round ${round+1} of 3`;if(scoreEl)scoreEl.textContent=`${score} points`;if(progress)progress.style.width=`${(round/3)*100}%`;if(next)next.hidden=true;};
+ const renderQuick=()=>{setTop();locked=false;const q=selected[round];if(stage)stage.innerHTML=`<p class="round-label">MISSION ${round+1}</p><h3>${q.prompt}</h3><div class="choices">${q.choices.map((c:string,i:number)=>`<button type="button" data-choice="${i}">${c}</button>`).join('')}</div><div class="feedback" data-feedback hidden></div>`;stage?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach(b=>b.addEventListener('click',()=>answerQuick(Number(b.dataset.choice))));};
+ const answerQuick=(choice:number)=>{if(locked)return;locked=true;const q=selected[round],ok=choice===q.answer;if(ok)score+=100;stage?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach((b,i)=>{b.disabled=true;if(i===q.answer)b.classList.add('correct');else if(i===choice)b.classList.add('incorrect')});const f=stage?.querySelector<HTMLElement>('[data-feedback]');if(f){f.hidden=false;f.innerHTML=`<strong>${ok?'Mission solved!':'Use this clue:'}</strong> ${q.explain}`;}if(scoreEl)scoreEl.textContent=`${score} points`;if(progress)progress.style.width=`${((round+1)/3)*100}%`;if(next){next.hidden=false;next.textContent='Next round →';}};
+ const renderDesign=()=>{setTop();locked=false;if(!stage)return;if(variant==='investigate'){stage.innerHTML=`<p class="round-label">DESIGN MISSION</p><h3>Repair this non-function: 2→5, 3→7, 2→9.</h3><p>Choose what the second output for input 2 should become.</p><div class="choices"><button data-design="5">Change 9 to 5</button><button data-design="7">Change 9 to 7</button><button data-design="9">Leave it at 9</button></div><div class="feedback" data-feedback hidden></div>`;}else if(variant==='represent'){stage.innerHTML=`<p class="round-label">BUILD MISSION</p><h3>The rule is y = 3x + 2. Enter the missing output for x = 6.</h3><label class="answer-box">y = <input type="number" data-design-input/></label><button class="submit-design" data-design-submit>Check representation</button><div class="feedback" data-feedback hidden></div>`;}else{stage.innerHTML=`<p class="round-label">DETECTIVE MISSION</p><h3>A taxi costs $3 per kilometre plus $5. The fare was $32. How many kilometres?</h3><label class="answer-box">x = <input type="number" data-design-input/></label><button class="submit-design" data-design-submit>Check & verify</button><div class="feedback" data-feedback hidden></div>`;}
+  if(variant==='investigate')stage.querySelectorAll<HTMLButtonElement>('[data-design]').forEach(b=>b.addEventListener('click',()=>finishDesign(Number(b.dataset.design)===5,'Input 2 must have one consistent output. Changing the second output to 5 makes both 2s agree.')));
+  else stage.querySelector<HTMLButtonElement>('[data-design-submit]')?.addEventListener('click',()=>{const val=Number(stage.querySelector<HTMLInputElement>('[data-design-input]')?.value);const target=variant==='represent'?20:9;finishDesign(val===target,variant==='represent'?'3(6)+2=20, so the pair is (6,20) in every representation.':'32−5=27 and 27÷3=9 km. Check: 3(9)+5=32.');});
+ };
+ const finishDesign=(ok:boolean,explain:string)=>{if(locked)return;locked=true;if(ok)score+=100;const f=stage?.querySelector<HTMLElement>('[data-feedback]');if(f){f.hidden=false;f.innerHTML=`<strong>${ok?'Design works!':'Not yet.'}</strong> ${explain}`;}stage?.querySelectorAll<HTMLButtonElement>('button').forEach(b=>b.disabled=true);stage?.querySelectorAll<HTMLInputElement>('input').forEach(i=>i.disabled=true);if(scoreEl)scoreEl.textContent=`${score} points`;if(progress)progress.style.width='100%';if(next){next.hidden=false;next.textContent='Finish mission';}};
+ const finish=()=>{if(stage)stage.innerHTML=`<div class="finish"><div class="trophy">🏆</div><p class="eyebrow">MISSION COMPLETE</p><h3>${score===300?'Function Master':'Function Explorer'}</h3><p>You earned ${score} / 300 points. Play again for fresh quick rounds.</p></div>`;if(next)next.hidden=true;if(progress)progress.style.width='100%';};
+ const render=()=>round<2?renderQuick():renderDesign();
+ const reset=()=>{selected=choose();round=0;score=0;render();};
+ next?.addEventListener('click',()=>{if(round===2){finish();return;}round++;render();});
+ restart?.addEventListener('click',reset);reset();
+});
+</script>
+<style>
+.patterns-game{border:1px solid #d8e0ea;border-radius:18px;background:#fff;padding:1rem}.game-top{display:flex;justify-content:space-between;gap:1rem;align-items:start}.game-top h3{margin:.15rem 0}.game-top>span{font-weight:900;padding:.45rem .65rem;border-radius:10px;background:var(--course-soft)}.progress{height:9px;border-radius:99px;background:#e9eef5;overflow:hidden;margin:.8rem 0}.progress span{display:block;height:100%;width:0;background:var(--course);transition:width .25s}.round-label{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#64748b}.choices{display:grid;gap:.55rem;margin:1rem 0}.choices button,.submit-design{border:1px solid #dbe3ec;border-radius:12px;padding:.75rem;text-align:left;background:#fff;font-weight:800;cursor:pointer}.choices button.correct{background:#f0fdf4;border-color:#22c55e}.choices button.incorrect{background:#fef2f2;border-color:#ef4444}.feedback{padding:.75rem .85rem;border-radius:11px;background:#f7f9fc;margin-top:.8rem}.actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem}.actions button,.submit-design{border:0;border-radius:11px;padding:.7rem .95rem;background:var(--course);color:#fff;font-weight:850;cursor:pointer}.actions .soft{background:#eef3f9;color:#25364f}.answer-box{display:flex;gap:.5rem;align-items:center;font-weight:900;margin:1rem 0}.answer-box input{max-width:120px;border:2px solid #ccd6e2;border-radius:10px;padding:.65rem;font:inherit}.finish{text-align:center;padding:1.1rem}.trophy{font-size:2.4rem}@media(max-width:650px){.game-top{display:grid}.game-top>span{justify-self:start}}
+</style>

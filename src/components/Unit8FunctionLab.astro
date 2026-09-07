@@ -1,0 +1,79 @@
+---
+interface Props { variant:'investigate'|'represent'|'solve' }
+const { variant }=Astro.props;
+---
+<div class="function-lab" data-unit8-lab={variant}>
+ {variant==='investigate'&&<>
+  <div class="lab-head"><div><p class="eyebrow">MYSTERY FUNCTION MACHINE</p><h3>Test inputs. Collect evidence. Discover the rule.</h3></div><strong data-mystery-count>0 tests</strong></div>
+  <div class="machine-flow"><label>INPUT <input type="number" value="2" data-mystery-input/></label><div class="machine-box"><span>?</span><strong>SECRET RULE</strong></div><div class="output-card"><small>OUTPUT</small><strong data-mystery-output>?</strong></div></div>
+  <div class="lab-actions"><button type="button" data-run-machine>Run machine →</button><button type="button" class="soft" data-reveal-rule>Reveal rule</button><button type="button" class="soft" data-new-machine>New mystery</button></div>
+  <div class="evidence-grid"><div><p class="mini-label">EVIDENCE TABLE</p><table><thead><tr><th>Input x</th><th>Output y</th></tr></thead><tbody data-evidence></tbody></table></div><div><p class="mini-label">YOUR RULE TEST</p><label>Predict output for input 6 <input type="number" data-predict-output/></label><button type="button" class="small-btn" data-check-prediction>Check prediction</button><p class="feedback" data-predict-feedback>Run at least two different inputs before you decide.</p></div></div>
+  <div class="function-check"><p class="mini-label">FUNCTION OR NOT?</p><div class="mini-tables"><button type="button" data-function-case="yes"><strong>Table A</strong><span>1→5 · 2→7 · 3→7 · 1→5</span></button><button type="button" data-function-case="no"><strong>Table B</strong><span>1→5 · 2→7 · 1→9 · 3→11</span></button></div><p class="feedback" data-function-feedback>Choose a table to explain whether it is a function.</p></div>
+ </>}
+
+ {variant==='represent'&&<>
+  <div class="lab-head"><div><p class="eyebrow">FUNCTION REPRESENTATION STUDIO</p><h3>One relationship. Four connected views.</h3></div><label class="rule-picker">Rule <select data-rule-select><option value="2,1">y = 2x + 1</option><option value="3,2">y = 3x + 2</option><option value="4,-1">y = 4x − 1</option><option value="1,5">y = x + 5</option></select></label></div>
+  <div class="representation-studio">
+   <article><p class="mini-label">TABLE OF VALUES</p><table><thead><tr><th>x</th><th>y</th></tr></thead><tbody data-rep-table></tbody></table></article>
+   <article><p class="mini-label">ORDERED PAIRS</p><div class="pair-list" data-pairs></div></article>
+   <article class="graph-card"><p class="mini-label">CARTESIAN GRAPH</p><svg viewBox="0 0 440 300" role="img" aria-label="Function graph"><g data-graph-grid></g><line class="axis" x1="50" y1="250" x2="410" y2="250"/><line class="axis" x1="50" y1="270" x2="50" y2="25"/><g data-graph-points></g></svg></article>
+   <article class="equation-card"><p class="mini-label">ALGEBRAIC EQUATION</p><strong data-equation>y = 2x + 1</strong><p>Use the equation to generate every pair.</p></article>
+  </div>
+  <div class="predict-strip"><label>Predict y when x = <input type="number" value="5" data-rep-input/></label><label>Your y <input type="number" data-rep-answer/></label><button type="button" data-rep-check>Check with all four views</button></div>
+  <p class="feedback" data-rep-feedback>Change the rule and watch every representation update together.</p>
+ </>}
+
+ {variant==='solve'&&<>
+  <div class="lab-head"><div><p class="eyebrow">FUNCTION DETECTIVE</p><h3>Travel forward to outputs—or work backward to inputs.</h3></div><label class="rule-picker">Situation <select data-scenario><option value="rides">Fair rides</option><option value="taxi">Taxi trip</option><option value="savings">Savings plan</option></select></label></div>
+  <div class="scenario-card"><p class="mini-label" data-scenario-label>FAIR RIDES</p><h3 data-scenario-story>$5 per ride plus a $2 entrance fee.</h3><div class="equation-banner" data-scenario-equation>y = 5x + 2</div><div class="variable-key"><span data-x-key>x = number of rides</span><span data-y-key>y = total cost ($)</span></div></div>
+  <div class="solve-grid">
+   <article><p class="mini-label">FORWARD · INPUT → OUTPUT</p><label data-forward-label>Number of rides x <input type="number" value="4" data-forward-input/></label><button type="button" data-forward-run>Find output →</button><p class="feedback" data-forward-feedback>Substitute the input into the function.</p></article>
+   <article><p class="mini-label">BACKWARD · OUTPUT → INPUT</p><label data-backward-label>Total cost y <input type="number" value="27" data-backward-output/></label><button type="button" data-backward-run>Find input ←</button><p class="feedback" data-backward-feedback>Use inverse operations, then verify.</p></article>
+  </div>
+  <div class="detective-table"><p class="mini-label">MATCHING PAIRS</p><table><thead><tr><th>x</th><th>y</th></tr></thead><tbody data-solve-table></tbody></table></div>
+ </>}
+</div>
+
+<script>
+const labs=document.querySelectorAll<HTMLElement>('[data-unit8-lab]');
+labs.forEach(lab=>{
+ const variant=lab.dataset.unit8Lab;
+ const q=(s:string)=>lab.querySelector<any>(s);
+ if(variant==='investigate'){
+  const rules=[{a:2,b:3,label:'multiply by 2, then add 3'},{a:3,b:1,label:'multiply by 3, then add 1'},{a:1,b:5,label:'add 5'},{a:4,b:-2,label:'multiply by 4, then subtract 2'},{a:0,b:3,label:'always output 3'}];
+  let rule=rules[Math.floor(Math.random()*rules.length)],tests:{x:number,y:number}[]=[];
+  const renderEvidence=()=>{q('[data-evidence]').innerHTML=tests.map(t=>`<tr><td>${t.x}</td><td>${t.y}</td></tr>`).join('');q('[data-mystery-count]').textContent=`${tests.length} test${tests.length===1?'':'s'}`;};
+  const reset=()=>{rule=rules[Math.floor(Math.random()*rules.length)];tests=[];q('[data-mystery-output]').textContent='?';q('[data-predict-output]').value='';q('[data-predict-feedback]').textContent='Run at least two different inputs before you decide.';q('[data-reveal-rule]').textContent='Reveal rule';renderEvidence();};
+  q('[data-run-machine]').addEventListener('click',()=>{const x=Number(q('[data-mystery-input]').value),y=rule.a*x+rule.b;q('[data-mystery-output]').textContent=y;tests.push({x,y});renderEvidence();});
+  q('[data-reveal-rule]').addEventListener('click',()=>{q('[data-reveal-rule]').textContent=`Rule: ${rule.label}`;});
+  q('[data-new-machine]').addEventListener('click',reset);
+  q('[data-check-prediction]').addEventListener('click',()=>{const ans=Number(q('[data-predict-output]').value),actual=rule.a*6+rule.b;q('[data-predict-feedback]').innerHTML=ans===actual?`<strong>Matches!</strong> For input 6, the output is ${actual}. Your rule evidence is consistent.`:`<strong>Not yet.</strong> Input 6 should output ${actual}. Use your evidence table and test another input.`;});
+  lab.querySelectorAll<HTMLButtonElement>('[data-function-case]').forEach(btn=>btn.addEventListener('click',()=>{const yes=btn.dataset.functionCase==='yes';q('[data-function-feedback]').innerHTML=yes?'<strong>Table A is a function.</strong> Input 1 repeats, but it keeps output 5. Different inputs 2 and 3 may both output 7.':'<strong>Table B is not a function.</strong> Input 1 has two different outputs: 5 and 9.';}));
+  reset();
+ }
+ if(variant==='represent'){
+  const select=q('[data-rule-select]');
+  const draw=()=>{const [a,b]=select.value.split(',').map(Number);const pts=Array.from({length:5},(_,x)=>({x,y:a*x+b}));q('[data-rep-table]').innerHTML=pts.map(p=>`<tr><td>${p.x}</td><td>${p.y}</td></tr>`).join('');q('[data-pairs]').innerHTML=pts.map(p=>`<span>(${p.x}, ${p.y})</span>`).join('');q('[data-equation]').textContent=`y = ${a===1?'':a}x ${b<0?'−':'+'} ${Math.abs(b)}`.replace('+ 0','').replace('− 0','');const gp=q('[data-graph-points]');gp.innerHTML=pts.map(p=>`<circle cx="${50+p.x*70}" cy="${250-p.y*12}" r="7"/><text x="${58+p.x*70}" y="${246-p.y*12}">(${p.x},${p.y})</text>`).join('');};
+  q('[data-graph-grid]').innerHTML=Array.from({length:6},(_,i)=>`<line x1="${50+i*70}" y1="25" x2="${50+i*70}" y2="250"/><text x="${46+i*70}" y="268">${i}</text>`).join('')+Array.from({length:11},(_,i)=>`<line x1="50" y1="${250-i*20}" x2="410" y2="${250-i*20}"/>`).join('');
+  select.addEventListener('change',()=>{draw();q('[data-rep-feedback]').textContent='New rule loaded. The table, pairs, graph, and equation changed together.';});
+  q('[data-rep-check]').addEventListener('click',()=>{const [a,b]=select.value.split(',').map(Number),x=Number(q('[data-rep-input]').value),ans=Number(q('[data-rep-answer]').value),y=a*x+b;q('[data-rep-feedback]').innerHTML=ans===y?`<strong>Correct.</strong> The equation gives y=${y}, so the matching pair is (${x},${y}).`:`<strong>Check the connection.</strong> For x=${x}, the rule gives y=${y}. Look for that same pair in every representation.`;});
+  draw();
+ }
+ if(variant==='solve'){
+  const scenarios:any={
+   rides:{label:'FAIR RIDES',story:'$5 per ride plus a $2 entrance fee.',a:5,b:2,x:'number of rides',y:'total cost ($)',forward:4,backward:27},
+   taxi:{label:'TAXI TRIP',story:'$3 per kilometre plus a $5 starting fee.',a:3,b:5,x:'kilometres travelled',y:'fare ($)',forward:6,backward:26},
+   savings:{label:'SAVINGS PLAN',story:'Start with $25, then save $10 each week.',a:10,b:25,x:'weeks',y:'total savings ($)',forward:5,backward:95}
+  };
+  let data=scenarios.rides;
+  const render=()=>{q('[data-scenario-label]').textContent=data.label;q('[data-scenario-story]').textContent=data.story;q('[data-scenario-equation]').textContent=`y = ${data.a}x + ${data.b}`;q('[data-x-key]').textContent=`x = ${data.x}`;q('[data-y-key]').textContent=`y = ${data.y}`;q('[data-forward-input]').value=data.forward;q('[data-backward-output]').value=data.backward;q('[data-forward-feedback]').textContent='Substitute the input into the function.';q('[data-backward-feedback]').textContent='Use inverse operations, then verify.';q('[data-solve-table]').innerHTML=Array.from({length:6},(_,x)=>`<tr><td>${x}</td><td>${data.a*x+data.b}</td></tr>`).join('');};
+  q('[data-scenario]').addEventListener('change',(e:any)=>{data=scenarios[e.target.value];render();});
+  q('[data-forward-run]').addEventListener('click',()=>{const x=Number(q('[data-forward-input]').value),y=data.a*x+data.b;q('[data-forward-feedback]').innerHTML=`<strong>${y}</strong>. Substitute: ${data.a}(${x}) + ${data.b} = ${y}.`;});
+  q('[data-backward-run]').addEventListener('click',()=>{const y=Number(q('[data-backward-output]').value),x=(y-data.b)/data.a;q('[data-backward-feedback]').innerHTML=Number.isInteger(x)?`<strong>x = ${x}</strong>. Undo +${data.b}, then ÷${data.a}. Check: ${data.a}(${x})+${data.b}=${y}.`:`<strong>x = ${x}</strong>. The math works, but think about whether a fractional ${data.x} makes sense in this context.`;});
+  render();
+ }
+});
+</script>
+<style>
+.function-lab{border:1px solid #d8e0ea;border-radius:18px;background:#fff;padding:1rem}.lab-head{display:flex;justify-content:space-between;gap:1rem;align-items:start}.lab-head h3{margin:.15rem 0}.lab-head>strong,.rule-picker{padding:.5rem .65rem;border-radius:10px;background:var(--course-soft);font-weight:900}.machine-flow{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:.8rem;align-items:center;margin:1rem 0}.machine-flow label,.output-card,.machine-box{display:grid;gap:.4rem;padding:1rem;border:1px solid #dbe3ec;border-radius:15px;text-align:center}.machine-flow input,.predict-strip input,.evidence-grid input,.solve-grid input{width:100%;max-width:180px;margin:auto;border:2px solid #ccd6e2;border-radius:10px;padding:.65rem;font:inherit}.machine-box{background:var(--course-soft)}.machine-box span{font-size:2rem}.output-card strong{font-size:1.8rem;color:var(--course)}.lab-actions,.predict-strip{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.8rem 0}.lab-actions button,.small-btn,.predict-strip button,.solve-grid button{border:0;border-radius:10px;padding:.68rem .9rem;background:var(--course);color:#fff;font-weight:850;cursor:pointer}.lab-actions .soft{background:#eef3f9;color:#25364f}.evidence-grid,.solve-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin-top:1rem}.evidence-grid>div,.function-check,.representation-studio article,.scenario-card,.solve-grid article,.detective-table{border:1px solid #dbe3ec;border-radius:14px;padding:.85rem;background:#f9fbfd}.mini-label{font-size:.75rem;font-weight:900;letter-spacing:.08em;color:#64748b}table{width:100%;border-collapse:collapse}th,td{padding:.4rem .5rem;border-bottom:1px solid #e4e9f0;text-align:center}.feedback{padding:.7rem .8rem;border-radius:10px;background:#eef5ff}.mini-tables{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}.mini-tables button{display:grid;gap:.3rem;text-align:left;padding:.75rem;border:1px solid #dbe3ec;border-radius:11px;background:#fff;cursor:pointer}.representation-studio{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin-top:1rem}.pair-list{display:flex;flex-wrap:wrap;gap:.4rem}.pair-list span{padding:.45rem .55rem;border-radius:8px;background:var(--course-soft);font-weight:800}.graph-card svg{width:100%;min-height:220px}.graph-card :global(line){stroke:#d9e1eb;stroke-width:1}.graph-card :global(.axis){stroke:#475569;stroke-width:2}.graph-card :global(circle){fill:var(--course)}.graph-card :global(text){font-size:11px;fill:#475569}.equation-card strong,.equation-banner{display:block;font-size:1.45rem;color:var(--course);padding:.8rem;border-radius:11px;background:var(--course-soft);text-align:center}.predict-strip label{display:flex;gap:.4rem;align-items:center;font-weight:800}.predict-strip input{max-width:80px}.scenario-card{margin-top:1rem}.variable-key{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.7rem}.variable-key span{padding:.4rem .55rem;border-radius:8px;background:#fff;font-weight:800}.solve-grid article{display:grid;gap:.7rem}.solve-grid label{display:grid;gap:.4rem;font-weight:800}.detective-table{margin-top:.8rem}@media(max-width:760px){.lab-head,.machine-flow,.evidence-grid,.solve-grid,.representation-studio,.mini-tables{grid-template-columns:1fr;display:grid}.rule-picker{justify-self:start}.graph-card svg{min-height:180px}}
+</style>

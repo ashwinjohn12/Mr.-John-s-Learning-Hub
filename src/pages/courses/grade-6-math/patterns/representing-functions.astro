@@ -1,0 +1,7 @@
+---
+import Unit8PatternsLessonPage from '../../../../components/Unit8PatternsLessonPage.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit8Content } from '../../../../data/unit8Content';
+const course=findCourse('grade-6-math')!;const unit=course.units.find(item=>item.slug==='patterns')!;const topic=unit.topics.find(item=>item.slug==='representing-functions')!;const content=unit8Content['grade-6-math/patterns/representing-functions'];
+---
+<Unit8PatternsLessonPage {course} {unit} {topic} {content} variant="represent" />
