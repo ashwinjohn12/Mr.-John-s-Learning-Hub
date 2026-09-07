@@ -1,0 +1,10 @@
+---
+import Unit6LessonPage from '../../../../components/Unit6LessonPage.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit6Content } from '../../../../data/unit6Content';
+const course = findCourse('grade-6-math')!;
+const unit = course.units.find((item) => item.slug === 'algebra')!;
+const topic = unit.topics.find((item) => item.slug === 'solving-equations')!;
+const content = unit6Content['grade-6-math/algebra/solving-equations'];
+---
+<Unit6LessonPage {course} {unit} {topic} {content} variant="models" />
