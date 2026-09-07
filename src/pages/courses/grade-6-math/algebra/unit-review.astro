@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import LearningSection from '../../../../components/LearningSection.astro';
+import VocabularyExplorer from '../../../../components/VocabularyExplorer.astro';
+import PracticeEngine from '../../../../components/PracticeEngine.astro';
+import Unit6BalancedCheck from '../../../../components/Unit6BalancedCheck.astro';
+import Unit6MathArcade from '../../../../components/Unit6MathArcade.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit6Content } from '../../../../data/unit6Content';
+const course = findCourse('grade-6-math')!;
+const unit = course.units.find((item) => item.slug === 'algebra')!;
+const base = import.meta.env.BASE_URL;
+const contentBySlug = {
+  'simplifying-algebraic-expressions': unit6Content['grade-6-math/algebra/simplifying-algebraic-expressions'],
+  'solving-equations': unit6Content['grade-6-math/algebra/solving-equations'],
+  'solving-equations-algebraically': unit6Content['grade-6-math/algebra/solving-equations-algebraically']
+};
+const lessonData = unit.topics.map((topic) => ({ topic, content: contentBySlug[topic.slug as keyof typeof contentBySlug] }));
+const mixedPractice = lessonData.flatMap(({topic,content}) => content.questions.map((q) => ({...q,prompt:`${topic.number} · ${q.prompt}`})));
+const balancedGroups = lessonData.map(({topic,content}) => ({ label:`Lesson ${topic.number} · ${topic.title}`, questions:content.checkQuestions, count:3 }));
+const reviewWords = [
+  {term:'Algebraic expression',definition:'A mathematical phrase containing numbers, operations, and possibly variables, but no equal sign.',example:'4x + 7.'},
+  {term:'Term',definition:'One part of an expression separated by addition or subtraction.',example:'5x, −3, and 2y are terms in 5x − 3 + 2y.'},
+  {term:'Coefficient',definition:'The numerical factor multiplying a variable.',example:'6 is the coefficient in 6x.'},
+  {term:'Like terms',definition:'Terms with the same variable part.',example:'3x and −8x.'},
+  {term:'Equivalent expressions',definition:'Expressions that keep the same value for the same variable values.',example:'2(x + 3) and 2x + 6.'},
+  {term:'Distributive property',definition:'A property that multiplies a factor by every term inside parentheses.',example:'3(x + 2) = 3x + 6.'},
+  {term:'Equation',definition:'A statement showing two expressions have equal value.',example:'2x + 3 = 11.'},
+  {term:'Solution',definition:'A variable value that makes an equation true.',example:'x = 4 solves 2x + 3 = 11.'},
+  {term:'Preservation of equality',definition:'Making matching operations on both sides so an equation remains equal.',example:'Subtract 3 from both sides of x + 3 = 8.'},
+  {term:'Inverse operations',definition:'Operations that undo one another.',example:'Addition and subtraction.'},
+  {term:'Verify',definition:'Check a solution by substituting it into the original equation.',example:'Confirm LHS = RHS.'},
+  {term:'LHS / RHS',definition:'The left-hand side and right-hand side of an equation.',example:'In 2x + 1 = 9, LHS is 2x + 1 and RHS is 9.'}
+];
+const sectionLinks=[['overview','🎯','Overview'],['lessons','🗺️','Lesson Map'],['vocabulary','🧠','Vocabulary'],['practice','✏️','Mixed Practice'],['check','✅','Unit Check'],['arcade','🎮','Math Arcade'],['pat','🏁','PAT-Style Review']];
+---
+<BaseLayout title={`Unit 6 Review | ${course.grade} ${course.shortSubject}`} description="Balanced review of simplifying expressions, equation models, algebraic solving, and verification." themeColor={course.color}>
+  <div class="topic-shell" style={`--course:${course.color};--course-soft:${course.accent}`}>
+    <aside class="topic-sidebar"><a class="back-course" href={`${base}courses/${course.slug}/${unit.slug}/`}>← {unit.title}</a><p class="eyebrow">ON THIS PAGE</p><p class="scroll-cue">Swipe sections →</p><nav aria-label="Review sections">{sectionLinks.map(([id,icon,label])=><a href={`#${id}`}><span>{icon}</span>{label}</a>)}</nav></aside>
+    <article class="topic-content">
+      <Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title,href:`${base}courses/${course.slug}/${unit.slug}/`},{label:'Unit Review'}]} />
+      <header class="topic-hero"><p class="eyebrow">UNIT 6 REVIEW · GRADE 6 MATH</p><h1>Algebra</h1><p>Connect like terms, equivalent expressions, balance models, inverse operations, and verification. The goal is to understand why algebraic moves work—not memorize “move it across” shortcuts.</p><div class="review-start"><strong>How to use this page</strong><span>Check the skills you already own, use Mixed Practice when you want hints, take the balanced Unit Check independently, then finish with the Algebra Lab Escape.</span></div></header>
+
+      <LearningSection id="overview" eyebrow="GET READY" title="What should I know?" icon="🎯" tone="idea">
+        <div class="checklist-groups">
+          <article><p class="lesson-chip">6.1 · Simplifying Expressions</p><label><input type="checkbox" /> I can identify and combine like terms.</label><label><input type="checkbox" /> I can keep unlike terms separate and distribute correctly.</label><label><input type="checkbox" /> I can recognize equivalent expressions.</label></article>
+          <article><p class="lesson-chip">6.2 · Solving Equations</p><label><input type="checkbox" /> I can distinguish an expression from an equation.</label><label><input type="checkbox" /> I can preserve equality using a balance or tile model.</label><label><input type="checkbox" /> I can use zero pairs and equal sharing to solve.</label></article>
+          <article><p class="lesson-chip">6.3 · Algebraic Solving</p><label><input type="checkbox" /> I can choose inverse operations and record balanced steps.</label><label><input type="checkbox" /> I can simplify before solving when needed.</label><label><input type="checkbox" /> I can verify a solution using LHS = RHS.</label></article>
+        </div><p class="review-tip"><strong>Student tip:</strong> If one box is unchecked, review that one idea instead of restarting the entire unit.</p>
+      </LearningSection>
+
+      <LearningSection id="lessons" eyebrow="FIND YOUR NEXT STEP" title="Three-lesson map" icon="🗺️" tone="learn"><div class="lesson-map">{lessonData.map(({topic})=><a href={`${base}courses/${course.slug}/${unit.slug}/${topic.slug}/`}><span>{topic.number}</span><div><strong>{topic.title}</strong><small>{topic.summary}</small></div><em>Review →</em></a>)}</div></LearningSection>
+
+      <LearningSection id="vocabulary" eyebrow="LEARN THE LANGUAGE" title="Mixed Unit 6 vocabulary" icon="🧠" tone="vocab"><p class="section-lead">Notice the progression: expressions describe quantities, equations compare equal quantities, inverse operations solve the balance, and verification checks the result.</p><VocabularyExplorer words={reviewWords} /></LearningSection>
+
+      <LearningSection id="practice" eyebrow="PRACTISE WITH SUPPORT" title="Mixed Unit 6 practice" icon="✏️" tone="practice"><p>The full supported Practice banks from all three lessons are mixed here. The lesson number tells you where to return for a refresher. Hints and explanations are available because this section is for learning from mistakes.</p><PracticeEngine questions={mixedPractice} /></LearningSection>
+
+      <LearningSection id="check" eyebrow="UNIT CHECK" title="Can you connect all three Algebra lessons?" icon="✅" tone="review"><p>Every set contains exactly <strong>3 questions from each lesson</strong> for a balanced total of 9. There are no hints. A new set changes the questions while keeping lesson coverage fair.</p><Unit6BalancedCheck groups={balancedGroups} /></LearningSection>
+
+      <LearningSection id="arcade" eyebrow="PLAY & APPLY" title="Algebra Lab Escape Math Arcade" icon="🎮" tone="play"><p>This is not another multiple-choice quiz. Each quest gives six free-response missions—two from each lesson. Simplify expressions, preserve equality, solve equations, and verify solutions to escape the lab.</p><Unit6MathArcade /></LearningSection>
+
+      <LearningSection id="pat" eyebrow="PAT-STYLE THINKING" title="Explain, justify, and connect" icon="🏁" tone="review">
+        <div class="pat-stack">
+          <article><p class="lesson-chip">6.1</p><h3>Why unlike terms stay separate</h3><p>A student says 4x + 3y = 7xy. Explain the error.</p><details><summary>Show a strong answer</summary><p>4x and 3y are unlike terms because their variable parts are different. Addition does not create a product xy. The expression is already simplified as 4x + 3y.</p></details></article>
+          <article><p class="lesson-chip">6.2</p><h3>Why both sides must change</h3><p>A student solves x + 5 = 12 by subtracting 5 only from the left side. Explain why the equation is no longer balanced.</p><details><summary>Show a strong answer</summary><p>The equal sign says both sides have the same value. Changing only one side destroys that equality. Subtract 5 from both sides to preserve equality and get x = 7.</p></details></article>
+          <article><p class="lesson-chip">6.3</p><h3>Verification catches mistakes</h3><p>A student claims x = 3 solves 2x + 5 = 12. Determine whether the claim is correct without first re-solving the equation.</p><details><summary>Show a strong answer</summary><p>Substitute 3 into the original equation. LHS = 2(3) + 5 = 11 while RHS = 12. Because LHS ≠ RHS, x = 3 is not a solution.</p></details></article>
+          <article class="synthesis"><p class="lesson-chip">SYNTHESIS · 6.1 + 6.2 + 6.3</p><h3>School Event Equation Challenge</h3><p>Three student teams each collect the same number of cans, and 6 extra cans are donated. The total is 42. Write an equation, solve it, and verify the solution. Then explain where simplifying, balance thinking, and algebraic solving appear.</p><details><summary>Show a strong answer</summary><p>Let c be cans per team. The equation is 3c + 6 = 42. Subtract 6 from both sides to get 3c = 36, then divide both sides by 3 to get c = 12. Verify: 3(12) + 6 = 42. The expression is already simplified; the same operations on both sides preserve the balance; inverse operations isolate c; substitution verifies the solution.</p></details></article>
+        </div>
+        <div class="final-links"><a href={`${base}courses/${course.slug}/${unit.slug}/simplifying-algebraic-expressions/`}>Review 6.1 →</a><a href={`${base}courses/${course.slug}/${unit.slug}/solving-equations/`}>Review 6.2 →</a><a href={`${base}courses/${course.slug}/${unit.slug}/solving-equations-algebraically/`}>Review 6.3 →</a></div>
+      </LearningSection>
+    </article>
+  </div>
+</BaseLayout>
+<style>.review-start,.review-tip{margin-top:1rem;padding:.85rem 1rem;border-radius:12px;background:#fff8db;display:grid;gap:.25rem}.checklist-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem}.checklist-groups article{display:grid;gap:.55rem;border:1px solid #dfe5ee;border-radius:15px;padding:1rem;background:#fff}.checklist-groups label{display:flex;gap:.5rem;align-items:flex-start;line-height:1.45}.lesson-chip{display:inline-flex;width:fit-content;margin:.1rem 0 .5rem;padding:.35rem .55rem;border-radius:999px;background:var(--course-soft);font-size:.75rem;font-weight:900}.lesson-map{display:grid;gap:.7rem}.lesson-map a{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;padding:.85rem;border:1px solid #dfe5ee;border-radius:14px;background:#fff;text-decoration:none;color:inherit}.lesson-map>a>span{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--course-soft);font-weight:900}.lesson-map small{display:block;margin-top:.2rem;color:#64748b}.lesson-map em{font-style:normal;font-weight:900;color:var(--course)}.pat-stack{display:grid;gap:.9rem}.pat-stack article{border:1px solid #dfe5ee;border-radius:15px;padding:1rem;background:#fff}.pat-stack .synthesis{border-width:2px;background:#f4f8ff}.final-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin-top:1rem}.final-links a{padding:.8rem;border-radius:12px;background:var(--course);color:#fff;text-decoration:none;text-align:center;font-weight:900}@media(max-width:760px){.checklist-groups,.final-links{grid-template-columns:1fr}.lesson-map a{grid-template-columns:auto 1fr}.lesson-map em{grid-column:2}}</style>
