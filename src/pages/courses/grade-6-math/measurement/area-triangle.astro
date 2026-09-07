@@ -5,3 +5,6 @@ import { unit7Content } from '../../../../data/unit7Content';
 const course=findCourse('grade-6-math')!;const unit=course.units.find(item=>item.slug==='measurement')!;const topic=unit.topics.find(item=>item.slug==='area-triangle')!;const content=unit7Content['grade-6-math/measurement/area-triangle'];
 ---
 <Unit7MeasurementLessonPage {course} {unit} {topic} {content} variant="triangle" />
+<script>
+document.querySelector<SVGElement>('[data-unit7-lab="triangle"] .shape-canvas')?.setAttribute('viewBox','0 0 520 400');
+</script>
