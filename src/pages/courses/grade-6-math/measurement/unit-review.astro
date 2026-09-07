@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import LearningSection from '../../../../components/LearningSection.astro';
+import VocabularyExplorer from '../../../../components/VocabularyExplorer.astro';
+import Unit7BalancedPractice from '../../../../components/Unit7BalancedPractice.astro';
+import Unit7BalancedCheck from '../../../../components/Unit7BalancedCheck.astro';
+import Unit7MathArcade from '../../../../components/Unit7MathArcade.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit7Content } from '../../../../data/unit7Content';
+const course=findCourse('grade-6-math')!;const unit=course.units.find(item=>item.slug==='measurement')!;const base=import.meta.env.BASE_URL;
+const contentBySlug={
+ 'area-parallelogram':unit7Content['grade-6-math/measurement/area-parallelogram'],
+ 'area-triangle':unit7Content['grade-6-math/measurement/area-triangle'],
+ 'area-composite-shapes':unit7Content['grade-6-math/measurement/area-composite-shapes'],
+ 'understanding-volume':unit7Content['grade-6-math/measurement/understanding-volume']
+};
+const lessonData=unit.topics.map(topic=>({topic,content:contentBySlug[topic.slug as keyof typeof contentBySlug]}));
+const practiceGroups=lessonData.map(({topic,content})=>({label:`Lesson ${topic.number} · ${topic.title}`,questions:content.questions,count:3}));
+const checkGroups=lessonData.map(({topic,content})=>({label:`Lesson ${topic.number} · ${topic.title}`,questions:content.checkQuestions,count:3}));
+const reviewWords=[
+ {term:'Area',definition:'The amount of two-dimensional space inside a region.',example:'Measured in cm² or m².'},
+ {term:'Base',definition:'The side chosen as the reference for an area or prism calculation.',example:'A parallelogram can use any side as its base.'},
+ {term:'Perpendicular height',definition:'The shortest 90° distance from a base to the opposite side or vertex.',example:'Use this height, not a slanted side.'},
+ {term:'Parallelogram',definition:'A quadrilateral with two pairs of parallel opposite sides.',example:'Its area can be rearranged into a rectangle.'},
+ {term:'Congruent',definition:'Exactly the same size and shape.',example:'A parallelogram diagonal creates two congruent triangles.'},
+ {term:'Composite shape',definition:'A shape made from two or more simpler shapes.',example:'A house outline can be a rectangle plus a triangle.'},
+ {term:'Decompose',definition:'Break a shape into smaller useful parts.',example:'Split a park plan into rectangles and triangles.'},
+ {term:'Volume',definition:'The amount of three-dimensional space an object occupies.',example:'Measured in cm³ or m³.'},
+ {term:'Cubic unit',definition:'A unit cube used to measure three-dimensional space.',example:'1 cm³ is a 1×1×1 cm cube.'},
+ {term:'Right rectangular prism',definition:'A rectangular prism whose side faces meet the base at right angles.',example:'Many boxes are right rectangular prisms.'},
+ {term:'Base area',definition:'The two-dimensional area of the chosen base face.',example:'A 4×3 base has area 12 square units.'},
+ {term:'Capacity',definition:'The amount a container can hold.',example:'Capacity is related to but not identical to volume.'}
+];
+const sectionLinks=[['overview','🎯','Overview'],['lessons','🗺️','Lesson Map'],['vocabulary','🧠','Vocabulary'],['practice','✏️','Mixed Practice'],['check','✅','Unit Check'],['arcade','🎮','Math Arcade'],['pat','🏁','PAT-Style Review']];
+---
+<BaseLayout title={`Unit 7 Review | ${course.grade} ${course.shortSubject}`} description="Balanced review of parallelogram area, triangle area, composite shapes, and volume." themeColor={course.color}>
+ <div class="topic-shell" style={`--course:${course.color};--course-soft:${course.accent}`}>
+  <aside class="topic-sidebar"><a class="back-course" href={`${base}courses/${course.slug}/${unit.slug}/`}>← {unit.title}</a><p class="eyebrow">ON THIS PAGE</p><p class="scroll-cue">Swipe sections →</p><nav aria-label="Review sections">{sectionLinks.map(([id,icon,label])=><a href={`#${id}`}><span>{icon}</span>{label}</a>)}</nav></aside>
+  <article class="topic-content"><Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title,href:`${base}courses/${course.slug}/${unit.slug}/`},{label:'Unit Review'}]}/>
+   <header class="topic-hero"><p class="eyebrow">UNIT 7 REVIEW · GRADE 6 MATH</p><h1>Measurement</h1><p>Connect 2-D area, decomposition, and 3-D volume. The goal is to see how shapes can be rearranged, split, and layered without turning measurement into a list of memorized formulas.</p><div class="review-start"><strong>How to use this page</strong><span>Check the skills you already own, use balanced practice when you want hints, take the Unit Check independently, then finish with the Measurement Design Arcade.</span></div></header>
+
+   <LearningSection id="overview" eyebrow="GET READY" title="What should I know?" icon="🎯" tone="idea"><div class="checklist-groups">
+    <article><p class="lesson-chip">7.1 · Parallelograms</p><label><input type="checkbox"/> I can identify base and perpendicular height.</label><label><input type="checkbox"/> I can explain the rectangle rearrangement.</label><label><input type="checkbox"/> I can find area or a missing dimension.</label></article>
+    <article><p class="lesson-chip">7.2 · Triangles</p><label><input type="checkbox"/> I can connect a triangle to half a parallelogram.</label><label><input type="checkbox"/> I can use perpendicular height.</label><label><input type="checkbox"/> I can determine triangle area.</label></article>
+    <article><p class="lesson-chip">7.3 · Composite Shapes</p><label><input type="checkbox"/> I can choose useful decomposition lines.</label><label><input type="checkbox"/> I can determine missing dimensions.</label><label><input type="checkbox"/> I can combine component areas exactly once.</label></article>
+    <article><p class="lesson-chip">7.4 · Volume</p><label><input type="checkbox"/> I can explain cubic units and layers.</label><label><input type="checkbox"/> I can use base area × height.</label><label><input type="checkbox"/> I can distinguish area, volume, and capacity.</label></article>
+   </div><p class="review-tip"><strong>Student tip:</strong> If one box is unchecked, review that one idea instead of restarting the entire unit.</p></LearningSection>
+
+   <LearningSection id="lessons" eyebrow="FIND YOUR NEXT STEP" title="Four-lesson map" icon="🗺️" tone="learn"><div class="lesson-map">{lessonData.map(({topic})=><a href={`${base}courses/${course.slug}/${unit.slug}/${topic.slug}/`}><span>{topic.number}</span><div><strong>{topic.title}</strong><small>{topic.summary}</small></div><em>Review →</em></a>)}</div></LearningSection>
+   <LearningSection id="vocabulary" eyebrow="LEARN THE LANGUAGE" title="Mixed Unit 7 vocabulary" icon="🧠" tone="vocab"><p class="section-lead">Notice the progression: perpendicular dimensions describe area, decomposition organizes complicated area, and repeating a base area through height creates volume.</p><VocabularyExplorer words={reviewWords}/></LearningSection>
+   <LearningSection id="practice" eyebrow="PRACTISE WITH SUPPORT" title="Balanced Unit 7 practice" icon="✏️" tone="practice"><p>Complete a supported <strong>12-question set with exactly 3 questions from each lesson</strong>. Hints and explanations are available because this section is for learning from mistakes.</p><Unit7BalancedPractice groups={practiceGroups}/></LearningSection>
+   <LearningSection id="check" eyebrow="UNIT CHECK" title="Can you connect all four Measurement lessons?" icon="✅" tone="review"><p>Every set contains exactly <strong>3 questions from each lesson</strong> for a balanced total of 12. There are no hints, and a new set changes the questions while keeping lesson coverage fair.</p><Unit7BalancedCheck groups={checkGroups}/></LearningSection>
+   <LearningSection id="arcade" eyebrow="PLAY & APPLY" title="Measurement Design Math Arcade" icon="🎮" tone="play"><p>This is not another multiple-choice quiz. Each quest gives eight free-response missions—two from each lesson. Calculate area, find missing dimensions, decompose shapes, and reason with cube layers.</p><Unit7MathArcade/></LearningSection>
+   <LearningSection id="pat" eyebrow="PAT-STYLE THINKING" title="Explain, justify, and connect" icon="🏁" tone="review"><div class="pat-stack">
+    <article><p class="lesson-chip">7.1</p><h3>Why slant does not control area</h3><p>Two parallelograms have the same base and perpendicular height but different slants. Explain why their areas are equal.</p><details><summary>Show a strong answer</summary><p>Each can be rearranged into a rectangle with the same base and perpendicular height. The slant changes the shape, but not the amount of space covered.</p></details></article>
+    <article><p class="lesson-chip">7.2</p><h3>Why the triangle gets a half</h3><p>Explain why triangle area uses base × height ÷ 2.</p><details><summary>Show a strong answer</summary><p>A matching copy of the triangle can form a parallelogram with the same base and height. The two congruent triangles share that parallelogram equally, so one is half its area.</p></details></article>
+    <article><p class="lesson-chip">7.3</p><h3>Different decompositions</h3><p>Two students split a composite figure differently but get the same total. Explain how both can be correct.</p><details><summary>Show a strong answer</summary><p>If each set of non-overlapping pieces covers the original region exactly once and every component area is correct, the internal lines only organize the work; they do not change total area.</p></details></article>
+    <article><p class="lesson-chip">7.4</p><h3>Why hidden cubes count</h3><p>A student counts only cubes visible on the outside of a solid prism. Explain the mistake.</p><details><summary>Show a strong answer</summary><p>Volume measures all space occupied, including cubes inside and behind visible faces. Count a complete base layer and multiply by the number of layers.</p></details></article>
+    <article class="synthesis"><p class="lesson-chip">SYNTHESIS · 7.1 + 7.2 + 7.3 + 7.4</p><h3>Community Pavilion Design</h3><p>A pavilion floor is a composite region made from a parallelogram and triangular entrance. Supplies are stored in rectangular-prism crates. Explain how the same measurement idea moves from rearranging area, to taking half, to decomposing, to stacking layers.</p><details><summary>Show a strong answer</summary><p>Parallelogram area comes from rearranging into a rectangle with the same base and perpendicular height. Triangle area is half of a matching parallelogram. Composite area combines familiar component areas. Volume then extends the idea into three dimensions by repeating a base area through height.</p></details></article>
+   </div><div class="final-links">{lessonData.map(({topic})=><a href={`${base}courses/${course.slug}/${unit.slug}/${topic.slug}/`}>Review {topic.number} →</a>)}</div></LearningSection>
+  </article>
+ </div>
+</BaseLayout>
+<style>.review-start,.review-tip{margin-top:1rem;padding:.85rem 1rem;border-radius:12px;background:#fff8db;display:grid;gap:.25rem}.checklist-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}.checklist-groups article{display:grid;gap:.55rem;border:1px solid #dfe5ee;border-radius:15px;padding:1rem;background:#fff}.checklist-groups label{display:flex;gap:.5rem;align-items:flex-start;line-height:1.45}.lesson-chip{display:inline-flex;width:fit-content;margin:.1rem 0 .5rem;padding:.35rem .55rem;border-radius:999px;background:var(--course-soft);font-size:.75rem;font-weight:900}.lesson-map{display:grid;gap:.7rem}.lesson-map a{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;padding:.85rem;border:1px solid #dfe5ee;border-radius:14px;background:#fff;text-decoration:none;color:inherit}.lesson-map>a>span{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--course-soft);font-weight:900}.lesson-map small{display:block;margin-top:.2rem;color:#64748b}.lesson-map em{font-style:normal;font-weight:900;color:var(--course)}.pat-stack{display:grid;gap:.9rem}.pat-stack article{border:1px solid #dfe5ee;border-radius:15px;padding:1rem;background:#fff}.pat-stack .synthesis{border-width:2px;background:#f4f8ff}.final-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;margin-top:1rem}.final-links a{padding:.8rem;border-radius:12px;background:var(--course);color:#fff;text-decoration:none;text-align:center;font-weight:900}@media(max-width:760px){.checklist-groups,.final-links{grid-template-columns:1fr}.lesson-map a{grid-template-columns:auto 1fr}.lesson-map em{grid-column:2}}</style>

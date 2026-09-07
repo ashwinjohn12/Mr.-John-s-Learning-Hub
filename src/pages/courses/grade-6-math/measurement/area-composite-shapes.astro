@@ -1,0 +1,7 @@
+---
+import Unit7MeasurementLessonPage from '../../../../components/Unit7MeasurementLessonPage.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit7Content } from '../../../../data/unit7Content';
+const course=findCourse('grade-6-math')!;const unit=course.units.find(item=>item.slug==='measurement')!;const topic=unit.topics.find(item=>item.slug==='area-composite-shapes')!;const content=unit7Content['grade-6-math/measurement/area-composite-shapes'];
+---
+<Unit7MeasurementLessonPage {course} {unit} {topic} {content} variant="composite" />
