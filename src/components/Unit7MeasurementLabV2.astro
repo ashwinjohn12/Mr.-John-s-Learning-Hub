@@ -1,0 +1,138 @@
+---
+interface Props { variant:'parallelogram'|'triangle'|'composite'|'volume' }
+const { variant } = Astro.props;
+---
+<div class="measurement-lab" data-unit7-lab-v2={variant}>
+  {variant === 'parallelogram' && (
+    <>
+      <div class="lab-head"><div><p class="eyebrow">PARALLELOGRAM TRANSFORMER</p><h3>Cut it. Slide it. Keep the same area.</h3></div><strong data-area-readout>Area = 40 units²</strong></div>
+      <svg class="shape-canvas" viewBox="0 0 560 290" role="img" aria-label="Parallelogram cut into a main piece and a triangular piece that can slide to form a rectangle">
+        <g class="grid-lines"></g>
+        <polygon class="main-piece" data-para-main points="164,205 380,205 428,85 164,85" />
+        <polygon class="moving-piece" data-para-piece points="110,205 164,205 164,85" />
+        <line class="cut-line" data-cut-line x1="164" y1="85" x2="164" y2="205" />
+        <rect class="rectangle-outline" data-rect-outline x="164" y="85" width="264" height="120" hidden />
+        <line class="height-line" data-height-line x1="164" y1="85" x2="164" y2="205" />
+        <path class="right-angle" data-right-angle d="M164 193 h12 v12" />
+        <text data-base-label x="245" y="235">base = 8</text>
+        <text data-height-label x="174" y="146">90° height = 5</text>
+        <text class="slant-label" data-slant-label x="420" y="145">slant = 2</text>
+        <text class="cut-label" data-cut-label x="112" y="75">cut here</text>
+      </svg>
+      <div class="controls three">
+        <label>Base <input data-base type="range" min="4" max="12" value="8" /><output data-base-out>8</output></label>
+        <label>Perpendicular height (90° height) <input data-height type="range" min="2" max="8" value="5" /><output data-height-out>5</output></label>
+        <label>Slant <input data-slant type="range" min="1" max="5" value="2" /><output data-slant-out>2</output></label>
+      </div>
+      <div class="lab-actions"><button type="button" data-transform>Cut and slide the triangle →</button><button type="button" class="soft" data-para-challenge>Which measurement is ignored?</button></div>
+      <p class="feedback" data-feedback>Change only the slant first. Then cut and slide the triangular end to see why the area does not change.</p>
+    </>
+  )}
+
+  {variant === 'triangle' && (
+    <>
+      <div class="lab-head"><div><p class="eyebrow">TRIANGLE AREA LAB</p><h3>Move the top vertex. Then build its matching parallelogram.</h3></div><strong data-tri-readout>Triangle area = 24 units²</strong></div>
+      <svg class="shape-canvas tall" viewBox="0 0 560 390" role="img" aria-label="Triangle and congruent copy forming a matching parallelogram">
+        <polygon data-triangle points="130,190 410,190 270,58" />
+        <polygon class="ghost-triangle" data-tri-copy points="130,190 410,190 270,322" hidden />
+        <polygon class="pair-outline" data-pair-outline points="270,58 410,190 270,322 130,190" hidden />
+        <line class="height-line" data-tri-height x1="270" y1="58" x2="270" y2="190" />
+        <path class="right-angle" data-tri-angle d="M270 178 h12 v12" />
+        <text data-tri-base-label x="238" y="218">base = 8</text>
+        <text data-tri-height-label x="282" y="126">90° height = 6</text>
+        <text class="pair-label" data-pair-label x="180" y="360" hidden>MATCHING PARALLELOGRAM</text>
+      </svg>
+      <div class="controls three">
+        <label>Base <input data-tri-base type="range" min="4" max="12" value="8" /><output data-tri-base-out>8</output></label>
+        <label>Perpendicular height (90° height) <input data-tri-h type="range" min="2" max="8" value="6" /><output data-tri-h-out>6</output></label>
+        <label>Slide top vertex <input data-apex type="range" min="-4" max="4" value="0" /><output data-apex-out>0</output></label>
+      </div>
+      <div class="lab-actions"><button type="button" data-pair>Show matching second triangle</button><button type="button" class="soft" data-tri-challenge>Why divide by 2?</button></div>
+      <div class="area-equation" data-area-equation hidden><span>Triangle <b data-one-area>24</b></span><b>+</b><span>Triangle <b data-two-area>24</b></span><b>=</b><span>Parallelogram <b data-pair-area>48</b></span><em>units²</em></div>
+      <p class="feedback" data-feedback>Slide the top vertex left and right. If the base and 90° height stay the same, the area stays the same too.</p>
+    </>
+  )}
+
+  {variant === 'composite' && (
+    <>
+      <div class="lab-head"><div><p class="eyebrow">SHAPE SPLITTER</p><h3>Prove that two different decompositions give the same total.</h3></div><strong data-comp-total>Total area = 52 units²</strong></div>
+      <div class="scenario-tabs" role="group" aria-label="Composite shape scenario"><button type="button" data-scenario="house" class="active">House</button><button type="button" data-scenario="notch">Notched field</button><button type="button" data-scenario="park">Park</button></div>
+      <svg class="shape-canvas composite" viewBox="0 0 560 300" role="img" aria-label="Composite shape with two possible decomposition methods"><g data-comp-shape></g><g class="decomp-lines" data-decomp-lines></g><g class="dimension-labels" data-comp-labels></g></svg>
+      <div class="lab-actions"><button type="button" data-method="a">Use decomposition A</button><button type="button" data-method="b">Use decomposition B</button><button type="button" class="soft" data-calc>Calculate every piece</button></div>
+      <div class="piece-cards" data-piece-cards></div>
+      <div class="method-proof" data-method-proof hidden></div>
+      <p class="feedback" data-feedback>Choose a method. Predict the pieces before you calculate them.</p>
+    </>
+  )}
+
+  {variant === 'volume' && (
+    <>
+      <div class="lab-head"><div><p class="eyebrow">VOLUME BUILDER</p><h3>Build one layer, then stack it.</h3></div><strong data-volume-readout>Volume = 24 cm³</strong></div>
+      <div class="volume-capacity"><article><span aria-hidden="true">🧊</span><div><strong>VOLUME</strong><p>How much 3-D space an object occupies.</p></div></article><b>≠</b><article><span aria-hidden="true">🥤</span><div><strong>CAPACITY</strong><p>How much a container can hold.</p></div></article></div>
+      <div class="capacity-check"><p><strong>Quick thought:</strong> A solid wooden block has volume. Does it have useful capacity?</p><button type="button" data-capacity="yes">Yes</button><button type="button" data-capacity="no">No</button><span data-capacity-feedback></span></div>
+      <div class="volume-stage"><div><p class="mini-label">ONE BASE LAYER</p><div class="cube-grid" data-cube-grid></div><strong data-layer-count>8 cubes per layer</strong></div><div class="stack-visual" data-stack-visual aria-label="Stacked volume layers"></div><div class="volume-math"><span data-base-area>Base area = 4 × 2 = 8 cm²</span><b>×</b><span data-layers>3 layers</span><b>=</b><strong data-volume-math>24 cm³</strong></div></div>
+      <div class="controls three"><label>Length <input data-v-l type="range" min="1" max="6" value="4" /><output data-v-l-out>4</output></label><label>Width <input data-v-w type="range" min="1" max="5" value="2" /><output data-v-w-out>2</output></label><label>Height / layers <input data-v-h type="range" min="1" max="6" value="3" /><output data-v-h-out>3</output></label></div>
+      <div class="lab-actions"><button type="button" data-show-hidden>Reveal why hidden cubes count</button><button type="button" class="soft" data-equal-volume>Find a same-volume prism</button></div>
+      <p class="feedback" data-feedback>Each layer repeats the same base area. That is why volume = base area × height.</p>
+    </>
+  )}
+</div>
+
+<script>
+const $all=(sel:string)=>document.querySelectorAll<HTMLElement>(sel);
+
+$all('[data-unit7-lab-v2="parallelogram"]').forEach(lab=>{
+ const q=(s:string)=>lab.querySelector<any>(s);const base=q('[data-base]'),height=q('[data-height]'),slant=q('[data-slant]');let moved=false;
+ const update=()=>{const b=Number(base.value),h=Number(height.value),s=Number(slant.value),x=105,y=210,w=b*27,hh=h*24,shift=s*27,cutX=x+shift;
+  q('[data-base-out]').textContent=b;q('[data-height-out]').textContent=h;q('[data-slant-out]').textContent=s;q('[data-area-readout]').textContent=`Area = ${b*h} units²`;
+  q('[data-para-main]').setAttribute('points',`${cutX},${y} ${x+w},${y} ${x+w+shift},${y-hh} ${cutX},${y-hh}`);
+  q('[data-para-piece]').setAttribute('points',`${x},${y} ${cutX},${y} ${cutX},${y-hh}`);q('[data-para-piece]').style.transform=moved?`translateX(${w}px)`:'translateX(0px)';
+  q('[data-cut-line]').setAttribute('x1',cutX);q('[data-cut-line]').setAttribute('x2',cutX);q('[data-cut-line]').setAttribute('y1',y-hh);q('[data-cut-line]').setAttribute('y2',y);q('[data-cut-line]').style.opacity=moved?'0':'1';
+  q('[data-height-line]').setAttribute('x1',cutX);q('[data-height-line]').setAttribute('x2',cutX);q('[data-height-line]').setAttribute('y1',y-hh);q('[data-height-line]').setAttribute('y2',y);q('[data-right-angle]').setAttribute('d',`M${cutX} ${y-12} h12 v12`);
+  q('[data-base-label]').textContent=`base = ${b}`;q('[data-base-label]').setAttribute('x',cutX+w/2-34);q('[data-height-label]').textContent=`90° height = ${h}`;q('[data-height-label]').setAttribute('x',cutX+10);q('[data-height-label]').setAttribute('y',y-hh/2);
+  q('[data-slant-label]').textContent=moved?'same pieces → same area':`slant = ${s}`;q('[data-slant-label]').setAttribute('x',x+w+shift-18);q('[data-slant-label]').setAttribute('y',y-hh/2);
+  q('[data-cut-label]').setAttribute('x',cutX-48);q('[data-cut-label]').setAttribute('y',y-hh-10);q('[data-cut-label]').style.opacity=moved?'0':'1';
+  const outline=q('[data-rect-outline]');outline.setAttribute('x',cutX);outline.setAttribute('y',y-hh);outline.setAttribute('width',w);outline.setAttribute('height',hh);outline.hidden=!moved;
+  q('[data-transform]').textContent=moved?'Put the triangle back':'Cut and slide the triangle →';
+ };
+ [base,height,slant].forEach((el:any)=>el.addEventListener('input',()=>{moved=false;update();q('[data-feedback]').textContent='Changing the slant changes the shape, but not base × 90° height.';}));
+ q('[data-transform]').addEventListener('click',()=>{moved=!moved;update();q('[data-feedback]').innerHTML=moved?'<strong>Watch the triangular piece slide across.</strong> Nothing was added or removed, so the rectangle has exactly the same area.':'The pieces are back in the original parallelogram.';});
+ q('[data-para-challenge]').addEventListener('click',()=>q('[data-feedback]').innerHTML='<strong>The slanted side is ignored.</strong> Area uses the perpendicular (90°) height.');update();
+});
+
+$all('[data-unit7-lab-v2="triangle"]').forEach(lab=>{
+ const q=(s:string)=>lab.querySelector<any>(s);const bEl=q('[data-tri-base]'),hEl=q('[data-tri-h]'),aEl=q('[data-apex]');let paired=false;
+ const update=()=>{const b=Number(bEl.value),h=Number(hEl.value),off=Number(aEl.value),x=110,y=190,w=b*28,hh=h*22,ap=x+w/2+off*20,mid=x+w/2,bottom=2*mid-ap,area=b*h/2;
+  q('[data-tri-base-out]').textContent=b;q('[data-tri-h-out]').textContent=h;q('[data-apex-out]').textContent=off>0?`+${off}`:off;q('[data-tri-readout]').textContent=`Triangle area = ${area} units²`;
+  q('[data-triangle]').setAttribute('points',`${x},${y} ${x+w},${y} ${ap},${y-hh}`);q('[data-tri-copy]').setAttribute('points',`${x},${y} ${x+w},${y} ${bottom},${y+hh}`);q('[data-pair-outline]').setAttribute('points',`${ap},${y-hh} ${x+w},${y} ${bottom},${y+hh} ${x},${y}`);
+  q('[data-tri-height]').setAttribute('x1',ap);q('[data-tri-height]').setAttribute('x2',ap);q('[data-tri-height]').setAttribute('y1',y-hh);q('[data-tri-height]').setAttribute('y2',y);q('[data-tri-angle]').setAttribute('d',`M${ap} ${y-12} h12 v12`);q('[data-tri-base-label]').textContent=`base = ${b}`;q('[data-tri-base-label]').setAttribute('x',x+w/2-32);q('[data-tri-height-label]').textContent=`90° height = ${h}`;q('[data-tri-height-label]').setAttribute('x',ap+8);q('[data-tri-height-label]').setAttribute('y',y-hh/2);
+  [q('[data-tri-copy]'),q('[data-pair-outline]'),q('[data-pair-label]')].forEach((el:any)=>el.hidden=!paired);q('[data-area-equation]').hidden=!paired;q('[data-one-area]').textContent=area;q('[data-two-area]').textContent=area;q('[data-pair-area]').textContent=area*2;
+ };
+ [bEl,hEl,aEl].forEach((el:any)=>el.addEventListener('input',()=>{update();q('[data-feedback]').textContent='The top vertex moved, but base and 90° height still control the area.';}));
+ q('[data-pair]').addEventListener('click',()=>{paired=!paired;update();q('[data-pair]').textContent=paired?'Hide matching parallelogram':'Show matching second triangle';q('[data-feedback]').innerHTML=paired?'<strong>The outline is the matching parallelogram.</strong> Two congruent triangle areas add to the full parallelogram area.':'One triangle is one-half of its matching parallelogram.';});
+ q('[data-tri-challenge]').addEventListener('click',()=>q('[data-feedback]').innerHTML='<strong>Divide by 2 because there are two congruent halves.</strong> Triangle + triangle = matching parallelogram.');update();
+});
+
+$all('[data-unit7-lab-v2="composite"]').forEach(lab=>{
+ const q=(s:string)=>lab.querySelector<any>(s);let scenario='house';let method='a';
+ const data:any={
+  house:{total:52,shape:'<polygon points="120,235 120,115 280,45 440,115 440,235" />',labels:'<text x="250" y="260">width 8</text><text x="80" y="180">wall h=5</text><text x="270" y="86">roof h=3</text>',a:'<line x1="120" y1="115" x2="440" y2="115" />',b:'<line x1="280" y1="45" x2="280" y2="235" />',piecesA:[['Rectangle','8 × 5','40'],['Roof triangle','8 × 3 ÷ 2','12']],piecesB:[['Left wall half','4 × 5','20'],['Left roof half','4 × 3 ÷ 2','6'],['Right wall half','4 × 5','20'],['Right roof half','4 × 3 ÷ 2','6']]},
+  notch:{total:84,shape:'<path d="M100 55 H440 V235 H300 V168 H100 Z" />',labels:'<text x="245" y="43">12</text><text x="68" y="150">8</text><text x="325" y="205">cutout 4×3</text>',a:'<rect x="300" y="168" width="140" height="67" class="cutout" />',b:'<line x1="300" y1="55" x2="300" y2="168" />',piecesA:[['Whole rectangle','12 × 8','96'],['Subtract cutout','4 × 3','−12']],piecesB:[['Left rectangle','8 × 8','64'],['Top-right rectangle','4 × 5','20']]},
+  park:{total:108,shape:'<polygon points="90,230 170,80 390,80 470,230 370,230 330,155 230,155 190,230" />',labels:'<text x="235" y="66">main b=12,h=7</text><text x="215" y="272">two triangles b=6,h=4</text>',a:'<line x1="190" y1="230" x2="230" y2="155" /><line x1="370" y1="230" x2="330" y2="155" />',b:'<line x1="280" y1="80" x2="280" y2="230" /><line x1="190" y1="230" x2="230" y2="155" /><line x1="370" y1="230" x2="330" y2="155" />',piecesA:[['Main parallelogram','12 × 7','84'],['Two triangles','2 × (6 × 4 ÷ 2)','24']],piecesB:[['Left half of main','6 × 7','42'],['Right half of main','6 × 7','42'],['Left triangle','6 × 4 ÷ 2','12'],['Right triangle','6 × 4 ÷ 2','12']]}
+ };
+ const render=()=>{const d=data[scenario];q('[data-comp-total]').textContent=`Total area = ${d.total} units²`;q('[data-comp-shape]').innerHTML=d.shape;q('[data-comp-labels]').innerHTML=d.labels;q('[data-decomp-lines]').innerHTML=method==='a'?d.a:d.b;q('[data-piece-cards]').innerHTML='';q('[data-method-proof]').hidden=true;lab.querySelectorAll<HTMLButtonElement>('[data-scenario]').forEach(b=>b.classList.toggle('active',b.dataset.scenario===scenario));};
+ lab.querySelectorAll<HTMLButtonElement>('[data-scenario]').forEach(b=>b.addEventListener('click',()=>{scenario=b.dataset.scenario||'house';method='a';render();q('[data-feedback]').textContent='New shape loaded. Choose a decomposition and predict the pieces before calculating.';}));
+ lab.querySelectorAll<HTMLButtonElement>('[data-method]').forEach(b=>b.addEventListener('click',()=>{method=b.dataset.method||'a';render();q('[data-feedback]').innerHTML=`<strong>Decomposition ${method.toUpperCase()}.</strong> Now calculate every piece and compare totals.`;}));
+ q('[data-calc]').addEventListener('click',()=>{const d=data[scenario],pieces=method==='a'?d.piecesA:d.piecesB;q('[data-piece-cards]').innerHTML=pieces.map((p:any)=>`<div><strong>${p[0]}</strong><span>${p[1]}</span><b>${p[2]} units²</b></div>`).join('');const other=method==='a'?'B':'A';q('[data-method-proof]').hidden=false;q('[data-method-proof]').innerHTML=`<strong>Method ${method.toUpperCase()} total = ${d.total} units²</strong><span>Method ${other} also totals ${d.total} units² ✓</span>`;q('[data-feedback]').innerHTML='<strong>Same outside region, same total area.</strong> Different valid decompositions are simply different ways to organize the calculation.';});render();
+});
+
+$all('[data-unit7-lab-v2="volume"]').forEach(lab=>{
+ const q=(s:string)=>lab.querySelector<any>(s);const l=q('[data-v-l]'),w=q('[data-v-w]'),h=q('[data-v-h]');
+ const update=()=>{const L=Number(l.value),W=Number(w.value),H=Number(h.value),layer=L*W,V=layer*H;q('[data-v-l-out]').textContent=L;q('[data-v-w-out]').textContent=W;q('[data-v-h-out]').textContent=H;q('[data-volume-readout]').textContent=`Volume = ${V} cm³`;q('[data-layer-count]').textContent=`${layer} cubes per layer`;q('[data-base-area]').textContent=`Base area = ${L} × ${W} = ${layer} cm²`;q('[data-layers]').textContent=`${H} ${H===1?'layer':'layers'}`;q('[data-volume-math]').textContent=`${V} cm³`;const grid=q('[data-cube-grid]');grid.style.gridTemplateColumns=`repeat(${L},18px)`;grid.innerHTML=Array.from({length:layer},()=>'<i></i>').join('');q('[data-stack-visual]').innerHTML=Array.from({length:H},(_:any,i:number)=>`<span style="--i:${i}">${layer} cubes</span>`).join('');};
+ [l,w,h].forEach((el:any)=>el.addEventListener('input',()=>{update();q('[data-feedback]').textContent='One layer is length × width. Height tells how many identical layers are stacked.';}));q('[data-show-hidden]').addEventListener('click',()=>q('[data-feedback]').innerHTML='<strong>Hidden cubes still occupy space.</strong> Counting only the front, top, or side faces misses cubes inside the solid prism.');q('[data-equal-volume]').addEventListener('click',()=>{const V=Number(l.value)*Number(w.value)*Number(h.value);let found='';for(let a=1;a<=6&&!found;a++)for(let b=1;b<=5&&!found;b++)for(let c=1;c<=6&&!found;c++)if(a*b*c===V&&(a!==Number(l.value)||b!==Number(w.value)||c!==Number(h.value)))found=`${a} × ${b} × ${c}`;q('[data-feedback]').innerHTML=found?`<strong>Same volume, new dimensions:</strong> ${found} also gives ${V} cm³.`:'Try a different prism size to find another factor arrangement.';});lab.querySelectorAll<HTMLButtonElement>('[data-capacity]').forEach(b=>b.addEventListener('click',()=>{q('[data-capacity-feedback]').innerHTML=b.dataset.capacity==='no'?'<strong>Correct.</strong> A solid block occupies space, but it is not a container that holds something inside.':'<strong>Think about “hold.”</strong> A solid block has no inside space to fill.';}));update();
+});
+</script>
+
+<style>
+.measurement-lab{border:1px solid #d8e0ea;border-radius:18px;background:#fff;padding:1rem}.lab-head{display:flex;justify-content:space-between;gap:1rem;align-items:start}.lab-head h3{margin:.15rem 0}.lab-head>strong{padding:.45rem .65rem;border-radius:10px;background:var(--course-soft);white-space:nowrap}.shape-canvas{width:100%;max-height:340px;border-radius:14px;background:#f7fafc;margin:.8rem 0;overflow:visible}.shape-canvas.tall{max-height:390px}.shape-canvas polygon,.shape-canvas path{fill:var(--course-soft);stroke:var(--course);stroke-width:3}.shape-canvas .main-piece{fill:#e8f2ff}.shape-canvas .moving-piece{fill:#fff1b8;transform-box:fill-box;transform-origin:center;transition:transform .75s ease}.shape-canvas .cut-line{stroke:#e07a00;stroke-width:3;stroke-dasharray:7 6}.shape-canvas .rectangle-outline,.shape-canvas .pair-outline{fill:none;stroke:#16a34a;stroke-width:4;stroke-dasharray:8 5}.height-line,.base-guide{stroke:#334155;stroke-width:2;stroke-dasharray:6 5}.right-angle{fill:none!important;stroke:#334155!important;stroke-width:2!important}.shape-canvas text{font-size:14px;font-weight:800;fill:#334155}.shape-canvas .cut-label{fill:#b45309}.shape-canvas .pair-label{font-size:16px;fill:#15803d;letter-spacing:.08em}.ghost-triangle{fill:#dcfce7!important;opacity:.78}.controls{display:grid;gap:.7rem}.controls.three{grid-template-columns:repeat(3,minmax(0,1fr))}.controls label{display:grid;gap:.35rem;padding:.7rem;border-radius:12px;background:#f7f9fc;font-weight:850}.controls input{width:100%}.controls output{color:var(--course);font-weight:900}.lab-actions{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:.8rem}.lab-actions button,.scenario-tabs button,.capacity-check button{border:0;border-radius:11px;padding:.68rem .9rem;background:var(--course);color:#fff;font-weight:850;cursor:pointer}.lab-actions .soft{background:#eef3f9;color:#25364f}.feedback{padding:.75rem .85rem;border-radius:11px;background:#f7f9fc;margin:.8rem 0 0}.area-equation{display:flex;align-items:center;justify-content:center;gap:.65rem;flex-wrap:wrap;margin:.7rem 0;padding:.8rem;border-radius:12px;background:#f0fdf4}.area-equation span{padding:.45rem .6rem;border-radius:9px;background:#fff;border:1px solid #bbf7d0}.area-equation em{font-style:normal;color:#64748b}.scenario-tabs{display:flex;gap:.45rem;flex-wrap:wrap;margin:.75rem 0}.scenario-tabs button{background:#eef3f9;color:#25364f}.scenario-tabs button.active{background:var(--course);color:#fff}.decomp-lines line,.decomp-lines rect{fill:none;stroke:#e07a00;stroke-width:3;stroke-dasharray:7 6}.piece-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;margin-top:.7rem}.piece-cards>div{display:grid;gap:.2rem;padding:.7rem;border:1px solid #dde5ef;border-radius:11px}.piece-cards span{color:#64748b}.method-proof{display:flex;justify-content:space-between;gap:.8rem;flex-wrap:wrap;margin-top:.7rem;padding:.75rem;border-radius:11px;background:#f0fdf4}.volume-capacity{display:grid;grid-template-columns:1fr auto 1fr;gap:.7rem;align-items:center;margin:.8rem 0}.volume-capacity article{display:flex;gap:.7rem;align-items:center;padding:.8rem;border:1px solid #dfe6ef;border-radius:13px}.volume-capacity article>span{font-size:2rem}.volume-capacity p{margin:.2rem 0;color:#526174}.capacity-check{padding:.8rem;border-radius:12px;background:#fff8db;margin-bottom:.8rem}.capacity-check p{margin:.1rem 0 .55rem}.capacity-check button{padding:.45rem .7rem;margin-right:.35rem}.capacity-check span{display:block;margin-top:.55rem}.volume-stage{display:grid;grid-template-columns:minmax(160px,.7fr) minmax(160px,.7fr) 1.2fr;gap:1rem;align-items:center;padding:1rem;border-radius:14px;background:#f7fafc;margin:.8rem 0}.cube-grid{display:grid;gap:3px;margin:.5rem 0}.cube-grid i{display:block;width:18px;height:18px;border:1px solid var(--course);background:var(--course-soft)}.stack-visual{position:relative;min-height:120px}.stack-visual span{position:absolute;left:12px;right:12px;bottom:calc(var(--i) * 14px);padding:.45rem;border:2px solid var(--course);border-radius:9px;background:#fff;font-size:.75rem;font-weight:850}.volume-math{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap}.volume-math span,.volume-math strong{padding:.45rem .55rem;border-radius:9px;background:#fff}.mini-label{font-size:.72rem;font-weight:900;letter-spacing:.08em;color:#64748b}@media(max-width:760px){.lab-head,.controls.three,.volume-stage,.volume-capacity{grid-template-columns:1fr;display:grid}.lab-head>strong{justify-self:start}.piece-cards{grid-template-columns:1fr}.volume-capacity>b{justify-self:center}.shape-canvas{max-height:none}}
+</style>
