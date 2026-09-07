@@ -3,47 +3,32 @@
     <div>
       <p class="eyebrow">SALE DAY CHALLENGE</p>
       <h3>Can you make it through checkout?</h3>
-      <p>Use benchmark percents and proportional reasoning. Each correct decision unlocks the next round.</p>
+      <p>Use benchmark percents and proportional reasoning. Each new play gives you a fresh set of shopping decisions.</p>
     </div>
     <div class="game-score" aria-live="polite"><strong data-round-label>Round 1 of 3</strong><span><i data-progress></i></span></div>
   </div>
 
   <section class="game-round" data-round="0">
     <p class="round-tag">ROUND 1 · CHOOSE THE DEAL</p>
-    <h4>Which game saves more dollars?</h4>
-    <div class="deal-grid">
-      <button type="button" class="deal-card" data-answer="a">
-        <span>GAME A</span><strong>$60</strong><b>25% off</b><small>Choose this deal</small>
-      </button>
-      <button type="button" class="deal-card" data-answer="b">
-        <span>GAME B</span><strong>$50</strong><b>20% off</b><small>Choose this deal</small>
-      </button>
-    </div>
-    <div class="game-feedback" data-feedback role="status">Predict first. A bigger percent does not automatically tell you the dollar savings until you consider the original price.</div>
+    <h4 data-prompt></h4>
+    <div class="deal-grid" data-choices></div>
+    <div class="game-feedback" data-feedback role="status">Predict first, then compare the actual dollar savings.</div>
     <button type="button" class="next-round" data-next disabled>Next round →</button>
   </section>
 
   <section class="game-round" data-round="1" hidden>
     <p class="round-tag">ROUND 2 · CHECKOUT</p>
-    <h4>Game A costs $60 and is 25% off. Which checkout slip is correct?</h4>
-    <div class="choice-grid">
-      <button type="button" data-answer="a"><strong>$15 discount</strong><span>$45 sale price</span></button>
-      <button type="button" data-answer="b"><strong>$25 discount</strong><span>$35 sale price</span></button>
-      <button type="button" data-answer="c"><strong>$45 discount</strong><span>$15 sale price</span></button>
-    </div>
-    <div class="game-feedback" data-feedback role="status">Think: 25% is one-quarter. Find one-quarter of $60, then subtract the discount.</div>
+    <h4 data-prompt></h4>
+    <div class="choice-grid" data-choices></div>
+    <div class="game-feedback" data-feedback role="status">Find the discount first, then subtract it from the original price.</div>
     <button type="button" class="next-round" data-next disabled>Next round →</button>
   </section>
 
   <section class="game-round" data-round="2" hidden>
     <p class="round-tag">ROUND 3 · TAX SURPRISE</p>
-    <h4>A second game was $80 and is 15% off, so its sale price is $68. What happens after 5% tax?</h4>
-    <div class="choice-grid">
-      <button type="button" data-answer="a"><strong>$3.40 tax</strong><span>$71.40 final price</span></button>
-      <button type="button" data-answer="b"><strong>$4.00 tax</strong><span>$72.00 final price</span></button>
-      <button type="button" data-answer="c"><strong>$3.40 tax</strong><span>$64.60 final price</span></button>
-    </div>
-    <div class="game-feedback" data-feedback role="status">Five percent is half of 10%. Find 10% of $68, halve it, then add the tax.</div>
+    <h4 data-prompt></h4>
+    <div class="choice-grid" data-choices></div>
+    <div class="game-feedback" data-feedback role="status">Find the tax on the sale price, then add it.</div>
     <button type="button" class="next-round" data-next disabled>See results →</button>
   </section>
 
@@ -51,98 +36,100 @@
     <div class="trophy" aria-hidden="true">🏆</div>
     <p class="eyebrow">MISSION COMPLETE</p>
     <h3>Sale Day Expert</h3>
-    <p>You used percent as a relationship, not just a number. You compared discounts, found a sale price, and added tax.</p>
-    <div class="finish-summary">
-      <span><strong>Game A</strong>25% of $60 = $15 saved</span>
-      <span><strong>Sale price</strong>$60 − $15 = $45</span>
-      <span><strong>Tax round</strong>5% of $68 = $3.40 → $71.40</span>
-    </div>
-    <button type="button" class="restart-game" data-restart>Play again</button>
+    <p>You used percent as a relationship to compare discounts, calculate a sale price, and add tax.</p>
+    <div class="finish-summary"><span><strong>Round 1</strong>Compared dollar savings</span><span><strong>Round 2</strong>Found a discount and sale price</span><span><strong>Round 3</strong>Added tax to a sale price</span></div>
+    <button type="button" class="restart-game" data-restart>Play a new sale</button>
   </section>
 </div>
 
 <script>
   document.querySelectorAll<HTMLElement>('[data-sale-game]').forEach((game) => {
+    const banks = [
+      [
+        { prompt:'Which game saves more dollars?', choices:[{title:'GAME A',main:'$60',detail:'25% off',label:'Game A saves more'},{title:'GAME B',main:'$50',detail:'20% off',label:'Game B saves more'}], correct:0, explain:'Game A saves $15 because 25% of $60 is $15. Game B saves $10 because 20% of $50 is $10.' },
+        { prompt:'Which backpack saves more dollars?', choices:[{title:'BACKPACK A',main:'$80',detail:'20% off',label:'Backpack A saves more'},{title:'BACKPACK B',main:'$60',detail:'25% off',label:'Backpack B saves more'}], correct:0, explain:'Backpack A saves $16. Backpack B saves $15. A smaller percent can still save more when the original price is larger.' },
+        { prompt:'Which pair of headphones saves more dollars?', choices:[{title:'HEADPHONES A',main:'$90',detail:'10% off',label:'Headphones A saves more'},{title:'HEADPHONES B',main:'$50',detail:'20% off',label:'Headphones B saves more'}], correct:1, explain:'Headphones A saves $9. Headphones B saves $10, so B saves more dollars.' }
+      ],
+      [
+        { prompt:'A game costs $60 and is 25% off. Which checkout slip is correct?', choices:[['$15 discount','$45 sale price'],['$25 discount','$35 sale price'],['$45 discount','$15 sale price']], correct:0, explain:'25% is one-quarter. One-quarter of $60 is $15, and $60 − $15 = $45.' },
+        { prompt:'A hoodie costs $80 and is 20% off. Which checkout slip is correct?', choices:[['$16 discount','$64 sale price'],['$20 discount','$60 sale price'],['$64 discount','$16 sale price']], correct:0, explain:'20% of $80 is $16, so the sale price is $80 − $16 = $64.' },
+        { prompt:'A board game costs $50 and is 30% off. Which checkout slip is correct?', choices:[['$15 discount','$35 sale price'],['$30 discount','$20 sale price'],['$10 discount','$40 sale price']], correct:0, explain:'30% of $50 is $15, so the sale price is $50 − $15 = $35.' }
+      ],
+      [
+        { prompt:'A discounted item costs $68. What happens after 5% tax?', choices:[['$3.40 tax','$71.40 final price'],['$4.00 tax','$72.00 final price'],['$3.40 tax','$64.60 final price']], correct:0, explain:'10% of $68 is $6.80, so 5% is $3.40. Add the tax: $68 + $3.40 = $71.40.' },
+        { prompt:'A discounted item costs $40. What happens after 5% tax?', choices:[['$2.00 tax','$42.00 final price'],['$5.00 tax','$45.00 final price'],['$2.00 tax','$38.00 final price']], correct:0, explain:'5% of $40 is $2.00. Tax is added, so the final price is $42.00.' },
+        { prompt:'A discounted item costs $72. What happens after 5% tax?', choices:[['$3.60 tax','$75.60 final price'],['$7.20 tax','$79.20 final price'],['$3.60 tax','$68.40 final price']], correct:0, explain:'10% of $72 is $7.20, so 5% is $3.60. Add the tax: $72 + $3.60 = $75.60.' }
+      ]
+    ];
+
     const rounds = Array.from(game.querySelectorAll<HTMLElement>('[data-round]'));
     const finish = game.querySelector<HTMLElement>('[data-finish]');
     const roundLabel = game.querySelector<HTMLElement>('[data-round-label]');
     const progress = game.querySelector<HTMLElement>('[data-progress]');
-    const correctAnswers = ['a', 'a', 'a'];
+    let quest:any[] = [];
     let current = 0;
+    const pick = (items:any[]) => items[Math.floor(Math.random() * items.length)];
 
-    const showRound = (index:number) => {
+    const renderRound = (index:number) => {
       current = index;
       rounds.forEach((round, i) => { round.hidden = i !== index; });
       if (finish) finish.hidden = true;
-      if (roundLabel) roundLabel.textContent = `Round ${index + 1} of ${rounds.length}`;
-      if (progress) progress.style.width = `${(index / rounds.length) * 100}%`;
-    };
-
-    rounds.forEach((round, roundIndex) => {
+      if (roundLabel) roundLabel.textContent = `Round ${index + 1} of 3`;
+      if (progress) progress.style.width = `${(index / 3) * 100}%`;
+      const round = rounds[index];
+      const scenario = quest[index];
+      const prompt = round.querySelector<HTMLElement>('[data-prompt]');
+      const choices = round.querySelector<HTMLElement>('[data-choices]');
       const feedback = round.querySelector<HTMLElement>('[data-feedback]');
       const next = round.querySelector<HTMLButtonElement>('[data-next]');
-      round.querySelectorAll<HTMLButtonElement>('[data-answer]').forEach((button) => {
-        button.addEventListener('click', () => {
-          if (!next?.disabled) return;
-          const isCorrect = button.dataset.answer === correctAnswers[roundIndex];
-          if (isCorrect) {
-            round.querySelectorAll<HTMLButtonElement>('[data-answer]').forEach((choice) => { choice.disabled = true; });
-            button.classList.add('correct');
-            if (feedback) {
-              if (roundIndex === 0) feedback.innerHTML = '<strong>Correct!</strong> Game A saves $15 because 25% of $60 is one-quarter of $60. Game B saves $10 because 20% of $50 is one-fifth of $50.';
-              if (roundIndex === 1) feedback.innerHTML = '<strong>Correct!</strong> One-quarter of $60 is $15. Subtract the discount: $60 − $15 = $45.';
-              if (roundIndex === 2) feedback.innerHTML = '<strong>Correct!</strong> 10% of $68 is $6.80, so 5% is $3.40. Tax is added: $68 + $3.40 = $71.40.';
-            }
-            if (next) next.disabled = false;
-          } else {
-            button.classList.add('incorrect');
-            setTimeout(() => button.classList.remove('incorrect'), 550);
-            if (feedback) feedback.innerHTML = roundIndex === 0
-              ? '<strong>Try again.</strong> Work out the dollar discount for each game before choosing.'
-              : roundIndex === 1
-                ? '<strong>Try again.</strong> 25% is one-quarter. Find the discount first, then subtract it.'
-                : '<strong>Try again.</strong> Find 5% of $68, then remember that tax is added.';
-          }
-        });
-      });
-      next?.addEventListener('click', () => {
-        if (roundIndex < rounds.length - 1) {
-          showRound(roundIndex + 1);
+      if (prompt) prompt.textContent = scenario.prompt;
+      if (next) next.disabled = true;
+      if (feedback) feedback.textContent = index === 0 ? 'Predict first, then compare the actual dollar savings.' : index === 1 ? 'Find the discount first, then subtract it from the original price.' : 'Find the tax on the sale price, then add it.';
+      if (!choices) return;
+
+      if (index === 0) {
+        choices.innerHTML = scenario.choices.map((choice:any, choiceIndex:number) => `<button type="button" class="deal-card" data-answer="${choiceIndex}"><span>${choice.title}</span><strong>${choice.main}</strong><b>${choice.detail}</b><small>${choice.label}</small></button>`).join('');
+      } else {
+        choices.innerHTML = scenario.choices.map((choice:any, choiceIndex:number) => `<button type="button" data-answer="${choiceIndex}"><strong>${choice[0]}</strong><span>${choice[1]}</span></button>`).join('');
+      }
+
+      choices.querySelectorAll<HTMLButtonElement>('[data-answer]').forEach((button) => button.addEventListener('click', () => {
+        if (!next?.disabled) return;
+        const answer = Number(button.dataset.answer);
+        if (answer === scenario.correct) {
+          choices.querySelectorAll<HTMLButtonElement>('[data-answer]').forEach((choice) => { choice.disabled = true; });
+          button.classList.add('correct');
+          if (feedback) feedback.innerHTML = `<strong>Correct!</strong> ${scenario.explain}`;
+          if (next) next.disabled = false;
         } else {
-          rounds.forEach((round) => { round.hidden = true; });
-          if (finish) finish.hidden = false;
-          if (roundLabel) roundLabel.textContent = '3 of 3 complete';
-          if (progress) progress.style.width = '100%';
+          button.classList.add('incorrect');
+          setTimeout(() => button.classList.remove('incorrect'), 550);
+          if (feedback) feedback.innerHTML = index === 0 ? '<strong>Try again.</strong> Calculate the dollar discount for both choices.' : index === 1 ? '<strong>Try again.</strong> Find the discount amount before the sale price.' : '<strong>Try again.</strong> Tax is calculated from the sale price and then added.';
         }
-      });
-    });
+      }));
+    };
 
-    game.querySelector('[data-restart]')?.addEventListener('click', () => {
-      rounds.forEach((round) => {
-        round.querySelectorAll<HTMLButtonElement>('[data-answer]').forEach((button) => {
-          button.disabled = false;
-          button.classList.remove('correct', 'incorrect');
-        });
-        const next = round.querySelector<HTMLButtonElement>('[data-next]');
-        if (next) next.disabled = true;
-      });
-      const messages = [
-        'Predict first. A bigger percent does not automatically tell you the dollar savings until you consider the original price.',
-        'Think: 25% is one-quarter. Find one-quarter of $60, then subtract the discount.',
-        'Five percent is half of 10%. Find 10% of $68, halve it, then add the tax.'
-      ];
-      rounds.forEach((round, i) => {
-        const feedback = round.querySelector<HTMLElement>('[data-feedback]');
-        if (feedback) feedback.textContent = messages[i];
-      });
-      showRound(0);
-    });
+    rounds.forEach((round, roundIndex) => round.querySelector<HTMLButtonElement>('[data-next]')?.addEventListener('click', () => {
+      if (roundIndex < 2) renderRound(roundIndex + 1);
+      else {
+        rounds.forEach((item) => { item.hidden = true; });
+        if (finish) finish.hidden = false;
+        if (roundLabel) roundLabel.textContent = '3 of 3 complete';
+        if (progress) progress.style.width = '100%';
+      }
+    }));
 
-    showRound(0);
+    const buildQuest = () => {
+      quest = [pick(banks[0]), pick(banks[1]), pick(banks[2])];
+      renderRound(0);
+    };
+
+    game.querySelector('[data-restart]')?.addEventListener('click', buildQuest);
+    buildQuest();
   });
 </script>
 
 <style>
-.sale-game{border:1px solid #ead7df;border-radius:20px;background:linear-gradient(180deg,#fff8fb,#fff);overflow:hidden}.game-top{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;padding:1.2rem;border-bottom:1px solid #f0e1e7}.game-top h3{margin:.2rem 0 .45rem}.game-top p:last-child{margin:0;color:#58677a}.game-score{display:grid;gap:.45rem;min-width:145px;text-align:right}.game-score strong{font-size:.78rem;color:#6a4453}.game-score span{display:block;width:145px;height:10px;border-radius:999px;background:#f0dce5;overflow:hidden}.game-score i{display:block;height:100%;width:0;background:#a61e4d;transition:width .3s ease}.game-round,.game-finish{padding:1.2rem}.round-tag{margin:0 0 .35rem;font-size:.75rem;font-weight:900;letter-spacing:.09em;color:#a61e4d}.game-round h4{margin:.2rem 0 1rem;font:800 1.25rem/1.25 'Manrope',sans-serif}.deal-grid,.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.deal-card,.choice-grid button{border:1px solid #e2d4da;border-radius:16px;background:#fff;padding:1rem;text-align:left;cursor:pointer;transition:.18s ease}.deal-card:hover,.choice-grid button:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(80,34,52,.08)}.deal-card span{display:block;font-size:.7rem;font-weight:900;letter-spacing:.08em;color:#7d5c69}.deal-card strong{display:block;font-size:2rem;margin:.2rem 0}.deal-card b{display:inline-block;padding:.3rem .55rem;border-radius:999px;background:#fff0f5;color:#a61e4d}.deal-card small{display:block;margin-top:.8rem;color:#64748b}.choice-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.choice-grid button strong,.choice-grid button span{display:block}.choice-grid button span{margin-top:.3rem;color:#5f6f84}.deal-card.correct,.choice-grid button.correct{border-color:#22c55e;background:#f0fdf4}.deal-card.incorrect,.choice-grid button.incorrect{border-color:#ef4444;background:#fef2f2}.game-feedback{margin-top:1rem;padding:.85rem;border-radius:12px;background:#f8f5f7;line-height:1.5}.next-round,.restart-game{margin-top:1rem;border:0;border-radius:11px;padding:.72rem 1rem;background:#a61e4d;color:#fff;font-weight:900;cursor:pointer}.next-round:disabled{opacity:.4;cursor:not-allowed}.game-finish{text-align:center}.trophy{font-size:3rem}.game-finish h3{margin:.2rem 0 .6rem}.finish-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin-top:1rem;text-align:left}.finish-summary span{display:grid;gap:.25rem;padding:.8rem;border-radius:12px;background:#fff4f8}.finish-summary strong{color:#8d2048}
+.sale-game{border:1px solid #ead7df;border-radius:20px;background:linear-gradient(180deg,#fff8fb,#fff);overflow:hidden}.game-top{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;padding:1.2rem;border-bottom:1px solid #f0e1e7}.game-top h3{margin:.2rem 0 .45rem}.game-top p:last-child{margin:0;color:#58677a}.game-score{display:grid;gap:.45rem;min-width:145px;text-align:right}.game-score strong{font-size:.78rem;color:#6a4453}.game-score span{display:block;width:145px;height:10px;border-radius:999px;background:#f0dce5;overflow:hidden}.game-score i{display:block;height:100%;width:0;background:#a61e4d;transition:width .3s ease}.game-round,.game-finish{padding:1.2rem}.round-tag{margin:0 0 .35rem;font-size:.75rem;font-weight:900;letter-spacing:.09em;color:#a61e4d}.game-round h4{margin:.2rem 0 1rem;font:800 1.25rem/1.25 'Manrope',sans-serif}.deal-grid,.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.deal-card,.choice-grid button{border:1px solid #e2d4da;border-radius:16px;background:#fff;padding:1rem;text-align:left;cursor:pointer;transition:.18s ease}.deal-card:hover,.choice-grid button:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(80,34,52,.08)}.deal-card span{display:block;font-size:.7rem;font-weight:900;letter-spacing:.08em;color:#7d5c69}.deal-card strong{display:block;font-size:2rem;margin:.2rem 0}.deal-card b{display:inline-block;padding:.3rem .55rem;border-radius:999px;background:#fff0f5;color:#a61e4d}.deal-card small{display:block;margin-top:.8rem;color:#64748b}.choice-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.choice-grid button strong,.choice-grid button span{display:block}.choice-grid button span{margin-top:.3rem;color:#5f6f84}.deal-card.correct,.choice-grid button.correct{border-color:#22c55e;background:#f0fdf4}.deal-card.incorrect,.choice-grid button.incorrect{border-color:#ef4444;background:#fef2f2}.deal-card:disabled,.choice-grid button:disabled{cursor:default}.game-feedback{margin-top:1rem;padding:.85rem;border-radius:12px;background:#f8f5f7;line-height:1.5}.next-round,.restart-game{margin-top:1rem;border:0;border-radius:11px;padding:.72rem 1rem;background:#a61e4d;color:#fff;font-weight:900;cursor:pointer}.next-round:disabled{opacity:.4;cursor:not-allowed}.game-finish{text-align:center}.trophy{font-size:3rem}.game-finish h3{margin:.2rem 0 .6rem}.finish-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin-top:1rem;text-align:left}.finish-summary span{display:grid;gap:.25rem;padding:.8rem;border-radius:12px;background:#fff4f8}.finish-summary strong{color:#8d2048}
 @media(max-width:700px){.game-top{grid-template-columns:1fr}.game-score{text-align:left}.deal-grid,.choice-grid,.finish-summary{grid-template-columns:1fr}.game-score span{width:100%}}
 </style>
