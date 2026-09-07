@@ -1,0 +1,11 @@
+---
+import Unit5RemainingLessonPage from '../../../../components/Unit5RemainingLessonPage.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit5RemainingContent } from '../../../../data/unit5RemainingContent';
+
+const course = findCourse('grade-6-math')!;
+const unit = course.units.find((item) => item.slug === 'ratios-rates')!;
+const topic = unit.topics.find((item) => item.slug === 'equivalent-ratios')!;
+const content = unit5RemainingContent['grade-6-math/ratios-rates/equivalent-ratios'];
+---
+<Unit5RemainingLessonPage {course} {unit} {topic} {content} variant="ratios" />
