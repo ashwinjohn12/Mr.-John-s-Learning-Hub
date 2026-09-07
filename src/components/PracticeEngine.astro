@@ -1,9 +1,9 @@
 ---
 import type { PracticeQuestion } from '../data/topicContent';
-interface Props { questions: readonly PracticeQuestion[] }
-const { questions } = Astro.props;
+interface Props { questions: readonly PracticeQuestion[]; sessionCount?: number }
+const { questions, sessionCount = 0 } = Astro.props;
 ---
-<div class="widget practice-widget" data-practice-widget>
+<div class="widget practice-widget" data-practice-widget data-session-count={sessionCount}>
   <div class="practice-toolbar">
     <label>Level
       <select data-practice-level>
@@ -25,6 +25,7 @@ const { questions } = Astro.props;
       </select>
     </label>
     <span data-practice-balance hidden>Balanced set · 2 per lesson</span>
+    {sessionCount > 0 && <span class="practice-goal">Goal: {sessionCount} questions</span>}
     <span data-practice-score>Score: 0 / 0</span>
   </div>
   <div class="practice-question" aria-live="polite">
@@ -53,6 +54,8 @@ const { questions } = Astro.props;
     const feedback = widget.querySelector<HTMLElement>('[data-question-feedback]');
     const score = widget.querySelector('[data-practice-score]');
     const next = widget.querySelector<HTMLButtonElement>('[data-question-next]');
+    const hintButton = widget.querySelector<HTMLButtonElement>('[data-question-hint]');
+    const sessionCount = Math.max(0, Number(widget.dataset.sessionCount || 0));
     const lessonTags = ['4.1','4.2','4.3','4.4','4.5','4.6'];
     const hasAllUnit4Lessons = lessonTags.every((tag) => all.some((q:any) => String(q.prompt || '').startsWith(`${tag} ·`)));
     if (hasAllUnit4Lessons) {
@@ -67,11 +70,12 @@ const { questions } = Astro.props;
     let balancedMode = false;
     const shuffle = (items:any[]) => [...items].sort(() => Math.random() - 0.5);
     const byLevel = (items:any[]) => level?.value === 'mixed' ? items : items.filter((q:any) => q.difficulty === level?.value);
+    const limitSession = (items:any[]) => sessionCount > 0 ? shuffle(items).slice(0, Math.min(sessionCount, items.length)) : shuffle(items);
 
     const buildPool = () => {
       balancedMode = Boolean(hasAllUnit4Lessons && (!lesson || lesson.value === 'all'));
       if (balancedMode) {
-        return shuffle(lessonTags.flatMap((tag) => {
+        const balanced = lessonTags.flatMap((tag) => {
           const lessonQuestions = all.filter((q:any) => String(q.prompt || '').startsWith(`${tag} ·`));
           const preferred = shuffle(byLevel(lessonQuestions));
           const selected = preferred.slice(0, 2);
@@ -80,14 +84,16 @@ const { questions } = Astro.props;
             selected.push(...shuffle(lessonQuestions.filter((q:any) => !used.has(q.prompt))).slice(0, 2 - selected.length));
           }
           return selected;
-        }));
+        });
+        return sessionCount > 0 ? limitSession(balanced) : shuffle(balanced);
       }
 
       const lessonFiltered = hasAllUnit4Lessons && lesson && lesson.value !== 'all'
         ? all.filter((q:any) => String(q.prompt || '').startsWith(`${lesson.value} ·`))
         : all;
       const preferred = byLevel(lessonFiltered);
-      return shuffle(preferred.length ? preferred : lessonFiltered);
+      const source = preferred.length ? preferred : lessonFiltered;
+      return sessionCount > 0 ? limitSession(source) : shuffle(source);
     };
 
     const reset = () => {
@@ -96,8 +102,28 @@ const { questions } = Astro.props;
       correct = 0;
       answered = 0;
       if (next) next.textContent = 'Next question';
+      if (hintButton) hintButton.hidden = false;
       if (balanceNote) balanceNote.hidden = !balancedMode;
       render();
+    };
+
+    const renderComplete = () => {
+      if (number) number.textContent = 'PRACTICE SET COMPLETE';
+      if (prompt) prompt.textContent = `You scored ${correct} / ${pool.length}.`;
+      if (choices) choices.innerHTML = '';
+      if (feedback) {
+        feedback.hidden = false;
+        feedback.className = 'feedback is-correct';
+        const message = correct === pool.length
+          ? 'Excellent work. You are ready to try Check Yourself.'
+          : correct >= Math.ceil(pool.length * .67)
+            ? 'Good progress. Review any explanations you missed, or try another set before Check Yourself.'
+            : 'Use a hint, example, or the Percent Lab to review, then try another set.';
+        feedback.innerHTML = `<strong>Goal reached.</strong> ${message}`;
+      }
+      if (score) score.textContent = `Score: ${correct} / ${pool.length}`;
+      if (hintButton) hintButton.hidden = true;
+      if (next) { next.disabled = false; next.textContent = 'More practice'; }
     };
 
     const render = () => {
@@ -107,13 +133,18 @@ const { questions } = Astro.props;
         if (next) next.disabled = true;
         return;
       }
+      if (sessionCount > 0 && index >= pool.length) {
+        renderComplete();
+        return;
+      }
       const q = pool[index % pool.length];
-      if (number) number.textContent = balancedMode
+      if (number) number.textContent = (balancedMode || sessionCount > 0)
         ? `QUESTION ${index + 1} OF ${pool.length} · ${q.difficulty.toUpperCase()}`
         : `QUESTION ${index + 1} · ${q.difficulty.toUpperCase()}`;
       if (prompt) prompt.textContent = q.prompt;
       if (feedback) { feedback.hidden = true; feedback.className = 'feedback'; feedback.textContent = ''; }
       if (next) { next.disabled = true; next.textContent = 'Next question'; }
+      if (hintButton) hintButton.hidden = false;
       if (choices) {
         choices.innerHTML = q.choices.map((choice:string, i:number) => `<button type="button" data-choice="${i}"><span>${String.fromCharCode(65 + i)}</span>${choice}</button>`).join('');
         choices.querySelectorAll<HTMLButtonElement>('button').forEach((button) => button.addEventListener('click', () => answer(Number(button.dataset.choice))));
@@ -140,12 +171,12 @@ const { questions } = Astro.props;
       if (score) score.textContent = `Score: ${correct} / ${answered}`;
       if (next) {
         next.disabled = false;
-        if (balancedMode && index === pool.length - 1) next.textContent = 'New balanced set';
+        if ((sessionCount > 0 || balancedMode) && index === pool.length - 1) next.textContent = sessionCount > 0 ? 'Finish practice' : 'New balanced set';
       }
     };
 
-    widget.querySelector('[data-question-hint]')?.addEventListener('click', () => {
-      if (!pool.length) return;
+    hintButton?.addEventListener('click', () => {
+      if (!pool.length || index >= pool.length) return;
       const q = pool[index % pool.length];
       if (feedback) {
         feedback.hidden = false;
@@ -155,12 +186,16 @@ const { questions } = Astro.props;
     });
 
     next?.addEventListener('click', () => {
-      if (balancedMode && index === pool.length - 1) {
+      if (sessionCount > 0 && index >= pool.length) {
+        reset();
+        return;
+      }
+      if (balancedMode && sessionCount === 0 && index === pool.length - 1) {
         reset();
         return;
       }
       index++;
-      if (index >= pool.length) pool = shuffle(pool);
+      if (sessionCount === 0 && index >= pool.length) pool = shuffle(pool);
       render();
     });
     level?.addEventListener('change', reset);
@@ -170,5 +205,5 @@ const { questions } = Astro.props;
 </script>
 
 <style>
-.practice-toolbar{display:flex;gap:.8rem;align-items:end;flex-wrap:wrap}.practice-toolbar label{display:grid;gap:.25rem}.practice-toolbar select{min-width:135px}.practice-toolbar [data-practice-balance]{padding:.4rem .65rem;border-radius:999px;background:#eef6ff;color:#31577f;font-size:.78rem;font-weight:850}.practice-toolbar [data-practice-score]{margin-left:auto;font-weight:850}@media(max-width:600px){.practice-toolbar [data-practice-score]{margin-left:0;width:100%}}
+.practice-toolbar{display:flex;gap:.8rem;align-items:end;flex-wrap:wrap}.practice-toolbar label{display:grid;gap:.25rem}.practice-toolbar select{min-width:135px}.practice-toolbar [data-practice-balance],.practice-goal{padding:.4rem .65rem;border-radius:999px;background:#eef6ff;color:#31577f;font-size:.78rem;font-weight:850}.practice-toolbar [data-practice-score]{margin-left:auto;font-weight:850}@media(max-width:600px){.practice-toolbar [data-practice-score]{margin-left:0;width:100%}}
 </style>
