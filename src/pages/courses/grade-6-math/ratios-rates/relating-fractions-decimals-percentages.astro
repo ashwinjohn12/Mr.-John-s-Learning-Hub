@@ -1,0 +1,12 @@
+---
+import Unit5LessonPage from '../../../../components/Unit5LessonPage.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit5Content } from '../../../../data/unit5Content';
+
+const course = findCourse('grade-6-math')!;
+const unit = course.units.find((item) => item.slug === 'ratios-rates')!;
+const topic = unit.topics.find((item) => item.slug === 'relating-fractions-decimals-percentages')!;
+const key = 'grade-6-math/ratios-rates/relating-fractions-decimals-percentages';
+const content = unit5Content[key];
+---
+<Unit5LessonPage {course} {unit} {topic} {content} />
