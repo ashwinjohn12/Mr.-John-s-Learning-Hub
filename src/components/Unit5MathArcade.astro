@@ -1,0 +1,55 @@
+<div class="arcade" data-unit5-arcade>
+  <div class="arcade-head">
+    <div><p class="eyebrow">RATIO & RATE EXPEDITION</p><h3>Unit 5 Math Arcade</h3><p>Each quest gives you six real-life missions: exactly two from each Unit 5 lesson. No multiple choice—enter the value that solves the situation.</p></div>
+    <div class="arcade-score"><strong data-score>0</strong><span>points</span><small data-streak>Streak: 0</small></div>
+  </div>
+  <div class="mission-card">
+    <div class="mission-meta"><span data-number>Mission 1 of 6</span><span data-skill></span></div>
+    <h3 data-prompt></h3><p class="format" data-format></p>
+    <label class="answer-entry"><span>Your answer</span><input type="text" autocomplete="off" data-answer><button type="button" data-check>Check mission</button></label>
+    <div class="feedback" data-feedback aria-live="polite"></div>
+    <div class="actions"><button type="button" data-next hidden>Next mission →</button><button type="button" class="secondary" data-new>New quest</button></div>
+  </div>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-unit5-arcade]').forEach((widget) => {
+    const missions = [
+      { lesson:'5.1', skill:'5.1 · Find the part', prompt:'School Store: a backpack costs $80 and is 25% off. How many dollars is the discount?', answer:20, format:'Enter the dollar amount.', explain:'25% is one-quarter, and one-quarter of $80 is $20.' },
+      { lesson:'5.1', skill:'5.1 · Find the percent', prompt:'Team Survey: 18 of 60 students choose the blue team. What percentage chose blue?', answer:30, format:'Enter the percent number, such as 30.', explain:'18/60 = 3/10 = 30/100, so 30% chose blue.' },
+      { lesson:'5.1', skill:'5.1 · Find the whole', prompt:'Game Points: 12 points are 25% of a player’s total. What is the total?', answer:48, format:'Enter the whole number.', explain:'25% is one-quarter. If one quarter is 12, the whole is 12 × 4 = 48.' },
+      { lesson:'5.1', skill:'5.1 · Benchmark percent', prompt:'Fundraiser: find 15% of $200.', answer:30, format:'Enter the dollar amount.', explain:'10% of 200 is 20 and 5% is 10, so 15% is 30.' },
+
+      { lesson:'5.2', skill:'5.2 · Missing term', prompt:'Paint Lab: 3 : 5 = 15 : ?. What is the missing term?', answer:25, format:'Enter the missing number.', explain:'3 became 15 by ×5, so 5 × 5 = 25.' },
+      { lesson:'5.2', skill:'5.2 · Equivalent ratio', prompt:'Animal Shelter: cats : dogs = 3 : 4. If there are 20 dogs, how many cats keep the same relationship?', answer:15, format:'Enter the number of cats.', explain:'4 became 20 by ×5, so 3 × 5 = 15 cats.' },
+      { lesson:'5.2', skill:'5.2 · Scale a mixture', prompt:'Smoothie Mix: fruit : yogurt = 2 : 3. If there are 12 scoops of yogurt, how many scoops of fruit keep the same taste?', answer:8, format:'Enter the number of fruit scoops.', explain:'3 became 12 by ×4, so 2 × 4 = 8.' },
+      { lesson:'5.2', skill:'5.2 · Extend a proportion', prompt:'Printer Station: 30 pages print in 2 minutes. At the same rate, how many pages print in 8 minutes?', answer:120, format:'Enter the number of pages.', explain:'2 minutes became 8 by ×4, so 30 × 4 = 120 pages.' },
+
+      { lesson:'5.3', skill:'5.3 · Unit price', prompt:'Notebook Shop: five notebooks cost $20. What is the cost of one notebook?', answer:4, format:'Enter the dollar amount per notebook.', explain:'$20 ÷ 5 = $4 per notebook.' },
+      { lesson:'5.3', skill:'5.3 · Speed', prompt:'Road Trip: a car travels 180 km in 3 hours. What is its speed in kilometres per hour?', answer:60, format:'Enter the km/h number.', explain:'180 ÷ 3 = 60 km/h.' },
+      { lesson:'5.3', skill:'5.3 · Best buy', prompt:'Best Buy: 5 notebooks cost $9. What is the unit price per notebook?', answer:1.8, format:'Enter the dollar amount, such as 1.80.', explain:'$9 ÷ 5 = $1.80 per notebook.' },
+      { lesson:'5.3', skill:'5.3 · Use a unit rate', prompt:'Recipe Station: 6 cups of flour are used for 3 eggs. How many cups of flour are needed for 5 eggs?', answer:10, format:'Enter the number of cups.', explain:'6 ÷ 3 = 2 cups per egg, and 2 × 5 = 10 cups.' }
+    ];
+    const prompt = widget.querySelector('[data-prompt]');
+    const skill = widget.querySelector('[data-skill]');
+    const number = widget.querySelector('[data-number]');
+    const format = widget.querySelector('[data-format]');
+    const answer = widget.querySelector<HTMLInputElement>('[data-answer]');
+    const feedback = widget.querySelector<HTMLElement>('[data-feedback]');
+    const score = widget.querySelector('[data-score]');
+    const streakText = widget.querySelector('[data-streak]');
+    const check = widget.querySelector<HTMLButtonElement>('[data-check]');
+    const next = widget.querySelector<HTMLButtonElement>('[data-next]');
+    const newQuest = widget.querySelector<HTMLButtonElement>('[data-new]');
+    let pool:any[]=[]; let index=0; let points=0; let streak=0; let locked=false;
+    const shuffle=(items:any[])=>[...items].sort(()=>Math.random()-.5);
+    const buildPool=()=>shuffle(['5.1','5.2','5.3'].flatMap(lesson=>shuffle(missions.filter(m=>m.lesson===lesson)).slice(0,2)));
+    const render=()=>{
+      if(index>=pool.length){if(prompt)prompt.textContent=`Quest complete — ${points} points!`;if(skill)skill.textContent='UNIT 5 COMPLETE';if(number)number.textContent='6 missions cleared';if(format)format.textContent=points>=50?'🏆 Ratio & Rate Explorer — excellent connection-making across the unit.':'Review any missed mission explanations, then try a fresh quest.';if(answer)answer.hidden=true;if(check)check.hidden=true;if(next)next.hidden=true;if(feedback){feedback.innerHTML='<strong>Expedition complete.</strong> A new quest will choose a different balanced mix.';}return;}
+      const m=pool[index];locked=false;if(prompt)prompt.textContent=m.prompt;if(skill)skill.textContent=m.skill;if(number)number.textContent=`Mission ${index+1} of ${pool.length}`;if(format)format.textContent=m.format;if(answer){answer.hidden=false;answer.value='';answer.focus();}if(check){check.hidden=false;check.disabled=false;}if(next)next.hidden=true;if(feedback)feedback.textContent='';if(score)score.textContent=String(points);if(streakText)streakText.textContent=`Streak: ${streak}`;
+    };
+    const reset=()=>{pool=buildPool();index=0;points=0;streak=0;if(score)score.textContent='0';if(streakText)streakText.textContent='Streak: 0';render();};
+    check?.addEventListener('click',()=>{if(locked||!answer?.value)return;const m=pool[index];const entered=Number(answer.value.replace(/[$,%\s]/g,''));const ok=Number.isFinite(entered)&&Math.abs(entered-m.answer)<.011;locked=true;if(ok){streak++;points+=10+(streak>=3?5:0);if(feedback)feedback.innerHTML=`<strong>Mission cleared!</strong> ${m.explain}${streak>=3?' 🔥 Streak bonus!':''}`;}else{streak=0;if(feedback)feedback.innerHTML=`<strong>Not quite.</strong> ${m.explain}`;}if(score)score.textContent=String(points);if(streakText)streakText.textContent=`Streak: ${streak}`;if(check)check.disabled=true;if(next)next.hidden=false;});
+    next?.addEventListener('click',()=>{index++;render();});newQuest?.addEventListener('click',reset);answer?.addEventListener('keydown',(event)=>{if(event.key==='Enter'&&!locked)check?.click();});reset();
+  });
+</script>
+<style>.arcade{border:1px solid #d8e1eb;border-radius:20px;background:#fff;padding:1.1rem}.arcade-head{display:flex;justify-content:space-between;gap:1rem;align-items:start}.arcade-head h3{margin:.2rem 0}.arcade-head p{margin:.3rem 0;color:#526174}.arcade-score{display:grid;text-align:center;min-width:100px;padding:.75rem;border-radius:14px;background:var(--course-soft)}.arcade-score strong{font-size:1.5rem}.arcade-score span,.arcade-score small{font-weight:800}.mission-card{margin-top:1rem;padding:1rem;border-radius:16px;background:#f8fafc}.mission-meta{display:flex;justify-content:space-between;gap:.7rem;color:#64748b;font-size:.75rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.format{color:#64748b}.answer-entry{display:grid;grid-template-columns:auto 1fr auto;gap:.6rem;align-items:center;margin-top:1rem}.answer-entry span{font-weight:900}.answer-entry input{min-width:0;padding:.72rem;border:1px solid #cbd5e1;border-radius:10px;font:inherit}.answer-entry button,.actions button{border:0;border-radius:11px;padding:.72rem .9rem;background:var(--course);color:#fff;font-weight:900;cursor:pointer}.feedback{min-height:30px;padding-top:.7rem}.actions{display:flex;gap:.6rem;flex-wrap:wrap}.actions .secondary{background:#eef3f8;color:#25364f}@media(max-width:650px){.arcade-head,.answer-entry,.mission-meta{display:grid}.arcade-score{justify-self:start}}</style>
