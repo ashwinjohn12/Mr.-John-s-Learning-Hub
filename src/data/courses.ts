@@ -112,10 +112,10 @@ export const courses: Course[] = [
         title: 'Measurement',
         description: 'Build area from rectangles to parallelograms and triangles, decompose composite shapes, and model volume with cubic units.',
         topics: [
-          { slug: 'area-parallelogram', number: '7.1', title: 'Area of a Parallelogram', summary: 'Rearrange parallelograms into rectangles, use base and perpendicular height to find area, and determine missing dimensions.', status: 'planned' },
-          { slug: 'area-triangle', number: '7.2', title: 'Area of a Triangle', summary: 'Connect triangles to parallelograms, understand why triangle area is half of base times perpendicular height, and solve area problems.', status: 'planned' },
-          { slug: 'area-composite-shapes', number: '7.3', title: 'Area of Composite Shapes', summary: 'Decompose composite shapes in different ways, find missing dimensions, and combine familiar areas to determine a total area.', status: 'planned' },
-          { slug: 'understanding-volume', number: '7.4', title: 'Understanding Volume', summary: 'Model volume with cubic units and layers, distinguish volume from capacity, and solve problems involving right rectangular prisms.', status: 'planned' }
+          { slug: 'area-parallelogram', number: '7.1', title: 'Area of a Parallelogram', summary: 'Rearrange parallelograms into rectangles, use base and perpendicular height to find area, and determine missing dimensions.', status: 'ready' },
+          { slug: 'area-triangle', number: '7.2', title: 'Area of a Triangle', summary: 'Connect triangles to parallelograms, understand why triangle area is half of base times perpendicular height, and solve area problems.', status: 'ready' },
+          { slug: 'area-composite-shapes', number: '7.3', title: 'Area of Composite Shapes', summary: 'Decompose composite shapes in different ways, find missing dimensions, and combine familiar areas to determine a total area.', status: 'ready' },
+          { slug: 'understanding-volume', number: '7.4', title: 'Understanding Volume', summary: 'Model volume with cubic units and layers, distinguish volume from capacity, and solve problems involving right rectangular prisms.', status: 'ready' }
         ]
       },
       {
