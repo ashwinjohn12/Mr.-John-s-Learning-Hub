@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import LearningSection from '../../../../components/LearningSection.astro';
+import VocabularyExplorer from '../../../../components/VocabularyExplorer.astro';
+import PracticeEngine from '../../../../components/PracticeEngine.astro';
+import Unit5BalancedCheck from '../../../../components/Unit5BalancedCheck.astro';
+import Unit5MathArcade from '../../../../components/Unit5MathArcade.astro';
+import { findCourse } from '../../../../data/courses';
+import { unit5Content } from '../../../../data/unit5Content';
+import { unit5RemainingContent } from '../../../../data/unit5RemainingContent';
+
+const course = findCourse('grade-6-math')!;
+const unit = course.units.find((item) => item.slug === 'ratios-rates')!;
+const base = import.meta.env.BASE_URL;
+const contentBySlug = {
+  'relating-fractions-decimals-percentages': unit5Content['grade-6-math/ratios-rates/relating-fractions-decimals-percentages'],
+  'equivalent-ratios': unit5RemainingContent['grade-6-math/ratios-rates/equivalent-ratios'],
+  'unit-rates': unit5RemainingContent['grade-6-math/ratios-rates/unit-rates']
+};
+const lessonData = unit.topics.map((topic) => ({ topic, content: contentBySlug[topic.slug as keyof typeof contentBySlug] }));
+const mixedPractice = lessonData.flatMap(({topic,content}) => content.questions.map((q) => ({...q,prompt:`${topic.number} · ${q.prompt}`})));
+const balancedGroups = lessonData.map(({topic,content}) => ({ label:`Lesson ${topic.number} · ${topic.title}`, questions:content.checkQuestions, count:3 }));
+const reviewWords = [
+  {term:'Percent',definition:'A comparison of a quantity to 100.',example:'25% means 25 out of 100.'},
+  {term:'Part',definition:'The amount being compared with the whole.',example:'20 is the part in 25% of 80 = 20.'},
+  {term:'Whole',definition:'The total quantity that represents 100%.',example:'80 is the whole in 25% of 80.'},
+  {term:'Ratio',definition:'A comparison of two quantities in a specific order.',example:'2 red : 3 yellow.'},
+  {term:'Equivalent ratios',definition:'Different ratios that describe the same relationship.',example:'2 : 3 = 8 : 12.'},
+  {term:'Scale factor',definition:'The number used to multiply or divide both terms of a ratio.',example:'×4 changes 2 : 3 to 8 : 12.'},
+  {term:'Proportion',definition:'A statement showing that two ratios are equivalent.',example:'3 : 4 = 15 : 20.'},
+  {term:'Rate',definition:'A ratio that compares quantities with different units.',example:'180 km in 3 h.'},
+  {term:'Unit rate',definition:'A rate with a second term of 1.',example:'60 km per 1 h.'},
+  {term:'Unit price',definition:'The cost for one item or unit.',example:'$1.80 per notebook.'},
+  {term:'Speed',definition:'A rate comparing distance with time.',example:'90 km/h.'},
+  {term:'Per',definition:'A word meaning “for each” used to communicate rates.',example:'$3 per litre.'}
+];
+const sectionLinks=[['overview','🎯','Overview'],['lessons','🗺️','Lesson Map'],['vocabulary','🧠','Vocabulary'],['practice','✏️','Mixed Practice'],['check','✅','Unit Check'],['arcade','🎮','Math Arcade'],['pat','🏁','PAT-Style Review']];
+---
+<BaseLayout title={`Unit 5 Review | ${course.grade} ${course.shortSubject}`} description="Balanced review of percentages, equivalent ratios, proportions, rates, and unit rates." themeColor={course.color}>
+  <div class="topic-shell" style={`--course:${course.color};--course-soft:${course.accent}`}>
+    <aside class="topic-sidebar"><a class="back-course" href={`${base}courses/${course.slug}/${unit.slug}/`}>← {unit.title}</a><p class="eyebrow">ON THIS PAGE</p><p class="scroll-cue">Swipe sections →</p><nav aria-label="Review sections">{sectionLinks.map(([id,icon,label])=><a href={`#${id}`}><span>{icon}</span>{label}</a>)}</nav></aside>
+    <article class="topic-content">
+      <Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title,href:`${base}courses/${course.slug}/${unit.slug}/`},{label:'Unit Review'}]} />
+      <header class="topic-hero"><p class="eyebrow">UNIT 5 REVIEW · GRADE 6 MATH</p><h1>Ratios & Rates</h1><p>Connect percent, equivalent ratios, proportions, and unit rates. The goal is not to memorize separate tricks—it is to recognize the proportional relationship and choose a useful way to scale it.</p><div class="review-start"><strong>How to use this page</strong><span>Check the skills you already own, use Mixed Practice when you want hints, take the balanced Unit Check independently, then finish with the Ratio & Rate Expedition.</span></div></header>
+
+      <LearningSection id="overview" eyebrow="GET READY" title="What should I know?" icon="🎯" tone="idea">
+        <div class="checklist-groups">
+          <article><p class="lesson-chip">5.1 · Fractions, Decimals & Percents</p><label><input type="checkbox" /> I can connect fractions, decimals, ratios out of 100, and percents.</label><label><input type="checkbox" /> I can identify the part, percent, and whole.</label><label><input type="checkbox" /> I can solve percent problems using proportional reasoning and benchmark percents.</label></article>
+          <article><p class="lesson-chip">5.2 · Equivalent Ratios</p><label><input type="checkbox" /> I can create and recognize equivalent ratios.</label><label><input type="checkbox" /> I can keep quantities in the correct order and scale both terms by the same factor.</label><label><input type="checkbox" /> I can write a proportion and find a missing term.</label></article>
+          <article><p class="lesson-chip">5.3 · Unit Rates</p><label><input type="checkbox" /> I can turn a rate into a “per 1” unit rate.</label><label><input type="checkbox" /> I can compare unit prices and speeds fairly.</label><label><input type="checkbox" /> I can use a unit rate to extend a proportional relationship.</label></article>
+        </div><p class="review-tip"><strong>Student tip:</strong> If one box is unchecked, review that one idea instead of restarting the entire unit.</p>
+      </LearningSection>
+
+      <LearningSection id="lessons" eyebrow="FIND YOUR NEXT STEP" title="Three-lesson map" icon="🗺️" tone="learn"><div class="lesson-map">{lessonData.map(({topic})=><a href={`${base}courses/${course.slug}/${unit.slug}/${topic.slug}/`}><span>{topic.number}</span><div><strong>{topic.title}</strong><small>{topic.summary}</small></div><em>Review →</em></a>)}</div></LearningSection>
+
+      <LearningSection id="vocabulary" eyebrow="LEARN THE LANGUAGE" title="Mixed Unit 5 vocabulary" icon="🧠" tone="vocab"><p class="section-lead">Notice how the vocabulary grows across the unit: percent is a relationship to 100, equivalent ratios keep a relationship constant, and a unit rate expresses a rate per 1.</p><VocabularyExplorer words={reviewWords} /></LearningSection>
+
+      <LearningSection id="practice" eyebrow="PRACTISE WITH SUPPORT" title="Mixed Unit 5 practice" icon="✏️" tone="practice"><p>The full supported Practice banks from all three lessons are mixed here. The lesson number tells you where to return for a refresher. Hints and explanations are available because this section is for learning from mistakes.</p><PracticeEngine questions={mixedPractice} /></LearningSection>
+
+      <LearningSection id="check" eyebrow="UNIT CHECK" title="Can you connect all three lessons?" icon="✅" tone="review"><p>Every set contains exactly <strong>3 questions from each lesson</strong> for a balanced total of 9. There are no hints. The questions are randomized so a new set changes while the lesson coverage stays fair.</p><Unit5BalancedCheck groups={balancedGroups} /></LearningSection>
+
+      <LearningSection id="arcade" eyebrow="PLAY & APPLY" title="Ratio & Rate Expedition Math Arcade" icon="🎮" tone="play"><p>This is not another multiple-choice quiz. Each quest gives six free-response real-world missions—two from each lesson. Type answers, build a streak, and use percent, equivalent ratios, and unit rates to make decisions.</p><Unit5MathArcade /></LearningSection>
+
+      <LearningSection id="pat" eyebrow="PAT-STYLE THINKING" title="Explain, justify, and connect" icon="🏁" tone="review">
+        <div class="pat-stack">
+          <article><p class="lesson-chip">5.1</p><h3>Percent is a relationship</h3><p>A student says 25% of 80 is 25 because “25% means 25 out of 100.” Explain the error.</p><details><summary>Show a strong answer</summary><p>The 25 describes a relationship to a whole of 100, not a fixed amount. Since 25% is one-quarter, 25% of 80 is one-quarter of 80, which is 20.</p></details></article>
+          <article><p class="lesson-chip">5.2</p><h3>Equivalent-ratio error</h3><p>A student says 3 : 5 = 6 : 8 because they added 3 to both terms. Explain why the relationship changed and give the correct ratio with first term 6.</p><details><summary>Show a strong answer</summary><p>Equivalent ratios multiply or divide both terms by the same factor. Since 3 was doubled to 6, 5 must also be doubled to 10. The correct equivalent ratio is 6 : 10.</p></details></article>
+          <article><p class="lesson-chip">5.3</p><h3>Fair comparison</h3><p>Store A sells 3 notebooks for $6 and Store B sells 5 for $9. A student chooses Store A because $6 is less than $9. Why is that comparison incomplete?</p><details><summary>Show a strong answer</summary><p>The packages contain different numbers of notebooks. Compare the same amount using unit price: Store A is $2.00 per notebook and Store B is $1.80 per notebook. Store B is the lower unit price.</p></details></article>
+          <article class="synthesis"><p class="lesson-chip">SYNTHESIS · 5.1 + 5.2 + 5.3</p><h3>School Event Supply Challenge</h3><p>A drink mix uses juice : water = 2 : 3. You need a batch with 12 cups of water. Juice costs $3 for 2 cups. Find the amount of juice needed, the cost per cup of juice, and the total juice cost. Then explain which Unit 5 ideas you used.</p><details><summary>Show a strong answer</summary><p>For 2 : 3 = j : 12, 3 was multiplied by 4, so 2 × 4 = 8 cups of juice. The unit price is $3 ÷ 2 = $1.50 per cup. Eight cups cost 8 × $1.50 = $12. Equivalent ratios found the needed amount; unit rate found cost per cup; both used the same proportional-thinking idea of keeping relationships equivalent.</p></details></article>
+        </div>
+        <div class="final-links"><a href={`${base}courses/${course.slug}/${unit.slug}/relating-fractions-decimals-percentages/`}>Review 5.1 →</a><a href={`${base}courses/${course.slug}/${unit.slug}/equivalent-ratios/`}>Review 5.2 →</a><a href={`${base}courses/${course.slug}/${unit.slug}/unit-rates/`}>Review 5.3 →</a></div>
+      </LearningSection>
+    </article>
+  </div>
+</BaseLayout>
+<style>.review-start,.review-tip{margin-top:1rem;padding:.85rem 1rem;border-radius:12px;background:#fff8db;display:grid;gap:.25rem}.checklist-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem}.checklist-groups article{display:grid;gap:.55rem;border:1px solid #dfe5ee;border-radius:15px;padding:1rem;background:#fff}.checklist-groups label{display:flex;gap:.5rem;align-items:flex-start;line-height:1.45}.lesson-chip{display:inline-flex;width:fit-content;margin:.1rem 0 .5rem;padding:.35rem .55rem;border-radius:999px;background:var(--course-soft);font-size:.75rem;font-weight:900}.lesson-map{display:grid;gap:.7rem}.lesson-map a{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;padding:.85rem;border:1px solid #dfe5ee;border-radius:14px;background:#fff;text-decoration:none;color:inherit}.lesson-map>a>span{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--course-soft);font-weight:900}.lesson-map small{display:block;margin-top:.2rem;color:#64748b}.lesson-map em{font-style:normal;font-weight:900;color:var(--course)}.pat-stack{display:grid;gap:.9rem}.pat-stack article{border:1px solid #dfe5ee;border-radius:15px;padding:1rem;background:#fff}.pat-stack .synthesis{border-width:2px;background:#f4f8ff}.final-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin-top:1rem}.final-links a{padding:.8rem;border-radius:12px;background:var(--course);color:#fff;text-decoration:none;text-align:center;font-weight:900}@media(max-width:760px){.checklist-groups,.final-links{grid-template-columns:1fr}.lesson-map a{grid-template-columns:auto 1fr}.lesson-map em{grid-column:2}}</style>
