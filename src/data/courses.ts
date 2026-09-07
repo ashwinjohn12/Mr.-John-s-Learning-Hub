@@ -91,8 +91,8 @@ export const courses: Course[] = [
         description: 'Connect fractions, decimals, percentages, ratios, proportions, and unit rates to compare quantities and solve real situations.',
         topics: [
           { slug: 'relating-fractions-decimals-percentages', number: '5.1', title: 'Relating Fractions, Decimal Numbers, and Percentages', summary: 'Connect fractions, decimals, ratios, and percentages, then use proportional reasoning to find a percent, a part, or a whole.', status: 'ready' },
-          { slug: 'equivalent-ratios', number: '5.2', title: 'Equivalent Ratios', summary: 'Create and compare equivalent ratios, use proportions, and solve problems involving ratios, rates, and proportional relationships.', status: 'planned' },
-          { slug: 'unit-rates', number: '5.3', title: 'Unit Rates', summary: 'Interpret and calculate unit rates to compare quantities and make decisions in real-life situations.', status: 'planned' }
+          { slug: 'equivalent-ratios', number: '5.2', title: 'Equivalent Ratios', summary: 'Create and compare equivalent ratios, use proportions, and solve problems involving ratios, rates, and proportional relationships.', status: 'ready' },
+          { slug: 'unit-rates', number: '5.3', title: 'Unit Rates', summary: 'Interpret and calculate unit rates to compare quantities and make decisions in real-life situations.', status: 'ready' }
         ]
       },
       { slug: 'patterns-algebra', number: '06', title: 'Patterns & Algebra', description: 'Describe relationships with tables, expressions, and equations.', topics: [] },
