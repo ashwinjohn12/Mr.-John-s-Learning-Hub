@@ -25,7 +25,7 @@ const { questions, sessionCount = 0 } = Astro.props;
       </select>
     </label>
     <span data-practice-balance hidden>Balanced set · 2 per lesson</span>
-    {sessionCount > 0 && <span class="practice-goal">Goal: {sessionCount} questions</span>}
+    {sessionCount > 0 && <span class="practice-goal" data-practice-goal>Goal: {sessionCount} questions</span>}
     <span data-practice-score>Score: 0 / 0</span>
   </div>
   <div class="practice-question" aria-live="polite">
@@ -48,6 +48,7 @@ const { questions, sessionCount = 0 } = Astro.props;
     const lesson = widget.querySelector<HTMLSelectElement>('[data-practice-lesson]');
     const lessonWrap = widget.querySelector<HTMLElement>('[data-practice-lesson-wrap]');
     const balanceNote = widget.querySelector<HTMLElement>('[data-practice-balance]');
+    const goal = widget.querySelector<HTMLElement>('[data-practice-goal]');
     const prompt = widget.querySelector('[data-question-prompt]');
     const number = widget.querySelector('[data-question-number]');
     const choices = widget.querySelector<HTMLElement>('[data-question-choices]');
@@ -101,6 +102,7 @@ const { questions, sessionCount = 0 } = Astro.props;
       index = 0;
       correct = 0;
       answered = 0;
+      if (goal && sessionCount > 0) goal.textContent = `Goal: ${pool.length} ${pool.length === 1 ? 'question' : 'questions'}`;
       if (next) next.textContent = 'Next question';
       if (hintButton) hintButton.hidden = false;
       if (balanceNote) balanceNote.hidden = !balancedMode;
@@ -118,7 +120,7 @@ const { questions, sessionCount = 0 } = Astro.props;
           ? 'Excellent work. You are ready to try Check Yourself.'
           : correct >= Math.ceil(pool.length * .67)
             ? 'Good progress. Review any explanations you missed, or try another set before Check Yourself.'
-            : 'Use a hint, example, or the Percent Lab to review, then try another set.';
+            : 'Use a hint, worked example, or the Explore activity above to review, then try another set.';
         feedback.innerHTML = `<strong>Goal reached.</strong> ${message}`;
       }
       if (score) score.textContent = `Score: ${correct} / ${pool.length}`;
@@ -131,6 +133,7 @@ const { questions, sessionCount = 0 } = Astro.props;
         if (prompt) prompt.textContent = 'No questions are available for this filter yet.';
         if (choices) choices.innerHTML = '';
         if (next) next.disabled = true;
+        if (goal && sessionCount > 0) goal.textContent = 'Goal: 0 questions';
         return;
       }
       if (sessionCount > 0 && index >= pool.length) {
