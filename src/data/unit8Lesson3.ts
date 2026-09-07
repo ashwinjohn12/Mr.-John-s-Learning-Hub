@@ -14,7 +14,7 @@ export const unit8Lesson3: TopicContent = {
       {title:'Forward means input → output',text:'Substitute the known input into the function rule and calculate the dependent value.',remember:'Known x → calculate y.'},
       {title:'Backward means output → input',text:'If the output is known, solve the function equation for the input using inverse operations or locate the matching pair in a table or graph.',remember:'Known y → solve for x.'},
       {title:'Tables and graphs can solve the same problem',text:'A table may show the matching pair directly. A graph may allow you to trace from one coordinate to the other.',remember:'Choose the representation that makes the information easiest to see.'},
-      {title:'Constant change helps reveal a rule',text:'When inputs increase by 1 and outputs change by a constant amount, that change helps identify the multiplier in a rule such as y=mx+b.',remember:'Test the finished rule with known pairs.'},
+      {title:'Constant change helps reveal the multiplier',text:'When outputs change by the same amount each time x increases by 1, that constant change often becomes the number multiplying x. If outputs rise by 4 each step, a rule might begin y=4x and then include a fixed amount such as +3.',remember:'Use the constant change to build the rule, then test it with known pairs.'},
       {title:'The answer must make sense in context',text:'After solving, interpret the input or output using the situation’s units and meaning.',remember:'A number without its meaning may not answer the question.'},
       {title:'Verification catches errors',text:'Substitute a found input back into the function rule to confirm it produces the given output.',remember:'Forward-check your backward solution.'}
     ],
@@ -27,7 +27,7 @@ export const unit8Lesson3: TopicContent = {
     examples:[
       {title:'Example 1 · Find an output',problem:'For y=3x+2, find y when x=6.',steps:['Substitute x=6.','y=3(6)+2.','y=18+2.'],answer:'20'},
       {title:'Example 2 · Find an input',problem:'For y=4x+5, find x when y=29.',steps:['Write 29=4x+5.','Subtract 5: 24=4x.','Divide by 4: x=6.','Check: 4(6)+5=29.'],answer:'6'},
-      {title:'Example 3 · Determine the equation',problem:'Table pairs are (1,5),(2,11),(3,17),(4,23).',steps:['Outputs increase by 6.','Try y=6x+b.','Use (1,5): 5=6+b, so b=−1.','Test another pair.'],answer:'y=6x−1'},
+      {title:'Example 3 · Build the equation from the pattern',problem:'Table pairs are (1,5),(2,11),(3,17),(4,23).',steps:['The outputs increase by 6 each time x increases by 1.','Start with six times the input: 6, 12, 18, 24.','Each actual output is 1 less than those values.','So subtract 1: y=6x−1.','Test x=3: 6(3)−1=17.'],answer:'y=6x−1'},
       {title:'Example 4 · Real-world function',problem:'A fair charges $2 entrance plus $5 per ride. What does x represent in y=5x+2?',steps:['The repeated cost is $5 per ride.','x counts how many rides are purchased.','y is the total cost.'],answer:'x = number of rides.'}
     ],
     vocabulary:[
@@ -38,7 +38,7 @@ export const unit8Lesson3: TopicContent = {
       {term:'Predict',definition:'Use a known relationship to determine an unknown value.',example:'Use y=2x+3 to predict y when x=10.'},
       {term:'Verify',definition:'Check a proposed value in the original function.',example:'Substitute x=6 to confirm y=29.'}
     ],
-    explorePrompt:'Use Function Detective to switch between forward and backward problems. Solve with the equation, then compare the matching table and graph evidence.',
+    explorePrompt:'Use Function Detective to switch between forward and backward problems. Solve with the equation, then compare the highlighted matching pair in the table and graph.',
     exploreMode:'compare',
     handsOn:{title:'Function Story Cards',instructions:['Write a real-life rule such as “cost = 4 × games + 3.”','Create three input-output pairs.','Give a partner one forward question and one backward question.','Have your partner solve and verify both.','Compare equation, table, and graph strategies.'],reflect:'When is working backward easier with an equation than with a table?'},
     practiceIntro:'First decide which quantity is known. If input is known, calculate forward. If output is known, solve backward and verify.',
