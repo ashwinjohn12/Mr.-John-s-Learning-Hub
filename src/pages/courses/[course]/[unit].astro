@@ -24,7 +24,7 @@ const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-neg
               : course.slug === 'grade-6-math' && unit.slug === 'patterns'
                 ? { title:'Unit 8 Review & Math Arcade', summary:'Connect function rules, tables, ordered pairs, graphs, equations, predictions, and backward reasoning, then complete the Function Lab Arcade.' }
                 : course.slug === 'grade-6-math' && unit.slug === 'statistics'
-                  ? { title:'Unit 9 Review & Statistics Arcade', summary:'Connect fair experiments, relative frequency, sample size, predictions, and data reliability, then complete the Statistics Lab Arcade.' }
+                  ? { title:'Unit 9 Review & Math Arcade', summary:'Connect fair experiments, relative frequency, sample size, predictions, and data reliability, then complete the Statistics Lab Arcade.' }
                   : null;
 ---
 <BaseLayout title={`${unit.title} | ${course.grade} ${course.shortSubject}`} description={unit.description} themeColor={course.color}>
