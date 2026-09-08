@@ -1,0 +1,248 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const continents = [
+  { name: 'Gyre', code: 'GY', subtitle: 'Alpine Frontier', status: 'Promising', tone: 'yellow', icon: '⛰️', summary: 'Towering mountains, high plateaus, deep valleys, freshwater rivers, and snow-covered peaks.', known: ['Fresh water in valley systems', 'Strong elevation changes', 'Large unidentified organisms detected'], question: 'What is living in the valleys—and what else is hidden in the mountains?' },
+  { name: 'Brillig', code: 'BR', subtitle: 'Emerald Basin', status: 'Very Promising', tone: 'green', icon: '🌿', summary: 'Warm, wet, humid, and covered by dense vegetation. Huge rivers cross a highly biodiverse landscape.', known: ['Abundant fresh water', 'Extremely high biodiversity', 'Exposed soil erodes quickly after vegetation is removed'], question: 'Can humans use Brillig’s resources without damaging what makes it valuable?' },
+  { name: 'Manxome', code: 'MA', subtitle: 'Vorpal Archipelago', status: 'Promising', tone: 'yellow', icon: '🌊', summary: 'Hundreds of islands surrounded by the Vorpal Ocean, with mild temperatures for most of the year.', known: ['Mild climate', 'Many sheltered bays and islands', 'A severe annual storm season'], question: 'Can permanent structures survive what Manxome throws at them?' },
+  { name: 'Slithy Toves', code: 'ST', subtitle: 'Sunscar Desert', status: 'Difficult', tone: 'orange', icon: '🏜️', summary: 'A very dry, sandy continent with scarce fresh water and huge temperature changes between day and night.', known: ['Intense sunlight', 'Very limited fresh water', 'Powerful sandstorms several times each year'], question: 'Can humans survive where water is so limited?' },
+  { name: 'Wabe', code: 'WA', subtitle: 'White Frontier', status: 'Challenging', tone: 'orange', icon: '❄️', summary: 'An Arctic environment of snow, ice, short summers, and long periods of cold.', known: ['Large reserves of frozen fresh water', 'Short cool summers', 'Whiteout storms can last for days'], question: 'What can survive—and grow—in an environment this cold?' },
+  { name: 'Bandersnatch', code: 'BA', subtitle: 'Golden Plains', status: 'Excellent', tone: 'green', icon: '🌾', summary: 'Huge open grasslands with cold winters, warm summers, fresh water, and a long growing season.', known: ['Large flat areas', 'Strong agricultural potential', 'Large herd-like movement detected from orbit'], question: 'Is Bandersnatch really as perfect as it looks?' },
+  { name: 'Gimble', code: 'GI', subtitle: 'Greatwood', status: 'Very Promising', tone: 'green', icon: '🌲', summary: 'Enormous forests, freshwater lakes and rivers, cold winters, and relatively mild summers.', known: ['Abundant plant resources', 'Fresh water', 'Dense forests hide much of the surface from orbit'], question: 'How much can humans use before the forest begins to change?' },
+  { name: 'Mimsy', code: 'MI', subtitle: 'Endless Wetlands', status: 'Poor', tone: 'red', icon: '🪷', summary: 'Warm, humid wetlands with marshes, muddy ground, shallow waterways, and nutrient-poor soils.', known: ['Abundant water', 'Extensive biological activity', 'Heavy construction may be difficult'], question: 'Is Mimsy unsuitable—or are we asking the wrong questions?' }
+];
+
+const phases = [
+  { number: '01', title: 'First Contact', division: 'Ecological Survey Division', role: 'Planetary Ecologist', status: 'ACTIVE', locked: false, question: 'How does life on Jabberwocky survive, interact, and respond to change—and what happens when humans enter that system?', progress: ['Environmental Survey', 'First Contact', 'Ecosystem Network', 'Population Investigation', 'Environmental Change', 'Classified Incident', 'JCEC Ecological Report'] },
+  { number: '02', title: 'The Living Resource', division: 'Botanical Resources Division', role: 'Planetary Botanist', status: 'LIMITED CLEARANCE', locked: true, question: 'Can plants support human life without damaging Jabberwocky’s ecosystems?', progress: ['Native plant surveys', 'Resource assessment', 'Agricultural trial', 'Classified incident'] },
+  { number: '03', title: 'Surviving Jabberwocky', division: 'Thermal Systems Division', role: 'Thermal Systems Specialist', status: 'CLASSIFIED', locked: true, question: 'How can humans control heat and produce energy in this environment?', progress: ['Energy authorization', 'Habitat performance data', 'Engineering warning', 'Priority incident'] },
+  { number: '04', title: 'Project New Horizon', division: 'Settlement Engineering Division', role: 'Settlement Engineer', status: 'CLASSIFIED', locked: true, question: 'How do we build structures that fit the environment instead of fighting against it?', progress: ['Settlement site', 'Structural design order', 'Transportation obstacle', 'Remote survey discovery'] },
+  { number: '05', title: 'Secrets Beneath the Surface', division: 'Planetary Geology Division', role: 'Planetary Geologist / Paleontologist', status: 'HIGHLY CLASSIFIED', locked: true, question: 'What does Jabberwocky’s past tell us about its future?', progress: ['Geological survey', 'Fossil record', 'Hazard assessment', 'Settlement review'] }
+];
+---
+
+<BaseLayout title="Jabberwocky: Mission 2190 | Grade 7 Science" description="A year-long Grade 7 Science expedition across the planet Jabberwocky." themeColor="#071b2e">
+  <div class="mission-shell">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky: Mission 2190' }
+    ]} />
+
+    <section class="mission-hero" aria-labelledby="mission-title">
+      <div class="scan-lines" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="system-label">JCEC // PATHFINDER NETWORK // CLEARANCE GRANTED</p>
+        <p class="year-stamp">EARTH YEAR 2190</p>
+        <h1 id="mission-title">JABBERWOCKY<br /><span>MISSION 2190</span></h1>
+        <p class="hero-lead">Humanity has discovered life beyond Earth. The question is no longer <strong>“Are we alone?”</strong></p>
+        <p class="hero-question">The question is: <strong>What do we do now?</strong></p>
+        <div class="hero-actions">
+          <a class="mission-button primary" href="#briefing">Begin Mission</a>
+          <a class="mission-button secondary" href="#planet-scan">Scan the Planet</a>
+        </div>
+      </div>
+      <aside class="mission-readout" aria-label="Mission status">
+        <p>MISSION STATUS</p><strong>ACTIVE</strong>
+        <dl>
+          <div><dt>Destination</dt><dd>Jabberwocky</dd></div>
+          <div><dt>Human population</dt><dd>0 permanent</dd></div>
+          <div><dt>Continents</dt><dd>8</dd></div>
+          <div><dt>Safe settlement regions</dt><dd>UNKNOWN</dd></div>
+          <div><dt>Survey completion</dt><dd>7%</dd></div>
+        </dl>
+      </aside>
+    </section>
+
+    <section id="briefing" class="panel briefing-panel" aria-labelledby="briefing-heading">
+      <div class="panel-heading">
+        <p class="system-label">INCOMING TRANSMISSION 001</p>
+        <span class="live-dot">LIVE</span>
+      </div>
+      <h2 id="briefing-heading">Welcome, Pathfinder.</h2>
+      <div class="briefing-grid">
+        <div>
+          <p>For centuries, humans searched the universe for another world like Earth. We found thousands of planets—but then we found one that was different.</p>
+          <p>It has clouds, oceans, rivers, mountains, forests, deserts, ice, weather... and <strong>life</strong>.</p>
+          <p>The Jabberwocky Council for Exploration and Colonization—the <strong>JCEC</strong>—has been asked one enormous question:</p>
+          <blockquote>Could Jabberwocky become a new home for humans?</blockquote>
+        </div>
+        <div class="briefing-card">
+          <p class="card-kicker">YOUR MISSION</p>
+          <h3>Explore. Investigate. Decide.</h3>
+          <p>You will change teams and scientific jobs throughout the year. You may be sent to a different continent in every mission phase.</p>
+          <p>You will inherit evidence from the scientists who came before you—and future scientists will inherit yours.</p>
+          <p class="warning">Your work does not disappear when your unit ends.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="promise-strip" aria-label="Mission promise">
+      <span>YOU WILL NOT HAVE ALL THE INFORMATION.</span>
+      <strong>Neither do real scientists.</strong>
+    </section>
+
+    <section id="planet-scan" class="section-block" aria-labelledby="planet-heading">
+      <div class="section-title-row">
+        <div><p class="system-label">PLANETARY SCAN</p><h2 id="planet-heading">Eight continents. Eight different problems.</h2></div>
+        <p>Open a continent file. What you see today is only the beginning.</p>
+      </div>
+      <div class="continent-grid">
+        {continents.map((continent) => (
+          <details class={`continent-card tone-${continent.tone}`}>
+            <summary>
+              <span class="continent-icon" aria-hidden="true">{continent.icon}</span>
+              <span class="continent-title"><small>JCEC FILE {continent.code}-2190</small><strong>{continent.name}</strong><em>{continent.subtitle}</em></span>
+              <span class={`status-pill ${continent.tone}`}>{continent.status}</span>
+            </summary>
+            <div class="continent-body">
+              <p>{continent.summary}</p>
+              <h3>Current scan</h3>
+              <ul>{continent.known.map((item) => <li>{item}</li>)}</ul>
+              <div class="unknown-box"><span>?</span><p><strong>UNANSWERED</strong>{continent.question}</p></div>
+              <div class="classified">🔒 CLASSIFIED DATA — NOT YET AVAILABLE</div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="section-block how-it-works" aria-labelledby="assignment-heading">
+      <div class="section-title-row">
+        <div><p class="system-label">PATHFINDER PROTOCOL</p><h2 id="assignment-heading">Your assignment will keep changing.</h2></div>
+      </div>
+      <div class="protocol-grid">
+        <article><span>01</span><h3>New team</h3><p>JCEC reorganizes Pathfinder personnel at the start of every mission phase.</p></article>
+        <article><span>02</span><h3>New posting</h3><p>You may be sent to a continent you have never studied before.</p></article>
+        <article><span>03</span><h3>New specialty</h3><p>Ecologist. Botanist. Thermal specialist. Engineer. Geologist.</p></article>
+        <article><span>04</span><h3>Inherited evidence</h3><p>Read the Continental Archive before making new decisions.</p></article>
+        <article><span>05</span><h3>Leave good science</h3><p>The next team will depend on the evidence and recommendations you leave behind.</p></article>
+      </div>
+    </section>
+
+    <section id="mission-phases" class="section-block" aria-labelledby="phases-heading">
+      <div class="section-title-row">
+        <div><p class="system-label">MISSION ROADMAP</p><h2 id="phases-heading">Five scientific divisions. One connected expedition.</h2></div>
+        <p>Only your current clearance level is fully unlocked.</p>
+      </div>
+      <div class="phase-stack">
+        {phases.map((phase) => (
+          <details class={`phase-card ${phase.locked ? 'locked' : 'active'}`} open={!phase.locked}>
+            <summary>
+              <span class="phase-number">{phase.number}</span>
+              <span class="phase-title"><small>{phase.division}</small><strong>{phase.title}</strong><em>{phase.role}</em></span>
+              <span class="phase-status">{phase.locked ? '🔒 ' : '● '}{phase.status}</span>
+            </summary>
+            <div class="phase-content">
+              <p class="phase-question">{phase.question}</p>
+              <div class="progress-grid">
+                {phase.progress.map((item) => <div class="progress-item"><span>{phase.locked ? '🔒' : '□'}</span>{item}</div>)}
+              </div>
+              {phase.locked && <p class="clearance-note">Clearance required. Complete earlier mission phases to unlock additional data.</p>}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="section-block archive-section" aria-labelledby="archive-heading">
+      <div class="section-title-row">
+        <div><p class="system-label">JCEC CONTINENTAL ARCHIVES</p><h2 id="archive-heading">The planet remembers what your class discovers.</h2></div>
+      </div>
+      <div class="archive-demo">
+        <div class="archive-file">
+          <div class="folder-tab">GYRE // MASTER FILE</div>
+          <ul>
+            <li class="done"><span>✓</span> Arrival Data</li>
+            <li><span>□</span> Ecological Survey</li>
+            <li><span>□</span> Botanical Survey</li>
+            <li><span>□</span> Thermal Systems Report</li>
+            <li><span>□</span> Engineering Report</li>
+            <li><span>□</span> Geological Report</li>
+            <li class="locked-item"><span>🔒</span> Final JCEC Status</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Your Pathfinder Log follows <em>you</em>.</h3>
+          <p>Record where you were sent, what your team discovered, what evidence mattered, what you recommended, and how your thinking changed.</p>
+          <h3>The Continental Archive follows the <em>continent</em>.</h3>
+          <p>Every new specialist team adds one more layer of evidence. By the end of the year, each continent will have a scientific history created by the class.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block status-section" aria-labelledby="status-heading">
+      <div class="section-title-row">
+        <div><p class="system-label">JCEC LIVE STATUS BOARD</p><h2 id="status-heading">Initial settlement assessment</h2></div>
+        <p class="status-warning">⚠ Ratings are based on incomplete information.</p>
+      </div>
+      <div class="status-board">
+        {continents.map((continent) => (
+          <div class="status-row"><span><strong>{continent.name}</strong><small>{continent.subtitle}</small></span><span class={`status-pill ${continent.tone}`}>{continent.status}</span></div>
+        ))}
+      </div>
+      <p class="board-note">These ratings can change when new evidence appears.</p>
+    </section>
+
+    <section class="section-block decision-lab" aria-labelledby="decision-heading">
+      <div class="section-title-row">
+        <div><p class="system-label">JCEC QUICK DECISION</p><h2 id="decision-heading">What would you do first?</h2></div>
+      </div>
+      <p>Humanity discovers a planet with breathable air, liquid water, and complex life. What should happen next?</p>
+      <div class="decision-options" data-decision-group>
+        <button data-choice="build">Begin building immediately</button>
+        <button data-choice="resources">Search for valuable resources</button>
+        <button data-choice="study">Study the ecosystems first</button>
+        <button data-choice="avoid">Avoid the planet completely</button>
+      </div>
+      <p class="decision-response" id="decision-response" aria-live="polite">Choose an option. There is more to learn before the JCEC makes a final decision.</p>
+    </section>
+
+    <section class="pathfinder-code" aria-labelledby="code-heading">
+      <p class="system-label">JCEC PATHFINDER CODE</p>
+      <h2 id="code-heading">How we explore an unknown world</h2>
+      <div class="code-grid">
+        <strong>Observe before you change.</strong>
+        <strong>Ask before you assume.</strong>
+        <strong>Use evidence.</strong>
+        <strong>Expect consequences.</strong>
+        <strong>Change your ideas when the evidence changes.</strong>
+        <strong>Leave good science for the team that comes next.</strong>
+      </div>
+    </section>
+
+    <section class="final-console" aria-label="Mission launch console">
+      <p>PATHFINDER STATUS: <strong>CONFIRMED</strong></p>
+      <p>FIRST ASSIGNMENT: <strong>PENDING</strong></p>
+      <p>LAUNCH WINDOW: <strong>OPEN</strong></p>
+      <a class="mission-button primary launch" href={`${base}courses/grade-7-science/interactions-ecosystems/`}>Enter Mission Phase 1 →</a>
+      <small>Mission Phase 1 classroom materials will appear here as they are activated.</small>
+    </section>
+  </div>
+
+  <script>
+    const group = document.querySelector('[data-decision-group]');
+    const response = document.querySelector('#decision-response');
+    const messages = {
+      build: 'Fast—but what could we damage before we understand it?',
+      resources: 'Useful—but how would we know what can be used safely?',
+      study: 'A cautious scientific start. What evidence would you collect first?',
+      avoid: 'Lowest immediate impact—but are we giving up before gathering enough evidence?'
+    };
+    group?.querySelectorAll('button').forEach((button) => {
+      button.addEventListener('click', () => {
+        group.querySelectorAll('button').forEach((b) => b.classList.remove('selected'));
+        button.classList.add('selected');
+        const choice = button.getAttribute('data-choice');
+        if (response && choice && messages[choice]) response.textContent = messages[choice];
+      });
+    });
+  </script>
+</BaseLayout>
+
+<style>
+:global(body){background:#06111f}.mission-shell{max-width:1180px;margin:0 auto;padding:0 1.25rem 5rem;color:#eaf5ff}.mission-shell :global(.breadcrumbs){color:#a7bed1}.mission-shell :global(.breadcrumbs a){color:#cfe7f7}.system-label{margin:0;color:#74e9cb;font:700 .76rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase}.mission-hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.6fr);gap:2rem;align-items:end;margin:1.2rem 0 2rem;padding:clamp(2rem,7vw,5rem);min-height:560px;border:1px solid #17445a;border-radius:28px;background:radial-gradient(circle at 78% 18%,rgba(41,198,160,.22),transparent 20%),radial-gradient(circle at 25% 45%,rgba(20,98,160,.3),transparent 32%),linear-gradient(145deg,#071527,#09273b 55%,#06111f);box-shadow:0 25px 80px rgba(0,0,0,.35)}.mission-hero:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#9bd9ff 1px,transparent 1px);background-size:37px 37px;opacity:.12}.scan-lines{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,transparent 0 4px,rgba(255,255,255,.02) 5px);mix-blend-mode:screen}.hero-copy,.mission-readout{position:relative;z-index:1}.year-stamp{margin:1.5rem 0 .3rem;color:#a6bfd2;font-weight:800;letter-spacing:.25em}.mission-hero h1{margin:0;font-size:clamp(3.1rem,9vw,7.5rem);line-height:.83;letter-spacing:-.065em;color:#fff}.mission-hero h1 span{color:#6ef2cf}.hero-lead{max-width:760px;margin:1.8rem 0 .6rem;font-size:clamp(1.15rem,2.4vw,1.45rem);line-height:1.55;color:#c9deed}.hero-question{font-size:clamp(1.25rem,3vw,1.8rem);color:#fff}.hero-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.7rem}.mission-button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8rem 1.1rem;border-radius:12px;text-decoration:none;font-weight:850}.mission-button.primary{background:#6ef2cf;color:#052318}.mission-button.secondary{border:1px solid #4b7388;color:#eaf5ff;background:rgba(255,255,255,.04)}.mission-button:hover{transform:translateY(-1px)}.mission-readout{padding:1.25rem;border:1px solid #28556b;border-radius:18px;background:rgba(4,15,27,.78);backdrop-filter:blur(10px);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.mission-readout>p{margin:0;color:#90aaba;font-size:.72rem;letter-spacing:.16em}.mission-readout>strong{display:block;margin:.35rem 0 1rem;color:#6ef2cf;font-size:1.35rem}.mission-readout dl{margin:0}.mission-readout dl div{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-top:1px solid #17384b}.mission-readout dt{color:#91aabb}.mission-readout dd{margin:0;text-align:right;color:#fff}.panel,.section-block,.pathfinder-code,.final-console{margin:1.5rem 0;padding:clamp(1.35rem,4vw,2.2rem);border:1px solid #173d54;border-radius:22px;background:#0a1c2b}.panel-heading,.section-title-row{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start}.live-dot{color:#6ef2cf;font:800 .75rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.15em}.live-dot:before{content:"● ";animation:pulse 1.4s infinite}.briefing-panel h2,.section-block h2,.pathfinder-code h2{margin:.45rem 0 1rem;color:#fff;font-size:clamp(1.8rem,4vw,2.6rem)}.briefing-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:1.4rem}.briefing-grid p,.section-title-row>p,.archive-demo p,.decision-lab>p{color:#b9cedd;line-height:1.65}.briefing-grid blockquote{margin:1.4rem 0 0;padding:1rem 1.2rem;border-left:4px solid #6ef2cf;background:#071624;color:#fff;font-size:1.35rem;font-weight:800}.briefing-card{padding:1.25rem;border-radius:16px;background:#102a3d;border:1px solid #205069}.card-kicker{margin:0!important;color:#74e9cb!important;font:800 .75rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em}.briefing-card h3{color:#fff;font-size:1.4rem}.warning{padding:.75rem;border-radius:10px;background:#0a1723;color:#f8df8d!important;font-weight:800}.promise-strip{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;margin:1.5rem 0;padding:1rem;border:1px dashed #446f82;border-radius:14px;color:#b6ccda;font-family:ui-monospace,SFMono-Regular,monospace}.promise-strip strong{color:#fff}.section-title-row{margin-bottom:1.25rem}.section-title-row>p{max-width:390px;margin:0;text-align:right}.continent-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}.continent-card{overflow:hidden;border:1px solid #214b60;border-radius:16px;background:#0c2233}.continent-card summary{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem;padding:1rem;cursor:pointer;list-style:none}.continent-card summary::-webkit-details-marker{display:none}.continent-card[open]{border-color:#4f849c}.continent-icon{display:grid;place-items:center;width:54px;height:54px;border-radius:14px;background:#071725;font-size:1.8rem}.continent-title{display:grid;gap:.05rem}.continent-title small{color:#7897a9;font:700 .68rem ui-monospace,SFMono-Regular,monospace}.continent-title strong{font-size:1.25rem;color:#fff}.continent-title em{font-style:normal;color:#9fb7c6;font-size:.85rem}.status-pill{display:inline-flex;padding:.35rem .55rem;border-radius:999px;font-size:.72rem;font-weight:900;white-space:nowrap}.status-pill.green{background:#163d31;color:#8cf2c9}.status-pill.yellow{background:#423a1c;color:#f6d86f}.status-pill.orange{background:#472a1c;color:#ffb178}.status-pill.red{background:#431e27;color:#ff9eaf}.continent-body{padding:0 1rem 1rem;border-top:1px solid #173c50}.continent-body>p,.continent-body li{color:#b8cedc;line-height:1.55}.continent-body h3{color:#fff}.unknown-box{display:flex;gap:.8rem;align-items:center;padding:.8rem;border-radius:12px;background:#071724}.unknown-box>span{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;border:1px solid #6ef2cf;color:#6ef2cf;font-weight:900}.unknown-box p{display:grid;gap:.1rem;margin:0;color:#d8e8f2}.unknown-box strong{color:#74e9cb;font:800 .68rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em}.classified{margin-top:.9rem;padding:.7rem;border:1px dashed #3d6578;border-radius:10px;color:#819ead;font:700 .72rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.07em}.protocol-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.7rem}.protocol-grid article{padding:1rem;border:1px solid #1a4257;border-radius:14px;background:#071a29}.protocol-grid article>span{color:#6ef2cf;font:900 1.4rem ui-monospace,SFMono-Regular,monospace}.protocol-grid h3{margin:.65rem 0 .35rem;color:#fff}.protocol-grid p{margin:0;color:#9fb7c6;line-height:1.5;font-size:.9rem}.phase-stack{display:grid;gap:.75rem}.phase-card{border:1px solid #234a60;border-radius:16px;background:#081b2a;overflow:hidden}.phase-card.active{border-color:#47c6a7;box-shadow:0 0 0 1px rgba(110,242,207,.08) inset}.phase-card.locked{opacity:.77}.phase-card summary{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:1rem;cursor:pointer;list-style:none}.phase-card summary::-webkit-details-marker{display:none}.phase-number{color:#6ef2cf;font:900 1.4rem ui-monospace,SFMono-Regular,monospace}.phase-title{display:grid}.phase-title small{color:#84a3b5;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}.phase-title strong{color:#fff;font-size:1.25rem}.phase-title em{font-style:normal;color:#a9c1d0;font-size:.86rem}.phase-status{font:800 .7rem ui-monospace,SFMono-Regular,monospace;color:#95b4c6;white-space:nowrap}.phase-card.active .phase-status{color:#6ef2cf}.phase-content{padding:0 1rem 1rem 4rem;border-top:1px solid #17394c}.phase-question{color:#e9f6fd;font-weight:750;font-size:1.05rem;line-height:1.55}.progress-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}.progress-item{padding:.6rem .7rem;border-radius:9px;background:#0d2637;color:#abc3d2}.progress-item span{margin-right:.5rem;color:#6ef2cf}.clearance-note{color:#f1d77c;font-size:.85rem}.archive-demo{display:grid;grid-template-columns:minmax(280px,.7fr) 1fr;gap:1.5rem;align-items:center}.archive-file{position:relative;padding:1.4rem 1rem 1rem;border:1px solid #315468;border-radius:0 14px 14px 14px;background:#071724}.folder-tab{position:absolute;top:-1px;left:-1px;transform:translateY(-100%);padding:.45rem .75rem;border:1px solid #315468;border-bottom:0;border-radius:10px 10px 0 0;background:#071724;color:#6ef2cf;font:800 .7rem ui-monospace,SFMono-Regular,monospace}.archive-file ul{display:grid;gap:.45rem;padding:0;margin:0;list-style:none}.archive-file li{display:flex;gap:.7rem;padding:.6rem;border-radius:8px;background:#0c2233;color:#adc5d3}.archive-file li.done{color:#8cebd1}.archive-file li.locked-item{color:#718c9b}.archive-demo h3{color:#fff;margin:.6rem 0 .1rem}.archive-demo h3 em{font-style:normal;color:#6ef2cf}.status-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}.status-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 1rem;border-radius:12px;background:#071a29;border:1px solid #173d51}.status-row>span:first-child{display:grid}.status-row strong{color:#fff}.status-row small{color:#7f9daf}.status-warning{color:#f3cf6b!important}.board-note{margin:.9rem 0 0;color:#8faaba;font-style:italic}.decision-lab{background:linear-gradient(135deg,#0a1c2b,#0d2637)}.decision-options{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem}.decision-options button{padding:.9rem;border:1px solid #31576b;border-radius:12px;background:#071724;color:#dcecf5;text-align:left;font:inherit;font-weight:750;cursor:pointer}.decision-options button:hover,.decision-options button.selected{border-color:#6ef2cf;background:#113447;color:#fff}.decision-response{min-height:1.8rem;padding:.8rem 1rem;border-left:3px solid #6ef2cf;background:#071724}.pathfinder-code{text-align:center;background:radial-gradient(circle at center,#11334a,#081827 70%)}.code-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:.55rem}.code-grid strong{padding:.55rem .75rem;border:1px solid #2d586d;border-radius:999px;color:#d9ebf5;background:#071725;font-size:.9rem}.final-console{text-align:center;border-color:#3e876f;background:linear-gradient(180deg,#0b2a30,#071722)}.final-console p{display:inline-block;margin:.25rem .8rem;color:#99b6c5;font:700 .76rem ui-monospace,SFMono-Regular,monospace}.final-console p strong{color:#6ef2cf}.final-console .launch{display:flex;max-width:360px;margin:1.2rem auto .6rem}.final-console small{display:block;color:#7897a8}@keyframes pulse{50%{opacity:.25}}@media(max-width:900px){.mission-hero{grid-template-columns:1fr;min-height:auto}.briefing-grid,.archive-demo{grid-template-columns:1fr}.protocol-grid{grid-template-columns:repeat(2,1fr)}.section-title-row{display:block}.section-title-row>p{text-align:left;max-width:none}.continent-grid,.status-board{grid-template-columns:1fr}}@media(max-width:600px){.mission-shell{padding-inline:.75rem}.mission-hero{padding:1.4rem;border-radius:20px}.mission-hero h1{font-size:clamp(2.8rem,18vw,4.7rem)}.continent-card summary,.phase-card summary{grid-template-columns:auto 1fr}.continent-card .status-pill,.phase-status{grid-column:2}.protocol-grid,.progress-grid,.decision-options{grid-template-columns:1fr}.phase-content{padding-left:1rem}.hero-actions{display:grid}.mission-button{width:100%}}
+</style>
