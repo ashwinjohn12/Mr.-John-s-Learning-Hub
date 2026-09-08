@@ -15,12 +15,11 @@ const continents = [
   { name: 'Mimsy', code: 'MI', subtitle: 'Endless Wetlands', status: 'Poor', tone: 'red', icon: '🪷', summary: 'Warm, humid wetlands with marshes, muddy ground, shallow waterways, and nutrient-poor soils.', known: ['Abundant water', 'Extensive biological activity', 'Heavy construction may be difficult'], question: 'Is Mimsy unsuitable—or are we asking the wrong questions?' }
 ];
 
-const phases = [
-  { number: '01', title: 'First Contact', division: 'Ecological Survey Division', role: 'Planetary Ecologist', status: 'ACTIVE', locked: false, question: 'How does life on Jabberwocky survive, interact, and respond to change—and what happens when humans enter that system?', progress: ['Environmental Survey', 'First Contact', 'Ecosystem Network', 'Population Investigation', 'Environmental Change', 'Classified Incident', 'JCEC Ecological Report'] },
-  { number: '02', title: 'The Living Resource', division: 'Botanical Resources Division', role: 'Planetary Botanist', status: 'LIMITED CLEARANCE', locked: true, question: 'Can plants support human life without damaging Jabberwocky’s ecosystems?', progress: ['Native plant surveys', 'Resource assessment', 'Agricultural trial', 'Classified incident'] },
-  { number: '03', title: 'Surviving Jabberwocky', division: 'Thermal Systems Division', role: 'Thermal Systems Specialist', status: 'CLASSIFIED', locked: true, question: 'How can humans control heat and produce energy in this environment?', progress: ['Energy authorization', 'Habitat performance data', 'Engineering warning', 'Priority incident'] },
-  { number: '04', title: 'Project New Horizon', division: 'Settlement Engineering Division', role: 'Settlement Engineer', status: 'CLASSIFIED', locked: true, question: 'How do we build structures that fit the environment instead of fighting against it?', progress: ['Settlement site', 'Structural design order', 'Transportation obstacle', 'Remote survey discovery'] },
-  { number: '05', title: 'Secrets Beneath the Surface', division: 'Planetary Geology Division', role: 'Planetary Geologist / Paleontologist', status: 'HIGHLY CLASSIFIED', locked: true, question: 'What does Jabberwocky’s past tell us about its future?', progress: ['Geological survey', 'Fossil record', 'Hazard assessment', 'Settlement review'] }
+const lockedPhases = [
+  { number: '02', title: 'The Living Resource', division: 'Botanical Resources Division', teaser: 'Can plants support human life without damaging Jabberwocky’s ecosystems?', clearance: 'Complete Mission Phase 1' },
+  { number: '03', title: 'Surviving Jabberwocky', division: 'Thermal Systems Division', teaser: 'Can humans safely control heat and energy in this environment?', clearance: 'Complete Mission Phase 2' },
+  { number: '04', title: 'Project New Horizon', division: 'Settlement Engineering Division', teaser: 'What would it take to build here permanently?', clearance: 'Complete Mission Phase 3' },
+  { number: '05', title: 'Secrets Beneath the Surface', division: 'Planetary Geology Division', teaser: 'What does Jabberwocky’s past tell us about its future?', clearance: 'Complete Mission Phase 4' }
 ];
 ---
 
@@ -43,6 +42,7 @@ const phases = [
         <div class="hero-actions">
           <a class="mission-button primary" href="#briefing">Begin Mission</a>
           <a class="mission-button secondary" href="#planet-scan">Scan the Planet</a>
+          <a class="mission-button current" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>▶ Continue Current Mission</a>
         </div>
       </div>
       <aside class="mission-readout" aria-label="Mission status">
@@ -57,6 +57,14 @@ const phases = [
       </aside>
     </section>
 
+    <nav class="mission-nav" aria-label="Jabberwocky mission navigation">
+      <a href="#briefing">Mission Control</a>
+      <a href="#planet-scan">Continents</a>
+      <a class="active" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Current Mission</a>
+      <a href="#archives">Archives</a>
+      <a href="#status-board">JCEC Status</a>
+    </nav>
+
     <section id="briefing" class="panel briefing-panel" aria-labelledby="briefing-heading">
       <div class="panel-heading">
         <p class="system-label">INCOMING TRANSMISSION 001</p>
@@ -65,8 +73,7 @@ const phases = [
       <h2 id="briefing-heading">Welcome, Pathfinder.</h2>
       <div class="briefing-grid">
         <div>
-          <p>For centuries, humans searched the universe for another world like Earth. We found thousands of planets—but then we found one that was different.</p>
-          <p>It has clouds, oceans, rivers, mountains, forests, deserts, ice, weather... and <strong>life</strong>.</p>
+          <p>For centuries, humans searched the universe for another world like Earth. Then we found one with clouds, oceans, rivers, mountains, forests, deserts, ice, weather... and <strong>life</strong>.</p>
           <p>The Jabberwocky Council for Exploration and Colonization—the <strong>JCEC</strong>—has been asked one enormous question:</p>
           <blockquote>Could Jabberwocky become a new home for humans?</blockquote>
         </div>
@@ -74,9 +81,30 @@ const phases = [
           <p class="card-kicker">YOUR MISSION</p>
           <h3>Explore. Investigate. Decide.</h3>
           <p>You will change teams and scientific jobs throughout the year. You may be sent to a different continent in every mission phase.</p>
-          <p>You will inherit evidence from the scientists who came before you—and future scientists will inherit yours.</p>
+          <p>You will inherit evidence from earlier teams—and future scientists will inherit yours.</p>
           <p class="warning">Your work does not disappear when your unit ends.</p>
         </div>
+      </div>
+    </section>
+
+    <section class="section-block decision-lab early-decision" aria-labelledby="decision-heading">
+      <div class="section-title-row"><div><p class="system-label">JCEC QUICK DECISION</p><h2 id="decision-heading">What would you do first?</h2></div><span class="decision-tag">MISSION DAY 001</span></div>
+      <p>Humanity discovers a planet with breathable air, liquid water, and complex life. What should happen next?</p>
+      <div class="decision-options" data-decision-group>
+        <button data-choice="build">Begin building immediately</button>
+        <button data-choice="resources">Search for valuable resources</button>
+        <button data-choice="study">Study the ecosystems first</button>
+        <button data-choice="avoid">Avoid the planet completely</button>
+      </div>
+      <p class="decision-response" id="decision-response" aria-live="polite">Choose an option. There is more to learn before the JCEC makes a final decision.</p>
+    </section>
+
+    <section class="remember-panel" aria-labelledby="remember-heading">
+      <div><p class="system-label">DAY 1 TRANSLATOR</p><h2 id="remember-heading">You only need to remember 3 things.</h2></div>
+      <div class="remember-grid">
+        <article><strong>PATHFINDER</strong><span>= You</span></article>
+        <article><strong>JCEC</strong><span>= The organization sending your missions</span></article>
+        <article><strong>CONTINENTAL ARCHIVE</strong><span>= What teams discover about each continent</span></article>
       </div>
     </section>
 
@@ -87,12 +115,42 @@ const phases = [
 
     <section id="planet-scan" class="section-block" aria-labelledby="planet-heading">
       <div class="section-title-row">
-        <div><p class="system-label">PLANETARY SCAN</p><h2 id="planet-heading">Eight continents. Eight different problems.</h2></div>
-        <p>Open a continent file. What you see today is only the beginning.</p>
+        <div><p class="system-label">PLANETARY SCAN</p><h2 id="planet-heading">Eight continents. One unknown world.</h2></div>
+        <p>Select a region on the map or open its JCEC file below.</p>
       </div>
+
+      <div class="planet-map" aria-label="Interactive map of Jabberwocky">
+        <div class="map-readout"><span>ORBITAL CARTOGRAPHY</span><strong>JABBERWOCKY // SURVEY MAP</strong><small>Preliminary geography — not all surface data confirmed</small></div>
+        <svg viewBox="0 0 900 520" role="img" aria-labelledby="map-title map-desc">
+          <title id="map-title">Jabberwocky planetary survey map</title>
+          <desc id="map-desc">A stylized map showing the approximate locations of Gyre, Brillig, Manxome, Slithy Toves, Wabe, Bandersnatch, Gimble, and Mimsy.</desc>
+          <defs>
+            <radialGradient id="ocean" cx="45%" cy="38%"><stop offset="0" stop-color="#164d67"/><stop offset=".65" stop-color="#0b3048"/><stop offset="1" stop-color="#071c30"/></radialGradient>
+            <clipPath id="planetClip"><ellipse cx="450" cy="260" rx="390" ry="220"/></clipPath>
+          </defs>
+          <ellipse class="planet" cx="450" cy="260" rx="390" ry="220" fill="url(#ocean)"/>
+          <g clip-path="url(#planetClip)" class="grid-lines" aria-hidden="true">
+            <path d="M60 170 Q450 250 840 170M60 260 Q450 330 840 260M60 350 Q450 410 840 350"/>
+            <path d="M220 40 Q300 260 220 480M450 40 Q450 260 450 480M680 40 Q600 260 680 480"/>
+          </g>
+          <g class="continents-svg">
+            <a class="map-link" href="#continent-GY" data-open="continent-GY" aria-label="Open Gyre continent file"><path class="land gyre" d="M145 125 C120 155 132 205 174 221 C207 233 244 211 250 174 C257 138 220 102 185 102 C167 102 153 111 145 125Z"/><text x="187" y="164">GYRE</text></a>
+            <a class="map-link" href="#continent-BR" data-open="continent-BR" aria-label="Open Brillig continent file"><path class="land brillig" d="M322 120 C286 146 281 195 308 226 C334 256 385 250 408 218 C429 190 420 146 386 123 C365 109 342 108 322 120Z"/><text x="355" y="181">BRILLIG</text></a>
+            <a class="map-link" href="#continent-MA" data-open="continent-MA" aria-label="Open Manxome continent file"><g class="islands"><path class="land manxome" d="M548 106 C525 119 521 144 537 158 C554 173 579 161 584 139 C589 118 570 99 548 106Z"/><path class="land manxome" d="M604 146 C589 157 591 179 607 187 C624 196 642 183 641 166 C640 149 620 136 604 146Z"/><path class="land manxome" d="M565 191 C548 201 550 223 567 231 C586 240 604 225 600 207 C597 193 579 183 565 191Z"/></g><text x="592" y="121">MANXOME</text></a>
+            <a class="map-link" href="#continent-ST" data-open="continent-ST" aria-label="Open Slithy Toves continent file"><path class="land slithy" d="M686 205 C652 226 642 272 663 307 C687 346 743 347 774 316 C800 290 800 244 769 217 C746 197 711 190 686 205Z"/><text x="716" y="270"><tspan x="716" dy="0">SLITHY</tspan><tspan x="716" dy="18">TOVES</tspan></text></a>
+            <a class="map-link" href="#continent-WA" data-open="continent-WA" aria-label="Open Wabe continent file"><path class="land wabe" d="M399 60 C367 75 356 105 373 129 C391 154 433 154 458 132 C485 108 477 74 446 59 C431 52 415 53 399 60Z"/><text x="420" y="101">WABE</text></a>
+            <a class="map-link" href="#continent-BA" data-open="continent-BA" aria-label="Open Bandersnatch continent file"><path class="land bander" d="M212 288 C174 307 163 350 187 382 C213 416 269 419 302 391 C332 365 329 321 298 298 C276 282 236 277 212 288Z"/><text x="244" y="350">BANDERSNATCH</text></a>
+            <a class="map-link" href="#continent-GI" data-open="continent-GI" aria-label="Open Gimble continent file"><path class="land gimble" d="M405 298 C367 317 358 361 385 392 C414 425 468 419 493 383 C516 351 500 309 466 295 C446 287 425 288 405 298Z"/><text x="440" y="354">GIMBLE</text></a>
+            <a class="map-link" href="#continent-MI" data-open="continent-MI" aria-label="Open Mimsy continent file"><path class="land mimsy" d="M548 326 C520 347 521 389 548 410 C579 434 625 419 642 384 C658 351 633 317 599 313 C581 311 562 316 548 326Z"/><text x="588" y="371">MIMSY</text></a>
+          </g>
+          <ellipse class="planet-outline" cx="450" cy="260" rx="390" ry="220"/>
+        </svg>
+        <p class="map-help">Tip: choose a continent on the map to jump straight to its current JCEC file.</p>
+      </div>
+
       <div class="continent-grid">
         {continents.map((continent) => (
-          <details class={`continent-card tone-${continent.tone}`}>
+          <details id={`continent-${continent.code}`} class={`continent-card tone-${continent.tone}`}>
             <summary>
               <span class="continent-icon" aria-hidden="true">{continent.icon}</span>
               <span class="continent-title"><small>JCEC FILE {continent.code}-2190</small><strong>{continent.name}</strong><em>{continent.subtitle}</em></span>
@@ -110,10 +168,17 @@ const phases = [
       </div>
     </section>
 
-    <section class="section-block how-it-works" aria-labelledby="assignment-heading">
-      <div class="section-title-row">
-        <div><p class="system-label">PATHFINDER PROTOCOL</p><h2 id="assignment-heading">Your assignment will keep changing.</h2></div>
+    <section class="section-block vote-lab" aria-labelledby="vote-heading">
+      <div class="section-title-row"><div><p class="system-label">INITIAL JCEC VOTE</p><h2 id="vote-heading">Where would you settle first?</h2></div><span class="decision-tag">SAVE YOUR FIRST IMPRESSION</span></div>
+      <p>Based only on today's limited evidence, choose the continent that looks most suitable for human settlement.</p>
+      <div class="continent-vote" data-continent-vote>
+        {continents.map((continent) => <button data-continent={continent.name}><span>{continent.icon}</span>{continent.name}</button>)}
       </div>
+      <p class="decision-response" id="vote-response" aria-live="polite">No vote recorded yet. Your answer may look very different later in the year.</p>
+    </section>
+
+    <section class="section-block how-it-works" aria-labelledby="assignment-heading">
+      <div class="section-title-row"><div><p class="system-label">PATHFINDER PROTOCOL</p><h2 id="assignment-heading">Your assignment will keep changing.</h2></div></div>
       <div class="protocol-grid">
         <article><span>01</span><h3>New team</h3><p>JCEC reorganizes Pathfinder personnel at the start of every mission phase.</p></article>
         <article><span>02</span><h3>New posting</h3><p>You may be sent to a continent you have never studied before.</p></article>
@@ -124,44 +189,44 @@ const phases = [
     </section>
 
     <section id="mission-phases" class="section-block" aria-labelledby="phases-heading">
-      <div class="section-title-row">
-        <div><p class="system-label">MISSION ROADMAP</p><h2 id="phases-heading">Five scientific divisions. One connected expedition.</h2></div>
-        <p>Only your current clearance level is fully unlocked.</p>
-      </div>
+      <div class="section-title-row"><div><p class="system-label">MISSION ROADMAP</p><h2 id="phases-heading">Five scientific divisions. One connected expedition.</h2></div><p>Future phases are genuinely classified until your class reaches them.</p></div>
       <div class="phase-stack">
-        {phases.map((phase) => (
-          <details class={`phase-card ${phase.locked ? 'locked' : 'active'}`} open={!phase.locked}>
-            <summary>
-              <span class="phase-number">{phase.number}</span>
-              <span class="phase-title"><small>{phase.division}</small><strong>{phase.title}</strong><em>{phase.role}</em></span>
-              <span class="phase-status">{phase.locked ? '🔒 ' : '● '}{phase.status}</span>
-            </summary>
-            <div class="phase-content">
-              <p class="phase-question">{phase.question}</p>
-              <div class="progress-grid">
-                {phase.progress.map((item) => <div class="progress-item"><span>{phase.locked ? '🔒' : '□'}</span>{item}</div>)}
-              </div>
-              {phase.locked && <p class="clearance-note">Clearance required. Complete earlier mission phases to unlock additional data.</p>}
+        <article class="phase-card active">
+          <div class="phase-summary"><span class="phase-number">01</span><span class="phase-title"><small>Ecological Survey Division</small><strong>First Contact</strong><em>Planetary Ecologist</em></span><span class="phase-status">● ACTIVE</span></div>
+          <div class="phase-content">
+            <p class="phase-question">How does life on Jabberwocky survive, interact, and respond to change—and what happens when humans enter that system?</p>
+            <div class="progress-grid">
+              <div class="progress-item active-step"><strong>Mission Assignment</strong><span>ACTIVE</span></div>
+              <div class="progress-item"><strong>Environmental Survey</strong><span>PENDING</span></div>
+              <div class="progress-item"><strong>First Contact</strong><span>PENDING</span></div>
+              <div class="progress-item"><strong>Ecosystem Network</strong><span>PENDING</span></div>
+              <div class="progress-item"><strong>Population Investigation</strong><span>PENDING</span></div>
+              <div class="progress-item classified-step"><strong>Classified Incident</strong><span>🔒 LOCKED</span></div>
             </div>
-          </details>
+            <a class="mission-button primary phase-launch" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Enter Mission Phase 1 →</a>
+          </div>
+        </article>
+        {lockedPhases.map((phase) => (
+          <article class="phase-card locked" aria-label={`Mission Phase ${phase.number} locked`}>
+            <div class="phase-summary"><span class="phase-number">{phase.number}</span><span class="phase-title"><small>{phase.division}</small><strong>{phase.title}</strong><em>{phase.teaser}</em></span><span class="phase-status">🔒 CLASSIFIED</span></div>
+            <p class="locked-message"><strong>ACCESS DENIED.</strong> Clearance requirement: {phase.clearance}.</p>
+          </article>
         ))}
       </div>
     </section>
 
-    <section class="section-block archive-section" aria-labelledby="archive-heading">
-      <div class="section-title-row">
-        <div><p class="system-label">JCEC CONTINENTAL ARCHIVES</p><h2 id="archive-heading">The planet remembers what your class discovers.</h2></div>
-      </div>
+    <section id="archives" class="section-block archive-section" aria-labelledby="archive-heading">
+      <div class="section-title-row"><div><p class="system-label">JCEC CONTINENTAL ARCHIVES</p><h2 id="archive-heading">The planet remembers what your class discovers.</h2></div></div>
       <div class="archive-demo">
         <div class="archive-file">
           <div class="folder-tab">GYRE // MASTER FILE</div>
           <ul>
             <li class="done"><span>✓</span> Arrival Data</li>
-            <li><span>□</span> Ecological Survey</li>
-            <li><span>□</span> Botanical Survey</li>
-            <li><span>□</span> Thermal Systems Report</li>
-            <li><span>□</span> Engineering Report</li>
-            <li><span>□</span> Geological Report</li>
+            <li><span>○</span> Ecological Survey</li>
+            <li><span>○</span> Botanical Survey</li>
+            <li><span>○</span> Thermal Systems Report</li>
+            <li><span>○</span> Engineering Report</li>
+            <li><span>○</span> Geological Report</li>
             <li class="locked-item"><span>🔒</span> Final JCEC Status</li>
           </ul>
         </div>
@@ -169,57 +234,33 @@ const phases = [
           <h3>Your Pathfinder Log follows <em>you</em>.</h3>
           <p>Record where you were sent, what your team discovered, what evidence mattered, what you recommended, and how your thinking changed.</p>
           <h3>The Continental Archive follows the <em>continent</em>.</h3>
-          <p>Every new specialist team adds one more layer of evidence. By the end of the year, each continent will have a scientific history created by the class.</p>
+          <p>Every specialist team adds another layer of evidence. By the end of the year, each continent will have a scientific history created by the class.</p>
         </div>
       </div>
     </section>
 
-    <section class="section-block status-section" aria-labelledby="status-heading">
-      <div class="section-title-row">
-        <div><p class="system-label">JCEC LIVE STATUS BOARD</p><h2 id="status-heading">Initial settlement assessment</h2></div>
-        <p class="status-warning">⚠ Ratings are based on incomplete information.</p>
-      </div>
+    <section id="status-board" class="section-block status-section" aria-labelledby="status-heading">
+      <div class="section-title-row"><div><p class="system-label">JCEC LIVE STATUS BOARD</p><h2 id="status-heading">Initial settlement assessment</h2><small class="update-stamp">LAST UPDATED // MISSION DAY 001</small></div><p class="status-warning">⚠ Ratings are based on incomplete information.</p></div>
       <div class="status-board">
         {continents.map((continent) => (
           <div class="status-row"><span><strong>{continent.name}</strong><small>{continent.subtitle}</small></span><span class={`status-pill ${continent.tone}`}>{continent.status}</span></div>
         ))}
       </div>
-      <p class="board-note">These ratings can change when new evidence appears.</p>
-    </section>
-
-    <section class="section-block decision-lab" aria-labelledby="decision-heading">
-      <div class="section-title-row">
-        <div><p class="system-label">JCEC QUICK DECISION</p><h2 id="decision-heading">What would you do first?</h2></div>
-      </div>
-      <p>Humanity discovers a planet with breathable air, liquid water, and complex life. What should happen next?</p>
-      <div class="decision-options" data-decision-group>
-        <button data-choice="build">Begin building immediately</button>
-        <button data-choice="resources">Search for valuable resources</button>
-        <button data-choice="study">Study the ecosystems first</button>
-        <button data-choice="avoid">Avoid the planet completely</button>
-      </div>
-      <p class="decision-response" id="decision-response" aria-live="polite">Choose an option. There is more to learn before the JCEC makes a final decision.</p>
+      <p class="board-note">Watch this board. Ratings can rise, fall, or be placed under review when new evidence appears.</p>
     </section>
 
     <section class="pathfinder-code" aria-labelledby="code-heading">
       <p class="system-label">JCEC PATHFINDER CODE</p>
       <h2 id="code-heading">How we explore an unknown world</h2>
       <div class="code-grid">
-        <strong>Observe before you change.</strong>
-        <strong>Ask before you assume.</strong>
-        <strong>Use evidence.</strong>
-        <strong>Expect consequences.</strong>
-        <strong>Change your ideas when the evidence changes.</strong>
-        <strong>Leave good science for the team that comes next.</strong>
+        <strong>Observe before you change.</strong><strong>Ask before you assume.</strong><strong>Use evidence.</strong><strong>Expect consequences.</strong><strong>Change your ideas when the evidence changes.</strong><strong>Leave good science for the team that comes next.</strong>
       </div>
     </section>
 
     <section class="final-console" aria-label="Mission launch console">
-      <p>PATHFINDER STATUS: <strong>CONFIRMED</strong></p>
-      <p>FIRST ASSIGNMENT: <strong>PENDING</strong></p>
-      <p>LAUNCH WINDOW: <strong>OPEN</strong></p>
-      <a class="mission-button primary launch" href={`${base}courses/grade-7-science/interactions-ecosystems/`}>Enter Mission Phase 1 →</a>
-      <small>Mission Phase 1 classroom materials will appear here as they are activated.</small>
+      <p>PATHFINDER STATUS: <strong>CONFIRMED</strong></p><p>MISSION PHASE: <strong>01 ACTIVE</strong></p><p>LAUNCH WINDOW: <strong>OPEN</strong></p>
+      <a class="mission-button primary launch" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>▶ Continue Current Mission</a>
+      <small>Jabberwocky mission work now has its own campaign space, separate from the regular Grade 7 Science lesson pages.</small>
     </section>
   </div>
 
@@ -232,17 +273,43 @@ const phases = [
       study: 'A cautious scientific start. What evidence would you collect first?',
       avoid: 'Lowest immediate impact—but are we giving up before gathering enough evidence?'
     };
+    const savedDecision = localStorage.getItem('jcec-first-decision');
+    if (savedDecision) {
+      const savedButton = group?.querySelector(`[data-choice="${savedDecision}"]`);
+      savedButton?.classList.add('selected');
+      if (response && messages[savedDecision]) response.textContent = `Decision remembered: ${messages[savedDecision]}`;
+    }
     group?.querySelectorAll('button').forEach((button) => {
       button.addEventListener('click', () => {
         group.querySelectorAll('button').forEach((b) => b.classList.remove('selected'));
         button.classList.add('selected');
         const choice = button.getAttribute('data-choice');
+        if (choice) localStorage.setItem('jcec-first-decision', choice);
         if (response && choice && messages[choice]) response.textContent = messages[choice];
       });
     });
+
+    const voteGroup = document.querySelector('[data-continent-vote]');
+    const voteResponse = document.querySelector('#vote-response');
+    const savedContinent = localStorage.getItem('jcec-initial-continent');
+    const showVote = (name) => {
+      voteGroup?.querySelectorAll('button').forEach((b) => b.classList.toggle('selected', b.getAttribute('data-continent') === name));
+      if (voteResponse) voteResponse.textContent = `INITIAL ASSESSMENT RECORDED: ${name}. Keep this first impression in mind as new evidence arrives.`;
+    };
+    if (savedContinent) showVote(savedContinent);
+    voteGroup?.querySelectorAll('button').forEach((button) => button.addEventListener('click', () => {
+      const name = button.getAttribute('data-continent');
+      if (name) { localStorage.setItem('jcec-initial-continent', name); showVote(name); }
+    }));
+
+    document.querySelectorAll('.map-link').forEach((link) => link.addEventListener('click', () => {
+      const id = link.getAttribute('data-open');
+      const target = id ? document.getElementById(id) : null;
+      if (target && target instanceof HTMLDetailsElement) target.open = true;
+    }));
   </script>
 </BaseLayout>
 
 <style>
-:global(body){background:#06111f}.mission-shell{max-width:1180px;margin:0 auto;padding:0 1.25rem 5rem;color:#eaf5ff}.mission-shell :global(.breadcrumbs){color:#a7bed1}.mission-shell :global(.breadcrumbs a){color:#cfe7f7}.system-label{margin:0;color:#74e9cb;font:700 .76rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase}.mission-hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.6fr);gap:2rem;align-items:end;margin:1.2rem 0 2rem;padding:clamp(2rem,7vw,5rem);min-height:560px;border:1px solid #17445a;border-radius:28px;background:radial-gradient(circle at 78% 18%,rgba(41,198,160,.22),transparent 20%),radial-gradient(circle at 25% 45%,rgba(20,98,160,.3),transparent 32%),linear-gradient(145deg,#071527,#09273b 55%,#06111f);box-shadow:0 25px 80px rgba(0,0,0,.35)}.mission-hero:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#9bd9ff 1px,transparent 1px);background-size:37px 37px;opacity:.12}.scan-lines{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,transparent 0 4px,rgba(255,255,255,.02) 5px);mix-blend-mode:screen}.hero-copy,.mission-readout{position:relative;z-index:1}.year-stamp{margin:1.5rem 0 .3rem;color:#a6bfd2;font-weight:800;letter-spacing:.25em}.mission-hero h1{margin:0;font-size:clamp(3.1rem,9vw,7.5rem);line-height:.83;letter-spacing:-.065em;color:#fff}.mission-hero h1 span{color:#6ef2cf}.hero-lead{max-width:760px;margin:1.8rem 0 .6rem;font-size:clamp(1.15rem,2.4vw,1.45rem);line-height:1.55;color:#c9deed}.hero-question{font-size:clamp(1.25rem,3vw,1.8rem);color:#fff}.hero-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.7rem}.mission-button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8rem 1.1rem;border-radius:12px;text-decoration:none;font-weight:850}.mission-button.primary{background:#6ef2cf;color:#052318}.mission-button.secondary{border:1px solid #4b7388;color:#eaf5ff;background:rgba(255,255,255,.04)}.mission-button:hover{transform:translateY(-1px)}.mission-readout{padding:1.25rem;border:1px solid #28556b;border-radius:18px;background:rgba(4,15,27,.78);backdrop-filter:blur(10px);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.mission-readout>p{margin:0;color:#90aaba;font-size:.72rem;letter-spacing:.16em}.mission-readout>strong{display:block;margin:.35rem 0 1rem;color:#6ef2cf;font-size:1.35rem}.mission-readout dl{margin:0}.mission-readout dl div{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-top:1px solid #17384b}.mission-readout dt{color:#91aabb}.mission-readout dd{margin:0;text-align:right;color:#fff}.panel,.section-block,.pathfinder-code,.final-console{margin:1.5rem 0;padding:clamp(1.35rem,4vw,2.2rem);border:1px solid #173d54;border-radius:22px;background:#0a1c2b}.panel-heading,.section-title-row{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start}.live-dot{color:#6ef2cf;font:800 .75rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.15em}.live-dot:before{content:"● ";animation:pulse 1.4s infinite}.briefing-panel h2,.section-block h2,.pathfinder-code h2{margin:.45rem 0 1rem;color:#fff;font-size:clamp(1.8rem,4vw,2.6rem)}.briefing-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:1.4rem}.briefing-grid p,.section-title-row>p,.archive-demo p,.decision-lab>p{color:#b9cedd;line-height:1.65}.briefing-grid blockquote{margin:1.4rem 0 0;padding:1rem 1.2rem;border-left:4px solid #6ef2cf;background:#071624;color:#fff;font-size:1.35rem;font-weight:800}.briefing-card{padding:1.25rem;border-radius:16px;background:#102a3d;border:1px solid #205069}.card-kicker{margin:0!important;color:#74e9cb!important;font:800 .75rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em}.briefing-card h3{color:#fff;font-size:1.4rem}.warning{padding:.75rem;border-radius:10px;background:#0a1723;color:#f8df8d!important;font-weight:800}.promise-strip{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;margin:1.5rem 0;padding:1rem;border:1px dashed #446f82;border-radius:14px;color:#b6ccda;font-family:ui-monospace,SFMono-Regular,monospace}.promise-strip strong{color:#fff}.section-title-row{margin-bottom:1.25rem}.section-title-row>p{max-width:390px;margin:0;text-align:right}.continent-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}.continent-card{overflow:hidden;border:1px solid #214b60;border-radius:16px;background:#0c2233}.continent-card summary{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem;padding:1rem;cursor:pointer;list-style:none}.continent-card summary::-webkit-details-marker{display:none}.continent-card[open]{border-color:#4f849c}.continent-icon{display:grid;place-items:center;width:54px;height:54px;border-radius:14px;background:#071725;font-size:1.8rem}.continent-title{display:grid;gap:.05rem}.continent-title small{color:#7897a9;font:700 .68rem ui-monospace,SFMono-Regular,monospace}.continent-title strong{font-size:1.25rem;color:#fff}.continent-title em{font-style:normal;color:#9fb7c6;font-size:.85rem}.status-pill{display:inline-flex;padding:.35rem .55rem;border-radius:999px;font-size:.72rem;font-weight:900;white-space:nowrap}.status-pill.green{background:#163d31;color:#8cf2c9}.status-pill.yellow{background:#423a1c;color:#f6d86f}.status-pill.orange{background:#472a1c;color:#ffb178}.status-pill.red{background:#431e27;color:#ff9eaf}.continent-body{padding:0 1rem 1rem;border-top:1px solid #173c50}.continent-body>p,.continent-body li{color:#b8cedc;line-height:1.55}.continent-body h3{color:#fff}.unknown-box{display:flex;gap:.8rem;align-items:center;padding:.8rem;border-radius:12px;background:#071724}.unknown-box>span{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;border:1px solid #6ef2cf;color:#6ef2cf;font-weight:900}.unknown-box p{display:grid;gap:.1rem;margin:0;color:#d8e8f2}.unknown-box strong{color:#74e9cb;font:800 .68rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em}.classified{margin-top:.9rem;padding:.7rem;border:1px dashed #3d6578;border-radius:10px;color:#819ead;font:700 .72rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.07em}.protocol-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.7rem}.protocol-grid article{padding:1rem;border:1px solid #1a4257;border-radius:14px;background:#071a29}.protocol-grid article>span{color:#6ef2cf;font:900 1.4rem ui-monospace,SFMono-Regular,monospace}.protocol-grid h3{margin:.65rem 0 .35rem;color:#fff}.protocol-grid p{margin:0;color:#9fb7c6;line-height:1.5;font-size:.9rem}.phase-stack{display:grid;gap:.75rem}.phase-card{border:1px solid #234a60;border-radius:16px;background:#081b2a;overflow:hidden}.phase-card.active{border-color:#47c6a7;box-shadow:0 0 0 1px rgba(110,242,207,.08) inset}.phase-card.locked{opacity:.77}.phase-card summary{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:1rem;cursor:pointer;list-style:none}.phase-card summary::-webkit-details-marker{display:none}.phase-number{color:#6ef2cf;font:900 1.4rem ui-monospace,SFMono-Regular,monospace}.phase-title{display:grid}.phase-title small{color:#84a3b5;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}.phase-title strong{color:#fff;font-size:1.25rem}.phase-title em{font-style:normal;color:#a9c1d0;font-size:.86rem}.phase-status{font:800 .7rem ui-monospace,SFMono-Regular,monospace;color:#95b4c6;white-space:nowrap}.phase-card.active .phase-status{color:#6ef2cf}.phase-content{padding:0 1rem 1rem 4rem;border-top:1px solid #17394c}.phase-question{color:#e9f6fd;font-weight:750;font-size:1.05rem;line-height:1.55}.progress-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}.progress-item{padding:.6rem .7rem;border-radius:9px;background:#0d2637;color:#abc3d2}.progress-item span{margin-right:.5rem;color:#6ef2cf}.clearance-note{color:#f1d77c;font-size:.85rem}.archive-demo{display:grid;grid-template-columns:minmax(280px,.7fr) 1fr;gap:1.5rem;align-items:center}.archive-file{position:relative;padding:1.4rem 1rem 1rem;border:1px solid #315468;border-radius:0 14px 14px 14px;background:#071724}.folder-tab{position:absolute;top:-1px;left:-1px;transform:translateY(-100%);padding:.45rem .75rem;border:1px solid #315468;border-bottom:0;border-radius:10px 10px 0 0;background:#071724;color:#6ef2cf;font:800 .7rem ui-monospace,SFMono-Regular,monospace}.archive-file ul{display:grid;gap:.45rem;padding:0;margin:0;list-style:none}.archive-file li{display:flex;gap:.7rem;padding:.6rem;border-radius:8px;background:#0c2233;color:#adc5d3}.archive-file li.done{color:#8cebd1}.archive-file li.locked-item{color:#718c9b}.archive-demo h3{color:#fff;margin:.6rem 0 .1rem}.archive-demo h3 em{font-style:normal;color:#6ef2cf}.status-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}.status-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 1rem;border-radius:12px;background:#071a29;border:1px solid #173d51}.status-row>span:first-child{display:grid}.status-row strong{color:#fff}.status-row small{color:#7f9daf}.status-warning{color:#f3cf6b!important}.board-note{margin:.9rem 0 0;color:#8faaba;font-style:italic}.decision-lab{background:linear-gradient(135deg,#0a1c2b,#0d2637)}.decision-options{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem}.decision-options button{padding:.9rem;border:1px solid #31576b;border-radius:12px;background:#071724;color:#dcecf5;text-align:left;font:inherit;font-weight:750;cursor:pointer}.decision-options button:hover,.decision-options button.selected{border-color:#6ef2cf;background:#113447;color:#fff}.decision-response{min-height:1.8rem;padding:.8rem 1rem;border-left:3px solid #6ef2cf;background:#071724}.pathfinder-code{text-align:center;background:radial-gradient(circle at center,#11334a,#081827 70%)}.code-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:.55rem}.code-grid strong{padding:.55rem .75rem;border:1px solid #2d586d;border-radius:999px;color:#d9ebf5;background:#071725;font-size:.9rem}.final-console{text-align:center;border-color:#3e876f;background:linear-gradient(180deg,#0b2a30,#071722)}.final-console p{display:inline-block;margin:.25rem .8rem;color:#99b6c5;font:700 .76rem ui-monospace,SFMono-Regular,monospace}.final-console p strong{color:#6ef2cf}.final-console .launch{display:flex;max-width:360px;margin:1.2rem auto .6rem}.final-console small{display:block;color:#7897a8}@keyframes pulse{50%{opacity:.25}}@media(max-width:900px){.mission-hero{grid-template-columns:1fr;min-height:auto}.briefing-grid,.archive-demo{grid-template-columns:1fr}.protocol-grid{grid-template-columns:repeat(2,1fr)}.section-title-row{display:block}.section-title-row>p{text-align:left;max-width:none}.continent-grid,.status-board{grid-template-columns:1fr}}@media(max-width:600px){.mission-shell{padding-inline:.75rem}.mission-hero{padding:1.4rem;border-radius:20px}.mission-hero h1{font-size:clamp(2.8rem,18vw,4.7rem)}.continent-card summary,.phase-card summary{grid-template-columns:auto 1fr}.continent-card .status-pill,.phase-status{grid-column:2}.protocol-grid,.progress-grid,.decision-options{grid-template-columns:1fr}.phase-content{padding-left:1rem}.hero-actions{display:grid}.mission-button{width:100%}}
+:global(body){background:#06111f}.mission-shell{max-width:1180px;margin:0 auto;padding:0 1.25rem 5rem;color:#eaf5ff}.mission-shell :global(.breadcrumbs){color:#a7bed1}.mission-shell :global(.breadcrumbs a){color:#cfe7f7}.system-label{margin:0;color:#74e9cb;font:800 .82rem/1.25 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase}.mission-hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.6fr);gap:2rem;align-items:end;margin:1.2rem 0 1rem;padding:clamp(2rem,7vw,5rem);min-height:560px;border:1px solid #17445a;border-radius:28px;background:radial-gradient(circle at 78% 18%,rgba(41,198,160,.22),transparent 20%),radial-gradient(circle at 25% 45%,rgba(20,98,160,.3),transparent 32%),linear-gradient(145deg,#071527,#09273b 55%,#06111f);box-shadow:0 25px 80px rgba(0,0,0,.35)}.mission-hero:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#9bd9ff 1px,transparent 1px);background-size:37px 37px;opacity:.12}.scan-lines{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,transparent 0 4px,rgba(255,255,255,.02) 5px);mix-blend-mode:screen}.hero-copy,.mission-readout{position:relative;z-index:1}.year-stamp{margin:1.5rem 0 .3rem;color:#a6bfd2;font-weight:800;letter-spacing:.25em}.mission-hero h1{margin:0;font-size:clamp(3.1rem,9vw,7.5rem);line-height:.83;letter-spacing:-.065em;color:#fff}.mission-hero h1 span{color:#6ef2cf}.hero-lead{max-width:760px;margin:1.8rem 0 .6rem;font-size:clamp(1.15rem,2.4vw,1.45rem);line-height:1.55;color:#c9deed}.hero-question{font-size:clamp(1.25rem,3vw,1.8rem);color:#fff}.hero-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.7rem}.mission-button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8rem 1.1rem;border-radius:12px;text-decoration:none;font-weight:850;transition:.15s}.mission-button.primary{background:#6ef2cf;color:#052318}.mission-button.secondary{border:1px solid #4b7388;color:#eaf5ff;background:rgba(255,255,255,.04)}.mission-button.current{border:1px solid #69cdb4;color:#8ef3d3;background:#0b302e}.mission-button:hover{transform:translateY(-1px)}.mission-readout{padding:1.25rem;border:1px solid #28556b;border-radius:18px;background:rgba(4,15,27,.78);backdrop-filter:blur(10px);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.mission-readout>p{margin:0;color:#90aaba;font-size:.8rem;letter-spacing:.14em}.mission-readout>strong{display:block;margin:.35rem 0 1rem;color:#6ef2cf;font-size:1.35rem}.mission-readout dl{margin:0}.mission-readout dl div{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-top:1px solid #17384b}.mission-readout dt{color:#91aabb}.mission-readout dd{margin:0;text-align:right;color:#fff}.mission-nav{position:sticky;top:.6rem;z-index:30;display:flex;gap:.35rem;overflow:auto;margin:0 0 1rem;padding:.45rem;border:1px solid #244b60;border-radius:14px;background:rgba(5,20,33,.95);backdrop-filter:blur(12px);box-shadow:0 8px 28px rgba(0,0,0,.25)}.mission-nav a{flex:0 0 auto;padding:.65rem .78rem;border-radius:9px;color:#b9cfdd;text-decoration:none;font-size:.9rem;font-weight:800}.mission-nav a:hover{background:#123348;color:#fff}.mission-nav a.active{background:#123b36;color:#8ef3d3;box-shadow:inset 0 -2px #6ef2cf}.panel,.section-block,.pathfinder-code,.final-console,.remember-panel{margin:1.5rem 0;padding:clamp(1.35rem,4vw,2.2rem);border:1px solid #173d54;border-radius:22px;background:#0a1c2b}.panel-heading,.section-title-row{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start}.live-dot{color:#6ef2cf;font:800 .8rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em}.live-dot:before{content:"● ";animation:pulse 1.4s infinite}.briefing-panel h2,.section-block h2,.pathfinder-code h2,.remember-panel h2{margin:.45rem 0 1rem;color:#fff;font-size:clamp(1.8rem,4vw,2.6rem)}.briefing-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:1.4rem}.briefing-grid p,.section-title-row>p,.archive-demo p,.decision-lab>p,.vote-lab>p{color:#b9cedd;line-height:1.65}.briefing-grid blockquote{margin:1.4rem 0 0;padding:1rem 1.2rem;border-left:4px solid #6ef2cf;background:#071624;color:#fff;font-size:1.35rem;font-weight:800}.briefing-card{padding:1.25rem;border-radius:16px;background:#102a3d;border:1px solid #205069}.card-kicker{margin:0!important;color:#74e9cb!important;font:800 .8rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.11em}.briefing-card h3{color:#fff;font-size:1.4rem}.warning{padding:.75rem;border-radius:10px;background:#0a1723;color:#f8df8d!important;font-weight:800}.decision-tag{padding:.4rem .55rem;border-radius:999px;background:#102f42;color:#a7c4d4;font:800 .76rem ui-monospace,SFMono-Regular,monospace;white-space:nowrap}.decision-lab{background:linear-gradient(135deg,#0a1c2b,#0d2637)}.decision-options{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem}.decision-options button,.continent-vote button{padding:.9rem;border:1px solid #31576b;border-radius:12px;background:#071724;color:#dcecf5;text-align:left;font:inherit;font-weight:750;cursor:pointer}.decision-options button:hover,.decision-options button.selected,.continent-vote button:hover,.continent-vote button.selected{border-color:#6ef2cf;background:#113447;color:#fff}.decision-response{min-height:1.8rem;padding:.8rem 1rem;border-left:3px solid #6ef2cf;background:#071724;color:#c8dce8!important}.remember-panel{display:grid;grid-template-columns:.7fr 1.3fr;gap:1.2rem;align-items:center;background:#081a28}.remember-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem}.remember-grid article{display:grid;gap:.2rem;padding:1rem;border:1px solid #1f4a5f;border-radius:14px;background:#0d2536}.remember-grid strong{color:#6ef2cf;font-size:.9rem}.remember-grid span{color:#d5e7f1;line-height:1.45}.promise-strip{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;margin:1.5rem 0;padding:1rem;border:1px dashed #446f82;border-radius:14px;color:#b6ccda;font-family:ui-monospace,SFMono-Regular,monospace}.promise-strip strong{color:#fff}.section-title-row{margin-bottom:1.25rem}.section-title-row>p{max-width:390px;margin:0;text-align:right}.planet-map{position:relative;overflow:hidden;margin:0 0 1.2rem;padding:1rem;border:1px solid #265269;border-radius:20px;background:radial-gradient(circle at 50% 40%,#0d2d42,#061420 72%)}.map-readout{display:grid;gap:.12rem;margin-bottom:.5rem}.map-readout span{color:#74e9cb;font:800 .78rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em}.map-readout strong{color:#fff;font-size:1.1rem}.map-readout small{color:#7898aa}.planet-map svg{display:block;width:100%;height:auto;max-height:620px}.planet-outline{fill:none;stroke:#4b7185;stroke-width:3}.grid-lines path{fill:none;stroke:#7ba6bb;stroke-opacity:.12;stroke-width:1}.land{stroke:#c5e5cf;stroke-width:2;transition:.16s}.gyre{fill:#687e70}.brillig{fill:#2d765d}.manxome{fill:#4b8e78}.slithy{fill:#ae8150}.wabe{fill:#a9cbd1}.bander{fill:#9a9b54}.gimble{fill:#3f755b}.mimsy{fill:#587f73}.continents-svg a{cursor:pointer;text-decoration:none}.continents-svg a:hover .land,.continents-svg a:focus .land{filter:brightness(1.3);stroke:#6ef2cf;stroke-width:4}.continents-svg text{fill:#f4fbff;font:800 14px ui-monospace,SFMono-Regular,monospace;text-anchor:middle;paint-order:stroke;stroke:#071827;stroke-width:4;stroke-linejoin:round;pointer-events:none}.map-help{margin:.35rem 0 0;color:#8ca9b9;font-size:.9rem;text-align:center}.continent-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}.continent-card{scroll-margin-top:5rem;overflow:hidden;border:1px solid #214b60;border-radius:16px;background:#0c2233}.continent-card summary{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem;padding:1rem;cursor:pointer;list-style:none}.continent-card summary::-webkit-details-marker{display:none}.continent-card[open]{border-color:#4f849c}.continent-icon{display:grid;place-items:center;width:54px;height:54px;border-radius:14px;background:#071725;font-size:1.8rem}.continent-title{display:grid;gap:.05rem}.continent-title small{color:#8aa5b5;font:700 .76rem ui-monospace,SFMono-Regular,monospace}.continent-title strong{font-size:1.25rem;color:#fff}.continent-title em{font-style:normal;color:#a9bfcc;font-size:.9rem}.status-pill{display:inline-flex;padding:.38rem .58rem;border-radius:999px;font-size:.78rem;font-weight:900;white-space:nowrap}.status-pill.green{background:#163d31;color:#8cf2c9}.status-pill.yellow{background:#423a1c;color:#f6d86f}.status-pill.orange{background:#472a1c;color:#ffb178}.status-pill.red{background:#431e27;color:#ff9eaf}.continent-body{padding:0 1rem 1rem;border-top:1px solid #173c50}.continent-body>p,.continent-body li{color:#c0d4df;line-height:1.55}.continent-body h3{color:#fff}.unknown-box{display:flex;gap:.8rem;align-items:center;padding:.8rem;border-radius:12px;background:#071724}.unknown-box>span{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;border:1px solid #6ef2cf;color:#6ef2cf;font-weight:900}.unknown-box p{display:grid;gap:.1rem;margin:0;color:#d8e8f2}.unknown-box strong{color:#74e9cb;font:800 .76rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.1em}.classified{margin-top:.9rem;padding:.7rem;border:1px dashed #3d6578;border-radius:10px;color:#91adbc;font:700 .78rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.06em}.continent-vote{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem}.continent-vote button{display:flex;align-items:center;gap:.55rem}.continent-vote span{font-size:1.25rem}.protocol-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.7rem}.protocol-grid article{padding:1rem;border:1px solid #1a4257;border-radius:14px;background:#071a29}.protocol-grid article>span{color:#6ef2cf;font:900 1.4rem ui-monospace,SFMono-Regular,monospace}.protocol-grid h3{margin:.65rem 0 .35rem;color:#fff}.protocol-grid p{margin:0;color:#acc2cf;line-height:1.5;font-size:.94rem}.phase-stack{display:grid;gap:.75rem}.phase-card{border:1px solid #234a60;border-radius:16px;background:#081b2a;overflow:hidden}.phase-card.active{border-color:#47c6a7;box-shadow:0 0 0 1px rgba(110,242,207,.08) inset}.phase-card.locked{opacity:.68;background:#071623}.phase-summary{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:1rem}.phase-number{color:#6ef2cf;font:900 1.4rem ui-monospace,SFMono-Regular,monospace}.phase-title{display:grid}.phase-title small{color:#91adbd;font-size:.78rem;text-transform:uppercase;letter-spacing:.07em}.phase-title strong{color:#fff;font-size:1.25rem}.phase-title em{font-style:normal;color:#afc5d2;font-size:.9rem;line-height:1.45}.phase-status{font:800 .76rem ui-monospace,SFMono-Regular,monospace;color:#9cb7c6;white-space:nowrap}.phase-card.active .phase-status{color:#6ef2cf}.phase-content{padding:0 1rem 1rem 4rem;border-top:1px solid #17394c}.phase-question{color:#e9f6fd;font-weight:750;font-size:1.05rem;line-height:1.55}.progress-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}.progress-item{display:flex;justify-content:space-between;gap:.7rem;align-items:center;padding:.65rem .75rem;border-radius:9px;background:#0d2637}.progress-item strong{color:#c0d5e0;font-size:.9rem}.progress-item span{color:#829ead;font:800 .72rem ui-monospace,SFMono-Regular,monospace}.progress-item.active-step{outline:1px solid #54bea1;background:#10342f}.progress-item.active-step span{color:#8ff2d3}.progress-item.classified-step span{color:#f1d271}.phase-launch{margin-top:1rem}.locked-message{margin:0;padding:0 1rem 1rem 4rem;color:#839dac;font:750 .82rem ui-monospace,SFMono-Regular,monospace}.locked-message strong{color:#f1d271}.archive-demo{display:grid;grid-template-columns:minmax(280px,.7fr) 1fr;gap:1.5rem;align-items:center}.archive-file{position:relative;padding:1.4rem 1rem 1rem;border:1px solid #315468;border-radius:0 14px 14px 14px;background:#071724}.folder-tab{position:absolute;top:-1px;left:-1px;transform:translateY(-100%);padding:.45rem .75rem;border:1px solid #315468;border-bottom:0;border-radius:10px 10px 0 0;background:#071724;color:#6ef2cf;font:800 .78rem ui-monospace,SFMono-Regular,monospace}.archive-file ul{display:grid;gap:.45rem;padding:0;margin:0;list-style:none}.archive-file li{display:flex;gap:.7rem;padding:.6rem;border-radius:8px;background:#0c2233;color:#b6cbd7}.archive-file li.done{color:#8cebd1}.archive-file li.locked-item{color:#718c9b}.archive-demo h3{color:#fff;margin:.6rem 0 .1rem}.archive-demo h3 em{font-style:normal;color:#6ef2cf}.status-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}.status-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 1rem;border-radius:12px;background:#071a29;border:1px solid #173d51}.status-row>span:first-child{display:grid}.status-row strong{color:#fff}.status-row small{color:#8ca8b8}.status-warning{color:#f3cf6b!important}.update-stamp{display:block;color:#6ef2cf;font:750 .76rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.08em}.board-note{margin:.9rem 0 0;color:#9bb2bf;font-style:italic}.pathfinder-code{text-align:center;background:radial-gradient(circle at center,#11334a,#081827 70%)}.code-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:.55rem}.code-grid strong{padding:.55rem .75rem;border:1px solid #2d586d;border-radius:999px;color:#d9ebf5;background:#071725;font-size:.92rem}.final-console{text-align:center;border-color:#3e876f;background:linear-gradient(180deg,#0b2a30,#071722)}.final-console p{display:inline-block;margin:.25rem .8rem;color:#a4bdca;font:700 .8rem ui-monospace,SFMono-Regular,monospace}.final-console p strong{color:#6ef2cf}.final-console .launch{display:flex;max-width:360px;margin:1.2rem auto .6rem}.final-console small{display:block;color:#8aa5b4}@keyframes pulse{50%{opacity:.25}}@media(max-width:900px){.mission-hero{grid-template-columns:1fr;min-height:auto}.briefing-grid,.archive-demo,.remember-panel{grid-template-columns:1fr}.remember-grid{grid-template-columns:1fr}.protocol-grid{grid-template-columns:repeat(2,1fr)}.section-title-row{display:block}.section-title-row>p{text-align:left;max-width:none}.continent-grid,.status-board{grid-template-columns:1fr}.continent-vote{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.mission-shell{padding-inline:.75rem}.mission-hero{padding:1.4rem;border-radius:20px}.mission-hero h1{font-size:clamp(2.8rem,18vw,4.7rem)}.continent-card summary,.phase-summary{grid-template-columns:auto 1fr}.continent-card .status-pill,.phase-status{grid-column:2}.protocol-grid,.progress-grid,.decision-options,.continent-vote{grid-template-columns:1fr}.phase-content,.locked-message{padding-left:1rem}.hero-actions{display:grid}.mission-button{width:100%}.mission-nav{top:.3rem}.mission-nav a{font-size:.82rem}.continents-svg text{font-size:12px}.planet-map{padding:.7rem}}
 </style>
