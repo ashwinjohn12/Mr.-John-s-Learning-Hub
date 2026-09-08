@@ -7,6 +7,7 @@ interface Props { course: Course; unit: Unit }
 const { course, unit } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const builtGrade6Override = course.slug === 'grade-6-math' && ['patterns','statistics'].includes(unit.slug);
+const jabberwockyPhase1 = course.slug === 'grade-7-science' && unit.slug === 'interactions-ecosystems';
 const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-negative-numbers'
   ? { title:'Unit 1 Review & Math Arcade', summary:'Mix all five skills, take a randomized unit check, and complete free-response integer missions.' }
   : course.slug === 'grade-6-math' && unit.slug === 'coordinates-design'
@@ -30,6 +31,16 @@ const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-neg
 <BaseLayout title={`${unit.title} | ${course.grade} ${course.shortSubject}`} description={unit.description} themeColor={course.color}>
   <div class="page-wrap" style={`--course:${course.color};--course-soft:${course.accent}`}>
     <Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title}]} />
+    {jabberwockyPhase1 && (
+      <aside class="jabberwocky-return" aria-label="Return to Jabberwocky Mission 2190">
+        <div class="jcec-mark">JCEC // MISSION 2190</div>
+        <div>
+          <strong>You are using this science in Mission Phase 1: First Contact.</strong>
+          <span>Learn what you need here, then return to the mission to investigate and make decisions.</span>
+        </div>
+        <a href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>← Return to Your Mission</a>
+      </aside>
+    )}
     <header class="unit-hero">
       <p class="eyebrow">UNIT {unit.number}</p><h1>{unit.title}</h1><p>{unit.description}</p>
       {reviewInfo && <a class="unit-review-cta" href={`${base}courses/${course.slug}/${unit.slug}/unit-review/`}>★ {reviewInfo.title} →</a>}
@@ -60,4 +71,8 @@ const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-neg
 .review-row{border-width:2px;background:linear-gradient(135deg,#fff,#f3effb)}.review-row>span:first-child{font-size:1.25rem}
 .unit-review-cta{display:inline-flex;align-items:center;gap:.4rem;margin-top:1rem;padding:.75rem 1rem;border-radius:12px;background:#fff;color:var(--course);font-weight:900;text-decoration:none;box-shadow:0 1px 0 rgba(15,23,42,.08)}
 .unit-review-cta:hover{text-decoration:underline}
+.jabberwocky-return{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;margin:1rem 0 1.2rem;padding:1rem 1.1rem;border:1px solid #2d6d64;border-radius:16px;background:linear-gradient(135deg,#082a2b,#0b2032);color:#e8f8f6;box-shadow:0 10px 28px rgba(2,18,25,.14)}
+.jcec-mark{padding:.5rem .6rem;border-radius:9px;background:#0c3937;color:#7cf0cf;font:800 .74rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;white-space:nowrap}
+.jabberwocky-return>div:nth-child(2){display:grid;gap:.18rem}.jabberwocky-return strong{font-size:1rem}.jabberwocky-return span{color:#bcd5d8;font-size:.9rem;line-height:1.45}.jabberwocky-return a{display:inline-flex;justify-content:center;align-items:center;min-height:42px;padding:.65rem .8rem;border-radius:10px;background:#6ef2cf;color:#05251c;text-decoration:none;font-weight:900;white-space:nowrap}.jabberwocky-return a:hover{text-decoration:underline}
+@media(max-width:800px){.jabberwocky-return{grid-template-columns:1fr}.jcec-mark{width:max-content}.jabberwocky-return a{width:100%}}
 </style>
