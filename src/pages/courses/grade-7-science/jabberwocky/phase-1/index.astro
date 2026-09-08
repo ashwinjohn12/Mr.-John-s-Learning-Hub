@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../components/Breadcrumbs.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Mission Phase 1: First Contact | Jabberwocky 2190" description="The active Jabberwocky Mission 2190 campaign space for Grade 7 Science: Interactions & Ecosystems." themeColor="#071b2e">
+  <div class="phase-shell">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Mission Phase 1' }
+    ]} />
+
+    <nav class="mission-nav" aria-label="Jabberwocky mission navigation">
+      <a href={`${base}courses/grade-7-science/jabberwocky/`}>Mission Control</a>
+      <a href={`${base}courses/grade-7-science/jabberwocky/#planet-scan`}>Continents</a>
+      <a class="active" href="#phase-brief">Current Phase</a>
+      <a href={`${base}courses/grade-7-science/jabberwocky/#archives`}>Archives</a>
+      <a href={`${base}courses/grade-7-science/jabberwocky/#status-board`}>JCEC Status</a>
+    </nav>
+
+    <header class="phase-hero" id="phase-brief">
+      <p class="system-label">MISSION PHASE 01 // CLEARANCE GRANTED</p>
+      <div class="hero-grid">
+        <div>
+          <p class="division">JCEC ECOLOGICAL SURVEY DIVISION</p>
+          <h1>FIRST<br /><span>CONTACT</span></h1>
+          <p class="lead">You are among the first human scientists assigned to investigate how life on Jabberwocky survives, interacts, and responds to change.</p>
+        </div>
+        <aside>
+          <span>ACTIVE ROLE</span><strong>Planetary Ecologist</strong>
+          <dl>
+            <div><dt>Mission status</dt><dd>ACTIVE</dd></div>
+            <div><dt>Assignment</dt><dd>Pending</dd></div>
+            <div><dt>Archive access</dt><dd>Arrival data</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </header>
+
+    <section class="mission-question">
+      <p>YOUR MISSION QUESTION</p>
+      <h2>How does life on Jabberwocky survive, interact, and respond to change—and what happens when humans enter that system?</h2>
+    </section>
+
+    <section class="panel" aria-labelledby="ready-heading">
+      <p class="system-label">PATHFINDER READINESS</p>
+      <h2 id="ready-heading">Your mission space is ready.</h2>
+      <p>This page is now separate from the regular <strong>Interactions & Ecosystems</strong> learning pages. Mission briefings, continent-specific evidence, transmissions, investigation files, and archive handoffs will live here as they are activated.</p>
+      <div class="two-actions">
+        <a class="button primary" href={`${base}courses/grade-7-science/jabberwocky/`}>← Return to Mission Control</a>
+        <a class="button secondary" href={`${base}courses/grade-7-science/interactions-ecosystems/`}>Open Science Learning Resources →</a>
+      </div>
+    </section>
+
+    <section class="panel progress-panel" aria-labelledby="progress-heading">
+      <div class="heading-row"><div><p class="system-label">MISSION PROGRESS</p><h2 id="progress-heading">Phase 1 Operations</h2></div><span class="active-chip">● CURRENT PHASE</span></div>
+      <div class="progress-list">
+        <div class="step active"><span>01</span><div><strong>Mission Assignment</strong><small>ACTIVE — continent posting will be issued here</small></div></div>
+        <div class="step pending"><span>02</span><div><strong>Environmental Survey</strong><small>PENDING</small></div></div>
+        <div class="step pending"><span>03</span><div><strong>First Contact</strong><small>PENDING</small></div></div>
+        <div class="step pending"><span>04</span><div><strong>Ecosystem Network</strong><small>PENDING</small></div></div>
+        <div class="step pending"><span>05</span><div><strong>Population Investigation</strong><small>PENDING</small></div></div>
+        <div class="step pending"><span>06</span><div><strong>Environmental Change</strong><small>PENDING</small></div></div>
+        <div class="step classified"><span>🔒</span><div><strong>Classified Incident</strong><small>ACCESS DENIED</small></div></div>
+        <div class="step pending"><span>08</span><div><strong>JCEC Ecological Report</strong><small>PENDING</small></div></div>
+      </div>
+    </section>
+
+    <section class="panel connection" aria-labelledby="connection-heading">
+      <p class="system-label">SCIENCE CONNECTION</p>
+      <h2 id="connection-heading">Mission work and science lessons work together.</h2>
+      <p>When your team needs scientific knowledge, this mission page will send you to the matching Grade 7 Science lesson, investigation, simulation, or reference page. Learn the science there, then return here to use it as a Pathfinder.</p>
+      <div class="flow" aria-label="Learning flow"><span>LEARN</span><b>→</b><span>INVESTIGATE</span><b>→</b><span>USE EVIDENCE</span><b>→</b><span>DECIDE</span></div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+:global(body){background:#06111f}.phase-shell{max-width:1120px;margin:0 auto;padding:0 1.1rem 5rem;color:#eaf5ff}.phase-shell :global(.breadcrumbs){color:#9fb8c8}.phase-shell :global(.breadcrumbs a){color:#d3eafa}.mission-nav{position:sticky;top:.6rem;z-index:20;display:flex;gap:.35rem;align-items:center;overflow:auto;margin:1rem 0;padding:.45rem;border:1px solid #244b60;border-radius:14px;background:rgba(5,20,33,.94);backdrop-filter:blur(12px);box-shadow:0 8px 28px rgba(0,0,0,.25)}.mission-nav a{flex:0 0 auto;padding:.65rem .78rem;border-radius:9px;color:#b9cfdd;text-decoration:none;font-size:.88rem;font-weight:800}.mission-nav a:hover,.mission-nav a.active{background:#123348;color:#fff}.mission-nav a.active{box-shadow:inset 0 -2px #6ef2cf}.system-label{margin:0;color:#74e9cb;font:800 .82rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em;text-transform:uppercase}.phase-hero{position:relative;overflow:hidden;margin:1.2rem 0 1.4rem;padding:clamp(1.5rem,5vw,3.2rem);border:1px solid #236078;border-radius:26px;background:radial-gradient(circle at 78% 22%,rgba(110,242,207,.2),transparent 24%),linear-gradient(145deg,#071527,#0b2d42 60%,#06111f)}.phase-hero:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#9bd9ff 1px,transparent 1px);background-size:34px 34px;opacity:.08}.hero-grid{position:relative;display:grid;grid-template-columns:1fr 290px;gap:1.6rem;align-items:end}.division{margin:1.5rem 0 .35rem;color:#a9c3d3;font-weight:850;letter-spacing:.12em}.phase-hero h1{margin:0;color:#fff;font-size:clamp(3.5rem,9vw,7rem);line-height:.82;letter-spacing:-.06em}.phase-hero h1 span{color:#6ef2cf}.lead{max-width:720px;margin:1.5rem 0 0;color:#c4d9e7;font-size:1.14rem;line-height:1.65}.phase-hero aside{padding:1.15rem;border:1px solid #315d73;border-radius:16px;background:rgba(4,17,29,.8);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.phase-hero aside>span{display:block;color:#8ea8b8;font-size:.78rem}.phase-hero aside>strong{display:block;margin:.25rem 0 1rem;color:#6ef2cf;font-size:1.2rem}.phase-hero dl{margin:0}.phase-hero dl div{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-top:1px solid #1d4154}.phase-hero dt{color:#90a9b8}.phase-hero dd{margin:0;color:#fff;text-align:right}.mission-question,.panel{margin:1.2rem 0;padding:clamp(1.25rem,4vw,2rem);border:1px solid #183f54;border-radius:20px;background:#0a1d2c}.mission-question{border-color:#39745f;background:linear-gradient(135deg,#0c2a30,#081a27)}.mission-question p{margin:0;color:#74e9cb;font:800 .8rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em}.mission-question h2,.panel h2{margin:.5rem 0 .7rem;color:#fff;font-size:clamp(1.55rem,4vw,2.25rem);line-height:1.25}.panel>p:not(.system-label){color:#b8cfdd;line-height:1.65}.two-actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.2rem}.button{display:inline-flex;align-items:center;min-height:46px;padding:.75rem 1rem;border-radius:11px;text-decoration:none;font-weight:850}.button.primary{background:#6ef2cf;color:#052318}.button.secondary{border:1px solid #42657a;color:#eaf5ff;background:#081827}.heading-row{display:flex;justify-content:space-between;gap:1rem;align-items:start}.active-chip{padding:.45rem .6rem;border-radius:999px;background:#123d32;color:#8df2d0;font:850 .78rem ui-monospace,SFMono-Regular,monospace;white-space:nowrap}.progress-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;margin-top:1.1rem}.step{display:flex;align-items:center;gap:.75rem;padding:.85rem;border:1px solid #1d465a;border-radius:12px;background:#071927}.step>span{display:grid;place-items:center;min-width:40px;height:40px;border-radius:10px;background:#0d2b3d;color:#6ef2cf;font:900 .9rem ui-monospace,SFMono-Regular,monospace}.step>div{display:grid}.step strong{color:#e9f6fd}.step small{margin-top:.14rem;color:#8ca7b7;font:750 .77rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.05em}.step.active{border-color:#51c9aa;background:#0c2931}.step.active small{color:#82eccd}.step.classified{opacity:.72}.step.classified>span{color:#f0ca6b}.connection .flow{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-top:1.1rem}.flow span{padding:.55rem .7rem;border-radius:9px;background:#102e41;color:#e7f5fd;font-weight:850}.flow b{color:#6ef2cf}@media(max-width:780px){.hero-grid{grid-template-columns:1fr}.progress-list{grid-template-columns:1fr}.heading-row{display:block}.active-chip{display:inline-flex;margin-top:.4rem}}@media(max-width:560px){.phase-shell{padding-inline:.7rem}.mission-nav{top:.3rem}.mission-nav a{font-size:.8rem}.two-actions{display:grid}.button{width:100%;justify-content:center}.phase-hero h1{font-size:clamp(3rem,20vw,4.6rem)}}
+</style>
