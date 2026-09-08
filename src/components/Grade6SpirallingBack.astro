@@ -1,0 +1,74 @@
+---
+import { grade6SpiralBanks } from '../data/grade6Spiralling';
+interface Props { unitSlug:string }
+const { unitSlug }=Astro.props;
+const questions=grade6SpiralBanks[unitSlug] ?? [];
+const base=import.meta.env.BASE_URL;
+---
+<section class="learning-section tone-review spiral-section" id="spiral" data-grade6-spiral data-unit={unitSlug} data-base={base}>
+  <header><span class="section-icon" aria-hidden="true">🌀</span><div><p class="eyebrow">SPIRALLING BACK</p><h2>Keep earlier learning active</h2></div></header>
+  <div class="section-body">
+    <div class="spiral-intro"><div><strong>Three quick retrieval questions</strong><p>These are deliberately from earlier learning. Try them without notes first, then check your thinking. This is not another unit test.</p></div><button type="button" class="soft" data-new>New spiral set</button></div>
+    <div class="spiral-progress"><span data-progress>Question 1 of 3</span><span data-score>0 correct</span></div>
+    <div data-stage aria-live="polite"></div>
+    <div class="spiral-actions"><button type="button" data-hint>Show hint</button><button type="button" data-next disabled>Next question</button></div>
+    <script type="application/json" data-data set:html={JSON.stringify(questions)}></script>
+  </div>
+</section>
+<script>
+document.querySelectorAll<HTMLElement>('[data-grade6-spiral]').forEach(widget=>{
+  const all=JSON.parse(widget.querySelector('[data-data]')?.textContent||'[]');
+  const stage=widget.querySelector<HTMLElement>('[data-stage]');
+  const progress=widget.querySelector<HTMLElement>('[data-progress]');
+  const scoreEl=widget.querySelector<HTMLElement>('[data-score]');
+  const hintBtn=widget.querySelector<HTMLButtonElement>('[data-hint]');
+  const nextBtn=widget.querySelector<HTMLButtonElement>('[data-next]');
+  const newBtn=widget.querySelector<HTMLButtonElement>('[data-new]');
+  const base=widget.dataset.base||'/';
+  let set:any[]=[],index=0,correct=0,answered=false;
+  const shuffle=(items:any[])=>[...items].sort(()=>Math.random()-.5);
+  const href=(raw:string|undefined)=>raw?`${base.replace(/\/$/,'')}${raw}`:'';
+  const build=()=>shuffle(all).slice(0,Math.min(3,all.length));
+  const render=()=>{
+    if(!set.length){if(stage)stage.innerHTML='<p>No spiral questions are available yet.</p>';return;}
+    if(index>=set.length){
+      if(stage)stage.innerHTML=`<div class="spiral-finish"><p class="eyebrow">RETRIEVAL COMPLETE</p><h3>${correct} / ${set.length} correct</h3><p>${correct===set.length?'Great retrieval. Earlier ideas are still available when you need them.':'Review the explanations you missed, then try a new set later. Spacing the practice is the point.'}</p></div>`;
+      if(progress)progress.textContent='Set complete';
+      if(nextBtn)nextBtn.disabled=true;
+      if(hintBtn)hintBtn.disabled=true;
+      return;
+    }
+    answered=false;
+    const q=set[index];
+    if(progress)progress.textContent=`Question ${index+1} of ${set.length}`;
+    if(scoreEl)scoreEl.textContent=`${correct} correct`;
+    if(nextBtn){nextBtn.disabled=true;nextBtn.textContent=index===set.length-1?'Finish set':'Next question';}
+    if(hintBtn){hintBtn.disabled=false;hintBtn.textContent='Show hint';}
+    if(stage)stage.innerHTML=`<article class="spiral-card"><div class="spiral-meta"><span>${q.source}</span></div><h3>${q.prompt}</h3><div class="spiral-choices">${q.choices.map((choice:string,i:number)=>`<button type="button" data-choice="${i}"><span>${String.fromCharCode(65+i)}</span>${choice}</button>`).join('')}</div><div class="spiral-feedback" data-feedback hidden></div></article>`;
+    stage?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach(button=>button.addEventListener('click',()=>answer(Number(button.dataset.choice))));
+  };
+  const answer=(choice:number)=>{
+    if(answered)return;
+    answered=true;
+    const q=set[index],ok=choice===q.answer;
+    if(ok)correct++;
+    stage?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach((button,i)=>{button.disabled=true;if(i===q.answer)button.classList.add('correct');else if(i===choice)button.classList.add('incorrect');});
+    const feedback=stage?.querySelector<HTMLElement>('[data-feedback]');
+    const review=q.reviewHref?` <a href="${href(q.reviewHref)}">Review the earlier unit →</a>`:'';
+    if(feedback){feedback.hidden=false;feedback.innerHTML=`<strong>${ok?'Correct!':'Not quite.'}</strong> ${q.explain}${review}`;}
+    if(scoreEl)scoreEl.textContent=`${correct} correct`;
+    if(nextBtn)nextBtn.disabled=false;
+    if(hintBtn)hintBtn.disabled=true;
+  };
+  hintBtn?.addEventListener('click',()=>{if(answered||index>=set.length)return;const q=set[index];const feedback=stage?.querySelector<HTMLElement>('[data-feedback]');if(feedback){feedback.hidden=false;feedback.innerHTML=`<strong>Hint:</strong> ${q.hint}`;}hintBtn.textContent='Hint shown';});
+  nextBtn?.addEventListener('click',()=>{index++;render();});
+  const reset=()=>{set=build();index=0;correct=0;render();};
+  newBtn?.addEventListener('click',reset);
+  const nav=document.querySelector('.topic-sidebar nav');
+  if(nav&&!nav.querySelector('a[href="#spiral"]')){const link=document.createElement('a');link.href='#spiral';link.innerHTML='<span>🌀</span>Spiralling Back';const arcade=nav.querySelector('a[href="#arcade"]');arcade?nav.insertBefore(link,arcade):nav.appendChild(link);}
+  reset();
+});
+</script>
+<style>
+.spiral-section{margin-top:1.25rem}.spiral-intro{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-bottom:.8rem;padding:.85rem 1rem;border-radius:13px;background:var(--course-soft,#eef4ff)}.spiral-intro p{margin:.25rem 0 0;color:#526174}.spiral-intro button,.spiral-actions button{border:0;border-radius:11px;padding:.7rem .95rem;background:var(--course,#174ea6);color:#fff;font-weight:850;cursor:pointer}.spiral-intro .soft{background:#fff;color:#25364f;border:1px solid #d9e1eb}.spiral-progress{display:flex;justify-content:space-between;gap:1rem;color:#607086;font-size:.82rem;font-weight:850;text-transform:uppercase;letter-spacing:.03em}.spiral-card{margin-top:.65rem;border:1px solid #d8e0ea;border-radius:16px;padding:1rem;background:#fff}.spiral-card h3{margin:.45rem 0 .85rem}.spiral-meta span{display:inline-block;padding:.28rem .55rem;border-radius:999px;background:#eef3f9;color:#40536d;font-size:.76rem;font-weight:850}.spiral-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}.spiral-choices button{display:flex;align-items:center;gap:.55rem;text-align:left;border:1px solid #d9e1eb;border-radius:11px;padding:.7rem;background:#fff;cursor:pointer}.spiral-choices button span{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#eef3f9;font-weight:900}.spiral-choices button.correct{border-color:#22c55e;background:#f0fdf4}.spiral-choices button.incorrect{border-color:#ef4444;background:#fef2f2}.spiral-feedback{margin-top:.75rem;padding:.75rem;border-radius:11px;background:#f7f9fc}.spiral-feedback a{display:inline-block;margin-left:.3rem;font-weight:850}.spiral-actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.75rem}.spiral-actions button:first-child{background:#eef3f9;color:#25364f}.spiral-actions button:disabled{opacity:.45}.spiral-finish{padding:1rem 0}@media(max-width:700px){.spiral-intro{display:grid}.spiral-choices{grid-template-columns:1fr}.spiral-progress{display:grid;gap:.2rem}}
+</style>

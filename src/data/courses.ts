@@ -65,7 +65,7 @@ export const courses: Course[] = [
         title: 'Number Operations',
         description: 'Use prime factors, powers, and the conventional order of operations to reveal and work with number structure.',
         topics: [
-          { slug: 'prime-factorization-divisibility', number: '3.1', title: 'Prime Factorization & Divisibility', summary: 'Break composite numbers into prime factors and use factor structure to reason about common factors and divisibility.', status: 'ready' },
+          { slug: 'prime-factorization-divisibility', number: '3.1', title: 'Prime Factorization & Divisibility', summary: 'Compose products in different ways, break composite numbers into prime factors, and use factor structure to reason about common factors and divisibility.', status: 'ready' },
           { slug: 'expressing-powers', number: '3.2', title: 'Expressing Powers', summary: 'Represent repeated multiplication with powers and connect powers to prime factorization and divisibility.', status: 'ready' },
           { slug: 'operations-parentheses-powers', number: '3.3', title: 'Operations with Parentheses & Powers', summary: 'Evaluate multi-step numerical expressions by understanding grouping, powers, and equal-priority operations.', status: 'ready' }
         ]
@@ -124,9 +124,9 @@ export const courses: Course[] = [
         title: 'Patterns',
         description: 'Investigate functions as relationships between changing quantities and connect rules, tables, graphs, ordered pairs, and equations.',
         topics: [
-          { slug: 'investigating-functions-tables-graphs', number: '8.1', title: 'Investigating Functions in Tables and Graphs', summary: 'Identify independent and dependent variables, explore function machines, and describe rules that connect inputs to outputs.', status: 'planned' },
-          { slug: 'representing-functions', number: '8.2', title: 'Representing Functions', summary: 'Represent the same function with tables, ordered pairs, Cartesian graphs, growing patterns, and algebraic equations.', status: 'planned' },
-          { slug: 'solving-problems-functions', number: '8.3', title: 'Solving Problems Involving Functions', summary: 'Use function rules to determine outputs, work backward to find inputs, make predictions, and solve real-life problems.', status: 'planned' }
+          { slug: 'investigating-functions-tables-graphs', number: '8.1', title: 'Investigating Functions in Tables and Graphs', summary: 'Identify independent and dependent variables, explore function machines, and describe rules that connect inputs to outputs.', status: 'ready' },
+          { slug: 'representing-functions', number: '8.2', title: 'Representing Functions', summary: 'Represent the same function with tables, ordered pairs, Cartesian graphs, growing patterns, and algebraic equations.', status: 'ready' },
+          { slug: 'solving-problems-functions', number: '8.3', title: 'Solving Problems Involving Functions', summary: 'Use function rules to determine outputs, work backward to find inputs, make predictions, and solve real-life problems.', status: 'ready' }
         ]
       },
       {
@@ -135,9 +135,9 @@ export const courses: Course[] = [
         title: 'Statistics',
         description: 'Conduct experiments, represent relative frequency in multiple forms, and use sample data to reason about likelihood and predictions.',
         topics: [
-          { slug: 'conducting-experiments', number: '9.1', title: 'Conducting Experiments', summary: 'Identify possible and equally likely outcomes, collect categorized experimental data, and compare predictions with results.', status: 'planned' },
-          { slug: 'relative-frequency', number: '9.2', title: 'Relative Frequency', summary: 'Compare frequency with the total, express relative frequency as fractions, decimals, and percentages, and use data to describe likelihood.', status: 'planned' },
-          { slug: 'analyzing-relative-frequency', number: '9.3', title: 'Analyzing Relative Frequency', summary: 'Compare experimental samples, use relative frequency to make predictions, and investigate how larger sample sizes improve estimates.', status: 'planned' }
+          { slug: 'conducting-experiments', number: '9.1', title: 'Conducting Experiments', summary: 'Identify possible and equally likely outcomes, describe events, collect categorized experimental data, and compare predictions with results.', status: 'ready' },
+          { slug: 'relative-frequency', number: '9.2', title: 'Relative Frequency', summary: 'Compare frequency with the total, express relative frequency as fractions, decimals, and percentages, and use data to describe likelihood.', status: 'ready' },
+          { slug: 'analyzing-relative-frequency', number: '9.3', title: 'Analyzing Relative Frequency', summary: 'Compare experimental samples, use relative frequency to make predictions, and investigate how larger sample sizes improve estimates.', status: 'ready' }
         ]
       }
     ]

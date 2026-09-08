@@ -11,10 +11,12 @@ import SignSortGame from './SignSortGame.astro';
 import type { Course, Unit, Topic } from '../data/courses';
 import type { TopicContent } from '../data/topicContent';
 import { applyUnit1Enhancements } from '../data/unit1Enhancements';
+import { applyGrade6CurriculumAlignment } from '../data/grade6Alignment';
 
 interface Props { course: Course; unit: Unit; topic: Topic; content: TopicContent }
 const { course, unit, topic, content: rawContent } = Astro.props;
-const content = applyUnit1Enhancements(`${course.slug}/${unit.slug}/${topic.slug}`, rawContent);
+const topicKey=`${course.slug}/${unit.slug}/${topic.slug}`;
+const content = applyGrade6CurriculumAlignment(topicKey,applyUnit1Enhancements(topicKey, rawContent));
 const base = import.meta.env.BASE_URL;
 const nextHref = content.next.slug && content.next.status === 'ready' ? `${base}courses/${course.slug}/${unit.slug}/${content.next.slug}/` : null;
 const soloNotes: Record<string,string> = {

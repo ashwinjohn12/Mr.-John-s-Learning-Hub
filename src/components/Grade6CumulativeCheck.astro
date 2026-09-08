@@ -1,0 +1,34 @@
+---
+import type { PracticeQuestion } from '../data/topicContent';
+interface Group { label:string; questions:readonly PracticeQuestion[]; count:number; href?:string }
+interface Props { groups:Group[]; eyebrow:string; title:string; intro:string; newSetLabel?:string; showBreakdown?:boolean }
+const { groups,eyebrow,title,intro,newSetLabel='New set',showBreakdown=false }=Astro.props;const total=groups.reduce((sum,g)=>sum+g.count,0);const base=import.meta.env.BASE_URL;
+---
+<div class="cumulative-check" data-cumulative-check data-count={total} data-base={base} data-breakdown={showBreakdown?'true':'false'}>
+ <div class="check-top"><div><p class="eyebrow">{eyebrow}</p><h3>{title}</h3><p>{intro}</p></div><span data-score>0 / {total}</span></div>
+ <div data-stage aria-live="polite"></div>
+ <div class="actions"><button type="button" data-next disabled>Next</button><button type="button" class="soft" data-restart>{newSetLabel}</button></div>
+ <script type="application/json" data-data set:html={JSON.stringify(groups)}></script>
+</div>
+<script>
+document.querySelectorAll<HTMLElement>('[data-cumulative-check]').forEach(widget=>{
+ const groups=JSON.parse(widget.querySelector('[data-data]')?.textContent||'[]'),total=Number(widget.dataset.count||0),base=widget.dataset.base||'/',showBreakdown=widget.dataset.breakdown==='true';
+ const stage=widget.querySelector<HTMLElement>('[data-stage]'),score=widget.querySelector<HTMLElement>('[data-score]'),next=widget.querySelector<HTMLButtonElement>('[data-next]'),restart=widget.querySelector<HTMLButtonElement>('[data-restart]');
+ let pool:any[]=[],index=0,correct=0,answered=false,stats:Record<string,{correct:number,total:number,href?:string}>={};
+ const shuffle=(items:any[])=>[...items].sort(()=>Math.random()-.5);
+ const href=(raw:string|undefined)=>raw?`${base.replace(/\/$/,'')}${raw}`:'';
+ const build=()=>shuffle(groups.flatMap((group:any)=>shuffle(group.questions).slice(0,Math.min(group.count,group.questions.length)).map((question:any)=>({...question,groupLabel:group.label,href:group.href}))));
+ const breakdown=()=>Object.entries(stats).map(([label,value])=>`<a class="breakdown-row" ${value.href?`href="${href(value.href)}"`:''}><span>${label}</span><strong>${value.correct} / ${value.total}</strong>${value.href?'<em>Review →</em>':''}</a>`).join('');
+ const render=()=>{
+  if(index>=pool.length){const pct=pool.length?correct/pool.length:0;if(stage)stage.innerHTML=`<div class="finish"><p class="eyebrow">SET COMPLETE</p><h3>${correct} / ${pool.length}</h3><p>${pct>=.85?'Strong cumulative performance. Keep reviewing any missed explanations.':pct>=.65?'Good progress. Target the weaker areas before your next set.':'Use the unit breakdown and return to a few targeted reviews before trying another set.'}</p>${showBreakdown?`<div class="breakdown">${breakdown()}</div>`:''}</div>`;if(next)next.disabled=true;return;}
+  const question=pool[index];answered=false;if(next)next.disabled=true;
+  if(stage)stage.innerHTML=`<div class="meta"><span>Question ${index+1} of ${pool.length}</span><span>${question.groupLabel}</span><span>${question.difficulty}</span></div><h3>${question.prompt}</h3><div class="choices">${question.choices.map((choice:string,i:number)=>`<button type="button" data-choice="${i}"><span>${String.fromCharCode(65+i)}</span>${choice}</button>`).join('')}</div><div class="feedback" data-feedback></div>`;
+  stage?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach(button=>button.addEventListener('click',()=>answer(Number(button.dataset.choice))));if(score)score.textContent=`${correct} / ${pool.length}`;
+ };
+ const answer=(choice:number)=>{if(answered)return;answered=true;const question=pool[index],ok=choice===question.answer;if(ok)correct++;const s=stats[question.groupLabel]??{correct:0,total:0,href:question.href};s.total++;if(ok)s.correct++;stats[question.groupLabel]=s;stage?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach((button,i)=>{button.disabled=true;if(i===question.answer)button.classList.add('correct');else if(i===choice)button.classList.add('incorrect');});const feedback=stage?.querySelector<HTMLElement>('[data-feedback]');if(feedback)feedback.innerHTML=`<strong>${ok?'Correct!':'Not quite.'}</strong> ${question.explain}`;if(score)score.textContent=`${correct} / ${pool.length}`;if(next)next.disabled=false;};
+ const reset=()=>{pool=build().slice(0,total);index=0;correct=0;answered=false;stats={};render();};next?.addEventListener('click',()=>{index++;render();});restart?.addEventListener('click',reset);reset();
+});
+</script>
+<style>
+.cumulative-check{border:1px solid #d8e0ea;border-radius:18px;background:#fff;padding:1.1rem}.check-top{display:flex;justify-content:space-between;gap:1rem;align-items:start;border-bottom:1px solid #e8edf3;padding-bottom:.8rem}.check-top h3{margin:.2rem 0}.check-top p{margin:.2rem 0;color:#64748b}.check-top>span{font-weight:900;white-space:nowrap}.meta{display:flex;gap:.65rem;flex-wrap:wrap;justify-content:space-between;margin:1rem 0 .2rem;color:#5f6f84;font-size:.76rem;font-weight:900;text-transform:uppercase}.choices{display:grid;gap:.55rem;margin:1rem 0}.choices button{display:flex;gap:.65rem;align-items:center;text-align:left;border:1px solid #d9e1eb;border-radius:12px;background:#fff;padding:.72rem;cursor:pointer}.choices button span{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#eef3f9;font-weight:800}.choices button.correct{border-color:#22c55e;background:#f0fdf4}.choices button.incorrect{border-color:#ef4444;background:#fef2f2}.feedback{min-height:28px}.actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem}.actions button{border:0;border-radius:11px;padding:.7rem .95rem;background:var(--course);color:#fff;font-weight:850;cursor:pointer}.actions .soft{background:#eef3f9;color:#25364f}.actions button:disabled{opacity:.45}.finish{padding:1rem 0}.breakdown{display:grid;gap:.45rem;margin-top:1rem}.breakdown-row{display:grid;grid-template-columns:1fr auto auto;gap:.7rem;align-items:center;padding:.65rem .75rem;border:1px solid #e0e7ef;border-radius:10px;text-decoration:none;color:inherit}.breakdown-row em{font-style:normal;color:var(--course);font-weight:850}@media(max-width:650px){.check-top,.meta{display:grid}.breakdown-row{grid-template-columns:1fr auto}.breakdown-row em{grid-column:1/-1}}
+</style>

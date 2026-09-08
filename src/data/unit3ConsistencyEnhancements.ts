@@ -1,10 +1,12 @@
 import type { TopicContent } from './topicContent';
+import { applyGrade6CurriculumAlignment } from './grade6Alignment';
 
 export function applyUnit3ConsistencyEnhancements(key: string, content: TopicContent): TopicContent {
-  if (key !== 'grade-6-math/number-operations/prime-factorization-divisibility') return content;
+  const aligned=applyGrade6CurriculumAlignment(key,content);
+  if (key !== 'grade-6-math/number-operations/prime-factorization-divisibility') return aligned;
 
   return {
-    ...content,
+    ...aligned,
     application: {
       title: 'Shared Factor Packing Challenge',
       scenario: 'A class has 84 red tiles and 126 blue tiles. The tiles must be split into the same number of equal packs, with no tiles left over.',

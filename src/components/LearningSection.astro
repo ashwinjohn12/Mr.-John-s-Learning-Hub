@@ -1,4 +1,5 @@
 ---
+import Grade6SpirallingBack from './Grade6SpirallingBack.astro';
 interface Props {
   id: string;
   eyebrow: string;
@@ -7,11 +8,40 @@ interface Props {
   tone: 'idea' | 'learn' | 'vocab' | 'explore' | 'practice' | 'play' | 'review';
 }
 const { id, eyebrow, title, icon, tone } = Astro.props;
+const reviewMatch = Astro.url.pathname.match(/\/courses\/grade-6-math\/([^/]+)\/unit-review\/?$/);
+const reviewUnit = reviewMatch?.[1] ?? null;
+const spiralUnit = id === 'arcade' && reviewUnit ? reviewUnit : null;
+const isUnit3Overview=reviewUnit==='number-operations'&&id==='overview';
+const isUnit9Overview=reviewUnit==='statistics'&&id==='overview';
+const isUnit9Finish=reviewUnit==='statistics'&&id==='finish';
+const isUnit3Pat=reviewUnit==='number-operations'&&id==='pat';
+const base=import.meta.env.BASE_URL;
 ---
+{spiralUnit && <Grade6SpirallingBack unitSlug={spiralUnit} />}
 <section class={`learning-section tone-${tone}`} id={id}>
   <header>
     <span class="section-icon" aria-hidden="true">{icon}</span>
     <div><p class="eyebrow">{eyebrow}</p><h2>{title}</h2></div>
   </header>
-  <div class="section-body"><slot /></div>
+  <div class="section-body">
+    <slot />
+    {isUnit3Overview && <p class="curriculum-alignment-check"><strong>Current curriculum check:</strong> I can compose the same product in more than one way using different factors.</p>}
+    {isUnit9Overview && <p class="curriculum-alignment-check"><strong>Current curriculum check:</strong> I can describe an <em>event</em> and list the one or more outcomes that belong to it.</p>}
+    {isUnit9Finish && <div class="year-review-next"><div><p class="eyebrow">NEXT: MIX THE WHOLE YEAR</p><strong>Grade 6 Math Year Review & PAT Prep</strong><span>Use balanced cumulative practice, a unit-by-unit diagnostic, and calculator-free PAT-style sets.</span></div><a class="button" href={`${base}courses/grade-6-math/year-review/`}>Open Year Review →</a></div>}
+  </div>
 </section>
+{isUnit3Pat && <script is:inline>
+(() => {
+  const card=document.querySelector('#pat .finish-card');
+  if(!card)return;
+  const strong=card.querySelector('strong');
+  const copy=card.querySelector('span');
+  const link=card.querySelector('a');
+  if(strong)strong.textContent='Ready for Unit 4?';
+  if(copy)copy.textContent='If your Unit Check and explanations feel strong, continue to Operations on Decimals & Fractions. Otherwise, use the lesson map for one focused review.';
+  if(link){link.textContent='Open Unit 4 →';link.setAttribute('href',`${document.baseURI.includes('/Mr.-John-s-Learning-Hub/')?'/Mr.-John-s-Learning-Hub':''}/courses/grade-6-math/decimals-fractions/`);}
+})();
+</script>}
+<style>
+.curriculum-alignment-check{margin-top:1rem;padding:.8rem .9rem;border-radius:12px;background:#eef6ff;border:1px solid #cfe0f5}.year-review-next{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;margin-top:1rem;padding:1rem;border-radius:15px;background:linear-gradient(135deg,#fff,var(--course-soft,#eef4ff));border:1px solid #dce5ef}.year-review-next>div{display:grid;gap:.2rem}.year-review-next .eyebrow{margin:0}.year-review-next span{color:#526174}.year-review-next a{text-decoration:none;white-space:nowrap}@media(max-width:700px){.year-review-next{grid-template-columns:1fr}.year-review-next a{justify-self:start}}
+</style>

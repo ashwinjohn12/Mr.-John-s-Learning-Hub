@@ -1,0 +1,37 @@
+---
+import type { PracticeQuestion } from '../data/topicContent';
+interface Group { label:string; questions:readonly PracticeQuestion[]; count:number; href?:string }
+interface Props { groups:Group[] }
+const { groups }=Astro.props;const total=groups.reduce((sum,g)=>sum+g.count,0);const base=import.meta.env.BASE_URL;
+---
+<div class="cumulative-practice" data-cumulative-practice data-count={total} data-base={base}>
+ <div class="practice-top"><div><p class="eyebrow">SUPPORTED CUMULATIVE PRACTICE</p><h3>Balanced {total}-question year review</h3><p>Every set includes exactly three questions from each of the nine units. Hints and explanations are available here.</p></div><span data-score>0 / 0</span></div>
+ <div data-stage aria-live="polite"></div>
+ <div class="actions"><button type="button" class="hint" data-hint>Show hint</button><button type="button" data-next disabled>Next question</button><button type="button" class="soft" data-new>New balanced set</button></div>
+ <script type="application/json" data-data set:html={JSON.stringify(groups)}></script>
+</div>
+<script>
+document.querySelectorAll<HTMLElement>('[data-cumulative-practice]').forEach(widget=>{
+ const groups=JSON.parse(widget.querySelector('[data-data]')?.textContent||'[]'),total=Number(widget.dataset.count||27),base=widget.dataset.base||'/';
+ const stage=widget.querySelector<HTMLElement>('[data-stage]'),score=widget.querySelector<HTMLElement>('[data-score]'),hint=widget.querySelector<HTMLButtonElement>('[data-hint]'),next=widget.querySelector<HTMLButtonElement>('[data-next]'),newBtn=widget.querySelector<HTMLButtonElement>('[data-new]');
+ let pool:any[]=[],index=0,correct=0,answered=0,locked=false;
+ const shuffle=(items:any[])=>[...items].sort(()=>Math.random()-.5);
+ const link=(raw:string|undefined)=>raw?`${base.replace(/\/$/,'')}${raw}`:'';
+ const build=()=>shuffle(groups.flatMap((group:any)=>shuffle(group.questions).slice(0,Math.min(group.count,group.questions.length)).map((question:any)=>({...question,groupLabel:group.label,href:group.href}))));
+ const update=()=>{if(score)score.textContent=`${correct} / ${answered}`;};
+ const render=()=>{
+  if(index>=pool.length){if(stage)stage.innerHTML=`<div class="finish"><p class="eyebrow">PRACTICE COMPLETE</p><h3>${correct} / ${pool.length}</h3><p>${correct>=Math.ceil(pool.length*.8)?'Strong cumulative recall. Use the diagnostic or PAT-style sets next.':'Use the unit labels on missed questions to target a few reviews, then try a fresh set.'}</p></div>`;if(hint)hint.disabled=true;if(next)next.disabled=true;update();return;}
+  const question=pool[index];locked=false;
+  if(stage)stage.innerHTML=`<div class="meta"><span>Question ${index+1} of ${pool.length}</span><span>${question.groupLabel}</span><span>${question.difficulty}</span></div><h3>${question.prompt}</h3><div class="choices">${question.choices.map((choice:string,i:number)=>`<button type="button" data-choice="${i}"><span>${String.fromCharCode(65+i)}</span>${choice}</button>`).join('')}</div><div class="feedback" data-feedback hidden></div>`;
+  stage?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach(button=>button.addEventListener('click',()=>answer(Number(button.dataset.choice))));
+  if(hint){hint.disabled=false;hint.textContent='Show hint';}if(next){next.disabled=true;next.textContent=index===pool.length-1?'Finish practice':'Next question';}update();
+ };
+ const answer=(choice:number)=>{if(locked)return;locked=true;answered++;const question=pool[index],ok=choice===question.answer;if(ok)correct++;stage?.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach((button,i)=>{button.disabled=true;if(i===question.answer)button.classList.add('correct');else if(i===choice)button.classList.add('incorrect');});const feedback=stage?.querySelector<HTMLElement>('[data-feedback]');const review=!ok&&question.href?` <a href="${link(question.href)}">Review this unit →</a>`:'';if(feedback){feedback.hidden=false;feedback.innerHTML=`<strong>${ok?'Correct!':'Not quite.'}</strong> ${question.explain}${review}`;}if(hint)hint.disabled=true;if(next)next.disabled=false;update();};
+ hint?.addEventListener('click',()=>{if(locked||index>=pool.length)return;const question=pool[index],feedback=stage?.querySelector<HTMLElement>('[data-feedback]');if(feedback){feedback.hidden=false;feedback.innerHTML=`<strong>Hint:</strong> ${question.hint}`;}hint.textContent='Hint shown';});
+ next?.addEventListener('click',()=>{index++;render();});
+ const reset=()=>{pool=build().slice(0,total);index=0;correct=0;answered=0;render();};newBtn?.addEventListener('click',reset);reset();
+});
+</script>
+<style>
+.cumulative-practice{border:1px solid #d8e0ea;border-radius:18px;background:#fff;padding:1.1rem}.practice-top{display:flex;justify-content:space-between;gap:1rem;align-items:start;border-bottom:1px solid #e8edf3;padding-bottom:.8rem}.practice-top h3{margin:.2rem 0}.practice-top p{margin:.2rem 0;color:#64748b}.practice-top>span{font-weight:900;white-space:nowrap}.meta{display:flex;gap:.65rem;flex-wrap:wrap;justify-content:space-between;margin:1rem 0 .2rem;color:#5f6f84;font-size:.76rem;font-weight:900;text-transform:uppercase}.choices{display:grid;gap:.55rem;margin:1rem 0}.choices button{display:flex;gap:.65rem;align-items:center;text-align:left;border:1px solid #d9e1eb;border-radius:12px;background:#fff;padding:.72rem;cursor:pointer}.choices button span{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#eef3f9;font-weight:800}.choices button.correct{border-color:#22c55e;background:#f0fdf4}.choices button.incorrect{border-color:#ef4444;background:#fef2f2}.feedback{padding:.75rem;border-radius:11px;background:#f7f9fc}.feedback a{font-weight:850}.actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem}.actions button{border:0;border-radius:11px;padding:.7rem .95rem;background:var(--course);color:#fff;font-weight:850;cursor:pointer}.actions .hint,.actions .soft{background:#eef3f9;color:#25364f}.actions button:disabled{opacity:.45}.finish{padding:1rem 0}@media(max-width:650px){.practice-top,.meta{display:grid}}
+</style>

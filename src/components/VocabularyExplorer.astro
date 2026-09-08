@@ -1,7 +1,13 @@
 ---
 import type { VocabularyWord } from '../data/topicContent';
 interface Props { words: readonly VocabularyWord[] }
-const { words } = Astro.props;
+const { words: rawWords } = Astro.props;
+const isGrade6Math=Astro.url.pathname.includes('/courses/grade-6-math/');
+const words:readonly VocabularyWord[]=isGrade6Math?rawWords.map(word=>word.term==='Integer'?{
+  ...word,
+  definition:'A natural number, its negative additive inverse, or zero.',
+  example:word.example || '−8, 0, and +13 are integers; 2.5 is not.'
+}:word):rawWords;
 ---
 <div class="vocab-widget widget" data-vocab-widget>
   <div class="widget-topline"><span>Card <strong data-vocab-count>1 of {words.length}</strong></span><span>Tap the card to reveal</span></div>

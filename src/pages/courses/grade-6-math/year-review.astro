@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import LearningSection from '../../../components/LearningSection.astro';
+import Grade6CumulativePractice from '../../../components/Grade6CumulativePractice.astro';
+import Grade6CumulativeCheck from '../../../components/Grade6CumulativeCheck.astro';
+import { findCourse } from '../../../data/courses';
+import { grade6UnitMeta, yearSupportedGroups, yearDiagnosticGroups, patPartAGroups, patPartBGroups } from '../../../data/grade6YearReview';
+const course=findCourse('grade-6-math')!;const base=import.meta.env.BASE_URL;
+const reasoning=[
+ {unit:'Unit 1 · Integers',prompt:'Explain why −3 is greater than −8 even though 8 has the greater magnitude.',answer:'Value and magnitude are different. −3 is farther right on the number line, so −3 > −8. The magnitude of −8 is greater because it is farther from zero.'},
+ {unit:'Unit 2 · Geometry',prompt:'A reflection and a translation both preserve size and shape. What important difference can you describe?',answer:'A translation slides every point the same distance and direction and keeps orientation. A reflection flips the figure across a mirror line and reverses orientation.'},
+ {unit:'Unit 3 · Number structure',prompt:'Why can 72 be written as 8 × 9 and also as 2 × 2 × 2 × 3 × 3?',answer:'A product can be composed in different ways. 8 × 9 and the prime factorization both equal 72; the prime factorization simply continues decomposing until every factor is prime.'},
+ {unit:'Unit 4 · Fractions & decimals',prompt:'Why is estimating useful even when you know how to use a standard algorithm?',answer:'An estimate predicts the size of the answer. After calculating exactly, you can compare with the estimate to catch place-value or operation errors.'},
+ {unit:'Unit 5 · Proportional reasoning',prompt:'Two stores sell different package sizes. Why is a unit rate often more useful than comparing the total prices?',answer:'A unit rate changes both offers to the same comparison unit, such as cost per item, so the different package sizes can be compared fairly.'},
+ {unit:'Unit 6 · Algebra',prompt:'Why must you perform an equivalent operation on both sides of an equation?',answer:'An equation says both sides have equal value. Doing the same valid operation to both sides preserves that equality while helping isolate the unknown.'},
+ {unit:'Unit 7 · Measurement',prompt:'Why does a triangle with base 10 cm and height 6 cm have half the area of a parallelogram with the same base and height?',answer:'Two congruent copies of the triangle can form a parallelogram with the same base and perpendicular height, so one triangle occupies half of that area.'},
+ {unit:'Unit 8 · Patterns',prompt:'How can a table, ordered pairs, a graph, and an equation represent the same function?',answer:'They encode the same input-output pairs in different forms. If they represent one function, an input such as x=3 must lead to the same output in every representation.'},
+ {unit:'Unit 9 · Statistics',prompt:'Why does 51 heads in 100 tosses usually provide stronger evidence about a fair coin than 8 heads in 10 tosses?',answer:'The larger sample contains more trials and is generally less affected by short-run random variation. It gives 51%, close to the expected 50%, but it still supports an estimate rather than proving a guarantee.'}
+];
+---
+<BaseLayout title="Grade 6 Math Year Review & PAT Prep | Mr. John’s Learning Hub" description="Cumulative Grade 6 Mathematics review across Units 1–9 with balanced diagnostics and calculator-free PAT-style practice." themeColor={course.color}>
+ <div class="page-wrap year-review" style={`--course:${course.color};--course-soft:${course.accent}`}>
+  <Breadcrumbs items={[{label:'Home',href:base},{label:'Grade 6 Math',href:`${base}courses/grade-6-math/`},{label:'Year Review & PAT Prep'}]}/>
+  <header class="year-hero"><div><p class="eyebrow">GRADE 6 MATH · CUMULATIVE REVIEW</p><h1>Year Review<br/><span>& PAT Prep</span></h1><p>Retrieve learning from all nine units, diagnose exactly where you need review, and practise mixing skills without a calculator.</p></div><div class="year-stamp"><strong>1–9</strong><span>all units<br/>connected</span></div></header>
+
+  <LearningSection id="overview" eyebrow="START HERE" title="Use this page in layers" icon="🎯" tone="idea">
+   <div class="mode-grid"><article><span>1</span><h3>Learn</h3><p>Use the supported 27-question set. Every unit appears three times, with hints and explanations.</p></article><article><span>2</span><h3>Diagnose</h3><p>Take the independent 18-question check. Every unit appears twice and your final result is broken down by unit.</p></article><article><span>3</span><h3>Prepare</h3><p>Try calculator-free PAT-style sets only after you know which units need attention.</p></article></div>
+   <div class="pat-note"><strong>Current PAT format used for this practice</strong><span>Part A: 15 Number questions. Part B: 40 questions from all organizing ideas. Calculators are not permitted in either mathematics part. This page is site-created practice, not an official Alberta test, and official digital question formats may vary.</span></div>
+  </LearningSection>
+
+  <LearningSection id="map" eyebrow="TARGET YOUR REVIEW" title="Nine-unit course map" icon="🗺️" tone="learn">
+   <p>Open a Unit Review when the diagnostic points to a specific gap. You do not need to redo an entire unit because of one missed skill.</p>
+   <div class="unit-review-grid">{grade6UnitMeta.map((unit,index)=><a href={`${base}${unit.href.replace(/^\//,'')}`}><span>{String(index+1).padStart(2,'0')}</span><strong>{unit.label.replace(/^Unit \d+ · /,'')}</strong><small>Open Unit Review →</small></a>)}</div>
+  </LearningSection>
+
+  <LearningSection id="supported" eyebrow="LEARN FROM MISTAKES" title="Balanced cumulative practice" icon="✏️" tone="practice">
+   <p>Exactly three questions come from each unit. Use hints here. Read the explanation even when you are right and compare it with your own strategy.</p>
+   <Grade6CumulativePractice groups={yearSupportedGroups}/>
+  </LearningSection>
+
+  <LearningSection id="diagnostic" eyebrow="INDEPENDENT COURSE CHECK" title="Where should I review?" icon="✅" tone="review">
+   <p>No hints. Every set contains exactly two questions from each unit. At the end, use the unit-by-unit breakdown instead of judging yourself only by the overall score.</p>
+   <Grade6CumulativeCheck groups={yearDiagnosticGroups} eyebrow="COURSE DIAGNOSTIC" title="Balanced 18-question check" intro="Two questions from every Grade 6 unit. Explanations appear only after you commit to an answer." newSetLabel="New diagnostic" showBreakdown={true}/>
+  </LearningSection>
+
+  <LearningSection id="pat-a" eyebrow="PAT-STYLE PRACTICE · PART A" title="Number fluency without a calculator" icon="🔢" tone="review">
+   <div class="pat-instructions"><strong>15 questions</strong><span>Integers · decimals · powers · fractions · rates · ratios · percent</span><span>No calculator</span></div>
+   <p>This set mirrors the current Part A length and stays focused on Number. Use scrap paper and show enough work that you can find an error if you make one.</p>
+   <Grade6CumulativeCheck groups={patPartAGroups} eyebrow="PART A-STYLE" title="15-question Number set" intro="Calculator-free mixed Number practice. This is not an official Alberta test." newSetLabel="New Part A set"/>
+  </LearningSection>
+
+  <LearningSection id="pat-b" eyebrow="PAT-STYLE PRACTICE · PART B" title="Mix the whole Grade 6 course" icon="🧠" tone="review">
+   <div class="pat-instructions"><strong>40 questions</strong><span>All nine site units represented</span><span>No calculator</span></div>
+   <p>This full-length Part B-style practice mixes Number, geometry, measurement, algebra, patterns, and statistics. The site questions use selectable answers; Alberta's official digital assessment may use several question formats.</p>
+   <Grade6CumulativeCheck groups={patPartBGroups} eyebrow="PART B-STYLE" title="40-question cumulative set" intro="Every Grade 6 unit contributes questions so no late-year topic crowds out earlier learning." newSetLabel="New Part B set" showBreakdown={true}/>
+  </LearningSection>
+
+  <LearningSection id="reasoning" eyebrow="EXPLAIN IT" title="Nine reasoning prompts" icon="💬" tone="learn">
+   <p>Being able to explain why a method works is stronger than recognizing an answer. Try one prompt from each unit aloud or on paper before opening the model response.</p>
+   <div class="reasoning-grid">{reasoning.map(item=><article><p class="eyebrow">{item.unit}</p><h3>{item.prompt}</h3><details><summary>Show a strong answer</summary><p>{item.answer}</p></details></article>)}</div>
+  </LearningSection>
+
+  <LearningSection id="finish" eyebrow="MAKE A REVIEW PLAN" title="Use the evidence" icon="🏁" tone="idea">
+   <div class="finish-grid"><article><strong>85–100%</strong><p>Keep the course mixed. Focus on reasoning and the few questions you miss.</p></article><article><strong>65–84%</strong><p>Use the diagnostic breakdown to revisit two or three Unit Reviews, then return for a fresh set.</p></article><article><strong>Below 65%</strong><p>Start with supported cumulative practice and one targeted Unit Review at a time. Rebuild the ideas before repeating an assessment set.</p></article></div>
+   <div class="final-actions"><a class="button" href={`${base}courses/grade-6-math/`}>Back to Grade 6 Math →</a><a class="button secondary" href="#diagnostic">Take the course diagnostic</a></div>
+  </LearningSection>
+ </div>
+</BaseLayout>
+<style>
+.year-hero{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end;padding:2rem 0 1.25rem}.year-hero h1{font-size:clamp(2.8rem,8vw,5.7rem);line-height:.9;margin:.35rem 0}.year-hero h1 span{color:var(--course)}.year-hero>div>p:last-child{max-width:760px;font-size:1.1rem;color:#526174}.year-stamp{display:flex;align-items:center;gap:.75rem;padding:1rem 1.15rem;border-radius:18px;background:var(--course-soft)}.year-stamp strong{font-size:2.2rem;color:var(--course)}.year-stamp span{font-weight:800}.mode-grid,.finish-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}.mode-grid article,.finish-grid article{border:1px solid #dfe5ee;border-radius:15px;padding:1rem;background:#fff}.mode-grid article>span{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--course);color:#fff;font-weight:900}.mode-grid h3{margin:.6rem 0 .3rem}.pat-note{display:grid;grid-template-columns:auto 1fr;gap:1rem;margin-top:1rem;padding:1rem;border-radius:14px;background:#fff8db;line-height:1.5}.unit-review-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin-top:1rem}.unit-review-grid a{display:grid;gap:.25rem;padding:.9rem;border:1px solid #dfe5ee;border-radius:13px;text-decoration:none;color:inherit;background:#fff}.unit-review-grid a>span{color:var(--course);font-weight:900}.unit-review-grid small{color:#64748b}.pat-instructions{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}.pat-instructions>*{padding:.45rem .65rem;border-radius:999px;background:var(--course-soft);font-size:.82rem}.reasoning-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.reasoning-grid article{border:1px solid #dfe5ee;border-radius:15px;padding:1rem;background:#fff}.reasoning-grid h3{font-size:1rem;line-height:1.45}.finish-grid strong{font-size:1.35rem;color:var(--course)}.final-actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem}.final-actions a{text-decoration:none}@media(max-width:760px){.year-hero,.mode-grid,.finish-grid,.unit-review-grid,.reasoning-grid,.pat-note{grid-template-columns:1fr}.year-stamp{justify-self:start}.year-hero{gap:1rem;padding-top:1rem}}
+</style>

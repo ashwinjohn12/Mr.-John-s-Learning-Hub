@@ -2,6 +2,7 @@
 import Unit1LessonPage from '../../../../components/Unit1LessonPage.astro';
 import { courses, type Course, type Unit, type Topic } from '../../../../data/courses';
 import { topicContent, type TopicContent } from '../../../../data/topicContent';
+import { applyGrade6CurriculumAlignment } from '../../../../data/grade6Alignment';
 
 export function getStaticPaths() {
   return courses.flatMap((course) =>
@@ -21,6 +22,7 @@ export function getStaticPaths() {
   );
 }
 interface Props { course: Course; unit: Unit; topic: Topic; content: TopicContent }
-const { course, unit, topic, content } = Astro.props;
+const { course, unit, topic, content: rawContent } = Astro.props;
+const content=applyGrade6CurriculumAlignment(`${course.slug}/${unit.slug}/${topic.slug}`,rawContent);
 ---
 <Unit1LessonPage {course} {unit} {topic} {content} />
