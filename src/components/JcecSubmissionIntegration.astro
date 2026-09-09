@@ -31,11 +31,21 @@ const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZD
       }
     }
 
+    const isOperation03 = /\/jabberwocky\/phase-1\/operation-03\/?$/.test(path);
+    if (isOperation03) {
+      const nextOperation = document.querySelector('.next-operation');
+      const lock = nextOperation?.querySelector('.locked');
+      const status = nextOperation?.querySelector('.system-label');
+      if (status) status.textContent = 'MATERIALS READY';
+      if (lock) {
+        lock.className = 'jcec-next-ready';
+        lock.innerHTML = '<span aria-hidden="true">🕸️</span><div><strong>Operation 04: Ecosystem Network is ready.</strong><small>Begin only when your teacher activates the next investigation.</small></div><a href="../operation-04/">Open Ecosystem Network →</a>';
+      }
+    }
+
     const isPhase1Hub = /\/jabberwocky\/phase-1\/?$/.test(path);
     if (!isPhase1Hub) return;
 
-    // The continent cards are buttons. Remove older list roles that overrode
-    // their button semantics for assistive technology.
     const continentGrid = document.querySelector('.continent-grid');
     continentGrid?.removeAttribute('role');
     document.querySelectorAll('.continent-card[role="listitem"]').forEach((card) => card.removeAttribute('role'));
@@ -134,6 +144,7 @@ const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZD
     const progressSteps = [...document.querySelectorAll('.progress-list .step')];
     const op2Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'Environmental Survey');
     const op3Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'First Contact');
+    const op4Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'Ecosystem Network');
     if (op2Step) {
       op2Step.classList.remove('pending');
       op2Step.classList.add('ready');
@@ -150,6 +161,17 @@ const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZD
       link.href = './operation-03/';
       link.textContent = 'Open →';
       op3Step.append(link);
+    }
+    if (op4Step && !op4Step.querySelector('.jcec-progress-launch')) {
+      op4Step.classList.remove('pending');
+      op4Step.classList.add('ready');
+      const small = op4Step.querySelector('small');
+      if (small) small.textContent = 'READY — begin after Operation 03';
+      const link = document.createElement('a');
+      link.className = 'jcec-progress-launch';
+      link.href = './operation-04/';
+      link.textContent = 'Open →';
+      op4Step.append(link);
     }
 
     const STORAGE_POSTING = 'jabberwocky-phase1-posting';
