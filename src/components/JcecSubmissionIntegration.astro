@@ -19,6 +19,18 @@ const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZD
     const dock = document.getElementById('jcec-submission-dock');
     if (dock) dock.hidden = false;
 
+    const isOperation02 = /\/jabberwocky\/phase-1\/operation-02\/?$/.test(path);
+    if (isOperation02) {
+      const nextOperation = document.querySelector('.next-operation');
+      const lock = nextOperation?.querySelector('.locked');
+      const status = nextOperation?.querySelector('.system-label');
+      if (status) status.textContent = 'MATERIALS READY';
+      if (lock) {
+        lock.className = 'jcec-next-ready';
+        lock.innerHTML = '<span aria-hidden="true">🔎</span><div><strong>Operation 03: First Contact is ready.</strong><small>Begin only when your teacher activates the next investigation.</small></div><a href="../operation-03/">Open First Contact →</a>';
+      }
+    }
+
     const isPhase1Hub = /\/jabberwocky\/phase-1\/?$/.test(path);
     if (!isPhase1Hub) return;
 
@@ -119,6 +131,27 @@ const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZD
         <a id="jcec-op2-launch" href="./operation-02/">Open Environmental Survey →</a>`;
     }
 
+    const progressSteps = [...document.querySelectorAll('.progress-list .step')];
+    const op2Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'Environmental Survey');
+    const op3Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'First Contact');
+    if (op2Step) {
+      op2Step.classList.remove('pending');
+      op2Step.classList.add('ready');
+      const small = op2Step.querySelector('small');
+      if (small) small.textContent = 'READY — hands-on environmental survey';
+    }
+    if (op3Step && !op3Step.querySelector('.jcec-progress-launch')) {
+      op3Step.classList.remove('pending');
+      op3Step.classList.add('ready');
+      const small = op3Step.querySelector('small');
+      if (small) small.textContent = 'READY — begin after Operation 02';
+      const link = document.createElement('a');
+      link.className = 'jcec-progress-launch';
+      link.href = './operation-03/';
+      link.textContent = 'Open →';
+      op3Step.append(link);
+    }
+
     const STORAGE_POSTING = 'jabberwocky-phase1-posting';
     const STORAGE_ASSESSMENT = 'jabberwocky-phase1-assessment';
     const STORAGE_REASON = 'jabberwocky-phase1-assessment-reason';
@@ -187,6 +220,7 @@ const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZD
   .jcec-op1-work-mode{display:flex;gap:.8rem;align-items:flex-start;margin:0 0 1.2rem;padding:.9rem 1rem;border:1px solid #3f6480;border-radius:14px;background:#0a2030;color:#eaf5ff}.jcec-op1-icon{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border-radius:10px;background:#12314a}.jcec-op1-work-mode>div{display:grid;gap:.18rem}.jcec-op1-label{color:#9ed5ff;font:850 .72rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em}.jcec-op1-work-mode strong{color:#fff}.jcec-op1-work-mode p{margin:.05rem 0 0;color:#b7cedb;font-size:.88rem;line-height:1.45}
   .jcec-submit-button{display:inline-flex;align-items:center;justify-content:center;padding:.74rem 1rem;border:1px solid #6ef2cf;border-radius:10px;background:#6ef2cf;color:#06201e!important;text-decoration:none;font-weight:900}.jcec-submit-button:hover{filter:brightness(1.05);transform:translateY(-1px)}
   .jcec-submit-guide{margin:1rem 0 0;padding:1rem;border:1px solid #367c70;border-radius:14px;background:#071e25;color:#d9edf4}.jcec-submit-guide-heading{display:flex;gap:.65rem;align-items:center}.jcec-submit-guide-heading>span{font-size:1.2rem}.jcec-submit-guide-heading>div{display:grid}.jcec-submit-guide-heading strong{color:#fff}.jcec-submit-guide-heading small{margin-top:.15rem;color:#98bec9}.jcec-submit-guide dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;margin:.85rem 0}.jcec-submit-guide dl div{padding:.6rem .7rem;border:1px solid #204653;border-radius:9px;background:#081821}.jcec-submit-guide dt{color:#86a8b4;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em}.jcec-submit-guide dd{margin:.2rem 0 0;color:#fff;font-size:.86rem;font-weight:800}.jcec-submit-guide p{margin:.75rem 0;color:#b8d0d9;font-size:.86rem;line-height:1.5}.jcec-copy-draft{padding:.55rem .72rem;border:1px solid #3a7280;border-radius:9px;background:#0b2a36;color:#dff8ff;font-weight:800;cursor:pointer}.jcec-copy-status{margin-left:.55rem;color:#80edcf;font-size:.8rem}
-  .jcec-op2-ready{display:grid;grid-template-columns:auto 1fr auto;gap:.75rem;align-items:center;margin-top:1rem;padding:.85rem;border:1px solid #39745f;border-radius:12px;background:#0b2a29;color:#dff7ef}.jcec-op2-ready>span{font-size:1.25rem}.jcec-op2-ready>div{display:grid;gap:.15rem}.jcec-op2-ready strong{color:#fff}.jcec-op2-ready small{color:#a9cfc4}.jcec-op2-ready a{padding:.58rem .72rem;border-radius:9px;background:#6ef2cf;color:#06201e;text-decoration:none;font-size:.82rem;font-weight:900;white-space:nowrap}
-  @media(max-width:760px){.jcec-protocol-heading{display:grid}.jcec-protocol-heading>span{text-align:left}.jcec-protocol-grid{grid-template-columns:1fr}.jcec-submit-guide dl{grid-template-columns:1fr}.jcec-submission-dock{right:1rem;max-width:none}.jcec-submission-dock>div{display:none}.jcec-op2-ready{grid-template-columns:auto 1fr}.jcec-op2-ready a{grid-column:1 / -1;text-align:center}}
+  .jcec-op2-ready,.jcec-next-ready{display:grid;grid-template-columns:auto 1fr auto;gap:.75rem;align-items:center;margin-top:1rem;padding:.85rem;border:1px solid #39745f;border-radius:12px;background:#0b2a29;color:#dff7ef}.jcec-op2-ready>span,.jcec-next-ready>span{font-size:1.25rem}.jcec-op2-ready>div,.jcec-next-ready>div{display:grid;gap:.15rem}.jcec-op2-ready strong,.jcec-next-ready strong{color:#fff}.jcec-op2-ready small,.jcec-next-ready small{color:#a9cfc4}.jcec-op2-ready a,.jcec-next-ready a{padding:.58rem .72rem;border-radius:9px;background:#6ef2cf;color:#06201e!important;text-decoration:none;font-size:.82rem;font-weight:900;white-space:nowrap}
+  .step.ready{border-color:#39745f!important;background:#0a2630!important}.step.ready>span{background:#123c37!important;color:#8df1d4!important}.step.ready small{color:#8bdac6!important}.jcec-progress-launch{margin-left:auto;padding:.4rem .55rem;border-radius:8px;background:#173f3b;color:#8df1d4!important;text-decoration:none;font-size:.75rem;font-weight:900;white-space:nowrap}
+  @media(max-width:760px){.jcec-protocol-heading{display:grid}.jcec-protocol-heading>span{text-align:left}.jcec-protocol-grid{grid-template-columns:1fr}.jcec-submit-guide dl{grid-template-columns:1fr}.jcec-submission-dock{right:1rem;max-width:none}.jcec-submission-dock>div{display:none}.jcec-op2-ready,.jcec-next-ready{grid-template-columns:auto 1fr}.jcec-op2-ready a,.jcec-next-ready a{grid-column:1 / -1;text-align:center}.jcec-progress-launch{margin-left:0;margin-top:.35rem;width:max-content}}
 </style>
