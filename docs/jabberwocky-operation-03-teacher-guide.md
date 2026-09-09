@@ -70,15 +70,21 @@ Substitutions are encouraged. The scientific requirement is that students test t
 - optional coloured pencils for labelled field sketch
 
 ## Fair-test guidance
-Recommended trial rules:
-- 20 seconds per structure per resource zone;
-- one resource moved at a time;
-- no fingers assisting the tool;
-- reset the zone between tests;
-- use the same collection cup and start position;
+The student page now makes the comparison protocol more explicit. Recommended rules:
+- use the same trial time for every recorded test;
+- use the same starting number of resources within a resource zone;
+- use the same collection cup and starting position;
+- reset the zone to the same starting condition between structures;
+- move one resource at a time;
+- do not allow fingers to assist the tool;
+- allow one short unrecorded practice pickup with each structure before data collection;
+- keep the **same Tester for all four structures within one resource zone**;
+- rotate the Tester only when the team moves to the next resource zone;
 - record counts immediately.
 
-A perfectly controlled experiment is not the goal, but students should recognize why keeping timing and rules consistent improves the comparison.
+Keeping one Tester within a zone reduces the effect of different students having different levels of skill with the tools. Rotating only between zones still lets more students participate. Because the Tester and resource condition may both change between zones, students should compare the four structures **within each zone first** rather than treating raw scores from different zones as perfectly equivalent.
+
+A perfectly controlled experiment is not the goal, but students should recognize why keeping timing, starting conditions, and rules consistent improves the comparison.
 
 ## Safety
 Use normal classroom-safe tools only. Avoid sharp forceps, breakable containers, or very small objects if they present a concern in your setting. Students should not put lab materials in their mouths. Use non-food craft materials where allergies or food-use policies are a concern.
@@ -91,19 +97,24 @@ The key conclusion is not “the spoon wins.” Students should recognize:
 - trade-offs are scientifically useful evidence;
 - this model helps students reason about organism structures but does not reproduce a real ecosystem or evolutionary process.
 
+A new **Mission Checkpoint** on the student page explicitly tells students to put the lab equipment aside and carry the *idea* of structure-function forward. This transition is important: the spoon/tweezers activity is a model, not a claim that alien body parts literally work like classroom tools.
+
 ## First Contact workflow
 Each team receives six pieces of indirect evidence for the continent stored from Operation 01. Evidence sources include tracks, feeding traces, body images, thermal data, movement logs, and shelter observations.
 
 Students should:
 1. read all six clues before drawing;
 2. select at least three especially important clues;
-3. distinguish what was observed from what is inferred;
-4. reconstruct at least three structural adaptations and one behavioural adaptation;
-5. describe a provisional niche using habitat, resource use, activity, and shelter;
-6. mark unsupported details as uncertain;
-7. reveal the JCEC provisional field name only after the reconstruction is complete.
+3. record important evidence by **clue number or evidence source** on the reconstruction sheet;
+4. distinguish what was observed from what is inferred;
+5. reconstruct at least three structural adaptations and one behavioural adaptation;
+6. describe a provisional niche using habitat, resource use, activity, and shelter;
+7. mark unsupported details as uncertain;
+8. reveal the JCEC provisional field name only after the reconstruction is complete.
 
-The field-name reveal is intentionally not the “answer.” Students can produce different defensible reconstructions if their features are consistent with the evidence.
+The page now deliberately gates the field-name reveal. Students must select at least three key evidence clues and confirm that the team has completed the sketch, adaptations, provisional niche, and uncertainty before the reveal button becomes available.
+
+The field-name reveal is intentionally **not** the “answer.” The page tells students not to redraw their organism simply to match the name. Different teams can produce different defensible reconstructions if their features remain consistent with the evidence.
 
 ## Teacher interpretation guide by continent
 These are intended interpretations, not exact drawing requirements.
@@ -197,7 +208,7 @@ The drawing is a scientific reconstruction. Students should distinguish confirme
 The structure lab should show trade-offs. Useful structures can have limitations.
 
 ### “The JCEC field name means our drawing is wrong.”
-The field name is only a working label. Multiple body reconstructions can remain plausible until stronger evidence becomes available.
+The field name is only a working label. Multiple body reconstructions can remain plausible until stronger evidence becomes available. Do not have students alter a defensible reconstruction solely to make it resemble the field name.
 
 ## Continental Archive submission
 One student submits for the team through the JCEC Submission Portal.
@@ -214,7 +225,7 @@ The archive entry should include:
 1. JCEC provisional field name;
 2. concise niche summary;
 3. most important structural/behavioural adaptations;
-4. at least three pieces of First Contact evidence;
+4. at least three pieces of First Contact evidence identified by clue number or evidence source;
 5. reasoning linking adaptation to environmental conditions and organism needs;
 6. one uncertainty or next question.
 
