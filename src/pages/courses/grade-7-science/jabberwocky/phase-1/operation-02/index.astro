@@ -1,0 +1,356 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecWorkMode from '../../../../../../components/JcecWorkMode.astro';
+import { operation02Sites } from '../../../../../../data/jabberwockyOperation02';
+
+const base = import.meta.env.BASE_URL;
+const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZDtZrNtCG3WB78ttvZdtEmq29kapujg/viewform';
+---
+
+<BaseLayout title="Operation 02: Environmental Survey | Jabberwocky 2190" description="A hands-on Grade 7 Science environmental survey mission connecting real field evidence with Jabberwocky landing-zone analysis." themeColor="#071b2e">
+  <div class="operation-shell">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 1', href: `${base}courses/grade-7-science/jabberwocky/phase-1/` },
+      { label: 'Operation 02' }
+    ]} />
+
+    <nav class="mission-nav" aria-label="Operation navigation">
+      <a href={`${base}courses/grade-7-science/jabberwocky/`}>Mission Control</a>
+      <a href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Phase 1</a>
+      <a class="active" href="#briefing">Operation 02</a>
+      <a href="#field-lab">Field Lab</a>
+      <a href="#planetary-scan">Planetary Scan</a>
+      <a href="#archive">Archive</a>
+    </nav>
+
+    <header class="operation-hero" id="briefing">
+      <p class="system-label">MISSION PHASE 01 // OPERATION 02</p>
+      <div class="hero-grid">
+        <div>
+          <p class="division">JCEC ECOLOGICAL SURVEY DIVISION</p>
+          <h1>ENVIRONMENTAL<br /><span>SURVEY</span></h1>
+          <p class="lead">Before you can understand an ecosystem, you need evidence about the place where it exists. Today your team will work like field ecologists: observe, measure, compare, and infer.</p>
+        </div>
+        <aside>
+          <span>MISSION PURPOSE</span>
+          <strong>Build a Landing Site Environmental Profile</strong>
+          <dl>
+            <div><dt>Science focus</dt><dd>Biotic + abiotic</dd></div>
+            <div><dt>Hands-on work</dt><dd>Field survey</dd></div>
+            <div><dt>Official record</dt><dd>Team archive</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </header>
+
+    <section class="mission-question">
+      <p>OPERATION QUESTION</p>
+      <h2>What evidence tells us whether an environment can support life?</h2>
+    </section>
+
+    <section class="panel science-focus" aria-labelledby="science-focus-heading">
+      <p class="system-label">SCIENCE YOU WILL USE</p>
+      <h2 id="science-focus-heading">Read the environment like a scientist.</h2>
+      <div class="science-grid">
+        <article><strong>Biotic</strong><p>Living or once-living parts of an environment: organisms, plant material, tracks, waste, remains, and other evidence of life.</p></article>
+        <article><strong>Abiotic</strong><p>Non-living conditions such as temperature, water, light, soil, wind, ice, rock, and other physical factors.</p></article>
+        <article><strong>Habitat</strong><p>The place where an organism lives and gets the resources and conditions it needs to survive.</p></article>
+        <article><strong>Evidence</strong><p>Scientists separate what they directly observe or measure from what they infer from those observations.</p></article>
+      </div>
+      <a class="text-link" href={`${base}courses/grade-7-science/interactions-ecosystems/`}>Need a science refresher? Open Interactions & Ecosystems resources →</a>
+    </section>
+
+    <section class="panel team-launch" aria-labelledby="team-launch-heading">
+      <JcecWorkMode mode="team" title="Your first field investigation" />
+      <h2 id="team-launch-heading">Everyone has a job.</h2>
+      <p>Use one set of equipment per team. You are gathering one shared set of field evidence, not four separate copies of the same investigation.</p>
+      <div class="roles-grid">
+        <article><span>🌡️</span><strong>Instrument Specialist</strong><small>Uses the thermometer or sensors and reports readings.</small></article>
+        <article><span>📝</span><strong>Recorder</strong><small>Writes measurements and observations clearly.</small></article>
+        <article><span>🔎</span><strong>Organism Observer</strong><small>Searches carefully for evidence of living things.</small></article>
+        <article><span>✓</span><strong>Quality Checker</strong><small>Checks units, repeated samples, and whether evidence supports claims.</small></article>
+      </div>
+      <p class="role-note">If your team has fewer than four people, combine roles. Rotate roles in later investigations.</p>
+    </section>
+
+    <section class="panel field-lab" id="field-lab" aria-labelledby="field-lab-heading">
+      <div class="section-heading">
+        <div><p class="system-label">EARTH FIELD LINK 01 // HANDS-ON LAB</p><h2 id="field-lab-heading">Microhabitat Environmental Survey</h2></div>
+        <span class="duration">35–50 min</span>
+      </div>
+      <p class="intro">Before trusting remote data from another planet, JCEC requires every Pathfinder team to prove it can collect reliable environmental evidence on Earth.</p>
+
+      <div class="lab-grid">
+        <article>
+          <h3>Equipment</h3>
+          <ul>
+            <li>Thermometer</li>
+            <li>1 m string square, metre stick, or four markers</li>
+            <li>Clipboard and pencil</li>
+            <li>Hand lens if available</li>
+            <li>Optional light or soil-moisture sensor</li>
+          </ul>
+          <p class="equipment-note"><strong>No sensors?</strong> Record light as shade / partial / full sun and moisture as dry / damp / wet.</p>
+        </article>
+        <article>
+          <h3>Field safety</h3>
+          <ul>
+            <li>Stay inside the area your teacher approves.</li>
+            <li>Do not taste, pick, or handle unknown organisms.</li>
+            <li>Observe living things without damaging their habitat.</li>
+            <li>Wash your hands after the investigation.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="procedure">
+        <h3>Procedure</h3>
+        <ol>
+          <li><strong>Choose three sample points</strong> within the teacher-approved area. Try to include places that are not exactly the same.</li>
+          <li><strong>Mark about 1 m²</strong> at each point using string, a metre stick, or visual boundaries.</li>
+          <li><strong>Measure abiotic evidence:</strong> air temperature, light condition, moisture, and one other physical feature you notice.</li>
+          <li><strong>Observe biotic evidence:</strong> count or describe organisms and signs of life without disturbing the site.</li>
+          <li><strong>Look for human impact:</strong> paths, litter, mowing, compacted soil, buildings, noise, shade, drainage, or other changes.</li>
+          <li><strong>Compare all three samples.</strong> Decide which sample appears to offer the strongest habitat and explain why with evidence.</li>
+        </ol>
+      </div>
+
+      <div class="print-actions">
+        <button class="button secondary" type="button" id="print-field-sheet">Print Field Sheet</button>
+        <span>One paper field sheet per team is enough.</span>
+      </div>
+
+      <section class="print-sheet" aria-labelledby="field-sheet-heading">
+        <div class="print-header">
+          <div><strong>JCEC EARTH FIELD CERTIFICATION</strong><h3 id="field-sheet-heading">Microhabitat Environmental Survey</h3></div>
+          <div>Team: ____________________ &nbsp; Date: ____________</div>
+        </div>
+        <table>
+          <thead><tr><th>Evidence</th><th>Sample 1</th><th>Sample 2</th><th>Sample 3</th></tr></thead>
+          <tbody>
+            <tr><th>Location / description</th><td></td><td></td><td></td></tr>
+            <tr><th>Air temperature</th><td></td><td></td><td></td></tr>
+            <tr><th>Light</th><td></td><td></td><td></td></tr>
+            <tr><th>Moisture</th><td></td><td></td><td></td></tr>
+            <tr><th>Ground / soil / surface</th><td></td><td></td><td></td></tr>
+            <tr><th>Organisms observed</th><td></td><td></td><td></td></tr>
+            <tr><th>Other evidence of life</th><td></td><td></td><td></td></tr>
+            <tr><th>Human impacts</th><td></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+        <div class="print-prompts">
+          <p><strong>Which sample appears to provide the strongest habitat?</strong> ________________________________________________</p>
+          <p><strong>Use two pieces of evidence:</strong> ________________________________________________________________________</p>
+          <p>_______________________________________________________________________________________________________________</p>
+        </div>
+      </section>
+    </section>
+
+    <section class="panel debrief" aria-labelledby="debrief-heading">
+      <p class="system-label">FIELD DEBRIEF</p>
+      <h2 id="debrief-heading">Do not jump from observation to conclusion.</h2>
+      <div class="debrief-flow" aria-label="Scientific reasoning sequence">
+        <span>OBSERVE / MEASURE</span><b>→</b><span>CLASSIFY</span><b>→</b><span>COMPARE</span><b>→</b><span>INFER</span>
+      </div>
+      <p>Example: “The shaded sample was 4°C cooler” is evidence. “More organisms may use the shaded sample because it is cooler and moister” is an inference that must be supported by evidence.</p>
+    </section>
+
+    <section class="panel planetary-scan" id="planetary-scan" aria-labelledby="planetary-scan-heading">
+      <JcecWorkMode mode="team" title="Apply your field skills to Jabberwocky" />
+      <p class="system-label">JCEC LANDING-ZONE TELEMETRY</p>
+      <h2 id="planetary-scan-heading">Open your assigned environmental scan.</h2>
+      <div class="no-posting" id="no-posting" hidden>
+        <strong>No continental posting detected on this device.</strong>
+        <p>Return to Operation 01, open the continent your teacher assigned, then come back here.</p>
+        <a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Return to Mission Assignment</a>
+      </div>
+
+      <div id="site-scans" hidden>
+        {operation02Sites.map((site) => (
+          <article class="site-scan" data-site={site.id} hidden>
+            <div class="scan-heading">
+              <div><p class="system-label">{site.code}-SCAN // {site.baseCamp}</p><h3>{site.name}: Landing-Zone Profile</h3><small>{site.environment}</small></div>
+              <span class="scan-status">LIVE DATA</span>
+            </div>
+
+            <div class="telemetry-grid">
+              <div><span>AIR TEMPERATURE</span><strong>{site.telemetry.airTemperature}</strong></div>
+              <div><span>MOISTURE</span><strong>{site.telemetry.moisture}</strong></div>
+              <div><span>LIGHT</span><strong>{site.telemetry.light}</strong></div>
+              <div><span>WIND</span><strong>{site.telemetry.wind}</strong></div>
+              <div class="wide"><span>GROUND / SURFACE</span><strong>{site.telemetry.ground}</strong></div>
+            </div>
+
+            <div class="scanner-task">
+              <h4>Evidence Scanner</h4>
+              <p>For each observation, decide whether the evidence is primarily <strong>biotic</strong> or <strong>abiotic</strong>. Discuss before your team operator selects an answer.</p>
+              <div class="evidence-list">
+                {site.evidence.map((item, index) => (
+                  <article class="evidence-card" data-answer={item.kind}>
+                    <span class="evidence-number">{String(index + 1).padStart(2, '0')}</span>
+                    <p>{item.text}</p>
+                    <div class="classify-buttons" role="group" aria-label={`Classify evidence ${index + 1}`}>
+                      <button type="button" data-choice="biotic">Biotic</button>
+                      <button type="button" data-choice="abiotic">Abiotic</button>
+                    </div>
+                    <small class="evidence-feedback" role="status"></small>
+                  </article>
+                ))}
+              </div>
+              <p class="scanner-status" data-scanner-status>Classify all six observations.</p>
+            </div>
+
+            <div class="team-question">
+              <p class="system-label">TEAM INVESTIGATION QUESTION</p>
+              <h4>{site.investigationQuestion}</h4>
+            </div>
+
+            <div class="analysis-prompts">
+              <h4>Before you submit, your team should be able to answer:</h4>
+              <ol>
+                <li>What are the <strong>three most important abiotic factors</strong> at this site?</li>
+                <li>What <strong>evidence of living things</strong> has JCEC detected?</li>
+                <li>Which abiotic factor might <strong>limit</strong> where organisms can live?</li>
+                <li>What part of the landing zone seems most likely to provide a useful <strong>habitat</strong>?</li>
+                <li>How is this evidence similar to or different from your Earth field survey?</li>
+              </ol>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="panel archive-panel" id="archive" aria-labelledby="archive-heading">
+      <JcecWorkMode mode="archive" title="Create the official Landing Site Environmental Profile" />
+      <p class="system-label">JCEC ARCHIVE TRANSMISSION</p>
+      <h2 id="archive-heading">One team member submits. Everyone must agree with the record.</h2>
+      <p>Your team’s first official ecological archive entry should summarize the environment—not copy every measurement. Choose the strongest evidence and explain what it suggests about habitat.</p>
+
+      <div class="archive-checklist">
+        <article><span>1</span><div><strong>Claim / Main Finding</strong><p>Describe the landing environment and identify the part of the site your team thinks is most capable of supporting life.</p></div></article>
+        <article><span>2</span><div><strong>Evidence</strong><p>Include at least three specific pieces of environmental evidence, including both biotic and abiotic evidence.</p></div></article>
+        <article><span>3</span><div><strong>Reasoning</strong><p>Explain how those conditions affect habitat and what may limit where organisms can survive.</p></div></article>
+        <article><span>4</span><div><strong>Uncertainty</strong><p>Identify one important thing your team still does not know and should investigate next.</p></div></article>
+      </div>
+
+      <div class="submission-guide">
+        <div class="guide-heading"><span aria-hidden="true">📡</span><div><strong>Submit to the JCEC Portal</strong><small>This becomes teacher-visible and enters your continent’s archive.</small></div></div>
+        <dl>
+          <div><dt>Submission Type</dt><dd>Continental Archive</dd></div>
+          <div><dt>Mission Phase</dt><dd>01 First Contact</dd></div>
+          <div><dt>Operation / Task</dt><dd>Environmental Survey — Landing Site Profile</dd></div>
+          <div><dt>Continent</dt><dd id="archive-continent">Your assigned continent</dd></div>
+          <div><dt>Team ID</dt><dd id="archive-team-id">P1-XX-01</dd></div>
+          <div><dt>Team Members</dt><dd>List everyone represented</dd></div>
+        </dl>
+        <p><strong>Only one team member submits this archive entry.</strong> Before submitting, read the final wording aloud so every team member agrees that it represents the evidence.</p>
+        <a class="button primary" href={portalUrl} target="_blank" rel="noopener noreferrer">Submit Team Archive to JCEC ↗</a>
+      </div>
+    </section>
+
+    <section class="panel reflection" aria-labelledby="reflection-heading">
+      <JcecWorkMode mode="individual" title="Update your Pathfinder Log" />
+      <h2 id="reflection-heading">What changed in your own thinking?</h2>
+      <p>After your team submits its official record, answer these on your own in your Pathfinder Log:</p>
+      <ol>
+        <li>Which piece of environmental evidence was most important to your thinking?</li>
+        <li>Did the evidence make your continent seem more suitable, less suitable, or simply more uncertain than your first prediction? Explain.</li>
+        <li>What is one question you want Operation 03 to answer?</li>
+      </ol>
+      <p class="reflection-note">This reflection is individual. Your teacher may ask you to submit selected Pathfinder reflections to JCEC, but the team archive above is the required official record for this operation.</p>
+    </section>
+
+    <section class="next-operation" aria-labelledby="next-operation-heading">
+      <div><span>03</span><strong>NEXT OPERATION</strong></div>
+      <section>
+        <p class="system-label">ACCESS PENDING</p>
+        <h2 id="next-operation-heading">First Contact</h2>
+        <p>Your environmental profile tells JCEC where life <em>could</em> survive. The next question is whether your team can interpret evidence from the organisms that actually live there.</p>
+        <div class="locked"><span>🔒</span><strong>Await JCEC activation.</strong></div>
+      </section>
+    </section>
+
+    <div class="bottom-actions">
+      <a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>← Phase 1 Operations</a>
+      <a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/`}>Mission Control</a>
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const posting = localStorage.getItem('jabberwocky-phase1-posting');
+      const noPosting = document.getElementById('no-posting');
+      const scans = document.getElementById('site-scans');
+      const site = posting ? document.querySelector(`[data-site="${posting}"]`) : null;
+
+      if (!posting || !site) {
+        if (noPosting) noPosting.hidden = false;
+      } else {
+        if (scans) scans.hidden = false;
+        site.hidden = false;
+        const continentName = site.querySelector('.scan-heading h3')?.textContent?.split(':')[0]?.trim() || posting;
+        const archiveContinent = document.getElementById('archive-continent');
+        const archiveTeamId = document.getElementById('archive-team-id');
+        if (archiveContinent) archiveContinent.textContent = continentName;
+        const code = site.querySelector('.system-label')?.textContent?.split('-SCAN')[0]?.trim() || 'XX';
+        if (archiveTeamId) archiveTeamId.textContent = `P1-${code}-01 (or the number your teacher assigns)`;
+      }
+
+      document.querySelectorAll('.evidence-card').forEach((card) => {
+        card.querySelectorAll('[data-choice]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const choice = button.dataset.choice;
+            const answer = card.dataset.answer;
+            const feedback = card.querySelector('.evidence-feedback');
+            card.querySelectorAll('[data-choice]').forEach((b) => b.classList.remove('chosen', 'correct', 'incorrect'));
+            button.classList.add('chosen');
+            if (choice === answer) {
+              button.classList.add('correct');
+              card.dataset.complete = 'true';
+              if (feedback) feedback.textContent = `✓ ${choice === 'biotic' ? 'Biotic' : 'Abiotic'} evidence`;
+            } else {
+              button.classList.add('incorrect');
+              card.dataset.complete = 'false';
+              if (feedback) feedback.textContent = 'Not quite. Ask: is this living/once-living evidence, or a non-living condition?';
+            }
+            const parent = card.closest('.scanner-task');
+            const cards = [...parent.querySelectorAll('.evidence-card')];
+            const complete = cards.filter((item) => item.dataset.complete === 'true').length;
+            const status = parent.querySelector('[data-scanner-status]');
+            if (status) status.textContent = complete === cards.length ? '✓ Evidence scanner complete. Now use the pattern to answer your team investigation question.' : `${complete} of ${cards.length} correctly classified.`;
+          });
+        });
+      });
+
+      document.getElementById('print-field-sheet')?.addEventListener('click', () => window.print());
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body){background:#06111f}
+  .operation-shell{max-width:1120px;margin:0 auto;padding:0 1.1rem 5rem;color:#eaf5ff}
+  .operation-shell :global(.breadcrumbs){color:#9fb8c8}.operation-shell :global(.breadcrumbs a){color:#d3eafa}
+  .mission-nav{position:sticky;top:.6rem;z-index:20;display:flex;gap:.35rem;align-items:center;overflow:auto;margin:1rem 0;padding:.45rem;border:1px solid #244b60;border-radius:14px;background:rgba(5,20,33,.94);backdrop-filter:blur(12px);box-shadow:0 8px 28px rgba(0,0,0,.25)}
+  .mission-nav a{flex:0 0 auto;padding:.65rem .78rem;border-radius:9px;color:#b9cfdd;text-decoration:none;font-size:.88rem;font-weight:800}.mission-nav a:hover,.mission-nav a.active{background:#123348;color:#fff}.mission-nav a.active{box-shadow:inset 0 -2px #6ef2cf}
+  .system-label{margin:0;color:#74e9cb;font:800 .8rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em;text-transform:uppercase}
+  .operation-hero{position:relative;overflow:hidden;margin:1.2rem 0 1.4rem;padding:clamp(1.5rem,5vw,3rem);border:1px solid #236078;border-radius:26px;background:radial-gradient(circle at 82% 22%,rgba(110,242,207,.18),transparent 25%),linear-gradient(145deg,#071527,#0b2d42 60%,#06111f)}
+  .operation-hero:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#9bd9ff 1px,transparent 1px);background-size:34px 34px;opacity:.07}
+  .hero-grid{position:relative;display:grid;grid-template-columns:1fr 300px;gap:1.5rem;align-items:end}.division{margin:1.4rem 0 .35rem;color:#a9c3d3;font-weight:850;letter-spacing:.1em}.operation-hero h1{margin:0;color:#fff;font-size:clamp(3.1rem,8vw,6.5rem);line-height:.86;letter-spacing:-.055em}.operation-hero h1 span{color:#6ef2cf}.lead{max-width:720px;margin:1.35rem 0 0;color:#c4d9e7;font-size:1.1rem;line-height:1.65}.operation-hero aside{padding:1.1rem;border:1px solid #315d73;border-radius:16px;background:rgba(4,17,29,.82);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.operation-hero aside>span{display:block;color:#8ea8b8;font-size:.75rem}.operation-hero aside>strong{display:block;margin:.3rem 0 1rem;color:#6ef2cf;font-size:1.1rem;line-height:1.35}.operation-hero dl{margin:0}.operation-hero dl div{display:flex;justify-content:space-between;gap:1rem;padding:.52rem 0;border-top:1px solid #1d4154}.operation-hero dt{color:#90a9b8}.operation-hero dd{margin:0;color:#fff;text-align:right}
+  .mission-question,.panel,.next-operation{margin:1.2rem 0;padding:clamp(1.2rem,4vw,2rem);border:1px solid #183f54;border-radius:20px;background:#0a1d2c}.mission-question{border-color:#39745f;background:linear-gradient(135deg,#0c2a30,#081a27)}.mission-question p{margin:0;color:#74e9cb;font:800 .78rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em}.mission-question h2,.panel h2,.next-operation h2{margin:.5rem 0 .7rem;color:#fff;font-size:clamp(1.55rem,4vw,2.2rem);line-height:1.25}.panel>p,.intro{color:#bcd1dc;line-height:1.65}.science-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;margin:1rem 0}.science-grid article{padding:1rem;border:1px solid #28495a;border-radius:13px;background:#081823}.science-grid strong{color:#9ed5ff;font-size:1.02rem}.science-grid p{margin:.35rem 0 0;color:#b5cbd7;line-height:1.5}.text-link{display:inline-block;margin-top:.4rem;color:#75dfca;font-weight:800;text-decoration:none}.text-link:hover{text-decoration:underline}
+  .team-launch{border-color:#3e7c70}.team-launch>p{max-width:850px}.roles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin:1rem 0}.roles-grid article{display:grid;gap:.3rem;padding:.85rem;border:1px solid #2f5b57;border-radius:12px;background:#081b22}.roles-grid span{font-size:1.25rem}.roles-grid strong{color:#fff}.roles-grid small{color:#a9c4cc;line-height:1.4}.role-note{font-size:.88rem;color:#9fb6c2!important}
+  .section-heading{display:flex;justify-content:space-between;gap:1rem;align-items:start}.duration{padding:.45rem .6rem;border:1px solid #3c6c78;border-radius:999px;color:#b8dce6;font:800 .76rem ui-monospace,SFMono-Regular,monospace;white-space:nowrap}.field-lab{border-color:#466c83}.lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1rem 0}.lab-grid article{padding:1rem;border:1px solid #29495c;border-radius:13px;background:#081923}.lab-grid h3,.procedure h3,.print-sheet h3{margin:0 0 .65rem;color:#fff}.lab-grid ul,.procedure ol{margin:.4rem 0;padding-left:1.25rem;color:#c1d3dc;line-height:1.65}.equipment-note{margin:.75rem 0 0;padding:.7rem;border-left:3px solid #74e9cb;background:#0a2428;color:#bcd2d9;font-size:.88rem}.procedure{margin:1rem 0;padding:1rem;border:1px solid #315365;border-radius:14px;background:#071821}.procedure li+li{margin-top:.45rem}.print-actions{display:flex;align-items:center;gap:.8rem;margin:1rem 0;color:#94adbb;font-size:.85rem}.button{display:inline-flex;align-items:center;justify-content:center;padding:.72rem 1rem;border-radius:10px;text-decoration:none;font-weight:900;cursor:pointer}.button.primary{border:1px solid #6ef2cf;background:#6ef2cf;color:#06201e}.button.secondary{border:1px solid #3a6576;background:#0c2a38;color:#e7f6ff}.button:hover{filter:brightness(1.06);transform:translateY(-1px)}
+  .print-sheet{padding:1.1rem;border:1px dashed #52788a;border-radius:14px;background:#f9fbfc;color:#132630}.print-header{display:flex;justify-content:space-between;gap:1rem;align-items:end;margin-bottom:.8rem}.print-header strong{color:#0d4f58;font-size:.78rem;letter-spacing:.08em}.print-header h3{margin:.2rem 0 0;color:#102f38}.print-sheet table{width:100%;border-collapse:collapse;font-size:.8rem}.print-sheet th,.print-sheet td{border:1px solid #83949c;padding:.45rem;text-align:left;height:2.25rem}.print-sheet thead th{background:#e8eff1}.print-sheet tbody th{width:22%;background:#f0f4f5}.print-prompts{margin-top:.8rem;font-size:.82rem;line-height:1.7}
+  .debrief-flow{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:1rem 0}.debrief-flow span{padding:.55rem .65rem;border:1px solid #325268;border-radius:9px;background:#081924;color:#d8edf7;font:800 .8rem ui-monospace,SFMono-Regular,monospace}.debrief-flow b{color:#6ef2cf}
+  .planetary-scan{border-color:#39745f}.no-posting{margin-top:1rem;padding:1rem;border:1px solid #7e6330;border-radius:12px;background:#2a210d}.no-posting strong{color:#f2d97d}.no-posting p{color:#e0cf9e}.scan-heading{display:flex;justify-content:space-between;gap:1rem;align-items:start;margin-top:1.2rem}.scan-heading h3{margin:.35rem 0 .15rem;color:#fff;font-size:1.7rem}.scan-heading small{color:#9eb8c4}.scan-status{padding:.4rem .55rem;border-radius:999px;background:#13392f;color:#7df0c9;font:850 .72rem ui-monospace,SFMono-Regular,monospace}.telemetry-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin:1rem 0}.telemetry-grid div{padding:.75rem;border:1px solid #2a4f5e;border-radius:10px;background:#071922}.telemetry-grid .wide{grid-column:span 4}.telemetry-grid span{display:block;color:#83a5b3;font:800 .67rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.06em}.telemetry-grid strong{display:block;margin-top:.25rem;color:#fff;font-size:.9rem;line-height:1.35}.scanner-task{margin-top:1rem;padding:1rem;border:1px solid #2c5f5b;border-radius:14px;background:#071d22}.scanner-task h4,.team-question h4,.analysis-prompts h4{margin:0 0 .45rem;color:#fff;font-size:1.1rem}.scanner-task>p{color:#b4ccd4;line-height:1.55}.evidence-list{display:grid;gap:.65rem;margin-top:.8rem}.evidence-card{display:grid;grid-template-columns:40px 1fr auto;gap:.7rem;align-items:center;padding:.75rem;border:1px solid #294852;border-radius:11px;background:#081821}.evidence-number{display:grid;place-items:center;width:34px;height:34px;border-radius:8px;background:#102e39;color:#83d8cb;font:800 .75rem ui-monospace,SFMono-Regular,monospace}.evidence-card p{margin:0;color:#d0e1e8;line-height:1.45}.classify-buttons{display:flex;gap:.35rem}.classify-buttons button{padding:.48rem .58rem;border:1px solid #385c68;border-radius:8px;background:#0c2933;color:#d9edf3;font-weight:800;cursor:pointer}.classify-buttons button.correct{border-color:#54caa7;background:#143c32;color:#9af4d2}.classify-buttons button.incorrect{border-color:#c66d69;background:#3a1e21;color:#ffc2bf}.evidence-feedback{grid-column:2 / -1;color:#91b7c2}.scanner-status{margin:.85rem 0 0!important;color:#74e9cb!important;font-weight:800}.team-question{margin-top:1rem;padding:1rem;border-left:4px solid #6ef2cf;background:#0a282b}.team-question h4{margin:.35rem 0 0;font-size:1.2rem;line-height:1.45}.analysis-prompts{margin-top:1rem;padding:1rem;border:1px solid #2d4e59;border-radius:12px;background:#081720}.analysis-prompts ol{margin:.5rem 0 0;padding-left:1.2rem;color:#c1d6df;line-height:1.65}.analysis-prompts li+li{margin-top:.3rem}
+  .archive-panel{border-color:#756a3f}.archive-checklist{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1rem 0}.archive-checklist article{display:flex;gap:.7rem;padding:.85rem;border:1px solid #5b5334;border-radius:12px;background:#1d1b10}.archive-checklist article>span{display:grid;place-items:center;flex:0 0 34px;height:34px;border-radius:50%;background:#4a401d;color:#f2d97d;font-weight:900}.archive-checklist strong{color:#fff}.archive-checklist p{margin:.25rem 0 0;color:#cfc8a5;font-size:.86rem;line-height:1.45}.submission-guide{padding:1rem;border:1px solid #756a3f;border-radius:14px;background:#17170e}.guide-heading{display:flex;gap:.65rem;align-items:center}.guide-heading>span{font-size:1.25rem}.guide-heading>div{display:grid}.guide-heading strong{color:#fff}.guide-heading small{color:#c6ba82}.submission-guide dl{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin:1rem 0}.submission-guide dl div{padding:.65rem;border:1px solid #4e4a30;border-radius:9px;background:#0d1718}.submission-guide dt{color:#b8ab72;font-size:.68rem;font-weight:800;text-transform:uppercase}.submission-guide dd{margin:.2rem 0 0;color:#fff;font-size:.84rem;font-weight:800}.submission-guide>p{color:#d4cfad;line-height:1.5}
+  .reflection{border-color:#3f6480}.reflection ol{color:#c5d8e2;line-height:1.65}.reflection li+li{margin-top:.45rem}.reflection-note{margin-top:1rem!important;padding:.75rem;border-left:3px solid #8fc7ef;background:#0b2333;font-size:.88rem}.next-operation{display:grid;grid-template-columns:120px 1fr;gap:1rem;border-color:#293b4a;background:#07131e}.next-operation>div{display:grid;place-content:start center;text-align:center}.next-operation>div span{font-size:3rem;font-weight:900;color:#436171}.next-operation>div strong{color:#6f8b9a;font-size:.7rem;letter-spacing:.08em}.next-operation section p{color:#9fb4bf;line-height:1.55}.locked{display:flex;gap:.6rem;align-items:center;padding:.75rem;border:1px solid #3a4550;border-radius:10px;background:#0c151d;color:#8195a0}.bottom-actions{display:flex;gap:.7rem;justify-content:space-between;margin-top:1rem}
+  @media(max-width:850px){.hero-grid{grid-template-columns:1fr}.roles-grid{grid-template-columns:repeat(2,1fr)}.telemetry-grid{grid-template-columns:repeat(2,1fr)}.telemetry-grid .wide{grid-column:span 2}.submission-guide dl{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:650px){.science-grid,.lab-grid,.archive-checklist{grid-template-columns:1fr}.roles-grid{grid-template-columns:1fr}.scan-heading,.section-heading,.print-header{display:grid}.evidence-card{grid-template-columns:36px 1fr}.classify-buttons{grid-column:2}.submission-guide dl{grid-template-columns:1fr}.next-operation{grid-template-columns:72px 1fr}.bottom-actions{display:grid}.bottom-actions .button{width:100%}.print-actions{align-items:flex-start;flex-direction:column}}
+  @media print{
+    :global(body){background:#fff!important}.mission-nav,.operation-hero,.mission-question,.science-focus,.team-launch,.debrief,.planetary-scan,.archive-panel,.reflection,.next-operation,.bottom-actions,.print-actions,:global(.site-header),:global(footer),:global(.jcec-submission-dock),:global(.jcec-device-tools),:global(.breadcrumbs){display:none!important}.operation-shell{max-width:none;padding:0;color:#000}.field-lab{margin:0;padding:0;border:0;background:#fff}.field-lab>.section-heading,.field-lab>.intro,.field-lab>.lab-grid,.field-lab>.procedure{display:none!important}.print-sheet{display:block!important;border:0;padding:0;background:#fff;color:#000}.print-sheet table{font-size:10pt}.print-sheet th,.print-sheet td{height:34px}.print-header{margin-bottom:12px}}
+</style>
