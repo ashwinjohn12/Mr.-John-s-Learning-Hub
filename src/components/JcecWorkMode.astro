@@ -1,0 +1,58 @@
+---
+type WorkMode = 'individual' | 'team' | 'archive';
+
+interface Props {
+  mode: WorkMode;
+  title?: string;
+  compact?: boolean;
+}
+
+const { mode, title, compact = false } = Astro.props;
+
+const modes = {
+  individual: {
+    icon: '👤',
+    label: 'INDIVIDUAL PATHFINDER',
+    defaultTitle: 'Your own thinking',
+    description: 'Complete this part yourself. Your response belongs in your Pathfinder Log or on your device.'
+  },
+  team: {
+    icon: '👥',
+    label: 'TEAM INVESTIGATION',
+    defaultTitle: 'Work with your Pathfinder team',
+    description: 'Explore the evidence together, compare ideas, and reach a team conclusion supported by evidence.'
+  },
+  archive: {
+    icon: '🗂️',
+    label: 'CONTINENTAL ARCHIVE',
+    defaultTitle: 'Leave an official team record',
+    description: 'Record one agreed-upon team finding for the continent. Future teams will inherit this evidence.'
+  }
+} as const;
+
+const details = modes[mode];
+---
+
+<div class:list={['jcec-work-mode', `mode-${mode}`, { compact }]} data-work-mode={mode}>
+  <span class="mode-icon" aria-hidden="true">{details.icon}</span>
+  <div>
+    <span class="mode-label">{details.label}</span>
+    {!compact && <strong>{title ?? details.defaultTitle}</strong>}
+    {!compact && <p>{details.description}</p>}
+  </div>
+</div>
+
+<style>
+  .jcec-work-mode{display:flex;gap:.75rem;align-items:flex-start;padding:.85rem 1rem;border:1px solid #28536a;border-radius:13px;background:#081b29;color:#eaf5ff}
+  .mode-icon{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;border-radius:10px;background:#102d3d;font-size:1.1rem}
+  .jcec-work-mode>div{display:grid;gap:.16rem}
+  .mode-label{font:850 .72rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em}
+  strong{color:#fff;font-size:.98rem}
+  p{margin:.08rem 0 0;color:#aac2d0;font-size:.88rem;line-height:1.45}
+  .mode-individual{border-color:#3f6480}.mode-individual .mode-label{color:#9ed5ff}.mode-individual .mode-icon{background:#12314a}
+  .mode-team{border-color:#3e7c70}.mode-team .mode-label{color:#80edcf}.mode-team .mode-icon{background:#123a35}
+  .mode-archive{border-color:#756a3f}.mode-archive .mode-label{color:#f2d97d}.mode-archive .mode-icon{background:#3c3419}
+  .compact{display:inline-flex;width:max-content;padding:.4rem .55rem;gap:.4rem;align-items:center;border-radius:999px}
+  .compact .mode-icon{width:auto;height:auto;flex:auto;background:transparent;font-size:.9rem}
+  @media(max-width:560px){.jcec-work-mode{padding:.75rem}.mode-icon{width:34px;height:34px;flex-basis:34px}}
+</style>
