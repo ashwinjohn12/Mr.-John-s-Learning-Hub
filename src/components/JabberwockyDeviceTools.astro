@@ -1,0 +1,42 @@
+<aside class="jcec-device-tools" id="jcec-device-tools" hidden aria-label="Jabberwocky mission settings">
+  <details>
+    <summary>⚙ Mission Settings</summary>
+    <div class="tool-panel">
+      <strong>Pathfinder device controls</strong>
+      <p>Use this only if you selected the wrong posting, changed teams, or need to restart Jabberwocky on this Chromebook.</p>
+      <button id="reset-jabberwocky-device" type="button">Reset Pathfinder Progress on This Device</button>
+      <small>This clears only Jabberwocky choices and progress saved in this browser. It does not affect the class mission, Continental Archives, or other students.</small>
+    </div>
+  </details>
+</aside>
+
+<script is:inline>
+  (() => {
+    const tools = document.getElementById('jcec-device-tools');
+    const resetButton = document.getElementById('reset-jabberwocky-device');
+    const isJabberwocky = window.location.pathname.includes('/courses/grade-7-science/jabberwocky');
+    if (!tools || !isJabberwocky) return;
+
+    tools.hidden = false;
+
+    resetButton?.addEventListener('click', () => {
+      const confirmed = window.confirm(
+        'Reset Pathfinder progress on this device?\n\nThis will clear your Jabberwocky choices and saved mission progress in this browser. It will not affect other students or the class mission.'
+      );
+      if (!confirmed) return;
+
+      const prefixes = ['jcec-', 'jabberwocky-'];
+      const keysToRemove = [];
+      for (let i = 0; i < localStorage.length; i += 1) {
+        const key = localStorage.key(i);
+        if (key && prefixes.some((prefix) => key.startsWith(prefix))) keysToRemove.push(key);
+      }
+      keysToRemove.forEach((key) => localStorage.removeItem(key));
+      window.location.reload();
+    });
+  })();
+</script>
+
+<style>
+  .jcec-device-tools{position:fixed;right:1rem;bottom:1rem;z-index:80;max-width:340px;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.jcec-device-tools[hidden]{display:none}.jcec-device-tools details{border:1px solid #31586c;border-radius:12px;background:rgba(5,20,33,.97);box-shadow:0 12px 36px rgba(0,0,0,.35);color:#eaf5ff;overflow:hidden}.jcec-device-tools summary{cursor:pointer;list-style:none;padding:.65rem .8rem;color:#bcd2df;font-size:.82rem;font-weight:800}.jcec-device-tools summary::-webkit-details-marker{display:none}.jcec-device-tools details[open] summary{border-bottom:1px solid #244759;color:#8ff2d3}.tool-panel{display:grid;gap:.55rem;padding:.8rem}.tool-panel strong{color:#fff}.tool-panel p,.tool-panel small{margin:0;color:#9fb6c4;line-height:1.45}.tool-panel p{font-size:.84rem}.tool-panel small{font-size:.74rem}.tool-panel button{padding:.65rem .75rem;border:1px solid #7b4a4f;border-radius:9px;background:#341b24;color:#ffd7dc;font:inherit;font-size:.8rem;font-weight:850;cursor:pointer}.tool-panel button:hover,.tool-panel button:focus-visible{border-color:#ff9daa;background:#47232d;outline:none}@media(max-width:600px){.jcec-device-tools{right:.65rem;bottom:.65rem;left:.65rem;max-width:none}.jcec-device-tools details:not([open]){width:max-content;max-width:100%;margin-left:auto}}
+</style>
