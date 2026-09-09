@@ -1,0 +1,362 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecWorkMode from '../../../../../../components/JcecWorkMode.astro';
+import JcecPopulationGraph from '../../../../../../components/JcecPopulationGraph.astro';
+import { operation05Cases } from '../../../../../../data/jabberwockyOperation05';
+
+const base = import.meta.env.BASE_URL;
+const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZDtZrNtCG3WB78ttvZdtEmq29kapujg/viewform';
+const gridCells = Array.from({ length: 25 }, (_, index) => index + 1);
+---
+
+<BaseLayout title="Operation 05: Population Investigation | Jabberwocky 2190" description="A Grade 7 Science population-data investigation using sampling, graphs, multiple evidence sources, and CER reasoning." themeColor="#071b2e">
+  <div class="operation-shell">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 1', href: `${base}courses/grade-7-science/jabberwocky/phase-1/` },
+      { label: 'Operation 05' }
+    ]} />
+
+    <nav class="mission-nav" aria-label="Operation navigation">
+      <a href={`${base}courses/grade-7-science/jabberwocky/`}>Mission Control</a>
+      <a href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Phase 1</a>
+      <a class="active" href="#briefing">Operation 05</a>
+      <a href="#sampling-lab">Sampling Lab</a>
+      <a href="#case-file">Population Case</a>
+      <a href="#archive">Archive</a>
+    </nav>
+
+    <header class="operation-hero" id="briefing">
+      <p class="system-label">MISSION PHASE 01 // OPERATION 05</p>
+      <div class="hero-grid">
+        <div>
+          <p class="division">JCEC ECOLOGICAL SURVEY DIVISION</p>
+          <h1>POPULATION<br /><span>INVESTIGATION</span></h1>
+          <p class="lead">Something has changed in your continent’s population records. JCEC needs more than a guess. Your team must decide what the data actually show, what explanation fits best, and what remains uncertain.</p>
+        </div>
+        <aside>
+          <span>MISSION PURPOSE</span>
+          <strong>Solve a population mystery with evidence</strong>
+          <dl>
+            <div><dt>Science focus</dt><dd>Population change + limiting factors</dd></div>
+            <div><dt>Hands-on work</dt><dd>Population sampling</dd></div>
+            <div><dt>Official record</dt><dd>Team CER</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </header>
+
+    <section class="mission-question">
+      <p>OPERATION QUESTION</p>
+      <h2>How can scientists use population data to decide which explanation best fits an ecological change?</h2>
+    </section>
+
+    <section class="panel operation-route" aria-labelledby="route-heading">
+      <p class="system-label">MISSION ROUTE</p>
+      <h2 id="route-heading">Where are we going?</h2>
+      <div class="route-grid">
+        <span><b>1</b> Sample a Population</span><i>→</i><span><b>2</b> Read the Graphs</span><i>→</i><span><b>3</b> Compare Evidence</span><i>→</i><span><b>4</b> Choose a Working Claim</span><i>→</i><span><b>5</b> Build CER</span><i>→</i><span><b>6</b> Archive</span>
+      </div>
+    </section>
+
+    <section class="panel operation-checklist" aria-labelledby="checklist-heading">
+      <p class="system-label">YOUR OPERATION 05 CHECKLIST</p>
+      <h2 id="checklist-heading">What do I have to complete?</h2>
+      <div class="completion-grid">
+        <article><span>👥</span><div><strong>As a team</strong><ul><li>Complete the hands-on Population Sampling Lab.</li><li>Analyze all three datasets for your continent.</li><li>Select key evidence and test possible explanations.</li><li>Write one Claim–Evidence–Reasoning conclusion.</li></ul></div></article>
+        <article><span>🗂️</span><div><strong>One team member</strong><ul><li>Submit the official Population Case Finding to JCEC.</li><li>Keep the completed case sheet in the Continental Archive.</li></ul></div></article>
+        <article><span>👤</span><div><strong>Each Pathfinder</strong><ul><li>Complete the individual reflection when directed.</li></ul></div></article>
+      </div>
+      <p class="completion-rule"><strong>Operation 05 is complete when</strong> your team has a defensible CER, the official finding is submitted, and you have completed your Pathfinder reflection.</p>
+    </section>
+
+    <section class="panel science-focus" aria-labelledby="science-heading">
+      <p class="system-label">SCIENCE YOU WILL USE</p>
+      <h2 id="science-heading">A count is evidence—not automatically the whole population.</h2>
+      <div class="science-grid">
+        <article><strong>Population</strong><p>All members of one species living in a particular area at a particular time.</p></article>
+        <article><strong>Population distribution</strong><p>Where members of a population are located. A population can move or become clustered without necessarily changing total size.</p></article>
+        <article><strong>Limiting factor</strong><p>A condition or resource that can restrict population growth or survival, such as food, water, shelter, space, temperature, or another interaction.</p></article>
+        <article><strong>Trend</strong><p>The overall pattern in data over time—such as increasing, decreasing, stable, or changing direction.</p></article>
+        <article><strong>Sample</strong><p>A smaller part of a population or habitat used to estimate or describe the larger system. How and where we sample matters.</p></article>
+        <article><strong>Correlation ≠ proof of cause</strong><p>Two patterns changing together can support an explanation, but scientists also look for timing, mechanism, other evidence, and alternative explanations.</p></article>
+      </div>
+      <div class="science-warning"><strong>JCEC rule:</strong> never write “the graph proves…” when the evidence only supports a likely explanation. Use precise language such as <em>supports, suggests, is consistent with, may, likely,</em> and <em>because</em>.</div>
+      <a class="text-link" href={`${base}courses/grade-7-science/interactions-ecosystems/`}>Need a refresher? Open Interactions & Ecosystems resources →</a>
+    </section>
+
+    <section class="panel sampling-lab" id="sampling-lab" aria-labelledby="sampling-heading">
+      <JcecWorkMode mode="team" title="Estimate a population without counting everything first" />
+      <div class="section-heading"><div><p class="system-label">HANDS-ON INVESTIGATION // ECOLOGICAL MONITORING</p><h2 id="sampling-heading">Population Sampling Lab</h2></div><span class="duration">35–45 min</span></div>
+      <p class="intro">Ecologists often cannot count every organism. Your team will use random quadrat samples to estimate an unknown population, then test what happens when the same population becomes clustered.</p>
+
+      <div class="lab-grid">
+        <article><h3>Equipment per team</h3><ul><li>1 printed 5 × 5 habitat grid</li><li>1 cup of small counters, beans, beads, or paper dots prepared by your teacher</li><li>Calculator if permitted</li><li>Population Sampling Record</li></ul><p class="equipment-note"><strong>Do not count the whole cup first.</strong> The unknown total is part of the investigation.</p></article>
+        <article><h3>Team jobs</h3><ul><li><strong>Sampler:</strong> counts only the selected quadrats.</li><li><strong>Recorder:</strong> records counts and calculations.</li><li><strong>Randomizer:</strong> generates sample-square numbers.</li><li><strong>Quality Checker:</strong> checks that the team does not choose “good-looking” squares on purpose.</li></ul><p class="equipment-note">Your teacher may assign or combine jobs. Everyone should be able to explain why random sampling matters.</p></article>
+      </div>
+
+      <div class="sample-tool">
+        <div><p class="system-label">RANDOM QUADRAT SELECTOR</p><h3>Generate five sample squares.</h3><p>Use the numbers only after the counters are spread on the habitat grid.</p></div>
+        <button type="button" class="button primary" id="generate-samples">Generate 5 Random Squares</button>
+        <output id="sample-output" aria-live="polite">— — — — —</output>
+      </div>
+
+      <div class="procedure">
+        <h3>Round 1 — Estimate the unknown population</h3>
+        <ol>
+          <li><strong>Pour the counters onto the habitat grid</strong> without counting them. Make sure each counter lies inside one numbered square.</li>
+          <li><strong>Generate five random quadrat numbers.</strong> Do not replace them with squares that look more interesting.</li>
+          <li><strong>Count only those five squares</strong> and record each count.</li>
+          <li><strong>Calculate the mean number per quadrat:</strong> total organisms in the five samples ÷ 5.</li>
+          <li><strong>Estimate the whole population:</strong> mean per quadrat × 25 quadrats.</li>
+          <li><strong>Now count every counter</strong> to reveal the true population. Calculate how far your estimate was from the true count.</li>
+        </ol>
+        <h3>Round 2 — Same population, different distribution</h3>
+        <ol>
+          <li><strong>Do not add or remove any counters.</strong> Move many of them into a cluster of several neighbouring quadrats while leaving other areas sparse.</li>
+          <li>Generate <strong>five new random sample squares</strong> and repeat the estimate.</li>
+          <li>Compare Round 1 and Round 2. The true population stayed the same. Did the estimate change? Why?</li>
+        </ol>
+      </div>
+
+      <div class="sampling-debrief">
+        <article><strong>Sampling error</strong><p>An estimate can be above or below the true population because a sample is only part of the habitat.</p></article>
+        <article><strong>Distribution matters</strong><p>Clustered organisms can make a small number of quadrats less representative of the whole area.</p></article>
+        <article><strong>Repeated evidence helps</strong><p>More samples, repeated surveys, and consistent methods usually give scientists more confidence.</p></article>
+      </div>
+
+      <div class="print-actions"><button class="button secondary" type="button" id="print-op5-packet">Print Operation 05 Field Packet (if needed)</button><span><strong>Your teacher may already provide the packet.</strong> One habitat grid and one case record per team are enough.</span></div>
+
+      <section class="print-packet" aria-label="Operation 05 printable packet">
+        <section class="print-page">
+          <div class="print-header"><div><strong>JCEC ECOLOGICAL MONITORING CERTIFICATION</strong><h3>Population Sampling Habitat</h3></div><div>Team: ____________________</div></div>
+          <div class="habitat-grid">{gridCells.map((cell) => <div>{cell}</div>)}</div>
+          <div class="sample-record">
+            <table><thead><tr><th></th><th>Sample squares</th><th>5 counts</th><th>Mean</th><th>Estimate × 25</th><th>True population</th></tr></thead><tbody><tr><th>Round 1</th><td></td><td></td><td></td><td></td><td></td></tr><tr><th>Round 2</th><td></td><td></td><td></td><td></td><td>same as Round 1</td></tr></tbody></table>
+            <p><strong>Which estimate was closer to the true population?</strong> __________________________________________________</p>
+            <p><strong>How did clustering affect your estimate?</strong> __________________________________________________________</p>
+          </div>
+        </section>
+        <section class="print-page case-sheet">
+          <div class="print-header"><div><strong>JCEC POPULATION CASE RECORD</strong><h3>Claim–Evidence–Reasoning</h3></div><div>Continent: ____________________ &nbsp; Team ID: ____________</div></div>
+          <div class="case-prompts">
+            <p><strong>What trend do the focal-species data show?</strong> __________________________________________________________</p>
+            <p><strong>Working claim:</strong> _____________________________________________________________________________________</p>
+            <p><strong>Evidence 1 — include a specific value or change:</strong> ___________________________________________________</p>
+            <p><strong>Evidence 2 — include a specific value or change:</strong> ___________________________________________________</p>
+            <p><strong>Evidence 3 — use another data source:</strong> ______________________________________________________________</p>
+            <p><strong>Reasoning — explain how the evidence connects to the claim:</strong></p><div class="writing-box"></div>
+            <p><strong>Alternative explanation considered:</strong> _______________________________________________________________</p>
+            <p><strong>Why it is weaker / what evidence would be needed:</strong> __________________________________________________</p>
+            <p><strong>Uncertainty / next measurement:</strong> ____________________________________________________________________</p>
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <section class="panel checkpoint" aria-labelledby="checkpoint-heading">
+      <p class="system-label">MISSION CHECKPOINT // BEFORE OPENING THE CASE</p>
+      <h2 id="checkpoint-heading">Three questions before you trust a population graph.</h2>
+      <div class="checkpoint-grid">
+        <article><span>1</span><p><strong>What was actually measured?</strong> A survey count, detection index, or sample is not automatically the total population.</p></article>
+        <article><span>2</span><p><strong>Was the method consistent?</strong> Changes in time, place, weather, or equipment can change what gets detected.</p></article>
+        <article><span>3</span><p><strong>What other evidence changes at the same time?</strong> Look for resources, abiotic conditions, movement, predators, and alternative explanations.</p></article>
+      </div>
+    </section>
+
+    <section class="panel case-file" id="case-file" aria-labelledby="case-heading">
+      <JcecWorkMode mode="team" title="Solve your continent’s population mystery" />
+      <p class="system-label">JCEC POPULATION ALERT // DATA REVIEW REQUIRED</p>
+      <h2 id="case-heading">Open your assigned population case.</h2>
+      <p class="intro">Do not choose a cause after looking at one graph. Read all datasets, check the monitoring notes, compare the timing, and then decide which explanation is most defensible.</p>
+
+      <div class="no-posting" id="no-posting" hidden><strong>No continental posting detected on this device.</strong><p>Return to Operation 01, open the continent your teacher assigned, then come back here.</p><a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Return to Mission Assignment</a></div>
+
+      <div id="population-files" hidden>
+        {operation05Cases.map((item) => (
+          <article class="population-file" data-population={item.id} hidden>
+            <div class="case-heading"><div><p class="system-label">CASE 05-{item.code} // {item.baseCamp}</p><h3>{item.name}: {item.focalSpecies} Population Mystery</h3><small>{item.environment}</small></div><span class="case-status">8 SURVEYS</span></div>
+            <div class="mystery"><strong>THE MYSTERY</strong><p>{item.mystery}</p></div>
+
+            <div class="analysis-team-roles">
+              <article><span>📊</span><div><strong>Data Reader</strong><small>Reads graph axes, values, and trends aloud.</small></div></article>
+              <article><span>🧾</span><div><strong>Evidence Recorder</strong><small>Records exact numbers and observations on the case sheet.</small></div></article>
+              <article><span>💻</span><div><strong>JCEC Operator</strong><small>Uses the site only after team discussion.</small></div></article>
+              <article><span>❓</span><div><strong>Alternative-Explanation Checker</strong><small>Asks what else could explain the pattern.</small></div></article>
+            </div>
+
+            <section class="data-section">
+              <p class="system-label">STEP 1 // READ ALL THREE DATASETS</p>
+              <div class="graph-grid">{item.series.map((series) => <JcecPopulationGraph title={series.label} unit={series.unit} labels={item.timeLabels} values={series.values} note={series.note} />)}</div>
+              <div class="data-table-wrap"><table class="data-table"><thead><tr><th>Dataset</th>{item.timeLabels.map((label) => <th>{label}</th>)}</tr></thead><tbody>{item.series.map((series) => <tr><th>{series.label}<small>{series.unit}</small></th>{series.values.map((value) => <td>{value}</td>)}</tr>)}</tbody></table></div>
+              <div class="trend-prompts"><strong>Before moving on, your team should identify:</strong><span>What changes first?</span><span>What changes next?</span><span>What stays fairly stable?</span><span>Which graph alone could be misleading?</span></div>
+            </section>
+
+            <section class="evidence-section">
+              <p class="system-label">STEP 2 // CHECK OTHER EVIDENCE</p>
+              <h4>Mark at least three pieces of evidence your team will use.</h4>
+              <div class="evidence-grid">
+                {item.evidence.map((record, index) => <article class="evidence-card"><span>{String(index + 1).padStart(2,'0')}</span><div><strong>{record.source}</strong><p>{record.observation}</p></div><button type="button" class="key-evidence" aria-pressed="false">Mark as key evidence</button></article>)}
+              </div>
+              <p class="evidence-counter" data-evidence-counter>0 evidence records marked. Your CER should use graph data too—not only these cards.</p>
+            </section>
+
+            <section class="claims-section">
+              <p class="system-label">STEP 3 // WORKING EXPLANATION BOARD</p>
+              <h4>Which explanation is most defensible right now?</h4>
+              <p>These are <strong>possible claims, not answer choices for points.</strong> Discuss all three. Select the one your team can best defend, and change it if later reasoning changes your mind.</p>
+              <div class="claim-grid">{item.possibleClaims.map((claim, index) => <button type="button" class="claim-card" data-claim={claim}><span>CLAIM {String.fromCharCode(65 + index)}</span><strong>{claim}</strong><small>Select as working claim</small></button>)}</div>
+              <p class="working-claim" data-working-claim>No working claim selected yet.</p>
+            </section>
+
+            <section class="cer-section">
+              <p class="system-label">STEP 4 // BUILD YOUR CER</p>
+              <h4>{item.investigationQuestion}</h4>
+              <div class="cer-grid">
+                <article><span>C</span><div><strong>Claim</strong><p>State the explanation your team thinks best fits the population pattern. Do not claim more than the data support.</p></div></article>
+                <article><span>E</span><div><strong>Evidence</strong><p>Use at least <strong>three specific pieces</strong> of evidence. Include exact values or changes from at least two datasets.</p></div></article>
+                <article><span>R</span><div><strong>Reasoning</strong><p>Explain <em>why</em> the evidence supports the claim using population, limiting-factor, habitat, resource, or interaction science.</p></div></article>
+              </div>
+              <div class="cer-quality"><strong>A strong team explanation also includes:</strong><ul><li>one alternative explanation you considered;</li><li>why current evidence supports it less strongly, or what evidence would be needed to test it;</li><li>one uncertainty or next measurement.</li></ul></div>
+              <p class="record-direction"><strong>Record your agreed CER on the Operation 05 Population Case Record.</strong> The website does not submit your working claim automatically.</p>
+            </section>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="panel archive-panel" id="archive" aria-labelledby="archive-heading">
+      <JcecWorkMode mode="archive" title="Add the Population Case Finding to the Continental Archive" />
+      <p class="system-label">JCEC ARCHIVE TRANSMISSION</p>
+      <h2 id="archive-heading">Submit the explanation—not just the graph trend.</h2>
+      <p>Your case sheet stays with the Continental Archive. One team member sends the team’s written CER to JCEC so the evidence is teacher-visible and available for later decisions.</p>
+
+      <div class="submission-map">
+        <article><strong>Claim / Decision / Main Finding</strong><p>Your concise population explanation.</p></article>
+        <article><strong>Evidence</strong><p>At least three specific observations or data values from two or more sources.</p></article>
+        <article><strong>Reasoning / Explanation</strong><p>Explain the mechanism, why the evidence supports the claim, and include your uncertainty or alternative explanation.</p></article>
+        <article><strong>Pathfinder Reflection</strong><p>Leave blank for this team archive submission unless your teacher tells you otherwise.</p></article>
+      </div>
+
+      <div class="submission-guide">
+        <div class="guide-heading"><span>📡</span><div><strong>Submit to the JCEC Portal</strong><small>One designated team member submits.</small></div></div>
+        <dl><div><dt>Submission Type</dt><dd>Continental Archive</dd></div><div><dt>Mission Phase</dt><dd>01 First Contact</dd></div><div><dt>Operation / Task</dt><dd>Population Investigation — Population Case Finding</dd></div><div><dt>Continent</dt><dd id="archive-continent">Your assigned continent</dd></div><div><dt>Team ID</dt><dd id="archive-team-id">Use the ID your teacher gives you</dd></div><div><dt>Team Members</dt><dd>List everyone represented</dd></div></dl>
+        <p><strong>Your teacher gives you the Team ID; do not invent one.</strong> Read the final CER aloud before submitting. Every team member should be able to explain why the claim is supported and what remains uncertain.</p>
+        <a class="button primary" href={portalUrl} target="_blank" rel="noopener noreferrer">Submit Population Case Finding to JCEC ↗</a>
+        <p class="return-note"><strong>After submitting:</strong> return to this page or Mission Control. The JCEC dashboard—not this webpage—is the official submission record.</p>
+      </div>
+    </section>
+
+    <section class="panel reflection" aria-labelledby="reflection-heading">
+      <JcecWorkMode mode="individual" title="Update your Pathfinder Log" />
+      <h2 id="reflection-heading">What did you learn about trusting population data?</h2>
+      <ol>
+        <li>Which specific data point or observation had the biggest effect on your explanation?</li>
+        <li>How could a survey count decrease even if the total population did not decrease by the same amount?</li>
+        <li>What alternative explanation did your team consider, and why was it weaker or still uncertain?</li>
+        <li>What would you measure next if JCEC gave you one more week of field time?</li>
+      </ol>
+      <p class="reflection-note">This reflection is individual. Keep it in your Pathfinder Log unless your teacher directs you to submit it to JCEC.</p>
+    </section>
+
+    <section class="next-operation" aria-labelledby="next-heading">
+      <div><span>06</span><strong>NEXT OPERATION</strong></div>
+      <section><p class="system-label">ACCESS PENDING</p><h2 id="next-heading">Environmental Change</h2><p>A population can change quickly, but ecosystems also recover and reorganize over longer periods. Next, JCEC will examine what happens after a disturbance.</p><div class="locked"><span>🔒</span><strong>Await JCEC activation.</strong></div></section>
+    </section>
+
+    <div class="bottom-actions"><a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/operation-04/`}>← Operation 04</a><a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Phase 1 Operations</a><a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/`}>Mission Control</a></div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const posting = localStorage.getItem('jabberwocky-phase1-posting');
+      const noPosting = document.getElementById('no-posting');
+      const files = document.getElementById('population-files');
+      const file = posting ? document.querySelector(`[data-population="${posting}"]`) : null;
+      if (!posting || !file) {
+        if (noPosting) noPosting.hidden = false;
+      } else {
+        if (files) files.hidden = false;
+        file.hidden = false;
+        const continentName = file.querySelector('.case-heading h3')?.textContent?.split(':')[0]?.trim() || posting;
+        const archiveContinent = document.getElementById('archive-continent');
+        if (archiveContinent) archiveContinent.textContent = continentName;
+        const signal = file.querySelector('.system-label')?.textContent || '';
+        const codeMatch = signal.match(/05-([A-Z]{2})/);
+        const archiveTeamId = document.getElementById('archive-team-id');
+        if (archiveTeamId) archiveTeamId.textContent = `P1-${codeMatch?.[1] || 'XX'}-__ (use the number your teacher assigns)`;
+      }
+
+      const randomSamples = () => {
+        const values = [];
+        while (values.length < 5) {
+          const value = Math.floor(Math.random() * 25) + 1;
+          if (!values.includes(value)) values.push(value);
+        }
+        return values.sort((a, b) => a - b);
+      };
+      document.getElementById('generate-samples')?.addEventListener('click', () => {
+        const output = document.getElementById('sample-output');
+        if (output) output.textContent = randomSamples().join(' · ');
+      });
+
+      document.querySelectorAll('.population-file').forEach((populationFile) => {
+        const evidenceCards = [...populationFile.querySelectorAll('.evidence-card')];
+        const counter = populationFile.querySelector('[data-evidence-counter]');
+        const updateCounter = () => {
+          const count = evidenceCards.filter((card) => card.dataset.key === 'true').length;
+          if (counter) counter.textContent = `${count} evidence record${count === 1 ? '' : 's'} marked. Your CER should also use exact graph or table values.`;
+        };
+        evidenceCards.forEach((card) => {
+          const button = card.querySelector('.key-evidence');
+          button?.addEventListener('click', () => {
+            const selected = card.dataset.key === 'true';
+            card.dataset.key = selected ? 'false' : 'true';
+            button.setAttribute('aria-pressed', selected ? 'false' : 'true');
+            button.textContent = selected ? 'Mark as key evidence' : '✓ Key evidence';
+            card.classList.toggle('selected', !selected);
+            updateCounter();
+          });
+        });
+        updateCounter();
+
+        const claimButtons = [...populationFile.querySelectorAll('.claim-card')];
+        const workingClaim = populationFile.querySelector('[data-working-claim]');
+        const storageKey = `jabberwocky-op5-claim-${populationFile.dataset.population}`;
+        const selectClaim = (button) => {
+          claimButtons.forEach((other) => other.classList.remove('selected'));
+          button.classList.add('selected');
+          const claim = button.dataset.claim || '';
+          localStorage.setItem(storageKey, claim);
+          if (workingClaim) workingClaim.textContent = `Working claim saved on this device: ${claim}`;
+        };
+        claimButtons.forEach((button) => button.addEventListener('click', () => selectClaim(button)));
+        const saved = localStorage.getItem(storageKey);
+        if (saved) {
+          const match = claimButtons.find((button) => button.dataset.claim === saved);
+          if (match) selectClaim(match);
+        }
+      });
+
+      document.getElementById('print-op5-packet')?.addEventListener('click', () => window.print());
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body){background:#06111f}.operation-shell{max-width:1120px;margin:0 auto;padding:0 1.1rem 5rem;color:#eaf5ff}.operation-shell :global(.breadcrumbs){color:#9fb8c8}.operation-shell :global(.breadcrumbs a){color:#d3eafa}.system-label{margin:0;color:#74e9cb;font:800 .8rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em;text-transform:uppercase}
+  .mission-nav{position:sticky;top:.6rem;z-index:20;display:flex;gap:.35rem;align-items:center;overflow:auto;margin:1rem 0;padding:.45rem;border:1px solid #244b60;border-radius:14px;background:rgba(5,20,33,.94);backdrop-filter:blur(12px)}.mission-nav a{flex:0 0 auto;padding:.65rem .78rem;border-radius:9px;color:#b9cfdd;text-decoration:none;font-size:.88rem;font-weight:800}.mission-nav a:hover,.mission-nav a.active{background:#123348;color:#fff}.mission-nav a.active{box-shadow:inset 0 -2px #6ef2cf}
+  .operation-hero{position:relative;overflow:hidden;margin:1.2rem 0 1.4rem;padding:clamp(1.5rem,5vw,3rem);border:1px solid #236078;border-radius:26px;background:radial-gradient(circle at 82% 22%,rgba(110,242,207,.18),transparent 25%),linear-gradient(145deg,#071527,#0b2d42 60%,#06111f)}.hero-grid{display:grid;grid-template-columns:1fr 300px;gap:1.5rem;align-items:end}.division{margin:1.4rem 0 .35rem;color:#a9c3d3;font-weight:850;letter-spacing:.1em}.operation-hero h1{margin:0;color:#fff;font-size:clamp(2.8rem,7vw,5.8rem);line-height:.88;letter-spacing:-.055em}.operation-hero h1 span{color:#6ef2cf}.lead{max-width:720px;margin:1.35rem 0 0;color:#c4d9e7;font-size:1.1rem;line-height:1.65}.operation-hero aside{padding:1.1rem;border:1px solid #315d73;border-radius:16px;background:rgba(4,17,29,.82);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.operation-hero aside>span{display:block;color:#8ea8b8;font-size:.75rem}.operation-hero aside>strong{display:block;margin:.3rem 0 1rem;color:#6ef2cf;font-size:1.05rem;line-height:1.35}.operation-hero dl{margin:0}.operation-hero dl div{display:flex;justify-content:space-between;gap:1rem;padding:.52rem 0;border-top:1px solid #1d4154}.operation-hero dt{color:#90a9b8}.operation-hero dd{margin:0;color:#fff;text-align:right}
+  .mission-question,.panel,.next-operation{margin:1.2rem 0;padding:clamp(1.2rem,4vw,2rem);border:1px solid #183f54;border-radius:20px;background:#0a1d2c}.mission-question{border-color:#39745f;background:linear-gradient(135deg,#0c2a30,#081a27)}.mission-question p{margin:0;color:#74e9cb;font:800 .78rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em}.mission-question h2,.panel h2,.next-operation h2{margin:.5rem 0 .7rem;color:#fff;font-size:clamp(1.5rem,4vw,2.15rem);line-height:1.25}.panel>p,.intro{color:#bcd1dc;line-height:1.65}
+  .route-grid{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;margin-top:1rem}.route-grid span{padding:.55rem .65rem;border:1px solid #315365;border-radius:9px;background:#071923;color:#d6e9f0;font-size:.8rem;font-weight:800}.route-grid span b{color:#6ef2cf}.route-grid i{color:#6e8996;font-style:normal}.operation-checklist{border-color:#3b7180}.completion-grid{display:grid;grid-template-columns:1.45fr 1fr 1fr;gap:.7rem;margin:1rem 0}.completion-grid article{display:flex;gap:.65rem;padding:.85rem;border:1px solid #315263;border-radius:12px;background:#081823}.completion-grid article>span{font-size:1.1rem}.completion-grid strong{color:#fff}.completion-grid ul{margin:.4rem 0 0;padding-left:1.05rem;color:#bfd2dc;font-size:.86rem;line-height:1.5}.completion-rule{padding:.75rem .85rem;border-left:3px solid #6ef2cf;background:#0a282b;color:#d4e9ee!important}.science-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin:1rem 0}.science-grid article{padding:.9rem;border:1px solid #28495a;border-radius:12px;background:#081823}.science-grid strong{color:#9ed5ff}.science-grid p{margin:.3rem 0 0;color:#b5cbd7;font-size:.87rem;line-height:1.5}.science-warning{margin:.9rem 0;padding:.8rem;border-left:3px solid #f2d97d;background:#29220f;color:#dfd3a3;line-height:1.5}.science-warning strong{color:#fff}.text-link{color:#75dfca;font-weight:800;text-decoration:none}
+  .section-heading{display:flex;justify-content:space-between;gap:1rem;align-items:start;margin-top:1rem}.duration{padding:.45rem .6rem;border:1px solid #3c6c78;border-radius:999px;color:#b8dce6;font:800 .76rem ui-monospace,SFMono-Regular,monospace;white-space:nowrap}.lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:1rem 0}.lab-grid article,.sampling-debrief article{padding:.9rem;border:1px solid #29495c;border-radius:12px;background:#081923}.lab-grid h3,.procedure h3,.sample-tool h3{margin:0 0 .55rem;color:#fff}.lab-grid ul,.procedure ol{margin:.3rem 0;padding-left:1.2rem;color:#c1d3dc;line-height:1.6}.equipment-note{margin:.7rem 0 0;padding:.65rem;border-left:3px solid #74e9cb;background:#0a2428;color:#bcd2d9;font-size:.85rem}.sample-tool{display:grid;grid-template-columns:1fr auto;gap:.8rem;align-items:center;padding:1rem;border:1px solid #39745f;border-radius:14px;background:#082329}.sample-tool p{margin:.25rem 0;color:#b9ced6}.sample-tool output{grid-column:1/-1;padding:.8rem;border:1px solid #4a7181;border-radius:10px;background:#05151f;color:#9ff6dd;text-align:center;font:900 1.45rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.15em}.procedure{margin:1rem 0;padding:1rem;border:1px solid #315365;border-radius:14px;background:#071821}.procedure h3+ol{margin-bottom:1rem}.sampling-debrief{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem}.sampling-debrief strong{color:#fff}.sampling-debrief p{margin:.3rem 0 0;color:#acc4cf;font-size:.84rem;line-height:1.45}.print-actions{display:flex;gap:.75rem;align-items:center;margin:1rem 0;color:#94adbb;font-size:.84rem}.button{display:inline-flex;align-items:center;justify-content:center;padding:.72rem 1rem;border-radius:10px;text-decoration:none;font-weight:900;cursor:pointer}.button.primary{border:1px solid #6ef2cf;background:#6ef2cf;color:#06201e}.button.secondary{border:1px solid #3a6576;background:#0c2a38;color:#e7f6ff}.print-packet{display:none}.print-page{padding:1rem;background:#fff;color:#14262d}.print-header{display:flex;justify-content:space-between;gap:1rem;align-items:end}.print-header strong{color:#0d4f58;font-size:.75rem}.print-header h3{margin:.2rem 0 0}.habitat-grid{display:grid;grid-template-columns:repeat(5,1fr);aspect-ratio:1/1;max-width:650px;margin:1rem auto;border:2px solid #40545c}.habitat-grid div{display:grid;place-items:start;padding:.35rem;border:1px solid #87979d;font-weight:800}.sample-record table,.data-table{width:100%;border-collapse:collapse}.sample-record th,.sample-record td,.data-table th,.data-table td{border:1px solid #72858d;padding:.45rem;text-align:center}.sample-record td{height:2rem}.case-sheet{page-break-before:always}.case-prompts{line-height:1.8;font-size:.86rem}.writing-box{height:180px;border:1px solid #74868d}
+  .checkpoint-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}.checkpoint-grid article{display:flex;gap:.6rem;padding:.8rem;border:1px solid #2b4e60;border-radius:10px;background:#081823}.checkpoint-grid span{display:grid;place-items:center;flex:0 0 30px;height:30px;border-radius:50%;background:#10364a;color:#9ed5ff;font-weight:900}.checkpoint-grid p{margin:0;color:#c0d5df;font-size:.86rem;line-height:1.48}
+  .no-posting{padding:1rem;border:1px solid #7e6330;border-radius:12px;background:#2a210d}.no-posting strong{color:#f2d97d}.case-heading{display:flex;justify-content:space-between;gap:1rem;align-items:start;margin-top:1.2rem}.case-heading h3{margin:.35rem 0 .15rem;color:#fff;font-size:1.65rem}.case-heading small{color:#9eb8c4}.case-status{padding:.4rem .55rem;border-radius:999px;background:#13392f;color:#7df0c9;font:850 .72rem ui-monospace,SFMono-Regular,monospace}.mystery{margin:1rem 0;padding:1rem;border-left:4px solid #f2d97d;background:#24200f}.mystery strong{color:#f2d97d}.mystery p{margin:.35rem 0 0;color:#e1d8b4;line-height:1.55}.analysis-team-roles{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin:1rem 0}.analysis-team-roles article{display:flex;gap:.55rem;padding:.7rem;border:1px solid #315365;border-radius:10px;background:#071923}.analysis-team-roles div{display:grid}.analysis-team-roles strong{color:#fff;font-size:.85rem}.analysis-team-roles small{color:#a7bec8;font-size:.74rem;line-height:1.35}.data-section,.evidence-section,.claims-section,.cer-section{margin-top:1rem;padding:1rem;border:1px solid #2d4e59;border-radius:14px;background:#081720}.graph-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin:1rem 0}.data-table-wrap{overflow:auto;margin-top:.8rem}.data-table{min-width:760px;font-size:.76rem}.data-table th{background:#0d2937;color:#d9edf5}.data-table th small{display:block;margin-top:.2rem;color:#91aab5;font-weight:500}.data-table td{background:#071923;color:#dcecf2}.trend-prompts{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.8rem}.trend-prompts strong{width:100%;color:#fff}.trend-prompts span{padding:.45rem .55rem;border:1px solid #315263;border-radius:8px;background:#0a202b;color:#bcd1db;font-size:.8rem}.evidence-section h4,.claims-section h4,.cer-section h4{margin:.4rem 0;color:#fff;font-size:1.15rem}.evidence-grid{display:grid;gap:.6rem;margin-top:.8rem}.evidence-card{display:grid;grid-template-columns:34px 1fr auto;gap:.65rem;align-items:center;padding:.75rem;border:1px solid #294852;border-radius:10px;background:#071923}.evidence-card.selected{border-color:#54caa7;background:#0b2928}.evidence-card>span{display:grid;place-items:center;width:32px;height:32px;border-radius:8px;background:#10364a;color:#9ed5ff;font:900 .72rem ui-monospace,SFMono-Regular,monospace}.evidence-card strong{color:#fff}.evidence-card p{margin:.2rem 0 0;color:#b6ccd6;font-size:.84rem;line-height:1.4}.key-evidence{padding:.45rem .55rem;border:1px solid #3a6576;border-radius:8px;background:#0b2a36;color:#dff8ff;font-size:.75rem;font-weight:800;cursor:pointer}.evidence-counter{color:#74e9cb!important;font-weight:800;font-size:.84rem}.claims-section>p:not(.system-label){color:#b7ccd6;line-height:1.5}.claim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-top:.8rem}.claim-card{display:grid;gap:.4rem;padding:.85rem;border:1px solid #3a5665;border-radius:11px;background:#081923;color:#ddecf2;text-align:left;cursor:pointer}.claim-card>span{color:#90b3c1;font:850 .7rem ui-monospace,SFMono-Regular,monospace}.claim-card strong{line-height:1.45}.claim-card small{color:#6ef2cf}.claim-card.selected{border-color:#6ef2cf;background:#0b302f;box-shadow:inset 0 0 0 1px #6ef2cf}.working-claim{padding:.7rem;border-left:3px solid #6ef2cf;background:#0a282b;color:#cce4df!important;font-size:.86rem}.cer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin:.8rem 0}.cer-grid article{display:flex;gap:.6rem;padding:.8rem;border:1px solid #355363;border-radius:10px;background:#071923}.cer-grid article>span{display:grid;place-items:center;flex:0 0 36px;height:36px;border-radius:9px;background:#123c37;color:#9af4d2;font-weight:950}.cer-grid strong{color:#fff}.cer-grid p{margin:.25rem 0 0;color:#b6cbd5;font-size:.83rem;line-height:1.45}.cer-quality{padding:.8rem;border:1px solid #5b5334;border-radius:10px;background:#1d1b10;color:#d1c8a4}.cer-quality strong{color:#fff}.cer-quality ul{margin:.4rem 0 0;padding-left:1.1rem}.record-direction{padding:.7rem;border-left:3px solid #9ed5ff;background:#0a2130;color:#c1d8e3!important;font-size:.86rem}
+  .archive-panel{border-color:#756a3f}.submission-map{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem;margin:1rem 0}.submission-map article{padding:.8rem;border:1px solid #5b5334;border-radius:10px;background:#1d1b10}.submission-map strong{color:#fff}.submission-map p{margin:.25rem 0 0;color:#cfc8a5;font-size:.84rem;line-height:1.45}.submission-guide{padding:1rem;border:1px solid #756a3f;border-radius:14px;background:#17170e}.guide-heading{display:flex;gap:.6rem;align-items:center}.guide-heading div{display:grid}.guide-heading strong{color:#fff}.guide-heading small{color:#c6ba82}.submission-guide dl{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin:1rem 0}.submission-guide dl div{padding:.65rem;border:1px solid #4e4a30;border-radius:9px;background:#0d1718}.submission-guide dt{color:#b8ab72;font-size:.68rem;font-weight:800;text-transform:uppercase}.submission-guide dd{margin:.2rem 0 0;color:#fff;font-size:.83rem;font-weight:800}.submission-guide>p{color:#d4cfad;line-height:1.5}.return-note{padding:.7rem;border-left:3px solid #6ef2cf;background:#0a2425;color:#c8dcce!important;font-size:.85rem}.reflection{border-color:#3f6480}.reflection ol{color:#c5d8e2;line-height:1.65}.reflection-note{padding:.7rem;border-left:3px solid #8fc7ef;background:#0b2333;font-size:.86rem}.next-operation{display:grid;grid-template-columns:120px 1fr;gap:1rem;border-color:#293b4a;background:#07131e}.next-operation>div{display:grid;place-content:start center;text-align:center}.next-operation>div span{font-size:3rem;font-weight:900;color:#436171}.next-operation>div strong{color:#6f8b9a;font-size:.7rem}.next-operation section p{color:#9fb4bf;line-height:1.55}.locked{display:flex;gap:.6rem;align-items:center;padding:.75rem;border:1px solid #3a4550;border-radius:10px;background:#0c151d;color:#8195a0}.bottom-actions{display:flex;gap:.7rem;justify-content:space-between;margin-top:1rem}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr}.science-grid{grid-template-columns:repeat(2,1fr)}.completion-grid,.graph-grid{grid-template-columns:1fr}.analysis-team-roles{grid-template-columns:repeat(2,1fr)}.claim-grid,.cer-grid{grid-template-columns:1fr}.submission-guide dl{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:650px){.science-grid,.lab-grid,.sampling-debrief,.checkpoint-grid,.analysis-team-roles,.submission-map{grid-template-columns:1fr}.sample-tool{grid-template-columns:1fr}.section-heading,.case-heading{display:grid}.evidence-card{grid-template-columns:34px 1fr}.evidence-card button{grid-column:2}.submission-guide dl{grid-template-columns:1fr}.next-operation{grid-template-columns:72px 1fr}.bottom-actions{display:grid}.bottom-actions .button{width:100%}.print-actions{align-items:flex-start;flex-direction:column}}
+  @media print{:global(body){background:#fff!important}.mission-nav,.operation-hero,.mission-question,.operation-route,.operation-checklist,.science-focus,.sampling-lab>:not(.print-packet),.checkpoint,.case-file,.archive-panel,.reflection,.next-operation,.bottom-actions,:global(.site-header),:global(footer),:global(.jcec-submission-dock),:global(.jcec-device-tools),:global(.breadcrumbs){display:none!important}.operation-shell{max-width:none;padding:0;color:#000}.sampling-lab{margin:0;padding:0;border:0;background:#fff}.print-packet{display:block!important}.print-page{display:block!important;min-height:95vh}.habitat-grid{max-width:620px}}
+</style>
