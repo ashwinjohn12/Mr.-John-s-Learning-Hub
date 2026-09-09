@@ -1,0 +1,63 @@
+---
+interface Props {
+  title: string;
+  unit: string;
+  labels: string[];
+  values: number[];
+  note?: string;
+}
+
+const { title, unit, labels, values, note = '' } = Astro.props;
+const width = 520;
+const height = 230;
+const left = 48;
+const right = 18;
+const top = 20;
+const bottom = 40;
+const minValue = Math.min(...values);
+const maxValue = Math.max(...values);
+const range = Math.max(1, maxValue - minValue);
+const padding = range * 0.12;
+const yMin = minValue - padding;
+const yMax = maxValue + padding;
+const plotW = width - left - right;
+const plotH = height - top - bottom;
+const xFor = (index: number) => left + (plotW * index) / Math.max(1, values.length - 1);
+const yFor = (value: number) => top + ((yMax - value) / Math.max(1, yMax - yMin)) * plotH;
+const points = values.map((value, index) => `${xFor(index)},${yFor(value)}`).join(' ');
+const yTicks = [0, 0.25, 0.5, 0.75, 1].map((fraction) => ({
+  y: top + plotH * fraction,
+  value: yMax - (yMax - yMin) * fraction
+}));
+const format = (value: number) => Math.abs(value) >= 10 ? Math.round(value).toString() : (Math.round(value * 10) / 10).toString();
+---
+
+<figure class="population-graph">
+  <figcaption>
+    <strong>{title}</strong>
+    <span>{unit}</span>
+  </figcaption>
+  <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={`${title}. Values: ${labels.map((label, index) => `${label} ${values[index]}`).join(', ')}`}>
+    {yTicks.map((tick) => (
+      <g>
+        <line x1={left} x2={width - right} y1={tick.y} y2={tick.y} class="grid-line" />
+        <text x={left - 8} y={tick.y + 4} text-anchor="end" class="axis-label">{format(tick.value)}</text>
+      </g>
+    ))}
+    <line x1={left} x2={left} y1={top} y2={height - bottom} class="axis-line" />
+    <line x1={left} x2={width - right} y1={height - bottom} y2={height - bottom} class="axis-line" />
+    <polyline points={points} class="trend-line" />
+    {values.map((value, index) => (
+      <g>
+        <circle cx={xFor(index)} cy={yFor(value)} r="5" class="data-point" />
+        <title>{labels[index]}: {value} {unit}</title>
+        <text x={xFor(index)} y={height - 17} text-anchor="middle" class="x-label">{labels[index]}</text>
+      </g>
+    ))}
+  </svg>
+  {note && <p>{note}</p>}
+</figure>
+
+<style>
+  .population-graph{margin:0;padding:.85rem;border:1px solid #2f5364;border-radius:13px;background:#071923;color:#e9f6fc}.population-graph figcaption{display:flex;justify-content:space-between;gap:.8rem;align-items:baseline;margin-bottom:.35rem}.population-graph figcaption strong{color:#fff;font-size:.96rem}.population-graph figcaption span{color:#9fc0cd;font-size:.72rem;text-align:right}.population-graph svg{display:block;width:100%;height:auto}.grid-line{stroke:#244252;stroke-width:1}.axis-line{stroke:#6f8b99;stroke-width:1.2}.trend-line{fill:none;stroke:#70e8cd;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}.data-point{fill:#0b2430;stroke:#a7ffe7;stroke-width:2}.axis-label,.x-label{fill:#a8c0cb;font:11px ui-monospace,SFMono-Regular,Menlo,monospace}.population-graph p{margin:.3rem 0 0;color:#9fb8c4;font-size:.76rem;line-height:1.4}@media(max-width:600px){.population-graph{padding:.65rem}.population-graph figcaption{display:grid}.population-graph figcaption span{text-align:left}}
+</style>
