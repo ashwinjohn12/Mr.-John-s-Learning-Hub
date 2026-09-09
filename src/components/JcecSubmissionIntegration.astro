@@ -43,6 +43,18 @@ const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZD
       }
     }
 
+    const isOperation04 = /\/jabberwocky\/phase-1\/operation-04\/?$/.test(path);
+    if (isOperation04) {
+      const nextOperation = document.querySelector('.next-operation');
+      const lock = nextOperation?.querySelector('.locked');
+      const status = nextOperation?.querySelector('.system-label');
+      if (status) status.textContent = 'MATERIALS READY';
+      if (lock) {
+        lock.className = 'jcec-next-ready';
+        lock.innerHTML = '<span aria-hidden="true">📈</span><div><strong>Operation 05: Population Investigation is ready.</strong><small>Begin only when your teacher activates the next data investigation.</small></div><a href="../operation-05/">Open Population Investigation →</a>';
+      }
+    }
+
     const isPhase1Hub = /\/jabberwocky\/phase-1\/?$/.test(path);
     if (!isPhase1Hub) return;
 
@@ -145,6 +157,7 @@ const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZD
     const op2Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'Environmental Survey');
     const op3Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'First Contact');
     const op4Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'Ecosystem Network');
+    const op5Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'Population Investigation');
     if (op2Step) {
       op2Step.classList.remove('pending');
       op2Step.classList.add('ready');
@@ -172,6 +185,17 @@ const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZD
       link.href = './operation-04/';
       link.textContent = 'Open →';
       op4Step.append(link);
+    }
+    if (op5Step && !op5Step.querySelector('.jcec-progress-launch')) {
+      op5Step.classList.remove('pending');
+      op5Step.classList.add('ready');
+      const small = op5Step.querySelector('small');
+      if (small) small.textContent = 'READY — begin after Operation 04';
+      const link = document.createElement('a');
+      link.className = 'jcec-progress-launch';
+      link.href = './operation-05/';
+      link.textContent = 'Open →';
+      op5Step.append(link);
     }
 
     const STORAGE_POSTING = 'jabberwocky-phase1-posting';
