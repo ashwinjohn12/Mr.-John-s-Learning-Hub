@@ -45,9 +45,9 @@ export const operation05Cases: PopulationCase[] = [
       { source: 'Field notes', observation: 'Fresh Ridgeback tracks became concentrated near the remaining greener valley floor after Week 5.' }
     ],
     possibleClaims: [
-      'Lower soil moisture reduced Bluecrest Grass, limiting a major Ridgeback food resource and changing where Ridgebacks were detected.',
-      'Crag Hunter predation increased sharply and caused the Ridgeback decline.',
-      'The Ridgeback population must have disappeared from Gyre because the transect count fell.'
+      'Reduced Bluecrest Grass caused a true decline in Ridgeback numbers across the monitored valley, with food limitation as the main driver.',
+      'Ridgebacks mainly shifted away from drier parts of the transect toward greener valley-floor habitat, so the lower counts mostly reflect changing distribution.',
+      'Lower soil moisture reduced Bluecrest Grass and likely affected both Ridgeback food availability and where Ridgebacks were concentrated; the transect data alone cannot separate those effects completely.'
     ]
   },
   {
@@ -66,9 +66,9 @@ export const operation05Cases: PopulationCase[] = [
       { source: 'Nest-cavity checks', observation: 'Most monitored Hollowstem shelter cavities remained intact.' }
     ],
     possibleClaims: [
+      'Storm damage reduced usable shelter enough that many Canopy Gliders shifted away from the monitored camera route.',
       'Storm damage reduced Glowfruit availability, and the Canopy Glider decline followed the loss of a major food resource.',
-      'A sudden increase in Vine Stalker predation caused the decline.',
-      'The storm proves all Canopy Gliders permanently left Brillig.'
+      'The storm caused a short-term change in Canopy Glider behaviour or distribution, while food loss may also have contributed to the lower detections.'
     ]
   },
   {
@@ -87,9 +87,9 @@ export const operation05Cases: PopulationCase[] = [
       { source: 'Predator survey', observation: 'Cove Hunter detections were similar before and after the high-wave period.' }
     ],
     possibleClaims: [
-      'High waves removed Tidefilm Algae from exposed rocks, reducing a major Tide Skipper food resource until the algae recovered.',
-      'A sudden predator increase caused the Tide Skipper decline.',
-      'Wave height and Tide Skipper counts changed together, so the waves directly killed every missing Tide Skipper.'
+      'High waves directly reduced Tide Skipper survival at the exposed shoreline, making mortality the main cause of the lower counts.',
+      'Tide Skippers mainly moved from the exposed transect into more sheltered shoreline habitat during the high-wave period.',
+      'High waves stripped Tidefilm Algae from exposed rocks and likely changed both food availability and Tide Skipper use of the exposed shoreline; recovery of algae and detections supports a linked response.'
     ]
   },
   {
@@ -108,9 +108,9 @@ export const operation05Cases: PopulationCase[] = [
       { source: 'Carcass survey', observation: 'No unusual increase in Dune Runner remains was found along the route.' }
     ],
     possibleClaims: [
-      'Dune Runners shifted activity away from hot midday conditions, so surface detections fell even though night detections stayed stable.',
-      'The Dune Runner population definitely fell by more than 70% during Weeks 4–6.',
-      'The monitoring equipment failed only on the hottest days.'
+      'Extreme heat caused substantial Dune Runner mortality, and the population declined during Weeks 4–6.',
+      'Dune Runners shifted activity away from hot midday conditions and used cooler burrows or nighttime periods more often, lowering midday detections without strong evidence of a population crash.',
+      'Dune Runners moved permanently away from the monitored area during the hot period, so both midday and nighttime monitoring should eventually show lower detections.'
     ]
   },
   {
@@ -129,9 +129,9 @@ export const operation05Cases: PopulationCase[] = [
       { source: 'Body-condition observations', observation: 'A small sample of captured-and-released Snow Burrowers had lower average mass late in the survey.' }
     ],
     possibleClaims: [
-      'Persistent snow delayed plant availability, reducing a food resource and likely contributing to lower Snow Burrower activity and condition.',
-      'Pale Hunters caused the decline because predators are part of the food web.',
-      'Snow Burrowers cannot survive anywhere on Wabe because activity signs declined during one monitoring period.'
+      'Snow Burrowers became less detectable because persistent snow caused them to remain below the surface longer, without strong evidence that food conditions changed their condition.',
+      'Persistent snow delayed plant availability, reducing a food resource and likely contributing to lower Snow Burrower activity and body condition.',
+      'Low Pale Hunter abundance caused Snow Burrowers to spread farther across the habitat, which reduced signs along the fixed transect.'
     ]
   },
   {
@@ -150,9 +150,9 @@ export const operation05Cases: PopulationCase[] = [
       { source: 'East Waterhole measurement', observation: 'The East Waterhole retained substantially more water than the Jubjub-area pool.' }
     ],
     possibleClaims: [
-      'Many Plains Striders shifted toward a more reliable water source, changing their distribution without clear evidence of a continent-wide population crash.',
-      'Most Plains Striders died near Jubjub Station when the local water level fell.',
-      'The East Waterhole population is unrelated because it was measured in a different place.'
+      'Many Plains Striders shifted toward the more reliable East Waterhole as local water declined, changing their distribution without clear evidence of a continent-wide population crash.',
+      'Water stress caused a major regional population decline, and the East Waterhole increase represents a separate group rather than movement from Jubjub.',
+      'Both movement toward the East Waterhole and some decline in the Jubjub-area population may have occurred; the current route data cannot determine exact continent-wide population size.'
     ]
   },
   {
@@ -171,9 +171,9 @@ export const operation05Cases: PopulationCase[] = [
       { source: 'Forest Prowler cameras', observation: 'Predator detections stayed within the normal range.' }
     ],
     possibleClaims: [
-      'The cold snap was followed by fewer Bark Grubs, and reduced prey availability likely contributed to lower Barkclimber detections.',
-      'The cold snap directly killed most Barkclimbers because the temperature graph went below 0°C.',
-      'Forest Prowlers caused the decline even though predator detections did not increase.'
+      'The cold snap directly reduced Barkclimber activity or survival, so temperature itself was the main cause of the lower detections.',
+      'Barkclimbers shifted into different forest patches after the cold snap, making the fixed route less representative of their distribution.',
+      'The cold snap was followed by fewer Bark Grubs, and reduced prey availability likely contributed to lower Barkclimber detections through the food web.'
     ]
   },
   {
@@ -193,8 +193,8 @@ export const operation05Cases: PopulationCase[] = [
     ],
     possibleClaims: [
       'Rising water shifted the shallow-edge habitat, and Reedcrawler distribution moved from Site A toward Site B without clear evidence of a major total decline.',
-      'Reedcrawlers disappeared from Mimsy because Site A counts fell.',
-      'Mud Stalker predation caused the Site A decline.'
+      'Higher water reduced survival at Site A, causing a local population decline that happened at the same time as an unrelated increase at Site B.',
+      'Reedcrawlers responded to both habitat movement and changing predator pressure, so the two-site pattern likely reflects several causes acting together.'
     ]
   }
 ];
