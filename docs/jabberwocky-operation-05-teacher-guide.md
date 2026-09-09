@@ -61,16 +61,22 @@ Recommended: prepare cups with different totals, roughly 30–50 counters. Stude
 ### Round 1
 Students:
 1. pour the unknown counters onto the 25-cell grid without counting the total;
-2. use the website randomizer to select five unique quadrats;
-3. count only those quadrats;
-4. calculate mean count per quadrat;
-5. multiply the mean by 25 to estimate total population;
-6. finally count every counter to reveal the true total.
+2. if a counter lands on a line, move it gently into the square containing most of the counter;
+3. use the website to generate five unique Round 1 quadrats;
+4. record those numbers before sampling;
+5. count only those quadrats;
+6. calculate mean count per quadrat;
+7. multiply the mean by 25 to estimate total population;
+8. finally count every counter to reveal the true total.
+
+The website now preserves the Round 1 quadrat numbers on screen instead of replacing them when students begin Round 2.
 
 The goal is not mathematical precision. The goal is to establish that an estimate can differ from a true count even when the method is reasonable.
 
 ### Round 2
-Students keep the **same total population** but move many counters into a cluster of neighbouring quadrats. They then generate five new random sample squares and repeat the estimate.
+Students keep the **same total population** but move many counters into a cluster of neighbouring quadrats. Only after the distribution has changed should they generate the Round 2 sample.
+
+The Round 2 button unlocks after Round 1 has been generated, and both sample sets remain visible for comparison. A reset button is provided only for restarting the activity if needed.
 
 Key discussion:
 - total population did not change;
@@ -81,7 +87,18 @@ Key discussion:
 Do not frame one team’s estimate as “bad science” simply because it is inaccurate. Sampling uncertainty is the learning target.
 
 ## Population monitoring concepts
-### Population size vs survey count
+### Detections are not automatically total population
+A prominent student-facing reminder now appears immediately before the continent case data:
+
+**DETECTIONS ≠ TOTAL POPULATION**
+
+A detection count can change because:
+- population size changed;
+- organisms moved;
+- behaviour or activity changed;
+- habitat conditions changed where organisms were found;
+- or the monitoring method detected them differently.
+
 The continental graphs deliberately use terms such as **detections**, **activity signs**, or **standardized survey counts**. Students should not automatically convert these into exact total population size.
 
 Ask:
@@ -89,6 +106,13 @@ Ask:
 - Was the same method used each week?
 - Could behaviour or distribution change detection?
 - Do we have evidence from another location or another monitoring method?
+
+### Graph-scale warning
+The three graphs in a case can use different y-axis scales. Students now see a **Graph Detective Rule** before graph analysis:
+
+**Do not compare line steepness until you check the y-axis values.**
+
+A line that looks steep may represent a smaller numerical change than a line on another graph. Require students to use exact values or clearly described numerical changes in their CER.
 
 ### Correlation and causation
 At this grade level, the goal is not formal statistical analysis. Students should understand that:
@@ -115,6 +139,29 @@ Useful student wording:
 
 If teams have fewer than four students, combine roles.
 
+## Evidence selection protocol
+Students should **read all supporting evidence records before marking key evidence**. The point is not to select three cards merely because three are required.
+
+Ask students to classify the usefulness of evidence mentally or orally:
+- Does it support the working claim?
+- Does it weaken another explanation?
+- Does it help rule out a cause?
+- Does it introduce uncertainty?
+
+Their final CER should still use graph/table values as well as field observations.
+
+## Working-claim board
+All three claims are now written as **plausible scientific hypotheses**, rather than one obviously correct answer and two obviously unreasonable choices.
+
+The strongest-supported claim is deliberately placed in different letter positions across continents. Students should not be able to infer a pattern such as “Claim A is always best.”
+
+Recommended teacher move:
+Before allowing a team to select a working claim, ask:
+
+**“What evidence supports each claim, and what evidence creates a problem for it?”**
+
+The website gives no correctness feedback. Students may revise their working claim.
+
 ## CER expectations
 ### Claim
 A concise explanation that does not exceed what the evidence can support.
@@ -132,13 +179,19 @@ Stronger: “Bluecrest Grass cover fell from 69% in Week 3 to 31% in Week 8 whil
 ### Reasoning
 Students explain why the evidence connects to the claim using ecological science: food resources, limiting factors, habitat, activity patterns, movement, or trophic relationships.
 
+The student page now includes a short **non-Jabberwocky CER model** using a schoolyard microhabitat example. Its purpose is to distinguish:
+- **Evidence = what was observed or measured**
+- **Reasoning = why that evidence supports the claim**
+
+Do not use the example as a sentence frame students must copy word-for-word.
+
 A strong CER also names:
 - one alternative explanation;
 - why it is currently weaker OR what evidence would be needed to test it;
 - one uncertainty or next measurement.
 
 ## Continental interpretation guide
-These are intended interpretations, not scripts students must reproduce.
+These are intended interpretations, not scripts students must reproduce. Because several claims can be partly reasonable, reward the quality of evidence and cautious reasoning rather than exact wording.
 
 ### Gyre — Ridgeback Grazer
 Core pattern:
@@ -150,11 +203,9 @@ Core pattern:
 - tracks become concentrated near remaining green valley floor.
 
 Best-supported interpretation:
-Reduced soil moisture is associated with reduced Bluecrest Grass, likely limiting a major food resource and changing Ridgeback distribution/detections. Do not require students to claim the total Ridgeback population declined by the same percentage.
+A combined resource-and-distribution explanation is strongest. Reduced moisture is associated with reduced Bluecrest Grass, which likely affected food availability, while tracks indicate Ridgebacks also became concentrated near greener habitat. The current transect data do not cleanly separate true population decline from redistribution.
 
-Weaker alternatives:
-- predator increase is not supported by predator-camera evidence;
-- sensor failure is not supported by calibration checks.
+Strong student answers may argue for either food limitation or redistribution if they explicitly identify what the present evidence cannot determine.
 
 ### Brillig — Canopy Glider
 Core pattern:
@@ -166,10 +217,9 @@ Core pattern:
 - shelter cavities mostly remain intact.
 
 Best-supported interpretation:
-Storm damage reduced a major food resource, and lower Canopy Glider detections followed that loss.
+Storm damage reduced a major food resource, and lower Canopy Glider detections followed that loss. Shelter loss is less supported because most monitored cavities remained intact.
 
-Important reasoning point:
-The timing supports the explanation: storm/resource change occurs before the largest Glider decline.
+A broader behaviour/distribution response can be discussed, but food-resource evidence is stronger.
 
 ### Manxome — Tide Skipper
 Core pattern:
@@ -181,10 +231,7 @@ Core pattern:
 - predator detections do not rise.
 
 Best-supported interpretation:
-High waves physically disturbed exposed producer habitat, reducing Tidefilm Algae and then Tide Skipper food availability.
-
-Avoid:
-“Waves directly killed all missing Tide Skippers.” The evidence does not establish that.
+The strongest explanation combines habitat/resource disturbance with likely redistribution: high waves stripped Tidefilm Algae from exposed rocks and changed how usable the exposed shoreline was for Tide Skippers. The evidence does not establish that all missing Tide Skippers died.
 
 ### Slithy Toves — Dune Runner
 Core pattern:
@@ -210,9 +257,9 @@ Core pattern:
 - predator detections remain low.
 
 Best-supported interpretation:
-Persistent snow delayed plant availability, reducing a food resource and likely contributing to lower activity/condition.
+Persistent snow delayed plant availability, reducing a food resource and likely contributing to lower activity and body condition.
 
-Use cautious language because the evidence supports contribution, not necessarily a single exclusive cause.
+A detectability explanation remains plausible, but it does not explain the declining fresh food in caches and lower sampled body condition as well as the food-limitation explanation does.
 
 ### Bandersnatch — Plains Strider
 Core pattern:
@@ -226,7 +273,7 @@ Core pattern:
 Best-supported interpretation:
 Many Plains Striders changed distribution toward the more reliable water source. A local survey decline is not evidence of a continent-wide population crash.
 
-This case is especially useful for distinguishing **population distribution** from **population size**.
+The data cannot prove that no mortality occurred, so cautious teams may retain some uncertainty about total population size.
 
 ### Gimble — Barkclimber
 Core pattern:
@@ -240,7 +287,7 @@ Best-supported interpretation:
 The cold event was followed by reduced prey availability, which likely contributed to lower Barkclimber detections through the food web.
 
 Important reasoning:
-Students should distinguish an **indirect food-web pathway** from the unsupported claim that sub-zero temperature directly killed most Barkclimbers.
+Students should distinguish an **indirect food-web pathway** from a possible direct cold effect. The evidence supports the prey pathway more strongly, but it does not prove temperature had no direct influence.
 
 ### Mimsy — Reedcrawler
 Core pattern:
@@ -272,11 +319,14 @@ This is a major conceptual payoff of Operation 05.
 ### “Lower count = same-size population decline.”
 Redirect to sampling, detectability, and distribution.
 
+### “The steepest-looking graph changed the most.”
+Redirect students to the y-axis values and units. Different graphs may use different scales.
+
 ### “Two lines match, so one caused the other.”
 Ask for mechanism, timing, independent evidence, and alternatives.
 
-### “The correct claim is whichever button looks scientifically worded.”
-The working-claim board gives no correctness feedback by design. Students must defend the claim with evidence.
+### “One claim must be obviously correct.”
+The claims are intentionally plausible. Students must identify which is **best supported**, not which is written to sound most scientific.
 
 ### “One weird data point changes the whole conclusion.”
 Encourage students to look for overall patterns and repeated evidence unless the outlier has a known explanation.
@@ -319,6 +369,7 @@ Formative evidence can include:
 - explanation of sampling uncertainty;
 - accurate graph/table reading;
 - use of exact values rather than vague descriptions;
+- recognition that visual steepness cannot be compared without checking scale;
 - distinction between count, distribution, and population size;
 - quality of claim;
 - integration of multiple evidence sources;
