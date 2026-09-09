@@ -282,9 +282,9 @@ Symbiosis:
 
 ### Mimsy — Reedcrawler
 Core network:
-- Water Mat / wetland producer material supports small surface prey and Marsh Grazers;
-- Reedbed Plant → Marsh Grazer
+- Water Mat → Surface Insects
 - Water Mat → Marsh Grazer
+- Reedbed Plant → Marsh Grazer
 - Surface Insects → Reedcrawler
 - Surface Insects → Surface Skimmer
 - Reedcrawler → Mud Stalker
@@ -297,8 +297,6 @@ Competition:
 
 Symbiosis:
 - Reedcrawler + Marsh Leech = parasitism.
-
-For Mimsy, if you want the printed Food Web V1 to include every feeding resource as a separate node, have students add **Surface Insects** as a small consumer/prey group beside the provided organism records. This is also a useful reminder that ecological models are updated as new evidence appears.
 
 ## Common misconceptions to watch for
 ### “The arrow means who eats whom.”
