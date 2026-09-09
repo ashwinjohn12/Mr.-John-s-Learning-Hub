@@ -1,0 +1,361 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecWorkMode from '../../../../../../components/JcecWorkMode.astro';
+import { operation03Species } from '../../../../../../data/jabberwockyOperation03';
+
+const base = import.meta.env.BASE_URL;
+const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZDtZrNtCG3WB78ttvZdtEmq29kapujg/viewform';
+---
+
+<BaseLayout title="Operation 03: First Contact | Jabberwocky 2190" description="A hands-on Grade 7 Science mission using structure-and-function evidence to reconstruct a native Jabberwocky organism and its niche." themeColor="#071b2e">
+  <div class="operation-shell">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 1', href: `${base}courses/grade-7-science/jabberwocky/phase-1/` },
+      { label: 'Operation 03' }
+    ]} />
+
+    <nav class="mission-nav" aria-label="Operation navigation">
+      <a href={`${base}courses/grade-7-science/jabberwocky/`}>Mission Control</a>
+      <a href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Phase 1</a>
+      <a class="active" href="#briefing">Operation 03</a>
+      <a href="#hands-on-lab">Hands-On Lab</a>
+      <a href="#contact-dossier">Contact Dossier</a>
+      <a href="#archive">Archive</a>
+    </nav>
+
+    <header class="operation-hero" id="briefing">
+      <p class="system-label">MISSION PHASE 01 // OPERATION 03</p>
+      <div class="hero-grid">
+        <div>
+          <p class="division">JCEC ECOLOGICAL SURVEY DIVISION</p>
+          <h1>FIRST<br /><span>CONTACT</span></h1>
+          <p class="lead">Your landing-zone sensors have detected a native organism. JCEC does not want a fantasy creature. Your team must reconstruct what this organism is like using evidence.</p>
+        </div>
+        <aside>
+          <span>MISSION PURPOSE</span>
+          <strong>Build a defensible Native Organism Profile</strong>
+          <dl>
+            <div><dt>Science focus</dt><dd>Adaptations + niche</dd></div>
+            <div><dt>Hands-on work</dt><dd>Structure test</dd></div>
+            <div><dt>Official record</dt><dd>Team archive</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </header>
+
+    <section class="mission-question">
+      <p>OPERATION QUESTION</p>
+      <h2>How can evidence about an organism’s structures and behaviour reveal how it survives in its environment?</h2>
+    </section>
+
+    <section class="panel operation-checklist" aria-labelledby="operation-checklist-heading">
+      <p class="system-label">YOUR OPERATION 03 CHECKLIST</p>
+      <h2 id="operation-checklist-heading">What do I have to complete?</h2>
+      <div class="completion-grid">
+        <article class="team-completion"><span aria-hidden="true">👥</span><div><strong>As a team</strong><ul><li>Complete the Survival Structures Lab.</li><li>Analyze your continent’s First Contact evidence.</li><li>Create one evidence-based organism reconstruction.</li></ul></div></article>
+        <article class="archive-completion"><span aria-hidden="true">🗂️</span><div><strong>One team member</strong><ul><li>Submit the official Native Organism Profile to the Continental Archive.</li></ul></div></article>
+        <article class="individual-completion"><span aria-hidden="true">👤</span><div><strong>Each Pathfinder</strong><ul><li>Complete the individual reflection when directed.</li></ul></div></article>
+      </div>
+      <p class="completion-rule"><strong>Operation 03 is complete when</strong> your team’s organism profile has been submitted and you have completed your individual Pathfinder reflection.</p>
+    </section>
+
+    <section class="panel science-focus" aria-labelledby="science-focus-heading">
+      <p class="system-label">SCIENCE YOU WILL USE</p>
+      <h2 id="science-focus-heading">Evidence first. Imagination second.</h2>
+      <div class="science-grid">
+        <article><strong>Adaptation</strong><p>A structural or behavioural feature that helps an organism survive and meet its needs in a particular environment.</p></article>
+        <article><strong>Structure & function</strong><p>The shape or form of a body structure affects what that structure can do. A feature that works well in one situation may be less useful in another.</p></article>
+        <article><strong>Niche</strong><p>An organism’s way of living in its ecosystem—including where it lives, what resources it uses, when it is active, and how it interacts with its surroundings.</p></article>
+        <article><strong>Scientific reconstruction</strong><p>A model built from evidence. Features that are not supported by evidence must be labelled as uncertain rather than treated as fact.</p></article>
+      </div>
+      <div class="science-warning"><strong>Important:</strong> organisms do not simply choose a new adaptation because they need one. This operation asks whether a structure or behaviour <em>fits</em> an environment; it is not a simulation of how adaptations evolve.</div>
+      <a class="text-link" href={`${base}courses/grade-7-science/interactions-ecosystems/`}>Need a science refresher? Open Interactions & Ecosystems resources →</a>
+    </section>
+
+    <section class="panel lab-panel" id="hands-on-lab" aria-labelledby="lab-heading">
+      <JcecWorkMode mode="team" title="Test how structure affects function" />
+      <div class="section-heading"><div><p class="system-label">HANDS-ON INVESTIGATION // MODEL LAB</p><h2 id="lab-heading">Survival Structures Lab</h2></div><span class="duration">30–40 min</span></div>
+      <p class="intro">Before JCEC lets your team infer adaptations from alien evidence, you must demonstrate that different structures perform differently under different conditions.</p>
+
+      <div class="lab-grid">
+        <article>
+          <h3>Equipment per team</h3>
+          <ul>
+            <li>1 plastic spoon</li>
+            <li>1 pair of tweezers</li>
+            <li>1 clothespin or small tongs</li>
+            <li>1 pair of chopsticks</li>
+            <li>3 trays or resource zones</li>
+            <li>Craft objects such as pom-poms, beads/paper clips, and loops of pipe cleaner or rubber bands</li>
+            <li>1 collection cup and timer</li>
+          </ul>
+          <p class="equipment-note"><strong>Teacher substitutions are fine.</strong> The important part is comparing several structures fairly across several different resource conditions.</p>
+        </article>
+        <article>
+          <h3>Team jobs</h3>
+          <ul>
+            <li><strong>Tester:</strong> uses each structure during the timed trial.</li>
+            <li><strong>Timer:</strong> keeps every trial the same length.</li>
+            <li><strong>Recorder:</strong> records the number of resources collected.</li>
+            <li><strong>Quality Checker:</strong> resets the resource zone and watches for fair testing.</li>
+          </ul>
+          <p class="equipment-note">Your teacher may assign jobs or have your team divide them. Switch the Tester between resource zones so more than one person handles the equipment.</p>
+        </article>
+      </div>
+
+      <div class="resource-zones">
+        <article><span>A</span><div><strong>Open Ground</strong><p>Large objects spread across an open tray.</p></div></article>
+        <article><span>B</span><div><strong>Narrow Spaces</strong><p>Small objects placed in cups, cells, or shallow crevices.</p></div></article>
+        <article><span>C</span><div><strong>Tangled Cover</strong><p>Looped or irregular objects mixed around simple barriers.</p></div></article>
+      </div>
+
+      <div class="procedure">
+        <h3>Procedure</h3>
+        <ol>
+          <li><strong>Set the same trial time</strong> for every test—20 seconds is recommended.</li>
+          <li><strong>Test all four structures</strong> in Resource Zone A. Move one resource at a time into the collection cup. Do not use your fingers to help.</li>
+          <li><strong>Record the number collected</strong> and reset the zone before the next structure.</li>
+          <li><strong>Repeat</strong> for Resource Zones B and C using the same rules and trial time.</li>
+          <li><strong>Compare your results.</strong> Identify which structure performed best in each condition and which structure was most versatile overall.</li>
+          <li><strong>Look for trade-offs.</strong> Decide whether any structure was best everywhere. Use your data—not preference—to support your answer.</li>
+        </ol>
+      </div>
+
+      <div class="print-actions">
+        <button class="button secondary" type="button" id="print-op3-packet">Print Operation 03 Lab Packet (if needed)</button>
+        <span><strong>Your teacher may already provide this sheet.</strong> One lab data sheet and one reconstruction sheet per team are enough.</span>
+      </div>
+
+      <section class="print-packet" aria-label="Operation 03 printable lab packet">
+        <section class="print-page">
+          <div class="print-header"><div><strong>JCEC FIELD CERTIFICATION</strong><h3>Survival Structures Lab</h3></div><div>Team: ____________________ &nbsp; Date: ____________</div></div>
+          <table>
+            <thead><tr><th>Structure</th><th>Zone A: Open Ground</th><th>Zone B: Narrow Spaces</th><th>Zone C: Tangled Cover</th></tr></thead>
+            <tbody>
+              <tr><th>Spoon</th><td></td><td></td><td></td></tr>
+              <tr><th>Tweezers</th><td></td><td></td><td></td></tr>
+              <tr><th>Clothespin / tongs</th><td></td><td></td><td></td></tr>
+              <tr><th>Chopsticks</th><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+          <div class="print-prompts">
+            <p><strong>Best-performing structure in each zone:</strong> A ____________ B ____________ C ____________</p>
+            <p><strong>Did one structure work best everywhere?</strong> ____________________________________________________________</p>
+            <p><strong>Describe one trade-off shown by your evidence:</strong> _____________________________________________________</p>
+            <p>_______________________________________________________________________________________________________________</p>
+          </div>
+        </section>
+        <section class="print-page reconstruction-sheet">
+          <div class="print-header"><div><strong>JCEC FIRST CONTACT RECORD</strong><h3>Native Organism Reconstruction</h3></div><div>Continent: ____________________ &nbsp; Team ID: ____________</div></div>
+          <div class="sketch-box"><strong>Scientific field sketch</strong><span>Draw only features your evidence supports. Label uncertain features with a ?</span></div>
+          <div class="reconstruction-table">
+            <p><strong>Structural adaptation 1:</strong> ______________________________ <strong>Evidence:</strong> ______________________________</p>
+            <p><strong>Structural adaptation 2:</strong> ______________________________ <strong>Evidence:</strong> ______________________________</p>
+            <p><strong>Structural adaptation 3:</strong> ______________________________ <strong>Evidence:</strong> ______________________________</p>
+            <p><strong>Behavioural adaptation:</strong> _______________________________ <strong>Evidence:</strong> ______________________________</p>
+            <p><strong>Likely habitat / contact zone:</strong> ____________________________________________________________________</p>
+            <p><strong>Likely resource use / feeding role:</strong> ________________________________________________________________</p>
+            <p><strong>One important uncertainty:</strong> _________________________________________________________________________</p>
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <section class="panel debrief" aria-labelledby="debrief-heading">
+      <p class="system-label">LAB DEBRIEF</p>
+      <h2 id="debrief-heading">“Best” depends on the job and the environment.</h2>
+      <div class="debrief-flow" aria-label="Scientific reasoning sequence"><span>STRUCTURE</span><b>→</b><span>FUNCTION</span><b>→</b><span>ENVIRONMENT</span><b>→</b><span>NICHE</span></div>
+      <p>A spoon may perform very well in an open tray but poorly in a narrow space. That does not make the spoon a “bad” structure. It means the usefulness of a structure depends on what the organism needs to do and where it lives.</p>
+    </section>
+
+    <section class="panel contact-panel" id="contact-dossier" aria-labelledby="contact-heading">
+      <JcecWorkMode mode="team" title="Reconstruct the first native organism" />
+      <p class="system-label">FIRST CONTACT EVIDENCE // RESTRICTED ECOLOGICAL FILE</p>
+      <h2 id="contact-heading">Open the evidence from your assigned continent.</h2>
+      <p class="intro">JCEC has six observations but no complete biological description. Your job is to decide what the evidence supports—and what remains uncertain.</p>
+
+      <div class="no-posting" id="no-posting" hidden>
+        <strong>No continental posting detected on this device.</strong>
+        <p>Return to Operation 01, open the continent your teacher assigned, then come back here.</p>
+        <a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Return to Mission Assignment</a>
+      </div>
+
+      <div id="contact-files" hidden>
+        {operation03Species.map((species) => (
+          <article class="contact-file" data-contact={species.id} hidden>
+            <div class="contact-heading">
+              <div><p class="system-label">CONTACT SIGNAL 03-{species.code} // {species.baseCamp}</p><h3>{species.name}: Unidentified Native Organism</h3><small>Primary contact zone: {species.contactZone}</small></div>
+              <span class="contact-status">EVIDENCE RECEIVED</span>
+            </div>
+
+            <div class="evidence-grid">
+              {species.clues.map((clue, index) => (
+                <article class="clue-card">
+                  <span class="clue-number">{String(index + 1).padStart(2, '0')}</span>
+                  <div><small>{clue.source}</small><p>{clue.observation}</p></div>
+                  <button type="button" class="evidence-use" aria-pressed="false">Mark as key evidence</button>
+                </article>
+              ))}
+            </div>
+            <p class="evidence-counter" data-evidence-counter>Select at least three clues your team considers especially important.</p>
+
+            <div class="investigation-question">
+              <p class="system-label">TEAM INVESTIGATION QUESTION</p>
+              <h4>{species.investigationQuestion}</h4>
+            </div>
+
+            <div class="reconstruction-rules">
+              <h4>Build your reconstruction before revealing the JCEC field name.</h4>
+              <div class="rule-grid">
+                <article><span>1</span><p>Draw a field sketch supported by the evidence.</p></article>
+                <article><span>2</span><p>Label at least <strong>3 structural adaptations</strong> and connect each to evidence.</p></article>
+                <article><span>3</span><p>Identify at least <strong>1 behavioural adaptation</strong>.</p></article>
+                <article><span>4</span><p>Describe the organism’s <strong>provisional niche</strong>: habitat, resource use, activity, and shelter.</p></article>
+                <article><span>5</span><p>Mark any unsupported feature as a <strong>hypothesis or uncertainty</strong>.</p></article>
+              </div>
+              <div class="plausibility-rule"><strong>JCEC Plausibility Rule:</strong> “It looks cool” is not evidence. Every important feature in your reconstruction must connect to an observation, an environmental condition, or be clearly marked as uncertain.</div>
+            </div>
+
+            <div class="field-name-reveal">
+              <p>Do not open this until your team has completed its reconstruction.</p>
+              <button type="button" class="button reveal-button" data-reveal-button>Reveal JCEC Provisional Field Name</button>
+              <div class="revealed-name" data-revealed-name hidden><span>JCEC PROVISIONAL FIELD NAME</span><strong>{species.fieldName}</strong><small>This is a working field name—not a complete biological classification.</small></div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="panel archive-panel" id="archive" aria-labelledby="archive-heading">
+      <JcecWorkMode mode="archive" title="Add the first native organism to the Continental Archive" />
+      <p class="system-label">JCEC ARCHIVE TRANSMISSION</p>
+      <h2 id="archive-heading">One official organism profile. One evidence-based team record.</h2>
+      <p>Your archive entry should explain how the organism fits its environment. Do not submit a list of cool features—submit the scientific reasoning behind your reconstruction.</p>
+
+      <div class="archive-checklist">
+        <article><span>1</span><div><strong>Claim / Main Finding</strong><p>Use the JCEC field name and summarize the organism’s provisional niche and most important adaptation.</p></div></article>
+        <article><span>2</span><div><strong>Evidence</strong><p>Include at least three specific First Contact observations that support your reconstruction.</p></div></article>
+        <article><span>3</span><div><strong>Reasoning</strong><p>Explain how the structures or behaviours you identified help the organism meet needs in this environment.</p></div></article>
+        <article><span>4</span><div><strong>Uncertainty</strong><p>Identify one feature, relationship, or part of the niche that JCEC still cannot confirm.</p></div></article>
+      </div>
+
+      <div class="submission-guide">
+        <div class="guide-heading"><span aria-hidden="true">📡</span><div><strong>Submit to the JCEC Portal</strong><small>This becomes teacher-visible and enters your continent’s archive.</small></div></div>
+        <dl>
+          <div><dt>Submission Type</dt><dd>Continental Archive</dd></div>
+          <div><dt>Mission Phase</dt><dd>01 First Contact</dd></div>
+          <div><dt>Operation / Task</dt><dd>First Contact — Native Organism Profile</dd></div>
+          <div><dt>Continent</dt><dd id="archive-continent">Your assigned continent</dd></div>
+          <div><dt>Team ID</dt><dd id="archive-team-id">Use the ID your teacher gives you</dd></div>
+          <div><dt>Team Members</dt><dd>List everyone represented</dd></div>
+        </dl>
+        <p><strong>Your teacher will give your team its JCEC Team ID. Do not invent one.</strong> Only one team member submits. Read your final profile aloud before sending it so every team member agrees that the evidence supports it.</p>
+        <a class="button primary" href={portalUrl} target="_blank" rel="noopener noreferrer">Submit Native Organism Profile to JCEC ↗</a>
+        <p class="return-note"><strong>After submitting:</strong> return to this page or Mission Control. Your teacher dashboard—not this webpage—is the official record that your team submitted.</p>
+      </div>
+    </section>
+
+    <section class="panel reflection" aria-labelledby="reflection-heading">
+      <JcecWorkMode mode="individual" title="Update your Pathfinder Log" />
+      <h2 id="reflection-heading">How certain are you about your reconstruction?</h2>
+      <p>Answer these on your own after the team archive is submitted:</p>
+      <ol>
+        <li>Which piece of evidence gave you the strongest clue about an adaptation? Explain the connection.</li>
+        <li>Which part of your team’s reconstruction are you least certain about? Why?</li>
+        <li>How did the Survival Structures Lab change the way you thought about the organism’s structures?</li>
+        <li>What evidence would you want next before describing this organism’s full role in the ecosystem?</li>
+      </ol>
+      <p class="reflection-note">This reflection is individual. Keep it in your Pathfinder Log unless your teacher directs you to submit it to JCEC.</p>
+    </section>
+
+    <section class="next-operation" aria-labelledby="next-operation-heading">
+      <div><span>04</span><strong>NEXT OPERATION</strong></div>
+      <section>
+        <p class="system-label">ACCESS PENDING</p>
+        <h2 id="next-operation-heading">Ecosystem Network</h2>
+        <p>You now know one native organism. Next, JCEC needs to discover what it depends on—and what depends on it.</p>
+        <div class="locked"><span>🔒</span><strong>Await JCEC activation.</strong></div>
+      </section>
+    </section>
+
+    <div class="bottom-actions">
+      <a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/operation-02/`}>← Operation 02</a>
+      <a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Phase 1 Operations</a>
+      <a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/`}>Mission Control</a>
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const posting = localStorage.getItem('jabberwocky-phase1-posting');
+      const noPosting = document.getElementById('no-posting');
+      const files = document.getElementById('contact-files');
+      const file = posting ? document.querySelector(`[data-contact="${posting}"]`) : null;
+
+      if (!posting || !file) {
+        if (noPosting) noPosting.hidden = false;
+      } else {
+        if (files) files.hidden = false;
+        file.hidden = false;
+        const continentName = file.querySelector('.contact-heading h3')?.textContent?.split(':')[0]?.trim() || posting;
+        const archiveContinent = document.getElementById('archive-continent');
+        const archiveTeamId = document.getElementById('archive-team-id');
+        if (archiveContinent) archiveContinent.textContent = continentName;
+        const signal = file.querySelector('.system-label')?.textContent || '';
+        const codeMatch = signal.match(/03-([A-Z]{2})/);
+        const code = codeMatch?.[1] || 'XX';
+        if (archiveTeamId) archiveTeamId.textContent = `P1-${code}-__ (use the number your teacher assigns)`;
+      }
+
+      document.querySelectorAll('.contact-file').forEach((contactFile) => {
+        const buttons = [...contactFile.querySelectorAll('.evidence-use')];
+        const counter = contactFile.querySelector('[data-evidence-counter]');
+        const updateCounter = () => {
+          const selected = buttons.filter((button) => button.getAttribute('aria-pressed') === 'true').length;
+          if (counter) counter.textContent = selected >= 3 ? `✓ ${selected} key evidence clues selected. Use them to support your reconstruction.` : `${selected} selected. Choose at least three clues your team considers especially important.`;
+        };
+        buttons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const selected = button.getAttribute('aria-pressed') === 'true';
+            button.setAttribute('aria-pressed', selected ? 'false' : 'true');
+            button.textContent = selected ? 'Mark as key evidence' : '✓ Key evidence';
+            updateCounter();
+          });
+        });
+        contactFile.querySelector('[data-reveal-button]')?.addEventListener('click', (event) => {
+          const reveal = contactFile.querySelector('[data-revealed-name]');
+          if (reveal) reveal.hidden = false;
+          event.currentTarget.hidden = true;
+        });
+        updateCounter();
+      });
+
+      document.getElementById('print-op3-packet')?.addEventListener('click', () => window.print());
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body){background:#06111f}.operation-shell{max-width:1120px;margin:0 auto;padding:0 1.1rem 5rem;color:#eaf5ff}.operation-shell :global(.breadcrumbs){color:#9fb8c8}.operation-shell :global(.breadcrumbs a){color:#d3eafa}
+  .mission-nav{position:sticky;top:.6rem;z-index:20;display:flex;gap:.35rem;align-items:center;overflow:auto;margin:1rem 0;padding:.45rem;border:1px solid #244b60;border-radius:14px;background:rgba(5,20,33,.94);backdrop-filter:blur(12px);box-shadow:0 8px 28px rgba(0,0,0,.25)}.mission-nav a{flex:0 0 auto;padding:.65rem .78rem;border-radius:9px;color:#b9cfdd;text-decoration:none;font-size:.88rem;font-weight:800}.mission-nav a:hover,.mission-nav a.active{background:#123348;color:#fff}.mission-nav a.active{box-shadow:inset 0 -2px #6ef2cf}
+  .system-label{margin:0;color:#74e9cb;font:800 .8rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em;text-transform:uppercase}.operation-hero{position:relative;overflow:hidden;margin:1.2rem 0 1.4rem;padding:clamp(1.5rem,5vw,3rem);border:1px solid #236078;border-radius:26px;background:radial-gradient(circle at 82% 22%,rgba(110,242,207,.18),transparent 25%),linear-gradient(145deg,#071527,#0b2d42 60%,#06111f)}.operation-hero:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#9bd9ff 1px,transparent 1px);background-size:34px 34px;opacity:.07}.hero-grid{position:relative;display:grid;grid-template-columns:1fr 300px;gap:1.5rem;align-items:end}.division{margin:1.4rem 0 .35rem;color:#a9c3d3;font-weight:850;letter-spacing:.1em}.operation-hero h1{margin:0;color:#fff;font-size:clamp(3.1rem,8vw,6.5rem);line-height:.86;letter-spacing:-.055em}.operation-hero h1 span{color:#6ef2cf}.lead{max-width:720px;margin:1.35rem 0 0;color:#c4d9e7;font-size:1.1rem;line-height:1.65}.operation-hero aside{padding:1.1rem;border:1px solid #315d73;border-radius:16px;background:rgba(4,17,29,.82);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.operation-hero aside>span{display:block;color:#8ea8b8;font-size:.75rem}.operation-hero aside>strong{display:block;margin:.3rem 0 1rem;color:#6ef2cf;font-size:1.1rem;line-height:1.35}.operation-hero dl{margin:0}.operation-hero dl div{display:flex;justify-content:space-between;gap:1rem;padding:.52rem 0;border-top:1px solid #1d4154}.operation-hero dt{color:#90a9b8}.operation-hero dd{margin:0;color:#fff;text-align:right}
+  .mission-question,.panel,.next-operation{margin:1.2rem 0;padding:clamp(1.2rem,4vw,2rem);border:1px solid #183f54;border-radius:20px;background:#0a1d2c}.mission-question{border-color:#39745f;background:linear-gradient(135deg,#0c2a30,#081a27)}.mission-question p{margin:0;color:#74e9cb;font:800 .78rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em}.mission-question h2,.panel h2,.next-operation h2{margin:.5rem 0 .7rem;color:#fff;font-size:clamp(1.55rem,4vw,2.2rem);line-height:1.25}.panel>p,.intro{color:#bcd1dc;line-height:1.65}
+  .operation-checklist{border-color:#3b7180;background:linear-gradient(145deg,#0a2230,#091b28)}.completion-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:.75rem;margin:1rem 0}.completion-grid article{display:flex;gap:.65rem;align-items:flex-start;padding:.9rem;border:1px solid #315263;border-radius:12px;background:#081823}.completion-grid article>span{font-size:1.15rem}.completion-grid strong{color:#fff}.completion-grid ul{margin:.45rem 0 0;padding-left:1.1rem;color:#bfd2dc;line-height:1.5;font-size:.87rem}.completion-grid li+li{margin-top:.25rem}.team-completion{border-color:#3e7c70!important}.archive-completion{border-color:#756a3f!important}.individual-completion{border-color:#3f6480!important}.completion-rule{margin:.85rem 0 0!important;padding:.8rem .9rem;border-left:3px solid #6ef2cf;background:#0a282b;color:#d4e9ee!important}.completion-rule strong{color:#fff}
+  .science-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;margin:1rem 0}.science-grid article{padding:1rem;border:1px solid #28495a;border-radius:13px;background:#081823}.science-grid strong{color:#9ed5ff;font-size:1.02rem}.science-grid p{margin:.35rem 0 0;color:#b5cbd7;line-height:1.5}.science-warning{margin:.9rem 0;padding:.8rem .9rem;border-left:3px solid #f2d97d;background:#29220f;color:#dfd3a3;line-height:1.5;font-size:.88rem}.science-warning strong{color:#fff}.text-link{display:inline-block;margin-top:.4rem;color:#75dfca;font-weight:800;text-decoration:none}.text-link:hover{text-decoration:underline}
+  .lab-panel{border-color:#3e7c70}.section-heading{display:flex;justify-content:space-between;gap:1rem;align-items:start;margin-top:1.1rem}.duration{padding:.45rem .6rem;border:1px solid #3c6c78;border-radius:999px;color:#b8dce6;font:800 .76rem ui-monospace,SFMono-Regular,monospace;white-space:nowrap}.lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1rem 0}.lab-grid article{padding:1rem;border:1px solid #29495c;border-radius:13px;background:#081923}.lab-grid h3,.procedure h3{margin:0 0 .65rem;color:#fff}.lab-grid ul,.procedure ol{margin:.4rem 0;padding-left:1.25rem;color:#c1d3dc;line-height:1.65}.equipment-note{margin:.75rem 0 0;padding:.7rem;border-left:3px solid #74e9cb;background:#0a2428;color:#bcd2d9;font-size:.88rem;line-height:1.5}.resource-zones{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin:1rem 0}.resource-zones article{display:flex;gap:.7rem;align-items:center;padding:.85rem;border:1px solid #315365;border-radius:12px;background:#071821}.resource-zones article>span{display:grid;place-items:center;flex:0 0 36px;height:36px;border-radius:9px;background:#123e3b;color:#8df1d2;font-weight:900}.resource-zones strong{color:#fff}.resource-zones p{margin:.15rem 0 0;color:#9fb9c5;font-size:.84rem}.procedure{margin:1rem 0;padding:1rem;border:1px solid #315365;border-radius:14px;background:#071821}.procedure li+li{margin-top:.45rem}.print-actions{display:flex;align-items:center;gap:.8rem;margin:1rem 0;color:#94adbb;font-size:.85rem}.print-actions span{max-width:720px;line-height:1.45}.print-actions strong{color:#c8dce5}
+  .button{display:inline-flex;align-items:center;justify-content:center;padding:.72rem 1rem;border-radius:10px;text-decoration:none;font-weight:900;cursor:pointer}.button.primary{border:1px solid #6ef2cf;background:#6ef2cf;color:#06201e}.button.secondary{border:1px solid #3a6576;background:#0c2a38;color:#e7f6ff}.button:hover{filter:brightness(1.06);transform:translateY(-1px)}
+  .print-packet{display:none}.print-page{padding:1rem;background:#fff;color:#14262d}.print-header{display:flex;justify-content:space-between;gap:1rem;align-items:end;margin-bottom:.8rem}.print-header strong{color:#0d4f58;font-size:.78rem;letter-spacing:.08em}.print-header h3{margin:.2rem 0 0;color:#102f38}.print-page table{width:100%;border-collapse:collapse;font-size:.85rem}.print-page th,.print-page td{border:1px solid #83949c;padding:.5rem;text-align:left;height:2.6rem}.print-page thead th{background:#e8eff1}.print-page tbody th{background:#f0f4f5}.print-prompts{margin-top:.9rem;font-size:.85rem;line-height:1.85}.reconstruction-sheet{page-break-before:always}.sketch-box{display:grid;place-items:center;align-content:center;min-height:320px;border:2px solid #687d84;margin:1rem 0;color:#42565d}.sketch-box strong{font-size:1.1rem}.sketch-box span{margin-top:.4rem;font-size:.82rem}.reconstruction-table{font-size:.88rem;line-height:2}
+  .debrief-flow{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:1rem 0}.debrief-flow span{padding:.55rem .65rem;border:1px solid #325268;border-radius:9px;background:#081924;color:#d8edf7;font:800 .8rem ui-monospace,SFMono-Regular,monospace}.debrief-flow b{color:#6ef2cf}
+  .contact-panel{border-color:#476d81}.no-posting{margin-top:1rem;padding:1rem;border:1px solid #7e6330;border-radius:12px;background:#2a210d}.no-posting strong{color:#f2d97d}.no-posting p{color:#e0cf9e}.contact-heading{display:flex;justify-content:space-between;gap:1rem;align-items:start;margin-top:1.2rem}.contact-heading h3{margin:.35rem 0 .15rem;color:#fff;font-size:1.7rem}.contact-heading small{color:#9eb8c4}.contact-status{padding:.4rem .55rem;border-radius:999px;background:#17334a;color:#9ed5ff;font:850 .72rem ui-monospace,SFMono-Regular,monospace;white-space:nowrap}.evidence-grid{display:grid;gap:.65rem;margin-top:1rem}.clue-card{display:grid;grid-template-columns:42px 1fr auto;gap:.75rem;align-items:center;padding:.8rem;border:1px solid #294852;border-radius:11px;background:#081821}.clue-number{display:grid;place-items:center;width:36px;height:36px;border-radius:8px;background:#102e39;color:#83d8cb;font:800 .75rem ui-monospace,SFMono-Regular,monospace}.clue-card small{color:#78a3b5;font:800 .68rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.06em}.clue-card p{margin:.22rem 0 0;color:#d0e1e8;line-height:1.45}.evidence-use{padding:.48rem .58rem;border:1px solid #385c68;border-radius:8px;background:#0c2933;color:#d9edf3;font-size:.78rem;font-weight:800;cursor:pointer}.evidence-use[aria-pressed="true"]{border-color:#54caa7;background:#143c32;color:#9af4d2}.evidence-counter{margin:.8rem 0!important;color:#74e9cb!important;font-weight:800}.investigation-question{margin-top:1rem;padding:1rem;border-left:4px solid #6ef2cf;background:#0a282b}.investigation-question h4{margin:.35rem 0 0;color:#fff;font-size:1.2rem;line-height:1.45}.reconstruction-rules{margin-top:1rem;padding:1rem;border:1px solid #2d4e59;border-radius:12px;background:#081720}.reconstruction-rules h4{margin:0;color:#fff}.rule-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-top:.8rem}.rule-grid article{display:flex;gap:.55rem;padding:.7rem;border:1px solid #284451;border-radius:9px;background:#071821}.rule-grid article>span{display:grid;place-items:center;flex:0 0 30px;height:30px;border-radius:50%;background:#10364a;color:#9ed5ff;font-weight:900}.rule-grid p{margin:0;color:#bad0da;line-height:1.45;font-size:.86rem}.plausibility-rule{margin-top:.8rem;padding:.8rem;border-left:3px solid #f2d97d;background:#28220f;color:#ddd0a1;line-height:1.5}.plausibility-rule strong{color:#fff}.field-name-reveal{margin-top:1rem;padding:1rem;border:1px dashed #4b7182;border-radius:12px;background:#071721;text-align:center}.field-name-reveal>p{margin:0 0 .7rem;color:#8faab8}.reveal-button{border:1px solid #4b7182;background:#102f41;color:#dff3ff}.revealed-name{display:grid;gap:.25rem;padding:.8rem}.revealed-name span{color:#74e9cb;font:800 .72rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.08em}.revealed-name strong{color:#fff;font-size:2rem}.revealed-name small{color:#93aeba}
+  .archive-panel{border-color:#756a3f}.archive-checklist{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1rem 0}.archive-checklist article{display:flex;gap:.7rem;padding:.85rem;border:1px solid #5b5334;border-radius:12px;background:#1d1b10}.archive-checklist article>span{display:grid;place-items:center;flex:0 0 34px;height:34px;border-radius:50%;background:#4a401d;color:#f2d97d;font-weight:900}.archive-checklist strong{color:#fff}.archive-checklist p{margin:.25rem 0 0;color:#cfc8a5;font-size:.86rem;line-height:1.45}.submission-guide{padding:1rem;border:1px solid #756a3f;border-radius:14px;background:#17170e}.guide-heading{display:flex;gap:.65rem;align-items:center}.guide-heading>span{font-size:1.25rem}.guide-heading>div{display:grid}.guide-heading strong{color:#fff}.guide-heading small{color:#c6ba82}.submission-guide dl{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin:1rem 0}.submission-guide dl div{padding:.65rem;border:1px solid #4e4a30;border-radius:9px;background:#0d1718}.submission-guide dt{color:#b8ab72;font-size:.68rem;font-weight:800;text-transform:uppercase}.submission-guide dd{margin:.2rem 0 0;color:#fff;font-size:.84rem;font-weight:800}.submission-guide>p{color:#d4cfad;line-height:1.5}.return-note{margin:.85rem 0 0!important;padding:.7rem .8rem;border-left:3px solid #6ef2cf;background:#0a2425;color:#c8dcce!important;font-size:.86rem}.return-note strong{color:#fff}.reflection{border-color:#3f6480}.reflection ol{color:#c5d8e2;line-height:1.65}.reflection li+li{margin-top:.45rem}.reflection-note{margin-top:1rem!important;padding:.75rem;border-left:3px solid #8fc7ef;background:#0b2333;font-size:.88rem}
+  .next-operation{display:grid;grid-template-columns:120px 1fr;gap:1rem;border-color:#293b4a;background:#07131e}.next-operation>div{display:grid;place-content:start center;text-align:center}.next-operation>div span{font-size:3rem;font-weight:900;color:#436171}.next-operation>div strong{color:#6f8b9a;font-size:.7rem;letter-spacing:.08em}.next-operation section p{color:#9fb4bf;line-height:1.55}.locked{display:flex;gap:.6rem;align-items:center;padding:.75rem;border:1px solid #3a4550;border-radius:10px;background:#0c151d;color:#8195a0}.bottom-actions{display:flex;gap:.7rem;justify-content:space-between;margin-top:1rem}
+  @media(max-width:850px){.hero-grid{grid-template-columns:1fr}.completion-grid{grid-template-columns:1fr}.lab-grid{grid-template-columns:1fr}.resource-zones{grid-template-columns:1fr}.submission-guide dl{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:650px){.science-grid,.archive-checklist,.rule-grid{grid-template-columns:1fr}.contact-heading,.section-heading{display:grid}.clue-card{grid-template-columns:36px 1fr}.evidence-use{grid-column:2}.submission-guide dl{grid-template-columns:1fr}.next-operation{grid-template-columns:72px 1fr}.bottom-actions{display:grid}.bottom-actions .button{width:100%}.print-actions{align-items:flex-start;flex-direction:column}}
+  @media print{
+    :global(body){background:#fff!important}.mission-nav,.operation-hero,.mission-question,.operation-checklist,.science-focus,.lab-panel>:not(.print-packet),.debrief,.contact-panel,.archive-panel,.reflection,.next-operation,.bottom-actions,:global(.site-header),:global(footer),:global(.jcec-submission-dock),:global(.jcec-device-tools),:global(.breadcrumbs){display:none!important}.operation-shell{max-width:none;padding:0;color:#000}.lab-panel{margin:0;padding:0;border:0;background:#fff}.print-packet{display:block!important}.print-page{display:block!important;min-height:95vh}.print-header{margin-bottom:12px}
+  }
+</style>
