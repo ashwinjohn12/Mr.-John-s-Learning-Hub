@@ -7,16 +7,16 @@ Operation 04 expands students from one organism to a connected ecosystem. Studen
 
 The operation emphasizes that an ecosystem is a network of interdependent relationships. Students work with producers, consumers, decomposers, feeding relationships, energy flow, competition, symbiosis, and predictions about change.
 
-The physical string model is deliberately simple. It is used to make interdependence visible and tactile before students interpret a more complex fictional ecosystem.
+The physical string model is deliberately simple. It makes interdependence visible and tactile before students interpret a more complex fictional ecosystem.
 
 ## Alberta Grade 7 Science alignment
-This operation supports the Interactions and Ecosystems work by having students:
+This operation supports Interactions and Ecosystems by having students:
 - identify producers, consumers, and decomposers;
 - construct and interpret food chains and food webs;
 - trace energy through feeding relationships;
 - distinguish energy flow from the cycling of matter;
 - examine competition for limited resources;
-- examine symbiotic relationships, including examples of mutualism, commensalism, and parasitism;
+- examine symbiotic relationships, including mutualism, commensalism, and parasitism;
 - identify interdependence among organisms;
 - predict direct and indirect effects when one part of an ecosystem changes;
 - recognize that food-web models simplify real ecosystems and that predictions contain uncertainty;
@@ -34,10 +34,11 @@ Operation 04 intentionally does **not** become the full population-data investig
 
 ### Class 2 — Continental Food Web V1 (45–60 min)
 1. Revisit the Operation 03 focal species — 5 min
-2. Classify continental organism records — 10–15 min
-3. Convert feeding evidence into a food web — 15–20 min
-4. Symbiosis + competition analysis — 10 min
-5. Begin change challenge — 5–10 min
+2. Assign or confirm team investigation jobs — 2–3 min
+3. Classify continental organism records — 10–15 min
+4. Infer feeding arrows from evidence — 15–20 min
+5. Symbiosis + competition analysis — 10 min
+6. Begin change challenge — 5–10 min
 
 ### Optional Class 3 — Network reasoning and archive (30–60 min)
 Use if you want students to:
@@ -71,6 +72,8 @@ Cards:
 - Hawk — consumer
 - Fungi & Bacteria — decomposers
 
+Arrange the model with all cards **flat on the table**. Use a **separate piece of yarn for each ecological connection**. Add a visible arrow marker beside the yarn to show direction. Students should not hold one continuous string around the team.
+
 Suggested feeding connections:
 - Sunlight → Prairie Grass
 - Sunlight → Wildflower
@@ -96,8 +99,18 @@ Use the wording:
 Example:
 Grass → Rabbit means energy stored in the grass can move to the rabbit when the rabbit eats it.
 
+On the student site, feeding links are no longer displayed as completed arrows. Students first read the feeding observation and choose between two possible arrow directions. The correct direction is only confirmed after the team decides.
+
+This is intentional: students should **infer the relationship from evidence before recording the arrow** on Food Web V1.
+
 ## Network Stress Test
 Temporarily remove Prairie Grass from the physical model.
+
+Students should remove:
+- the Prairie Grass card;
+- the yarn pieces directly connected to it;
+
+while leaving the rest of the web intact.
 
 Ask students to identify:
 1. direct effects — organisms that lose a resource immediately;
@@ -107,33 +120,45 @@ Ask students to identify:
 
 Important: do not let students present the card-removal model as proof. The activity produces **predictions**, not guaranteed outcomes.
 
+## Planetary team jobs
+Use the recurring collaboration model so one student does not control the Chromebook or diagram.
+
+Recommended jobs:
+- **Evidence Reader** — reads organism and feeding evidence aloud before discussion.
+- **Network Mapper** — records the team’s agreed roles, arrows, and annotations on Food Web V1.
+- **JCEC Operator** — uses the website controls only after the team agrees.
+- **Skeptic / Checker** — challenges unsupported claims, checks energy direction, and asks “What evidence supports that?”
+
+If teams have fewer than four students, combine roles. Rotate these roles in later investigations.
+
 ## Continental network workflow
 Each continent has:
 - a focal species from Operation 03;
 - producer records;
 - consumer records;
 - a decomposer record;
-- several evidence-supported feeding links;
+- evidence-supported feeding observations;
 - one competition case;
 - one symbiosis case;
 - one simple change challenge.
 
 Students should:
 1. classify each organism as producer, consumer, or decomposer;
-2. use the feeding evidence to draw arrows from food → eater;
-3. add the decomposer to the web;
-4. identify the focal species and its connections;
-5. record the competition relationship and shared resource;
-6. classify the symbiosis case;
-7. predict one direct and one indirect response to the change challenge;
-8. identify one uncertainty.
+2. read each feeding observation and infer the correct food → eater arrow;
+3. record each confirmed arrow on Food Web V1;
+4. add the decomposer to the web;
+5. identify the focal species and its connections;
+6. record the competition relationship and shared resource;
+7. classify the symbiosis case;
+8. discuss the change challenge and record one direct effect, one indirect effect, and one uncertainty on Food Web V1.
 
 ## Symbiosis reference
-Students should use the evidence rather than memorizing a name without reasoning.
-
+The student page now places a compact reference immediately beside the symbiosis evidence:
 - **Mutualism:** both species benefit.
 - **Commensalism:** one benefits and the other has no clear benefit or harm.
 - **Parasitism:** one benefits and the other is harmed.
+
+Students should still use the evidence rather than simply match vocabulary from memory.
 
 Not every continent has the same symbiosis type. This is intentional. A quick cross-continent share can expose the class to multiple forms of symbiosis.
 
@@ -149,7 +174,7 @@ Strong explanations identify:
 One official team drawing should include:
 1. every organism record from the continent file;
 2. P / C / D role labels;
-3. feeding arrows from food → eater;
+3. all confirmed feeding arrows from food → eater;
 4. the focal species clearly marked;
 5. competition + shared resource;
 6. symbiosis partners + type;
@@ -173,14 +198,9 @@ Core network:
 - Ridgeback Grazer → Crag Hunter (primarily young individuals)
 - Stonecap Fungus decomposes dead material/waste.
 
-Competition:
-- Ridgeback Grazer + Valley Hopper for Bluecrest Grass.
+Competition: Ridgeback Grazer + Valley Hopper for Bluecrest Grass.
 
-Symbiosis:
-- Basin Bloom + Ridge Midge = mutualism.
-
-Change challenge:
-- Bluecrest decline should first affect Ridgebacks and Valley Hoppers; later predator abundance or feeding pressure may change.
+Symbiosis: Basin Bloom + Ridge Midge = mutualism.
 
 ### Brillig — Canopy Glider
 Core network:
@@ -193,11 +213,9 @@ Core network:
 - Leaf Hopper → Vine Stalker
 - Warmrot Fungi decompose rainforest dead matter and wastes.
 
-Competition:
-- Canopy Glider + Fruit Nibbler for Glowfruit fruit.
+Competition: Canopy Glider + Fruit Nibbler for Glowfruit fruit.
 
-Symbiosis:
-- Canopy Glider + Hollowstem Tree = commensalism based on current evidence.
+Symbiosis: Canopy Glider + Hollowstem Tree = commensalism based on current evidence.
 
 ### Manxome — Tide Skipper
 Core network:
@@ -209,11 +227,9 @@ Core network:
 - Shore Hopper → Cove Hunter
 - Shore Mold decomposes washed-up organic matter and remains.
 
-Competition:
-- Tide Skipper + Shellgrazer for Tidefilm Algae.
+Competition: Tide Skipper + Shellgrazer for Tidefilm Algae.
 
-Symbiosis:
-- Dune Bloom + Storm Moth = mutualism.
+Symbiosis: Dune Bloom + Storm Moth = mutualism.
 
 ### Slithy Toves — Dune Runner
 Core network:
@@ -226,11 +242,9 @@ Core network:
 - Thorn Moth → Night Stalker
 - Dustcap Decomposer breaks down buried organic matter after moisture becomes available.
 
-Competition:
-- Dune Runner + Sand Hopper for Saltseed seeds.
+Competition: Dune Runner + Sand Hopper for Saltseed seeds.
 
-Symbiosis:
-- Night Bloom + Thorn Moth = mutualism.
+Symbiosis: Night Bloom + Thorn Moth = mutualism.
 
 ### Wabe — Snow Burrower
 Core network:
@@ -242,11 +256,9 @@ Core network:
 - Tundra Nibbler → Pale Hunter
 - Coldrot Fungi decompose dead material during warmer conditions beneath snow.
 
-Competition:
-- Snow Burrower + Tundra Nibbler for Frost Lichen and Tundra Mat.
+Competition: Snow Burrower + Tundra Nibbler for Frost Lichen and Tundra Mat.
 
-Symbiosis:
-- Snow Burrower + Ice Mite = commensalism based on current evidence.
+Symbiosis: Snow Burrower + Ice Mite = commensalism based on current evidence.
 
 ### Bandersnatch — Plains Strider
 Core network:
@@ -258,11 +270,9 @@ Core network:
 - young Prairie Grazer → Sky Hunter
 - prairie soil decomposers break down roots, droppings, and remains.
 
-Competition:
-- Plains Strider + Prairie Grazer for Goldstem Grass.
+Competition: Plains Strider + Prairie Grazer for Goldstem Grass.
 
-Symbiosis:
-- Prairie Starflower + Longtongue Pollinator = mutualism.
+Symbiosis: Prairie Starflower + Longtongue Pollinator = mutualism.
 
 ### Gimble — Barkclimber
 Core network:
@@ -274,13 +284,13 @@ Core network:
 - Trunk Forager → Forest Prowler
 - Rotcap Fungi break down wood, litter, waste, and remains.
 
-Competition:
-- Barkclimber + Trunk Forager for Bark Grubs.
+Competition: Barkclimber + Trunk Forager for Bark Grubs.
 
-Symbiosis:
-- Seedberry Shrub + Root Thread Fungus = mutualism.
+Symbiosis: Seedberry Shrub + Root Thread Fungus = mutualism.
 
 ### Mimsy — Reedcrawler
+Surface Insects are now included as a full organism record in the student network, so Mimsy follows the same workflow as every other continent.
+
 Core network:
 - Water Mat → Surface Insects
 - Water Mat → Marsh Grazer
@@ -292,11 +302,9 @@ Core network:
 - juvenile Marsh Grazer → Mud Stalker
 - Silt Decomposers break down organic matter in wet sediment.
 
-Competition:
-- Reedcrawler + Surface Skimmer for Surface Insects.
+Competition: Reedcrawler + Surface Skimmer for Surface Insects.
 
-Symbiosis:
-- Reedcrawler + Marsh Leech = parasitism.
+Symbiosis: Reedcrawler + Marsh Leech = parasitism.
 
 ## Common misconceptions to watch for
 ### “The arrow means who eats whom.”
@@ -306,13 +314,13 @@ Redirect to: **Which direction is the energy moving?**
 Matter/nutrients can cycle; energy does not return to the producer in a closed loop.
 
 ### “A food web tells exactly what will happen.”
-A food web supports predictions, not certainties. Population size, behaviour, season, resource abundance, and many abiotic factors affect actual outcomes.
+A food web supports predictions, not certainties. Population size, behaviour, season, resource abundance, and abiotic factors affect actual outcomes.
 
 ### “Competition means organisms fight.”
 Competition can occur simply because organisms use the same limited resource. Direct fighting is not required.
 
 ### “Symbiosis means both species benefit.”
-Mutualism is one form of symbiosis. Commensalism and parasitism are also included in this operation.
+Mutualism is one form of symbiosis. Commensalism and parasitism are also included.
 
 ### “Decomposers only matter after everything dies.”
 Waste and dead material are continuously entering decomposition pathways.
@@ -328,7 +336,13 @@ Use:
 - **Team ID:** teacher-assigned phase + continent + team number, e.g. `P1-GY-01`
 - **Team Members:** everyone represented by the submission
 
-Written archive summary should include:
+Student-facing Form mapping is now explicit:
+- **Claim / Decision:** focal species role + why the ecosystem is a web rather than one chain;
+- **Evidence:** at least three important ecological connections;
+- **Reasoning:** explanation of energy flow + direct/indirect change prediction + uncertainty at the end;
+- **Pathfinder Reflection:** leave blank for the team archive unless directed otherwise.
+
+The written archive summary should include:
 1. the focal species’ role;
 2. why the ecosystem is a web rather than one chain;
 3. at least three specific ecological connections;
@@ -348,7 +362,7 @@ Keep these in the Pathfinder Log unless individual submission is needed for asse
 ## Assessment opportunities
 Formative evidence can include:
 - accurate producer/consumer/decomposer classifications;
-- correct food-web arrow direction;
+- correct inference of food-web arrow direction;
 - inclusion of decomposers;
 - ability to distinguish food-web links from competition/symbiosis;
 - evidence-supported direct and indirect predictions;
