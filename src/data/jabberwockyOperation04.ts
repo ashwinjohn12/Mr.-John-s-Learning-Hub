@@ -213,6 +213,7 @@ export const operation04Networks: Operation04Network[] = [
     nodes: [
       { id: 'reedbed-plant', name: 'Reedbed Plant', role: 'producer', evidence: 'Tall emergent plants capture sunlight above shallow water.' },
       { id: 'water-mat', name: 'Water Mat', role: 'producer', evidence: 'Floating photosynthetic growth spreads across calm open water.' },
+      { id: 'surface-insects', name: 'Surface Insects', role: 'consumer', evidence: 'Small insect-like organisms feed on microscopic plant growth and organic particles near the water surface.' },
       { id: 'reedcrawler', name: 'Reedcrawler', role: 'consumer', evidence: 'Operation 03 showed Reedcrawlers feeding on tiny moving organisms at the water surface.' },
       { id: 'surface-skimmer', name: 'Surface Skimmer', role: 'consumer', evidence: 'Another small predator captures many of the same surface insects.' },
       { id: 'marsh-grazer', name: 'Marsh Grazer', role: 'consumer', evidence: 'A slow-moving herbivore eats Water Mat and young Reedbed shoots.' },
@@ -220,6 +221,7 @@ export const operation04Networks: Operation04Network[] = [
       { id: 'silt-decomposer', name: 'Silt Decomposers', role: 'decomposer', evidence: 'Microbes and fungi break down dead plant material and waste in wet sediment.' }
     ],
     feedingLinks: [
+      { food: 'Water Mat', eater: 'Surface Insects', evidence: 'Surface Insects graze microscopic growth associated with the floating mat.' },
       { food: 'Water Mat', eater: 'Marsh Grazer', evidence: 'Marsh Grazers eat floating plant growth.' },
       { food: 'Reedbed Plant', eater: 'Marsh Grazer', evidence: 'Marsh Grazers also eat young reed shoots.' },
       { food: 'Surface Insects', eater: 'Reedcrawler', evidence: 'Reedcrawlers capture small surface organisms.' },
