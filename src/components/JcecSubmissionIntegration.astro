@@ -1,0 +1,181 @@
+---
+const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZDtZrNtCG3WB78ttvZdtEmq29kapujg/viewform';
+---
+
+<div class="jcec-submission-dock" id="jcec-submission-dock" hidden>
+  <span aria-hidden="true">📡</span>
+  <div>
+    <strong>JCEC Submission Portal</strong>
+    <small>Teacher-visible responses</small>
+  </div>
+  <a href={portalUrl} target="_blank" rel="noopener noreferrer">Open ↗</a>
+</div>
+
+<script is:inline define:vars={{ portalUrl }}>
+  (() => {
+    const path = window.location.pathname;
+    if (!path.includes('/courses/grade-7-science/jabberwocky')) return;
+
+    const dock = document.getElementById('jcec-submission-dock');
+    if (dock) dock.hidden = false;
+
+    if (!path.includes('/jabberwocky/phase-1')) return;
+
+    // The continent cards are buttons. Remove older list roles that overrode
+    // their button semantics for assistive technology.
+    const continentGrid = document.querySelector('.continent-grid');
+    continentGrid?.removeAttribute('role');
+    document.querySelectorAll('.continent-card[role="listitem"]').forEach((card) => card.removeAttribute('role'));
+
+    const missionQuestion = document.querySelector('.mission-question');
+    if (missionQuestion && !document.getElementById('jcec-collaboration-protocol')) {
+      const protocol = document.createElement('section');
+      protocol.id = 'jcec-collaboration-protocol';
+      protocol.className = 'jcec-collaboration-protocol';
+      protocol.innerHTML = `
+        <div class="jcec-protocol-heading">
+          <div>
+            <p>JCEC TEAM PROTOCOL</p>
+            <h2>How mission work happens</h2>
+          </div>
+          <span>EXPLORE → DISCUSS → DECIDE → RECORD → REFLECT</span>
+        </div>
+        <div class="jcec-protocol-grid">
+          <div class="jcec-mode-card mode-individual"><span aria-hidden="true">👤</span><div><strong>Individual Pathfinder</strong><small>Your own prediction, reasoning, or reflection. Submit your own response when directed.</small></div></div>
+          <div class="jcec-mode-card mode-team"><span aria-hidden="true">👥</span><div><strong>Team Investigation</strong><small>Explore evidence together and make sure everyone can explain the team's conclusion.</small></div></div>
+          <div class="jcec-mode-card mode-archive"><span aria-hidden="true">🗂️</span><div><strong>Continental Archive</strong><small>One official team record. Future Pathfinder teams inherit this evidence.</small></div></div>
+        </div>`;
+      missionQuestion.insertAdjacentElement('afterend', protocol);
+    }
+
+    const instructionCards = document.querySelectorAll('.assignment-instructions > div');
+    if (instructionCards[2]) {
+      instructionCards[2].innerHTML = '<span>3</span><p><strong>Save your draft</strong>, then submit your first prediction to JCEC when directed.</p>';
+    }
+
+    const assessment = document.getElementById('initial-assessment');
+    if (assessment && !document.getElementById('jcec-op1-work-mode')) {
+      const workMode = document.createElement('div');
+      workMode.id = 'jcec-op1-work-mode';
+      workMode.className = 'jcec-op1-work-mode';
+      workMode.innerHTML = `
+        <span class="jcec-op1-icon" aria-hidden="true">👤</span>
+        <div>
+          <span class="jcec-op1-label">INDIVIDUAL PATHFINDER</span>
+          <strong>This first prediction is yours.</strong>
+          <p>Your team shares a continent, but each Pathfinder records an individual starting hypothesis. Later evidence may change your thinking.</p>
+        </div>`;
+      assessment.prepend(workMode);
+    }
+
+    const deviceNote = assessment?.querySelector('.device-note');
+    if (deviceNote) {
+      deviceNote.innerHTML = '<strong>Two-step response.</strong> Save a draft on this Chromebook first. That device copy is private. Then use <strong>Submit to JCEC</strong> to send the response to your teacher.';
+    }
+
+    const form = document.getElementById('assessment-form');
+    const formActions = form?.querySelector('.form-actions');
+    const saveButton = formActions?.querySelector('button[type="submit"]');
+    if (saveButton) saveButton.textContent = '1. Save Draft on This Device';
+
+    let submitLink = document.getElementById('jcec-op1-submit');
+    if (formActions && !submitLink) {
+      submitLink = document.createElement('a');
+      submitLink.id = 'jcec-op1-submit';
+      submitLink.className = 'jcec-submit-button';
+      submitLink.href = portalUrl;
+      submitLink.target = '_blank';
+      submitLink.rel = 'noopener noreferrer';
+      submitLink.textContent = '2. Submit to JCEC ↗';
+      formActions.append(submitLink);
+    }
+
+    let guide = document.getElementById('jcec-op1-submit-guide');
+    if (formActions && !guide) {
+      guide = document.createElement('div');
+      guide.id = 'jcec-op1-submit-guide';
+      guide.className = 'jcec-submit-guide';
+      guide.innerHTML = `
+        <div class="jcec-submit-guide-heading"><span aria-hidden="true">📡</span><div><strong>When you open the portal</strong><small>Your verified school Google account identifies you automatically.</small></div></div>
+        <dl>
+          <div><dt>Submission Type</dt><dd>Individual Pathfinder</dd></div>
+          <div><dt>Mission Phase</dt><dd>01 First Contact</dd></div>
+          <div><dt>Operation / Task</dt><dd>Mission Assignment — Initial Assessment</dd></div>
+          <div><dt>Continent</dt><dd id="jcec-guide-continent">Your assigned continent</dd></div>
+        </dl>
+        <p><strong>Claim / Decision:</strong> enter the assessment you chose. <strong>Evidence:</strong> enter your evidence-based reason. You can leave Team ID and Team Members blank because this is an individual response.</p>
+        <button type="button" class="jcec-copy-draft" id="jcec-copy-draft">Copy my draft summary</button>
+        <span class="jcec-copy-status" id="jcec-copy-status" role="status"></span>`;
+      formActions.insertAdjacentElement('afterend', guide);
+    }
+
+    const STORAGE_POSTING = 'jabberwocky-phase1-posting';
+    const STORAGE_ASSESSMENT = 'jabberwocky-phase1-assessment';
+    const STORAGE_REASON = 'jabberwocky-phase1-assessment-reason';
+
+    const progressText = document.getElementById('assignment-progress-text');
+    const nowStep = document.getElementById('now-step');
+    const assignmentChip = document.getElementById('assignment-chip');
+    const message = document.getElementById('assessment-message');
+    const copyButton = document.getElementById('jcec-copy-draft');
+    const copyStatus = document.getElementById('jcec-copy-status');
+
+    const continentName = () => {
+      const id = localStorage.getItem(STORAGE_POSTING);
+      if (!id) return 'Your assigned continent';
+      const selected = document.querySelector(`[data-continent="${id}"] strong`);
+      return selected?.textContent?.trim() || id;
+    };
+
+    const updateGuide = () => {
+      const continent = continentName();
+      const target = document.getElementById('jcec-guide-continent');
+      if (target) target.textContent = continent;
+    };
+
+    const showReadyToSubmit = () => {
+      const savedAssessment = localStorage.getItem(STORAGE_ASSESSMENT);
+      if (!savedAssessment) return;
+      if (progressText) progressText.textContent = 'READY TO SUBMIT — send your individual starting hypothesis to JCEC';
+      if (nowStep) nowStep.textContent = '● NOW: Submit Initial Assessment to JCEC';
+      if (assignmentChip) assignmentChip.textContent = '● READY TO SUBMIT';
+      if (message) message.textContent = '✓ Draft saved on this device. It is not teacher-visible until you submit it through the JCEC portal.';
+      updateGuide();
+    };
+
+    document.querySelectorAll('[data-continent]').forEach((button) => {
+      button.addEventListener('click', () => window.setTimeout(updateGuide, 0));
+    });
+
+    form?.addEventListener('submit', () => window.setTimeout(showReadyToSubmit, 0));
+
+    copyButton?.addEventListener('click', async () => {
+      const assessmentValue = localStorage.getItem(STORAGE_ASSESSMENT) || form?.querySelector('input[name="assessment"]:checked')?.value || '';
+      const reasonValue = localStorage.getItem(STORAGE_REASON) || document.getElementById('assessment-reason')?.value?.trim() || '';
+      if (!assessmentValue || !reasonValue) {
+        if (copyStatus) copyStatus.textContent = 'Save your assessment first.';
+        return;
+      }
+      const text = `JCEC Mission 2190\nSubmission Type: Individual Pathfinder\nMission Phase: 01 First Contact\nOperation / Task: Mission Assignment — Initial Assessment\nContinent: ${continentName()}\nClaim / Decision: ${assessmentValue}\nEvidence: ${reasonValue}`;
+      try {
+        await navigator.clipboard.writeText(text);
+        if (copyStatus) copyStatus.textContent = '✓ Draft summary copied.';
+      } catch {
+        if (copyStatus) copyStatus.textContent = 'Copy was blocked by this browser. Your saved draft is still here.';
+      }
+    });
+
+    updateGuide();
+    showReadyToSubmit();
+  })();
+</script>
+
+<style is:global>
+  .jcec-submission-dock{position:fixed;left:1rem;bottom:1rem;z-index:80;display:flex;align-items:center;gap:.65rem;max-width:390px;padding:.65rem .75rem;border:1px solid #2b6a68;border-radius:14px;background:rgba(6,25,34,.96);box-shadow:0 12px 34px rgba(0,0,0,.35);color:#eaf8ff;backdrop-filter:blur(10px)}
+  .jcec-submission-dock>span{font-size:1.15rem}.jcec-submission-dock>div{display:grid;line-height:1.15}.jcec-submission-dock strong{font-size:.83rem}.jcec-submission-dock small{margin-top:.16rem;color:#9fc4cf;font-size:.71rem}.jcec-submission-dock a{margin-left:auto;padding:.48rem .62rem;border-radius:9px;background:#6ef2cf;color:#06201e;text-decoration:none;font-size:.78rem;font-weight:900;white-space:nowrap}
+  .jcec-collaboration-protocol{margin:1.2rem 0;padding:clamp(1.1rem,3vw,1.55rem);border:1px solid #285a67;border-radius:18px;background:linear-gradient(145deg,#071d29,#0b2630);color:#eaf5ff}.jcec-protocol-heading{display:flex;justify-content:space-between;gap:1rem;align-items:end}.jcec-protocol-heading p{margin:0;color:#6ef2cf;font:800 .76rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}.jcec-protocol-heading h2{margin:.35rem 0 0;color:#fff;font-size:1.45rem}.jcec-protocol-heading>span{color:#9dc2ce;font:750 .76rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;text-align:right}.jcec-protocol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:1rem}.jcec-mode-card{display:flex;gap:.6rem;align-items:flex-start;padding:.8rem;border:1px solid #2d4d5e;border-radius:12px;background:#081823}.jcec-mode-card>span{font-size:1.05rem}.jcec-mode-card>div{display:grid;gap:.2rem}.jcec-mode-card strong{color:#fff;font-size:.9rem}.jcec-mode-card small{color:#a9bfcc;font-size:.78rem;line-height:1.4}.jcec-mode-card.mode-individual{border-color:#3f6480}.jcec-mode-card.mode-team{border-color:#3e7c70}.jcec-mode-card.mode-archive{border-color:#756a3f}
+  .jcec-op1-work-mode{display:flex;gap:.8rem;align-items:flex-start;margin:0 0 1.2rem;padding:.9rem 1rem;border:1px solid #3f6480;border-radius:14px;background:#0a2030;color:#eaf5ff}.jcec-op1-icon{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border-radius:10px;background:#12314a}.jcec-op1-work-mode>div{display:grid;gap:.18rem}.jcec-op1-label{color:#9ed5ff;font:850 .72rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em}.jcec-op1-work-mode strong{color:#fff}.jcec-op1-work-mode p{margin:.05rem 0 0;color:#b7cedb;font-size:.88rem;line-height:1.45}
+  .jcec-submit-button{display:inline-flex;align-items:center;justify-content:center;padding:.74rem 1rem;border:1px solid #6ef2cf;border-radius:10px;background:#6ef2cf;color:#06201e!important;text-decoration:none;font-weight:900}.jcec-submit-button:hover{filter:brightness(1.05);transform:translateY(-1px)}
+  .jcec-submit-guide{margin:1rem 0 0;padding:1rem;border:1px solid #367c70;border-radius:14px;background:#071e25;color:#d9edf4}.jcec-submit-guide-heading{display:flex;gap:.65rem;align-items:center}.jcec-submit-guide-heading>span{font-size:1.2rem}.jcec-submit-guide-heading>div{display:grid}.jcec-submit-guide-heading strong{color:#fff}.jcec-submit-guide-heading small{margin-top:.15rem;color:#98bec9}.jcec-submit-guide dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;margin:.85rem 0}.jcec-submit-guide dl div{padding:.6rem .7rem;border:1px solid #204653;border-radius:9px;background:#081821}.jcec-submit-guide dt{color:#86a8b4;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em}.jcec-submit-guide dd{margin:.2rem 0 0;color:#fff;font-size:.86rem;font-weight:800}.jcec-submit-guide p{margin:.75rem 0;color:#b8d0d9;font-size:.86rem;line-height:1.5}.jcec-copy-draft{padding:.55rem .72rem;border:1px solid #3a7280;border-radius:9px;background:#0b2a36;color:#dff8ff;font-weight:800;cursor:pointer}.jcec-copy-status{margin-left:.55rem;color:#80edcf;font-size:.8rem}
+  @media(max-width:760px){.jcec-protocol-heading{display:grid}.jcec-protocol-heading>span{text-align:left}.jcec-protocol-grid{grid-template-columns:1fr}.jcec-submit-guide dl{grid-template-columns:1fr}.jcec-submission-dock{right:1rem;max-width:none}.jcec-submission-dock>div{display:none}}
+</style>
