@@ -1,0 +1,177 @@
+<script is:inline>
+  (() => {
+    const path = window.location.pathname;
+    if (!path.includes('/courses/grade-7-science/jabberwocky/phase-1/operation-03')) return;
+
+    const labPanel = document.getElementById('hands-on-lab');
+    const contactPanel = document.getElementById('contact-dossier');
+    if (!labPanel || !contactPanel) return;
+
+    // Make the fair-test procedure clearer for Grade 7 students.
+    const teamNote = labPanel.querySelector('.lab-grid article:nth-child(2) .equipment-note');
+    if (teamNote) {
+      teamNote.innerHTML = '<strong>Fair-test role rule:</strong> one Tester should use all four structures within the same resource zone. Rotate the Tester only when your team moves to the next zone. That makes the four results inside each zone easier to compare fairly.';
+    }
+
+    const zoneCards = [...labPanel.querySelectorAll('.resource-zones article p')];
+    if (zoneCards[0]) zoneCards[0].textContent = 'Use the teacher-set number of large objects spread across an open tray.';
+    if (zoneCards[1]) zoneCards[1].textContent = 'Use the teacher-set number of small objects placed in cups, cells, or shallow crevices.';
+    if (zoneCards[2]) zoneCards[2].textContent = 'Use the teacher-set number of looped or irregular objects arranged around simple barriers.';
+
+    const procedure = labPanel.querySelector('.procedure');
+    if (procedure && !document.getElementById('op3-fair-test-rule')) {
+      const rule = document.createElement('div');
+      rule.id = 'op3-fair-test-rule';
+      rule.className = 'op3-fair-test-rule';
+      rule.innerHTML = '<strong>FAIR TEST CHECK</strong><span>Keep the trial time, starting number of resources, collection cup, start position, and rules the same. Reset the zone before every structure.</span>';
+      procedure.insertAdjacentElement('beforebegin', rule);
+
+      const list = procedure.querySelector('ol');
+      if (list) {
+        list.innerHTML = `
+          <li><strong>Check the setup.</strong> Your teacher will tell you the trial time and starting number of resources. Use the same setup for every structure in that zone.</li>
+          <li><strong>Do one short practice pickup</strong> with each structure before recording data so everyone understands how the tools work. Do not count practice results.</li>
+          <li><strong>Keep one Tester for all four structures in Zone A.</strong> Move one resource at a time into the collection cup. Do not use fingers to help.</li>
+          <li><strong>Record the score immediately</strong>, then reset the resource zone to the same starting condition before testing the next structure.</li>
+          <li><strong>Rotate the Tester when you move to Zone B</strong>, then again when you move to Zone C. Within each zone, the same Tester compares all four structures.</li>
+          <li><strong>Compare within each zone first.</strong> Identify which structure performed best in that condition. Then decide which structure was most versatile across the three conditions.</li>
+          <li><strong>Look for trade-offs.</strong> Was any structure best everywhere? Use your data—not your preference—to support your answer.</li>`;
+      }
+    }
+
+    // Improve the printable lab/reconstruction packet so evidence is easier to cite later.
+    const firstPrintPage = labPanel.querySelector('.print-page');
+    const firstTable = firstPrintPage?.querySelector('table');
+    if (firstTable && !firstPrintPage.querySelector('.op3-print-testers')) {
+      const testers = document.createElement('p');
+      testers.className = 'op3-print-testers';
+      testers.innerHTML = '<strong>Tester:</strong> Zone A ____________ &nbsp; Zone B ____________ &nbsp; Zone C ____________ &nbsp;&nbsp; <strong>Trial time:</strong> ______ s';
+      firstTable.insertAdjacentElement('beforebegin', testers);
+    }
+
+    const reconstructionTable = labPanel.querySelector('.reconstruction-table');
+    if (reconstructionTable) {
+      reconstructionTable.innerHTML = `
+        <p><strong>Structural adaptation 1:</strong> __________________________ <strong>Clue # / source:</strong> __________________________</p>
+        <p><strong>How the evidence supports it:</strong> _________________________________________________________________________</p>
+        <p><strong>Structural adaptation 2:</strong> __________________________ <strong>Clue # / source:</strong> __________________________</p>
+        <p><strong>How the evidence supports it:</strong> _________________________________________________________________________</p>
+        <p><strong>Structural adaptation 3:</strong> __________________________ <strong>Clue # / source:</strong> __________________________</p>
+        <p><strong>How the evidence supports it:</strong> _________________________________________________________________________</p>
+        <p><strong>Behavioural adaptation:</strong> ___________________________ <strong>Clue # / source:</strong> __________________________</p>
+        <p><strong>Likely habitat / contact zone:</strong> ________________________________________________________________________</p>
+        <p><strong>Likely resource use / feeding role:</strong> ____________________________________________________________________</p>
+        <p><strong>One important uncertainty:</strong> _____________________________________________________________________________</p>`;
+    }
+
+    // Add an explicit transition so students know how the hands-on model connects to First Contact.
+    const debrief = document.querySelector('.debrief');
+    if (debrief && !document.getElementById('op3-contact-checkpoint')) {
+      const checkpoint = document.createElement('section');
+      checkpoint.id = 'op3-contact-checkpoint';
+      checkpoint.className = 'op3-contact-checkpoint';
+      checkpoint.innerHTML = `
+        <div class="op3-checkpoint-label">MISSION CHECKPOINT // LAB → FIRST CONTACT</div>
+        <h2>Now use the idea—not the tools.</h2>
+        <p>The model lab showed that structure affects function. Put the lab equipment aside. Bring your data sheet and Native Organism Reconstruction sheet to the First Contact file.</p>
+        <div class="op3-checkpoint-steps">
+          <div><span>1</span><p><strong>Read all six clues</strong> before drawing anything.</p></div>
+          <div><span>2</span><p><strong>Record clue numbers or sources</strong> beside the features they support.</p></div>
+          <div><span>3</span><p><strong>Separate evidence from inference.</strong> If you are not sure, mark it with a ?.</p></div>
+          <div><span>4</span><p><strong>Do not reveal the field name</strong> until your reconstruction is complete.</p></div>
+        </div>`;
+      debrief.insertAdjacentElement('afterend', checkpoint);
+    }
+
+    const contactIntro = contactPanel.querySelector('.intro');
+    if (contactIntro && !document.getElementById('op3-evidence-direction')) {
+      const direction = document.createElement('div');
+      direction.id = 'op3-evidence-direction';
+      direction.className = 'op3-evidence-direction';
+      direction.innerHTML = '<strong>Start here:</strong> read all six observations first. Then mark at least three as key evidence. On your reconstruction sheet, identify evidence by <strong>clue number or source</strong> (for example, “03 — FOOT IMAGE”).';
+      contactIntro.insertAdjacentElement('afterend', direction);
+    }
+
+    document.querySelectorAll('.contact-file').forEach((contactFile) => {
+      const evidenceButtons = [...contactFile.querySelectorAll('.evidence-use')];
+      const counter = contactFile.querySelector('[data-evidence-counter]');
+      const revealArea = contactFile.querySelector('.field-name-reveal');
+      const revealButton = contactFile.querySelector('[data-reveal-button]');
+      const revealedName = contactFile.querySelector('[data-revealed-name]');
+      if (!revealArea || !revealButton) return;
+
+      revealButton.disabled = true;
+      revealButton.setAttribute('aria-disabled', 'true');
+
+      const originalPrompt = revealArea.querySelector(':scope > p');
+      if (originalPrompt) originalPrompt.textContent = 'The field name is a working label, not an answer key. Unlock it only after your team has finished the reconstruction.';
+
+      let confirmation = revealArea.querySelector('[data-reconstruction-confirm]');
+      if (!confirmation) {
+        confirmation = document.createElement('label');
+        confirmation.className = 'op3-reveal-confirm';
+        confirmation.innerHTML = '<input type="checkbox" data-reconstruction-confirm /> <span>Our team has completed the sketch, 3 structural adaptations, 1 behavioural adaptation, provisional niche, and at least 1 uncertainty.</span>';
+        revealButton.insertAdjacentElement('beforebegin', confirmation);
+      }
+
+      let status = revealArea.querySelector('[data-reveal-status]');
+      if (!status) {
+        status = document.createElement('small');
+        status.className = 'op3-reveal-status';
+        status.setAttribute('data-reveal-status', '');
+        status.setAttribute('role', 'status');
+        confirmation.insertAdjacentElement('afterend', status);
+      }
+
+      const checkbox = confirmation.querySelector('input');
+      const updateRevealState = () => {
+        const selected = evidenceButtons.filter((button) => button.getAttribute('aria-pressed') === 'true').length;
+        const reconstructionDone = Boolean(checkbox?.checked);
+        const ready = selected >= 3 && reconstructionDone;
+        revealButton.disabled = !ready;
+        revealButton.setAttribute('aria-disabled', ready ? 'false' : 'true');
+        if (status) {
+          if (selected < 3) status.textContent = `Field name locked: select at least 3 key evidence clues first (${selected}/3).`;
+          else if (!reconstructionDone) status.textContent = 'Field name locked: finish the reconstruction and check the confirmation box.';
+          else status.textContent = '✓ Field name unlocked. You may reveal it now.';
+        }
+      };
+
+      evidenceButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          window.setTimeout(() => {
+            const selected = evidenceButtons.filter((item) => item.getAttribute('aria-pressed') === 'true').length;
+            if (counter) {
+              counter.textContent = selected >= 3
+                ? `✓ ${selected} key clues selected. Write their clue numbers/sources on your reconstruction sheet.`
+                : `${selected} selected. Read all six clues, then choose at least three that strongly support your reconstruction.`;
+            }
+            updateRevealState();
+          }, 0);
+        });
+      });
+
+      checkbox?.addEventListener('change', updateRevealState);
+
+      if (revealedName) {
+        const note = revealedName.querySelector('small');
+        if (note) note.textContent = 'Working field name only—not an answer key. Do not redraw your organism just to match the name. Keep the reconstruction your evidence supports.';
+      }
+
+      updateRevealState();
+    });
+
+    const archiveEvidence = document.querySelector('.archive-checklist article:nth-child(2) p');
+    if (archiveEvidence) archiveEvidence.innerHTML = 'Include at least three specific First Contact observations. Identify each by <strong>clue number or source</strong> so another Pathfinder team can trace your reasoning.';
+  })();
+</script>
+
+<style is:global>
+  .op3-fair-test-rule{display:grid;gap:.25rem;margin:1rem 0;padding:.85rem .95rem;border:1px solid #3d796c;border-left:4px solid #6ef2cf;border-radius:12px;background:#0a292a;color:#d8eee9}.op3-fair-test-rule strong{color:#8df2d2;font:850 .74rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em}.op3-fair-test-rule span{line-height:1.5}
+  .op3-contact-checkpoint{margin:1.2rem 0;padding:clamp(1.2rem,4vw,2rem);border:1px solid #4d7486;border-radius:20px;background:linear-gradient(145deg,#091d2a,#0c2932);color:#eaf5ff}.op3-checkpoint-label{color:#9ed5ff;font:850 .78rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em}.op3-contact-checkpoint h2{margin:.45rem 0 .55rem;color:#fff;font-size:clamp(1.5rem,4vw,2rem)}.op3-contact-checkpoint>p{max-width:850px;color:#bad0db;line-height:1.6}.op3-checkpoint-steps{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem;margin-top:1rem}.op3-checkpoint-steps>div{display:flex;gap:.65rem;align-items:flex-start;padding:.8rem;border:1px solid #2e5362;border-radius:11px;background:#071922}.op3-checkpoint-steps span{display:grid;place-items:center;flex:0 0 32px;height:32px;border-radius:50%;background:#123748;color:#9ed5ff;font-weight:900}.op3-checkpoint-steps p{margin:0;color:#bdd2dc;line-height:1.45;font-size:.88rem}.op3-checkpoint-steps strong{color:#fff}
+  .op3-evidence-direction{margin:.85rem 0 1rem;padding:.8rem .9rem;border-left:3px solid #9ed5ff;background:#0a2231;color:#c7dce6;line-height:1.55;font-size:.9rem}.op3-evidence-direction strong{color:#fff}
+  .op3-reveal-confirm{display:flex;gap:.6rem;align-items:flex-start;max-width:760px;margin:.75rem auto;padding:.75rem .85rem;border:1px solid #365d6f;border-radius:10px;background:#0b202b;color:#c5d8e2;text-align:left;font-size:.86rem;line-height:1.45;cursor:pointer}.op3-reveal-confirm input{margin-top:.18rem;accent-color:#6ef2cf}.op3-reveal-status{display:block;min-height:1.15rem;margin:.45rem auto .7rem;color:#9fb9c5}.reveal-button:disabled{opacity:.45;cursor:not-allowed;filter:none!important;transform:none!important}.revealed-name small{max-width:700px;margin:0 auto;line-height:1.45}
+  .op3-print-testers{margin:.35rem 0 .75rem;font-size:.82rem}
+  @media(max-width:700px){.op3-checkpoint-steps{grid-template-columns:1fr}}
+  @media print{.op3-contact-checkpoint,.op3-evidence-direction{display:none!important}.op3-print-testers{display:block!important;color:#000}}
+</style>
