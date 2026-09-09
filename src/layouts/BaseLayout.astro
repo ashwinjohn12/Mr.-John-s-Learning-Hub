@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import JabberwockyDeviceTools from '../components/JabberwockyDeviceTools.astro';
+import JcecSubmissionIntegration from '../components/JcecSubmissionIntegration.astro';
 
 interface Props {
   title?: string;
@@ -43,6 +44,7 @@ const base = import.meta.env.BASE_URL;
       <p><strong>Mr. John’s Learning Hub</strong></p>
       <p>Learn it. Try it. Explain it.</p>
     </footer>
+    <JcecSubmissionIntegration />
     <JabberwockyDeviceTools />
   </body>
 </html>
