@@ -1,830 +1,680 @@
-# Jabberwocky Mission 2190 — Phase 1 Teacher Launch Guide
+# Jabberwocky: Mission 2190 — Phase 1 Teacher Launch Guide
 
 ## FIRST CONTACT — Interactions & Ecosystems
 
-This is the day-to-day implementation guide for teaching Phase 1 in approximately **5 weeks, 5 classes per week, 45 minutes per class**.
-
-Use this guide as the practical classroom plan. The individual Operation teacher guides remain the deeper reference when you need scientific interpretation, troubleshooting, or extension ideas.
+This guide now matches the **five-mission student experience**. The old Operation 01–08 pages, datasets, teacher guides and simulations remain available as deeper reference resources, but they are no longer the main teaching sequence students follow.
 
 ## Planning target
+- **25 periods total**
+- **18 core mission classes**
+- **7 purposeful flex / review / assessment / interruption classes**
+- **45 minutes per class**
 
-- **25 available periods**
-- **19 core periods** to complete the full Phase 1 storyline and required science
-- **6 flex periods** for review, assessment, presentations, catch-up, reteaching, absences, lab spillover, or school interruptions
-- Do not convert all six flex periods into required new content in advance.
+Student sequence:
 
-Core sequence:
-
-**OBSERVE → MODEL → CONNECT → MEASURE → EXPLAIN → MONITOR → RESPOND → DECIDE**
+**Mission 1 — Explore Your Environment → Mission 2 — Meet a Native Species → Mission 3 — Build the Ecosystem → Mission 4 — Watch the Ecosystem Change → Mission 5 — Humans Have Arrived**
 
 ---
 
-# Before Day 1 — teacher setup checklist
+# Before Day 1 — set the system once
 
 ## Digital
-- Open the Phase 1 hub and confirm Operation 02–08 launch links are visible.
-- Confirm the JCEC Submission Portal opens on a school device.
-- Decide how students will submit the full Operation 08 artifact. Recommended: Google Classroom or another normal course submission location; the JCEC Form is for the concise archive summary.
-- Decide whether students will keep Pathfinder Logs on paper, in a notebook, or digitally.
-- Prepare teacher-assigned Team IDs using a consistent pattern such as `P1-GY-01`.
-- If devices are shared, remind students that continent posting / some working choices are stored locally on that device.
+- Open the Phase 1 Mission Hub and confirm all five mission routes load.
+- Confirm Mission 1 can store the teacher-assigned continent on the device students will use.
+- Decide whether students will complete Team Records digitally, on printed mission packets, or both.
+- Keep Team IDs, archive metadata and JCEC submission details teacher-managed wherever possible.
+- Open the JCEC Submission Portal once on a school-managed account/device if you plan to use it.
+- Keep legacy Operation routes bookmarked only as teacher reference.
 
-## Printing / reusable materials
-Prepare only what the core pathway needs.
+## Team setup
+- Assign one continent to each team.
+- Prepare a simple roster showing student names → continent → Team ID.
+- Students only need to know their continent and, when required, which person is the TEAM RECORD recorder.
 
-### Reusable once-per-class-set materials
-- Operation 03: spoons, tweezers, clothespins/tongs, chopsticks, timers, three resource-zone trays, safe craft objects, collection cups.
-- Operation 04: laminated Earth ecosystem cards, short yarn/string pieces, arrow markers.
-- Operation 05: 5×5 habitat grids and cups containing roughly 30–50 small counters each.
-- Operation 06: two shallow trays per team, equal soil, cover material, collection cups, measured water, slope blocks/books, towels.
-- Operation 07A: six cups/zones, neutral counters, four visibly different stowaway counters, scoop/spoon.
-- Operation 07B: 16 producer cards, four primary-consumer cards, one predator card, 16 contaminant tokens.
+## Printing plan
+Use the print controls already built into the mission pages where available.
 
-### Print when needed
-- Day 2: Operation 02 Earth Field Sheet — one per team.
-- Day 4: Operation 03 Lab + Reconstruction Packet — one two-page packet per team.
-- Day 6: Operation 04 card page if not already laminated + Food Web V1 — one Food Web V1 per team.
-- Day 8: blank paper or back of Food Web V1 for Carbon + Water Cycle overlay.
-- Day 9: Operation 05 two-page Population Packet — one per team.
-- Day 11: Operation 06 two-page Recovery Packet — one per team.
-- Day 13: Local Ecosystem Change Decision record — one per student or one per pair, depending on assessment purpose.
-- Day 14: Operation 07 two-page Incident Packet — one per team.
-- Day 17: Operation 08 final packet — one per team unless using a fully digital final report.
+Recommended team set:
+- Mission 1 Environment Profile / field sheet
+- Mission 2 Survival Structures Lab + Native Species Card
+- Mission 3 String Food Web materials + Ecosystem Map
+- Mission 4 Sampling Grid + Ecosystem Change Record
+- Mission 5 Stowaway simulation record + JCEC Recommendation Board
 
-## Outdoor / local planning
-- Select three safe microhabitat sample locations for Day 2, or identify an indoor fallback.
-- Select the real local environmental issue for Day 13 and preselect at least two credible sources.
-- When using an Indigenous source or perspective, use a specific authentic source from the Nation/community/organization itself. Do not ask students to invent or generalize an Indigenous worldview.
+## Local planning for Mission 4
+Choose the real local environmental case before Week 3. Prepare a short source pack rather than asking Grade 7 students to search independently.
 
-## Assessment decisions before launch
-Recommended marking load:
-- Operations 02–04: formative / archive continuity.
-- Operation 05: stronger Data Reasoning / CER assessment.
-- Operation 06: formative or lightly graded.
-- Operation 07: stronger Environmental Decision-Making assessment.
-- Operation 08: major Phase 1 summative synthesis.
-- Pathfinder reflections: keep most in the log; formally collect only selected ones when individual evidence is needed.
+Calgary-area default sources already used in this project:
+- City of Calgary — Source Water Protection: https://www.calgary.ca/water/stormwater/source-water-protection.html
+- City of Calgary — Riparian Areas: https://www.calgary.ca/water/stormwater/riparian-areas.html
+- Tsuut'ina Nation — Niska Newsletter, June 2025: https://tsuutina.com/wp-content/uploads/2025/06/Niska.Newsletter.June10.2025.final_.pdf
+- Optional Tsuut'ina Lands newsletter, August 2022: https://tsuutina.com/wp-content/uploads/2023/10/Lands.Newsletter.FinalEditition.August2022.pdf
+
+**Authentic-source rule:** do not ask students to invent or generalize an Indigenous perspective. Use a specific source from the relevant Nation/community/organization and have students describe what that source actually contributes to understanding the issue.
 
 ---
 
-# Week 1 — Arrival and First Contact
+# 18 core classes — day-by-day implementation
 
-## Day 1 — Operation 01: Mission Assignment
-**Core purpose:** launch the world, assign continents, establish the archive system, collect an individual starting hypothesis.
+## Mission 1 — Explore Your Environment
 
-### Before class
-- Have continent/team assignments and Team IDs ready.
-- Project/open the Phase 1 hub.
-- Decide whether the initial individual hypothesis will also be submitted through the JCEC Form today or completed at the start of Day 2.
+### Day 1 — Welcome to Jabberwocky
+**Before class**
+- Have continent assignments and Team IDs ready.
+- Open the Phase 1 hub and Mission 1.
 
-### Materials
-- Chromebooks/devices.
-- Pathfinder Log.
-- No lab materials required.
+**Materials**
+- Devices
+- continent roster
+- notebook / Pathfinder Log if used
 
-### 45-minute flow
-- **0–7 min:** Mission 2190 hook and JCEC role.
-- **7–15 min:** Explain continents, preliminary ratings, team rotation, Pathfinder Log vs Continental Archive.
-- **15–25 min:** Teams open assigned continent posting and read known conditions/opportunities/risks.
-- **25–35 min:** Each student chooses an initial settlement-suitability hypothesis and gives one evidence-based reason.
-- **35–42 min:** Save/submit as directed; verify Team IDs.
-- **42–45 min:** Preview Environmental Survey.
+**Students see/do**
+- story launch
+- select the teacher-assigned continent
+- view preliminary JCEC rating
+- make one short starting prediction
+- learn biotic, abiotic, habitat, environmental conditions
 
-### Must finish
-- Correct assigned continent stored/opened.
-- Every student has an initial hypothesis.
-- Students understand that the preliminary rating is not an answer key.
+**Key science**
+- environments contain living and non-living parts
+- organisms depend on environmental conditions
 
-### Collect / assess
-- Low-stakes individual baseline only.
+**Teacher emphasis**
+- preliminary rating is not the answer
+- today is about noticing conditions, not deciding whether humans should settle
 
-### Cut first if behind
-- Team branding, logos, extended continent sharing.
+**Collect**
+- no major submission; baseline prediction only
 
-### Prepare for tomorrow
-- Field sheets, thermometers, sample boundaries/string/markers, clipboards.
+**Cut first**
+- extended story discussion or continent sharing
 
----
+### Day 2 — Earth Environmental Survey
+**Before class**
+- choose three safe microhabitat sample areas or an indoor fallback
+- check weather
+- stage field kits
 
-## Day 2 — Operation 02: Earth Environmental Survey
-**Core purpose:** collect authentic biotic/abiotic field evidence before interpreting fictional telemetry.
+**Materials**
+- thermometer
+- ~1 m² string / markers / metre stick
+- clipboards + pencils
+- Mission 1 field sheet
+- optional light/moisture tools
 
-### Before class
-- Set safe boundaries and three sample locations or selection rules.
-- Put one equipment kit + Field Sheet per team at tables.
-- Check weather. If conditions are unsuitable, use the indoor fallback below.
+**Students see/do**
+- investigate three small sample areas
+- record temperature, light/moisture, evidence of life, surface/soil conditions and human impact
 
-### Materials
-- Thermometer.
-- ~1 m² string square / metre stick / temporary markers.
-- Clipboard + pencil.
-- Optional hand lens, light meter, soil-moisture meter.
-- Operation 02 Field Sheet.
+**Key science**
+- biotic vs abiotic evidence
+- observation vs inference
+- habitat conditions vary over short distances
 
-### 45-minute flow
-- **0–5 min:** biotic/abiotic retrieval + safety.
-- **5–8 min:** assign roles.
-- **8–33 min:** three microhabitat samples.
-- **33–39 min:** team compares samples and identifies strongest habitat/resource combination.
-- **39–43 min:** observation vs inference debrief.
-- **43–45 min:** secure field sheet for Day 3.
+**Teacher emphasis**
+- record what you actually observe before explaining it
 
-### Must finish
-- Three sample records with temperature, light, moisture, surface, organisms/signs of life, and human impact.
+**Collect**
+- field sheet for formative feedback
 
-### Collect / assess
-- Formative field skills, units, observation vs inference.
+**Cut first**
+- optional instruments or extra sample sites
 
-### Cut first if behind
-- Extra instruments or extra sample points. Keep the three core samples.
+### Day 3 — Explore Your Continent
+**Before class**
+- return field sheets
+- confirm devices still remember assigned continents
 
-### Indoor fallback
-Use three deliberately contrasting locations such as near a sunny window, near plants/soil, and a shaded/low-traffic area. Keep the same evidence categories and discussion of limitations.
+**Materials**
+- device
+- Environment Profile sheet if using paper
 
----
+**Students see/do**
+- analyze the simplified continent environmental scan
+- answer one team question: which environmental condition matters most?
+- use: **I noticed… / I think this means…**
+- complete Environment Profile + short reflection
 
-## Day 3 — Operation 02: Jabberwocky Landing-Zone Analysis
-**Core purpose:** apply Earth field skills to assigned-continent telemetry and create the first Continental Archive entry.
+**Key science**
+- environmental evidence supports ecological inference
 
-### Before class
-- Ensure teams still have yesterday’s field sheet.
-- Have JCEC Submission Portal ready.
+**Teacher emphasis**
+- one strong observation is better than several vague claims
 
-### Materials
-- Chromebook.
-- Day 2 field sheet.
-- Pathfinder Log.
+**Collect**
+- Environment Profile — formative
 
-### 45-minute flow
-- **0–5 min:** revisit one Earth observation/inference.
-- **5–18 min:** open continent scan and classify evidence.
-- **18–28 min:** answer landing-zone investigation questions.
-- **28–35 min:** compare Earth vs Jabberwocky evidence and identify limiting factor / uncertainty.
-- **35–41 min:** one designated student submits Landing Site Environmental Profile.
-- **41–45 min:** individual Pathfinder reflection / Operation 03 preview.
-
-### Must finish
-- One concise team archive submission with biotic + abiotic evidence and one uncertainty.
-
-### Collect / assess
-- Formative archive reasoning; do not heavily grade.
-
-### Cut first if behind
-- Whole-class all-continent comparison.
-
-### Prepare for tomorrow
-- Operation 03 structure kits + printed two-page packet.
+**Cut first**
+- whole-class continent comparison
 
 ---
 
-## Day 4 — Operation 03: Survival Structures Lab
-**Core purpose:** establish structure-function trade-offs using a fair physical model.
+## Mission 2 — Meet a Native Species
 
-### Before class
-- Prepare three resource zones per team.
-- Keep starting materials and trial length consistent.
-- Put tool kits at tables.
+### Day 4 — How Structures Help
+**Before class**
+- set up resource zones before students enter
 
-### Materials
-- Spoon, tweezers, clothespin/tongs, chopsticks.
-- Three resource-zone trays.
-- Safe craft resources.
-- Timer + collection cup.
-- Operation 03 Lab Packet page 1.
+**Materials**
+- spoon
+- tweezers
+- clothespin/tongs
+- chopsticks
+- timers
+- 3 resource-zone trays
+- safe craft objects / counters
+- collection cups
+- Mission 2 lab sheet
 
-### 45-minute flow
-- **0–7 min:** structure/function and fair-test briefing.
-- **7–10 min:** practice pickup + assign jobs.
-- **10–31 min:** test four structures across three zones.
-- **31–38 min:** compare within each zone and identify trade-offs.
-- **38–43 min:** debrief: “best depends on job + environment.”
-- **43–45 min:** transition reminder: tools are a model, not alien body parts.
+**Students see/do**
+- learn structure, function, adaptation, needs
+- complete Survival Structures Lab
 
-### Must finish
-- Complete data table and one evidence-based trade-off conclusion.
+**Key science**
+- the usefulness of a structure depends on the job and environment
 
-### Collect / assess
-- Formative fair testing and evidence use.
+**Teacher emphasis**
+- same time, same resource amount, same rules; change the structure
 
-### Cut first if behind
-- Extended oral defence; never cut fair-test debrief.
+**Collect**
+- lab observations — formative
 
----
+**Cut first**
+- extended oral defence
 
-## Day 5 — Operation 03: First Contact Reconstruction
-**Core purpose:** infer adaptations from evidence without turning the task into free-form creature design.
+### Day 5 — First Contact
+**Before class**
+- confirm continent assignment is saved
 
-### Before class
-- Return each team’s packet/reconstruction sheet.
-- Confirm the assigned continent is stored on devices.
+**Materials**
+- device
+- species reconstruction sheet
+- pencils
 
-### Materials
-- Chromebook.
-- Operation 03 Reconstruction Sheet.
-- Pencil; optional coloured pencils.
+**Students see/do**
+- examine four strong clues
+- infer possible structures/behaviours
+- begin reconstruction
 
-### 45-minute flow
-- **0–5 min:** evidence-first reminder.
-- **5–18 min:** read all six clues and mark at least three key clues.
-- **18–31 min:** draw reconstruction + three structural adaptations + one behavioural adaptation + evidence links.
-- **31–35 min:** provisional habitat/resource-use summary; niche terminology can stay brief.
-- **35–38 min:** field-name reveal after requirements are met.
-- **38–43 min:** submit concise Native Organism Profile.
-- **43–45 min:** individual uncertainty reflection.
+**Key science**
+- adaptation claims require evidence
 
-### Must finish
-- Evidence-linked reconstruction and archive profile.
+**Teacher emphasis**
+- **EVIDENCE FIRST — IMAGINATION SECOND**
 
-### Collect / assess
-- Formative. Prioritize evidence-supported adaptation reasoning over artistic quality or formal niche vocabulary.
+**Collect**
+- nothing major yet; check that teams are using clues
 
-### Cut first if behind
-- Polished drawing, gallery walk, lengthy niche classification.
+**Cut first**
+- artistic detail
 
----
+### Day 6 — Reconstruct the Species
+**Before class**
+- return reconstruction work
 
-# Week 2 — Networks and Population Evidence
+**Materials**
+- device
+- Native Species Card
 
-## Day 6 — Operation 04: Earth String Web
-**Core purpose:** physically model interdependence and energy transfer.
+**Students see/do**
+- complete reconstruction
+- choose the most important adaptation
+- use **Feature → Evidence → How it helps**
+- complete Native Species Card + reflection
 
-### Before class
-- Lay out laminated card/yarn kits.
-- Print one Food Web V1 sheet per team.
+**Key science**
+- structures/functions/behaviours can support survival in specific environments
 
-### Materials
-- 8 ecosystem cards.
-- Short yarn pieces.
-- Arrow markers.
-- Food Web V1.
+**Teacher emphasis**
+- reward evidence-supported reasoning, not drawing quality
 
-### 45-minute flow
-- **0–7 min:** producer/consumer/decomposer retrieval + arrow rule.
-- **7–22 min:** build string web.
-- **22–28 min:** trace energy pathways + decomposer role.
-- **28–38 min:** Prairie Grass stress test: direct, indirect, competition effects.
-- **38–43 min:** model limitations / matter vs energy distinction.
-- **43–45 min:** save materials and preview continental network.
+**Collect**
+- Native Species Card — formative
 
-### Must finish
-- Students can explain **food → eater** arrow direction and at least one indirect effect.
-
-### Collect / assess
-- Formative observation / exit check.
-
-### Cut first if behind
-- Extra pathways or formal symbiosis classification.
+**Cut first**
+- gallery walk / polished artwork / formal niche terminology
 
 ---
 
-## Day 7 — Operation 04: Continental Food Web V1
-**Core purpose:** map evidence-supported feeding relationships and interdependence.
+## Mission 3 — Build the Ecosystem
 
-### Before class
-- Have Food Web V1 sheets from Day 6 ready.
+### Day 7 — How Food Webs Work
+**Before class**
+- prepare Earth ecosystem cards and yarn/string kits
 
-### Materials
-- Chromebook.
-- Food Web V1 sheet.
+**Materials**
+- organism cards
+- short yarn/string pieces
+- arrow markers
 
-### 45-minute flow
-- **0–5 min:** reconnect to focal organism.
-- **5–14 min:** classify continental organisms P/C/D.
-- **14–27 min:** infer feeding arrows from observations.
-- **27–33 min:** add competition + one relationship/symbiosis evidence item.
-- **33–38 min:** change challenge: one direct effect, one indirect effect, one uncertainty.
-- **38–43 min:** submit Ecosystem Network Summary.
-- **43–45 min:** archive Food Web V1.
+**Students see/do**
+- learn producer, consumer, decomposer, food web
+- build a physical string food web
+- remove/change one component
 
-### Must finish
-- Complete Food Web V1 with decomposer, focal species, arrows, direct/indirect change prediction.
+**Key science**
+- arrows mean **food → eater**
+- energy moves through feeding relationships
 
-### Collect / assess
-- Formative network understanding.
+**Teacher emphasis**
+- model predicts possible effects; it does not prove exactly what nature will do
 
-### Cut first if behind
-- Cross-continent symbiosis share. Keep energy flow, decomposers, competition, and change reasoning.
+**Collect**
+- quick formative check / exit explanation
 
----
+**Cut first**
+- extra pathways or symbiosis terminology
 
-## Day 8 — Planetary Cycles: Carbon + Water
-**Core purpose:** explicitly teach required matter cycling before leaving Operation 04.
+### Day 8 — Build Your Continent Food Web
+**Before class**
+- prepare continent organism cards or confirm digital evidence loads
 
-### Before class
-- Have blank paper or the back of Food Web V1 available.
-- Prepare one quick teacher model of a water pathway and one carbon pathway.
+**Materials**
+- device
+- continent organism cards
+- Ecosystem Map
+- pencil
 
-### Materials
-- Food Web V1 / blank paper.
-- Pencil.
+**Students see/do**
+- classify organisms
+- build 5–7 food-web arrows
+- include focal native species and decomposer
 
-### 45-minute flow
-- **0–8 min:** energy flows vs matter cycles.
-- **8–18 min:** water cycle through abiotic + biotic parts of an ecosystem.
-- **18–28 min:** carbon cycle through producer → consumer → respiration/waste/dead material → decomposers → atmosphere.
-- **28–39 min:** team Cycle Overlay Challenge: ≥5 labelled steps for each cycle.
-- **39–44 min:** explanation: “Energy does not cycle the same way matter does because…”
-- **44–45 min:** collect/spot-check.
+**Key science**
+- organisms are connected through energy relationships
 
-### Must finish
-- One defensible water pathway and carbon pathway.
+**Teacher emphasis**
+- repeatedly check **food → eater** arrow direction
 
-### Collect / assess
-- Core curriculum check, but no extra JCEC Form required.
+**Collect**
+- Ecosystem Map in progress
 
-### Cut first if behind
-- Decorative diagramming or extended cycle examples.
+**Cut first**
+- extra organisms/links beyond the core network
 
----
+### Day 9 — What Happens When the Web Changes?
+**Before class**
+- choose / verify the continent-specific change prompt
 
-## Day 9 — Operation 05: Population Sampling Lab
-**Core purpose:** experience why sample estimates and population distribution require caution.
+**Materials**
+- Ecosystem Map
+- device
 
-### Before class
-- Prepare one unknown cup of roughly 30–50 counters per team.
-- Print two-page Operation 05 packet.
+**Students see/do**
+- change/remove one ecosystem component
+- use: **If this changes, then ___ may change because ___**
 
-### Materials
-- 5×5 grid.
-- Unknown counters.
-- Chromebook randomizer.
-- Calculator optional.
+**Key science**
+- changes can spread through ecological connections
 
-### 45-minute flow
-- **0–6 min:** population / sample / distribution briefing.
-- **6–20 min:** Round 1 random quadrats + estimate + true count.
-- **20–33 min:** same population, clustered distribution, Round 2 estimate.
-- **33–40 min:** compare estimates and discuss sampling uncertainty.
-- **40–45 min:** detections ≠ total population preview.
+**Teacher emphasis**
+- require one clear connection before discussing more distant effects
 
-### Must finish
-- Two estimates with same true total and explanation of why distribution changed the result.
+**Collect**
+- brief reasoning check — formative
 
-### Collect / assess
-- Formative sampling/calculation evidence.
+**Cut first**
+- multiple hypothetical scenarios
 
-### Cut first if behind
-- Extended repeated sampling; keep both core rounds.
+### Day 10 — Matter Moves Too
+**Before class**
+- prepare one simple teacher example for water and carbon
 
----
+**Materials**
+- Ecosystem Map
+- pencils / optional coloured pencils
 
-## Day 10 — Operation 05: Continental Population CER
-**Core purpose:** integrate graphs, field evidence, alternative explanations, and uncertainty.
+**Students see/do**
+- add one water path
+- add one carbon path
+- distinguish energy flow from matter cycling
+- complete Ecosystem Map + reflection
 
-### Before class
-- Have Case Record page 2 ready.
-- Decide whether this is a summative Data Reasoning assessment.
+**Key science**
+- energy moves through ecosystems
+- water and carbon can be reused and cycled
 
-### Materials
-- Chromebook.
-- Population Case Record.
+**Teacher emphasis**
+- do not turn this into memorizing a detailed carbon-cycle diagram
 
-### 45-minute flow
-- **0–5 min:** graph detective rule + detections reminder.
-- **5–17 min:** read all three graphs and exact data table.
-- **17–24 min:** read all supporting evidence before selecting key evidence.
-- **24–30 min:** compare three plausible working claims.
-- **30–40 min:** write CER with at least three specific evidence items across ≥2 datasets, alternative explanation, uncertainty.
-- **40–44 min:** submit Population Case Finding.
-- **44–45 min:** one-sentence individual takeaway.
+**Collect**
+- Ecosystem Map — formative
 
-### Must finish
-- Defensible CER, not simply a selected claim.
-
-### Collect / assess
-- Recommended stronger **Data Reasoning** assessment.
-
-### Cut first if behind
-- Peer CER critique / cross-continent share.
+**Cut first**
+- decorative diagramming or extra pathways
 
 ---
 
-# Week 3 — Environmental Change and Human Impact
+## Mission 4 — Watch the Ecosystem Change
 
-## Day 11 — Operation 06: Surface Cover & Erosion Lab
-**Core purpose:** physically model one mechanism that can affect disturbed ecosystem recovery.
+### Day 11 — Population Sampling
+**Before class**
+- place a counter set and 5×5 grid at each team
 
-### Before class
-- Pre-measure equal soil and water portions where possible.
-- Put towels at lab stations.
-- Print two-page Operation 06 packet.
+**Materials**
+- 5×5 sampling grid
+- roughly 30–50 counters/team
+- device randomizer if used
+- calculator optional
 
-### Materials
-- Two trays, soil, cover material.
-- Collection cups.
-- Equal measured water.
-- Blocks/books for same slope.
-- Packet + pencil.
+**Students see/do**
+- estimate a spread-out population from random samples
+- compare with true count
+- cluster the same population and sample again
 
-### 45-minute flow
-- **0–7 min:** disturbance/succession briefing + fair-test variables.
-- **7–14 min:** build bare vs ~75% covered trays.
-- **14–27 min:** run tests and collect runoff.
-- **27–34 min:** turbidity + erosion observations.
-- **34–41 min:** compare mechanism and model limits.
-- **41–45 min:** cleanup + recovery preview.
+**Key science**
+- a sample can be useful, but distribution affects the estimate
 
-### Must finish
-- Comparable Tray A/B data and one conclusion about surface cover, runoff, or erosion.
+**Teacher emphasis**
+- same total population can produce different sample results
 
-### Collect / assess
-- Formative fair-test evidence.
+**Collect**
+- sampling record — formative
 
-### Cut first if behind
-- Extra trial; keep one fair comparison and debrief.
+**Cut first**
+- repeated extra trials
 
----
+### Day 12 — Your Population Case
+**Before class**
+- verify the continent case displays two graphs + two field notes
 
-## Day 12 — Operation 06: Recovery Zone Investigation
-**Core purpose:** interpret succession/recovery using several indicators and a reference site.
+**Materials**
+- device
+- Ecosystem Change Record in progress
 
-### Before class
-- Return Recovery Record page.
+**Students see/do**
+- interpret two graphs
+- read two short field notes
+- identify what changed and which evidence supports that interpretation
 
-### Materials
-- Chromebook.
-- Recovery Record.
+**Key science**
+- population evidence must be interpreted with environmental evidence
 
-### 45-minute flow
-- **0–7 min:** succession / species richness / reference-site retrieval.
-- **7–19 min:** read Days 1, 12, 30, 55.
-- **19–27 min:** Recovery Gap: Day 55 vs reference.
-- **27–34 min:** identify strongest recovery evidence + strongest incomplete-recovery evidence.
-- **34–40 min:** choose management recommendation and trade-off.
-- **40–44 min:** submit Recovery Zone Recommendation.
-- **44–45 min:** preview return to Earth for Day 13.
+**Teacher emphasis**
+- lower detections do not always prove the whole population shrank
 
-### Must finish
-- Evidence of succession, remaining recovery gap, management recommendation, next-monitoring need.
+**Collect**
+- quick team thought — formative
 
-### Collect / assess
-- Formative or lightly graded.
+**Cut first**
+- cross-continent comparison
 
-### Cut first if behind
-- Cross-continent recovery comparison.
+### Day 13 — Disturbance and Recovery
+**Before class**
+- preview each continent recovery timeline
 
----
+**Materials**
+- device
+- Ecosystem Change Record
 
-## Day 13 — Earth Field Link 2: Local Ecosystem Change Decision
-**Core purpose:** apply Phase 1 ecology to a real local environmental issue using multiple sources and an authentic Indigenous source/perspective.
+**Students see/do**
+- compare Day 1 / Day 30 / Day 55 with a nearby less-disturbed area
+- identify what is improving and what has not recovered yet
 
-### Recommended Calgary default case
-**Elbow River / riparian health / source-water protection.** This gives students a genuine local management problem involving riparian habitat, restoration, monitoring, drinking-water protection, and multiple jurisdictions.
+**Key science**
+- succession is gradual
+- recovery does not always mean return to the original condition
 
-Recommended source set:
-1. City of Calgary — Source Water Protection: https://www.calgary.ca/water/stormwater/source-water-protection.html
-2. City of Calgary — Riparian Areas in Calgary: https://www.calgary.ca/water/stormwater/riparian-areas.html
-3. Tsuut’ina Nation — June 2025 Niska newsletter, Wolf Creek Restoration / Elbow River Watershed Partnership: https://tsuutina.com/wp-content/uploads/2025/06/Niska.Newsletter.June10.2025.final_.pdf
-4. Optional deeper source: Tsuut’ina Lands newsletter, August 2022: https://tsuutina.com/wp-content/uploads/2023/10/Lands.Newsletter.FinalEditition.August2022.pdf
+**Teacher emphasis**
+- compare trends, not just one snapshot
 
-Use the Tsuut’ina source as a specific source. Students should report what it actually contributes; do not ask them to invent a generic “Indigenous perspective.”
+**Collect**
+- recovery evidence for final Mission 4 claim
 
-### Before class
-- Print/provide a short excerpt or approved section from each source, or give direct digital links.
-- Prepare photos/maps if field access is not practical.
-- Frame one management question, for example: **How should Calgary protect and restore riparian areas while people continue to use the river corridor?**
+**Cut first**
+- extra monitoring indicators
 
-### Materials
-- 2–4 teacher-approved sources.
-- Local evidence record / Pathfinder Log.
-- Optional site photos/maps/monitoring data.
+### Day 14 — Earth Connection + Mission 4 Decision
+**Before class**
+- prepare a short local source pack with photos/maps/data
+- include a specific authentic Indigenous/community source where appropriate
 
-### 45-minute flow
-- **0–6 min:** connect Jabberwocky succession/monitoring to Earth.
-- **6–19 min:** examine local evidence; record ≥2 signs of change/succession and one abiotic condition.
-- **19–30 min:** compare at least two sources, including the authentic Tsuut’ina source when using the default case.
-- **30–40 min:** propose one management action, likely benefit, possible unintended consequence, and next-monitoring need.
-- **40–45 min:** individual/pair response and brief share.
+**Materials**
+- teacher-curated local source cards
+- photos/maps/data
+- device or printed excerpts
+- Ecosystem Change Record
 
-### Must finish
-- A real local evidence-based decision using multiple sources.
+**Students see/do**
+- identify one sign of real local ecosystem change
+- identify one important condition/human action
+- read local + Indigenous/community source cards
+- discuss one useful action + one thing to keep monitoring
+- finish Mission 4 claim using population evidence + recovery evidence
 
-### Collect / assess
-- Core curriculum evidence; no extra JCEC Form required.
+**Key science**
+- environmental decisions depend on monitored evidence
+- local environmental knowledge comes from multiple credible sources
 
-### Cut first if behind
-- Full presentation. Keep source comparison + evidence-based action.
+**Teacher emphasis**
+- students describe what the specific Indigenous/community source actually says; no invented/generalized perspective
 
----
+**Collect**
+- Ecosystem Change Record — formative or lightly graded checkpoint
 
-## Day 14 — Operation 07: Classified Incident — Biosecurity
-**Core purpose:** reveal the stowaway, model spread, and distinguish introduced from invasive using evidence.
-
-### Before class
-- Keep the incident reveal hidden until class begins.
-- Prepare spread-simulation kits and Incident Packets.
-
-### Materials
-- Six labelled cups/zones.
-- ~30 neutral counters + four stowaway counters.
-- Spoon/scoop.
-- Incident Packet.
-
-### 45-minute flow
-- **0–7 min:** classified reveal + introduced/invasive vocabulary.
-- **7–24 min:** Spread Simulation Round A vs checkpoint Round B.
-- **24–30 min:** model limitations / prevention discussion.
-- **30–41 min:** open continent incident timeline + spread/impact evidence.
-- **41–45 min:** provisional classification with evidence.
-
-### Must finish
-- Students can distinguish origin from ecological harm and identify both spread + impact evidence.
-
-### Collect / assess
-- Incident Record in progress.
-
-### Cut first if behind
-- Long whole-class share.
+**Cut first**
+- formal presentation; keep source analysis + final Mission 4 reasoning
 
 ---
 
-## Day 15 — Operation 07: X-17 Biomagnification
-**Core purpose:** model a persistent contaminant moving to higher concentrations through feeding levels.
+## Mission 5 — Humans Have Arrived
 
-### Before class
-- Put contaminant-model kits at tables.
+### Day 16 — The Incident
+**Before class**
+- stage Stowaway Spread Simulation kits
 
-### Materials
-- 16 producer cards + 16 tokens.
-- Four primary-consumer cards.
-- One predator card.
-- Incident Packet page 2.
+**Materials**
+- 6 cups/zones per team
+- neutral counters
+- 4 visibly different stowaway counters
+- spoon/scoop
+- Mission 5 incident record / packet
 
-### 45-minute flow
-- **0–6 min:** persistent contaminant / bioaccumulation / biomagnification briefing.
-- **6–19 min:** token model.
-- **19–25 min:** model assumptions and limits.
-- **25–35 min:** trace continent-specific X-17 pathway and concentrations.
-- **35–42 min:** connect pollutant pattern to food web / human impact.
-- **42–45 min:** prepare for response decision.
+**Students see/do**
+- reveal that human activity introduced an Earth organism
+- compare spread without vs with an early checkpoint
 
-### Must finish
-- Students can explain why top consumers can have higher concentration and why this does not happen for every substance.
+**Key science**
+- human movement can create pathways for biological spread
+- prevention can be easier than later control
 
-### Collect / assess
-- Contamination Record in progress.
+**Teacher emphasis**
+- introduced does not automatically mean invasive
 
-### Cut first if behind
-- Extra contamination scenario.
+**Collect**
+- simulation record — formative
 
----
+**Cut first**
+- repeated simulation rounds
 
-# Week 4 — Response and Final Ecological Report
+### Day 17 — What Happens Next?
+**Before class**
+- prepare teacher-guided pollutant token model
 
-## Day 16 — Operation 07: Incident Response + Conservation Risk
-**Core purpose:** make an evidence-based management decision and connect population pressure to conservation/extinction risk cautiously.
+**Materials**
+- 16 producer cards/tokens
+- 4 consumer cards
+- 1 predator card
+- continent incident evidence on device
 
-### Before class
-- Have Incident Records available.
-- Decide whether Op07 response is a stronger summative Environmental Decision-Making assessment.
+**Students see/do**
+- inspect spread + ecological-harm evidence
+- classify risk cautiously
+- run short pollutant/biomagnification token model
+- connect endangered / local extinction / global extinction to the incident
 
-### Materials
-- Chromebook.
-- Incident Packet / Pathfinder Log.
+**Key science**
+- invasive label requires evidence of spread + harm
+- persistent pollutants can become more concentrated higher in a food chain
+- local extinction ≠ global extinction
 
-### 45-minute flow
-- **0–8 min:** recap stowaway + X-17 evidence.
-- **8–20 min:** compare three plausible response choices and trade-offs.
-- **20–31 min:** conservation-risk checkpoint: stable / concern / high concern / insufficient evidence; local vs global extinction.
-- **31–39 min:** finalize team response + unintended consequence + monitoring need.
-- **39–43 min:** submit Biosecurity & Contamination Finding.
-- **43–45 min:** individual rule humans should follow.
+**Teacher emphasis**
+- X-17 is fictional; the ecological pattern is the learning target
 
-### Must finish
-- Incident classification/response, biomagnification reasoning, conservation-risk evidence, monitoring need.
+**Collect**
+- no separate major submission
 
-### Collect / assess
-- Recommended stronger **Environmental Decision-Making** assessment.
+**Cut first**
+- extra incident clues or second pollutant scenario
 
-### Cut first if behind
-- Cross-continent briefings / full policy memo.
+### Day 18 — What Should Humans Do?
+**Before class**
+- make Missions 1–4 artifacts accessible
+- print Recommendation Boards if using paper
 
----
+**Materials**
+- Environment Profile
+- Native Species Card
+- Ecosystem Map
+- Ecosystem Change Record
+- JCEC Recommendation Board
 
-## Day 17 — Operation 08: Evidence Audit
-**Core purpose:** reopen the archive and select evidence across the unit instead of writing from memory.
+**Students see/do**
+- identify why ecosystem matters
+- choose important native organism + ecosystem connection
+- identify biggest human-caused risk
+- choose three strong pieces of evidence from earlier missions
+- write one rule humans must follow
+- choose final recommendation
 
-### Before class
-- Ensure teams can access paper/digital archive artifacts from Operations 02–07.
-- Print Op08 packet or assign digital equivalent.
+**Key science**
+- environmental decisions require evidence and consideration of consequences
 
-### Materials
-- Entire Continental Archive.
-- Operation 08 Evidence Matrix.
+**Teacher emphasis**
+- students do not need the same recommendation as the preliminary JCEC rating
 
-### 45-minute flow
-- **0–6 min:** explain ecological clearance vs final year-long colonization decision.
-- **6–26 min:** one important finding from each Operation 02–07.
-- **26–36 min:** select four strongest pieces across ≥4 operations, including quantitative evidence.
-- **36–43 min:** explain why each selected item matters to ecological clearance.
-- **43–45 min:** preview protection plan.
+**Collect**
+- Recommendation Board in progress
 
-### Must finish
-- Complete evidence matrix + four strongest evidence selections.
+**Cut first**
+- artistic polish / extended peer critique
 
-### Collect / assess
-- Part of major Phase 1 summative.
+### Day 19 — JCEC Recommendation
+**Before class**
+- prepare collection/submission method
 
-### Cut first if behind
-- Extra evidence beyond the required strong set.
+**Materials**
+- Recommendation Board
+- earlier evidence artifacts
 
----
+**Students see/do**
+- finish Board
+- use **Decision → Evidence → Possible consequence**
+- complete final individual reflection: what changed your thinking?
 
-## Day 18 — Operation 08: Protection Plan + Human Rules
-**Core purpose:** translate ecological evidence into spatial decisions and concrete rules.
+**Key science**
+- evidence from environment, organisms, interactions, change and human impacts can support responsible decisions
 
-### Before class
-- Return Evidence Matrix + Protection Map.
+**Teacher emphasis**
+- three strong evidence items beat a long list of weak facts
 
-### Materials
-- Chromebook.
-- Protection Map / report packet.
+**Collect**
+- **JCEC Recommendation Board — major Phase 1 synthesis assessment**
+- final individual reflection
 
-### 45-minute flow
-- **0–5 min:** access categories: Protect / Research Only / Limited Access / Operations.
-- **5–23 min:** assign four continent planning zones and justify boundaries/access.
-- **23–33 min:** write three human rules: spread prevention, habitat disturbance, monitoring before expansion.
-- **33–40 min:** choose a working GREEN/YELLOW/ORANGE/RED status.
-- **40–45 min:** evidence check: does status match the map/rules?
-
-### Must finish
-- Protected-area plan, three specific rules, working ecological status.
-
-### Collect / assess
-- Part of major Phase 1 summative.
-
-### Cut first if behind
-- Artistic map polish. Protect reasoning, labels, and evidence links.
-
----
-
-## Day 19 — Operation 08: Final Reasoning + Archive Handoff
-**Core purpose:** finalize the ecological report and leave a usable archive for Phase 2.
-
-### Before class
-- Set submission destination for full report.
-- Open JCEC Portal for executive summary.
-
-### Materials
-- Evidence Matrix.
-- Protection Plan.
-- Executive Summary / digital report.
-
-### 45-minute flow
-- **0–5 min:** quality-check criteria.
-- **5–25 min:** finalize claim/status, evidence, reasoning, trade-offs, uncertainty.
-- **25–34 min:** complete executive summary + archive handoff.
-- **34–39 min:** submit full artifact where directed.
-- **39–43 min:** one designated student submits JCEC executive archive summary.
-- **43–45 min:** individual reflection comparing Day 1 hypothesis with final evidence.
-
-### Must finish
-- Major report, archive handoff, JCEC executive summary, individual change-in-thinking reflection.
-
-### Collect / assess
-- **Major Phase 1 summative synthesis.**
-
-### Cut first if behind
-- Presentations / public-facing polish. Move unfinished report work to Day 20.
+**Cut first**
+- presentations; move them to Flex Day 24 if desired
 
 ---
 
-# Days 20–25 — flex / assessment buffer
+# Seven purposeful flex classes
 
-Do not pre-fill all six days. Suggested priority order:
+## Day 15 — Fieldwork / Mission 4 recovery buffer
+Use for weather-rescheduled outdoor work, Mission 4 absences, sampling/succession reteach or vocabulary review.
 
-1. **Day 20:** Operation 08 completion / absent-student recovery.
-2. **Day 21:** focused unit review built from recurring misconceptions.
-3. **Day 22:** selected individual assessment / short unit test or quiz.
-4. **Day 23:** reteaching based on assessment evidence.
-5. **Day 24:** optional team presentations / cross-continent comparison.
-6. **Day 25:** additional buffer, make-up work, or transition to Phase 2.
+## Day 20 — Recommendation Board completion / absence recovery
+Use first for students who missed a key Mission 5 class or need additional evidence support.
 
-If the calendar loses days earlier, consume these buffer days rather than deleting core science.
+## Day 21 — Whole-unit review
+Use retrieval, diagrams and evidence interpretation rather than another long worksheet.
 
----
+## Day 22 — Short individual science check
+Recommended only if you need a clean individual achievement mark beyond team products.
 
-# Assessment / grading map
+## Day 23 — Reteach + targeted catch-up
+Group students by misconception: food-web arrows, energy vs matter, sampling, succession, introduced vs invasive, pollution/conservation.
 
-## Formative evidence
-- Op01 initial hypothesis.
-- Op02 field survey + landing profile.
-- Op03 structure lab + evidence reconstruction.
-- Op04 Food Web V1 + cycle overlay.
-- Op06 erosion/recovery work if not graded.
+## Day 24 — Optional gallery walk / continent briefing
+Compare recommendations across continents. Keep optional.
 
-## Stronger graded evidence
-### Operation 05 — Data Reasoning
-Look for:
-- accurate graph/table reading;
-- exact values;
-- several evidence sources;
-- plausible mechanism;
-- alternative explanation;
-- uncertainty.
-
-### Operation 07 — Environmental Decision-Making
-Look for:
-- introduced vs invasive distinction;
-- spread + impact evidence;
-- biomagnification reasoning;
-- conservation-risk caution;
-- trade-offs / unintended consequences;
-- monitoring plan.
-
-### Operation 08 — Major synthesis
-Recommended recurring dimensions:
-- **Science Understanding**
-- **Evidence**
-- **Reasoning**
-- **Communication / Decision-Making**
-
-Avoid grading every archive Form entry as a separate large assignment.
+## Day 25 — Final buffer / transition
+Make-up, final feedback, school interruption recovery, or transition to Phase 2. No new required Phase 1 science.
 
 ---
 
-# Master resource / link map
+# Mission Materials Master List
 
-## Student routes
-- Mission Control: `/courses/grade-7-science/jabberwocky/`
-- Phase 1 hub / Operation 01: `/courses/grade-7-science/jabberwocky/phase-1/`
-- Operation 02: `/courses/grade-7-science/jabberwocky/phase-1/operation-02/`
-- Operation 03: `/courses/grade-7-science/jabberwocky/phase-1/operation-03/`
-- Operation 04: `/courses/grade-7-science/jabberwocky/phase-1/operation-04/`
-- Operation 05: `/courses/grade-7-science/jabberwocky/phase-1/operation-05/`
-- Operation 06: `/courses/grade-7-science/jabberwocky/phase-1/operation-06/`
-- Operation 07: `/courses/grade-7-science/jabberwocky/phase-1/operation-07/`
-- Operation 08: `/courses/grade-7-science/jabberwocky/phase-1/operation-08/`
-- Science learning resources: `/courses/grade-7-science/interactions-ecosystems/`
+## Mission 1 — Explore Your Environment
+**Reusable:** thermometers; string/markers/metre sticks; clipboards; optional hand lenses/light/moisture tools.
 
-## Submission portal
-JCEC Submission Portal:
-`https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZDtZrNtCG3WB78ttvZdtEmq29kapujg/viewform`
+**Print/digital:** continent roster; Earth Environmental Survey field sheet; Environment Profile.
 
-## Teacher reference docs
-- `docs/jabberwocky-phase-1-five-week-pacing-guide.md`
-- `docs/jabberwocky-operation-02-teacher-guide.md`
-- `docs/jabberwocky-operation-03-teacher-guide.md`
-- `docs/jabberwocky-operation-04-teacher-guide.md`
-- `docs/jabberwocky-operation-05-teacher-guide.md`
-- `docs/jabberwocky-operation-06-teacher-guide.md`
-- `docs/jabberwocky-operation-07-teacher-guide.md`
-- `docs/jabberwocky-operation-08-teacher-guide.md`
+## Mission 2 — Meet a Native Species
+**Reusable:** spoons; tweezers; clothespins/tongs; chopsticks; three resource-zone trays/team; safe craft objects/counters; timers; collection cups.
 
----
+**Print/digital:** Survival Structures Lab sheet; reconstruction sheet; Native Species Card.
 
-# Contingency playbook
+## Mission 3 — Build the Ecosystem
+**Reusable:** Earth ecosystem organism cards; yarn/string; arrow markers; continent organism cards if printed.
 
-## If a 45-minute class becomes ~30 minutes
-Do the concept launch + core evidence task, then move archive wording/reflection to the next entry routine. Never rush lab cleanup/safety to protect an archive submission.
+**Print/digital:** Ecosystem Map.
 
-## If one whole day is lost
-Use Day 20 first. If a second day is lost, use Day 21. Keep Days 1–19 core order intact wherever possible.
+## Mission 4 — Watch the Ecosystem Change
+**Reusable:** 5×5 sampling grids if laminated; 30–50 counters/team.
 
-## If three or more days are lost
-Cut in this order:
-1. presentations;
-2. gallery walks / cross-continent shares;
-3. peer critique;
-4. repeated sampling / extra datasets;
-5. artistic polish;
-6. extension vocabulary/detail.
+**Print/digital:** sampling record; Ecosystem Change Record; local source cards/photos/maps/data; teacher-selected authentic Indigenous/community source.
 
-Do not cut:
-- authentic Earth field evidence;
-- carbon + water cycles;
-- population data reasoning;
-- succession / recovery;
-- Day 13 local environmental evidence;
-- introduced species / pollution / human impacts;
-- Operation 08 synthesis.
+## Mission 5 — Humans Have Arrived
+**Reusable:** six cups/zones/team; neutral counters; four contrasting stowaway counters; scoop/spoon; 16 producer cards/tokens; four consumer cards; one predator card; contaminant tokens.
 
-## If outdoor Day 2 is impossible
-Use three contrasting indoor microhabitats and explicitly record that this is a limitation.
-
-## If Day 13 field access is impossible
-Use source documents, maps, before/after images, monitoring data, and a specific local management question. Day 13 is an evidence/source-analysis lesson; it does not require a field trip.
-
-## If a team loses a paper archive artifact
-Use the team’s JCEC submission summary plus the website case evidence to reconstruct the essential finding. Do not require them to redo the full investigation.
-
-## If a Chromebook/localStorage assignment is wrong
-Return to the Phase 1 Mission Assignment page and correct the posting before continuing. Teacher Team ID remains the authoritative team record.
+**Print/digital:** incident record as needed; JCEC Recommendation Board; Missions 1–4 artifacts available for evidence review.
 
 ---
 
-# Final pre-launch check
+# Assessment map
 
-Before teaching Day 1, confirm:
-- [ ] Team/continent assignments are ready.
-- [ ] Team IDs are ready.
-- [ ] Pathfinder Log format is chosen.
-- [ ] JCEC Submission Portal has been tested on a school device.
-- [ ] Operation 02 field location / indoor fallback is ready.
-- [ ] Operation 03–07 reusable lab kits are prepared or scheduled for prep.
-- [ ] Required packets are printable from the operation pages.
-- [ ] Day 13 local issue and sources are selected.
-- [ ] Operation 05, 07, and 08 grading decisions are set before students begin those tasks.
-- [ ] Days 20–25 remain flexible.
+- **Mission 1 Environment Profile:** formative observation + inference.
+- **Mission 2 Native Species Card:** formative adaptation/evidence reasoning.
+- **Mission 3 Ecosystem Map:** formative ecosystem connections + cycles.
+- **Mission 4 Ecosystem Change Record:** stronger checkpoint; formative or lightly graded.
+- **Mission 5 JCEC Recommendation Board:** major Phase 1 synthesis.
 
-The objective is not to complete every possible feature on every page. The objective is to protect the core scientific journey and finish Phase 1 with a coherent evidence archive that the next team can inherit.
+Use selected reflections or the optional Day 22 science check when individual evidence is needed. Do not turn all five reflections into graded assignments.
+
+### Suggested formal weighting if percentages are required
+- **JCEC Recommendation Board — 55%**
+- **Short individual science check — 30%**
+- **Selected individual reasoning / field evidence — 15%**
+
+A lighter alternative is to grade only the Recommendation Board and individual science check.
+
+---
+
+# Contingency rules
+
+## If a hands-on class runs long
+Stop at the protected scientific conclusion and move Team Record completion to the next opening or nearest flex period. Do not rush the debrief just to finish paperwork.
+
+## If a class is lost
+Use flex time in this order: Day 15 → Day 20 → Day 23 → Day 24 → Day 25.
+
+## If Mission 1 outdoor work is cancelled
+Use three contrasting indoor microhabitats and discuss the limitation.
+
+## If devices fail
+Use printed mission artifacts. The scientific sequence still works offline because the teacher can project/read the continent evidence.
+
+## If a student misses a lab
+Use team data plus a short individual interpretation. Do not require the student to recreate every physical investigation alone.
+
+## If students are overwhelmed
+Return to the mission's one essential question and one reasoning scaffold. Optional details can wait.
+
+---
+
+# Teacher launch-readiness checklist
+- **Do I know what to prepare tomorrow?** Each core day has a before-class and materials list.
+- **Do I know what students should finish each day?** Each mission has one protected scientific stopping point and one final Team Record.
+- **Do I know what I actually need to assess?** Missions 1–3 are primarily formative, Mission 4 is a checkpoint, Mission 5 is the major synthesis.
+- **Can I recover if a lab runs long or a class is lost?** Seven purposeful flex periods protect the core.
+- **Do the teacher guide and student website describe the same course?** Yes: both use the same five mission names, sequence and 18-core-class structure.
