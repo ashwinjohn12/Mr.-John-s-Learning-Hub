@@ -1,0 +1,30 @@
+---
+interface Props {
+  active?: number;
+  compact?: boolean;
+}
+
+const { active = 1, compact = false } = Astro.props;
+const missions = [
+  { number: 1, short: 'Explore', title: 'Explore Your Environment' },
+  { number: 2, short: 'Species', title: 'Meet a Native Species' },
+  { number: 3, short: 'Ecosystem', title: 'Build the Ecosystem' },
+  { number: 4, short: 'Change', title: 'Watch the Ecosystem Change' },
+  { number: 5, short: 'Humans', title: 'Humans Have Arrived' }
+];
+---
+
+<nav class:list={['simple-mission-progress', { compact }]} aria-label="Phase 1 mission progress">
+  {missions.map((mission) => (
+    <div class:list={['mission-progress-step', { current: mission.number === active, done: mission.number < active, future: mission.number > active }]} aria-current={mission.number === active ? 'step' : undefined}>
+      <span class="mission-number">{mission.number}</span>
+      <span class="mission-copy"><strong>{mission.short}</strong>{!compact && <small>{mission.title}</small>}</span>
+    </div>
+  ))}
+</nav>
+
+<style>
+  .simple-mission-progress{display:grid;grid-template-columns:repeat(5,1fr);gap:.45rem;margin:1rem 0 1.4rem}.mission-progress-step{position:relative;display:flex;gap:.5rem;align-items:center;min-width:0;padding:.65rem;border:1px solid #294b5a;border-radius:11px;background:#081923;color:#9bb2be}.mission-progress-step:not(:last-child)::after{content:'→';position:absolute;right:-.39rem;z-index:2;color:#4e6e79;font-weight:900}.mission-number{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:#153142;color:#a9c4d1;font-size:.78rem;font-weight:900}.mission-copy{display:grid;min-width:0}.mission-copy strong{color:inherit;font-size:.82rem;white-space:nowrap}.mission-copy small{margin-top:.08rem;color:#7793a0;font-size:.67rem;line-height:1.25}.mission-progress-step.current{border-color:#62d8bd;background:#0b2a2d;color:#eafff8}.mission-progress-step.current .mission-number{background:#6ef2cf;color:#06231c}.mission-progress-step.current .mission-copy strong{color:#8ff2d5}.mission-progress-step.done{border-color:#37665d;background:#0a2226;color:#a8d8cb}.mission-progress-step.done .mission-number{background:#17483d;color:#a8f5df}.compact .mission-copy small{display:none}
+  @media(max-width:820px){.simple-mission-progress{grid-template-columns:repeat(5,minmax(96px,1fr));overflow-x:auto;padding-bottom:.3rem}.mission-progress-step{min-width:96px}.mission-copy small{display:none}}
+  @media(max-width:560px){.simple-mission-progress{grid-template-columns:repeat(5,88px)}.mission-progress-step{display:grid;justify-items:center;text-align:center;padding:.55rem .35rem}.mission-copy strong{font-size:.72rem}.mission-progress-step:not(:last-child)::after{display:none}}
+</style>
