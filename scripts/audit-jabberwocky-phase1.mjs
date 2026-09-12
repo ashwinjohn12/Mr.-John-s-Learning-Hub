@@ -18,6 +18,7 @@ const requiredFiles = [
   'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-2/index.astro',
   'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-3/index.astro',
   'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-4/index.astro',
+  'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-5/index.astro',
   'src/pages/courses/grade-7-science/jabberwocky/phase-1/teacher-launch-guide/index.astro',
   'src/components/JcecMissionProgress.astro',
   'src/components/JcecSimplifiedMissionNavigation.astro',
@@ -35,9 +36,9 @@ for (const file of requiredFiles) check(fs.existsSync(rel(file)), `exists: ${fil
 
 const simplifiedHubPath = 'src/pages/courses/grade-7-science/jabberwocky/phase-1/index.astro';
 const simplifiedHub = fs.existsSync(rel(simplifiedHubPath)) ? read(simplifiedHubPath) : '';
-check(simplifiedHub.includes('JcecMissionProgress active={4}'), 'simplified Phase 1 hub shows Mission 4 as current');
-check(simplifiedHub.includes('mission-4/'), 'simplified Phase 1 hub links to Mission 4');
-check(simplifiedHub.includes("title: 'Humans Have Arrived'") && simplifiedHub.includes("status: 'COMING NEXT'"), 'Mission 5 remains upcoming');
+check(simplifiedHub.includes('JcecMissionProgress active={5}'), 'simplified Phase 1 hub shows Mission 5 as current');
+check(simplifiedHub.includes('mission-5/'), 'simplified Phase 1 hub links to Mission 5');
+check(simplifiedHub.includes("title: 'Humans Have Arrived'") && simplifiedHub.includes("status: 'CURRENT'"), 'Mission 5 is current and available');
 
 const mission1Path = 'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-1/index.astro';
 const mission1 = fs.existsSync(rel(mission1Path)) ? read(mission1Path) : '';
@@ -54,10 +55,6 @@ for (const token of ['Survival Structures Lab', 'EVIDENCE FIRST — IMAGINATION 
 check(mission2.includes('slice(0, 4)'), 'Mission 2 limits each species investigation to four clues');
 check(mission2.includes('print-mission2-packet'), 'Mission 2 includes its printable lab and species card');
 check(mission2.includes('at least two full adaptation rows'), 'Mission 2 requires two strong evidence-based adaptations rather than unnecessary extra work');
-for (const species of ['Ridgeback Grazer', 'Canopy Glider', 'Tide Skipper', 'Dune Runner', 'Snow Burrower', 'Plains Strider', 'Barkclimber', 'Reedcrawler']) {
-  const op3Data = read('src/data/jabberwockyOperation03.ts');
-  check(op3Data.includes(species), `Mission 2 source data preserves species: ${species}`);
-}
 
 const mission3Path = 'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-3/index.astro';
 const mission3 = fs.existsSync(rel(mission3Path)) ? read(mission3Path) : '';
@@ -91,17 +88,43 @@ check(mission4.includes('print-mission4-packet'), 'Mission 4 includes its printa
 check(mission4.includes('4 classes × 45 minutes'), 'Mission 4 is designed for four 45-minute classes');
 check(!mission4.includes('Alternative explanation considered') && !mission4.includes('Uncertainty / next measurement'), 'Mission 4 removes the old advanced CER burden from the core student pathway');
 
+const mission5Path = 'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-5/index.astro';
+const mission5 = fs.existsSync(rel(mission5Path)) ? read(mission5Path) : '';
+check(mission5.includes('jabberwockyOperation07') && mission5.includes('jabberwockyOperation08'), 'Mission 5 reuses the established incident and ecological-planning data');
+check(mission5.includes('jabberwocky-phase1-posting'), 'Mission 5 carries forward the Mission 1 continent');
+for (const token of ['Introduced species', 'Invasive species', 'Pollutant', 'Conservation']) check(mission5.includes(token), `Mission 5 includes core science idea: ${token}`);
+for (const token of ['Stowaway Spread Simulation', 'Your Continent Incident', 'Pollution in a Food Chain', 'What Could Be at Risk?', 'JCEC Recommendation Board']) check(mission5.includes(token), `Mission 5 includes simplified human-impact element: ${token}`);
+check(mission5.includes('evidence it is spreading') && mission5.includes('evidence it is causing ecological harm'), 'Mission 5 preserves introduced-versus-invasive evidence rule');
+check(mission5.includes('incident.evidence.slice(0, 2)'), 'Mission 5 limits each incident to two extra impact clues');
+check(mission5.includes('spreadStages: [first, middle, last]'), 'Mission 5 simplifies spread evidence to three time points');
+check(mission5.includes('16 producers') && mission5.includes('4 consumers') && mission5.includes('1 predator'), 'Mission 5 uses the short teacher-guided pollutant token model');
+check(mission5.includes('Endangered') && mission5.includes('Local extinction') && mission5.includes('Global extinction'), 'Mission 5 includes accessible conservation-risk concepts');
+check(mission5.includes('Decision') && mission5.includes('Evidence') && mission5.includes('Possible consequence'), 'Mission 5 uses the approved Decision → Evidence → Possible consequence scaffold');
+for (const choice of ['Explore carefully', 'Explore with strong rules', 'Very limited exploration', 'Stop for now']) check(mission5.includes(choice), `Mission 5 includes final recommendation choice: ${choice}`);
+check(mission5.includes('three different earlier missions'), 'Mission 5 asks teams to synthesize evidence across earlier missions');
+check(mission5.includes('At the start of Phase 1, what did you think about your continent?'), 'Mission 5 includes the approved final individual reflection');
+check(mission5.includes('print-mission5-board'), 'Mission 5 includes a printable one-page Recommendation Board');
+check(mission5.includes('4 classes × 45 minutes'), 'Mission 5 is designed for four 45-minute classes');
+check(mission5.includes('Mission 5 — and Phase 1 — are finished when:'), 'Mission 5 gives students a clear Phase 1 finish line');
+
+const op3Data = read('src/data/jabberwockyOperation03.ts');
 const op4Data = read('src/data/jabberwockyOperation04.ts');
-for (const species of ['Ridgeback Grazer', 'Canopy Glider', 'Tide Skipper', 'Dune Runner', 'Snow Burrower', 'Plains Strider', 'Barkclimber', 'Reedcrawler']) {
-  check(op4Data.includes(species), `Mission 3 source data preserves focal species: ${species}`);
-}
 const op5Data = read('src/data/jabberwockyOperation05.ts');
 const op6Data = read('src/data/jabberwockyOperation06.ts');
-for (const species of ['Ridgeback Grazer', 'Canopy Glider', 'Tide Skipper', 'Dune Runner', 'Snow Burrower', 'Plains Strider', 'Barkclimber', 'Reedcrawler']) {
+const op7Data = read('src/data/jabberwockyOperation07.ts');
+const op8Data = read('src/data/jabberwockyOperation08.ts');
+const focalSpecies = ['Ridgeback Grazer', 'Canopy Glider', 'Tide Skipper', 'Dune Runner', 'Snow Burrower', 'Plains Strider', 'Barkclimber', 'Reedcrawler'];
+for (const species of focalSpecies) {
+  check(op3Data.includes(species), `Mission 2 source data preserves species: ${species}`);
+  check(op4Data.includes(species), `Mission 3 source data preserves focal species: ${species}`);
   check(op5Data.includes(species), `Mission 4 population source data preserves focal species: ${species}`);
 }
 for (const continent of ['Gyre', 'Brillig', 'Manxome', 'Slithy Toves', 'Wabe', 'Bandersnatch', 'Gimble', 'Mimsy']) {
   check(op6Data.includes(continent), `Mission 4 recovery source data preserves continent: ${continent}`);
+  check(op8Data.includes(continent), `Mission 5 planning source data preserves continent: ${continent}`);
+}
+for (const stowaway of ['Earth Ryegrass', 'Earth Compost Worm', 'Earth Shore Snail', 'Earth Drought Grass', 'Earth Coldgrass', 'Earth Brome Grass', 'Earth Bark Beetle', 'Earth Marsh Grass']) {
+  check(op7Data.includes(stowaway), `Mission 5 source data preserves introduced organism: ${stowaway}`);
 }
 
 const simpleNavPath = 'src/components/JcecSimplifiedMissionNavigation.astro';
@@ -109,6 +132,7 @@ const simpleNav = fs.existsSync(rel(simpleNavPath)) ? read(simpleNavPath) : '';
 check(simpleNav.includes('Next Mission → Meet a Native Species'), 'Mission 1 has a clear next-mission handoff');
 check(simpleNav.includes('Next Mission → Build the Ecosystem'), 'Mission 2 has a clear next-mission handoff');
 check(simpleNav.includes('Next Mission → Watch the Ecosystem Change'), 'Mission 3 has a clear next-mission handoff');
+check(simpleNav.includes('Next Mission → Humans Have Arrived'), 'Mission 4 has a clear next-mission handoff');
 check(simpleNav.includes('Reveal JCEC field name'), 'Mission 2 keeps species reconstruction evidence-first before revealing the field name');
 
 const operationPages = Object.fromEntries(
@@ -153,7 +177,7 @@ const pacing = fs.existsSync(rel(pacingPath)) ? read(pacingPath) : '';
 check(pacing.includes('planetary-cycles-checkpoint'), 'legacy Day 8 carbon/water cycle checkpoint is preserved');
 check(pacing.includes('earth-field-link-2'), 'legacy local Earth Field Link is preserved');
 check(pacing.includes('conservation-risk-checkpoint'), 'Operation 07 conservation-risk checkpoint is present');
-check(pacing.includes('19 core classes + 6 flex classes'), 'legacy five-week core pacing is preserved while simplified missions are prototyped');
+check(pacing.includes('19 core classes + 6 flex classes'), 'legacy five-week core pacing is preserved while simplified missions are finalized');
 
 const layoutPath = 'src/layouts/BaseLayout.astro';
 const layout = fs.existsSync(rel(layoutPath)) ? read(layoutPath) : '';
@@ -179,4 +203,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('\nPhase 1 source routes, simplified Missions 1–4, legacy operation resources, print controls, submission wiring, pacing inserts, data imports, and teacher guides are internally consistent.');
+console.log('\nPhase 1 source routes, simplified Missions 1–5, legacy operation resources, print controls, submission wiring, pacing inserts, data imports, and teacher guides are internally consistent.');
