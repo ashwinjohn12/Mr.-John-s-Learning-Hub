@@ -26,19 +26,33 @@ const missions = [
 
 <script is:inline define:vars={{ base }}>
   (() => {
-    if (!window.location.pathname.includes('/phase-2/mission-2/')) return;
-    const finished = document.querySelector('#phase2-mission2 .finished-box');
-    if (!finished || finished.querySelector('.phase2-next-mission-link')) return;
-    const next = document.createElement('a');
-    next.className = 'phase2-next-mission-link';
-    next.href = `${base}courses/grade-7-science/jabberwocky/phase-2/mission-3/`;
-    next.textContent = 'Next Mission → Build the Growing Zone';
-    finished.appendChild(next);
+    const path = window.location.pathname;
+    const addNext = (selector, href, label) => {
+      const finished = document.querySelector(selector);
+      if (!finished || finished.querySelector('.phase2-next-mission-link')) return;
+      const note = finished.querySelector('p');
+      if (note) note.textContent = 'When your teacher is ready, continue to the next mission.';
+      const next = document.createElement('a');
+      next.className = 'phase2-next-mission-link';
+      next.href = href;
+      next.textContent = label;
+      finished.appendChild(next);
+    };
+
+    if (path.includes('/phase-2/mission-2/')) {
+      addNext('#phase2-mission2 .finished-box', `${base}courses/grade-7-science/jabberwocky/phase-2/mission-3/`, 'Next Mission → Build the Growing Zone');
+      return;
+    }
+
+    if (path.includes('/phase-2/mission-3/')) {
+      addNext('#phase2-mission3 .finished-box', `${base}courses/grade-7-science/jabberwocky/phase-2/mission-4/`, 'Next Mission → Choose the Next Generation');
+    }
   })();
 </script>
 
 <style>
   .phase2-progress{display:grid;grid-template-columns:repeat(5,1fr);gap:.45rem;margin:1rem 0 1.4rem}.phase2-step{position:relative;display:flex;gap:.5rem;align-items:center;min-width:0;padding:.65rem;border:1px solid #365746;border-radius:11px;background:#0b1914;color:#9db7a9}.phase2-step:not(:last-child)::after{content:'→';position:absolute;right:-.39rem;z-index:2;color:#607968;font-weight:900}.mission-number{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:#183527;color:#b7cfbf;font-size:.78rem;font-weight:900}.mission-copy{display:grid;min-width:0}.mission-copy strong{color:inherit;font-size:.82rem;white-space:nowrap}.mission-copy small{margin-top:.08rem;color:#819989;font-size:.67rem;line-height:1.25}.phase2-step.current{border-color:#9fd56b;background:#17301e;color:#f2ffe6}.phase2-step.current .mission-number{background:#b7e77d;color:#18320d}.phase2-step.current .mission-copy strong{color:#d9ffb2}.phase2-step.done{border-color:#4f7457;background:#11251a;color:#bee4c7}.phase2-step.done .mission-number{background:#28533a;color:#d8fbe3}.compact .mission-copy small{display:none}
+  :global(.phase2-next-mission-link){display:inline-flex;align-items:center;justify-content:center;width:max-content;max-width:100%;margin-top:.45rem;padding:.7rem .85rem;border-radius:9px;background:#b7e77d;color:#18320d!important;text-decoration:none;font-size:.84rem;font-weight:900}:global(.phase2-next-mission-link:hover){filter:brightness(1.05);transform:translateY(-1px)}
   @media(max-width:900px){.phase2-progress{grid-template-columns:repeat(5,minmax(105px,1fr));overflow-x:auto;padding-bottom:.3rem}.phase2-step{min-width:105px}.mission-copy small{display:none}}
-  @media(max-width:560px){.phase2-progress{grid-template-columns:repeat(5,94px)}.phase2-step{display:grid;justify-items:center;text-align:center;padding:.55rem .35rem}.mission-copy strong{font-size:.7rem;white-space:normal}.phase2-step:not(:last-child)::after{display:none}}
+  @media(max-width:560px){.phase2-progress{grid-template-columns:repeat(5,94px)}.phase2-step{display:grid;justify-items:center;text-align:center;padding:.55rem .35rem}.mission-copy strong{font-size:.7rem;white-space:normal}.phase2-step:not(:last-child)::after{display:none}:global(.phase2-next-mission-link){width:100%;box-sizing:border-box;text-align:center}}
 </style>
