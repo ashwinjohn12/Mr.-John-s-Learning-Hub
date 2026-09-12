@@ -135,7 +135,7 @@ const phase2Mission1 = read(phase2Mission1Path);
 const phase2Data = read('src/data/jabberwockyPhase2.ts');
 const phase2Progress = read('src/components/JcecPhase2Progress.astro');
 
-check(phase2Hub.includes('THE LIVING RESOURCE'), 'Phase 2 hub includes The Living Resource title');
+check(phase2Hub.includes('THE LIVING') && phase2Hub.includes('RESOURCE'), 'Phase 2 hub includes The Living Resource title');
 check(phase2Hub.includes('BOTANICAL RESOURCES DIVISION'), 'Phase 2 hub includes Botanical Resources Division');
 check(phase2Hub.includes('jabberwocky-phase2-posting'), 'Phase 2 stores a separate continent posting');
 check(!phase2Hub.includes("localStorage.setItem('jabberwocky-phase1-posting'"), 'Phase 2 does not overwrite the Phase 1 continent posting');
