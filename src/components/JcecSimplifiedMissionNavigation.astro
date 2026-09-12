@@ -19,6 +19,17 @@
 
     if (!/\/courses\/grade-7-science\/jabberwocky\/phase-1\/mission-2\/?$/.test(path)) return;
 
+    const finished = document.querySelector('#simplified-mission-2 .finished-box');
+    if (finished && !finished.querySelector('.next-simple-mission')) {
+      const note = finished.querySelector('p');
+      if (note) note.textContent = 'When your teacher is ready, continue to the next mission.';
+      const link = document.createElement('a');
+      link.className = 'next-simple-mission';
+      link.href = '../mission-3/';
+      link.textContent = 'Next Mission → Build the Ecosystem';
+      finished.append(link);
+    }
+
     const assignmentSpecies = document.getElementById('assignment-species');
     const recordSpecies = document.getElementById('record-species');
     const visibleSpeciesFile = [...document.querySelectorAll('#species-files [data-species]')].find((file) => !file.hidden);
