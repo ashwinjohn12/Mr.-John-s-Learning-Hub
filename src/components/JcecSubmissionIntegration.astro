@@ -67,6 +67,30 @@ const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZD
       }
     }
 
+    const isOperation06 = /\/jabberwocky\/phase-1\/operation-06\/?$/.test(path);
+    if (isOperation06) {
+      const nextOperation = document.querySelector('.next-operation');
+      const lock = nextOperation?.querySelector('.locked');
+      const status = nextOperation?.querySelector('.system-label');
+      if (status) status.textContent = 'CLASSIFIED FILE READY';
+      if (lock) {
+        lock.className = 'jcec-next-ready';
+        lock.innerHTML = '<span aria-hidden="true">🚨</span><div><strong>Operation 07: Classified Incident is ready.</strong><small>Open only when your teacher authorizes the planetary-protection alert.</small></div><a href="../operation-07/">Open Classified Incident →</a>';
+      }
+    }
+
+    const isOperation07 = /\/jabberwocky\/phase-1\/operation-07\/?$/.test(path);
+    if (isOperation07) {
+      const nextOperation = document.querySelector('.next-operation');
+      const lock = nextOperation?.querySelector('.locked');
+      const status = nextOperation?.querySelector('.system-label');
+      if (status) status.textContent = 'FINAL REPORT READY';
+      if (lock) {
+        lock.className = 'jcec-next-ready';
+        lock.innerHTML = '<span aria-hidden="true">📑</span><div><strong>Operation 08: JCEC Ecological Report is ready.</strong><small>Begin when your teacher activates the Phase 1 final report.</small></div><a href="../operation-08/">Open Ecological Report →</a>';
+      }
+    }
+
     const isPhase1Hub = /\/jabberwocky\/phase-1\/?$/.test(path);
     if (!isPhase1Hub) return;
 
@@ -89,8 +113,8 @@ const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZD
         </div>
         <div class="jcec-protocol-grid">
           <div class="jcec-mode-card mode-individual"><span aria-hidden="true">👤</span><div><strong>Individual Pathfinder</strong><small>Your own prediction, reasoning, or reflection. Submit your own response when directed.</small></div></div>
-          <div class="jcec-mode-card mode-team"><span aria-hidden="true">👥</span><div><strong>Team Investigation</strong><small>Explore the evidence together and make sure everyone can explain the team's conclusion.</small></div></div>
-          <div class="jcec-mode-card mode-archive"><span aria-hidden="true">🗂️</span><div><strong>Continental Archive</strong><small>One official team record. Future Pathfinder teams inherit this evidence.</small></div></div>
+          <div class="jcec-mode-card mode-team"><span aria-hidden="true">👥</span><div><strong>Team Investigation</strong><small>Explore evidence together and make sure everyone can explain the team's conclusion.</small></div></div>
+          <div class="jcec-mode-card mode-archive"><span aria-hidden="true">🗂️</span><div><strong>Continental Archive</strong><small>One official team record. Future teams will inherit this evidence.</small></div></div>
         </div>`;
       missionQuestion.insertAdjacentElement('afterend', protocol);
     }
@@ -171,6 +195,8 @@ const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZD
     const op4Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'Ecosystem Network');
     const op5Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'Population Investigation');
     const op6Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'Environmental Change');
+    const op7Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.includes('Classified Incident'));
+    const op8Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'JCEC Ecological Report');
     if (op2Step) {
       op2Step.classList.remove('pending');
       op2Step.classList.add('ready');
@@ -220,6 +246,30 @@ const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZD
       link.href = './operation-06/';
       link.textContent = 'Open →';
       op6Step.append(link);
+    }
+    if (op7Step && !op7Step.querySelector('.jcec-progress-launch')) {
+      op7Step.classList.remove('classified', 'pending');
+      op7Step.classList.add('ready');
+      const strong = op7Step.querySelector('strong');
+      if (strong) strong.textContent = 'Classified Incident';
+      const small = op7Step.querySelector('small');
+      if (small) small.textContent = 'READY — begin after Operation 06';
+      const link = document.createElement('a');
+      link.className = 'jcec-progress-launch';
+      link.href = './operation-07/';
+      link.textContent = 'Open →';
+      op7Step.append(link);
+    }
+    if (op8Step && !op8Step.querySelector('.jcec-progress-launch')) {
+      op8Step.classList.remove('pending');
+      op8Step.classList.add('ready');
+      const small = op8Step.querySelector('small');
+      if (small) small.textContent = 'READY — Phase 1 final report';
+      const link = document.createElement('a');
+      link.className = 'jcec-progress-launch';
+      link.href = './operation-08/';
+      link.textContent = 'Open →';
+      op8Step.append(link);
     }
 
     const STORAGE_POSTING = 'jabberwocky-phase1-posting';
