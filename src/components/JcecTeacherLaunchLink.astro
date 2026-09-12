@@ -1,0 +1,19 @@
+<script is:inline>
+  (() => {
+    const path = window.location.pathname;
+    if (!/\/courses\/grade-7-science\/jabberwocky\/phase-1\/?$/.test(path)) return;
+    const plan = document.getElementById('jcec-five-week-plan');
+    if (!plan || document.getElementById('jcec-teacher-launch-link')) return;
+    const link = document.createElement('a');
+    link.id = 'jcec-teacher-launch-link';
+    link.className = 'jcec-teacher-launch-link';
+    link.href = './teacher-launch-guide/';
+    link.innerHTML = '<span aria-hidden="true">🧭</span><div><strong>Teacher Planning</strong><small>Open the day-by-day Phase 1 Launch Guide</small></div><b>Open →</b>';
+    plan.append(link);
+  })();
+</script>
+
+<style is:global>
+  .jcec-teacher-launch-link{display:grid;grid-template-columns:auto 1fr auto;gap:.7rem;align-items:center;margin-top:.85rem;padding:.75rem .85rem;border:1px solid #487f73;border-radius:11px;background:#0a2b2c;color:#eafff8!important;text-decoration:none}.jcec-teacher-launch-link>span{font-size:1.25rem}.jcec-teacher-launch-link>div{display:grid;gap:.12rem}.jcec-teacher-launch-link strong{color:#fff}.jcec-teacher-launch-link small{color:#9fc8c1}.jcec-teacher-launch-link>b{color:#8df1d4;font-size:.82rem;white-space:nowrap}.jcec-teacher-launch-link:hover{border-color:#6ef2cf;background:#0c3433}
+  @media(max-width:620px){.jcec-teacher-launch-link{grid-template-columns:auto 1fr}.jcec-teacher-launch-link>b{grid-column:1/-1}}
+</style>
