@@ -5,10 +5,8 @@
     if (/\/courses\/grade-7-science\/jabberwocky\/phase-1\/mission-1\/?$/.test(path)) {
       const finished = document.querySelector('#simplified-mission-1 .finished-box');
       if (!finished || finished.querySelector('.next-simple-mission')) return;
-
       const note = finished.querySelector('p');
       if (note) note.textContent = 'When your teacher is ready, continue to the next mission.';
-
       const link = document.createElement('a');
       link.className = 'next-simple-mission';
       link.href = '../mission-2/';
@@ -37,7 +35,6 @@
       const actualName = recordSpecies?.value?.trim() || assignmentSpecies?.textContent?.trim() || speciesHeading?.textContent?.trim();
 
       if (!actualName || !reconstructBox || reconstructBox.querySelector('.reveal-species-name')) return;
-
       if (assignmentSpecies) assignmentSpecies.textContent = 'Evidence pending';
       if (speciesHeading) speciesHeading.textContent = 'Unidentified Native Species';
       if (recordSpecies) {
@@ -50,7 +47,6 @@
       revealWrap.className = 'species-reveal-wrap';
       revealWrap.innerHTML = '<span>Read and discuss all four clues first.</span><button type="button" class="reveal-species-name">Reveal JCEC field name</button>';
       reconstructBox.append(revealWrap);
-
       revealWrap.querySelector('.reveal-species-name')?.addEventListener('click', (event) => {
         if (assignmentSpecies) assignmentSpecies.textContent = actualName;
         if (speciesHeading) speciesHeading.textContent = actualName;
@@ -72,6 +68,19 @@
       link.className = 'next-simple-mission';
       link.href = '../mission-4/';
       link.textContent = 'Next Mission → Watch the Ecosystem Change';
+      finished.append(link);
+      return;
+    }
+
+    if (/\/courses\/grade-7-science\/jabberwocky\/phase-1\/mission-4\/?$/.test(path)) {
+      const finished = document.querySelector('#simplified-mission-4 .finished-box');
+      if (!finished || finished.querySelector('.next-simple-mission')) return;
+      const note = finished.querySelector('p');
+      if (note) note.textContent = 'When your teacher is ready, continue to the final mission.';
+      const link = document.createElement('a');
+      link.className = 'next-simple-mission';
+      link.href = '../mission-5/';
+      link.textContent = 'Next Mission → Humans Have Arrived';
       finished.append(link);
     }
   })();
