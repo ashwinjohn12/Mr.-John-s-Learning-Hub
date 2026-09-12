@@ -7,8 +7,8 @@ import { phase2PlantSites } from '../../../../../data/jabberwockyPhase2';
 const base = import.meta.env.BASE_URL;
 const missions = [
   { number: 1, title: 'Find the Living Resource', question: 'What can this plant provide, and how is it built to survive here?', summary: 'Study a real plant, then investigate the native resource plant on your new continent.', icon: '🌱', status: 'COMPLETE', ready: true, href: `${base}courses/grade-7-science/jabberwocky/phase-2/mission-1/`, linkText: 'Review Mission 1 →' },
-  { number: 2, title: 'Keep It Growing', question: 'What does a plant need to grow and reproduce?', summary: 'Run a Growth Trial and connect plant processes to the growing challenge on your continent.', icon: '💧', status: 'CURRENT', ready: true, href: `${base}courses/grade-7-science/jabberwocky/phase-2/mission-2/`, linkText: 'Start Mission 2 →' },
-  { number: 3, title: 'Build the Growing Zone', question: 'How can humans create good growing conditions without creating new problems?', summary: 'Use soil and growth evidence to design a growing system.', icon: '🪴', status: 'UPCOMING', ready: false },
+  { number: 2, title: 'Keep It Growing', question: 'What does a plant need to grow and reproduce?', summary: 'Run a Growth Trial and connect plant processes to the growing challenge on your continent.', icon: '💧', status: 'COMPLETE', ready: true, href: `${base}courses/grade-7-science/jabberwocky/phase-2/mission-2/`, linkText: 'Review Mission 2 →' },
+  { number: 3, title: 'Build the Growing Zone', question: 'How can humans create good growing conditions without creating new problems?', summary: 'Use soil and Growth Trial evidence to build and recommend a simple growing system.', icon: '🪴', status: 'CURRENT', ready: true, href: `${base}courses/grade-7-science/jabberwocky/phase-2/mission-3/`, linkText: 'Start Mission 3 →' },
   { number: 4, title: 'Choose the Next Generation', question: 'Which plant traits should humans encourage, and what risks come with that?', summary: 'Explore plant varieties, selective breeding and production risks.', icon: '🌾', status: 'UPCOMING', ready: false },
   { number: 5, title: 'Use It Without Losing It', question: 'How can humans use plant resources without damaging the system they depend on?', summary: 'Bring the evidence together and recommend a sustainable resource plan.', icon: '🛡️', status: 'UPCOMING', ready: false }
 ];
@@ -35,7 +35,7 @@ const missions = [
 
     <section class="big-question"><span>THE BIG QUESTION</span><h2>How can humans use Jabberwocky's plant resources without damaging the systems they depend on?</h2></section>
 
-    <JcecPhase2Progress active={2} />
+    <JcecPhase2Progress active={3} />
 
     <section class="handoff-panel" aria-labelledby="handoff-heading">
       <div class="handoff-copy"><p class="eyebrow">NEW TEAM // NEW POSTING</p><h2 id="handoff-heading">You are not beginning a new mission. You are continuing theirs.</h2><p>Phase 2 uses new teams. Your teacher will usually send you to a different continent. Choose only the continent your teacher assigned. Your Phase 1 continent and evidence stay saved separately.</p></div>
@@ -46,7 +46,7 @@ const missions = [
       <div class="briefing-heading"><div><p class="eyebrow">PREVIOUS TEAM BRIEFING</p><h2 id="briefing-heading">Three things you inherit</h2></div><strong id="briefing-continent"></strong></div>
       <p class="briefing-intro">The Ecological Survey team already did the first investigation. You only need these three findings.</p>
       <div class="briefing-grid"><article><span>🌦️</span><small>ENVIRONMENT</small><p id="briefing-environment"></p></article><article><span>🕸️</span><small>ECOSYSTEM CONNECTION</small><p id="briefing-connection"></p></article><article><span>⚠️</span><small>WARNING</small><p id="briefing-warning"></p></article></div>
-      <div class="continue-strip"><div><strong>Your posting is ready.</strong><span>Mission 1 found the resource. Mission 2 asks how to keep it growing.</span></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-2/mission-2/`}>Continue Current Mission →</a></div>
+      <div class="continue-strip"><div><strong>Your posting is ready.</strong><span>Missions 1–2 found the resource and what it needs. Mission 3 asks how to grow it without creating a new problem.</span></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-2/mission-3/`}>Continue Current Mission →</a></div>
     </section>
 
     <section class="quick-start" id="assignment-needed"><div><p class="eyebrow">YOUR NEXT STEP</p><h2>Get your Phase 2 continent posting.</h2><p>Once you choose the continent your teacher assigned, your inherited findings and current mission will appear.</p></div><span>1</span></section>
@@ -55,7 +55,7 @@ const missions = [
 
     <section class="mission-list">
       <div class="section-heading"><p class="eyebrow">PHASE 2 PATH</p><h2>Five missions. One growing problem.</h2></div>
-      <div class="mission-cards">{missions.map((mission) => (<article class:list={['mission-card', { ready: mission.ready, current: mission.number === 2 }]}><div class="mission-icon">{mission.icon}</div><div class="mission-main"><div class="mission-topline"><span>MISSION {mission.number}</span><b>{mission.status}</b></div><h3>{mission.title}</h3><p class="mission-question">{mission.question}</p><p class="mission-summary">{mission.summary}</p></div>{mission.ready ? <a class="mission-ready-link" href={mission.href}>{mission.linkText}</a> : <span class="locked">Upcoming</span>}</article>))}</div>
+      <div class="mission-cards">{missions.map((mission) => (<article class:list={['mission-card', { ready: mission.ready, current: mission.number === 3 }]}><div class="mission-icon">{mission.icon}</div><div class="mission-main"><div class="mission-topline"><span>MISSION {mission.number}</span><b>{mission.status}</b></div><h3>{mission.title}</h3><p class="mission-question">{mission.question}</p><p class="mission-summary">{mission.summary}</p></div>{mission.ready ? <a class="mission-ready-link" href={mission.href}>{mission.linkText}</a> : <span class="locked">Upcoming</span>}</article>))}</div>
     </section>
 
     <section class="phase1-link"><span>←</span><div><strong>Need to check the earlier ecology work?</strong><p>Phase 1 remains available, but you do not need to search it for today's mission.</p></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Phase 1 Mission Hub</a></section>
