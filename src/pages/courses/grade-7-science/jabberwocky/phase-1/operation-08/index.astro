@@ -1,0 +1,226 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecWorkMode from '../../../../../../components/JcecWorkMode.astro';
+import { operation08Briefs } from '../../../../../../data/jabberwockyOperation08';
+
+const base = import.meta.env.BASE_URL;
+const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZDtZrNtCG3WB78ttvZdtEmq29kapujg/viewform';
+---
+
+<BaseLayout title="Operation 08: JCEC Ecological Report | Jabberwocky 2190" description="The Phase 1 culminating Grade 7 Science ecological report for Jabberwocky Mission 2190." themeColor="#071b2e">
+  <div class="operation-shell">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 1', href: `${base}courses/grade-7-science/jabberwocky/phase-1/` },
+      { label: 'Operation 08' }
+    ]} />
+
+    <nav class="mission-nav" aria-label="Operation navigation">
+      <a href={`${base}courses/grade-7-science/jabberwocky/`}>Mission Control</a>
+      <a href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Phase 1</a>
+      <a class="active" href="#briefing">Operation 08</a>
+      <a href="#evidence-audit">Evidence Audit</a>
+      <a href="#protection-plan">Protection Plan</a>
+      <a href="#final-report">Final Report</a>
+      <a href="#handoff">Handoff</a>
+    </nav>
+
+    <header class="operation-hero" id="briefing">
+      <p class="system-label">MISSION PHASE 01 // FINAL OPERATION</p>
+      <div class="hero-grid">
+        <div>
+          <p class="division">JCEC ECOLOGICAL SURVEY DIVISION</p>
+          <h1>ECOLOGICAL<br /><span>REPORT</span></h1>
+          <p class="lead">You arrived with a preliminary rating and almost no ecological evidence. Seven operations later, JCEC is asking for your team’s official Phase 1 recommendation. Future teams will inherit what you decide—and the evidence behind it.</p>
+        </div>
+        <aside>
+          <span>PHASE 1 STATUS</span>
+          <strong>FINAL REVIEW</strong>
+          <dl><div><dt>Role</dt><dd>Planetary Ecologist</dd></div><div><dt>Decision</dt><dd>Ecological clearance</dd></div><div><dt>Archive</dt><dd>Handoff required</dd></div></dl>
+        </aside>
+      </div>
+    </header>
+
+    <section class="mission-question">
+      <p>FINAL PHASE 1 QUESTION</p>
+      <h2>What does the ecological evidence say humans may safely do on your continent—and what must they protect?</h2>
+    </section>
+
+    <section class="scope-warning">
+      <strong>Important: this is not the final year-long colonization decision.</strong>
+      <p>You are giving JCEC an <strong>ecological clearance recommendation</strong> based on Interactions & Ecosystems evidence. Later scientific divisions will still investigate plants/resources, thermal systems, structures, and planetary geology before the final Jabberwocky decision.</p>
+    </section>
+
+    <section class="panel operation-checklist">
+      <p class="system-label">YOUR OPERATION 08 CHECKLIST</p>
+      <h2>What must your team leave behind?</h2>
+      <div class="completion-grid">
+        <article><span>🔎</span><div><strong>Evidence audit</strong><p>Use evidence from Operations 02–07. Do not build the report from memory alone.</p></div></article>
+        <article><span>🗺️</span><div><strong>Protection plan</strong><p>Map where humans may operate, where access must be limited, and what must be protected.</p></div></article>
+        <article><span>📑</span><div><strong>Ecological report</strong><p>Assign a GREEN / YELLOW / ORANGE / RED ecological status and defend it.</p></div></article>
+        <article><span>🗂️</span><div><strong>Archive handoff</strong><p>Leave a concise record that the next Pathfinder team can actually use.</p></div></article>
+      </div>
+    </section>
+
+    <section class="panel rating-key">
+      <p class="system-label">JCEC ECOLOGICAL STATUS SYSTEM</p>
+      <h2>What do the four ratings mean?</h2>
+      <div class="rating-grid">
+        <article class="green"><strong>GREEN</strong><p>Ecological evidence supports continued exploration with normal protection rules and monitoring.</p></article>
+        <article class="yellow"><strong>YELLOW</strong><p>Continued exploration may proceed only with specific restrictions, protected areas, and monitoring.</p></article>
+        <article class="orange"><strong>ORANGE</strong><p>Serious ecological risks are unresolved. Restrict humans mainly to essential research and containment work.</p></article>
+        <article class="red"><strong>RED</strong><p>Current evidence supports pausing expansion because ecological harm or uncertainty is too great.</p></article>
+      </div>
+      <p class="rating-note"><strong>There is no continent that “must” receive a particular colour.</strong> The quality of the evidence and reasoning matters more than matching a teacher answer.</p>
+    </section>
+
+    <section class="panel current-brief">
+      <JcecWorkMode mode="team" title="Open your continent’s Phase 1 evidence brief" />
+      <div class="no-posting" id="no-posting" hidden><strong>No continental posting detected on this device.</strong><p>Return to Operation 01, select the continent your teacher assigned, then come back here.</p><a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Return to Mission Assignment</a></div>
+      <div id="brief-files" hidden>
+        {operation08Briefs.map((item)=><article class="brief-file" data-brief={item.id} hidden>
+          <div class="case-heading"><div><p class="system-label">PHASE 1 FINAL BRIEF // 08-{item.code}</p><h2>{item.name}</h2><small>{item.environment} // {item.baseCamp}</small></div><div class="prelim"><span>JCEC PRELIMINARY RATING</span><strong>{item.preliminaryRating}</strong></div></div>
+          <div class="brief-grid"><article><strong>Ecological strength</strong><p>{item.ecologicalStrength}</p></article><article><strong>Ecological concern</strong><p>{item.ecologicalConcern}</p></article></div>
+        </article>)}
+      </div>
+      <div class="initial-hypothesis"><span>YOUR OPERATION 01 STARTING HYPOTHESIS</span><strong id="initial-assessment">No saved assessment found on this device.</strong><p id="initial-reason"></p></div>
+    </section>
+
+    <section class="panel evidence-audit" id="evidence-audit">
+      <JcecWorkMode mode="team" title="Build the report from the Continental Archive—not from guesses" />
+      <p class="system-label">STEP 1 // PHASE 1 EVIDENCE AUDIT</p>
+      <h2>Reopen the evidence trail.</h2>
+      <p class="intro">For each operation, identify one finding that matters to your final ecological status. Strong reports connect evidence across operations instead of listing unrelated facts.</p>
+      <div class="audit-grid">
+        <article><span>02</span><strong>Environmental Survey</strong><p>Which abiotic or biotic condition most limits or supports life near your landing zone?</p></article>
+        <article><span>03</span><strong>First Contact</strong><p>What adaptation or niche evidence shows how a native organism depends on this environment?</p></article>
+        <article><span>04</span><strong>Ecosystem Network</strong><p>Which interdependency means changing one organism could affect others?</p></article>
+        <article><span>05</span><strong>Population Investigation</strong><p>What did monitoring reveal about population change, movement, resources, or uncertainty?</p></article>
+        <article><span>06</span><strong>Environmental Change</strong><p>How resilient is this ecosystem after disturbance, and what still had not recovered?</p></article>
+        <article><span>07</span><strong>Classified Incident</strong><p>What did the stowaway/X-17 evidence teach you about unintended human impacts?</p></article>
+      </div>
+      <div class="synthesis-rule"><strong>JCEC synthesis rule:</strong> your final recommendation must use evidence from <strong>at least four different operations</strong>, including at least one piece of quantitative evidence.</div>
+    </section>
+
+    <section class="panel protection-plan" id="protection-plan">
+      <JcecWorkMode mode="team" title="Design a protected-area plan before choosing your final rating" />
+      <p class="system-label">STEP 2 // HUMAN FOOTPRINT & PROTECTED AREAS</p>
+      <h2>Humans cannot treat every part of the continent the same way.</h2>
+      <p class="intro">Your map is a scientific planning model, not a precise geographic survey. Use evidence to assign each planning zone a level of human access.</p>
+
+      <div class="access-key"><span><b>PROTECT</b> no routine human access</span><span><b>RESEARCH ONLY</b> controlled scientific access</span><span><b>LIMITED ACCESS</b> restricted human use with monitoring</span><span><b>OPERATIONS</b> concentrated human activity with strict rules</span></div>
+
+      <div id="planning-files" hidden>
+        {operation08Briefs.map((item)=><article class="planning-file" data-planning={item.id} hidden>
+          <h3>{item.name} — planning zones</h3>
+          <div class="zone-grid">{item.planningZones.map((zone,index)=><article data-zone-name={zone.name}><span>ZONE {index+1}</span><strong>{zone.name}</strong><p>{zone.evidencePrompt}</p><div class="zone-choices"><button type="button">PROTECT</button><button type="button">RESEARCH ONLY</button><button type="button">LIMITED ACCESS</button><button type="button">OPERATIONS</button></div></article>)}</div>
+        </article>)}
+      </div>
+
+      <div class="human-rules"><h3>Write three rules humans must follow.</h3><div><strong>Rule 1 — Prevent ecological spread</strong><p>Use Operation 07 biosecurity evidence.</p></div><div><strong>Rule 2 — Reduce habitat disturbance</strong><p>Use Operations 02, 05, or 06 evidence.</p></div><div><strong>Rule 3 — Monitor before expanding</strong><p>Name what JCEC must keep measuring and what result would trigger action.</p></div></div>
+    </section>
+
+    <section class="panel final-report" id="final-report">
+      <JcecWorkMode mode="team" title="Make the Phase 1 ecological recommendation" />
+      <p class="system-label">STEP 3 // JCEC ECOLOGICAL REPORT</p>
+      <h2>Choose a status only after your evidence audit and protection plan.</h2>
+      <div class="final-rating-buttons" role="group" aria-label="Choose working ecological status"><button type="button" data-rating="GREEN">GREEN</button><button type="button" data-rating="YELLOW">YELLOW</button><button type="button" data-rating="ORANGE">ORANGE</button><button type="button" data-rating="RED">RED</button></div>
+      <p class="working-rating" id="working-rating">No working ecological status selected yet.</p>
+
+      <div class="report-structure">
+        <article><span>01</span><strong>Ecosystem profile</strong><p>Important biotic + abiotic conditions; focal species and niche.</p></article>
+        <article><span>02</span><strong>Interdependencies</strong><p>Food-web links, competition/symbiosis, and one important ecological relationship.</p></article>
+        <article><span>03</span><strong>Change & resilience</strong><p>Population evidence, disturbance, succession, recovery, and uncertainty.</p></article>
+        <article><span>04</span><strong>Human-impact evidence</strong><p>Stowaway, contaminant, or another unintended consequence of JCEC activity.</p></article>
+        <article><span>05</span><strong>Protection plan</strong><p>Protected areas, allowed access, and at least three human rules.</p></article>
+        <article><span>06</span><strong>Final recommendation</strong><p>GREEN / YELLOW / ORANGE / RED + strongest evidence + remaining unknowns.</p></article>
+      </div>
+
+      <div class="quality-check"><strong>Before submitting, can every Pathfinder answer yes?</strong><label><input type="checkbox" /> We used evidence from at least four operations.</label><label><input type="checkbox" /> We included exact quantitative evidence.</label><label><input type="checkbox" /> We explained why the evidence matters instead of only listing facts.</label><label><input type="checkbox" /> Our protected-area plan connects to ecological evidence.</label><label><input type="checkbox" /> We stated at least one uncertainty or monitoring need.</label><label><input type="checkbox" /> We did not claim this ecological report is the final year-long settlement decision.</label></div>
+    </section>
+
+    <section class="panel print-section">
+      <div class="print-actions"><button class="button secondary" type="button" id="print-op8-packet">Print Phase 1 Final Report Packet (if needed)</button><span><strong>Your teacher may use a digital report format instead.</strong></span></div>
+      <section class="print-packet" aria-label="Operation 08 printable packet">
+        <section class="print-page"><h2>JCEC PHASE 1 — EVIDENCE MATRIX</h2><p>Continent: <span class="print-continent">________________</span> &nbsp; Team ID: __________</p><table><thead><tr><th>Operation</th><th>Important evidence</th><th>Why it matters to ecological clearance</th></tr></thead><tbody><tr><td>02 Environmental Survey</td><td></td><td></td></tr><tr><td>03 First Contact</td><td></td><td></td></tr><tr><td>04 Ecosystem Network</td><td></td><td></td></tr><tr><td>05 Population Investigation</td><td></td><td></td></tr><tr><td>06 Environmental Change</td><td></td><td></td></tr><tr><td>07 Classified Incident</td><td></td><td></td></tr></tbody></table><p><strong>Four strongest pieces for the final recommendation:</strong></p><div class="writing-box"></div></section>
+        <section class="print-page"><h2>PROTECTED-AREA PLANNING MAP</h2><p>Continent: <span class="print-continent">________________</span> // conceptual map — not to scale</p><div class="print-map"><div><strong>ZONE 1</strong><span class="print-zone" data-print-zone="0"></span></div><div><strong>ZONE 2</strong><span class="print-zone" data-print-zone="1"></span></div><div><strong>ZONE 3</strong><span class="print-zone" data-print-zone="2"></span></div><div><strong>ZONE 4</strong><span class="print-zone" data-print-zone="3"></span></div></div><p>Use the map to mark PROTECT / RESEARCH ONLY / LIMITED ACCESS / OPERATIONS. Add arrows or boundaries if they help explain movement, water flow, wildlife, or human corridors.</p><h3>Three human rules</h3><p>1. __________________________________________________________________________________</p><p>2. __________________________________________________________________________________</p><p>3. __________________________________________________________________________________</p></section>
+        <section class="print-page"><h2>JCEC ECOLOGICAL REPORT — EXECUTIVE SUMMARY & HANDOFF</h2><p>Continent: <span class="print-continent">________________</span></p><p><strong>Final ecological status:</strong> GREEN / YELLOW / ORANGE / RED</p><p><strong>Main claim:</strong> ____________________________________________________________________________</p><p><strong>Strongest ecological evidence:</strong></p><div class="writing-box"></div><p><strong>Protection/monitoring conditions:</strong></p><div class="writing-box short"></div><p><strong>Largest remaining uncertainty:</strong> __________________________________________________________</p><p><strong>One question the next scientific division must investigate:</strong> _____________________________________</p></section>
+      </section>
+    </section>
+
+    <section class="panel archive-panel" id="handoff">
+      <JcecWorkMode mode="archive" title="Close Phase 1 with an official archive handoff" />
+      <p class="system-label">STEP 4 // FINAL CONTINENTAL ARCHIVE TRANSMISSION</p>
+      <h2>The next team should not have to rediscover what you already learned.</h2>
+      <div class="handoff-grid"><article><strong>Updated ecological status</strong><p>GREEN / YELLOW / ORANGE / RED and the condition attached to that status.</p></article><article><strong>Protected-area plan</strong><p>Map plus the three human rules.</p></article><article><strong>Key risks</strong><p>Population, recovery, introduced-species, contamination, or other evidence that requires monitoring.</p></article><article><strong>Unresolved questions</strong><p>What the archive still cannot answer.</p></article></div>
+      <div class="submission-guide"><div class="guide-heading"><span>📡</span><div><strong>Submit the Phase 1 executive summary to JCEC</strong><small>One designated team member submits the archive summary.</small></div></div><dl><div><dt>Submission Type</dt><dd>Continental Archive</dd></div><div><dt>Mission Phase</dt><dd>01 First Contact</dd></div><div><dt>Operation / Task</dt><dd>JCEC Ecological Report — Phase 1 Final Recommendation</dd></div><div><dt>Continent</dt><dd id="archive-continent">Your assigned continent</dd></div><div><dt>Team ID</dt><dd id="archive-team-id">Use the ID your teacher gives you</dd></div><div><dt>Team Members</dt><dd>List everyone represented</dd></div></dl><p><strong>Claim / Decision:</strong> status + ecological clearance recommendation. <strong>Evidence:</strong> at least four strong pieces from multiple operations. <strong>Reasoning:</strong> explain the trade-offs, protection rules, and why the evidence supports the status. Include your largest uncertainty.</p><a class="button primary" href={portalUrl} target="_blank" rel="noopener noreferrer">Submit Phase 1 Executive Summary ↗</a><p class="major-artifact"><strong>Full report:</strong> this portal stores the executive archive summary. Submit the complete graded report, map, presentation, or other major artifact wherever your teacher directs (for example, Google Classroom).</p></div>
+    </section>
+
+    <section class="panel reflection">
+      <JcecWorkMode mode="individual" title="Close your Phase 1 Pathfinder Log" />
+      <h2>Compare what you thought at arrival with what the evidence says now.</h2>
+      <ol><li>What was your initial Operation 01 assessment?</li><li>Did your thinking become more positive, more cautious, or simply more specific? Use one piece of evidence that changed your thinking.</li><li>Which Phase 1 operation gave you the strongest evidence? Why?</li><li>What is one ecological question you hope the next scientific team investigates?</li></ol>
+      <p class="reflection-note"><strong>Changing your mind is not losing.</strong> Mission science works when new evidence changes the quality of our decisions.</p>
+    </section>
+
+    <section class="phase-complete"><p class="system-label">MISSION PHASE 01 // ECOLOGICAL SURVEY COMPLETE</p><h2>Archive sealed. Await Pathfinder reassignment.</h2><p>Your work now becomes evidence for future teams. JCEC will reassign Pathfinder groups and continental postings when the next scientific division begins.</p><div class="phase-actions"><a class="button primary" href={`${base}courses/grade-7-science/jabberwocky/`}>Return to Mission Control</a><a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Review Phase 1 Operations</a></div></section>
+
+    <div class="bottom-actions"><a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/operation-07/`}>← Operation 07</a><a class="button secondary" href={`${base}courses/grade-7-science/interactions-ecosystems/`}>Science Resources</a></div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const posting = localStorage.getItem('jabberwocky-phase1-posting');
+      const assessment = localStorage.getItem('jabberwocky-phase1-assessment');
+      const reason = localStorage.getItem('jabberwocky-phase1-assessment-reason');
+      const noPosting = document.getElementById('no-posting');
+      const briefFiles = document.getElementById('brief-files');
+      const planningFiles = document.getElementById('planning-files');
+      const brief = posting ? document.querySelector(`[data-brief="${posting}"]`) : null;
+      const planning = posting ? document.querySelector(`[data-planning="${posting}"]`) : null;
+      if (!posting || !brief || !planning) {
+        if (noPosting) noPosting.hidden = false;
+      } else {
+        if (briefFiles) briefFiles.hidden = false;
+        if (planningFiles) planningFiles.hidden = false;
+        brief.hidden = false; planning.hidden = false;
+        const continentName = brief.querySelector('.case-heading h2')?.textContent?.trim() || posting;
+        document.querySelectorAll('.print-continent').forEach((node)=>node.textContent = continentName);
+        const archiveContinent = document.getElementById('archive-continent'); if (archiveContinent) archiveContinent.textContent = continentName;
+        const label = brief.querySelector('.system-label')?.textContent || '';
+        const codeMatch = label.match(/08-([A-Z]{2})/);
+        const teamId = document.getElementById('archive-team-id'); if (teamId) teamId.textContent = `P1-${codeMatch?.[1] || 'XX'}-__ (use the number your teacher assigns)`;
+        const zones = [...planning.querySelectorAll('[data-zone-name]')];
+        document.querySelectorAll('[data-print-zone]').forEach((node)=>{ const index = Number(node.dataset.printZone); node.textContent = zones[index]?.dataset.zoneName || ''; });
+      }
+
+      const assessmentNode = document.getElementById('initial-assessment');
+      const reasonNode = document.getElementById('initial-reason');
+      if (assessmentNode && assessment) assessmentNode.textContent = assessment;
+      if (reasonNode && reason) reasonNode.textContent = `Your original reason: ${reason}`;
+
+      document.querySelectorAll('.zone-grid article').forEach((zone)=>{
+        const buttons = [...zone.querySelectorAll('button')];
+        buttons.forEach((button)=>button.addEventListener('click',()=>{buttons.forEach((b)=>b.classList.remove('selected'));button.classList.add('selected');}));
+      });
+
+      const ratingButtons = [...document.querySelectorAll('[data-rating]')];
+      const ratingStatus = document.getElementById('working-rating');
+      const ratingKey = posting ? `jabberwocky-op8-rating-${posting}` : 'jabberwocky-op8-rating';
+      const selectRating = (button)=>{ratingButtons.forEach((b)=>b.classList.remove('selected'));button.classList.add('selected');localStorage.setItem(ratingKey,button.dataset.rating);if(ratingStatus)ratingStatus.textContent=`Working ecological status saved on this device: ${button.dataset.rating}`;};
+      ratingButtons.forEach((button)=>button.addEventListener('click',()=>selectRating(button)));
+      const savedRating = localStorage.getItem(ratingKey); if(savedRating){const match=ratingButtons.find((b)=>b.dataset.rating===savedRating);if(match)selectRating(match);}
+      document.getElementById('print-op8-packet')?.addEventListener('click',()=>window.print());
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body){background:#06111f}.operation-shell{max-width:1120px;margin:0 auto;padding:0 1.1rem 5rem;color:#eaf5ff}.system-label{margin:0;color:#74e9cb;font:800 .79rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em;text-transform:uppercase}.mission-nav{position:sticky;top:.6rem;z-index:20;display:flex;gap:.35rem;overflow:auto;margin:1rem 0;padding:.45rem;border:1px solid #244b60;border-radius:14px;background:rgba(5,20,33,.94);backdrop-filter:blur(12px)}.mission-nav a{flex:0 0 auto;padding:.65rem .78rem;border-radius:9px;color:#b9cfdd;text-decoration:none;font-size:.87rem;font-weight:800}.mission-nav a:hover,.mission-nav a.active{background:#123348;color:#fff}.mission-nav a.active{box-shadow:inset 0 -2px #6ef2cf}.operation-hero{margin:1.2rem 0;padding:clamp(1.5rem,5vw,3rem);border:1px solid #236078;border-radius:26px;background:radial-gradient(circle at 82% 20%,rgba(110,242,207,.18),transparent 25%),linear-gradient(145deg,#071527,#0b2d42 60%,#06111f)}.hero-grid{display:grid;grid-template-columns:1fr 300px;gap:1.5rem;align-items:end}.division{margin:1.3rem 0 .35rem;color:#a9c3d3;font-weight:850;letter-spacing:.1em}.operation-hero h1{margin:0;color:#fff;font-size:clamp(3rem,8vw,6rem);line-height:.86;letter-spacing:-.06em}.operation-hero h1 span{color:#6ef2cf}.lead{max-width:720px;margin:1.3rem 0 0;color:#c4d9e7;font-size:1.08rem;line-height:1.65}.operation-hero aside{padding:1rem;border:1px solid #315d73;border-radius:16px;background:#07131f}.operation-hero aside>span{color:#8ea8b8;font:800 .72rem ui-monospace,monospace}.operation-hero aside>strong{display:block;margin:.25rem 0 .9rem;color:#6ef2cf}.operation-hero dl{margin:0}.operation-hero dl div{display:flex;justify-content:space-between;gap:.7rem;padding:.5rem 0;border-top:1px solid #1d4154}.operation-hero dt{color:#90a9b8}.operation-hero dd{margin:0;color:#fff}.mission-question,.panel,.phase-complete{margin:1.2rem 0;padding:clamp(1.2rem,4vw,2rem);border:1px solid #183f54;border-radius:20px;background:#0a1d2c}.mission-question{border-color:#39745f;background:linear-gradient(135deg,#0c2a30,#081a27)}.mission-question h2,.panel h2,.phase-complete h2{margin:.5rem 0 .7rem;color:#fff;font-size:clamp(1.5rem,4vw,2.15rem)}.mission-question p,.panel>p,.intro{color:#bfd0dc;line-height:1.6}.scope-warning{margin:1.2rem 0;padding:1rem 1.1rem;border:1px solid #806b36;border-left:4px solid #f2d97d;border-radius:14px;background:#251f0e;color:#e1d8ad}.scope-warning p{margin:.3rem 0 0;line-height:1.55}.completion-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem}.completion-grid article{display:flex;gap:.55rem;padding:.8rem;border:1px solid #315263;border-radius:11px;background:#081823}.completion-grid strong{color:#fff}.completion-grid p{margin:.25rem 0 0;color:#acc3cf;font-size:.82rem}.rating-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem}.rating-grid article{padding:.9rem;border:1px solid #315263;border-radius:12px;background:#071923}.rating-grid strong{font-size:1.1rem}.rating-grid p{color:#b9cdd7;font-size:.84rem;line-height:1.45}.rating-grid .green{border-color:#39745f}.rating-grid .green strong{color:#83efc9}.rating-grid .yellow{border-color:#766634}.rating-grid .yellow strong{color:#f2d97d}.rating-grid .orange{border-color:#80512d}.rating-grid .orange strong{color:#ffbc78}.rating-grid .red{border-color:#78404a}.rating-grid .red strong{color:#ff9da9}.rating-note{padding:.7rem;border-left:3px solid #9ed5ff;background:#0a2130}.no-posting{padding:1rem;border:1px solid #7e6330;border-radius:12px;background:#2a210d}.case-heading{display:flex;justify-content:space-between;gap:1rem;align-items:start}.case-heading h2{margin:.3rem 0 .1rem}.case-heading small{color:#9fb6c1}.prelim{display:grid;justify-items:end}.prelim span{color:#8ba4b0;font:800 .65rem ui-monospace,monospace}.prelim strong{margin-top:.25rem;padding:.35rem .5rem;border-radius:8px;background:#243420;color:#d9e9a2}.brief-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:1rem}.brief-grid article{padding:.9rem;border:1px solid #315263;border-radius:11px;background:#071923}.brief-grid strong{color:#fff}.brief-grid p{color:#b9cdd7;line-height:1.5}.initial-hypothesis{margin-top:.8rem;padding:.8rem;border-left:3px solid #f2d97d;background:#211f12}.initial-hypothesis span{display:block;color:#c8b86f;font:800 .68rem ui-monospace,monospace}.initial-hypothesis strong{display:block;margin:.25rem 0;color:#fff}.initial-hypothesis p{margin:0;color:#c8c2a4}.audit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem}.audit-grid article{padding:.8rem;border:1px solid #315263;border-radius:10px;background:#071923}.audit-grid span{color:#6ef2cf;font:850 .72rem ui-monospace,monospace}.audit-grid strong{display:block;margin:.25rem 0;color:#fff}.audit-grid p{margin:0;color:#aec5d0;font-size:.83rem;line-height:1.45}.synthesis-rule{margin-top:.8rem;padding:.8rem;border-left:3px solid #6ef2cf;background:#0a282b;color:#cce4df}.access-key{display:flex;gap:.5rem;flex-wrap:wrap}.access-key span{padding:.5rem .6rem;border:1px solid #315263;border-radius:999px;background:#071923;color:#b8cbd4;font-size:.78rem}.access-key b{color:#fff}.planning-file h3{color:#fff}.zone-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}.zone-grid article{padding:.85rem;border:1px solid #315263;border-radius:11px;background:#071923}.zone-grid article>span{color:#6ef2cf;font:850 .68rem ui-monospace,monospace}.zone-grid article>strong{display:block;margin:.25rem 0;color:#fff}.zone-grid article>p{color:#afc5cf;font-size:.83rem;line-height:1.45}.zone-choices{display:flex;gap:.35rem;flex-wrap:wrap}.zone-choices button{padding:.4rem .48rem;border:1px solid #3a5665;border-radius:7px;background:#0b2430;color:#bfd5df;font-size:.68rem;font-weight:850;cursor:pointer}.zone-choices button.selected{border-color:#6ef2cf;background:#123a35;color:#8df1d4}.human-rules{margin-top:1rem;padding:1rem;border:1px solid #315263;border-radius:12px;background:#081823}.human-rules h3{margin-top:0}.human-rules>div{display:grid;grid-template-columns:220px 1fr;gap:.7rem;padding:.5rem 0;border-top:1px solid #1d4050}.human-rules strong{color:#fff}.human-rules p{margin:0;color:#aec4cf}.final-rating-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}.final-rating-buttons button{padding:1rem;border:1px solid #3a5665;border-radius:11px;background:#081923;color:#dcebf1;font-size:1rem;font-weight:900;cursor:pointer}.final-rating-buttons button.selected{border-color:#6ef2cf;box-shadow:inset 0 0 0 1px #6ef2cf;background:#0b302f}.working-rating{padding:.7rem;border-left:3px solid #6ef2cf;background:#0a282b;color:#cce4df!important}.report-structure{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem}.report-structure article{padding:.8rem;border:1px solid #315263;border-radius:10px;background:#071923}.report-structure span{color:#6ef2cf;font:850 .7rem ui-monospace,monospace}.report-structure strong{display:block;margin:.25rem 0;color:#fff}.report-structure p{margin:0;color:#aec5cf;font-size:.82rem}.quality-check{display:grid;gap:.45rem;margin-top:.9rem;padding:.9rem;border:1px solid #756a3f;border-radius:12px;background:#19180e}.quality-check strong{color:#f2d97d}.quality-check label{color:#d6d1b4;font-size:.87rem}.print-actions{display:flex;align-items:center;gap:.8rem}.print-actions span{color:#9fb6c1;font-size:.84rem}.print-packet{display:none}.archive-panel{border-color:#756a3f}.handoff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem}.handoff-grid article{padding:.8rem;border:1px solid #5b5334;border-radius:10px;background:#1d1b10}.handoff-grid p{color:#cfc8a5;font-size:.84rem}.submission-guide{margin-top:1rem;padding:1rem;border:1px solid #756a3f;border-radius:14px;background:#17170e}.guide-heading{display:flex;gap:.6rem;align-items:center}.guide-heading div{display:grid}.submission-guide dl{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}.submission-guide dl div{padding:.65rem;border:1px solid #4e4a30;border-radius:9px;background:#0d1718}.submission-guide dt{color:#b8ab72;font-size:.68rem;font-weight:800;text-transform:uppercase}.submission-guide dd{margin:.2rem 0 0;color:#fff;font-size:.82rem;font-weight:800}.submission-guide p{color:#d4cfad;line-height:1.5}.major-artifact{padding:.7rem;border-left:3px solid #9ed5ff;background:#0a2130;color:#c6dae4!important}.reflection ol{color:#c5d8e2;line-height:1.65}.reflection-note{padding:.7rem;border-left:3px solid #9ed5ff;background:#0a2130}.phase-complete{text-align:center;border-color:#39745f;background:radial-gradient(circle at 50% 0,rgba(110,242,207,.12),transparent 50%),#081d25}.phase-complete p{color:#bcd1dc}.phase-actions,.bottom-actions{display:flex;gap:.7rem;justify-content:center}.button{display:inline-flex;align-items:center;justify-content:center;padding:.72rem 1rem;border-radius:10px;text-decoration:none;font-weight:900;cursor:pointer}.button.primary{border:1px solid #6ef2cf;background:#6ef2cf;color:#06201e}.button.secondary{border:1px solid #3a6576;background:#0c2a38;color:#e7f6ff}.bottom-actions{justify-content:space-between}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr}.completion-grid,.rating-grid{grid-template-columns:1fr 1fr}.audit-grid,.report-structure{grid-template-columns:1fr 1fr}.submission-guide dl{grid-template-columns:1fr 1fr}}
+  @media(max-width:650px){.completion-grid,.rating-grid,.brief-grid,.audit-grid,.zone-grid,.report-structure,.handoff-grid,.final-rating-buttons{grid-template-columns:1fr}.case-heading{display:grid}.prelim{justify-items:start}.human-rules>div{grid-template-columns:1fr}.submission-guide dl{grid-template-columns:1fr}.phase-actions,.bottom-actions,.print-actions{display:grid}.phase-actions .button,.bottom-actions .button{width:100%}}
+  @media print{.mission-nav,.operation-hero,.mission-question,.scope-warning,.operation-checklist,.rating-key,.current-brief,.evidence-audit,.protection-plan,.final-report,.archive-panel,.reflection,.phase-complete,.bottom-actions,.print-actions,:global(.jcec-submission-dock){display:none!important}.print-section{display:block!important;border:0!important;background:#fff!important;padding:0!important}.print-packet{display:block!important;color:#000}.print-page{break-after:page;min-height:10in;padding:.2in}.print-page h2,.print-page h3{color:#000}.print-page table{width:100%;border-collapse:collapse}.print-page th,.print-page td{height:.65in;border:1px solid #000;padding:.08in;text-align:left}.writing-box{height:1.6in;border:1px solid #000}.writing-box.short{height:1in}.print-map{display:grid;grid-template-columns:1fr 1fr;height:5.7in;margin:1rem 0;border:2px solid #000}.print-map>div{display:grid;place-content:center;text-align:center;border:1px solid #000}.print-map strong{font-size:1.2rem}.print-map span{margin-top:.2rem}}
+</style>
