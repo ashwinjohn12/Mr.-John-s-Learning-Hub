@@ -17,6 +17,7 @@ const requiredFiles = [
   'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-1/index.astro',
   'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-2/index.astro',
   'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-3/index.astro',
+  'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-4/index.astro',
   'src/pages/courses/grade-7-science/jabberwocky/phase-1/teacher-launch-guide/index.astro',
   'src/components/JcecMissionProgress.astro',
   'src/components/JcecSimplifiedMissionNavigation.astro',
@@ -34,9 +35,9 @@ for (const file of requiredFiles) check(fs.existsSync(rel(file)), `exists: ${fil
 
 const simplifiedHubPath = 'src/pages/courses/grade-7-science/jabberwocky/phase-1/index.astro';
 const simplifiedHub = fs.existsSync(rel(simplifiedHubPath)) ? read(simplifiedHubPath) : '';
-check(simplifiedHub.includes('JcecMissionProgress active={3}'), 'simplified Phase 1 hub shows Mission 3 as current');
-check(simplifiedHub.includes('mission-3/'), 'simplified Phase 1 hub links to Mission 3');
-check(simplifiedHub.includes("title: 'Watch the Ecosystem Change'") && simplifiedHub.includes("status: 'COMING NEXT'"), 'Mission 4 remains upcoming');
+check(simplifiedHub.includes('JcecMissionProgress active={4}'), 'simplified Phase 1 hub shows Mission 4 as current');
+check(simplifiedHub.includes('mission-4/'), 'simplified Phase 1 hub links to Mission 4');
+check(simplifiedHub.includes("title: 'Humans Have Arrived'") && simplifiedHub.includes("status: 'COMING NEXT'"), 'Mission 5 remains upcoming');
 
 const mission1Path = 'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-1/index.astro';
 const mission1 = fs.existsSync(rel(mission1Path)) ? read(mission1Path) : '';
@@ -73,15 +74,41 @@ check(mission3.includes('print-mission3-packet'), 'Mission 3 includes printable 
 check(mission3.includes('4 classes × 45 minutes'), 'Mission 3 is designed for four 45-minute classes');
 check(!mission3.includes('mutualism') && !mission3.includes('commensalism') && !mission3.includes('parasitism'), 'Mission 3 keeps formal symbiosis categories out of the core student pathway');
 
+const mission4Path = 'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-4/index.astro';
+const mission4 = fs.existsSync(rel(mission4Path)) ? read(mission4Path) : '';
+check(mission4.includes('jabberwockyOperation05') && mission4.includes('jabberwockyOperation06'), 'Mission 4 reuses the established population and recovery data');
+check(mission4.includes('jabberwocky-phase1-posting'), 'Mission 4 carries forward the Mission 1 continent');
+for (const token of ['Population', 'Limiting factor', 'Sample', 'Succession']) check(mission4.includes(token), `Mission 4 includes core science idea: ${token}`);
+for (const token of ['Population Sampling', 'Your Population Case', 'Disturbance and Recovery', 'Earth Connection', 'Ecosystem Change Record']) check(mission4.includes(token), `Mission 4 includes simplified change element: ${token}`);
+check(mission4.includes('population.series.slice(0, 2)') && mission4.includes('population.evidence.slice(0, 2)'), 'Mission 4 limits continent population evidence to two graphs and two field notes');
+check(mission4.includes('[recovery.stages[0], recovery.stages[2], recovery.stages[3]]'), 'Mission 4 shows three clear recovery time points plus the comparison area');
+check(mission4.includes('same population can give different sample results'), 'Mission 4 connects sampling to population distribution');
+check(mission4.includes('Mostly recovering') && mission4.includes('Mixed — some recovery, some concern') && mission4.includes('Reason for concern'), 'Mission 4 uses one simple overall team decision');
+check(mission4.includes('Evidence 1 — population evidence') && mission4.includes('Evidence 2 — recovery evidence'), 'Mission 4 uses the approved Claim + 2 evidence + explanation scaffold');
+check(mission4.includes('Do not invent or generalize an Indigenous perspective'), 'Mission 4 keeps the authentic-source rule for the local Earth connection');
+check(mission4.includes('No extra JCEC submission is needed for this Earth connection'), 'Mission 4 avoids creating another student submission');
+check(mission4.includes('print-mission4-packet'), 'Mission 4 includes its printable sampling grid and change record');
+check(mission4.includes('4 classes × 45 minutes'), 'Mission 4 is designed for four 45-minute classes');
+check(!mission4.includes('Alternative explanation considered') && !mission4.includes('Uncertainty / next measurement'), 'Mission 4 removes the old advanced CER burden from the core student pathway');
+
 const op4Data = read('src/data/jabberwockyOperation04.ts');
 for (const species of ['Ridgeback Grazer', 'Canopy Glider', 'Tide Skipper', 'Dune Runner', 'Snow Burrower', 'Plains Strider', 'Barkclimber', 'Reedcrawler']) {
   check(op4Data.includes(species), `Mission 3 source data preserves focal species: ${species}`);
+}
+const op5Data = read('src/data/jabberwockyOperation05.ts');
+const op6Data = read('src/data/jabberwockyOperation06.ts');
+for (const species of ['Ridgeback Grazer', 'Canopy Glider', 'Tide Skipper', 'Dune Runner', 'Snow Burrower', 'Plains Strider', 'Barkclimber', 'Reedcrawler']) {
+  check(op5Data.includes(species), `Mission 4 population source data preserves focal species: ${species}`);
+}
+for (const continent of ['Gyre', 'Brillig', 'Manxome', 'Slithy Toves', 'Wabe', 'Bandersnatch', 'Gimble', 'Mimsy']) {
+  check(op6Data.includes(continent), `Mission 4 recovery source data preserves continent: ${continent}`);
 }
 
 const simpleNavPath = 'src/components/JcecSimplifiedMissionNavigation.astro';
 const simpleNav = fs.existsSync(rel(simpleNavPath)) ? read(simpleNavPath) : '';
 check(simpleNav.includes('Next Mission → Meet a Native Species'), 'Mission 1 has a clear next-mission handoff');
 check(simpleNav.includes('Next Mission → Build the Ecosystem'), 'Mission 2 has a clear next-mission handoff');
+check(simpleNav.includes('Next Mission → Watch the Ecosystem Change'), 'Mission 3 has a clear next-mission handoff');
 check(simpleNav.includes('Reveal JCEC field name'), 'Mission 2 keeps species reconstruction evidence-first before revealing the field name');
 
 const operationPages = Object.fromEntries(
@@ -124,7 +151,7 @@ check(integration.includes(formId), 'shared JCEC submission dock uses the expect
 const pacingPath = 'src/components/JcecPhase1PacingRefinements.astro';
 const pacing = fs.existsSync(rel(pacingPath)) ? read(pacingPath) : '';
 check(pacing.includes('planetary-cycles-checkpoint'), 'legacy Day 8 carbon/water cycle checkpoint is preserved');
-check(pacing.includes('earth-field-link-2'), 'Day 13 local Earth Field Link is present');
+check(pacing.includes('earth-field-link-2'), 'legacy local Earth Field Link is preserved');
 check(pacing.includes('conservation-risk-checkpoint'), 'Operation 07 conservation-risk checkpoint is present');
 check(pacing.includes('19 core classes + 6 flex classes'), 'legacy five-week core pacing is preserved while simplified missions are prototyped');
 
@@ -152,4 +179,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('\nPhase 1 source routes, simplified Missions 1–3, legacy operation resources, print controls, submission wiring, pacing inserts, data imports, and teacher guides are internally consistent.');
+console.log('\nPhase 1 source routes, simplified Missions 1–4, legacy operation resources, print controls, submission wiring, pacing inserts, data imports, and teacher guides are internally consistent.');
