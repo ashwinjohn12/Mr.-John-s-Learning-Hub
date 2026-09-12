@@ -7,9 +7,9 @@ const base = import.meta.env.BASE_URL;
 const missions = [
   { number: 1, title: 'Explore Your Environment', question: 'What is this place like?', summary: 'Investigate an Earth environment, then explore the conditions on your assigned continent.', icon: '🌎', status: 'PREVIOUS', href: `${base}courses/grade-7-science/jabberwocky/phase-1/mission-1/`, ready: true, linkText: 'Review Mission 1 →' },
   { number: 2, title: 'Meet a Native Species', question: 'How does this organism survive here?', summary: 'Test how structures work, then use four clues to reconstruct your continent’s native species.', icon: '🔎', status: 'PREVIOUS', href: `${base}courses/grade-7-science/jabberwocky/phase-1/mission-2/`, ready: true, linkText: 'Review Mission 2 →' },
-  { number: 3, title: 'Build the Ecosystem', question: 'How are living things connected?', summary: 'Build a food web, test what happens when it changes, and trace simple water and carbon paths.', icon: '🕸️', status: 'CURRENT', href: `${base}courses/grade-7-science/jabberwocky/phase-1/mission-3/`, ready: true, current: true, linkText: 'Start Mission 3 →' },
-  { number: 4, title: 'Watch the Ecosystem Change', question: 'What happens when conditions change?', summary: 'Use population and recovery evidence to understand change over time.', icon: '🌱', status: 'COMING NEXT', ready: false },
-  { number: 5, title: 'Humans Have Arrived', question: 'How can people explore without causing too much harm?', summary: 'Investigate human impacts and make your final Phase 1 recommendation.', icon: '🚨', status: 'COMING LATER', ready: false }
+  { number: 3, title: 'Build the Ecosystem', question: 'How are living things connected?', summary: 'Build a food web, test what happens when it changes, and trace simple water and carbon paths.', icon: '🕸️', status: 'PREVIOUS', href: `${base}courses/grade-7-science/jabberwocky/phase-1/mission-3/`, ready: true, linkText: 'Review Mission 3 →' },
+  { number: 4, title: 'Watch the Ecosystem Change', question: 'What happens when conditions change?', summary: 'Sample a population, read two simple datasets, and track how a disturbed habitat recovers.', icon: '🌱', status: 'CURRENT', href: `${base}courses/grade-7-science/jabberwocky/phase-1/mission-4/`, ready: true, current: true, linkText: 'Start Mission 4 →' },
+  { number: 5, title: 'Humans Have Arrived', question: 'How can people explore without causing too much harm?', summary: 'Investigate human impacts and make your final Phase 1 recommendation.', icon: '🚨', status: 'COMING NEXT', ready: false }
 ];
 ---
 
@@ -40,15 +40,15 @@ const missions = [
       <h2 id="phase-question">How does life on Jabberwocky work—and what should humans do?</h2>
     </section>
 
-    <JcecMissionProgress active={3} />
+    <JcecMissionProgress active={4} />
 
     <section class="quick-start">
       <div>
         <p class="eyebrow">YOUR NEXT STEP</p>
-        <h2>Continue with Mission 3.</h2>
-        <p>You found a native species. Now discover the whole living system around it.</p>
+        <h2>Continue with Mission 4.</h2>
+        <p>You built the ecosystem. Now watch what happens when populations and habitats change over time.</p>
       </div>
-      <a class="primary-button" href={`${base}courses/grade-7-science/jabberwocky/phase-1/mission-3/`}>Start Mission 3 →</a>
+      <a class="primary-button" href={`${base}courses/grade-7-science/jabberwocky/phase-1/mission-4/`}>Start Mission 4 →</a>
     </section>
 
     <section class="how-it-works" aria-labelledby="work-heading">
