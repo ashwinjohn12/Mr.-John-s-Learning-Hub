@@ -9,7 +9,7 @@ const read = (p) => fs.readFileSync(rel(p), 'utf8');
 const check = (condition, message) => condition ? passes.push(message) : failures.push(message);
 
 const hubPath = 'src/pages/courses/grade-7-science/jabberwocky/phase-2/index.astro';
-const missionPaths = [1,2,3].map((n) => `src/pages/courses/grade-7-science/jabberwocky/phase-2/mission-${n}/index.astro`);
+const missionPaths = [1,2,3,4].map((n) => `src/pages/courses/grade-7-science/jabberwocky/phase-2/mission-${n}/index.astro`);
 const progressPath = 'src/components/JcecPhase2Progress.astro';
 const dataPath = 'src/data/jabberwockyPhase2.ts';
 
@@ -20,11 +20,11 @@ const missions = missionPaths.map(read);
 const progress = read(progressPath);
 const data = read(dataPath);
 
-check(hub.includes('JcecPhase2Progress active={3}'), 'Phase 2 hub shows Mission 3 as current');
-check(hub.includes("status: 'COMPLETE'") && hub.includes("status: 'CURRENT'"), 'Phase 2 hub distinguishes completed and current missions');
-for (let n = 1; n <= 3; n += 1) check(hub.includes(`phase-2/mission-${n}/`), `Phase 2 hub links to Mission ${n}`);
+check(hub.includes('JcecPhase2Progress active={4}'), 'Phase 2 hub shows Mission 4 as current');
+check(hub.includes("number: 4") && hub.includes("status: 'CURRENT'") && hub.includes("number: 5") && hub.includes("status: 'UPCOMING'"), 'Phase 2 hub keeps Mission 4 current and Mission 5 upcoming');
+for (let n = 1; n <= 4; n += 1) check(hub.includes(`phase-2/mission-${n}/`), `Phase 2 hub links to Mission ${n}`);
 for (const title of ['Find the Living Resource','Keep It Growing','Build the Growing Zone','Choose the Next Generation','Use It Without Losing It']) check(hub.includes(title), `Phase 2 hub includes ${title}`);
-check(hub.includes('Mission 3 asks how to grow it without creating a new problem'), 'Phase 2 hub explains Mission 3 story progression');
+check(hub.includes('Missions 1–3 found the resource, learned what it needs and designed a growing system. Mission 4 asks which traits humans should encourage next.'), 'Phase 2 hub explains Mission 4 story progression');
 check(hub.includes('jabberwocky-phase2-posting'), 'Phase 2 hub preserves separate Phase 2 posting state');
 
 for (let i = 0; i < missions.length; i += 1) {
@@ -55,9 +55,30 @@ check(mission3.includes('What growing system should JCEC test first on your cont
 check(mission3.includes('Growing System Recommendation'), 'Mission 3 ends with one Growing System Recommendation');
 check(mission3.includes('What is one way humans can help a plant grow that could also create an environmental problem?'), 'Mission 3 includes the approved individual reflection');
 check(mission3.includes('print-phase2-mission3'), 'Mission 3 includes printable soil investigation and recommendation pages');
-check(mission3.includes('Mission 4 — Choose the Next Generation — is upcoming. Do not start it yet.'), 'Mission 4 remains locked/upcoming');
+check(progress.includes('Next Mission → Choose the Next Generation'), 'Mission 3 receives clear Mission 4 navigation');
 
-for (const continent of ['gyre','brillig','manxome','slithy-toves','wabe','bandersnatch','gimble','mimsy']) check(mission3.includes(`${continent}:`) || mission3.includes(`'${continent}':`), `Mission 3 includes growing case: ${continent}`);
+const mission4 = missions[3];
+for (const token of ['REPRODUCTION','PLANT VARIETY','SELECTIVE BREEDING','MONOCULTURE / LOW VARIETY']) check(mission4.includes(token), `Mission 4 includes core science idea: ${token}`);
+check(mission4.includes('Pollination') || mission4.includes('pollination'), 'Mission 4 connects pollination to seed reproduction');
+check(mission4.includes('You do not need Punnett squares, alleles, genotype, phenotype or dominant/recessive inheritance here.'), 'Mission 4 keeps Grade 9 genetics out of the required pathway');
+check(mission4.includes('Selective Breeding Simulation'), 'Mission 4 includes the main selective-breeding simulation');
+check(mission4.includes('mixed starting population'), 'Mission 4 starts with visible plant variation');
+check(mission4.includes('2–3 generations'), 'Mission 4 models repeated selection over a few simplified generations');
+check(mission4.includes('Real offspring vary and selective breeding usually takes many generations.'), 'Mission 4 clearly labels the simulation as a simplified model');
+check(mission4.includes('reveal the surprise event'), 'Mission 4 includes a surprise pest/environment event');
+check(mission4.includes('Selective breeding can be useful.') && mission4.includes('Variety and safeguards still matter.'), 'Mission 4 presents selective breeding as useful with trade-offs');
+for (const token of ['Biological control','Physical / cultural control','Chemical control']) check(mission4.includes(token), `Mission 4 introduces pest-management approach: ${token}`);
+check(mission4.includes('Which trait should JCEC favour in this plant, and what risk must remain part of the plan?'), 'Mission 4 has one main team decision');
+check(mission4.includes('We would select ______ because ______.') && mission4.includes('But we would need to watch for ______.'), 'Mission 4 uses the approved simple reasoning scaffold');
+check(mission4.includes('Plant Variety Decision Card'), 'Mission 4 ends with one Plant Variety Decision Card');
+check(mission4.includes('Why might the plant with the highest yield not always be the best choice?'), 'Mission 4 includes the approved individual reflection');
+check(mission4.includes('print-phase2-mission4'), 'Mission 4 includes printable simulation and decision materials');
+check(mission4.includes('Mission 5 — Use It Without Losing It — is upcoming. Do not start it yet.'), 'Mission 5 remains locked/upcoming');
+
+for (const continent of ['gyre','brillig','manxome','slithy-toves','wabe','bandersnatch','gimble','mimsy']) {
+  check(mission3.includes(`${continent}:`) || mission3.includes(`'${continent}':`), `Mission 3 includes growing case: ${continent}`);
+  check(mission4.includes(`${continent}:`) || mission4.includes(`'${continent}':`), `Mission 4 includes selection case: ${continent}`);
+}
 for (const plant of ['Skyroot','Rainspout Tree','Storm Palm','Reservoir Thorn','Ember Moss','Goldstem Grain','Ironwood','Floatroot']) check(data.includes(plant), `Phase 2 canon still includes ${plant}`);
 
 check(progress.includes('Resource') && progress.includes('Growth') && progress.includes('Growing Zone') && progress.includes('Variety') && progress.includes('Sustainable Use'), 'Phase 2 progress retains the approved five-mission sequence');
@@ -69,4 +90,4 @@ if (failures.length) {
   for (const item of failures) console.error(`  ✗ ${item}`);
   process.exit(1);
 }
-console.log('\nPhase 2 Missions 1–3 are internally consistent: separate continent state, Growth Trial carry-forward, soil/growing-system science, one checkpoint decision, print resources, and Missions 4–5 still upcoming.');
+console.log('\nPhase 2 Missions 1–4 are internally consistent: separate continent state, Growth Trial carry-forward, soil/growing-system science, observable selective breeding, trade-off reasoning, print resources, and Mission 5 still upcoming.');
