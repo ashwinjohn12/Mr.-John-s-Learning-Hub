@@ -17,50 +17,63 @@
       return;
     }
 
-    if (!/\/courses\/grade-7-science\/jabberwocky\/phase-1\/mission-2\/?$/.test(path)) return;
+    if (/\/courses\/grade-7-science\/jabberwocky\/phase-1\/mission-2\/?$/.test(path)) {
+      const finished = document.querySelector('#simplified-mission-2 .finished-box');
+      if (finished && !finished.querySelector('.next-simple-mission')) {
+        const note = finished.querySelector('p');
+        if (note) note.textContent = 'When your teacher is ready, continue to the next mission.';
+        const link = document.createElement('a');
+        link.className = 'next-simple-mission';
+        link.href = '../mission-3/';
+        link.textContent = 'Next Mission → Build the Ecosystem';
+        finished.append(link);
+      }
 
-    const finished = document.querySelector('#simplified-mission-2 .finished-box');
-    if (finished && !finished.querySelector('.next-simple-mission')) {
+      const assignmentSpecies = document.getElementById('assignment-species');
+      const recordSpecies = document.getElementById('record-species');
+      const visibleSpeciesFile = [...document.querySelectorAll('#species-files [data-species]')].find((file) => !file.hidden);
+      const speciesHeading = visibleSpeciesFile?.querySelector('header h3');
+      const reconstructBox = visibleSpeciesFile?.querySelector('.reconstruct-box');
+      const actualName = recordSpecies?.value?.trim() || assignmentSpecies?.textContent?.trim() || speciesHeading?.textContent?.trim();
+
+      if (!actualName || !reconstructBox || reconstructBox.querySelector('.reveal-species-name')) return;
+
+      if (assignmentSpecies) assignmentSpecies.textContent = 'Evidence pending';
+      if (speciesHeading) speciesHeading.textContent = 'Unidentified Native Species';
+      if (recordSpecies) {
+        recordSpecies.dataset.speciesName = actualName;
+        recordSpecies.value = '';
+        recordSpecies.placeholder = 'Reveal the JCEC field name after studying the clues';
+      }
+
+      const revealWrap = document.createElement('div');
+      revealWrap.className = 'species-reveal-wrap';
+      revealWrap.innerHTML = '<span>Read and discuss all four clues first.</span><button type="button" class="reveal-species-name">Reveal JCEC field name</button>';
+      reconstructBox.append(revealWrap);
+
+      revealWrap.querySelector('.reveal-species-name')?.addEventListener('click', (event) => {
+        if (assignmentSpecies) assignmentSpecies.textContent = actualName;
+        if (speciesHeading) speciesHeading.textContent = actualName;
+        if (recordSpecies) recordSpecies.value = actualName;
+        const button = event.currentTarget;
+        button.textContent = `Field name: ${actualName}`;
+        button.disabled = true;
+        revealWrap.querySelector('span').textContent = 'Now use the name only as a label. Your adaptations still need evidence.';
+      });
+      return;
+    }
+
+    if (/\/courses\/grade-7-science\/jabberwocky\/phase-1\/mission-3\/?$/.test(path)) {
+      const finished = document.querySelector('#simplified-mission-3 .finished-box');
+      if (!finished || finished.querySelector('.next-simple-mission')) return;
       const note = finished.querySelector('p');
       if (note) note.textContent = 'When your teacher is ready, continue to the next mission.';
       const link = document.createElement('a');
       link.className = 'next-simple-mission';
-      link.href = '../mission-3/';
-      link.textContent = 'Next Mission → Build the Ecosystem';
+      link.href = '../mission-4/';
+      link.textContent = 'Next Mission → Watch the Ecosystem Change';
       finished.append(link);
     }
-
-    const assignmentSpecies = document.getElementById('assignment-species');
-    const recordSpecies = document.getElementById('record-species');
-    const visibleSpeciesFile = [...document.querySelectorAll('#species-files [data-species]')].find((file) => !file.hidden);
-    const speciesHeading = visibleSpeciesFile?.querySelector('header h3');
-    const reconstructBox = visibleSpeciesFile?.querySelector('.reconstruct-box');
-    const actualName = recordSpecies?.value?.trim() || assignmentSpecies?.textContent?.trim() || speciesHeading?.textContent?.trim();
-
-    if (!actualName || !reconstructBox || reconstructBox.querySelector('.reveal-species-name')) return;
-
-    if (assignmentSpecies) assignmentSpecies.textContent = 'Evidence pending';
-    if (speciesHeading) speciesHeading.textContent = 'Unidentified Native Species';
-    if (recordSpecies) {
-      recordSpecies.dataset.speciesName = actualName;
-      recordSpecies.value = '';
-      recordSpecies.placeholder = 'Reveal the JCEC field name after studying the clues';
-    }
-
-    const revealWrap = document.createElement('div');
-    revealWrap.className = 'species-reveal-wrap';
-    revealWrap.innerHTML = '<span>Read and discuss all four clues first.</span><button type="button" class="reveal-species-name">Reveal JCEC field name</button>';
-    reconstructBox.append(revealWrap);
-
-    revealWrap.querySelector('.reveal-species-name')?.addEventListener('click', (event) => {
-      if (assignmentSpecies) assignmentSpecies.textContent = actualName;
-      if (speciesHeading) speciesHeading.textContent = actualName;
-      if (recordSpecies) recordSpecies.value = actualName;
-      const button = event.currentTarget;
-      button.textContent = `Field name: ${actualName}`;
-      button.disabled = true;
-      revealWrap.querySelector('span').textContent = 'Now use the name only as a label. Your adaptations still need evidence.';
-    });
   })();
 </script>
 
