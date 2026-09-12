@@ -1,338 +1,295 @@
-# Jabberwocky Phase 1 — Five-Week Core Pacing Guide
+# Jabberwocky: Mission 2190 — Phase 1 Five-Week Pacing Guide
 
-## Planning assumptions
-This pacing guide is the **core implementation plan** for a schedule of approximately **5 weeks, 5 classes per week, 45 minutes per class**.
+## FIRST CONTACT — Interactions & Ecosystems
 
-That gives about **25 class periods** total.
+This is the default pacing plan for the **simplified five-mission student experience**.
 
-The recommended structure is:
-- **19 core mission / curriculum periods**
-- **6 flex periods** for review, assessment, catch-up, reteaching, presentations, student absences, lab spillover, or school interruptions
+### Planning target
+- **25 available periods**
+- **18 core mission classes**
+- **7 purposeful flex / review / assessment / interruption classes**
+- **45 minutes per class**
 
-When this guide conflicts with a longer optional timing suggestion in an individual operation guide, use **this five-week pacing guide** as the default.
+The old Operation 01–08 sequence remains in the repository as a teacher reference and source of activities/data. Students should experience Phase 1 through the five missions below.
 
-## Pacing labels
-### CORE
-Protect this time. It contains the required storyline, required science, or evidence needed for the final Phase 1 report.
+## Student pathway
+1. **Mission 1 — Explore Your Environment** — 3 classes
+2. **Mission 2 — Meet a Native Species** — 3 classes
+3. **Mission 3 — Build the Ecosystem** — 4 classes
+4. **Mission 4 — Watch the Ecosystem Change** — 4 classes
+5. **Mission 5 — Humans Have Arrived** — 4 classes
 
-### IF TIME
-Useful consolidation, comparison, critique, or sharing that can be shortened or skipped without breaking the storyline or core curriculum.
+Scientific progression:
 
-### EXTENSION
-Enrichment only. Use when a class finishes early, when students need added challenge, or when the school calendar provides extra time.
+**PLACE → ORGANISM → ECOSYSTEM → CHANGE → HUMAN DECISION**
 
-## 25-day overview
+Reasoning progression:
 
-### Week 1 — Arrival and First Contact
-**Day 1 — Operation 01: Mission Assignment**
-- continental posting
-- preliminary JCEC rating
-- individual starting hypothesis
-- quick team setup
+**I noticed / I think this means → Feature / Evidence / How it helps → If this changes… → Claim + 2 evidence + explanation → Decision + evidence + consequence**
 
-**Days 2–3 — Operation 02: Environmental Survey**
-- Day 2: real Earth microhabitat investigation
-- Day 3: Jabberwocky landing-zone evidence + archive summary
+---
 
-**Days 4–5 — Operation 03: First Contact**
-- Day 4: Survival Structures Lab
-- Day 5: native-organism evidence reconstruction, niche summary, archive record
+# 25-period overview
 
-### Week 2 — Ecosystem Networks and Population Evidence
-**Days 6–7 — Operation 04: Ecosystem Network**
-- Day 6: physical String Web Investigation
-- Day 7: continental Food Web V1, competition / relationship evidence, direct + indirect effect prediction
-
-**Day 8 — Planetary Cycles Checkpoint**
-- carbon cycling
-- water cycling
-- energy-flow vs matter-cycle distinction
-- no extra JCEC Form submission required
-
-**Days 9–10 — Operation 05: Population Investigation**
-- Day 9: quadrat / population-sampling lab
-- Day 10: continental data case + CER
-
-### Week 3 — Environmental Change and Human Impact
-**Days 11–12 — Operation 06: Environmental Change**
-- Day 11: Surface Cover & Erosion Lab
-- Day 12: succession / recovery dataset + management recommendation
-
-**Day 13 — Earth Field Link 2: Local Ecosystem Change Decision**
-- real local ecosystem or environmental issue
-- evidence of succession / ecological change
-- multiple credible sources
-- authentic Indigenous knowledge / perspective source relevant to the place or issue when available
-- one action, one likely benefit, one possible unintended consequence, one next-monitoring need
-- no extra JCEC Form submission required
-
-**Days 14–15 — Operation 07: Classified Incident, Part 1–2**
-- Day 14: Stowaway Spread Simulation + introduced / invasive evidence
-- Day 15: X-17 contaminant pathway + biomagnification model
-
-### Week 4 — Classified Incident and Final Ecological Report
-**Day 16 — Operation 07: Classified Incident, Part 3**
-- incident-response decision
-- conservation / endangered-species / extinction-risk checkpoint
-- archive transmission + individual reflection
-
-**Days 17–19 — Operation 08: JCEC Ecological Report**
-- Day 17: archive evidence audit + four strongest evidence selections
-- Day 18: protected-area plan + human rules + working ecological status
-- Day 19: final reasoning, executive summary, quality check, archive handoff
-
-**Day 20 — FLEX**
-Recommended uses:
-- unfinished final reports
-- short cross-continent comparison
-- unit review
-- missed lab work
-- student conferences
-
-### Week 5 — Flex, Review, and Selected Assessment
-**Days 21–25 — FLEX / ASSESSMENT BUFFER**
-Possible uses:
-- unit review
-- short unit test or quiz
-- Operation 08 presentations
-- reteaching
-- make-up work
-- student absence recovery
-- selected individual assessment
-- school interruption buffer
-
-Do **not** pre-fill all five days with required new content. The buffer is intentional.
-
-# Operation-by-operation core decisions
-
-## Operation 01 — Mission Assignment
-### CORE — 1 class
-Keep:
+## Week 1 — Place → Organism
+**Day 1 — Mission 1: Welcome to Jabberwocky**
+- story launch
 - continent assignment
-- preliminary rating
-- first individual evidence-based hypothesis
-- archive / Pathfinder Log explanation
+- preliminary rating as a starting idea, not an answer
+- biotic / abiotic / habitat / environmental conditions
 
-### IF TIME
-- short team identity discussion
-- one-minute continent share
+**Day 2 — Mission 1: Earth Environmental Survey**
+- three local microhabitat samples
+- temperature, light/moisture, evidence of life, surface/soil, human impact
 
-### EXTENSION
-- decorative team branding, logos, extended mission profiles
+**Day 3 — Mission 1: Explore Your Continent**
+- simplified continent environmental scan
+- one team decision
+- Environment Profile + short reflection
 
-## Operation 02 — Environmental Survey
-### CORE — 2 classes
-Keep:
-- authentic Earth microhabitat sampling
-- biotic / abiotic evidence
-- basic measurement and uncertainty
-- Jabberwocky landing-zone analysis
-- one concise archive summary
-
-### IF TIME
-- repeated sampling
-- extra microhabitat comparison
-- whole-class comparison of all eight continents
-
-### EXTENSION
-- second field site
-- additional instruments / sensors
-
-## Operation 03 — First Contact
-### CORE — 2 classes
-Keep:
+**Day 4 — Mission 2: How Structures Help**
+- structure / function / adaptation / needs
 - Survival Structures Lab
-- structure-function reasoning
-- continent-specific evidence reconstruction
-- evidence-supported adaptation claims
-- provisional niche summary
 
-### IF TIME
-- gallery critique
-- oral defence of one adaptation
+**Day 5 — Mission 2: First Contact**
+- four species clues
+- evidence-first reconstruction begins
 
-### EXTENSION
-- polished field sketch
-- extended organism profile
+## Week 2 — Organism → Ecosystem
+**Day 6 — Mission 2: Reconstruct the Species**
+- complete reconstruction
+- choose most important adaptation
+- Native Species Card + reflection
 
-### Assessment note
-Formal **niche** language is useful enrichment but should not receive major summative weight in the compressed Grade 7 core path.
+**Day 7 — Mission 3: How Food Webs Work**
+- producer / consumer / decomposer / food web
+- string food-web investigation
+- food → eater arrow rule
 
-## Operation 04 — Ecosystem Network
-### CORE — 2 classes + 1 required cycle checkpoint
-Keep:
-- producers / consumers / decomposers
-- food-web arrows as energy transfer
-- direct and indirect effects
-- competition
-- decomposers
-- Food Web V1
-- **Day 8 carbon + water cycle checkpoint**
+**Day 8 — Mission 3: Build Your Continent Food Web**
+- simplified continent organism set
+- 5–7 meaningful feeding arrows
+- Ecosystem Map in progress
 
-### IF TIME
-- formal mutualism / commensalism / parasitism comparison
-- cross-continent relationship share
+**Day 9 — Mission 3: What Happens When the Web Changes?**
+- change/remove one component
+- prediction using: If this changes, then ___ may change because ___
 
-### EXTENSION
-- larger food-web model
-- additional hypothetical changes
+**Day 10 — Mission 3: Matter Moves Too**
+- simple water path
+- simple carbon path
+- energy flow vs matter cycling
+- Ecosystem Map + reflection
 
-### Assessment note
-Formal symbiosis classification is enrichment. Prioritize required Grade 7 energy flow, matter cycling, carbon/water cycles, interdependence, and change predictions.
+## Week 3 — Watch Change
+**Day 11 — Mission 4: Population Sampling**
+- 5×5 habitat grid
+- spread-out vs clustered population
+- sampling limits
 
-## Operation 05 — Population Investigation
-### CORE — 2 classes
-Keep:
-- quadrat sampling
-- distribution vs total population
-- detections vs population size
-- graph scale / exact-value reading
-- multi-source evidence
-- one strong CER
+**Day 12 — Mission 4: Your Population Case**
+- two graphs + two field notes
+- identify a defensible pattern
 
-### IF TIME
-- peer CER critique
-- cross-continent 30-second summaries
+**Day 13 — Mission 4: Disturbance and Recovery**
+- succession and recovery timeline
+- compare with a nearby less-disturbed area
 
-### EXTENSION
-- second dataset
-- revised CER after new evidence
+**Day 14 — Mission 4: Earth Connection + Team Decision**
+- teacher-curated local environmental case
+- specific authentic Indigenous/community source when appropriate
+- claim + population evidence + recovery evidence + explanation
+- Ecosystem Change Record + reflection
 
-### Suggested summative use
-This is a strong candidate for a **Data Reasoning** summative assessment.
+**Day 15 — FLEX 1: Fieldwork / Mission 4 recovery buffer**
+Priority order:
+1. weather-rescheduled local survey or Earth Connection
+2. Mission 4 catch-up for absences
+3. short reteach on sampling / succession
+4. vocabulary retrieval and science review
 
-## Operation 06 — Environmental Change
-### CORE — 2 classes + 1 Earth Field Link
-Keep:
-- fair-test erosion investigation
-- succession
-- species richness
-- recovery vs complete restoration
-- reference-site comparison
-- management decision
-- **Day 13 real local environmental connection**
-
-### IF TIME
-- cross-continent recovery comparison
-- longer restoration debate
-
-### EXTENSION
-- restoration experiment design
-- additional monitoring indicators
-
-## Earth Field Link 2 — Local Ecosystem Change Decision
-### CORE — 1 class
-Purpose:
-- ensure Phase 1 includes real local environmental evidence beyond the fictional setting
-- identify signs of succession / ecological change
-- analyze a local environmental issue or management question
-- compare multiple sources
-- include an authentic Indigenous source / knowledge perspective relevant to the place or issue when available
-
-Important:
-- do not invent an Indigenous perspective
-- use the specific source, community, organization, knowledge holder, or resource provided / approved by the teacher
-- students should state what the source actually contributes to understanding the issue
-
-Possible local issue categories:
-- riverbank / streambank disturbance or restoration
-- wetland protection
-- invasive species
-- prairie / grassland habitat fragmentation
-- urban development and habitat change
-- erosion / trail impacts
-
-No additional JCEC Form submission is required.
-
-## Operation 07 — Classified Incident
-### CORE — 3 classes
-Keep:
+## Week 4 — Human Impact + Recommendation
+**Day 16 — Mission 5: The Incident**
+- human-caused biosecurity breach
 - Stowaway Spread Simulation
-- introduced vs invasive evidence
-- X-17 biomagnification model
-- human-caused ecological impacts
-- response trade-offs
-- conservation-risk checkpoint
-- local vs global extinction distinction
+- introduced vs invasive distinction
 
-### IF TIME
-- cross-continent incident briefing
-- compare containment strategies
+**Day 17 — Mission 5: What Happens Next?**
+- continent incident evidence
+- short teacher-guided pollutant token model
+- endangered / local extinction / global extinction connection
 
-### EXTENSION
-- full planetary-protection policy memo
-- additional contamination scenario
+**Day 18 — Mission 5: What Should Humans Do?**
+- review evidence from Missions 1–4
+- one human rule
+- choose recommendation
+- begin JCEC Recommendation Board
 
-### Suggested summative use
-This is a strong candidate for an **Environmental Decision-Making** assessment.
+**Day 19 — Mission 5: JCEC Recommendation**
+- complete one-page Recommendation Board
+- final individual reflection comparing early thinking with current evidence
 
-## Operation 08 — JCEC Ecological Report
-### CORE — 3 classes
-Keep:
-- evidence audit from Operations 02–07
-- evidence from at least four operations
-- at least one quantitative evidence item
-- protected-area plan
-- three human rules
-- ecological status
-- uncertainty
-- archive handoff
+**Day 20 — FLEX 2: Recommendation Board completion / absence recovery**
+Use first for unfinished final work or students who missed a key investigation. If not needed, use for a short evidence-quality conference or peer check.
 
-### IF TIME
-- presentations
+## Week 5 — Purposeful flex, review and assessment
+**Day 21 — FLEX 3: Whole-unit science review**
+- biotic/abiotic and habitat
+- adaptations
+- P/C/D and food webs
+- energy vs matter
+- population/succession
+- introduced/invasive/pollution/conservation
+
+**Day 22 — FLEX 4: Short individual science check**
+Optional but recommended when an individual mark is needed. Keep it concise and focused on interpreting evidence, not memorizing JCEC story details.
+
+**Day 23 — FLEX 5: Reteach + targeted catch-up**
+Use assessment evidence to regroup students for specific misconceptions. Other students finish missed reflections or archive artifacts.
+
+**Day 24 — FLEX 6: Optional gallery walk / continent briefing**
+Teams may share Recommendation Boards or compare how different continents produced different recommendations. Skip if calendar pressure is high.
+
+**Day 25 — FLEX 7: Final buffer / transition**
+Use for make-up work, school interruptions, final feedback, or a clean transition to Phase 2. Do not add new required Phase 1 content here.
+
+---
+
+# What each mission must protect
+
+## Mission 1 — Explore Your Environment
+**Protect:**
+- authentic Earth environmental observation
+- biotic / abiotic distinction
+- habitat and environmental conditions
+- one evidence-based continent inference
+
+**Can shorten:**
+- extended story discussion
+- extra sample sites
+- whole-class continent sharing
+
+## Mission 2 — Meet a Native Species
+**Protect:**
+- Survival Structures Lab
+- structure/function/adaptation reasoning
+- four continent clues
+- evidence-supported reconstruction
+
+**Can shorten:**
+- artistic polish
+- optional niche vocabulary
+- gallery walk
+
+## Mission 3 — Build the Ecosystem
+**Protect:**
+- producers / consumers / decomposers
+- food → eater arrows
+- physical web model
+- continent food web
+- carbon + water paths
+- energy flow vs matter cycling
+
+**Can shorten:**
+- additional food-web links
+- formal symbiosis categories
+- extra change scenarios
+
+## Mission 4 — Watch the Ecosystem Change
+**Protect:**
+- sampling investigation
+- two-graph population case
+- succession / recovery comparison
+- local environmental connection
+- authentic source rule for Indigenous/community evidence
+
+**Can shorten:**
+- repeated sampling
+- extra datasets
+- formal presentations
+
+## Mission 5 — Humans Have Arrived
+**Protect:**
+- Stowaway Spread Simulation
+- introduced ≠ invasive unless spread + harm are supported
+- short pollutant / biomagnification model
+- conservation risk
+- evidence-based final human-use recommendation
+- JCEC Recommendation Board
+
+**Can shorten:**
+- extra incident clues
 - peer critique
+- presentation polish
 
-### EXTENSION
-- polished public report, infographic, video, or formal presentation
+---
 
-### Suggested summative use
-This should be the **major Phase 1 synthesis assessment**.
+# Flex-day rule
+Flex time is not unused time. It protects the science when real school schedules interfere.
 
-# Assessment-load plan
-Do not formally grade every archive entry.
+Use flex periods in this priority order:
+1. **missed core investigation / fieldwork**
+2. **student absence recovery**
+3. **unfinished major synthesis work**
+4. **targeted reteaching**
+5. **short individual assessment**
+6. **review / gallery walk / presentation**
+7. **early transition only when Phase 1 is genuinely complete**
 
-Recommended:
-- **Operations 02–04:** formative evidence, quick checks, archive continuity
-- **Operation 05:** stronger CER / data-reasoning assessment
-- **Operation 06:** formative or lightly graded decision
-- **Operation 07:** stronger application / environmental decision assessment
-- **Operation 08:** major summative synthesis
+Do not turn all seven flex days into required extensions in advance.
 
-Pathfinder reflections should normally stay in the student log. Collect or mark selected reflections only when individual evidence is needed.
+---
 
-The recurring JCEC Form should usually take **5–8 minutes**, not become a separate lesson.
+# Recommended assessment load
+Do not formally grade every Team Record.
 
-# Daily 45-minute lesson rhythm
-A practical default structure:
-- **5 min** — mission launch / retrieval / vocabulary
-- **25–30 min** — investigation, analysis, or construction
-- **5–10 min** — team decision / archive wording
-- **3–5 min** — reflection / cleanup / next-step preview
+### Primarily formative
+- **Mission 1 Environment Profile** — observation and inference feedback
+- **Mission 2 Native Species Card** — adaptation/evidence feedback
+- **Mission 3 Ecosystem Map** — food-web and matter-cycle feedback
+- **Mission 4 Ecosystem Change Record** — stronger reasoning checkpoint, but can remain formative/lightly graded
 
-For hands-on days, front-load materials before students enter whenever possible.
+### Major synthesis
+- **Mission 5 JCEC Recommendation Board** — main Phase 1 summative task
 
-# What to cut first if the calendar shrinks
-Cut in this order:
-1. extension products
+### Individual evidence when needed
+- **Day 22 short science check** — recommended if a clear individual achievement mark is required
+- selected individual reflections may be sampled, but should not all become separate graded tasks
+
+A sensible formal weighting, if your gradebook requires percentages, is:
+- **JCEC Recommendation Board: 55%**
+- **Short individual science check: 30%**
+- **Selected individual reasoning / field skill evidence: 15%**
+
+If fewer marks are preferred, use only the Recommendation Board plus the short individual check.
+
+---
+
+# Daily 45-minute rhythm
+A practical default:
+- **5–8 min** — mission launch / retrieval
+- **25–30 min** — investigation, evidence analysis or construction
+- **5–8 min** — team decision / Team Record
+- **2–5 min** — reflection / cleanup / preview
+
+Hands-on days work best when materials are staged before students enter.
+
+# Calendar-compression rule
+If the calendar shrinks, cut in this order:
+1. optional extensions
 2. gallery walks / full-class shares
-3. repeated datasets or repeated sampling
-4. polished artwork / presentation production
-5. optional peer critique
+3. repeated trials or datasets
+4. artistic polish
+5. peer critique
 
-Do **not** cut:
-- authentic Earth field evidence
-- carbon + water cycles
-- population data reasoning
-- succession / recovery
-- local environmental issue connection
-- introduced species / pollution / human impacts
-- Operation 08 synthesis
+Do not cut:
+- Earth environmental observation
+- structure/adaptation evidence
+- food web + carbon/water cycling
+- population sampling + succession
+- local environmental / authentic-source connection
+- human-impact investigation
+- final JCEC Recommendation Board
 
-# Final five-week target
-By the end of Day 19, students should have completed the full ecological storyline and the required core science.
-
-Days 20–25 should remain deliberately flexible.
-
-The core scientific progression remains:
-
-**OBSERVE → MODEL → CONNECT → MEASURE → EXPLAIN → MONITOR → RESPOND → DECIDE**
+# Final target
+By the end of **Day 19**, the complete five-mission scientific storyline can be finished. Days **20–25**, plus Day 15, remain deliberate protection for real classroom conditions.
