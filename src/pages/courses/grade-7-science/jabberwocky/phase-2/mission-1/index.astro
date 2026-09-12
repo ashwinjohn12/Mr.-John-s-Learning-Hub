@@ -1,0 +1,275 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecPhase2Progress from '../../../../../../components/JcecPhase2Progress.astro';
+import { phase2PlantSites } from '../../../../../../data/jabberwockyPhase2';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Mission 1: Find the Living Resource | Jabberwocky 2190" description="Phase 2 Mission 1: investigate plant structures, functions, adaptations, and useful native plant resources." themeColor="#0b1c16">
+  <div class="mission-shell" id="phase2-mission1">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 2', href: `${base}courses/grade-7-science/jabberwocky/phase-2/` },
+      { label: 'Mission 1' }
+    ]} />
+
+    <JcecPhase2Progress active={1} compact={true} />
+
+    <header class="mission-hero">
+      <div>
+        <p class="eyebrow">PHASE 2 // MISSION 1 OF 5</p>
+        <h1>FIND THE LIVING <span>RESOURCE</span></h1>
+        <p class="question">What can this plant provide, and how is it built to survive here?</p>
+      </div>
+      <aside>
+        <span>YOU ARE LEARNING</span>
+        <strong>How plant structures help plants survive</strong>
+        <small>3 classes × 45 minutes</small>
+      </aside>
+    </header>
+
+    <section class="mission-at-a-glance" aria-label="Mission 1 at a glance">
+      <div><small>WHERE AM I?</small><strong>Mission 1 of 5</strong></div>
+      <div><small>WHAT DO I HAND IN?</small><strong>1 Living Resource Profile + 1 reflection</strong></div>
+      <div><small>WHY DOES IT MATTER?</small><strong>JCEC needs to know what humans could use without damaging the ecosystem.</strong></div>
+    </section>
+
+    <nav class="step-nav" aria-label="Mission 1 steps">
+      <a href="#your-mission"><b>1</b><span>Your Mission</span></a>
+      <a href="#learn"><b>2</b><span>Learn</span></a>
+      <a href="#investigate"><b>3</b><span>Investigate</span></a>
+      <a href="#decide"><b>4</b><span>Decide</span></a>
+      <a href="#record"><b>5</b><span>Record It</span></a>
+    </nav>
+
+    <section class="simple-step" id="your-mission">
+      <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
+      <div class="briefing">
+        <p>Your new Botanical Resources team has inherited ecological evidence from an earlier crew. JCEC has now identified a native plant that may provide food, fibre or useful material. Before anyone harvests or farms it, your team must understand how the plant is built, how its structures help it survive, and what warning the previous team left behind.</p>
+      </div>
+
+      <div class="assignment-result" id="assignment-result" hidden>
+        <span id="assignment-icon" aria-hidden="true"></span>
+        <div><small>YOUR PHASE 2 CONTINENT</small><strong id="assignment-name"></strong><p id="assignment-location"></p></div>
+        <div class="plant-badge"><small>RESOURCE PLANT</small><b id="assignment-plant"></b></div>
+      </div>
+      <div class="missing-assignment" id="missing-assignment" hidden>
+        <strong>Your Phase 2 posting is not saved on this device yet.</strong>
+        <p>Return to the Phase 2 Hub and choose the continent your teacher assigned.</p>
+        <a href={`${base}courses/grade-7-science/jabberwocky/phase-2/`}>Get Phase 2 posting →</a>
+      </div>
+
+      <div class="plant-interest" id="plant-interest" hidden>
+        <small>WHY JCEC IS INTERESTED</small>
+        <strong id="plant-use"></strong>
+        <p id="plant-reason"></p>
+        <p class="common-name-note" id="common-name-note" hidden></p>
+      </div>
+
+      <div class="inherited-warning" id="inherited-warning" hidden>
+        <span>⚠️</span><div><small>PREVIOUS TEAM WARNING</small><p id="warning-text"></p></div>
+      </div>
+    </section>
+
+    <section class="simple-step" id="learn">
+      <div class="step-heading"><span>2</span><div><p>CLASS 1</p><h2>Learn the Science</h2></div></div>
+      <p class="step-intro">Start with four plant structures. Each structure has a job.</p>
+      <div class="science-grid">
+        <article><span>🪴</span><strong>Roots</strong><p>Absorb water and materials from the environment and anchor the plant.</p></article>
+        <article><span>🌿</span><strong>Stem</strong><p>Supports the plant and helps move water and other materials.</p></article>
+        <article><span>🍃</span><strong>Leaves</strong><p>Capture light and help with photosynthesis and gas exchange.</p></article>
+        <article><span>🌼</span><strong>Flowers / reproductive structures</strong><p>Help seed plants reproduce and make the next generation.</p></article>
+      </div>
+
+      <div class="adaptation-strip"><strong>Adaptation</strong><span>A structure or behaviour that helps an organism survive in its environment.</span></div>
+
+      <div class="plants-matter">
+        <strong>Why plants matter</strong>
+        <p>Plants make food, support food webs, create habitat and provide materials humans use. A useful plant is still part of an ecosystem.</p>
+      </div>
+
+      <details class="help-box">
+        <summary>Need help? Match structure to job</summary>
+        <div>
+          <p><strong>Roots:</strong> think <em>absorb + anchor</em>.</p>
+          <p><strong>Stem:</strong> think <em>support + transport</em>.</p>
+          <p><strong>Leaves:</strong> think <em>light + food making + gas exchange</em>.</p>
+          <p><strong>Flowers / reproductive structures:</strong> think <em>reproduction + seeds</em>.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="simple-step" id="investigate">
+      <div class="step-heading"><span>3</span><div><p>CLASSES 1–2</p><h2>Investigate</h2></div></div>
+
+      <section class="investigation-block earth-plant">
+        <div class="block-title"><div><small>CLASS 1</small><h3>Plant Structure Investigation</h3></div><span>TEAM WORK</span></div>
+        <p><strong>Question:</strong> How does each plant structure help a real plant survive?</p>
+        <div class="equipment-strip"><strong>You need:</strong><span>one teacher-approved flowering/seed plant</span><span>hand lens if available</span><span>field sheet</span></div>
+        <ol class="simple-procedure">
+          <li>Observe the whole plant before touching or separating anything.</li>
+          <li>Find the <strong>roots, stem, leaves and flower/reproductive structure</strong>.</li>
+          <li>Sketch or label each structure on your field sheet.</li>
+          <li>For each structure, write its main <strong>job</strong>.</li>
+          <li>Choose one structure and explain how its shape or features may help the plant survive.</li>
+        </ol>
+        <div class="investigation-reminder"><strong>Look closely first.</strong><span>Structure → job → survival.</span></div>
+        <button type="button" class="small-button secondary" id="print-phase2-mission1">Print Mission 1 field sheet + profile</button>
+      </section>
+
+      <section class="investigation-block jabberwocky-plant">
+        <div class="block-title"><div><small>CLASSES 2–3</small><h3>Your Jabberwocky Resource Plant</h3></div><span>TEAM WORK</span></div>
+        <p>Now apply the same thinking to the plant on your assigned continent. Use only the four structure clues below.</p>
+        <div class="no-continent" id="no-continent"><strong>Phase 2 continent not found.</strong><a href={`${base}courses/grade-7-science/jabberwocky/phase-2/`}>Return to Phase 2 Hub →</a></div>
+        <div id="plant-files" hidden>
+          {phase2PlantSites.map((site) => (
+            <article class="plant-file" data-plant-file={site.id} hidden>
+              <header><span>{site.icon}</span><div><small>{site.name} · {site.baseCamp}</small><h3>{site.plant.name}</h3><p>{site.plant.resourceUse}</p></div></header>
+              {site.plant.commonNameNote && <p class="species-note">🌼 <strong>Important:</strong> {site.plant.commonNameNote}</p>}
+              <div class="clue-grid">
+                {site.plant.structureClues.map((clue, index) => (
+                  <article><b>{index + 1}</b><small>{clue.structure}</small><strong>{clue.clue}</strong><p><span>JOB:</span> {clue.function}</p></article>
+                ))}
+              </div>
+              <div class="adaptation-summary"><small>BIG ADAPTATION IDEA</small><p>{site.plant.adaptation}</p></div>
+              <details class="help-box compact-help">
+                <summary>Learn More: future production challenge</summary>
+                <div><p><strong>Growing challenge:</strong> {site.plant.productionProblem}</p><p><strong>Sustainability warning:</strong> {site.plant.sustainabilityRisk}</p></div>
+              </details>
+            </article>
+          ))}
+        </div>
+      </section>
+    </section>
+
+    <section class="simple-step" id="decide">
+      <div class="step-heading"><span>4</span><div><p>CLASS 3</p><h2>Make a Decision</h2></div></div>
+      <div class="decision-card">
+        <p class="mini-label">ONE TEAM QUESTION</p>
+        <h3>Which feature of this plant makes it most promising—or most difficult—for humans to use?</h3>
+        <div class="reasoning-frame">
+          <div><strong>STRUCTURE</strong><span>Name the root, stem, leaf or reproductive feature.</span></div>
+          <div><strong>WHY IT HELPS</strong><span>This structure helps the plant because ______.</span></div>
+          <div><strong>HUMAN CONNECTION</strong><span>This could make the plant useful / difficult because ______.</span></div>
+        </div>
+        <p class="decision-note">Choose one feature. You do not need to explain every structure again.</p>
+      </div>
+    </section>
+
+    <section class="simple-step" id="record">
+      <div class="step-heading"><span>5</span><div><p>CLASS 3</p><h2>Record It</h2></div></div>
+      <div class="handoff-strip"><span>👥 <strong>TEAM WORK</strong> discuss</span><i>→</i><span>📝 <strong>TEAM RECORD</strong> one profile</span><i>→</i><span>💭 <strong>MY REFLECTION</strong> everyone answers</span></div>
+
+      <div class="team-record">
+        <div class="record-heading"><div><p class="mini-label">TEAM RECORD</p><h3>Living Resource Profile</h3></div><span>ONE PER TEAM</span></div>
+        <p>Your profile needs only these seven pieces.</p>
+        <div class="profile-checklist">
+          <label><input type="checkbox" /> our continent</label>
+          <label><input type="checkbox" /> native resource plant</label>
+          <label><input type="checkbox" /> possible human use</label>
+          <label><input type="checkbox" /> one important plant structure</label>
+          <label><input type="checkbox" /> one adaptation</label>
+          <label><input type="checkbox" /> one inherited Phase 1 warning</label>
+          <label><input type="checkbox" /> our team's most important finding</label>
+        </div>
+      </div>
+
+      <div class="reflection-card">
+        <p class="mini-label">MY REFLECTION</p>
+        <h3>Which plant structure tells you the most about how this plant survives? Why?</h3>
+        <p>Everyone answers this question individually.</p>
+      </div>
+
+      <div class="finished-box">
+        <strong>Mission 1 is finished when:</strong>
+        <span>✓ your team has one Living Resource Profile</span>
+        <span>✓ you completed the short individual reflection</span>
+        <p>Mission 2 — Keep It Growing — is coming next. Do not start it yet.</p>
+        <a href={`${base}courses/grade-7-science/jabberwocky/phase-2/`}>Return to Phase 2 Mission Hub →</a>
+      </div>
+    </section>
+
+    <section class="print-packet" aria-label="Phase 2 Mission 1 printable packet">
+      <section class="print-page">
+        <h1>Phase 2 · Mission 1 — Plant Structure Investigation</h1>
+        <p>Team: ________________________________ &nbsp; Date: ____________</p>
+        <p><strong>Plant:</strong> ________________________________________________</p>
+        <table><thead><tr><th>Structure</th><th>What I observe</th><th>Main job</th></tr></thead><tbody><tr><th>Roots</th><td></td><td></td></tr><tr><th>Stem</th><td></td><td></td></tr><tr><th>Leaves</th><td></td><td></td></tr><tr><th>Flower / reproductive structure</th><td></td><td></td></tr></tbody></table>
+        <p><strong>Choose one structure. How might its shape or features help the plant survive?</strong></p><div class="writing-lines"></div>
+      </section>
+      <section class="print-page page-break">
+        <h1>Living Resource Profile</h1>
+        <p>Continent: ________________________________ &nbsp; Team: ________________________________</p>
+        <div class="print-grid two"><div><strong>Native resource plant</strong></div><div><strong>Possible human use</strong></div></div>
+        <div class="print-grid two"><div><strong>Important plant structure</strong></div><div><strong>How that structure helps the plant</strong></div></div>
+        <div class="print-grid two"><div><strong>One adaptation</strong></div><div><strong>Inherited Phase 1 warning</strong></div></div>
+        <p><strong>Our team's most important finding</strong></p><div class="writing-lines tall"></div>
+        <p><strong>MY REFLECTION:</strong> Which plant structure tells you the most about how this plant survives? Why?</p><div class="writing-lines tall"></div>
+      </section>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ siteData: phase2PlantSites }}>
+    (() => {
+      const PHASE2_POSTING_KEY = 'jabberwocky-phase2-posting';
+      const sites = Object.fromEntries(siteData.map((site) => [site.id, site]));
+      const saved = localStorage.getItem(PHASE2_POSTING_KEY);
+      const site = saved ? sites[saved] : null;
+      const assignment = document.getElementById('assignment-result');
+      const missing = document.getElementById('missing-assignment');
+      const interest = document.getElementById('plant-interest');
+      const warning = document.getElementById('inherited-warning');
+      const noContinent = document.getElementById('no-continent');
+      const plantFiles = document.getElementById('plant-files');
+
+      if (site) {
+        assignment.hidden = false;
+        missing.hidden = true;
+        interest.hidden = false;
+        warning.hidden = false;
+        noContinent.hidden = true;
+        plantFiles.hidden = false;
+        document.getElementById('assignment-icon').textContent = site.icon;
+        document.getElementById('assignment-name').textContent = site.name;
+        document.getElementById('assignment-location').textContent = `${site.subtitle} · ${site.baseCamp}`;
+        document.getElementById('assignment-plant').textContent = site.plant.name;
+        document.getElementById('plant-use').textContent = site.plant.resourceUse;
+        document.getElementById('plant-reason').textContent = site.plant.jcecInterest;
+        document.getElementById('warning-text').textContent = site.previousTeamBriefing.warning;
+        const commonNameNote = document.getElementById('common-name-note');
+        if (site.plant.commonNameNote) {
+          commonNameNote.hidden = false;
+          commonNameNote.textContent = site.plant.commonNameNote;
+        } else {
+          commonNameNote.hidden = true;
+          commonNameNote.textContent = '';
+        }
+        document.querySelectorAll('[data-plant-file]').forEach((el) => el.hidden = el.dataset.plantFile !== saved);
+      } else {
+        assignment.hidden = true;
+        missing.hidden = false;
+        interest.hidden = true;
+        warning.hidden = true;
+        noContinent.hidden = false;
+        plantFiles.hidden = true;
+      }
+
+      document.getElementById('print-phase2-mission1')?.addEventListener('click', () => {
+        document.body.classList.add('print-phase2-mission1');
+        window.print();
+      });
+      window.addEventListener('afterprint', () => document.body.classList.remove('print-phase2-mission1'));
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body){background:#07120e}.mission-shell{max-width:1050px;margin:0 auto;padding:0 1rem 5rem;color:#edf8ef}.mission-shell :global(.breadcrumbs){color:#9eb4a5}.mission-shell :global(.breadcrumbs a){color:#d9eadc}:global(body:has(#phase2-mission1) .jcec-submission-dock),:global(body:has(#phase2-mission1) .jcec-device-tools){display:none!important}.eyebrow,.mini-label{margin:0;color:#a8e779;font:850 .73rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}.mission-hero{display:grid;grid-template-columns:1fr 255px;gap:1.25rem;align-items:end;margin:.8rem 0 1rem;padding:clamp(1.35rem,4vw,2.25rem);border:1px solid #416448;border-radius:22px;background:radial-gradient(circle at 82% 18%,rgba(183,231,125,.14),transparent 26%),linear-gradient(145deg,#081711,#15351f)}.mission-hero h1{margin:.45rem 0;color:#fff;font-size:clamp(2.45rem,7vw,5rem);line-height:.9;letter-spacing:-.05em}.mission-hero h1 span{display:block;color:#b7e77d}.question{margin:.8rem 0 0;color:#d4e3d7;font-size:1.2rem;font-weight:750}.mission-hero aside{display:grid;gap:.18rem;padding:.9rem;border:1px solid #45644c;border-radius:13px;background:#0b1c13}.mission-hero aside span{color:#a7d883;font-size:.68rem;font-weight:900;letter-spacing:.08em}.mission-hero aside strong{color:#fff}.mission-hero aside small{color:#9eb4a4}.mission-at-a-glance{display:grid;grid-template-columns:.7fr 1fr 1.5fr;gap:.55rem;margin:1rem 0}.mission-at-a-glance div{display:grid;gap:.22rem;padding:.75rem;border:1px solid #365243;border-radius:10px;background:#0b1b13}.mission-at-a-glance small{color:#91b170;font-size:.62rem;font-weight:900;letter-spacing:.07em}.mission-at-a-glance strong{color:#eaf5eb;font-size:.82rem;line-height:1.35}.step-nav{position:sticky;top:.55rem;z-index:20;display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem;margin:1rem 0;padding:.4rem;border:1px solid #365443;border-radius:13px;background:rgba(7,23,15,.96);backdrop-filter:blur(8px)}.step-nav a{display:flex;gap:.4rem;align-items:center;padding:.55rem;border-radius:9px;color:#adc0b0;text-decoration:none;font-size:.78rem;font-weight:850}.step-nav a:hover{background:#173020;color:#fff}.step-nav b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#1b3928;color:#c2d4c5}.simple-step{margin:1rem 0;padding:clamp(1rem,3vw,1.45rem);scroll-margin-top:5.2rem;border:1px solid #355343;border-radius:18px;background:#0b1b13}.step-heading{display:flex;gap:.7rem;align-items:center;margin-bottom:.9rem}.step-heading>span{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:12px;background:#b7e77d;color:#18320d;font-size:1.2rem;font-weight:950}.step-heading p{margin:0;color:#a8e779;font-size:.68rem;font-weight:900;letter-spacing:.08em}.step-heading h2{margin:.12rem 0;color:#fff;font-size:1.55rem}.briefing{max-width:790px;padding:1rem 1.1rem;border-left:3px solid #b7e77d;background:#13271b}.briefing p{margin:0;color:#c6d5ca;font-size:1rem;line-height:1.62}.assignment-result{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;margin-top:1rem;padding:.85rem;border:1px solid #507458;border-radius:12px;background:#11291a}.assignment-result>span{font-size:1.6rem}.assignment-result small,.plant-badge small,.plant-interest small,.inherited-warning small{display:block;color:#93b078;font-size:.63rem;font-weight:900;letter-spacing:.07em}.assignment-result strong{color:#fff;font-size:1.08rem}.assignment-result p{margin:.12rem 0 0;color:#a7bca9;font-size:.82rem}.plant-badge{text-align:right}.plant-badge b{display:block;margin-top:.18rem;color:#d7ffae}.missing-assignment{margin-top:1rem;padding:.85rem;border:1px dashed #52695a;border-radius:10px;color:#b2c5b5}.missing-assignment strong{color:#fff}.missing-assignment p{margin:.3rem 0 .55rem}.missing-assignment a,.no-continent a{color:#b8e894}.plant-interest{margin-top:.8rem;padding:.85rem;border:1px solid #49664f;border-radius:11px;background:#0a1910}.plant-interest>strong{display:block;margin:.25rem 0;color:#fff}.plant-interest p{margin:.25rem 0 0;color:#abc0ae;line-height:1.45}.common-name-note{margin-top:.6rem!important;padding:.55rem;border-left:3px solid #e6c86e;background:#252111;color:#e7d9a3!important;font-weight:750}.inherited-warning{display:flex;gap:.65rem;align-items:flex-start;margin-top:.75rem;padding:.75rem;border:1px solid #655c35;border-radius:10px;background:#211e12}.inherited-warning>span{font-size:1.2rem}.inherited-warning p{margin:.2rem 0 0;color:#d2c797;font-size:.84rem;line-height:1.45}.step-intro{color:#a9bdad}.science-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem}.science-grid article{padding:.85rem;border:1px solid #375140;border-radius:11px;background:#09160f}.science-grid article>span{display:block;margin-bottom:.35rem;font-size:1.25rem}.science-grid strong{color:#fff}.science-grid p{margin:.22rem 0 0;color:#a9bcae;font-size:.82rem;line-height:1.45}.adaptation-strip{display:flex;gap:.65rem;align-items:center;margin-top:.75rem;padding:.72rem;border-left:3px solid #b7e77d;background:#14271b}.adaptation-strip strong{color:#d9ffb7}.adaptation-strip span{color:#b8cabd}.plants-matter{margin-top:.75rem;padding:.78rem;border:1px solid #3e5a46;border-radius:10px;background:#0e2016}.plants-matter strong{color:#fff}.plants-matter p{margin:.25rem 0 0;color:#a9bdad;line-height:1.5}.help-box{margin-top:.75rem;border:1px solid #3c5845;border-radius:10px;background:#09170f}.help-box summary{cursor:pointer;padding:.72rem .8rem;color:#cbe1cd;font-size:.84rem;font-weight:850}.help-box div{padding:0 .8rem .75rem}.help-box p{margin:.4rem 0;color:#aebfaf;line-height:1.45}.investigation-block{margin-top:.8rem;padding:1rem;border:1px solid #365343;border-radius:13px;background:#09170f}.block-title{display:flex;justify-content:space-between;gap:.8rem;align-items:start}.block-title small{color:#a8df7a;font-size:.66rem;font-weight:900}.block-title h3{margin:.12rem 0;color:#fff;font-size:1.2rem}.block-title>span{padding:.32rem .5rem;border-radius:999px;background:#23442e;color:#d6f5be;font-size:.68rem;font-weight:900}.investigation-block>p{color:#adc0b0;line-height:1.5}.equipment-strip{display:flex;gap:.45rem;align-items:center;flex-wrap:wrap;margin:.7rem 0}.equipment-strip strong{color:#fff}.equipment-strip span{padding:.3rem .5rem;border:1px solid #435e4b;border-radius:999px;color:#a9bcae;font-size:.78rem}.simple-procedure{display:grid;gap:.48rem;padding-left:1.45rem;color:#c2d3c5;line-height:1.5}.investigation-reminder{display:flex;justify-content:space-between;gap:.8rem;margin:.8rem 0;padding:.7rem;border-left:3px solid #b7e77d;background:#14261a;color:#d8e6da;font-size:.82rem}.investigation-reminder span{color:#adc3b0}.small-button{display:inline-flex;align-items:center;justify-content:center;padding:.68rem .85rem;border:1px solid #526b59;border-radius:9px;background:#132b1d;color:#e1f0e3;font:inherit;font-size:.82rem;font-weight:900;cursor:pointer}.no-continent{display:flex;justify-content:space-between;gap:.7rem;align-items:center;padding:.8rem;border:1px dashed #506858;border-radius:9px;color:#b8cbbd}.plant-file header{display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:center}.plant-file header>span{font-size:1.65rem}.plant-file header small{color:#8fa995}.plant-file header h3{margin:.08rem 0;color:#fff;font-size:1.35rem}.plant-file header p{margin:0;color:#b2c4b5;font-size:.82rem}.species-note{padding:.65rem;border-left:3px solid #e6c86e;background:#251f10;color:#e8dba7!important}.clue-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem;margin-top:.8rem}.clue-grid article{position:relative;padding:.78rem;border:1px solid #385242;border-radius:10px;background:#0b1a12}.clue-grid b{position:absolute;top:.55rem;right:.55rem;display:grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#24452e;color:#d6f5be;font-size:.7rem}.clue-grid small{display:block;color:#9bd173;font-size:.65rem;font-weight:900;text-transform:uppercase}.clue-grid strong{display:block;margin:.25rem 1.5rem .35rem 0;color:#fff;font-size:.85rem;line-height:1.4}.clue-grid p{margin:0;color:#a8bbaa;font-size:.78rem;line-height:1.42}.clue-grid p span{color:#d8e8da;font-weight:900}.adaptation-summary{margin-top:.65rem;padding:.75rem;border:1px solid #496951;border-radius:10px;background:#10251a}.adaptation-summary small{color:#9ed578;font-size:.64rem;font-weight:900}.adaptation-summary p{margin:.25rem 0 0;color:#c3d4c5;line-height:1.45}.compact-help{margin-top:.6rem}.decision-card,.team-record,.reflection-card,.finished-box{margin-top:1rem;padding:1rem;border:1px solid #3a5845;border-radius:13px;background:#09170f}.decision-card h3,.reflection-card h3{margin:.3rem 0 .7rem;color:#fff}.reasoning-frame{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}.reasoning-frame div{padding:.78rem;border:1px solid #4a684f;border-radius:10px;background:#10251a}.reasoning-frame strong{display:block;color:#b7e77d;font-size:.78rem}.reasoning-frame span{display:block;margin-top:.25rem;color:#b1c5b5;font-size:.82rem;line-height:1.45}.decision-note{margin:.65rem 0 0;color:#94a997;font-size:.8rem}.handoff-strip{display:flex;gap:.55rem;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:.8rem;padding:.7rem;border:1px solid #3a5544;border-radius:10px;background:#09160e;color:#b6c8b9;font-size:.8rem}.handoff-strip strong{color:#fff}.handoff-strip i{color:#617a67}.record-heading{display:flex;justify-content:space-between;align-items:start}.record-heading h3{margin:.2rem 0;color:#fff;font-size:1.25rem}.record-heading>span{padding:.3rem .45rem;border-radius:999px;background:#23442e;color:#d6f5be;font-size:.66rem;font-weight:900}.team-record>p{color:#9fb2a2}.profile-checklist{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}.profile-checklist label{padding:.55rem;border:1px solid #344e3d;border-radius:8px;background:#0d1d14;color:#c1d1c4;font-size:.82rem}.reflection-card{border-color:#52634b;background:#101d14}.reflection-card p:last-child{margin:.3rem 0 0;color:#a7baa9}.finished-box{display:grid;gap:.32rem;border-color:#527653;background:#10251a}.finished-box strong{color:#fff}.finished-box span{color:#c5ddc8}.finished-box p{margin:.25rem 0 0;color:#95ab98;font-size:.82rem}.finished-box a{width:max-content;max-width:100%;margin-top:.35rem;padding:.65rem .75rem;border-radius:8px;background:#b7e77d;color:#18320d!important;text-decoration:none;font-size:.8rem;font-weight:900}.print-packet{display:none}.print-page{color:#111;background:#fff}.print-page table{width:100%;border-collapse:collapse;margin:18px 0}.print-page th,.print-page td{height:58px;padding:7px;border:1px solid #333;text-align:left;vertical-align:top}.print-grid.two{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.3in 0}.print-grid>div{min-height:70px;padding:.5rem;border:1px solid #333}.writing-lines{height:65px;border-bottom:1px solid #555;background:repeating-linear-gradient(to bottom,transparent 0,transparent 27px,#aaa 28px)}.writing-lines.tall{height:95px}
+  @media(max-width:820px){.mission-hero{grid-template-columns:1fr}.mission-at-a-glance{grid-template-columns:1fr}.science-grid,.clue-grid{grid-template-columns:1fr 1fr}.reasoning-frame{grid-template-columns:1fr}.step-nav{grid-template-columns:repeat(5,88px);overflow-x:auto}.step-nav a{display:grid;justify-items:center;text-align:center}.profile-checklist{grid-template-columns:1fr}}
+  @media(max-width:560px){.mission-shell{padding-inline:.7rem}.mission-hero h1{font-size:3rem}.science-grid,.clue-grid{grid-template-columns:1fr}.step-nav{position:static;grid-template-columns:1fr}.step-nav a{display:flex;text-align:left}.block-title{display:grid}.assignment-result{grid-template-columns:auto 1fr}.plant-badge{grid-column:1/-1;text-align:left}.investigation-reminder{display:grid}.record-heading{display:grid}.finished-box a{width:100%;box-sizing:border-box;text-align:center}}
+  @media print{body.print-phase2-mission1 *{visibility:hidden!important}body.print-phase2-mission1 .print-packet,body.print-phase2-mission1 .print-packet *{visibility:visible!important}body.print-phase2-mission1 .print-packet{display:block!important;position:absolute;inset:0;background:#fff}body.print-phase2-mission1 .print-page{padding:.35in;font:11pt Arial,sans-serif}body.print-phase2-mission1 .print-page h1{margin-top:0;font-size:20pt}.page-break{break-before:page;page-break-before:always}}
+</style>
