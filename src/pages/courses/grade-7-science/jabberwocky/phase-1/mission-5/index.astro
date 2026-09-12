@@ -1,0 +1,345 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecMissionProgress from '../../../../../../components/JcecMissionProgress.astro';
+import { operation03Species } from '../../../../../../data/jabberwockyOperation03';
+import { operation07Incidents } from '../../../../../../data/jabberwockyOperation07';
+import { operation08Briefs } from '../../../../../../data/jabberwockyOperation08';
+
+const base = import.meta.env.BASE_URL;
+const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZDtZrNtCG3WB78ttvZdtEmq29kapujg/viewform';
+
+const continentIcons: Record<string, string> = {
+  gyre: '⛰️',
+  brillig: '🌿',
+  manxome: '🏝️',
+  'slithy-toves': '🏜️',
+  wabe: '❄️',
+  bandersnatch: '🌾',
+  gimble: '🌲',
+  mimsy: '🪷'
+};
+
+const missionFiles = operation07Incidents.map((incident) => {
+  const species = operation03Species.find((item) => item.id === incident.id);
+  const brief = operation08Briefs.find((item) => item.id === incident.id);
+  if (!species || !brief) throw new Error(`Missing Mission 5 source data for ${incident.id}`);
+  const first = incident.spread[0];
+  const middle = incident.spread[Math.min(2, incident.spread.length - 1)];
+  const last = incident.spread[incident.spread.length - 1];
+  return {
+    ...incident,
+    icon: continentIcons[incident.id],
+    nativeSpecies: species.fieldName,
+    preliminaryRating: brief.preliminaryRating,
+    ecologicalStrength: brief.ecologicalStrength,
+    ecologicalConcern: brief.ecologicalConcern,
+    spreadStages: [first, middle, last],
+    impactEvidence: incident.evidence.slice(0, 2),
+    contaminantPath: incident.contaminantPath
+  };
+});
+---
+
+<BaseLayout title="Mission 5: Humans Have Arrived | Jabberwocky 2190" description="The final simplified Grade 7 Science Phase 1 mission about human impacts, introduced species, pollution, conservation risk, and evidence-based decisions." themeColor="#071b2e">
+  <div class="mission-shell" id="simplified-mission-5">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 1', href: `${base}courses/grade-7-science/jabberwocky/phase-1/` },
+      { label: 'Mission 5' }
+    ]} />
+
+    <JcecMissionProgress active={5} compact={true} />
+
+    <header class="mission-hero">
+      <div>
+        <p class="eyebrow">MISSION 5 OF 5</p>
+        <h1>HUMANS HAVE <span>ARRIVED</span></h1>
+        <p class="question">How can people explore Jabberwocky without causing too much harm?</p>
+      </div>
+      <aside>
+        <span>YOU ARE LEARNING</span>
+        <strong>How human choices can change ecosystems</strong>
+        <small>4 classes × 45 minutes</small>
+      </aside>
+    </header>
+
+    <nav class="step-nav" aria-label="Mission 5 steps">
+      <a href="#your-mission"><b>1</b><span>Your Mission</span></a>
+      <a href="#learn"><b>2</b><span>Learn</span></a>
+      <a href="#investigate"><b>3</b><span>Investigate</span></a>
+      <a href="#decide"><b>4</b><span>Decide</span></a>
+      <a href="#record"><b>5</b><span>Record It</span></a>
+    </nav>
+
+    <section class="simple-step" id="your-mission">
+      <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
+      <div class="briefing alert-briefing">
+        <p>JCEC has confirmed a serious problem: humans brought an Earth organism to your continent by accident, and a human-made pollutant has entered part of the food web. Your team must investigate what happened, decide what is most at risk, and use everything you learned in Phase 1 to recommend what humans should be allowed to do next.</p>
+      </div>
+
+      <div class="assignment-box">
+        <div class="assignment-result" id="assignment-result" hidden>
+          <span id="assignment-icon" aria-hidden="true"></span>
+          <div><small>YOUR CONTINENT</small><strong id="assignment-name"></strong><p id="assignment-environment"></p></div>
+          <div class="species-box"><small>NATIVE SPECIES</small><b id="assignment-species"></b></div>
+        </div>
+        <div class="missing-assignment" id="missing-assignment" hidden>
+          <strong>Your continent is not saved on this device yet.</strong>
+          <p>Go back to Mission 1 and choose the continent your teacher assigned.</p>
+          <a href={`${base}courses/grade-7-science/jabberwocky/phase-1/mission-1/`}>Return to Mission 1 →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="simple-step" id="learn">
+      <div class="step-heading"><span>2</span><div><p>CLASSES 1–2</p><h2>Learn the Science</h2></div></div>
+      <p class="step-intro">Start with four ideas.</p>
+      <div class="science-grid">
+        <article><span>📦</span><strong>Introduced species</strong><p>An organism moved by humans to a place where it did not live before.</p></article>
+        <article><span>⚠️</span><strong>Invasive species</strong><p>An introduced species that spreads and causes harm. <strong>Introduced does not automatically mean invasive.</strong></p></article>
+        <article><span>🧪</span><strong>Pollutant</strong><p>A substance released into the environment that can harm organisms or change conditions.</p></article>
+        <article><span>🛡️</span><strong>Conservation</strong><p>Protecting species, habitats and ecosystem connections from serious harm.</p></article>
+      </div>
+
+      <div class="evidence-rule"><strong>To call an introduced species invasive, look for BOTH:</strong><span>1 · evidence it is spreading</span><span>2 · evidence it is causing ecological harm</span></div>
+
+      <details class="help-box">
+        <summary>Three conservation words you will use</summary>
+        <div class="conservation-grid">
+          <p><strong>Endangered:</strong> at serious risk of disappearing.</p>
+          <p><strong>Local extinction:</strong> a species disappears from one area but still exists elsewhere.</p>
+          <p><strong>Global extinction:</strong> a species disappears everywhere.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="simple-step" id="investigate">
+      <div class="step-heading"><span>3</span><div><p>CLASSES 1–3</p><h2>Investigate</h2></div></div>
+
+      <section class="investigation-block spread-block">
+        <div class="block-title"><div><small>CLASS 1</small><h3>Stowaway Spread Simulation</h3></div><span>TEAM WORK</span></div>
+        <p><strong>Question:</strong> Can an early checkpoint reduce the spread of a hidden stowaway?</p>
+        <div class="equipment-strip"><strong>You need:</strong><span>6 labelled cups or zones</span><span>neutral counters</span><span>4 different-coloured “stowaway” counters</span><span>a small scoop</span></div>
+        <ol class="simple-procedure">
+          <li>Mix the neutral counters and 4 stowaways in the <strong>Cargo</strong> cup.</li>
+          <li><strong>Round A:</strong> move random counters Cargo → A → B → C → D → E. Do not inspect them. Count how many zones receive a stowaway.</li>
+          <li>Reset everything.</li>
+          <li><strong>Round B:</strong> repeat the same transfers, but inspect each transfer first. Put visible stowaways into a quarantine cup.</li>
+          <li>Compare the two rounds. Which system stopped spread earlier?</li>
+        </ol>
+        <div class="model-note"><strong>Big idea:</strong><span>Human movement can create pathways for spread. Early checks can interrupt those pathways.</span></div>
+        <button type="button" class="small-button secondary" id="print-mission5-board">Print JCEC Recommendation Board</button>
+      </section>
+
+      <section class="investigation-block incident-block">
+        <div class="block-title"><div><small>CLASS 1–2</small><h3>Your Continent Incident</h3></div><span>TEAM WORK</span></div>
+        <p>Use a small amount of evidence. Your job is to decide whether there is evidence of <strong>spread + harm</strong>.</p>
+
+        <div class="no-continent" id="no-continent"><strong>Mission 1 continent not found.</strong><a href={`${base}courses/grade-7-science/jabberwocky/phase-1/mission-1/`}>Return to Mission 1 →</a></div>
+        <div id="incident-files" hidden>
+          {missionFiles.map((item) => (
+            <article class="incident-file" data-incident={item.id} hidden>
+              <header><span aria-hidden="true">{item.icon}</span><div><small>{item.name} · {item.baseCamp}</small><h3>{item.stowaway}</h3><p>Earth organism detected on {item.name}.</p></div></header>
+              <div class="entry-card"><strong>How it may have arrived</strong><p>{item.suspectedEntry}</p></div>
+
+              <div class="spread-evidence">
+                <div class="evidence-heading"><strong>Spread over time</strong><span>Watch occupied zones and the native indicator.</span></div>
+                {item.spreadStages.map((stage) => (
+                  <article><strong>{stage.label}</strong><span>{stage.occupiedZones} occupied zone{stage.occupiedZones === 1 ? '' : 's'}</span><b>{item.nativeIndicatorLabel}: {stage.nativeIndicator}</b><p>{stage.note}</p></article>
+                ))}
+              </div>
+
+              <div class="impact-evidence">
+                <strong>Two more clues</strong>
+                {item.impactEvidence.map((evidence, index) => <p><b>{index + 1}</b>{evidence}</p>)}
+              </div>
+
+              <div class="quick-check"><strong>Quick team check</strong><span>Do you see evidence of spread?</span><span>Do you see evidence of ecological harm?</span></div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="investigation-block pollutant-block">
+        <div class="block-title"><div><small>CLASS 2</small><h3>Pollution in a Food Chain</h3></div><span>TEACHER-GUIDED MODEL</span></div>
+        <p>Use tokens to model a persistent pollutant. This is short: the goal is to see the pattern.</p>
+        <div class="token-model">
+          <article><b>1</b><strong>16 producers</strong><span>1 token each</span></article><i>→</i>
+          <article><b>2</b><strong>4 consumers</strong><span>each eats 4 producers → 4 tokens each</span></article><i>→</i>
+          <article><b>3</b><strong>1 predator</strong><span>eats the 4 consumers → 16 tokens</span></article>
+        </div>
+        <p class="pollutant-message"><strong>Some persistent pollutants can build up in organisms and become more concentrated higher in a food chain.</strong> This does not happen with every substance.</p>
+
+        <div id="pollutant-files" hidden>
+          {missionFiles.map((item) => (
+            <article class="pollutant-file" data-pollutant={item.id} hidden>
+              <div class="x17-title"><small>FICTIONAL X-17 SAMPLE PATH</small><p>{item.contaminantNote}</p></div>
+              <div class="pollutant-path">
+                {item.contaminantPath.map((level, index) => (
+                  <><article><small>{level.trophicRole}</small><strong>{level.sample}</strong><span>{level.concentration} ppb</span></article>{index < item.contaminantPath.length - 1 && <i>→</i>}</>
+                ))}
+              </div>
+              <p class="x17-note">X-17 is fictional. The data model how a persistent pollutant can move through a real food web.</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="investigation-block risk-block">
+        <div class="block-title"><div><small>CLASS 2</small><h3>What Could Be at Risk?</h3></div><span>TEAM WORK</span></div>
+        <p>Use the incident, pollution pathway and your Mission 3 Ecosystem Map.</p>
+        <div class="risk-question"><strong>If this problem continued, which native species or ecosystem connection could be most at risk?</strong><span>Choose one. Explain the connection in one or two sentences.</span></div>
+      </section>
+
+      <section class="investigation-block evidence-review">
+        <div class="block-title"><div><small>CLASS 3</small><h3>Bring Your Evidence Together</h3></div><span>TEAM WORK</span></div>
+        <p>You do not need a new report. Look back at the four products you already made and choose the evidence that matters most.</p>
+        <div class="mission-evidence-grid">
+          <article><span>1</span><strong>Environment Profile</strong><p>What condition matters most?</p></article>
+          <article><span>2</span><strong>Native Species Card</strong><p>What organism needs protection?</p></article>
+          <article><span>3</span><strong>Ecosystem Map</strong><p>What connection matters?</p></article>
+          <article><span>4</span><strong>Ecosystem Change Record</strong><p>What did monitoring show?</p></article>
+        </div>
+        <p class="three-evidence-rule"><strong>Choose three strong pieces of evidence.</strong> Try to use evidence from at least <strong>three different earlier missions</strong>.</p>
+      </section>
+    </section>
+
+    <section class="simple-step" id="decide">
+      <div class="step-heading"><span>4</span><div><p>CLASS 3</p><h2>Make a Decision</h2></div></div>
+      <div class="decision-card">
+        <p class="mini-label">ONE TEAM QUESTION</p>
+        <h3>What should humans be allowed to do on your continent?</h3>
+        <div class="decision-choices">
+          <span class="green">🟢 <strong>Explore carefully</strong></span>
+          <span class="yellow">🟡 <strong>Explore with strong rules</strong></span>
+          <span class="orange">🟠 <strong>Very limited exploration</strong></span>
+          <span class="red">🔴 <strong>Stop for now</strong></span>
+        </div>
+        <div class="reasoning-frame"><strong>Decision</strong><span>Choose one recommendation.</span><strong>Evidence</strong><span>Use your strongest evidence.</span><strong>Possible consequence</strong><span>What could happen if humans ignore the evidence?</span></div>
+        <div class="rule-prompt"><strong>One human rule:</strong><span>Write one clear rule that could reduce the biggest risk you found.</span></div>
+      </div>
+    </section>
+
+    <section class="simple-step" id="record">
+      <div class="step-heading"><span>5</span><div><p>CLASSES 3–4</p><h2>Record It</h2></div></div>
+      <div class="handoff-strip"><span>👥 <strong>TEAM WORK</strong> discuss</span><i>→</i><span>📝 <strong>TEAM RECORD</strong> one board</span><i>→</i><span>💭 <strong>MY REFLECTION</strong> everyone answers</span></div>
+
+      <div class="team-record recommendation-record">
+        <div class="record-heading"><div><p class="mini-label">TEAM RECORD</p><h3>JCEC Recommendation Board</h3></div><span>ONE PER TEAM</span></div>
+        <p>This one-page board is your final Phase 1 team product.</p>
+        <div class="board-checklist">
+          <label><input type="checkbox" /> our continent</label>
+          <label><input type="checkbox" /> why this ecosystem matters</label>
+          <label><input type="checkbox" /> one important native species</label>
+          <label><input type="checkbox" /> one important ecosystem connection</label>
+          <label><input type="checkbox" /> biggest human-caused risk</label>
+          <label><input type="checkbox" /> three strong pieces of evidence</label>
+          <label><input type="checkbox" /> one rule humans must follow</label>
+          <label><input type="checkbox" /> final recommendation + short explanation</label>
+        </div>
+      </div>
+
+      <div class="continent-summary" id="summary-files" hidden>
+        {missionFiles.map((item) => (
+          <article data-summary={item.id} hidden>
+            <div><small>PRELIMINARY JCEC RATING FROM THE START</small><strong>{item.preliminaryRating}</strong></div>
+            <p><b>Ecological strength:</b> {item.ecologicalStrength}</p>
+            <p><b>Current concern:</b> {item.ecologicalConcern}</p>
+            <span>The preliminary rating was never the answer. Your recommendation must come from the evidence your team collected.</span>
+          </article>
+        ))}
+      </div>
+
+      <div class="reflection-card">
+        <p class="mini-label">MY REFLECTION</p>
+        <h3>At the start of Phase 1, what did you think about your continent? What do you think now? What evidence changed your mind?</h3>
+        <p>Everyone answers this question individually.</p>
+      </div>
+
+      <details class="online-submit">
+        <summary>Did your teacher tell one person to submit the Team Record online?</summary>
+        <div><p>Submit the same Recommendation Board decision. Do not create another ecological report.</p><a href={portalUrl} target="_blank" rel="noopener noreferrer">Open JCEC submission portal ↗</a></div>
+      </details>
+
+      <div class="finished-box phase-finish">
+        <strong>Mission 5 — and Phase 1 — are finished when:</strong>
+        <span>✓ your team has one JCEC Recommendation Board</span>
+        <span>✓ the board uses three strong pieces of evidence</span>
+        <span>✓ you completed the short individual reflection</span>
+        <p>You have completed First Contact. Your evidence will stay with this continent for the next science team.</p>
+        <a class="return-hub" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Return to Phase 1 Mission Hub →</a>
+      </div>
+    </section>
+
+    <section class="print-packet" aria-label="Mission 5 printable Recommendation Board">
+      <section class="print-page recommendation-board-print">
+        <h1>Mission 5 — JCEC Recommendation Board</h1>
+        <p>Continent: ________________________________ &nbsp; Team: ________________________________</p>
+        <div class="print-grid two"><div><strong>Why this ecosystem matters</strong><span></span></div><div><strong>Important native species</strong><span></span></div></div>
+        <div class="print-grid two"><div><strong>Important ecosystem connection</strong><span></span></div><div><strong>Biggest human-caused risk</strong><span></span></div></div>
+        <h2>Our three strongest pieces of evidence</h2>
+        <div class="evidence-print"><p>1. ________________________________________________________________________________________</p><p>2. ________________________________________________________________________________________</p><p>3. ________________________________________________________________________________________</p></div>
+        <div class="print-grid two"><div><strong>One rule humans must follow</strong><span></span></div><div><strong>What could happen if the rule is ignored?</strong><span></span></div></div>
+        <h2>Our recommendation</h2>
+        <p>□ 🟢 Explore carefully &nbsp;&nbsp; □ 🟡 Explore with strong rules &nbsp;&nbsp; □ 🟠 Very limited exploration &nbsp;&nbsp; □ 🔴 Stop for now</p>
+        <p><strong>Why?</strong> ____________________________________________________________________________________________</p>
+        <div class="writing-lines"></div>
+      </section>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ missionData: missionFiles }}>
+    (() => {
+      const POSTING_KEY = 'jabberwocky-phase1-posting';
+      const files = Object.fromEntries(missionData.map((item) => [item.id, item]));
+      const savedPosting = localStorage.getItem(POSTING_KEY);
+      const item = savedPosting ? files[savedPosting] : null;
+
+      const assignmentResult = document.getElementById('assignment-result');
+      const missingAssignment = document.getElementById('missing-assignment');
+      const noContinent = document.getElementById('no-continent');
+      const incidentFiles = document.getElementById('incident-files');
+      const pollutantFiles = document.getElementById('pollutant-files');
+      const summaryFiles = document.getElementById('summary-files');
+
+      if (item) {
+        assignmentResult.hidden = false;
+        missingAssignment.hidden = true;
+        document.getElementById('assignment-icon').textContent = item.icon;
+        document.getElementById('assignment-name').textContent = item.name;
+        document.getElementById('assignment-environment').textContent = `${item.baseCamp} · ${item.environment}`;
+        document.getElementById('assignment-species').textContent = item.nativeSpecies;
+        noContinent.hidden = true;
+        incidentFiles.hidden = false;
+        pollutantFiles.hidden = false;
+        summaryFiles.hidden = false;
+        document.querySelectorAll('[data-incident]').forEach((el) => el.hidden = el.dataset.incident !== savedPosting);
+        document.querySelectorAll('[data-pollutant]').forEach((el) => el.hidden = el.dataset.pollutant !== savedPosting);
+        document.querySelectorAll('[data-summary]').forEach((el) => el.hidden = el.dataset.summary !== savedPosting);
+      } else {
+        assignmentResult.hidden = true;
+        missingAssignment.hidden = false;
+        noContinent.hidden = false;
+        incidentFiles.hidden = true;
+        pollutantFiles.hidden = true;
+        summaryFiles.hidden = true;
+      }
+
+      document.getElementById('print-mission5-board')?.addEventListener('click', () => {
+        document.body.classList.add('print-mission5-board');
+        window.print();
+      });
+      window.addEventListener('afterprint', () => document.body.classList.remove('print-mission5-board'));
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body){background:#06111f}.mission-shell{max-width:1050px;margin:0 auto;padding:0 1rem 5rem;color:#eaf5ff}.mission-shell :global(.breadcrumbs){color:#9eb6c4}.mission-shell :global(.breadcrumbs a){color:#d7ecf5}:global(body:has(#simplified-mission-5) .jcec-submission-dock),:global(body:has(#simplified-mission-5) .jcec-device-tools){display:none!important}.eyebrow,.mini-label{margin:0;color:#74e9cb;font:850 .73rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}.mission-hero{display:grid;grid-template-columns:1fr 255px;gap:1.25rem;align-items:end;margin:.8rem 0 1rem;padding:clamp(1.35rem,4vw,2.25rem);border:1px solid #5d465b;border-radius:22px;background:radial-gradient(circle at 82% 18%,rgba(242,110,126,.14),transparent 28%),linear-gradient(145deg,#071727,#211421)}.mission-hero h1{margin:.45rem 0;color:#fff;font-size:clamp(2.5rem,7vw,5rem);line-height:.88;letter-spacing:-.05em}.mission-hero h1 span{display:block;color:#ff9b9b}.question{margin:.8rem 0 0;color:#d5e8ef;font-size:1.25rem;font-weight:750}.mission-hero aside{display:grid;gap:.18rem;padding:.9rem;border:1px solid #604955;border-radius:13px;background:#17101a}.mission-hero aside span{color:#f2a6ad;font-size:.68rem;font-weight:900;letter-spacing:.08em}.mission-hero aside strong{color:#fff}.mission-hero aside small{color:#b9a5af}.step-nav{position:sticky;top:.55rem;z-index:20;display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem;margin:1rem 0;padding:.4rem;border:1px solid #294958;border-radius:13px;background:rgba(6,22,32,.96);backdrop-filter:blur(8px)}.step-nav a{display:flex;gap:.4rem;align-items:center;padding:.55rem;border-radius:9px;color:#afc4cf;text-decoration:none;font-size:.78rem;font-weight:850}.step-nav a:hover{background:#0d3040;color:#fff}.step-nav b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#163444;color:#9dc0ce}.simple-step{margin:1rem 0;padding:clamp(1rem,3vw,1.45rem);scroll-margin-top:5.2rem;border:1px solid #244a5a;border-radius:18px;background:#081b28}.step-heading{display:flex;gap:.7rem;align-items:center;margin-bottom:.9rem}.step-heading>span{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:12px;background:#6ef2cf;color:#05231c;font-size:1.2rem;font-weight:950}.step-heading p{margin:0;color:#74e9cb;font-size:.68rem;font-weight:900;letter-spacing:.08em}.step-heading h2{margin:.12rem 0;color:#fff;font-size:1.55rem}.briefing{max-width:780px;padding:1rem 1.1rem;border-left:3px solid #ff9292;background:#24161d}.briefing p{margin:0;color:#d9c9cf;font-size:1rem;line-height:1.65}.assignment-box,.decision-card,.team-record,.reflection-card,.finished-box{margin-top:1rem;padding:1rem;border:1px solid #2b5362;border-radius:13px;background:#071722}.assignment-result{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;padding:.8rem;border:1px solid #397467;border-radius:11px;background:#0b2927}.assignment-result>span{font-size:1.6rem}.assignment-result small,.species-box small{display:block;color:#8fb2b8;font-size:.64rem;font-weight:850;letter-spacing:.07em}.assignment-result strong{color:#fff;font-size:1.08rem}.assignment-result p{margin:.12rem 0 0;color:#a9c2ca;font-size:.82rem}.species-box{text-align:right}.species-box b{display:block;margin-top:.2rem;color:#8ff0d4;font-size:.84rem}.missing-assignment{padding:.8rem;border:1px dashed #4b6877;border-radius:10px;color:#b9cdd5}.missing-assignment strong{color:#fff}.missing-assignment p{margin:.25rem 0 .55rem}.missing-assignment a,.no-continent a{color:#8eead3}.step-intro{color:#aac1cb}.science-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem}.science-grid article{padding:.85rem;border:1px solid #294b58;border-radius:11px;background:#071620}.science-grid article>span{display:block;margin-bottom:.35rem;font-size:1.25rem}.science-grid strong{color:#fff}.science-grid p{margin:.22rem 0 0;color:#aabfc9;font-size:.82rem;line-height:1.45}.evidence-rule{display:flex;gap:.65rem;align-items:center;flex-wrap:wrap;margin-top:.8rem;padding:.85rem;border:1px solid #5e5541;border-radius:11px;background:#211d13}.evidence-rule strong{color:#fff}.evidence-rule span{padding:.3rem .55rem;border-radius:999px;background:#332d1b;color:#eedf9a;font-size:.8rem;font-weight:800}.help-box{margin-top:.75rem;border:1px solid #315262;border-radius:10px;background:#071620}.help-box summary{padding:.75rem .85rem;color:#cbe0e8;font-weight:850;cursor:pointer}.help-box>div{padding:0 .85rem .8rem;color:#a9c1ca}.conservation-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}.conservation-grid p{margin:0;padding:.6rem;border:1px solid #294552;border-radius:9px}.investigation-block{margin-top:.9rem;padding:1rem;border:1px solid #2a4a58;border-radius:14px;background:#071620}.block-title{display:flex;justify-content:space-between;gap:.7rem;align-items:flex-start;margin-bottom:.7rem}.block-title small{color:#75d9c2;font-size:.65rem;font-weight:900;letter-spacing:.08em}.block-title h3{margin:.15rem 0;color:#fff;font-size:1.22rem}.block-title>span{padding:.32rem .5rem;border-radius:999px;background:#163c35;color:#9ce4d1;font-size:.63rem;font-weight:900}.investigation-block>p{color:#afc3cc;line-height:1.55}.equipment-strip{display:flex;gap:.45rem;align-items:center;flex-wrap:wrap;margin:.7rem 0}.equipment-strip strong{color:#fff}.equipment-strip span{padding:.3rem .5rem;border:1px solid #304d5a;border-radius:999px;color:#a9c0c9;font-size:.78rem}.simple-procedure{display:grid;gap:.48rem;padding-left:1.6rem;color:#c2d4db}.simple-procedure li{padding-left:.2rem;line-height:1.5}.model-note,.pollutant-message,.three-evidence-rule{display:flex;gap:.55rem;align-items:flex-start;margin-top:.75rem;padding:.75rem;border-left:3px solid #6ef2cf;background:#0a2527;color:#b7d2d1}.model-note strong,.pollutant-message strong,.three-evidence-rule strong{color:#fff}.small-button{margin-top:.75rem;padding:.6rem .75rem;border:1px solid #4a6976;border-radius:8px;background:#102a36;color:#dceef4;font:inherit;font-size:.8rem;font-weight:850;cursor:pointer}.no-continent{display:grid;gap:.3rem;padding:.8rem;border:1px dashed #496573;border-radius:10px;color:#aec4cd}.incident-file header{display:flex;gap:.65rem;align-items:center;margin-bottom:.65rem}.incident-file header>span{font-size:1.55rem}.incident-file header small{color:#88a9b5}.incident-file header h3{margin:.08rem 0;color:#fff}.incident-file header p{margin:.1rem 0;color:#b6c7ce}.entry-card{padding:.7rem;border:1px solid #4f4550;border-radius:10px;background:#1b141a}.entry-card strong{color:#ffb0b0}.entry-card p{margin:.25rem 0 0;color:#ccb9c1}.evidence-heading{display:flex;justify-content:space-between;gap:.6rem;align-items:baseline;margin:.8rem 0 .45rem}.evidence-heading strong{color:#fff}.evidence-heading span{color:#87a3ae;font-size:.75rem}.spread-evidence{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}.spread-evidence .evidence-heading{grid-column:1/-1}.spread-evidence article{padding:.7rem;border:1px solid #334e5b;border-radius:10px;background:#091a23}.spread-evidence article strong,.spread-evidence article span,.spread-evidence article b{display:block}.spread-evidence article strong{color:#8ee8d1}.spread-evidence article span{margin:.2rem 0;color:#fff}.spread-evidence article b{color:#d5e6ec;font-size:.74rem}.spread-evidence article p{margin:.3rem 0 0;color:#98b1bb;font-size:.76rem;line-height:1.4}.impact-evidence{margin-top:.6rem;padding:.75rem;border:1px solid #314b58;border-radius:10px}.impact-evidence>strong{color:#fff}.impact-evidence p{display:flex;gap:.5rem;margin:.45rem 0 0;color:#b4c7ce}.impact-evidence b{display:grid;place-items:center;flex:0 0 22px;height:22px;border-radius:50%;background:#173d35;color:#9ce7d3;font-size:.7rem}.quick-check{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.65rem}.quick-check strong{color:#fff}.quick-check span{padding:.3rem .5rem;border-radius:999px;background:#172d38;color:#b9d0d8;font-size:.78rem}.token-model{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.55rem;align-items:center;margin:.75rem 0}.token-model article{display:grid;gap:.2rem;padding:.75rem;border:1px solid #35515e;border-radius:10px;background:#0a1c26}.token-model b{color:#6ef2cf}.token-model strong{color:#fff}.token-model span{color:#a8bec7;font-size:.78rem}.token-model i{color:#6b8e99;font-style:normal;font-size:1.3rem;font-weight:900}.pollutant-message{border-left-color:#f1c96b;background:#211d12}.x17-title{padding:.7rem;border:1px solid #4a4e5f;border-radius:10px;background:#141724}.x17-title small{color:#b5abeb;font-weight:900}.x17-title p{margin:.25rem 0 0;color:#c0bed1}.pollutant-path{display:grid;grid-template-columns:repeat(7,auto);gap:.35rem;align-items:center;margin-top:.65rem;overflow-x:auto}.pollutant-path article{min-width:130px;padding:.6rem;border:1px solid #39485c;border-radius:9px;background:#0a1824}.pollutant-path small,.pollutant-path strong,.pollutant-path span{display:block}.pollutant-path small{color:#869ead;font-size:.62rem;text-transform:uppercase}.pollutant-path strong{margin:.18rem 0;color:#fff;font-size:.8rem}.pollutant-path span{color:#d2c2ff;font-weight:900}.pollutant-path i{color:#728793;font-style:normal}.x17-note{margin:.5rem 0 0;color:#849da8!important;font-size:.73rem}.risk-question{display:grid;gap:.35rem;padding:.8rem;border:1px solid #5a4f31;border-radius:10px;background:#211d12}.risk-question strong{color:#fff}.risk-question span{color:#dbc985}.mission-evidence-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem}.mission-evidence-grid article{padding:.7rem;border:1px solid #31505c;border-radius:10px;background:#091b25}.mission-evidence-grid span{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#17483d;color:#a7f2dc;font-weight:900}.mission-evidence-grid strong{display:block;margin:.4rem 0 .2rem;color:#fff}.mission-evidence-grid p{margin:0;color:#9db5bf;font-size:.78rem}.decision-card h3{margin:.28rem 0;color:#fff;font-size:1.3rem}.decision-choices{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin:.8rem 0}.decision-choices span{padding:.7rem;border:1px solid #374e59;border-radius:10px;background:#0a1a23;color:#dbe8ec;text-align:center}.reasoning-frame{display:grid;grid-template-columns:auto 1fr;gap:.45rem .65rem;padding:.75rem;border:1px solid #3b5b67;border-radius:10px;background:#081a23}.reasoning-frame strong{color:#7de3c9}.reasoning-frame span{color:#b3c7cf}.rule-prompt{display:flex;gap:.6rem;margin-top:.65rem;padding:.7rem;border-left:3px solid #f1c96b;background:#211d12}.rule-prompt strong{color:#fff}.rule-prompt span{color:#d6c88f}.handoff-strip{display:flex;gap:.55rem;align-items:center;flex-wrap:wrap;padding:.7rem;border:1px solid #2c505d;border-radius:10px;background:#071620;color:#a9c0c9;font-size:.8rem}.handoff-strip strong{color:#fff}.handoff-strip i{color:#54727c;font-style:normal}.record-heading{display:flex;justify-content:space-between;gap:.6rem}.record-heading h3{margin:.15rem 0;color:#fff}.record-heading>span{color:#83b9ac;font-size:.67rem;font-weight:900}.team-record>p{color:#9eb6c0}.board-checklist{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}.board-checklist label{padding:.55rem;border:1px solid #294653;border-radius:8px;background:#0a1a23;color:#c0d1d8;font-size:.82rem}.continent-summary article{margin-top:.75rem;padding:.8rem;border:1px solid #3b5864;border-radius:10px;background:#091923}.continent-summary article>div{display:flex;justify-content:space-between;gap:.8rem}.continent-summary small{color:#91aab4;font-size:.65rem;font-weight:900}.continent-summary strong{color:#fff}.continent-summary p{margin:.4rem 0;color:#b5c6cd;font-size:.82rem;line-height:1.45}.continent-summary span{display:block;margin-top:.5rem;color:#8fe0ca;font-size:.78rem;font-weight:800}.reflection-card h3{margin:.3rem 0;color:#fff}.reflection-card p:last-child{color:#98b1bb}.online-submit{margin-top:.8rem;border:1px solid #2d4b58;border-radius:10px;background:#071620}.online-submit summary{padding:.7rem;color:#a8c3cc;font-size:.8rem;font-weight:850;cursor:pointer}.online-submit>div{padding:0 .8rem .8rem;color:#9fb5be}.online-submit a{color:#8eead3}.finished-box{display:grid;gap:.35rem;border-color:#3b7567;background:#0a2827}.finished-box strong{color:#fff}.finished-box span{color:#b9dbd4}.finished-box p{margin:.25rem 0;color:#93b7af}.return-hub{width:max-content;max-width:100%;margin-top:.35rem;padding:.65rem .75rem;border-radius:8px;background:#6ef2cf;color:#05231c!important;text-decoration:none;font-size:.8rem;font-weight:900}.print-packet{display:none}.print-page{color:#111;background:#fff}.print-grid.two{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}.print-grid>div{min-height:90px;padding:.5rem;border:1px solid #333}.print-grid strong{display:block}.evidence-print{padding:.4rem;border:1px solid #333}.writing-lines{height:90px;border-bottom:1px solid #555;background:repeating-linear-gradient(to bottom,transparent 0,transparent 27px,#aaa 28px)}
+  @media(max-width:820px){.mission-hero{grid-template-columns:1fr}.science-grid,.mission-evidence-grid{grid-template-columns:1fr 1fr}.decision-choices{grid-template-columns:1fr 1fr}.spread-evidence{grid-template-columns:1fr}.spread-evidence .evidence-heading{grid-column:auto}.conservation-grid{grid-template-columns:1fr}.token-model{grid-template-columns:1fr}.token-model i{transform:rotate(90deg);text-align:center}.pollutant-path{grid-template-columns:repeat(7,auto)}}
+  @media(max-width:560px){.mission-shell{padding-inline:.7rem}.mission-hero h1{font-size:3rem}.step-nav{position:static;grid-template-columns:1fr}.step-nav a{justify-content:flex-start}.science-grid,.mission-evidence-grid,.decision-choices,.board-checklist{grid-template-columns:1fr}.assignment-result{grid-template-columns:auto 1fr}.species-box{grid-column:1/-1;text-align:left}.block-title{display:grid}.record-heading{display:grid}.return-hub{width:100%;box-sizing:border-box;text-align:center}}
+  @media print{body.print-mission5-board *{visibility:hidden!important}body.print-mission5-board .print-packet,body.print-mission5-board .print-packet *{visibility:visible!important}body.print-mission5-board .print-packet{display:block!important;position:absolute;inset:0;background:#fff}body.print-mission5-board .print-page{padding:.4in;font:12pt Arial,sans-serif}body.print-mission5-board .recommendation-board-print h1{margin-top:0;font-size:20pt}body.print-mission5-board .print-grid.two{margin:.3in 0}body.print-mission5-board .evidence-print{margin:.2in 0}}
+</style>
