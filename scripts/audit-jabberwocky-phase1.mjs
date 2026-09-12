@@ -12,6 +12,8 @@ const missionPaths = Array.from({ length: 5 }, (_, i) => `src/pages/courses/grad
 const legacyPages = Array.from({ length: 7 }, (_, i) => `src/pages/courses/grade-7-science/jabberwocky/phase-1/operation-${String(i + 2).padStart(2, '0')}/index.astro`);
 const legacyData = Array.from({ length: 7 }, (_, i) => `src/data/jabberwockyOperation${String(i + 2).padStart(2, '0')}.ts`);
 const legacyGuides = Array.from({ length: 7 }, (_, i) => `docs/jabberwocky-operation-${String(i + 2).padStart(2, '0')}-teacher-guide.md`);
+const phase2HubPath = 'src/pages/courses/grade-7-science/jabberwocky/phase-2/index.astro';
+const phase2Mission1Path = 'src/pages/courses/grade-7-science/jabberwocky/phase-2/mission-1/index.astro';
 
 const requiredFiles = [
   'src/pages/courses/grade-7-science/jabberwocky/phase-1/index.astro',
@@ -23,6 +25,10 @@ const requiredFiles = [
   'src/layouts/BaseLayout.astro',
   'docs/jabberwocky-phase-1-five-week-pacing-guide.md',
   'docs/jabberwocky-phase-1-teacher-launch-guide.md',
+  phase2HubPath,
+  phase2Mission1Path,
+  'src/components/JcecPhase2Progress.astro',
+  'src/data/jabberwockyPhase2.ts',
   ...legacyPages,
   ...legacyData,
   ...legacyGuides
@@ -30,7 +36,8 @@ const requiredFiles = [
 for (const file of requiredFiles) check(fs.existsSync(rel(file)), `exists: ${file}`);
 
 const hub = read('src/pages/courses/grade-7-science/jabberwocky/phase-1/index.astro');
-check(hub.includes('JcecMissionProgress active={5}'), 'Phase 1 hub shows Mission 5 as current');
+check(hub.includes('JcecMissionProgress active={6}'), 'Phase 1 hub shows the five-mission path as complete');
+check(hub.includes('phase-2/'), 'Phase 1 hub hands students forward to Phase 2');
 for (let i = 1; i <= 5; i += 1) check(hub.includes(`mission-${i}/`), `Phase 1 hub links to Mission ${i}`);
 for (const title of ['Explore Your Environment','Meet a Native Species','Build the Ecosystem','Watch the Ecosystem Change','Humans Have Arrived']) check(hub.includes(title), `Phase 1 hub includes mission: ${title}`);
 
@@ -122,11 +129,37 @@ const layout = read('src/layouts/BaseLayout.astro');
 check(layout.includes('JcecPhase1PacingRefinements'), 'BaseLayout keeps legacy reference notice integration');
 check(layout.includes('JcecSimplifiedMissionNavigation'), 'BaseLayout keeps simplified mission navigation');
 
-console.log(`\nJabberwocky Phase 1 readiness audit: ${passes.length} checks passed.`);
+// Phase 2 prototype checks. These protect the approved handoff without changing Phase 1 history.
+const phase2Hub = read(phase2HubPath);
+const phase2Mission1 = read(phase2Mission1Path);
+const phase2Data = read('src/data/jabberwockyPhase2.ts');
+const phase2Progress = read('src/components/JcecPhase2Progress.astro');
+
+check(phase2Hub.includes('THE LIVING RESOURCE'), 'Phase 2 hub includes The Living Resource title');
+check(phase2Hub.includes('BOTANICAL RESOURCES DIVISION'), 'Phase 2 hub includes Botanical Resources Division');
+check(phase2Hub.includes('jabberwocky-phase2-posting'), 'Phase 2 stores a separate continent posting');
+check(!phase2Hub.includes("localStorage.setItem('jabberwocky-phase1-posting'"), 'Phase 2 does not overwrite the Phase 1 continent posting');
+for (const title of ['Find the Living Resource','Keep It Growing','Build the Growing Zone','Choose the Next Generation','Use It Without Losing It']) check(phase2Hub.includes(title), `Phase 2 hub includes mission: ${title}`);
+for (const token of ['ENVIRONMENT','ECOSYSTEM CONNECTION','WARNING']) check(phase2Hub.includes(token), `Phase 2 Previous Team Briefing includes card: ${token}`);
+check(phase2Hub.includes('You are not beginning a new mission. You are continuing theirs.'), 'Phase 2 hub explains inherited research continuity');
+
+for (const token of ['Your Mission','Learn the Science','Investigate','Make a Decision','Record It']) check(phase2Mission1.includes(token), `Phase 2 Mission 1 includes five-step structure: ${token}`);
+for (const structure of ['Roots','Stem','Leaves','Flowers / reproductive structures']) check(phase2Mission1.includes(structure), `Phase 2 Mission 1 teaches plant structure: ${structure}`);
+check(phase2Mission1.includes('Plant Structure Investigation'), 'Phase 2 Mission 1 includes real-plant investigation');
+check(phase2Mission1.includes('Living Resource Profile'), 'Phase 2 Mission 1 ends with Living Resource Profile');
+check(phase2Mission1.includes('Which feature of this plant makes it most promising—or most difficult—for humans to use?'), 'Phase 2 Mission 1 has one main team decision');
+check(phase2Mission1.includes('Mission 2 — Keep It Growing — is coming next. Do not start it yet.'), 'Phase 2 Mission 2 remains upcoming');
+check(phase2Mission1.includes('print-phase2-mission1'), 'Phase 2 Mission 1 includes printable field sheet/profile');
+check(phase2Mission1.includes('jabberwocky-phase2-posting'), 'Phase 2 Mission 1 carries the Phase 2 posting');
+check(phase2Progress.includes('Resource') && phase2Progress.includes('Growth') && phase2Progress.includes('Growing Zone') && phase2Progress.includes('Variety') && phase2Progress.includes('Sustainable Use'), 'Phase 2 progress shows the approved five-mission sequence');
+for (const plant of ['Skyroot','Rainspout Tree','Storm Palm','Reservoir Thorn','Ember Moss','Goldstem Grain','Ironwood','Floatroot']) check(phase2Data.includes(plant), `Phase 2 plant canon includes ${plant}`);
+check(phase2Data.includes('flowering seed plant—not a true moss'), 'Phase 2 canon clarifies Ember Moss is a flowering seed plant');
+
+console.log(`\nJabberwocky readiness audit: ${passes.length} checks passed.`);
 for (const item of passes) console.log(`  ✓ ${item}`);
 if (failures.length) {
   console.error(`\n${failures.length} readiness check(s) failed:`);
   for (const item of failures) console.error(`  ✗ ${item}`);
   process.exit(1);
 }
-console.log('\nPhase 1 student Missions 1–5, five-mission teacher pacing, materials, assessment plan, local-source safeguards, navigation, print resources, contingencies, and archived Operation references are internally consistent.');
+console.log('\nPhase 1 remains internally consistent, and the Phase 2 hub + Mission 1 prototype preserve separate state, inherited evidence, the approved five-mission sequence, plant canon, print resources, and Grade 7 cognitive-load rules.');
