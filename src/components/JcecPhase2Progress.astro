@@ -43,9 +43,12 @@ const missions = [
       addNext('#phase2-mission2 .finished-box', `${base}courses/grade-7-science/jabberwocky/phase-2/mission-3/`, 'Next Mission → Build the Growing Zone');
       return;
     }
-
     if (path.includes('/phase-2/mission-3/')) {
       addNext('#phase2-mission3 .finished-box', `${base}courses/grade-7-science/jabberwocky/phase-2/mission-4/`, 'Next Mission → Choose the Next Generation');
+      return;
+    }
+    if (path.includes('/phase-2/mission-4/')) {
+      addNext('#phase2-mission4 .finished-box', `${base}courses/grade-7-science/jabberwocky/phase-2/mission-5/`, 'Next Mission → Use It Without Losing It');
     }
   })();
 </script>
