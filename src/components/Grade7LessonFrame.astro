@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import type { Course, Unit, Topic } from '../data/courses';
+
+interface Props {
+  course: Course;
+  unit: Unit;
+  topic: Topic;
+}
+
+const { course, unit, topic } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const hooks: Record<string,{prompt:string;values:string}> = {
+  '1.1': {prompt:'Which numbers can be shared equally into groups of 2, 5, or 10? Make a prediction before you test.',values:'126 · 245 · 732 · 1,090'},
+  '1.2': {prompt:'What do the digit sums reveal? Test a claim before you learn the rule.',values:'126 · 405 · 728'},
+  '1.3': {prompt:'Which rule calculates every row when the input changes?',values:'1 → 14 · 2 → 28 · 5 → 70'},
+  '1.4': {prompt:'What stays the same, and what grows from one figure to the next?',values:'4 · 7 · 10 · 13'},
+  '1.5': {prompt:'Use the input-output pairs to uncover the hidden machine rule.',values:'1 → 6 · 3 → 12 · 5 → 18'},
+  '1.6': {prompt:'How can a table become a graph without changing the relationship?',values:'(0, 5) · (1, 8) · (2, 11)'},
+  '1.7': {prompt:'Which statement names a value, and which one makes a claim of equality?',values:'4n + 3 · 4n + 3 = 27'},
+  '1.8': {prompt:'What move keeps a balance true while helping the variable stand alone?',values:'x + 4 = 11 · 3x = 18'}
+};
+const hook=hooks[topic.number] ?? hooks['1.1'];
+const sectionLinks = [
+  ['overview', '🎯', 'Overview'],
+  ['big-ideas', '🌎', 'Big Ideas'],
+  ['understand', '📘', 'Understand'],
+  ['examples', '🧩', 'Examples'],
+  ['vocabulary', '🧠', 'Vocabulary'],
+  ['explore', '🔬', 'Explore'],
+  ['practise', '✏️', 'Practise'],
+  ['check', '✅', 'Check Yourself'],
+  ['apply', '🎮', 'Apply'],
+  ['review', '🏁', 'Review']
+];
+---
+
+<BaseLayout title={`${topic.title} | ${course.grade} ${course.shortSubject}`} description={topic.summary} themeColor={course.color}>
+  <div class="topic-shell" style={`--course:${course.color};--course-soft:${course.accent}`}>
+    <aside class="topic-sidebar">
+      <a class="back-course" href={`${base}courses/${course.slug}/${unit.slug}/`}>← {unit.title}</a>
+      <p class="eyebrow">ON THIS PAGE</p>
+      <p class="scroll-cue">Swipe sections →</p>
+      <nav aria-label="Lesson sections">
+        {sectionLinks.map(([id, icon, label]) => <a href={`#${id}`}><span aria-hidden="true">{icon}</span>{label}</a>)}
+      </nav>
+    </aside>
+
+    <article class="topic-content">
+      <Breadcrumbs items={[{label:'Home',href:base},{label:`${course.grade} ${course.shortSubject}`,href:`${base}courses/${course.slug}/`},{label:unit.title,href:`${base}courses/${course.slug}/${unit.slug}/`},{label:topic.title}]} />
+      <header class="topic-hero compact-mobile-hero">
+        <p class="eyebrow">LESSON {topic.number} · {course.grade.toUpperCase()} {course.shortSubject.toUpperCase()}</p>
+        <h1>{topic.title}</h1>
+        <p>{topic.summary}</p>
+        <div class="lesson-hook">
+          <div><strong>Start with this</strong><small>{hook.prompt}</small></div>
+          <span>{hook.values}</span>
+        </div>
+      </header>
+      <slot />
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .lesson-hook{display:grid;grid-template-columns:minmax(150px,210px) 1fr;gap:1rem;align-items:center;margin-top:1.2rem;padding:1rem 1.1rem;border-radius:16px;background:var(--course-soft);line-height:1.55}
+  .lesson-hook>div{display:grid;gap:.2rem}.lesson-hook small{color:#526174;font-weight:600}.lesson-hook>span{font:800 clamp(1rem,3vw,1.35rem) 'Manrope';color:var(--course);text-align:right}
+  .scroll-cue{display:none}
+  @media(max-width:760px){.lesson-hook{grid-template-columns:1fr}.lesson-hook>span{text-align:left}.scroll-cue{display:block;margin:-.35rem 0 .45rem;color:#64748b;font-size:.76rem;font-weight:700}.topic-sidebar nav{scrollbar-width:thin}.compact-mobile-hero{padding-top:2rem;padding-bottom:3rem}.compact-mobile-hero h1{font-size:clamp(2.2rem,11vw,3.25rem);line-height:1.04}}
+</style>

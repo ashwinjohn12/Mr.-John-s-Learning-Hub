@@ -1,0 +1,11 @@
+---
+import Grade7Unit1LessonPage from '../../../../components/Grade7Unit1LessonPage.astro';
+import { findCourse } from '../../../../data/courses';
+import { grade7Unit1Lessons } from '../../../../data/grade7Unit1';
+export function getStaticPaths(){return grade7Unit1Lessons.map(lesson=>({params:{lesson:lesson.slug},props:{lesson}}))}
+const {lesson}=Astro.props;
+const course=findCourse('grade-7-math')!;
+const unit=course.units.find(item=>item.slug==='patterns-relations')!;
+const topic=unit.topics.find(item=>item.slug===lesson.slug)!;
+---
+<Grade7Unit1LessonPage {course} {unit} {topic} {lesson}/>

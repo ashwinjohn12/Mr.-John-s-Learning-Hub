@@ -144,13 +144,28 @@ export const courses: Course[] = [
   },
   {
     slug: 'grade-7-math', grade: 'Grade 7', subject: 'Mathematics', shortSubject: 'Math', color: '#2457c5', accent: '#dbeafe',
-    description: 'Connect representations, strategies, and applications across number, algebra, geometry, and data.',
+    description: 'Notice patterns, connect representations, justify strategies, and apply mathematics across number, algebra, geometry, and data.',
     units: [
-      { slug: 'number-operations', number: '01', title: 'Number & Operations', description: 'Develop flexible strategies for rational-number operations.', topics: [] },
-      { slug: 'fractions-decimals-percent', number: '02', title: 'Fractions, Decimals & Percent', description: 'Move fluently among proportional representations.', topics: [] },
-      { slug: 'patterns-relations', number: '03', title: 'Patterns & Relations', description: 'Model and analyze changing quantities.', topics: [] },
-      { slug: 'shape-space', number: '04', title: 'Shape & Space', description: 'Reason about measurement and geometric relationships.', topics: [] },
-      { slug: 'statistics-probability', number: '05', title: 'Statistics & Probability', description: 'Use data and chance to make informed conclusions.', topics: [] }
+      {
+        slug: 'patterns-relations', number: '01', title: 'Patterns and Relations', description: 'Use divisibility, expressions, tables, graphs, and equations to reveal and describe mathematical relationships.',
+        topics: [
+          { slug: 'patterns-in-division', number: '1.1', title: 'Patterns in Division', summary: 'Discover and explain divisibility rules for 2, 4, 5, 8, and 10 using place-value patterns.', status: 'ready' },
+          { slug: 'more-patterns-in-division', number: '1.2', title: 'More Patterns in Division', summary: 'Extend divisibility reasoning to 3, 6, and 9 and explain why division by zero is undefined.', status: 'ready' },
+          { slug: 'algebraic-expressions', number: '1.3', title: 'Algebraic Expressions', summary: 'Use variables to represent changing quantities and evaluate expressions.', status: 'ready' },
+          { slug: 'relationships-in-patterns', number: '1.4', title: 'Relationships in Patterns', summary: 'Connect visual and contextual patterns to rules involving the term number.', status: 'ready' },
+          { slug: 'patterns-tables', number: '1.5', title: 'Patterns and Relationships in Tables', summary: 'Create and analyze tables of values from input-output rules.', status: 'ready' },
+          { slug: 'graphing-relations', number: '1.6', title: 'Graphing Relations', summary: 'Graph tables of values and use graphs to answer questions.', status: 'ready' },
+          { slug: 'reading-writing-equations', number: '1.7', title: 'Reading and Writing Equations', summary: 'Translate statements into equations and distinguish equations from expressions.', status: 'ready' },
+          { slug: 'equations-algebra-tiles', number: '1.8', title: 'Solving Equations Using Algebra Tiles', summary: 'Model and solve introductory whole-number equations while preserving equality.', status: 'ready' }
+        ]
+      },
+      { slug: 'integers', number: '02', title: 'Integers', description: 'Represent, add, and subtract integers using tiles, number lines, and efficient symbolic strategies.', topics: [] },
+      { slug: 'fractions-decimals-percents', number: '03', title: 'Fractions, Decimals, and Percents', description: 'Connect positive rational-number representations and solve decimal and percent problems.', topics: [] },
+      { slug: 'circles-area-circle-graphs', number: '04', title: 'Circles, Area, and Circle Graphs', description: 'Investigate circle relationships, develop area formulas, and represent data with circle graphs.', topics: [] },
+      { slug: 'operations-fractions', number: '05', title: 'Operations with Fractions', description: 'Add and subtract positive fractions and mixed numbers using models and symbols.', topics: [] },
+      { slug: 'equations', number: '06', title: 'Equations', description: 'Model, solve, verify, and compare strategies for one- and two-step equations.', topics: [] },
+      { slug: 'data-probability', number: '07', title: 'Data Analysis and Probability', description: 'Analyze averages and outliers, then compare theoretical and experimental probability.', topics: [] },
+      { slug: 'geometry-transformations', number: '08', title: 'Geometry and Transformations', description: 'Construct geometric relationships and transform figures across four coordinate quadrants.', topics: [] }
     ]
   },
   {
