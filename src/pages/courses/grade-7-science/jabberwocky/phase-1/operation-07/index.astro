@@ -1,0 +1,296 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecWorkMode from '../../../../../../components/JcecWorkMode.astro';
+import { operation07Incidents } from '../../../../../../data/jabberwockyOperation07';
+
+const base = import.meta.env.BASE_URL;
+const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZDtZrNtCG3WB78ttvZdtEmq29kapujg/viewform';
+---
+
+<BaseLayout title="Operation 07: Classified Incident | Jabberwocky 2190" description="A Grade 7 Science biosecurity and contamination investigation using introduced species, human impacts, biomagnification, evidence, and management decisions." themeColor="#120b19">
+  <div class="operation-shell">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 1', href: `${base}courses/grade-7-science/jabberwocky/phase-1/` },
+      { label: 'Operation 07' }
+    ]} />
+
+    <nav class="mission-nav" aria-label="Operation navigation">
+      <a href={`${base}courses/grade-7-science/jabberwocky/`}>Mission Control</a>
+      <a href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Phase 1</a>
+      <a class="active" href="#briefing">Operation 07</a>
+      <a href="#biosecurity-lab">Biosecurity</a>
+      <a href="#incident-file">Incident File</a>
+      <a href="#contamination">Contamination</a>
+      <a href="#archive">Archive</a>
+    </nav>
+
+    <header class="operation-hero" id="briefing">
+      <p class="system-label alert">CLASSIFIED // CLEARANCE GRANTED // OPERATION 07</p>
+      <div class="hero-grid">
+        <div>
+          <p class="division">JCEC PLANETARY PROTECTION ALERT</p>
+          <h1>THE<br /><span>STOWAWAY</span></h1>
+          <p class="lead">The recovery pattern has changed. JCEC has confirmed that Earth material escaped containment—and a second signal suggests a human-made contaminant is moving through the food web. Your team must determine what the evidence supports and how JCEC should respond.</p>
+        </div>
+        <aside>
+          <span>INCIDENT STATUS</span>
+          <strong>BIOSECURITY BREACH</strong>
+          <dl>
+            <div><dt>Threat 1</dt><dd>Introduced organism</dd></div>
+            <div><dt>Threat 2</dt><dd>Persistent contaminant</dd></div>
+            <div><dt>Decision</dt><dd>Contain / monitor / restore</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </header>
+
+    <section class="mission-question">
+      <p>OPERATION QUESTION</p>
+      <h2>How can human activity change an ecosystem in ways we did not intend—and what evidence should guide our response?</h2>
+    </section>
+
+    <section class="panel route-panel">
+      <p class="system-label">MISSION ROUTE</p>
+      <h2>Contain the incident scientifically.</h2>
+      <div class="route-grid"><span><b>1</b> Model Stowaway Spread</span><i>→</i><span><b>2</b> Analyze Your Incident</span><i>→</i><span><b>3</b> Decide: Introduced or Invasive?</span><i>→</i><span><b>4</b> Trace X-17</span><i>→</i><span><b>5</b> Choose a Response</span><i>→</i><span><b>6</b> Archive</span></div>
+    </section>
+
+    <section class="panel operation-checklist">
+      <p class="system-label">YOUR OPERATION 07 CHECKLIST</p>
+      <h2>What do I have to complete?</h2>
+      <div class="completion-grid">
+        <article><span>👥</span><div><strong>As a team</strong><ul><li>Complete the Stowaway Spread Simulation.</li><li>Analyze your continent’s introduced-species evidence.</li><li>Complete the Contaminant Transfer Model.</li><li>Trace X-17 through your actual food-web samples.</li><li>Choose and defend one incident response.</li></ul></div></article>
+        <article><span>🗂️</span><div><strong>One team member</strong><ul><li>Submit the official Biosecurity & Contamination Finding.</li><li>Keep the Incident Record in the Continental Archive.</li></ul></div></article>
+        <article><span>👤</span><div><strong>Each Pathfinder</strong><ul><li>Complete the individual reflection.</li><li>Identify one human action that could prevent a repeat incident.</li></ul></div></article>
+      </div>
+      <p class="completion-rule"><strong>Operation 07 is complete when</strong> your team has explained the introduced-species risk, interpreted the contaminant pathway, defended a response, and left an official archive record.</p>
+    </section>
+
+    <section class="panel science-focus">
+      <p class="system-label">SCIENCE YOU WILL USE</p>
+      <h2>Introduced does not automatically mean invasive.</h2>
+      <div class="science-grid">
+        <article><strong>Introduced species</strong><p>An organism moved by humans to a place where it did not previously live.</p></article>
+        <article><strong>Invasive species</strong><p>An introduced species that spreads and causes ecological, economic, or other significant harm. Evidence of both spread and impact matters.</p></article>
+        <article><strong>Biosecurity</strong><p>Actions that prevent organisms, seeds, microbes, or other biological material from being moved where they could cause harm.</p></article>
+        <article><strong>Pollutant</strong><p>A substance released into the environment that can harm organisms or change ecological conditions.</p></article>
+        <article><strong>Bioaccumulation</strong><p>When a persistent substance builds up inside an organism over time because it enters faster than it leaves.</p></article>
+        <article><strong>Biomagnification</strong><p>When the concentration of a persistent substance becomes greater at higher feeding levels in a food chain or web.</p></article>
+      </div>
+      <div class="science-warning"><strong>JCEC evidence rule:</strong> do not call an introduced organism invasive just because it came from Earth. Look for evidence that it is <strong>spreading</strong> and that it is <strong>changing native organisms, habitat, or ecosystem processes</strong>.</div>
+      <div class="x17-note"><strong>About X-17:</strong> X-17 is a fictional JCEC maintenance tracer used in this mission. The numbers model how a <em>persistent pollutant</em> can move through a real food web; they are not measurements of a real chemical.</div>
+    </section>
+
+    <section class="panel lab-panel" id="biosecurity-lab">
+      <JcecWorkMode mode="team" title="Model how a hidden stowaway can spread through human movement" />
+      <div class="section-heading"><div><p class="system-label">HANDS-ON INVESTIGATION A // BIOSECURITY</p><h2>Stowaway Spread Simulation</h2></div><span class="duration">25–35 min</span></div>
+      <p class="intro">A seed, egg, spore, or tiny organism does not need to move on purpose. Cargo, soil, boots, wheels, tools, and water can move it. Your team will compare spread <strong>without inspection</strong> and spread <strong>with a biosecurity checkpoint</strong>.</p>
+
+      <div class="lab-grid">
+        <article><h3>Equipment per team</h3><ul><li>6 cups or paper habitat zones labelled Cargo, A, B, C, D, E</li><li>about 30 neutral counters</li><li>4 clearly different “stowaway” counters</li><li>1 spoon or small scoop</li><li>Incident Record</li></ul></article>
+        <article><h3>Model rule</h3><p>Neutral counters represent ordinary cargo/material. Different-coloured counters represent hidden biological stowaways. <strong>No counter represents a real organism in the classroom.</strong></p><p class="equipment-note">Random transfer matters: do not deliberately choose or avoid stowaway counters unless the procedure says to inspect them.</p></article>
+      </div>
+
+      <div class="procedure">
+        <h3>Round A — No biosecurity checkpoint</h3>
+        <ol>
+          <li>Place all 30 neutral counters and 4 stowaway counters in <strong>Cargo</strong>. Mix without looking.</li>
+          <li>Move exactly <strong>5 random counters</strong> from Cargo → A. Record whether A now contains a stowaway.</li>
+          <li>Mix A and move 3 random counters A → B. Then B → C, C → D, and D → E using the same rule.</li>
+          <li>Count how many habitat zones contain at least one stowaway.</li>
+        </ol>
+        <h3>Round B — Add a biosecurity checkpoint</h3>
+        <ol>
+          <li>Reset the counters exactly as they began.</li>
+          <li>Repeat the same transfers, but <strong>inspect each transfer before it enters the next zone</strong>. Remove any visible stowaway counter to a quarantine cup.</li>
+          <li>Count how many zones contain a stowaway now.</li>
+          <li>Compare the two rounds. Which strategy prevented spread earlier?</li>
+        </ol>
+      </div>
+
+      <div class="lab-record-grid">
+        <article><strong>Round A</strong><p>Zones occupied: ______ / 5</p><p>Where did spread first occur? ____________________</p></article>
+        <article><strong>Round B</strong><p>Zones occupied: ______ / 5</p><p>Stowaways intercepted: ______</p></article>
+        <article><strong>Team conclusion</strong><p>Why can prevention be easier than removing an organism after it spreads?</p></article>
+      </div>
+      <p class="lab-connection"><strong>Model limitation:</strong> real organisms reproduce, die, disperse in different ways, and interact with habitat. This simulation isolates one idea: <strong>human movement can create pathways for spread, and checkpoints can interrupt those pathways.</strong></p>
+    </section>
+
+    <section class="panel incident-panel" id="incident-file">
+      <JcecWorkMode mode="team" title="Open the classified incident for your assigned continent" />
+      <p class="system-label alert">CLASSIFIED INCIDENT FILE // CONTINENT-SPECIFIC</p>
+      <h2>Was the stowaway merely introduced—or is it becoming invasive?</h2>
+      <p class="intro">Read the timeline and all supporting evidence before choosing a label. Your team must be able to point to <strong>spread evidence</strong> and <strong>impact evidence</strong>.</p>
+
+      <div class="no-posting" id="no-posting" hidden><strong>No continental posting detected on this device.</strong><p>Return to Operation 01, select the continent your teacher assigned, then come back here.</p><a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Return to Mission Assignment</a></div>
+
+      <div id="incident-files" hidden>
+        {operation07Incidents.map((item) => (
+          <article class="incident-file" data-incident={item.id} hidden>
+            <div class="case-heading"><div><p class="system-label alert">FILE 07-{item.code} // {item.baseCamp}</p><h3>{item.name}: {item.stowaway}</h3><small>{item.environment}</small></div><span class="case-status">BIOSECURITY ALERT</span></div>
+            <div class="incident-grid">
+              <article><span>SUSPECTED ENTRY</span><p>{item.suspectedEntry}</p></article>
+              <article><span>FIRST DETECTION</span><p>{item.firstDetection}</p></article>
+            </div>
+
+            <section class="spread-section">
+              <p class="system-label">STEP 1 // TRACE THE SPREAD</p>
+              <h4>{item.nativeIndicatorLabel}</h4>
+              <div class="spread-grid">
+                {item.spread.map((stage) => <article><strong>{stage.label}</strong><dl><div><dt>Occupied zones</dt><dd>{stage.occupiedZones}</dd></div><div><dt>Native indicator</dt><dd>{stage.nativeIndicator}</dd></div></dl><p>{stage.note}</p></article>)}
+              </div>
+            </section>
+
+            <section class="evidence-section">
+              <p class="system-label">STEP 2 // CHECK IMPACT EVIDENCE</p>
+              <div class="evidence-grid">{item.evidence.map((evidence,index)=><article><span>{String(index+1).padStart(2,'0')}</span><p>{evidence}</p></article>)}</div>
+              <div class="classification-check"><strong>Team classification</strong><p>Choose one on your Incident Record and defend it:</p><span>INTRODUCED — spread/impact evidence is not yet enough</span><span>INVASIVE THREAT — evidence shows spread + ecological harm</span><span>UNCERTAIN — some evidence supports concern, but another explanation still needs testing</span></div>
+            </section>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="panel contaminant-model" id="contamination">
+      <JcecWorkMode mode="team" title="Model why a persistent contaminant can become more concentrated higher in a food chain" />
+      <div class="section-heading"><div><p class="system-label">HANDS-ON INVESTIGATION B // CONTAMINANT TRANSFER</p><h2>Biomagnification Token Model</h2></div><span class="duration">20–30 min</span></div>
+      <p class="intro">This model assumes the contaminant is persistent: organisms take it in and do not quickly remove it. The tokens show contaminant amount moving with food.</p>
+      <div class="model-grid">
+        <article><strong>1. Producers</strong><p>Create 16 producer cards. Give each producer <strong>1 contaminant token</strong>.</p></article>
+        <article><strong>2. Primary consumers</strong><p>Create 4 consumer cards. Each consumer “eats” 4 producers and collects all 4 contaminant tokens.</p></article>
+        <article><strong>3. Predator</strong><p>One predator “eats” all 4 consumers and collects all 16 contaminant tokens.</p></article>
+        <article><strong>4. Compare</strong><p>Producer: 1 token each → Consumer: 4 each → Predator: 16. Explain why the concentration per organism increased.</p></article>
+      </div>
+      <p class="lab-connection"><strong>Important:</strong> biomagnification does not happen for every substance. It is most relevant when a contaminant persists in organisms and is transferred through feeding.</p>
+
+      <div id="contaminant-files" hidden>
+        {operation07Incidents.map((item) => (
+          <article class="contaminant-file" data-contaminant={item.id} hidden>
+            <p class="system-label">STEP 3 // YOUR CONTINENT’S X-17 SAMPLES</p>
+            <h3>{item.name}: trace the actual pathway</h3>
+            <p>{item.contaminantNote}</p>
+            <div class="concentration-chain">
+              {item.contaminantPath.map((level,index) => <><article><span>{level.trophicRole}</span><strong>{level.sample}</strong><b>{level.concentration} ppb</b></article>{index < item.contaminantPath.length-1 && <i>→</i>}</>)}
+            </div>
+            <div class="analysis-box"><strong>What pattern do you see?</strong><ol><li>Where is X-17 least concentrated?</li><li>Which organism has the highest measured concentration?</li><li>How does the food-web pathway help explain the pattern?</li><li>Why might a top consumer be at risk even when environmental concentration is low?</li></ol></div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="panel response-panel">
+      <JcecWorkMode mode="team" title="Choose the response that best balances protection, evidence, and unintended consequences" />
+      <p class="system-label">STEP 4 // INCIDENT RESPONSE BOARD</p>
+      <h2>What should JCEC do now?</h2>
+      <div id="response-files" hidden>
+        {operation07Incidents.map((item) => (
+          <article class="response-file" data-response={item.id} hidden>
+            <h3>{item.investigationQuestion}</h3>
+            <p>All three responses have trade-offs. Your team must choose one, explain what evidence supports it, and identify one possible unintended consequence.</p>
+            <div class="decision-grid">{item.responseChoices.map((choice,index)=><button type="button" class="decision-card" data-choice={choice}><span>RESPONSE {String.fromCharCode(65+index)}</span><strong>{choice}</strong><small>Select as working response</small></button>)}</div>
+            <p class="working-decision" data-working-decision>No response selected yet.</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="panel print-section">
+      <div class="print-actions"><button class="button secondary" type="button" id="print-op7-packet">Print Operation 07 Incident Packet (if needed)</button><span><strong>Your teacher may already provide it.</strong> One packet per team is enough.</span></div>
+      <section class="print-packet" aria-label="Operation 07 printable packet">
+        <section class="print-page"><h2>JCEC OPERATION 07 — INCIDENT RECORD</h2><p>Continent: __________________ Team ID: __________</p><h3>Biosecurity</h3><p>Round A occupied zones: ____ / 5 &nbsp;&nbsp; Round B: ____ / 5</p><p>What did the checkpoint change? ____________________________________________________________</p><h3>Stowaway classification</h3><p>Introduced / Invasive Threat / Uncertain</p><p>Spread evidence: _________________________________________________________________________</p><p>Impact evidence: _________________________________________________________________________</p><p>Alternative explanation / uncertainty: ______________________________________________________</p><h3>Recommended response</h3><div class="writing-box"></div></section>
+        <section class="print-page"><h2>JCEC CONTAMINATION RECORD</h2><p>Continent: __________________</p><h3>X-17 pathway</h3><p>Environment sample: __________________ concentration: ______ ppb</p><p>Producer: __________________ concentration: ______ ppb</p><p>Consumer: __________________ concentration: ______ ppb</p><p>Top consumer/predator: __________________ concentration: ______ ppb</p><p><strong>Explain the pattern:</strong></p><div class="writing-box"></div><p><strong>One action that could reduce future contamination:</strong> _____________________________________________</p><p><strong>One possible unintended consequence of your response:</strong> ________________________________________</p></section>
+      </section>
+    </section>
+
+    <section class="panel archive-panel" id="archive">
+      <JcecWorkMode mode="archive" title="Add the Biosecurity & Contamination Finding to the Continental Archive" />
+      <p class="system-label">JCEC ARCHIVE TRANSMISSION</p>
+      <h2>Record what humans changed—and how future teams must respond.</h2>
+      <div class="archive-grid">
+        <article><strong>Claim / Decision</strong><p>Classify the stowaway risk and state your chosen JCEC response.</p></article>
+        <article><strong>Evidence</strong><p>Use at least one spread trend, one ecological-impact observation, and one X-17 concentration pattern.</p></article>
+        <article><strong>Reasoning</strong><p>Explain why the evidence supports your classification and response, including the biomagnification pattern.</p></article>
+        <article><strong>Uncertainty</strong><p>State one thing JCEC still needs to monitor and one possible unintended consequence.</p></article>
+      </div>
+      <div class="submission-guide">
+        <div class="guide-heading"><span>📡</span><div><strong>Submit to the JCEC Portal</strong><small>One designated team member submits.</small></div></div>
+        <dl><div><dt>Submission Type</dt><dd>Continental Archive</dd></div><div><dt>Mission Phase</dt><dd>01 First Contact</dd></div><div><dt>Operation / Task</dt><dd>Classified Incident — Biosecurity & Contamination Finding</dd></div><div><dt>Continent</dt><dd id="archive-continent">Your assigned continent</dd></div><div><dt>Team ID</dt><dd id="archive-team-id">Use the ID your teacher gives you</dd></div><div><dt>Team Members</dt><dd>List everyone represented</dd></div></dl>
+        <p><strong>Form mapping:</strong> classification + response in <em>Claim / Decision</em>; spread/impact/X-17 values in <em>Evidence</em>; mechanism + biomagnification + trade-off in <em>Reasoning</em>; leave Pathfinder Reflection blank unless directed.</p>
+        <a class="button primary" href={portalUrl} target="_blank" rel="noopener noreferrer">Submit Incident Finding ↗</a>
+      </div>
+    </section>
+
+    <section class="panel reflection">
+      <JcecWorkMode mode="individual" title="Update your Pathfinder Log" />
+      <h2>Humans did not intend either incident. Does intention change ecological responsibility?</h2>
+      <ol><li>Which piece of evidence most strongly affected your team’s decision?</li><li>Why is “introduced” different from “invasive”?</li><li>Explain biomagnification in your own words using your continent’s X-17 pathway.</li><li>Identify one concrete biosecurity or pollution-prevention rule humans should follow from now on.</li></ol>
+    </section>
+
+    <section class="next-operation">
+      <div><span>08</span><strong>FINAL OPERATION</strong></div>
+      <section><p class="system-label">PHASE 1 // FINAL REPORT</p><h2>JCEC Ecological Report</h2><p>Your team now has enough ecological evidence to make a Phase 1 recommendation and prepare the continent archive for the next scientific division.</p><div class="locked"><span>🔒</span><strong>Await final-report activation.</strong></div></section>
+    </section>
+
+    <div class="bottom-actions"><a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/operation-06/`}>← Operation 06</a><a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Phase 1 Operations</a><a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/`}>Mission Control</a></div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const posting = localStorage.getItem('jabberwocky-phase1-posting');
+      const noPosting = document.getElementById('no-posting');
+      const incidentFiles = document.getElementById('incident-files');
+      const contaminantFiles = document.getElementById('contaminant-files');
+      const responseFiles = document.getElementById('response-files');
+      const incident = posting ? document.querySelector(`[data-incident="${posting}"]`) : null;
+      const contaminant = posting ? document.querySelector(`[data-contaminant="${posting}"]`) : null;
+      const response = posting ? document.querySelector(`[data-response="${posting}"]`) : null;
+      if (!posting || !incident || !contaminant || !response) {
+        if (noPosting) noPosting.hidden = false;
+      } else {
+        if (incidentFiles) incidentFiles.hidden = false;
+        if (contaminantFiles) contaminantFiles.hidden = false;
+        if (responseFiles) responseFiles.hidden = false;
+        incident.hidden = false; contaminant.hidden = false; response.hidden = false;
+        const continentName = incident.querySelector('.case-heading h3')?.textContent?.split(':')[0]?.trim() || posting;
+        const archiveContinent = document.getElementById('archive-continent');
+        if (archiveContinent) archiveContinent.textContent = continentName;
+        const signal = incident.querySelector('.system-label')?.textContent || '';
+        const codeMatch = signal.match(/07-([A-Z]{2})/);
+        const teamId = document.getElementById('archive-team-id');
+        if (teamId) teamId.textContent = `P1-${codeMatch?.[1] || 'XX'}-__ (use the number your teacher assigns)`;
+      }
+
+      document.querySelectorAll('.response-file').forEach((file) => {
+        const buttons = [...file.querySelectorAll('.decision-card')];
+        const status = file.querySelector('[data-working-decision]');
+        const key = `jabberwocky-op7-response-${file.dataset.response}`;
+        const select = (button) => {
+          buttons.forEach((other) => other.classList.remove('selected'));
+          button.classList.add('selected');
+          const choice = button.dataset.choice || '';
+          localStorage.setItem(key, choice);
+          if (status) status.textContent = `Working response saved on this device: ${choice}`;
+        };
+        buttons.forEach((button) => button.addEventListener('click', () => select(button)));
+        const saved = localStorage.getItem(key);
+        if (saved) {
+          const match = buttons.find((button) => button.dataset.choice === saved);
+          if (match) select(match);
+        }
+      });
+
+      document.getElementById('print-op7-packet')?.addEventListener('click', () => window.print());
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body){background:#080d18}.operation-shell{max-width:1120px;margin:0 auto;padding:0 1.1rem 5rem;color:#eaf5ff}.system-label{margin:0;color:#74e9cb;font:800 .79rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em;text-transform:uppercase}.system-label.alert{color:#ff9fb4}.mission-nav{position:sticky;top:.6rem;z-index:20;display:flex;gap:.35rem;overflow:auto;margin:1rem 0;padding:.45rem;border:1px solid #55344d;border-radius:14px;background:rgba(12,13,24,.95);backdrop-filter:blur(12px)}.mission-nav a{flex:0 0 auto;padding:.65rem .78rem;border-radius:9px;color:#c8b8c8;text-decoration:none;font-size:.87rem;font-weight:800}.mission-nav a:hover,.mission-nav a.active{background:#332033;color:#fff}.mission-nav a.active{box-shadow:inset 0 -2px #ff8daf}.operation-hero{margin:1.2rem 0;padding:clamp(1.5rem,5vw,3rem);border:1px solid #713e61;border-radius:26px;background:radial-gradient(circle at 82% 20%,rgba(255,77,120,.18),transparent 25%),linear-gradient(145deg,#150c1b,#23132b 58%,#071522)}.hero-grid{display:grid;grid-template-columns:1fr 300px;gap:1.5rem;align-items:end}.division{margin:1.3rem 0 .35rem;color:#d0b8cb;font-weight:850;letter-spacing:.1em}.operation-hero h1{margin:0;color:#fff;font-size:clamp(3rem,8vw,6rem);line-height:.85;letter-spacing:-.06em}.operation-hero h1 span{color:#ff8daf}.lead{max-width:720px;margin:1.3rem 0 0;color:#d6c8d7;font-size:1.08rem;line-height:1.65}.operation-hero aside{padding:1rem;border:1px solid #68465f;border-radius:16px;background:#110b17}.operation-hero aside>span{color:#a7899f;font:800 .72rem ui-monospace,monospace}.operation-hero aside>strong{display:block;margin:.25rem 0 .9rem;color:#ff9fb4}.operation-hero dl{margin:0}.operation-hero dl div{display:flex;justify-content:space-between;gap:.7rem;padding:.5rem 0;border-top:1px solid #3d2938}.operation-hero dt{color:#a991a4}.operation-hero dd{margin:0;color:#fff;text-align:right}.mission-question,.panel,.next-operation{margin:1.2rem 0;padding:clamp(1.2rem,4vw,2rem);border:1px solid #263f53;border-radius:20px;background:#0a1927}.mission-question{border-color:#75425f;background:linear-gradient(135deg,#261321,#0a1927)}.mission-question h2,.panel h2,.next-operation h2{margin:.5rem 0 .7rem;color:#fff;font-size:clamp(1.5rem,4vw,2.15rem)}.mission-question p,.intro,.panel>p{color:#bfd0dc;line-height:1.6}.route-grid{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center}.route-grid span{padding:.55rem .65rem;border:1px solid #3d5362;border-radius:9px;background:#07151f;color:#dce9ef;font-size:.8rem;font-weight:800}.route-grid b{color:#ff9fb4}.route-grid i{color:#6d8492}.completion-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:.7rem}.completion-grid article{display:flex;gap:.6rem;padding:.85rem;border:1px solid #315263;border-radius:12px;background:#081823}.completion-grid ul{margin:.35rem 0 0;padding-left:1.05rem;color:#bfd2dc;font-size:.85rem;line-height:1.5}.completion-rule{padding:.75rem;border-left:3px solid #ff8daf;background:#2a1421;color:#ead8e2!important}.science-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}.science-grid article{padding:.9rem;border:1px solid #2d4b5a;border-radius:12px;background:#081823}.science-grid strong{color:#9ed5ff}.science-grid p{margin:.3rem 0 0;color:#b8ccd6;font-size:.86rem;line-height:1.48}.science-warning,.x17-note{margin-top:.75rem;padding:.8rem;border-left:3px solid #f2d97d;background:#29220f;color:#dfd3a3;line-height:1.5}.x17-note{border-color:#9ed5ff;background:#0a2130;color:#c7dce8}.section-heading{display:flex;justify-content:space-between;gap:1rem;align-items:start;margin-top:1rem}.duration{padding:.45rem .6rem;border:1px solid #5f4b5d;border-radius:999px;color:#d6bfd0;font:800 .76rem ui-monospace,monospace}.lab-grid,.incident-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:1rem 0}.lab-grid article,.incident-grid article{padding:.9rem;border:1px solid #29495c;border-radius:12px;background:#081923}.lab-grid h3{margin:0 0 .55rem}.lab-grid ul,.procedure ol{padding-left:1.2rem;color:#c1d3dc;line-height:1.6}.equipment-note{padding:.65rem;border-left:3px solid #74e9cb;background:#0a2428;color:#bcd2d9;font-size:.85rem}.procedure{padding:1rem;border:1px solid #315365;border-radius:14px;background:#071821}.procedure h3{color:#fff}.lab-record-grid,.model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-top:1rem}.lab-record-grid article,.model-grid article{padding:.8rem;border:1px solid #315263;border-radius:10px;background:#071923}.model-grid{grid-template-columns:repeat(4,1fr)}.lab-connection{padding:.75rem;border-left:3px solid #9ed5ff;background:#0a2130}.no-posting{padding:1rem;border:1px solid #7e6330;border-radius:12px;background:#2a210d}.case-heading{display:flex;justify-content:space-between;gap:1rem;align-items:start;margin-top:1rem}.case-heading h3{margin:.35rem 0;color:#fff;font-size:1.6rem}.case-status{padding:.4rem .55rem;border-radius:999px;background:#492033;color:#ff9fb4;font:850 .7rem ui-monospace,monospace}.incident-grid span{color:#ff9fb4;font:850 .7rem ui-monospace,monospace}.incident-grid p{color:#c3d2da;line-height:1.5}.spread-section,.evidence-section,.analysis-box{margin-top:1rem;padding:1rem;border:1px solid #2d4e59;border-radius:14px;background:#081720}.spread-section h4,.evidence-section h4{color:#fff}.spread-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem}.spread-grid article{padding:.8rem;border:1px solid #315365;border-radius:10px;background:#071923}.spread-grid strong{color:#fff}.spread-grid dl{margin:.45rem 0}.spread-grid dl div{display:flex;justify-content:space-between;gap:.5rem;padding:.2rem 0}.spread-grid dt{color:#91aab6;font-size:.75rem}.spread-grid dd{margin:0;color:#fff;font-weight:850}.spread-grid p{color:#adc2cc;font-size:.8rem;line-height:1.4}.evidence-grid{display:grid;gap:.55rem}.evidence-grid article{display:flex;gap:.6rem;padding:.7rem;border:1px solid #294852;border-radius:10px;background:#071923}.evidence-grid span{display:grid;place-items:center;flex:0 0 30px;height:30px;border-radius:7px;background:#3b1b2c;color:#ff9fb4;font:850 .7rem ui-monospace,monospace}.evidence-grid p{margin:0;color:#c0d4dd;line-height:1.45}.classification-check{display:grid;gap:.45rem;margin-top:.75rem;padding:.85rem;border-left:3px solid #ff8daf;background:#251421}.classification-check>span{padding:.5rem;border:1px solid #4e3445;border-radius:8px;color:#dfccd8}.concentration-chain{display:flex;align-items:center;gap:.45rem;overflow:auto;margin:1rem 0}.concentration-chain article{display:grid;flex:1 0 150px;gap:.2rem;padding:.75rem;border:1px solid #315263;border-radius:10px;background:#071923}.concentration-chain article span{color:#8ca7b4;font-size:.7rem;text-transform:uppercase}.concentration-chain article strong{color:#fff}.concentration-chain article b{color:#f2d97d}.concentration-chain i{font-style:normal;color:#7f9aaa}.analysis-box ol{color:#c4d6df;line-height:1.6}.response-file h3{color:#fff}.decision-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem}.decision-card{display:grid;gap:.4rem;padding:.85rem;border:1px solid #3a5665;border-radius:11px;background:#081923;color:#ddecf2;text-align:left;cursor:pointer}.decision-card span{color:#ff9fb4;font:850 .7rem ui-monospace,monospace}.decision-card small{color:#74e9cb}.decision-card.selected{border-color:#ff8daf;background:#311725;box-shadow:inset 0 0 0 1px #ff8daf}.working-decision{padding:.7rem;border-left:3px solid #ff8daf;background:#281521;color:#ead5e1!important}.print-actions{display:flex;gap:.8rem;align-items:center}.print-actions span{color:#9fb6c1;font-size:.84rem}.print-packet{display:none}.archive-panel{border-color:#756a3f}.archive-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem}.archive-grid article{padding:.8rem;border:1px solid #5b5334;border-radius:10px;background:#1d1b10}.archive-grid p{color:#cfc8a5;font-size:.84rem}.submission-guide{margin-top:1rem;padding:1rem;border:1px solid #756a3f;border-radius:14px;background:#17170e}.guide-heading{display:flex;gap:.6rem;align-items:center}.guide-heading div{display:grid}.submission-guide dl{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}.submission-guide dl div{padding:.65rem;border:1px solid #4e4a30;border-radius:9px;background:#0d1718}.submission-guide dt{color:#b8ab72;font-size:.68rem;font-weight:800;text-transform:uppercase}.submission-guide dd{margin:.2rem 0 0;color:#fff;font-size:.82rem;font-weight:800}.button{display:inline-flex;align-items:center;justify-content:center;padding:.72rem 1rem;border-radius:10px;text-decoration:none;font-weight:900;cursor:pointer}.button.primary{border:1px solid #6ef2cf;background:#6ef2cf;color:#06201e}.button.secondary{border:1px solid #3a6576;background:#0c2a38;color:#e7f6ff}.reflection ol{color:#c5d8e2;line-height:1.65}.next-operation{display:grid;grid-template-columns:120px 1fr;gap:1rem;border-color:#5a4563;background:#160f1a}.next-operation>div span{font-size:3rem;font-weight:900;color:#8d6b91}.next-operation section p{color:#bda9bf}.locked{display:flex;gap:.6rem;align-items:center;padding:.75rem;border:1px solid #5a4051;border-radius:10px;background:#1b1019;color:#c3a7b9}.bottom-actions{display:flex;gap:.7rem;justify-content:space-between}.bottom-actions .button{flex:0 0 auto}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr}.completion-grid,.science-grid{grid-template-columns:1fr 1fr}.spread-grid{grid-template-columns:1fr 1fr}.model-grid{grid-template-columns:1fr 1fr}.decision-grid{grid-template-columns:1fr}.submission-guide dl{grid-template-columns:1fr 1fr}}
+  @media(max-width:650px){.completion-grid,.science-grid,.lab-grid,.incident-grid,.lab-record-grid,.spread-grid,.model-grid,.archive-grid{grid-template-columns:1fr}.section-heading,.case-heading{display:grid}.submission-guide dl{grid-template-columns:1fr}.next-operation{grid-template-columns:72px 1fr}.bottom-actions{display:grid}.bottom-actions .button{width:100%}.print-actions{display:grid}}
+  @media print{.mission-nav,.operation-hero,.mission-question,.route-panel,.operation-checklist,.science-focus,.lab-panel,.incident-panel,.contaminant-model,.response-panel,.archive-panel,.reflection,.next-operation,.bottom-actions,.print-actions,:global(.jcec-submission-dock){display:none!important}.print-section{display:block!important;border:0!important;background:#fff!important;padding:0!important}.print-packet{display:block!important;color:#000}.print-page{break-after:page;min-height:10in;padding:.25in}.print-page h2,.print-page h3{color:#000}.writing-box{height:2in;border:1px solid #000}}
+</style>
