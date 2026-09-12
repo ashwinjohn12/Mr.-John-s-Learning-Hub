@@ -16,6 +16,7 @@ const requiredFiles = [
   'src/pages/courses/grade-7-science/jabberwocky/phase-1/index.astro',
   'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-1/index.astro',
   'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-2/index.astro',
+  'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-3/index.astro',
   'src/pages/courses/grade-7-science/jabberwocky/phase-1/teacher-launch-guide/index.astro',
   'src/components/JcecMissionProgress.astro',
   'src/components/JcecSimplifiedMissionNavigation.astro',
@@ -33,9 +34,9 @@ for (const file of requiredFiles) check(fs.existsSync(rel(file)), `exists: ${fil
 
 const simplifiedHubPath = 'src/pages/courses/grade-7-science/jabberwocky/phase-1/index.astro';
 const simplifiedHub = fs.existsSync(rel(simplifiedHubPath)) ? read(simplifiedHubPath) : '';
-check(simplifiedHub.includes('JcecMissionProgress active={2}'), 'simplified Phase 1 hub shows Mission 2 as current');
-check(simplifiedHub.includes('mission-2/'), 'simplified Phase 1 hub links to Mission 2');
-check(simplifiedHub.includes("title: 'Build the Ecosystem'") && simplifiedHub.includes("status: 'COMING NEXT'"), 'Mission 3 remains upcoming');
+check(simplifiedHub.includes('JcecMissionProgress active={3}'), 'simplified Phase 1 hub shows Mission 3 as current');
+check(simplifiedHub.includes('mission-3/'), 'simplified Phase 1 hub links to Mission 3');
+check(simplifiedHub.includes("title: 'Watch the Ecosystem Change'") && simplifiedHub.includes("status: 'COMING NEXT'"), 'Mission 4 remains upcoming');
 
 const mission1Path = 'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-1/index.astro';
 const mission1 = fs.existsSync(rel(mission1Path)) ? read(mission1Path) : '';
@@ -57,9 +58,30 @@ for (const species of ['Ridgeback Grazer', 'Canopy Glider', 'Tide Skipper', 'Dun
   check(op3Data.includes(species), `Mission 2 source data preserves species: ${species}`);
 }
 
+const mission3Path = 'src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-3/index.astro';
+const mission3 = fs.existsSync(rel(mission3Path)) ? read(mission3Path) : '';
+check(mission3.includes('jabberwockyOperation04'), 'Mission 3 reuses the established Operation 04 ecosystem data');
+check(mission3.includes('jabberwocky-phase1-posting'), 'Mission 3 carries forward the Mission 1 continent');
+for (const token of ['Producer', 'Consumer', 'Decomposer', 'Food web']) check(mission3.includes(token), `Mission 3 includes core science idea: ${token}`);
+for (const token of ['Energy flows', 'Matter cycles', 'FOOD', 'EATER', 'String Food Web', 'Matter Moves Too', 'Ecosystem Map']) check(mission3.includes(token), `Mission 3 includes simplified ecosystem element: ${token}`);
+check(mission3.includes('.slice(0, 6)'), 'Mission 3 limits each continent food web to six core feeding links');
+check(mission3.includes("node.name !== 'Surface Skimmer'"), 'Mission 3 keeps the largest Mimsy network within the simplified organism target');
+check(mission3.includes('WATER PATH') && mission3.includes('CARBON PATH'), 'Mission 3 integrates simple water and carbon paths');
+check(mission3.includes('Energy') && mission3.includes('Matter') && mission3.includes('can be reused and cycled'), 'Mission 3 distinguishes energy flow from matter cycling');
+check(mission3.includes('If this changes, then') && mission3.includes('may change because'), 'Mission 3 uses the approved simple reasoning scaffold');
+check(mission3.includes('print-mission3-packet'), 'Mission 3 includes printable string-web cards and Ecosystem Map');
+check(mission3.includes('4 classes × 45 minutes'), 'Mission 3 is designed for four 45-minute classes');
+check(!mission3.includes('mutualism') && !mission3.includes('commensalism') && !mission3.includes('parasitism'), 'Mission 3 keeps formal symbiosis categories out of the core student pathway');
+
+const op4Data = read('src/data/jabberwockyOperation04.ts');
+for (const species of ['Ridgeback Grazer', 'Canopy Glider', 'Tide Skipper', 'Dune Runner', 'Snow Burrower', 'Plains Strider', 'Barkclimber', 'Reedcrawler']) {
+  check(op4Data.includes(species), `Mission 3 source data preserves focal species: ${species}`);
+}
+
 const simpleNavPath = 'src/components/JcecSimplifiedMissionNavigation.astro';
 const simpleNav = fs.existsSync(rel(simpleNavPath)) ? read(simpleNavPath) : '';
 check(simpleNav.includes('Next Mission → Meet a Native Species'), 'Mission 1 has a clear next-mission handoff');
+check(simpleNav.includes('Next Mission → Build the Ecosystem'), 'Mission 2 has a clear next-mission handoff');
 check(simpleNav.includes('Reveal JCEC field name'), 'Mission 2 keeps species reconstruction evidence-first before revealing the field name');
 
 const operationPages = Object.fromEntries(
@@ -101,7 +123,7 @@ check(integration.includes(formId), 'shared JCEC submission dock uses the expect
 
 const pacingPath = 'src/components/JcecPhase1PacingRefinements.astro';
 const pacing = fs.existsSync(rel(pacingPath)) ? read(pacingPath) : '';
-check(pacing.includes('planetary-cycles-checkpoint'), 'Day 8 carbon/water cycle checkpoint is present');
+check(pacing.includes('planetary-cycles-checkpoint'), 'legacy Day 8 carbon/water cycle checkpoint is preserved');
 check(pacing.includes('earth-field-link-2'), 'Day 13 local Earth Field Link is present');
 check(pacing.includes('conservation-risk-checkpoint'), 'Operation 07 conservation-risk checkpoint is present');
 check(pacing.includes('19 core classes + 6 flex classes'), 'legacy five-week core pacing is preserved while simplified missions are prototyped');
@@ -130,4 +152,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('\nPhase 1 source routes, simplified Missions 1–2, legacy operation resources, print controls, submission wiring, pacing inserts, data imports, and teacher guides are internally consistent.');
+console.log('\nPhase 1 source routes, simplified Missions 1–3, legacy operation resources, print controls, submission wiring, pacing inserts, data imports, and teacher guides are internally consistent.');
