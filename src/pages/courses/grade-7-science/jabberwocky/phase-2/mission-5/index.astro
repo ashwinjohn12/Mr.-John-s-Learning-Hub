@@ -1,0 +1,341 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecPhase2Progress from '../../../../../../components/JcecPhase2Progress.astro';
+import { phase2PlantSites } from '../../../../../../data/jabberwockyPhase2';
+
+const base = import.meta.env.BASE_URL;
+
+type FootprintCase = {
+  productionGoal: string;
+  productionChallenge: string;
+  zones: string[];
+  constraints: string[];
+  consequence: string;
+  consequenceMeaning: string;
+  growthEvidence: string;
+  growingZoneEvidence: string;
+  varietyEvidence: string;
+};
+
+const footprintCases: Record<string, FootprintCase> = {
+  gyre: {
+    productionGoal: 'Supply a small JCEC station using no more than two growing or harvest zones.',
+    productionChallenge: 'Cold conditions, thin soils and very little flat growing land.',
+    zones: ['Stable terrace', 'Alpine habitat', 'Freshwater channel', 'Erosion-prone slope', 'Base camp', 'Valley growing pocket'],
+    constraints: ['Keep the erosion-prone slope undeveloped.', 'Protect the valley vegetation connection used by native animals.', 'Use water carefully; mountain soil can drain quickly.'],
+    consequence: 'A week of heavy rain hits after construction.',
+    consequenceMeaning: 'Disturbed thin soil begins moving downhill and muddy water reaches the channel. Revise one part of your plan to reduce erosion.',
+    growthEvidence: 'Cold and a short growing season limit growth; warmth and a stable root zone matter.',
+    growingZoneEvidence: 'Contained or protected growing can create deeper, warmer root conditions without stripping fragile slopes.',
+    varietyEvidence: 'Cold or short-season traits are useful, but strong anchoring must remain part of the plan.'
+  },
+  brillig: {
+    productionGoal: 'Produce fruit, seed and fibre for one JCEC outpost without opening a large plantation.',
+    productionChallenge: 'Heavy rain, drainage problems and nutrient loss if forest is cleared.',
+    zones: ['Existing clearing', 'Dense canopy habitat', 'Stream edge', 'Wet low ground', 'Base camp', 'Stable raised ground'],
+    constraints: ['Use existing clearings before removing forest.', 'Keep a protected buffer beside the stream.', 'Plan for heavy rainfall and drainage.'],
+    consequence: 'Several weeks of heavy rain arrive.',
+    consequenceMeaning: 'Water carries soil and fertilizer from an exposed growing area toward the stream. Revise one part of your plan to reduce runoff.',
+    growthEvidence: 'Water is abundant, but roots still need drainage and leaves may remain wet for long periods.',
+    growingZoneEvidence: 'Contained or raised growing can improve drainage while reducing the need for forest clearing.',
+    varietyEvidence: 'Production traits are useful, but disease resistance and plant variety matter in warm, humid conditions.'
+  },
+  manxome: {
+    productionGoal: 'Supply food, oil and fibre while keeping the island system ready for severe storms.',
+    productionChallenge: 'Salt exposure, storms and vulnerable young plants.',
+    zones: ['Sheltered inland site', 'Coastal habitat', 'Freshwater catchment', 'Storm-exposed ridge', 'Base camp', 'Storage / processing pad'],
+    constraints: ['Protect the freshwater catchment.', 'Keep sensitive coastal habitat connected.', 'Place vulnerable infrastructure away from the storm-exposed ridge.'],
+    consequence: 'A severe storm pushes salt spray far inland.',
+    consequenceMeaning: 'Young plants and one access route are damaged. Revise the plan so the system can recover without expanding into protected habitat.',
+    growthEvidence: 'Young plants need fresh water and protection while they establish in salty, storm-prone conditions.',
+    growingZoneEvidence: 'Protected or contained growing gives humans more control over salt, wind and drainage.',
+    varietyEvidence: 'Storm and salt tolerance may matter more than maximum yield in exposed areas.'
+  },
+  'slithy-toves': {
+    productionGoal: 'Produce useful seed, food and fibre while using as little scarce fresh water as possible.',
+    productionChallenge: 'Extreme water scarcity and the risk of salt buildup from irrigation.',
+    zones: ['Dry upland', 'Native oasis habitat', 'Freshwater well', 'Salt-prone flat', 'Base camp', 'Contained growing pad'],
+    constraints: ['Do not develop the native oasis habitat.', 'Use no more than one water-access tile.', 'Include a way to reduce evaporation or salt buildup.'],
+    consequence: 'A long drought cuts available fresh water in half.',
+    consequenceMeaning: 'The original water plan can no longer be maintained. Revise one part of the footprint to reduce demand.',
+    growthEvidence: 'Water is the major limiting condition; excessive irrigation can also leave salts behind.',
+    growingZoneEvidence: 'Slow delivery, covered soil or contained root zones can reduce water loss.',
+    varietyEvidence: 'Drought and salt tolerance can reduce water demand; selecting only for high yield may do the opposite.'
+  },
+  wabe: {
+    productionGoal: 'Produce seed and insulating fibre without damaging the slow-recovering natural plant mats.',
+    productionChallenge: 'A very short growing season and persistently cold conditions.',
+    zones: ['Protected growing pad', 'Natural Ember Moss mat', 'Seasonal wet ground', 'Freshwater / ice access', 'Base camp', 'Wind-exposed ground'],
+    constraints: ['Keep the natural mat protected.', 'Limit heated/protected growing to one main production zone.', 'Avoid repeated disturbance of slow-recovering ground.'],
+    consequence: 'An unexpected cold snap arrives during flowering.',
+    consequenceMeaning: 'Part of the production zone loses flowers. Revise the plan so one unusual cold event does not end the entire resource supply.',
+    growthEvidence: 'Temperature and season length are major limits even when summer light is available.',
+    growingZoneEvidence: 'Protected, raised or contained growing can warm the root zone without harvesting natural mats.',
+    varietyEvidence: 'Short-season growth is useful, but cold tolerance and some variety still protect the crop.'
+  },
+  bandersnatch: {
+    productionGoal: 'Produce grain and fibre while keeping prairie soil, water and habitat functioning.',
+    productionChallenge: 'Excellent growing potential, but large-scale farming can damage soil, water and biodiversity.',
+    zones: ['Productive field', 'Native prairie habitat', 'Stream', 'Wind-exposed field', 'Base camp', 'Buffer / shelter strip'],
+    constraints: ['Keep a connected area of native prairie.', 'Protect the stream with a buffer.', 'Do not leave all production soil bare and exposed.'],
+    consequence: 'A dry summer is followed by a new insect pest.',
+    consequenceMeaning: 'Water demand rises and similar plants are damaged quickly. Revise the plan to protect soil and reduce the chance that one problem affects everything.',
+    growthEvidence: 'Strong growth is possible, but water can become limiting during dry periods.',
+    growingZoneEvidence: 'Targeted irrigation, soil cover and buffers can support growth while reducing erosion.',
+    varietyEvidence: 'High yield is useful, but drought/pest resistance and plant variety improve resilience.'
+  },
+  gimble: {
+    productionGoal: 'Provide useful Ironwood fibre and timber without removing forest faster than it can recover.',
+    productionChallenge: 'Slow tree growth, forest competition and a long replacement time.',
+    zones: ['Mature forest', 'Nursery / young forest', 'Stream corridor', 'Steep forest slope', 'Base camp', 'Processing / storage site'],
+    constraints: ['Do not clear the mature forest as the main production strategy.', 'Keep the stream corridor protected.', 'Plan for replacement before harvest expands.'],
+    consequence: 'A bark-boring insect appears in the nursery.',
+    consequenceMeaning: 'Many similar young trees are damaged. Revise the plan to protect long-term supply without cutting more mature forest.',
+    growthEvidence: 'Ironwood grows slowly and needs enough light and suitable forest soil to establish.',
+    growingZoneEvidence: 'A nursery-style starting system can support young trees while natural forest remains intact.',
+    varietyEvidence: 'Faster growth may shorten production time, but wood strength, pest resistance and variety remain important.'
+  },
+  mimsy: {
+    productionGoal: 'Produce seed and fibre without draining or fragmenting the wetland.',
+    productionChallenge: 'Saturated, nutrient-poor ground and the danger of changing wetland water flow.',
+    zones: ['Wetland core', 'Raised growing platform', 'Water channel', 'Sensitive habitat', 'Base camp', 'Dry margin'],
+    constraints: ['Do not drain the wetland core.', 'Keep natural water flow through the channel.', 'Contain added nutrients and cultivated plants.'],
+    consequence: 'A storm raises water levels and washes nutrients from one growing area.',
+    consequenceMeaning: 'Nutrient-rich water begins moving toward sensitive habitat. Revise one part of the plan to contain the production system.',
+    growthEvidence: 'Floatroot tolerates saturated ground, but nutrient availability is limited.',
+    growingZoneEvidence: 'Raised or contained systems can add useful growing material without draining the surrounding wetland.',
+    varietyEvidence: 'Waterlogging tolerance and nutrient efficiency are useful; containment remains important if high-production plants spread.'
+  }
+};
+---
+
+<BaseLayout title="Mission 5: Use It Without Losing It | Jabberwocky 2190" description="Phase 2 Mission 5: synthesize plant-resource evidence and recommend a sustainable way to use a Jabberwocky plant resource." themeColor="#0b1c16">
+  <div class="mission-shell" id="phase2-mission5">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 2', href: `${base}courses/grade-7-science/jabberwocky/phase-2/` },
+      { label: 'Mission 5' }
+    ]} />
+
+    <JcecPhase2Progress active={5} compact={true} />
+
+    <header class="mission-hero">
+      <div>
+        <p class="eyebrow">PHASE 2 // MISSION 5 OF 5</p>
+        <h1>USE IT <span>WITHOUT LOSING IT</span></h1>
+        <p class="question">How can humans use plant resources without damaging the system they depend on?</p>
+      </div>
+      <aside><span>YOU ARE LEARNING</span><strong>How to make a sustainable plant-resource decision from evidence</strong><small>4 classes × 45 minutes</small></aside>
+    </header>
+
+    <section class="mission-at-a-glance" aria-label="Mission 5 at a glance">
+      <div><small>WHERE AM I?</small><strong>Final mission of Phase 2</strong></div>
+      <div><small>WHAT DO I HAND IN?</small><strong>1 JCEC Living Resource Plan + 1 reflection</strong></div>
+      <div><small>BIG QUESTION</small><strong>Can we keep producing the resource without damaging the system?</strong></div>
+    </section>
+
+    <nav class="step-nav" aria-label="Mission 5 steps">
+      <a href="#your-mission"><b>1</b><span>Your Mission</span></a>
+      <a href="#learn"><b>2</b><span>Learn</span></a>
+      <a href="#investigate"><b>3</b><span>Investigate</span></a>
+      <a href="#decide"><b>4</b><span>Decide</span></a>
+      <a href="#record"><b>5</b><span>Record It</span></a>
+    </nav>
+
+    <section class="simple-step" id="your-mission">
+      <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
+      <div class="briefing"><p>JCEC now knows what your plant can provide, what it needs, how humans might grow it and which traits could help. The final problem is scale. More production can mean more land, water, fertilizer, pest control, roads and harvesting. Your team must design a small resource footprint, test it against one new consequence, and decide the safest realistic way humans should use this plant without damaging the system that makes it possible.</p></div>
+
+      <div class="assignment-result" id="assignment-result" hidden>
+        <span id="assignment-icon" aria-hidden="true"></span>
+        <div><small>YOUR CONTINENT</small><strong id="assignment-name"></strong><p id="assignment-warning"></p></div>
+        <div class="plant-badge"><small>RESOURCE PLANT</small><b id="assignment-plant"></b></div>
+      </div>
+      <div class="missing-assignment" id="missing-assignment" hidden><strong>Your Phase 2 posting is not saved on this device yet.</strong><p>Return to the Phase 2 Hub and choose the continent your teacher assigned.</p><a href={`${base}courses/grade-7-science/jabberwocky/phase-2/`}>Get Phase 2 posting →</a></div>
+      <div class="challenge-strip" id="challenge-strip" hidden><small>PRODUCTION CHALLENGE</small><strong id="challenge-text"></strong></div>
+    </section>
+
+    <section class="simple-step" id="learn">
+      <div class="step-heading"><span>2</span><div><p>CLASS 1</p><h2>Learn the Science</h2></div></div>
+      <p class="step-intro">Mission 5 adds very little new vocabulary. It asks you to use science you already learned to judge a bigger human plan.</p>
+      <div class="science-grid">
+        <article><span>🗺️</span><strong>LAND USE</strong><p>Farms, plantations, roads and processing areas can change habitats, soil and water. More developed land usually means less natural land left unchanged.</p></article>
+        <article><span>💧</span><strong>PRODUCTION INPUTS</strong><p>Irrigation, fertilizer and pest management can improve production, but each can also create unintended effects when overused or poorly placed.</p></article>
+        <article><span>🌾</span><strong>VARIETY &amp; RESILIENCE</strong><p>Productive systems still need enough variety and safeguards to cope with pests, unusual weather and changing conditions.</p></article>
+        <article><span>♻️</span><strong>SUSTAINABILITY</strong><p>A sustainable system meets human needs without using resources or damaging ecosystems faster than they can recover.</p></article>
+      </div>
+      <div class="big-distinction"><div><small>QUESTION 1</small><strong>Can we produce this resource?</strong></div><span>≠</span><div><small>QUESTION 2</small><strong>Can we keep producing it without damaging the system?</strong></div></div>
+    </section>
+
+    <section class="simple-step" id="investigate">
+      <div class="step-heading"><span>3</span><div><p>CLASSES 1–3</p><h2>Investigate</h2></div></div>
+
+      <section class="investigation-block footprint-block">
+        <div class="block-title"><div><small>MAIN INVESTIGATION</small><h3>Production Footprint Challenge</h3></div><span>TEAM WORK</span></div>
+        <p><strong>Question:</strong> Can we meet a human resource need and still protect the conditions the plant and ecosystem depend on?</p>
+        <ol class="simple-procedure">
+          <li>Open only your continent case. Read the production goal, six map zones and three constraints.</li>
+          <li>Place a small set of planning tiles: <strong>growing/harvest, protected habitat, water access, road/infrastructure, processing/storage, buffer/protection</strong>.</li>
+          <li>Build one plan that meets the goal while obeying all three constraints.</li>
+          <li>When your teacher says <strong>REVEAL</strong>, open the consequence card.</li>
+          <li>Revise exactly one part of the plan and explain why that change makes the system safer or more sustainable.</li>
+        </ol>
+        <div class="model-note"><strong>Keep the footprint small.</strong><span>This is a resource decision, not a city-building game. You need a defensible plan, not the most elaborate map.</span></div>
+        <button type="button" class="small-button" id="print-phase2-mission5">Print Footprint Challenge + Living Resource Plan</button>
+      </section>
+
+      <section class="investigation-block continent-case">
+        <div class="block-title"><div><small>CLASSES 1–2</small><h3>Your Continent Footprint</h3></div><span>6 ZONES · 3 CONSTRAINTS</span></div>
+        <div class="no-continent" id="no-continent"><strong>Phase 2 continent not found.</strong><a href={`${base}courses/grade-7-science/jabberwocky/phase-2/`}>Return to Phase 2 Hub →</a></div>
+        <div id="case-files" hidden>
+          {phase2PlantSites.map((site) => {
+            const info = footprintCases[site.id];
+            return (
+              <article class="case-file" data-case-file={site.id} hidden>
+                <header><span>{site.icon}</span><div><small>{site.name} · {site.plant.name}</small><h3>{info.productionGoal}</h3></div></header>
+                <div class="zone-grid">{info.zones.map((zone, index) => <div><b>{index + 1}</b><span>{zone}</span></div>)}</div>
+                <div class="constraint-box"><small>YOUR PLAN MUST</small>{info.constraints.map((constraint) => <p>✓ {constraint}</p>)}</div>
+                <details class="consequence-card"><summary>REVEAL only when your teacher says so</summary><div><small>CONSEQUENCE</small><strong>{info.consequence}</strong><p>{info.consequenceMeaning}</p></div></details>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section class="investigation-block locker-block">
+        <div class="block-title"><div><small>CLASS 3</small><h3>Evidence Locker</h3></div><span>4 SHORT REMINDERS</span></div>
+        <p>You do not need to reopen four old mission pages. JCEC has surfaced one useful reminder from each mission. Choose your <strong>three strongest</strong> pieces of evidence, preferably from different missions.</p>
+        <div class="locker-grid" id="evidence-locker" hidden>
+          <article><small>MISSION 1 · RESOURCE</small><strong id="locker-resource"></strong><p id="locker-resource-detail"></p></article>
+          <article><small>MISSION 2 · GROWTH</small><strong id="locker-growth"></strong><p id="locker-growth-detail"></p></article>
+          <article><small>MISSION 3 · GROWING ZONE</small><strong id="locker-zone"></strong><p id="locker-zone-detail"></p></article>
+          <article><small>MISSION 4 · VARIETY</small><strong id="locker-variety"></strong><p id="locker-variety-detail"></p></article>
+        </div>
+        <div class="locker-note" id="growth-condition-note"></div>
+      </section>
+    </section>
+
+    <section class="simple-step" id="decide">
+      <div class="step-heading"><span>4</span><div><p>CLASSES 3–4</p><h2>Make a Decision</h2></div></div>
+      <div class="decision-card">
+        <p class="mini-label">ONE TEAM QUESTION</p>
+        <h3>What is the safest realistic way humans should use this plant resource?</h3>
+        <div class="strategy-grid">
+          <article><span>🌿</span><strong>Limited monitored harvest</strong><p>Use small amounts from established populations while monitoring recovery.</p></article>
+          <article><span>🌱</span><strong>Small managed cultivation</strong><p>Grow the plant deliberately in limited farms, gardens, forestry plots or other managed areas.</p></article>
+          <article><span>🏗️</span><strong>Controlled-environment cultivation</strong><p>Use protected, contained, greenhouse, raised-bed, wetland-compatible or soilless systems where appropriate.</p></article>
+          <article><span>⛔</span><strong>Do not develop yet</strong><p>Current evidence or uncertainty makes development too risky.</p></article>
+        </div>
+        <div class="reasoning-frame"><div><strong>DECISION</strong><span>We recommend ______.</span></div><div><strong>EVIDENCE</strong><span>Our strongest evidence is ______, ______ and ______.</span></div><div><strong>CONSEQUENCE / SAFEGUARD</strong><span>One important risk is ______, so humans must ______.</span></div></div>
+        <p class="decision-note">No strategy is automatically best. Your choice has to fit your continent evidence.</p>
+      </div>
+    </section>
+
+    <section class="simple-step" id="record">
+      <div class="step-heading"><span>5</span><div><p>CLASS 4</p><h2>Record It</h2></div></div>
+      <div class="handoff-strip"><span>👥 <strong>TEAM WORK</strong> plan + revise</span><i>→</i><span>📝 <strong>TEAM RECORD</strong> one final plan</span><i>→</i><span>💭 <strong>MY REFLECTION</strong> everyone answers</span></div>
+
+      <div class="team-record">
+        <div class="record-heading"><div><p class="mini-label">MAJOR PHASE 2 SYNTHESIS</p><h3>JCEC Living Resource Plan</h3></div><span>ONE PER TEAM</span></div>
+        <p>Keep this to one page. Scientific thinking matters more than visual polish.</p>
+        <div class="profile-checklist"><label><input type="checkbox" /> our continent</label><label><input type="checkbox" /> our resource plant</label><label><input type="checkbox" /> what humans could use it for</label><label><input type="checkbox" /> what this plant needs</label><label><input type="checkbox" /> one useful adaptation or selected trait</label><label><input type="checkbox" /> recommended growing / harvesting strategy</label><label><input type="checkbox" /> three strongest pieces of evidence</label><label><input type="checkbox" /> biggest environmental risk</label><label><input type="checkbox" /> one practice humans must follow</label><label><input type="checkbox" /> final strategy + 3–5 sentence explanation</label></div>
+        <div class="assessment-note"><strong>What matters most:</strong><span>Science understanding → use of evidence → reasoning → sustainable practical decision.</span></div>
+      </div>
+
+      <div class="reflection-card"><p class="mini-label">MY REFLECTION</p><h3>What is one thing humans could do that would make plant production more successful but less sustainable? What would you choose instead?</h3><p>Everyone answers this question individually.</p></div>
+
+      <div class="finished-box"><strong>Phase 2 is finished when:</strong><span>✓ your team has one JCEC Living Resource Plan</span><span>✓ you completed the short individual reflection</span><p>Stop here. Do not begin Phase 3 until your teacher launches the next phase.</p><a href={`${base}courses/grade-7-science/jabberwocky/phase-2/`}>Return to Phase 2 Mission Hub →</a></div>
+    </section>
+
+    <section class="print-packet" aria-label="Phase 2 Mission 5 printable packet">
+      <section class="print-page">
+        <h1>Phase 2 · Mission 5 — Production Footprint Challenge</h1>
+        <p>Team: ________________________________ &nbsp; Date: ____________</p>
+        <p>Continent: <strong id="print-continent"></strong> &nbsp; Resource plant: <strong id="print-plant"></strong></p>
+        <p><strong>Production goal:</strong> <span id="print-goal"></span></p>
+        <div class="print-zones" id="print-zones"></div>
+        <p><strong>Three constraints</strong></p><ol id="print-constraints"></ol>
+        <p><strong>Planning tiles:</strong> growing/harvest · protected habitat · water access · road/infrastructure · processing/storage · buffer/protection</p>
+        <p><strong>Consequence:</strong> <span id="print-consequence"></span></p>
+        <p><strong>Our one revision:</strong></p><div class="writing-lines tall"></div>
+      </section>
+      <section class="print-page page-break living-plan-page">
+        <h1>JCEC Living Resource Plan</h1>
+        <p>Continent: ____________________________ &nbsp; Resource plant: ____________________________</p>
+        <div class="print-grid two"><div><strong>What humans could use it for</strong></div><div><strong>What this plant needs</strong></div></div>
+        <div class="print-grid two"><div><strong>Useful adaptation / selected trait</strong></div><div><strong>Recommended growing / harvesting strategy</strong></div></div>
+        <p><strong>Our three strongest pieces of evidence</strong></p><ol><li>_______________________________________________________________</li><li>_______________________________________________________________</li><li>_______________________________________________________________</li></ol>
+        <div class="print-grid two"><div><strong>Biggest environmental risk</strong></div><div><strong>One practice humans must follow</strong></div></div>
+        <p><strong>Final strategy:</strong> ☐ Limited monitored harvest &nbsp; ☐ Small managed cultivation &nbsp; ☐ Controlled-environment cultivation &nbsp; ☐ Do not develop yet</p>
+        <p><strong>Why? 3–5 sentences</strong></p><div class="writing-lines very-tall"></div>
+        <p><strong>MY REFLECTION:</strong> What could make production more successful but less sustainable? What would you choose instead?</p><div class="writing-lines"></div>
+      </section>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ siteData: phase2PlantSites, footprintData: footprintCases }}>
+    (() => {
+      const POSTING_KEY = 'jabberwocky-phase2-posting';
+      const CONDITION_KEY = 'jabberwocky-phase2-growth-condition';
+      const sites = Object.fromEntries(siteData.map((site) => [site.id, site]));
+      const saved = localStorage.getItem(POSTING_KEY);
+      const site = saved ? sites[saved] : null;
+      const info = saved ? footprintData[saved] : null;
+      const assignment = document.getElementById('assignment-result');
+      const missing = document.getElementById('missing-assignment');
+      const challenge = document.getElementById('challenge-strip');
+      const noContinent = document.getElementById('no-continent');
+      const caseFiles = document.getElementById('case-files');
+      const locker = document.getElementById('evidence-locker');
+
+      if (site && info) {
+        assignment.hidden = false; missing.hidden = true; challenge.hidden = false; noContinent.hidden = true; caseFiles.hidden = false; locker.hidden = false;
+        document.getElementById('assignment-icon').textContent = site.icon;
+        document.getElementById('assignment-name').textContent = site.name;
+        document.getElementById('assignment-warning').textContent = `Inherited ecosystem warning: ${site.previousTeamBriefing.warning}`;
+        document.getElementById('assignment-plant').textContent = site.plant.name;
+        document.getElementById('challenge-text').textContent = info.productionChallenge;
+        document.querySelectorAll('[data-case-file]').forEach((el) => el.hidden = el.dataset.caseFile !== saved);
+
+        document.getElementById('locker-resource').textContent = `${site.plant.name}: ${site.plant.resourceUse}`;
+        document.getElementById('locker-resource-detail').textContent = `Adaptation: ${site.plant.adaptation} Warning: ${site.previousTeamBriefing.warning}`;
+        document.getElementById('locker-growth').textContent = info.growthEvidence;
+        document.getElementById('locker-growth-detail').textContent = 'Use your Growth Trial result if it gives stronger evidence than this reminder.';
+        document.getElementById('locker-zone').textContent = info.growingZoneEvidence;
+        document.getElementById('locker-zone-detail').textContent = `Production challenge: ${info.productionChallenge}`;
+        document.getElementById('locker-variety').textContent = info.varietyEvidence;
+        document.getElementById('locker-variety-detail').textContent = 'Use your Mission 4 chosen trait if your team selected a different evidence-based option.';
+
+        document.getElementById('print-continent').textContent = site.name;
+        document.getElementById('print-plant').textContent = site.plant.name;
+        document.getElementById('print-goal').textContent = info.productionGoal;
+        document.getElementById('print-consequence').textContent = `${info.consequence} ${info.consequenceMeaning}`;
+        const zones = document.getElementById('print-zones');
+        zones.innerHTML = info.zones.map((zone, i) => `<div><b>${i + 1}</b><span>${zone}</span></div>`).join('');
+        const constraints = document.getElementById('print-constraints');
+        constraints.innerHTML = info.constraints.map((item) => `<li>${item}</li>`).join('');
+      } else {
+        assignment.hidden = true; missing.hidden = false; challenge.hidden = true; noContinent.hidden = false; caseFiles.hidden = true; locker.hidden = true;
+      }
+
+      const savedCondition = localStorage.getItem(CONDITION_KEY);
+      const note = document.getElementById('growth-condition-note');
+      note.textContent = savedCondition
+        ? `Mission 2 reminder: your class changed “${savedCondition}”. Use the actual control-vs-changed result your team observed if it strengthens your final evidence.`
+        : 'Mission 2 reminder: use the Growth Trial result your class recorded. You do not need to reopen Mission 2.';
+
+      document.getElementById('print-phase2-mission5')?.addEventListener('click', () => { document.body.classList.add('print-phase2-mission5'); window.print(); });
+      window.addEventListener('afterprint', () => document.body.classList.remove('print-phase2-mission5'));
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+:global(body){background:#07120e}.mission-shell{max-width:1050px;margin:0 auto;padding:0 1rem 5rem;color:#edf8ef}.mission-shell :global(.breadcrumbs){color:#9eb4a5}.mission-shell :global(.breadcrumbs a){color:#d9eadc}:global(body:has(#phase2-mission5) .jcec-submission-dock),:global(body:has(#phase2-mission5) .jcec-device-tools){display:none!important}.eyebrow,.mini-label{margin:0;color:#a8e779;font:850 .73rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}.mission-hero{display:grid;grid-template-columns:1fr 255px;gap:1.25rem;align-items:end;margin:.8rem 0 1rem;padding:clamp(1.35rem,4vw,2.25rem);border:1px solid #416448;border-radius:22px;background:radial-gradient(circle at 82% 18%,rgba(183,231,125,.14),transparent 26%),linear-gradient(145deg,#081711,#15351f)}.mission-hero h1{margin:.45rem 0;color:#fff;font-size:clamp(2.5rem,7vw,4.9rem);line-height:.9;letter-spacing:-.05em}.mission-hero h1 span{display:block;color:#b7e77d}.question{margin:.8rem 0 0;color:#d4e3d7;font-size:1.2rem;font-weight:750}.mission-hero aside{display:grid;gap:.18rem;padding:.9rem;border:1px solid #45644c;border-radius:13px;background:#0b1c13}.mission-hero aside span{color:#a7d883;font-size:.68rem;font-weight:900;letter-spacing:.08em}.mission-hero aside strong{color:#fff}.mission-hero aside small{color:#9eb4a4}.mission-at-a-glance{display:grid;grid-template-columns:.7fr 1fr 1.5fr;gap:.55rem;margin:1rem 0}.mission-at-a-glance div{display:grid;gap:.22rem;padding:.75rem;border:1px solid #365243;border-radius:10px;background:#0b1b13}.mission-at-a-glance small{color:#91b170;font-size:.62rem;font-weight:900;letter-spacing:.07em}.mission-at-a-glance strong{color:#eaf5eb;font-size:.82rem;line-height:1.35}.step-nav{position:sticky;top:.55rem;z-index:20;display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem;margin:1rem 0;padding:.4rem;border:1px solid #365443;border-radius:13px;background:rgba(7,23,15,.96);backdrop-filter:blur(8px)}.step-nav a{display:flex;gap:.4rem;align-items:center;padding:.55rem;border-radius:9px;color:#adc0b0;text-decoration:none;font-size:.78rem;font-weight:850}.step-nav a:hover{background:#173020;color:#fff}.step-nav b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#1b3928;color:#c2d4c5}.simple-step{margin:1rem 0;padding:clamp(1rem,3vw,1.45rem);scroll-margin-top:5.2rem;border:1px solid #355343;border-radius:18px;background:#0b1b13}.step-heading{display:flex;gap:.7rem;align-items:center;margin-bottom:.9rem}.step-heading>span{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:12px;background:#b7e77d;color:#18320d;font-size:1.2rem;font-weight:950}.step-heading p{margin:0;color:#a8e779;font-size:.68rem;font-weight:900;letter-spacing:.08em}.step-heading h2{margin:.12rem 0;color:#fff;font-size:1.55rem}.briefing{max-width:800px;padding:1rem 1.1rem;border-left:3px solid #b7e77d;background:#13271b}.briefing p{margin:0;color:#c6d5ca;font-size:1rem;line-height:1.62}.assignment-result{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;margin-top:1rem;padding:.85rem;border:1px solid #507458;border-radius:12px;background:#11291a}.assignment-result>span{font-size:1.6rem}.assignment-result small,.plant-badge small,.challenge-strip small{display:block;color:#93b078;font-size:.63rem;font-weight:900;letter-spacing:.07em}.assignment-result strong{color:#fff;font-size:1.08rem}.assignment-result p{margin:.12rem 0 0;color:#a7bca9;font-size:.82rem}.plant-badge{text-align:right}.plant-badge b{display:block;margin-top:.18rem;color:#d7ffae}.missing-assignment{margin-top:1rem;padding:.85rem;border:1px dashed #52695a;border-radius:10px;color:#b2c5b5}.missing-assignment strong{color:#fff}.missing-assignment p{margin:.3rem 0 .55rem}.missing-assignment a,.no-continent a{color:#b8e894}.challenge-strip{margin-top:.75rem;padding:.8rem;border:1px solid #49664f;border-radius:11px;background:#0a1910}.challenge-strip>strong{display:block;margin:.24rem 0;color:#fff}.step-intro{color:#a9bdad;line-height:1.5}.science-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem}.science-grid article{padding:.9rem;border:1px solid #375140;border-radius:11px;background:#09160f}.science-grid article>span{display:block;margin-bottom:.35rem;font-size:1.25rem}.science-grid strong{color:#fff}.science-grid p{margin:.3rem 0 0;color:#a9bcae;font-size:.84rem;line-height:1.5}.big-distinction{display:grid;grid-template-columns:1fr auto 1fr;gap:.8rem;align-items:center;margin-top:.8rem;padding:.9rem;border-left:3px solid #b7e77d;background:#14271b}.big-distinction div{display:grid;gap:.15rem}.big-distinction small{color:#9ac879;font-size:.65rem;font-weight:900}.big-distinction strong{color:#fff}.big-distinction>span{color:#b7e77d;font-size:1.3rem;font-weight:900}.investigation-block{margin-top:.8rem;padding:1rem;border:1px solid #365343;border-radius:13px;background:#09170f}.block-title{display:flex;justify-content:space-between;gap:.8rem;align-items:start}.block-title small{color:#a8df7a;font-size:.66rem;font-weight:900}.block-title h3{margin:.12rem 0;color:#fff;font-size:1.2rem}.block-title>span{padding:.32rem .5rem;border-radius:999px;background:#23442e;color:#d6f5be;font-size:.68rem;font-weight:900}.investigation-block>p{color:#adc0b0;line-height:1.5}.simple-procedure{display:grid;gap:.48rem;padding-left:1.45rem;color:#c2d3c5;line-height:1.5}.model-note,.assessment-note{display:flex;gap:.6rem;align-items:center;margin:.8rem 0;padding:.7rem;border-left:3px solid #b7e77d;background:#14261a;color:#d8e6da;font-size:.82rem}.model-note span,.assessment-note span{color:#adc3b0}.small-button{display:inline-flex;align-items:center;justify-content:center;padding:.68rem .85rem;border:1px solid #526b59;border-radius:9px;background:#132b1d;color:#e1f0e3;font:inherit;font-size:.82rem;font-weight:900;cursor:pointer}.no-continent{display:flex;justify-content:space-between;gap:.7rem;align-items:center;padding:.8rem;border:1px dashed #506858;border-radius:9px;color:#b8cbbd}.case-file header{display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:center}.case-file header>span{font-size:1.65rem}.case-file header small{color:#8fa995}.case-file header h3{margin:.08rem 0;color:#fff;font-size:1.08rem;line-height:1.4}.zone-grid,.print-zones{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-top:.8rem}.zone-grid div,.print-zones div{min-height:70px;padding:.65rem;border:1px solid #3a5744;border-radius:9px;background:#0d1d14}.zone-grid b,.print-zones b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#23442e;color:#d7f7c1;font-size:.7rem}.zone-grid span,.print-zones span{display:block;margin-top:.35rem;color:#d4e3d6;font-size:.82rem;font-weight:800}.constraint-box{margin-top:.7rem;padding:.75rem;border:1px solid #4b664f;border-radius:10px;background:#11251a}.constraint-box small{color:#a7db7d;font-size:.65rem;font-weight:900}.constraint-box p{margin:.35rem 0 0;color:#c1d2c4;font-size:.83rem}.consequence-card{margin-top:.65rem;border:1px solid #6d5b3b;border-radius:10px;background:#211b0f}.consequence-card summary{cursor:pointer;padding:.75rem;color:#f2d79c;font-size:.82rem;font-weight:900}.consequence-card>div{padding:0 .8rem .8rem}.consequence-card small{display:block;color:#ddb86e;font-size:.65rem;font-weight:900}.consequence-card strong{display:block;margin:.22rem 0;color:#fff}.consequence-card p{margin:0;color:#d7c8ab;line-height:1.45}.locker-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem}.locker-grid article{padding:.8rem;border:1px solid #3d5a46;border-radius:10px;background:#0c1b12}.locker-grid small{color:#a8d57f;font-size:.64rem;font-weight:900}.locker-grid strong{display:block;margin:.3rem 0;color:#fff;font-size:.84rem;line-height:1.42}.locker-grid p{margin:0;color:#9fb3a3;font-size:.78rem;line-height:1.42}.locker-note{margin-top:.65rem;padding:.65rem;border-left:3px solid #7da45c;background:#122219;color:#aec1b1;font-size:.8rem;line-height:1.45}.decision-card,.team-record,.reflection-card,.finished-box{margin-top:1rem;padding:1rem;border:1px solid #3a5845;border-radius:13px;background:#09170f}.decision-card h3,.reflection-card h3{margin:.3rem 0 .7rem;color:#fff}.strategy-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem}.strategy-grid article{padding:.75rem;border:1px solid #3b5845;border-radius:10px;background:#102219}.strategy-grid article>span{display:block;font-size:1.2rem}.strategy-grid strong{display:block;margin:.25rem 0;color:#fff}.strategy-grid p{margin:0;color:#a9bdad;font-size:.79rem;line-height:1.42}.reasoning-frame{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.7rem}.reasoning-frame div{padding:.78rem;border:1px solid #4a684f;border-radius:10px;background:#10251a}.reasoning-frame strong{display:block;color:#b7e77d;font-size:.78rem}.reasoning-frame span{display:block;margin-top:.25rem;color:#b1c5b5;font-size:.82rem;line-height:1.45}.decision-note{margin:.65rem 0 0;color:#94a997;font-size:.8rem}.handoff-strip{display:flex;gap:.55rem;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:.8rem;padding:.7rem;border:1px solid #3a5544;border-radius:10px;background:#09160e;color:#b6c8b9;font-size:.8rem}.handoff-strip strong{color:#fff}.handoff-strip i{color:#617a67}.record-heading{display:flex;justify-content:space-between;align-items:start}.record-heading h3{margin:.2rem 0;color:#fff;font-size:1.25rem}.record-heading>span{padding:.32rem .5rem;border-radius:999px;background:#23442e;color:#d6f5be;font-size:.67rem;font-weight:900}.team-record>p,.reflection-card p,.finished-box p{color:#a9bdad;line-height:1.45}.profile-checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:.45rem}.profile-checklist label{padding:.55rem;border:1px solid #354e3d;border-radius:8px;color:#c3d3c5;font-size:.8rem}.reflection-card h3{font-size:1.05rem;line-height:1.45}.finished-box{display:grid;gap:.45rem;border-color:#587b59;background:#102419}.finished-box strong{color:#e7ffd7}.finished-box span{color:#c8dfca}.finished-box p{margin:.3rem 0}.finished-box a{width:max-content;max-width:100%;padding:.65rem .8rem;border:1px solid #4d6b54;border-radius:8px;color:#cfe8d1;text-decoration:none;font-size:.8rem;font-weight:850}.print-packet{display:none}
+@media(max-width:760px){.mission-hero,.assignment-result{grid-template-columns:1fr}.plant-badge{text-align:left}.mission-at-a-glance,.science-grid,.locker-grid,.strategy-grid,.reasoning-frame{grid-template-columns:1fr}.zone-grid{grid-template-columns:repeat(2,1fr)}.big-distinction{grid-template-columns:1fr}.big-distinction>span{transform:rotate(90deg);justify-self:center}.step-nav{overflow-x:auto;grid-template-columns:repeat(5,minmax(105px,1fr))}.profile-checklist{grid-template-columns:1fr}}
+@media(max-width:520px){.mission-shell{padding-inline:.7rem}.mission-hero h1{font-size:3rem}.step-nav span{font-size:.69rem}.zone-grid{grid-template-columns:1fr}.block-title{display:grid}.no-continent{display:grid}}
+@media print{body.print-phase2-mission5 *{visibility:hidden!important}body.print-phase2-mission5 .print-packet,body.print-phase2-mission5 .print-packet *{visibility:visible!important}body.print-phase2-mission5 .print-packet{display:block!important;position:absolute;inset:0;color:#111;background:#fff}body.print-phase2-mission5 .print-page{min-height:96vh;padding:12mm;box-sizing:border-box;page-break-after:auto}body.print-phase2-mission5 .page-break{page-break-before:always}body.print-phase2-mission5 h1{font-size:22pt;margin:0 0 10pt}body.print-phase2-mission5 p,body.print-phase2-mission5 li{font-size:10.5pt;line-height:1.4}body.print-phase2-mission5 .print-zones{grid-template-columns:repeat(3,1fr);gap:6px}body.print-phase2-mission5 .print-zones div{border:1px solid #333;background:#fff;min-height:54px}body.print-phase2-mission5 .print-zones span{color:#111}body.print-phase2-mission5 .print-grid{display:grid;gap:6px;margin:8px 0}body.print-phase2-mission5 .print-grid.two{grid-template-columns:1fr 1fr}body.print-phase2-mission5 .print-grid>div{min-height:62px;padding:7px;border:1px solid #333}body.print-phase2-mission5 .writing-lines{min-height:65px;border-bottom:1px solid #aaa;background:repeating-linear-gradient(to bottom,transparent 0,transparent 25px,#bbb 26px)}body.print-phase2-mission5 .writing-lines.tall{min-height:110px}body.print-phase2-mission5 .writing-lines.very-tall{min-height:145px}}
+</style>
