@@ -1,0 +1,315 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecMissionProgress from '../../../../../../components/JcecMissionProgress.astro';
+import { operation02Sites } from '../../../../../../data/jabberwockyOperation02';
+
+const base = import.meta.env.BASE_URL;
+const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZDtZrNtCG3WB78ttvZdtEmq29kapujg/viewform';
+
+const continentMeta: Record<string, { icon: string; rating: string; tone: string }> = {
+  gyre: { icon: '⛰️', rating: 'Promising', tone: 'yellow' },
+  brillig: { icon: '🌿', rating: 'Very Promising', tone: 'green' },
+  manxome: { icon: '🏝️', rating: 'Promising', tone: 'yellow' },
+  'slithy-toves': { icon: '🏜️', rating: 'Difficult', tone: 'orange' },
+  wabe: { icon: '❄️', rating: 'Challenging', tone: 'orange' },
+  bandersnatch: { icon: '🌾', rating: 'Excellent', tone: 'green' },
+  gimble: { icon: '🌲', rating: 'Very Promising', tone: 'green' },
+  mimsy: { icon: '🪷', rating: 'Poor', tone: 'red' }
+};
+
+const missionSites = operation02Sites.map((site) => ({
+  ...site,
+  ...continentMeta[site.id],
+  observations: site.evidence.slice(0, 4).map((item) => item.text)
+}));
+---
+
+<BaseLayout title="Mission 1: Explore Your Environment | Jabberwocky 2190" description="A simplified Grade 7 Science mission about biotic and abiotic environmental conditions." themeColor="#071b2e">
+  <div class="mission-shell" id="simplified-mission-1">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 1', href: `${base}courses/grade-7-science/jabberwocky/phase-1/` },
+      { label: 'Mission 1' }
+    ]} />
+
+    <JcecMissionProgress active={1} compact={true} />
+
+    <header class="mission-hero">
+      <div>
+        <p class="eyebrow">MISSION 1 OF 5</p>
+        <h1>EXPLORE YOUR <span>ENVIRONMENT</span></h1>
+        <p class="question">What is this place like?</p>
+      </div>
+      <aside>
+        <span>YOU ARE LEARNING</span>
+        <strong>How environments support life</strong>
+        <small>3 classes × 45 minutes</small>
+      </aside>
+    </header>
+
+    <nav class="step-nav" aria-label="Mission 1 steps">
+      <a href="#your-mission"><b>1</b><span>Your Mission</span></a>
+      <a href="#learn"><b>2</b><span>Learn</span></a>
+      <a href="#investigate"><b>3</b><span>Investigate</span></a>
+      <a href="#decide"><b>4</b><span>Decide</span></a>
+      <a href="#record"><b>5</b><span>Record It</span></a>
+    </nav>
+
+    <section class="simple-step" id="your-mission">
+      <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
+      <div class="briefing">
+        <p>You have arrived on Jabberwocky. Before your team can explore safely, JCEC needs to understand the environment around your base camp. First, you will practise observing an environment on Earth. Then you will use those same skills to investigate your assigned continent.</p>
+      </div>
+
+      <div class="assignment-box">
+        <label for="continent-select"><strong>Choose the continent your teacher assigned.</strong><span>Do not choose a different continent.</span></label>
+        <select id="continent-select">
+          <option value="">Select your assigned continent…</option>
+          {missionSites.map((site) => <option value={site.id}>{site.name}</option>)}
+        </select>
+        <div class="assignment-result" id="assignment-result" hidden>
+          <span id="assignment-icon" aria-hidden="true"></span>
+          <div><small>YOUR CONTINENT</small><strong id="assignment-name"></strong><p id="assignment-environment"></p></div>
+          <div class="rating-box"><small>JCEC PRELIMINARY RATING</small><b id="assignment-rating"></b></div>
+        </div>
+        <p class="rating-note"><strong>Preliminary means “first guess.”</strong> JCEC does not have enough evidence yet to know whether this rating is right.</p>
+      </div>
+
+      <div class="prediction-box">
+        <p class="mini-label">QUICK FIRST PREDICTION</p>
+        <h3>What do you think right now?</h3>
+        <div class="prediction-choices" role="group" aria-label="Initial prediction">
+          <label><input type="radio" name="prediction" value="Looks manageable" /> Looks manageable</label>
+          <label><input type="radio" name="prediction" value="Looks challenging" /> Looks challenging</label>
+          <label><input type="radio" name="prediction" value="Too early to tell" /> Too early to tell</label>
+        </div>
+        <label class="short-reason" for="prediction-reason"><span>One reason:</span><input id="prediction-reason" maxlength="160" placeholder="I think this because…" /></label>
+        <button class="small-button" type="button" id="save-prediction">Save my first prediction</button>
+        <span class="save-status" id="prediction-status" role="status"></span>
+      </div>
+    </section>
+
+    <section class="simple-step" id="learn">
+      <div class="step-heading"><span>2</span><div><p>CLASS 1</p><h2>Learn the Science</h2></div></div>
+      <p class="step-intro">You only need four ideas for this mission.</p>
+      <div class="science-grid">
+        <article><span>🌱</span><strong>Biotic</strong><p>Living or once-living parts of an environment.</p></article>
+        <article><span>🌡️</span><strong>Abiotic</strong><p>Non-living conditions such as water, light and temperature.</p></article>
+        <article><span>🏡</span><strong>Habitat</strong><p>The place where an organism gets what it needs.</p></article>
+        <article><span>☀️</span><strong>Environmental conditions</strong><p>Things such as water, temperature, light, soil and wind.</p></article>
+      </div>
+      <details class="help-box">
+        <summary>Need help telling biotic and abiotic apart?</summary>
+        <div><p><strong>Biotic:</strong> grass, insects, fallen leaves, tracks, fungi.</p><p><strong>Abiotic:</strong> water, rocks, soil temperature, sunlight, wind.</p><p>Ask yourself: <em>Is this living, once living, or evidence from a living thing?</em></p></div>
+      </details>
+    </section>
+
+    <section class="simple-step" id="investigate">
+      <div class="step-heading"><span>3</span><div><p>CLASSES 2–3</p><h2>Investigate</h2></div></div>
+
+      <section class="investigation-block">
+        <div class="block-title"><div><small>CLASS 2</small><h3>Earth Environmental Survey</h3></div><span>TEAM WORK</span></div>
+        <p>Your team will investigate three small areas. The goal is to notice how conditions can change even over a short distance.</p>
+        <ol class="simple-procedure">
+          <li>Choose the three sample areas your teacher gives you.</li>
+          <li>At each area, measure the <strong>temperature</strong> and note the <strong>light/moisture</strong>.</li>
+          <li>Look for <strong>living things or evidence of life</strong>. Do not disturb organisms.</li>
+          <li>Describe the <strong>surface or soil</strong> and any clear <strong>human impact</strong>.</li>
+          <li>Compare the three areas. Decide which conditions seem most different.</li>
+        </ol>
+        <div class="survey-reminder"><strong>Record what you observe—not what you think caused it.</strong><span>Observation first. Explanation later.</span></div>
+        <button type="button" class="small-button secondary" id="print-field-sheet">Print simple field sheet</button>
+      </section>
+
+      <section class="investigation-block continent-investigation">
+        <div class="block-title"><div><small>CLASS 3</small><h3>Explore Your Continent</h3></div><span>TEAM WORK</span></div>
+        <p>Now use the same observation skills on Jabberwocky. You only need the key scan readings and four observations.</p>
+        <div class="no-continent" id="no-continent"><strong>Choose your assigned continent in Step 1 first.</strong><a href="#your-mission">Go to Step 1 ↑</a></div>
+        <div id="continent-files" hidden>
+          {missionSites.map((site) => (
+            <article class="continent-file" data-site={site.id} hidden>
+              <header><span aria-hidden="true">{site.icon}</span><div><small>{site.baseCamp}</small><h3>{site.name}</h3><p>{site.environment}</p></div><b class={`rating ${site.tone}`}>{site.rating}</b></header>
+              <div class="scan-grid">
+                <div><small>TEMPERATURE</small><strong>{site.telemetry.airTemperature}</strong></div>
+                <div><small>WATER / MOISTURE</small><strong>{site.telemetry.moisture}</strong></div>
+                <div><small>LIGHT</small><strong>{site.telemetry.light}</strong></div>
+                <div><small>GROUND</small><strong>{site.telemetry.ground}</strong></div>
+              </div>
+              <div class="observations">
+                <h4>Four observations</h4>
+                {site.observations.map((observation, index) => <p><b>{index + 1}</b><span>{observation}</span></p>)}
+              </div>
+              <details class="help-box"><summary>Need help reading the scan?</summary><div><p>Look for one condition that could strongly affect where organisms live: water, temperature, light, soil/ground, wind, or another condition in the evidence.</p></div></details>
+            </article>
+          ))}
+        </div>
+      </section>
+    </section>
+
+    <section class="simple-step" id="decide">
+      <div class="step-heading"><span>4</span><div><p>CLASS 3</p><h2>Make a Decision</h2></div></div>
+      <div class="decision-card">
+        <p class="mini-label">ONE TEAM QUESTION</p>
+        <h3>What is the most important environmental condition humans and organisms need to understand on your continent?</h3>
+        <div class="reasoning-frame"><div><strong>I noticed…</strong><span>Use something you measured or read.</span></div><div><strong>I think this means…</strong><span>Explain why that condition matters.</span></div></div>
+        <p class="decision-note">You do not need a perfect answer. Use the evidence your team has right now.</p>
+      </div>
+    </section>
+
+    <section class="simple-step" id="record">
+      <div class="step-heading"><span>5</span><div><p>CLASS 3</p><h2>Record It</h2></div></div>
+      <div class="handoff-strip"><span>👥 <strong>TEAM WORK</strong> discuss</span><i>→</i><span>📝 <strong>TEAM RECORD</strong> one person records</span><i>→</i><span>💭 <strong>MY REFLECTION</strong> everyone answers</span></div>
+
+      <form class="team-record" id="team-record-form">
+        <div class="record-heading"><div><p class="mini-label">TEAM RECORD</p><h3>Environment Profile</h3></div><span>ONE PER TEAM</span></div>
+        <label>Our continent<input id="record-continent" readonly placeholder="Choose your continent in Step 1" /></label>
+        <label>One important environmental condition<input id="record-condition" maxlength="120" placeholder="Example: fresh water" /></label>
+        <label>Our evidence<textarea id="record-evidence" rows="3" maxlength="360" placeholder="I noticed…"></textarea></label>
+        <label>What we think the evidence means<textarea id="record-meaning" rows="3" maxlength="360" placeholder="I think this means…"></textarea></label>
+        <div class="record-actions"><button type="submit" class="primary-button">Save Team Record</button><button type="button" class="small-button secondary" id="copy-team-record">Copy Team Record</button></div>
+        <p class="save-status" id="record-status" role="status"></p>
+      </form>
+
+      <div class="reflection-card">
+        <p class="mini-label">MY REFLECTION</p>
+        <h3>What surprised you most about your environment?</h3>
+        <p>Everyone answers this question individually in the place your teacher uses for reflections.</p>
+      </div>
+
+      <details class="online-submit">
+        <summary>Did your teacher tell one person to submit the Team Record online?</summary>
+        <div><p>Use the four answers from the Environment Profile above. You do not need to create extra answers.</p><a href={portalUrl} target="_blank" rel="noopener noreferrer">Open JCEC submission portal ↗</a></div>
+      </details>
+
+      <div class="finished-box">
+        <strong>Mission 1 is finished when:</strong>
+        <span>✓ your team has one Environment Profile</span>
+        <span>✓ you answered the short reflection</span>
+        <p>Mission 2 will open after your teacher is ready.</p>
+      </div>
+    </section>
+
+    <section class="print-field-sheet" aria-label="Mission 1 Earth Environmental Survey field sheet">
+      <h1>Mission 1 — Earth Environmental Survey</h1>
+      <p>Team: ________________________________ &nbsp; Date: ____________</p>
+      <p><strong>Directions:</strong> Record observations from the three sample areas your teacher assigns.</p>
+      <table><thead><tr><th>Evidence</th><th>Sample 1</th><th>Sample 2</th><th>Sample 3</th></tr></thead><tbody><tr><th>Temperature</th><td></td><td></td><td></td></tr><tr><th>Light / moisture</th><td></td><td></td><td></td></tr><tr><th>Living things / evidence of life</th><td></td><td></td><td></td></tr><tr><th>Surface / soil</th><td></td><td></td><td></td></tr><tr><th>Human impact</th><td></td><td></td><td></td></tr></tbody></table>
+      <p><strong>Which condition changed the most between your sample areas?</strong></p><div class="print-lines"></div>
+      <p><strong>One observation your team found interesting:</strong></p><div class="print-lines"></div>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ siteData: missionSites }}>
+    (() => {
+      const POSTING_KEY = 'jabberwocky-phase1-posting';
+      const ASSESSMENT_KEY = 'jabberwocky-phase1-assessment';
+      const REASON_KEY = 'jabberwocky-phase1-assessment-reason';
+      const RECORD_KEY = 'jabberwocky-mission1-team-record';
+      const sites = Object.fromEntries(siteData.map((site) => [site.id, site]));
+
+      const select = document.getElementById('continent-select');
+      const assignmentResult = document.getElementById('assignment-result');
+      const noContinent = document.getElementById('no-continent');
+      const continentFiles = document.getElementById('continent-files');
+      const recordContinent = document.getElementById('record-continent');
+
+      const showContinent = (id) => {
+        const site = sites[id];
+        if (!site) {
+          assignmentResult.hidden = true;
+          noContinent.hidden = false;
+          continentFiles.hidden = true;
+          document.querySelectorAll('[data-site]').forEach((el) => el.hidden = true);
+          if (recordContinent) recordContinent.value = '';
+          return;
+        }
+        localStorage.setItem(POSTING_KEY, id);
+        assignmentResult.hidden = false;
+        document.getElementById('assignment-icon').textContent = site.icon;
+        document.getElementById('assignment-name').textContent = site.name;
+        document.getElementById('assignment-environment').textContent = `${site.baseCamp} · ${site.environment}`;
+        const rating = document.getElementById('assignment-rating');
+        rating.textContent = site.rating;
+        rating.className = site.tone;
+        noContinent.hidden = true;
+        continentFiles.hidden = false;
+        document.querySelectorAll('[data-site]').forEach((el) => el.hidden = el.dataset.site !== id);
+        if (recordContinent) recordContinent.value = site.name;
+      };
+
+      const savedPosting = localStorage.getItem(POSTING_KEY);
+      if (savedPosting && sites[savedPosting]) {
+        select.value = savedPosting;
+        showContinent(savedPosting);
+      }
+      select?.addEventListener('change', () => showContinent(select.value));
+
+      const savedPrediction = localStorage.getItem(ASSESSMENT_KEY);
+      if (savedPrediction) {
+        const radio = document.querySelector(`input[name="prediction"][value="${CSS.escape(savedPrediction)}"]`);
+        if (radio) radio.checked = true;
+      }
+      const reasonInput = document.getElementById('prediction-reason');
+      reasonInput.value = localStorage.getItem(REASON_KEY) || '';
+      document.getElementById('save-prediction')?.addEventListener('click', () => {
+        const prediction = document.querySelector('input[name="prediction"]:checked')?.value;
+        const reason = reasonInput.value.trim();
+        const status = document.getElementById('prediction-status');
+        if (!prediction) { status.textContent = 'Choose one prediction first.'; return; }
+        localStorage.setItem(ASSESSMENT_KEY, prediction);
+        localStorage.setItem(REASON_KEY, reason);
+        status.textContent = '✓ Saved on this device.';
+      });
+
+      const recordForm = document.getElementById('team-record-form');
+      const savedRecord = (() => { try { return JSON.parse(localStorage.getItem(RECORD_KEY) || 'null'); } catch { return null; } })();
+      if (savedRecord) {
+        document.getElementById('record-condition').value = savedRecord.condition || '';
+        document.getElementById('record-evidence').value = savedRecord.evidence || '';
+        document.getElementById('record-meaning').value = savedRecord.meaning || '';
+      }
+
+      const getRecord = () => ({
+        continent: recordContinent.value.trim(),
+        condition: document.getElementById('record-condition').value.trim(),
+        evidence: document.getElementById('record-evidence').value.trim(),
+        meaning: document.getElementById('record-meaning').value.trim()
+      });
+
+      recordForm?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const record = getRecord();
+        const status = document.getElementById('record-status');
+        if (!record.continent || !record.condition || !record.evidence || !record.meaning) {
+          status.textContent = 'Complete all four Team Record boxes first.';
+          return;
+        }
+        localStorage.setItem(RECORD_KEY, JSON.stringify(record));
+        status.textContent = '✓ Environment Profile saved on this device.';
+      });
+
+      document.getElementById('copy-team-record')?.addEventListener('click', async () => {
+        const record = getRecord();
+        const status = document.getElementById('record-status');
+        if (!record.continent || !record.condition || !record.evidence || !record.meaning) { status.textContent = 'Complete all four Team Record boxes first.'; return; }
+        const text = `MISSION 1 — ENVIRONMENT PROFILE\nContinent: ${record.continent}\nImportant condition: ${record.condition}\nEvidence: ${record.evidence}\nWhat we think it means: ${record.meaning}`;
+        try { await navigator.clipboard.writeText(text); status.textContent = '✓ Team Record copied.'; }
+        catch { status.textContent = 'Copy was blocked. Your answers are still on the page.'; }
+      });
+
+      const printButton = document.getElementById('print-field-sheet');
+      printButton?.addEventListener('click', () => { document.body.classList.add('print-mission1-field-sheet'); window.print(); });
+      window.addEventListener('afterprint', () => document.body.classList.remove('print-mission1-field-sheet'));
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body){background:#06111f}.mission-shell{max-width:1050px;margin:0 auto;padding:0 1rem 5rem;color:#eaf5ff}.mission-shell :global(.breadcrumbs){color:#9eb6c4}.mission-shell :global(.breadcrumbs a){color:#d7ecf5}:global(body:has(#simplified-mission-1) .jcec-submission-dock),:global(body:has(#simplified-mission-1) .jcec-device-tools){display:none!important}.eyebrow,.mini-label{margin:0;color:#74e9cb;font:850 .73rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}.mission-hero{display:grid;grid-template-columns:1fr 255px;gap:1.25rem;align-items:end;margin:.8rem 0 1rem;padding:clamp(1.35rem,4vw,2.25rem);border:1px solid #2d6070;border-radius:22px;background:radial-gradient(circle at 82% 18%,rgba(110,242,207,.14),transparent 26%),linear-gradient(145deg,#071727,#0a2939)}.mission-hero h1{margin:.45rem 0;color:#fff;font-size:clamp(2.5rem,7vw,5.1rem);line-height:.88;letter-spacing:-.05em}.mission-hero h1 span{display:block;color:#6ef2cf}.question{margin:.8rem 0 0;color:#d5e8ef;font-size:1.25rem;font-weight:750}.mission-hero aside{display:grid;gap:.18rem;padding:.9rem;border:1px solid #315b69;border-radius:13px;background:#071923}.mission-hero aside span{color:#7ed7c4;font-size:.68rem;font-weight:900;letter-spacing:.08em}.mission-hero aside strong{color:#fff}.mission-hero aside small{color:#95adba}.step-nav{position:sticky;top:.55rem;z-index:20;display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem;margin:1rem 0;padding:.4rem;border:1px solid #294958;border-radius:13px;background:rgba(6,22,32,.96);backdrop-filter:blur(8px)}.step-nav a{display:flex;gap:.4rem;align-items:center;padding:.55rem;border-radius:9px;color:#afc4cf;text-decoration:none;font-size:.78rem;font-weight:850}.step-nav a:hover{background:#0d3040;color:#fff}.step-nav b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#163444;color:#9dc0ce}.simple-step{margin:1rem 0;padding:clamp(1rem,3vw,1.45rem);scroll-margin-top:5.2rem;border:1px solid #244a5a;border-radius:18px;background:#081b28}.step-heading{display:flex;gap:.7rem;align-items:center;margin-bottom:.9rem}.step-heading>span{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:12px;background:#6ef2cf;color:#05231c;font-size:1.2rem;font-weight:950}.step-heading p{margin:0;color:#74e9cb;font-size:.68rem;font-weight:900;letter-spacing:.08em}.step-heading h2{margin:.12rem 0;color:#fff;font-size:1.55rem}.briefing{max-width:760px;padding:1rem 1.1rem;border-left:3px solid #6ef2cf;background:#0a2630}.briefing p{margin:0;color:#c6d9e1;font-size:1rem;line-height:1.65}.assignment-box,.prediction-box,.decision-card,.team-record,.reflection-card,.finished-box{margin-top:1rem;padding:1rem;border:1px solid #2b5362;border-radius:13px;background:#071722}.assignment-box label{display:grid;gap:.15rem}.assignment-box label strong{color:#fff}.assignment-box label span{color:#9bb2be;font-size:.78rem}.assignment-box select{width:100%;margin-top:.55rem;padding:.75rem;border:1px solid #3a6070;border-radius:9px;background:#0a2430;color:#fff;font:inherit}.assignment-result{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;margin-top:.8rem;padding:.8rem;border:1px solid #397467;border-radius:11px;background:#0b2927}.assignment-result>span{font-size:1.6rem}.assignment-result small,.rating-box small{display:block;color:#8fb2b8;font-size:.64rem;font-weight:850;letter-spacing:.07em}.assignment-result strong{color:#fff;font-size:1.08rem}.assignment-result p{margin:.12rem 0 0;color:#a9c2ca;font-size:.82rem}.rating-box{text-align:right}.rating-box b{display:block;margin-top:.2rem;font-size:.82rem}.rating-box .green{color:#8df1c6}.rating-box .yellow{color:#f0d77d}.rating-box .orange{color:#f0aa72}.rating-box .red{color:#f08c8c}.rating-note{margin:.65rem 0 0;color:#9eb4bf;font-size:.8rem;line-height:1.45}.prediction-box h3,.decision-card h3,.reflection-card h3{margin:.3rem 0 .7rem;color:#fff}.prediction-choices{display:flex;gap:.5rem;flex-wrap:wrap}.prediction-choices label{padding:.55rem .65rem;border:1px solid #315361;border-radius:9px;background:#0a202a;color:#c6dae2;font-size:.84rem}.short-reason{display:grid;gap:.25rem;margin:.7rem 0}.short-reason span{color:#b6ccd5;font-size:.8rem;font-weight:800}.short-reason input,.team-record input,.team-record textarea{width:100%;box-sizing:border-box;padding:.68rem;border:1px solid #315361;border-radius:8px;background:#0a202a;color:#fff;font:inherit}.small-button,.primary-button{display:inline-flex;align-items:center;justify-content:center;padding:.68rem .85rem;border:0;border-radius:9px;background:#6ef2cf;color:#05231c;font:inherit;font-size:.82rem;font-weight:900;cursor:pointer;text-decoration:none}.small-button.secondary{border:1px solid #3e6878;background:#0b2835;color:#dff5ff}.save-status{margin-left:.5rem;color:#82e5cc;font-size:.8rem}.step-intro{color:#aac1cb}.science-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem}.science-grid article{padding:.85rem;border:1px solid #294b58;border-radius:11px;background:#071620}.science-grid article>span{display:block;margin-bottom:.35rem;font-size:1.25rem}.science-grid strong{color:#fff}.science-grid p{margin:.22rem 0 0;color:#aabfc9;font-size:.82rem;line-height:1.45}.help-box{margin-top:.75rem;border:1px solid #315361;border-radius:10px;background:#091d28}.help-box summary{cursor:pointer;padding:.72rem .8rem;color:#a9d9ce;font-size:.84rem;font-weight:850}.help-box div{padding:0 .8rem .75rem}.help-box p{margin:.4rem 0;color:#b0c4cd;line-height:1.45}.investigation-block{margin-top:.8rem;padding:1rem;border:1px solid #284b59;border-radius:13px;background:#071722}.block-title{display:flex;justify-content:space-between;gap:.8rem;align-items:start}.block-title small{color:#74e9cb;font-size:.66rem;font-weight:900}.block-title h3{margin:.12rem 0;color:#fff;font-size:1.2rem}.block-title>span{padding:.32rem .5rem;border-radius:999px;background:#143b34;color:#8cefd3;font-size:.68rem;font-weight:900}.investigation-block>p{color:#adc3cd;line-height:1.5}.simple-procedure{display:grid;gap:.48rem;padding-left:1.45rem;color:#c2d4dc;line-height:1.5}.survey-reminder{display:flex;justify-content:space-between;gap:.8rem;margin:.8rem 0;padding:.7rem;border-left:3px solid #f1d578;background:#211e12;color:#e6d9a6;font-size:.82rem}.survey-reminder span{color:#c8bb8c}.no-continent{display:flex;justify-content:space-between;gap:.7rem;align-items:center;padding:.8rem;border:1px dashed #486576;border-radius:9px;color:#b8ccd5}.no-continent a{color:#8eead3}.continent-file>header{display:grid;grid-template-columns:auto 1fr auto;gap:.7rem;align-items:center}.continent-file>header>span{font-size:1.7rem}.continent-file header small{color:#7ca7b2}.continent-file header h3{margin:.08rem 0;color:#fff;font-size:1.35rem}.continent-file header p{margin:0;color:#a9c0ca;font-size:.82rem}.rating{padding:.35rem .5rem;border-radius:999px;background:#102c36;font-size:.72rem}.rating.green{color:#91efc7}.rating.yellow{color:#f2d97e}.rating.orange{color:#f1ab72}.rating.red{color:#ef9393}.scan-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:.8rem}.scan-grid div{padding:.65rem;border:1px solid #294b58;border-radius:9px;background:#091c25}.scan-grid small{display:block;color:#7fa0ad;font-size:.61rem;font-weight:900}.scan-grid strong{display:block;margin-top:.22rem;color:#eaf4f7;font-size:.78rem;line-height:1.35}.observations{margin-top:.8rem}.observations h4{margin:.2rem 0 .5rem;color:#fff}.observations p{display:grid;grid-template-columns:26px 1fr;gap:.5rem;align-items:start;margin:.35rem 0;padding:.58rem;border:1px solid #294653;border-radius:8px;background:#081923;color:#bcd0d8;font-size:.82rem;line-height:1.45}.observations p b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#173747;color:#9fd9e6}.reasoning-frame{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}.reasoning-frame div{padding:.8rem;border:1px solid #35625b;border-radius:10px;background:#0a2526}.reasoning-frame strong{display:block;color:#8df0d4;font-size:1rem}.reasoning-frame span{display:block;margin-top:.2rem;color:#aac3c1;font-size:.82rem}.decision-note{margin:.7rem 0 0;color:#9fb5be;font-size:.82rem}.handoff-strip{display:flex;gap:.55rem;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:.8rem;padding:.7rem;border:1px solid #2d4e5b;border-radius:10px;background:#071722;color:#b6cad2;font-size:.8rem}.handoff-strip strong{color:#fff}.handoff-strip i{color:#4f7680}.record-heading{display:flex;justify-content:space-between;align-items:start}.record-heading h3{margin:.2rem 0;color:#fff;font-size:1.25rem}.record-heading>span{padding:.3rem .45rem;border-radius:999px;background:#173b34;color:#8cefd3;font-size:.66rem;font-weight:900}.team-record{display:grid;gap:.65rem}.team-record label{display:grid;gap:.25rem;color:#c4d6dd;font-size:.8rem;font-weight:800}.record-actions{display:flex;gap:.5rem;flex-wrap:wrap}.reflection-card{border-color:#3a627d;background:#0a2030}.reflection-card p:last-child{margin:.3rem 0 0;color:#aac2d0}.online-submit{margin-top:.8rem;border:1px solid #2b4d5a;border-radius:10px;background:#071722}.online-submit summary{cursor:pointer;padding:.7rem;color:#93aeb9;font-size:.79rem;font-weight:800}.online-submit div{padding:0 .75rem .75rem;color:#a9c0c9;font-size:.82rem}.online-submit a{display:inline-flex;margin-top:.35rem;padding:.5rem .65rem;border-radius:8px;background:#173b45;color:#dff8ff;text-decoration:none;font-weight:850}.finished-box{display:grid;gap:.32rem;border-color:#3a7765;background:#09241f}.finished-box strong{color:#fff}.finished-box span{color:#bce0d5}.finished-box p{margin:.25rem 0 0;color:#8fb3a8;font-size:.82rem}.print-field-sheet{display:none}
+  @media(max-width:760px){.mission-hero{grid-template-columns:1fr}.science-grid,.scan-grid{grid-template-columns:1fr 1fr}.step-nav{grid-template-columns:repeat(5,86px);overflow-x:auto}.step-nav a{display:grid;justify-items:center;text-align:center}.reasoning-frame{grid-template-columns:1fr}.assignment-result{grid-template-columns:auto 1fr}.rating-box{grid-column:1/-1;text-align:left}.survey-reminder{display:grid}}
+  @media(max-width:520px){.mission-shell{padding-inline:.7rem}.mission-hero h1{font-size:3rem}.science-grid,.scan-grid{grid-template-columns:1fr}.block-title{display:grid}.record-actions{display:grid}.record-actions>*{width:100%}.save-status{display:block;margin:.45rem 0 0}.handoff-strip i{display:none}}
+  @media print{body.print-mission1-field-sheet .site-header,body.print-mission1-field-sheet footer,body.print-mission1-field-sheet .mission-shell>*:not(.print-field-sheet),body.print-mission1-field-sheet .jcec-submission-dock,body.print-mission1-field-sheet .jcec-device-tools{display:none!important}body.print-mission1-field-sheet{background:#fff!important}.print-mission1-field-sheet .mission-shell{max-width:none;padding:0;color:#111}.print-mission1-field-sheet .print-field-sheet{display:block!important;color:#111;font-family:Arial,sans-serif}.print-field-sheet h1{font-size:22pt}.print-field-sheet table{width:100%;border-collapse:collapse;margin:18px 0}.print-field-sheet th,.print-field-sheet td{height:60px;padding:8px;border:1px solid #333;text-align:left;vertical-align:top}.print-field-sheet th:first-child{width:25%}.print-lines{height:48px;border-bottom:1px solid #777}}
+</style>
