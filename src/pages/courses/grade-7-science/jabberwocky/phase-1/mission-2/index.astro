@@ -1,0 +1,304 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecMissionProgress from '../../../../../../components/JcecMissionProgress.astro';
+import { operation03Species } from '../../../../../../data/jabberwockyOperation03';
+
+const base = import.meta.env.BASE_URL;
+const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZDtZrNtCG3WB78ttvZdtEmq29kapujg/viewform';
+
+const continentIcons: Record<string, string> = {
+  gyre: '⛰️',
+  brillig: '🌿',
+  manxome: '🏝️',
+  'slithy-toves': '🏜️',
+  wabe: '❄️',
+  bandersnatch: '🌾',
+  gimble: '🌲',
+  mimsy: '🪷'
+};
+
+const missionSpecies = operation03Species.map((species) => ({
+  ...species,
+  icon: continentIcons[species.id],
+  clues: species.clues.slice(0, 4)
+}));
+---
+
+<BaseLayout title="Mission 2: Meet a Native Species | Jabberwocky 2190" description="A simplified Grade 7 Science mission about structure, function, adaptations, and organism needs." themeColor="#071b2e">
+  <div class="mission-shell" id="simplified-mission-2">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 1', href: `${base}courses/grade-7-science/jabberwocky/phase-1/` },
+      { label: 'Mission 2' }
+    ]} />
+
+    <JcecMissionProgress active={2} compact={true} />
+
+    <header class="mission-hero">
+      <div>
+        <p class="eyebrow">MISSION 2 OF 5</p>
+        <h1>MEET A NATIVE <span>SPECIES</span></h1>
+        <p class="question">How does this organism survive here?</p>
+      </div>
+      <aside>
+        <span>YOU ARE LEARNING</span>
+        <strong>How features help organisms survive</strong>
+        <small>3 classes × 45 minutes</small>
+      </aside>
+    </header>
+
+    <nav class="step-nav" aria-label="Mission 2 steps">
+      <a href="#your-mission"><b>1</b><span>Your Mission</span></a>
+      <a href="#learn"><b>2</b><span>Learn</span></a>
+      <a href="#investigate"><b>3</b><span>Investigate</span></a>
+      <a href="#decide"><b>4</b><span>Decide</span></a>
+      <a href="#record"><b>5</b><span>Record It</span></a>
+    </nav>
+
+    <section class="simple-step" id="your-mission">
+      <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
+      <div class="briefing">
+        <p>Something is moving near your base camp. JCEC sensors have detected a native Jabberwocky organism, but scientists do not yet know much about it. Your team will first investigate how different body structures can help organisms survive. Then you will use clues from your continent to work out what the native species is like and how its features help it survive.</p>
+      </div>
+
+      <div class="assignment-box" id="assignment-box">
+        <div class="assignment-result" id="assignment-result" hidden>
+          <span id="assignment-icon" aria-hidden="true"></span>
+          <div><small>YOUR CONTINENT</small><strong id="assignment-name"></strong><p id="assignment-environment"></p></div>
+          <div class="species-box"><small>NATIVE SPECIES</small><b id="assignment-species"></b></div>
+        </div>
+        <div class="missing-assignment" id="missing-assignment" hidden>
+          <strong>Your continent is not saved on this device yet.</strong>
+          <p>Go back to Mission 1 and choose the continent your teacher assigned.</p>
+          <a href={`${base}courses/grade-7-science/jabberwocky/phase-1/mission-1/`}>Return to Mission 1 →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="simple-step" id="learn">
+      <div class="step-heading"><span>2</span><div><p>CLASS 1</p><h2>Learn the Science</h2></div></div>
+      <p class="step-intro">You only need four ideas for this mission.</p>
+      <div class="science-grid">
+        <article><span>🦶</span><strong>Structure</strong><p>A body part or physical feature.</p></article>
+        <article><span>⚙️</span><strong>Function</strong><p>What a structure does or helps an organism do.</p></article>
+        <article><span>🛡️</span><strong>Adaptation</strong><p>A feature or behaviour that helps an organism survive.</p></article>
+        <article><span>💧</span><strong>Needs</strong><p>Things organisms require, such as food, water, shelter, space and suitable conditions.</p></article>
+      </div>
+      <details class="help-box">
+        <summary>Need a quick example?</summary>
+        <div><p><strong>Structure:</strong> a duck's webbed feet.</p><p><strong>Function:</strong> the feet push against water.</p><p><strong>How it helps:</strong> they help the duck swim to find food and move through its habitat.</p></div>
+      </details>
+      <details class="help-box subtle-help">
+        <summary>Learn more: What is a niche?</summary>
+        <div><p>A <strong>niche</strong> is an organism's way of living in an ecosystem—where it lives, what it uses, and how it interacts with its surroundings. You do not need this word to complete Mission 2.</p></div>
+      </details>
+    </section>
+
+    <section class="simple-step" id="investigate">
+      <div class="step-heading"><span>3</span><div><p>CLASSES 1–2</p><h2>Investigate</h2></div></div>
+
+      <section class="investigation-block">
+        <div class="block-title"><div><small>CLASS 1</small><h3>Survival Structures Lab</h3></div><span>TEAM WORK</span></div>
+        <p><strong>Question:</strong> Which structure works best in which environment?</p>
+
+        <div class="lab-setup">
+          <div><strong>Structures</strong><span>spoon · tweezers · clothespin/tongs · chopsticks</span></div>
+          <div><strong>Resource zones</strong><span>open ground · narrow spaces · tangled cover</span></div>
+        </div>
+
+        <ol class="simple-procedure">
+          <li>Set up the three resource zones your teacher gives you.</li>
+          <li>Use one structure for the same amount of time in each trial.</li>
+          <li>Count how many resources you can move to the collection cup.</li>
+          <li>Repeat with every structure using the <strong>same time, resources and rules</strong>.</li>
+          <li>Compare your results. Decide which structure worked best in each environment.</li>
+        </ol>
+
+        <div class="fair-test"><strong>Keep it fair.</strong><span>Change the structure. Keep the time, resource amount and rules the same.</span></div>
+        <button type="button" class="small-button secondary" id="print-mission2-packet">Print Mission 2 lab + species card</button>
+      </section>
+
+      <section class="investigation-block species-investigation">
+        <div class="block-title"><div><small>CLASS 2</small><h3>First Contact</h3></div><span>TEAM WORK</span></div>
+        <p class="evidence-rule"><strong>EVIDENCE FIRST — IMAGINATION SECOND.</strong> Your drawing can be creative, but important features must come from the clues.</p>
+
+        <div class="no-continent" id="no-continent"><strong>Mission 1 continent not found.</strong><a href={`${base}courses/grade-7-science/jabberwocky/phase-1/mission-1/`}>Return to Mission 1 →</a></div>
+        <div id="species-files" hidden>
+          {missionSpecies.map((species) => (
+            <article class="species-file" data-species={species.id} hidden>
+              <header>
+                <span aria-hidden="true">{species.icon}</span>
+                <div><small>{species.name} · {species.baseCamp}</small><h3>{species.fieldName}</h3><p>{species.contactZone}</p></div>
+              </header>
+
+              <div class="clue-grid">
+                {species.clues.map((clue, index) => (
+                  <article class="clue-card"><b>{index + 1}</b><div><small>{clue.source}</small><p>{clue.observation}</p></div></article>
+                ))}
+              </div>
+
+              <div class="reconstruct-box">
+                <strong>Reconstruct the species.</strong>
+                <p>On your Native Species Card, draw the organism and label two or three features that are supported by these clues.</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </section>
+
+    <section class="simple-step" id="decide">
+      <div class="step-heading"><span>4</span><div><p>CLASS 3</p><h2>Make a Decision</h2></div></div>
+      <div class="decision-card">
+        <p class="mini-label">ONE TEAM QUESTION</p>
+        <h3>Which adaptation is most important for helping your native species survive on your continent?</h3>
+        <div class="reasoning-frame">
+          <div><strong>Feature</strong><span>What structure or behaviour?</span></div>
+          <div><strong>Evidence</strong><span>Which clue supports it?</span></div>
+          <div><strong>How it helps</strong><span>How does it help the organism survive?</span></div>
+        </div>
+        <div class="example-frame"><b>Example</b><span><strong>Feature:</strong> Wide feet</span><span><strong>Evidence:</strong> Tracks are broad and the ground is soft.</span><span><strong>How it helps:</strong> Wide feet may stop the animal from sinking.</span></div>
+      </div>
+    </section>
+
+    <section class="simple-step" id="record">
+      <div class="step-heading"><span>5</span><div><p>CLASS 3</p><h2>Record It</h2></div></div>
+      <div class="handoff-strip"><span>👥 <strong>TEAM WORK</strong> discuss</span><i>→</i><span>📝 <strong>TEAM RECORD</strong> one person records</span><i>→</i><span>💭 <strong>MY REFLECTION</strong> everyone answers</span></div>
+
+      <form class="team-record" id="team-record-form">
+        <div class="record-heading"><div><p class="mini-label">TEAM RECORD</p><h3>Native Species Card</h3></div><span>ONE PER TEAM</span></div>
+        <label>Species name<input id="record-species" readonly placeholder="Your Mission 1 continent will load this" /></label>
+        <div class="sketch-reminder"><span>✏️</span><div><strong>Add a simple sketch.</strong><p>Draw it on the printed Native Species Card or in the place your teacher gives you. Label the important features.</p></div></div>
+
+        <div class="adaptation-table">
+          <div class="adaptation-head"><span>Feature / adaptation</span><span>Evidence</span><span>How it helps</span></div>
+          {[1, 2, 3].map((number) => (
+            <div class="adaptation-row">
+              <input id={`adaptation-${number}`} maxlength="90" aria-label={`Adaptation ${number}`} placeholder={number === 1 ? 'Most important feature' : `Feature ${number}`} />
+              <input id={`evidence-${number}`} maxlength="150" aria-label={`Evidence ${number}`} placeholder="Clue or observation" />
+              <input id={`helps-${number}`} maxlength="180" aria-label={`How adaptation ${number} helps`} placeholder="How it helps survival" />
+            </div>
+          ))}
+        </div>
+
+        <p class="record-note"><strong>Two strong adaptations are enough.</strong> Add a third if your team has clear evidence for it.</p>
+        <div class="record-actions"><button type="submit" class="primary-button">Save Team Record</button><button type="button" class="small-button secondary" id="copy-team-record">Copy Team Record</button></div>
+        <p class="save-status" id="record-status" role="status"></p>
+      </form>
+
+      <div class="reflection-card">
+        <p class="mini-label">MY REFLECTION</p>
+        <h3>Which clue helped you understand your organism the most? Why?</h3>
+        <p>Everyone answers this question individually in the place your teacher uses for reflections.</p>
+      </div>
+
+      <details class="online-submit">
+        <summary>Did your teacher tell one person to submit the Team Record online?</summary>
+        <div><p>Use the same Native Species Card answers. You do not need to create another report.</p><a href={portalUrl} target="_blank" rel="noopener noreferrer">Open JCEC submission portal ↗</a></div>
+      </details>
+
+      <div class="finished-box">
+        <strong>Mission 2 is finished when:</strong>
+        <span>✓ your team has one Native Species Card with a sketch and at least two evidence-based adaptations</span>
+        <span>✓ you answered the short reflection</span>
+        <p>Mission 3 stays locked until your teacher is ready.</p>
+      </div>
+    </section>
+
+    <section class="print-packet" aria-label="Mission 2 printable lab and Native Species Card">
+      <section class="print-page">
+        <h1>Mission 2 — Survival Structures Lab</h1>
+        <p>Team: ________________________________ &nbsp; Date: ____________</p>
+        <table><thead><tr><th>Structure</th><th>Open Ground</th><th>Narrow Spaces</th><th>Tangled Cover</th></tr></thead><tbody><tr><th>Spoon</th><td></td><td></td><td></td></tr><tr><th>Tweezers</th><td></td><td></td><td></td></tr><tr><th>Clothespin / tongs</th><td></td><td></td><td></td></tr><tr><th>Chopsticks</th><td></td><td></td><td></td></tr></tbody></table>
+        <p><strong>Which structure worked best in each environment?</strong></p><div class="print-lines"></div>
+        <p><strong>What did this lab teach you about structure and function?</strong></p><div class="print-lines"></div>
+      </section>
+      <section class="print-page">
+        <h1>Mission 2 — Native Species Card</h1>
+        <p>Continent: ________________________________ &nbsp; Species: ________________________________</p>
+        <div class="print-sketch"><strong>Scientific sketch</strong><span>Draw and label the features supported by evidence.</span></div>
+        <table><thead><tr><th>Feature / adaptation</th><th>Evidence</th><th>How it helps survival</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table>
+        <p><strong>Most important adaptation:</strong></p><div class="print-lines"></div>
+      </section>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ speciesData: missionSpecies }}>
+    (() => {
+      const POSTING_KEY = 'jabberwocky-phase1-posting';
+      const RECORD_KEY = 'jabberwocky-mission2-team-record';
+      const speciesById = Object.fromEntries(speciesData.map((species) => [species.id, species]));
+      const selectedId = localStorage.getItem(POSTING_KEY);
+      const selected = selectedId ? speciesById[selectedId] : null;
+
+      const assignmentResult = document.getElementById('assignment-result');
+      const missingAssignment = document.getElementById('missing-assignment');
+      const speciesFiles = document.getElementById('species-files');
+      const noContinent = document.getElementById('no-continent');
+      const recordSpecies = document.getElementById('record-species');
+
+      if (selected) {
+        assignmentResult.hidden = false;
+        missingAssignment.hidden = true;
+        document.getElementById('assignment-icon').textContent = selected.icon;
+        document.getElementById('assignment-name').textContent = selected.name;
+        document.getElementById('assignment-environment').textContent = `${selected.baseCamp} · ${selected.environment}`;
+        document.getElementById('assignment-species').textContent = selected.fieldName;
+        speciesFiles.hidden = false;
+        noContinent.hidden = true;
+        document.querySelectorAll('[data-species]').forEach((el) => el.hidden = el.dataset.species !== selectedId);
+        recordSpecies.value = selected.fieldName;
+      } else {
+        assignmentResult.hidden = true;
+        missingAssignment.hidden = false;
+        speciesFiles.hidden = true;
+        noContinent.hidden = false;
+      }
+
+      const fields = [1, 2, 3].flatMap((number) => [`adaptation-${number}`, `evidence-${number}`, `helps-${number}`]);
+      const saved = (() => { try { return JSON.parse(localStorage.getItem(RECORD_KEY) || 'null'); } catch { return null; } })();
+      if (saved) fields.forEach((id) => { const el = document.getElementById(id); if (el) el.value = saved[id] || ''; });
+
+      const getRecord = () => {
+        const record = { species: recordSpecies?.value?.trim() || '' };
+        fields.forEach((id) => record[id] = document.getElementById(id)?.value?.trim() || '');
+        return record;
+      };
+
+      const hasTwoCompleteAdaptations = (record) => [1, 2, 3].filter((number) => record[`adaptation-${number}`] && record[`evidence-${number}`] && record[`helps-${number}`]).length >= 2;
+
+      document.getElementById('team-record-form')?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const record = getRecord();
+        const status = document.getElementById('record-status');
+        if (!record.species) { status.textContent = 'Return to Mission 1 and choose your assigned continent first.'; return; }
+        if (!hasTwoCompleteAdaptations(record)) { status.textContent = 'Complete at least two full adaptation rows first.'; return; }
+        localStorage.setItem(RECORD_KEY, JSON.stringify(record));
+        status.textContent = '✓ Native Species Card saved on this device.';
+      });
+
+      document.getElementById('copy-team-record')?.addEventListener('click', async () => {
+        const record = getRecord();
+        const status = document.getElementById('record-status');
+        if (!record.species || !hasTwoCompleteAdaptations(record)) { status.textContent = 'Complete at least two full adaptation rows first.'; return; }
+        const lines = [1, 2, 3].filter((number) => record[`adaptation-${number}`] && record[`evidence-${number}`] && record[`helps-${number}`]).map((number) => `Adaptation ${number}: ${record[`adaptation-${number}`]}\nEvidence: ${record[`evidence-${number}`]}\nHow it helps: ${record[`helps-${number}`]}`);
+        const text = `MISSION 2 — NATIVE SPECIES CARD\nContinent: ${selected?.name || ''}\nSpecies: ${record.species}\n\n${lines.join('\n\n')}`;
+        try { await navigator.clipboard.writeText(text); status.textContent = '✓ Team Record copied.'; }
+        catch { status.textContent = 'Copy was blocked. Your answers are still on the page.'; }
+      });
+
+      document.getElementById('print-mission2-packet')?.addEventListener('click', () => { document.body.classList.add('print-mission2-packet'); window.print(); });
+      window.addEventListener('afterprint', () => document.body.classList.remove('print-mission2-packet'));
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body){background:#06111f}.mission-shell{max-width:1050px;margin:0 auto;padding:0 1rem 5rem;color:#eaf5ff}.mission-shell :global(.breadcrumbs){color:#9eb6c4}.mission-shell :global(.breadcrumbs a){color:#d7ecf5}:global(body:has(#simplified-mission-2) .jcec-submission-dock),:global(body:has(#simplified-mission-2) .jcec-device-tools){display:none!important}.eyebrow,.mini-label{margin:0;color:#74e9cb;font:850 .73rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}.mission-hero{display:grid;grid-template-columns:1fr 255px;gap:1.25rem;align-items:end;margin:.8rem 0 1rem;padding:clamp(1.35rem,4vw,2.25rem);border:1px solid #2d6070;border-radius:22px;background:radial-gradient(circle at 82% 18%,rgba(110,242,207,.14),transparent 26%),linear-gradient(145deg,#071727,#0a2939)}.mission-hero h1{margin:.45rem 0;color:#fff;font-size:clamp(2.5rem,7vw,5.1rem);line-height:.88;letter-spacing:-.05em}.mission-hero h1 span{display:block;color:#6ef2cf}.question{margin:.8rem 0 0;color:#d5e8ef;font-size:1.25rem;font-weight:750}.mission-hero aside{display:grid;gap:.18rem;padding:.9rem;border:1px solid #315b69;border-radius:13px;background:#071923}.mission-hero aside span{color:#7ed7c4;font-size:.68rem;font-weight:900;letter-spacing:.08em}.mission-hero aside strong{color:#fff}.mission-hero aside small{color:#95adba}.step-nav{position:sticky;top:.55rem;z-index:20;display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem;margin:1rem 0;padding:.4rem;border:1px solid #294958;border-radius:13px;background:rgba(6,22,32,.96);backdrop-filter:blur(8px)}.step-nav a{display:flex;gap:.4rem;align-items:center;padding:.55rem;border-radius:9px;color:#afc4cf;text-decoration:none;font-size:.78rem;font-weight:850}.step-nav a:hover{background:#0d3040;color:#fff}.step-nav b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#163444;color:#9dc0ce}.simple-step{margin:1rem 0;padding:clamp(1rem,3vw,1.45rem);scroll-margin-top:5.2rem;border:1px solid #244a5a;border-radius:18px;background:#081b28}.step-heading{display:flex;gap:.7rem;align-items:center;margin-bottom:.9rem}.step-heading>span{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:12px;background:#6ef2cf;color:#05231c;font-size:1.2rem;font-weight:950}.step-heading p{margin:0;color:#74e9cb;font-size:.68rem;font-weight:900;letter-spacing:.08em}.step-heading h2{margin:.12rem 0;color:#fff;font-size:1.55rem}.briefing{max-width:760px;padding:1rem 1.1rem;border-left:3px solid #6ef2cf;background:#0a2630}.briefing p{margin:0;color:#c6d9e1;font-size:1rem;line-height:1.65}.assignment-box,.decision-card,.team-record,.reflection-card,.finished-box{margin-top:1rem;padding:1rem;border:1px solid #2b5362;border-radius:13px;background:#071722}.assignment-result{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;padding:.8rem;border:1px solid #397467;border-radius:11px;background:#0b2927}.assignment-result>span{font-size:1.6rem}.assignment-result small,.species-box small{display:block;color:#8fb2b8;font-size:.64rem;font-weight:850;letter-spacing:.07em}.assignment-result strong{color:#fff;font-size:1.08rem}.assignment-result p{margin:.12rem 0 0;color:#a9c2ca;font-size:.82rem}.species-box{text-align:right}.species-box b{display:block;margin-top:.2rem;color:#8ff1d4;font-size:.86rem}.missing-assignment{padding:.85rem;border:1px solid #745b45;border-radius:10px;background:#271c13}.missing-assignment strong{color:#fff}.missing-assignment p{margin:.25rem 0;color:#d2baa5}.missing-assignment a{color:#8ff1d4}.step-intro{color:#aac1cb}.science-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem}.science-grid article{padding:.85rem;border:1px solid #294b58;border-radius:11px;background:#071620}.science-grid article>span{display:block;margin-bottom:.35rem;font-size:1.25rem}.science-grid strong{color:#fff}.science-grid p{margin:.22rem 0 0;color:#aabfc9;font-size:.82rem;line-height:1.45}.help-box{margin-top:.75rem;border:1px solid #315361;border-radius:10px;background:#091d28}.help-box summary{cursor:pointer;padding:.72rem .8rem;color:#a9d9ce;font-size:.84rem;font-weight:850}.help-box div{padding:0 .8rem .75rem}.help-box p{margin:.4rem 0;color:#b0c4cd;line-height:1.45}.subtle-help{opacity:.82}.investigation-block{margin-top:.8rem;padding:1rem;border:1px solid #284b59;border-radius:13px;background:#071722}.block-title{display:flex;justify-content:space-between;gap:.8rem;align-items:start}.block-title small{color:#74e9cb;font-size:.66rem;font-weight:900}.block-title h3{margin:.12rem 0;color:#fff;font-size:1.2rem}.block-title>span{padding:.32rem .5rem;border-radius:999px;background:#143b34;color:#8cefd3;font-size:.68rem;font-weight:900}.investigation-block>p{color:#adc3cd;line-height:1.5}.lab-setup{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin:.75rem 0}.lab-setup div{display:grid;gap:.2rem;padding:.7rem;border:1px solid #2c4d59;border-radius:9px;background:#081a23}.lab-setup strong{color:#fff}.lab-setup span{color:#a9bdc6;font-size:.82rem}.simple-procedure{display:grid;gap:.48rem;padding-left:1.45rem;color:#c2d4dc;line-height:1.5}.fair-test{display:flex;gap:.7rem;align-items:center;margin:.8rem 0;padding:.7rem;border-left:3px solid #f1d578;background:#211e12;color:#e6d9a6;font-size:.82rem}.fair-test span{color:#c8bb8c}.small-button,.primary-button{display:inline-flex;align-items:center;justify-content:center;padding:.68rem .85rem;border:0;border-radius:9px;background:#6ef2cf;color:#05231c;font:inherit;font-size:.82rem;font-weight:900;cursor:pointer;text-decoration:none}.small-button.secondary{border:1px solid #3e6878;background:#0b2835;color:#dff5ff}.evidence-rule{padding:.65rem .75rem;border-left:3px solid #6ef2cf;background:#09292b;color:#c3e6dc!important}.no-continent{display:flex;justify-content:space-between;gap:.7rem;align-items:center;padding:.8rem;border:1px dashed #486576;border-radius:9px;color:#b8ccd5}.no-continent a{color:#8eead3}.species-file>header{display:grid;grid-template-columns:auto 1fr;gap:.75rem;align-items:center}.species-file>header>span{font-size:1.8rem}.species-file header small{color:#7ca7b2}.species-file header h3{margin:.08rem 0;color:#fff;font-size:1.4rem}.species-file header p{margin:0;color:#a9c0ca;font-size:.82rem}.clue-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-top:.85rem}.clue-card{display:grid;grid-template-columns:30px 1fr;gap:.55rem;padding:.7rem;border:1px solid #294b58;border-radius:10px;background:#081923}.clue-card>b{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#173747;color:#9fd9e6}.clue-card small{color:#74c7b8;font-size:.65rem;font-weight:900;letter-spacing:.06em}.clue-card p{margin:.18rem 0 0;color:#bcd0d8;font-size:.82rem;line-height:1.45}.reconstruct-box{margin-top:.75rem;padding:.75rem;border:1px solid #355a67;border-radius:9px;background:#0a202a}.reconstruct-box strong{color:#fff}.reconstruct-box p{margin:.2rem 0 0;color:#a9c0ca;font-size:.84rem}.decision-card h3,.reflection-card h3{margin:.3rem 0 .7rem;color:#fff}.reasoning-frame{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}.reasoning-frame div{padding:.75rem;border:1px solid #35625b;border-radius:10px;background:#0a2526}.reasoning-frame strong{display:block;color:#8df0d4}.reasoning-frame span{display:block;margin-top:.2rem;color:#aac3c1;font-size:.8rem}.example-frame{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.7rem;padding:.65rem;border:1px solid #314d59;border-radius:9px;background:#091a23;color:#a9bec8;font-size:.78rem}.example-frame>b{color:#fff}.handoff-strip{display:flex;gap:.55rem;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:.8rem;padding:.7rem;border:1px solid #2d4e5b;border-radius:10px;background:#071722;color:#b6cad2;font-size:.8rem}.handoff-strip strong{color:#fff}.handoff-strip i{color:#4f7680}.record-heading{display:flex;justify-content:space-between;align-items:start}.record-heading h3{margin:.2rem 0;color:#fff;font-size:1.25rem}.record-heading>span{padding:.3rem .45rem;border-radius:999px;background:#173b34;color:#8cefd3;font-size:.66rem;font-weight:900}.team-record{display:grid;gap:.65rem}.team-record>label{display:grid;gap:.25rem;color:#c4d6dd;font-size:.8rem;font-weight:800}.team-record input{width:100%;box-sizing:border-box;padding:.62rem;border:1px solid #315361;border-radius:8px;background:#0a202a;color:#fff;font:inherit}.sketch-reminder{display:flex;gap:.65rem;align-items:flex-start;padding:.7rem;border:1px solid #35525f;border-radius:9px;background:#091a23}.sketch-reminder>span{font-size:1.2rem}.sketch-reminder strong{color:#fff}.sketch-reminder p{margin:.18rem 0 0;color:#a9bfc8;font-size:.82rem}.adaptation-table{display:grid;gap:.45rem}.adaptation-head,.adaptation-row{display:grid;grid-template-columns:1fr 1.35fr 1.5fr;gap:.45rem}.adaptation-head span{color:#8fb1bd;font-size:.68rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.record-note{margin:.15rem 0;color:#98b0ba;font-size:.8rem}.record-actions{display:flex;gap:.5rem;flex-wrap:wrap}.save-status{margin:0;color:#82e5cc;font-size:.8rem}.reflection-card{border-color:#3a627d;background:#0a2030}.reflection-card p:last-child{margin:.3rem 0 0;color:#aac2d0}.online-submit{margin-top:.8rem;border:1px solid #2b4d5a;border-radius:10px;background:#071722}.online-submit summary{cursor:pointer;padding:.7rem;color:#93aeb9;font-size:.79rem;font-weight:800}.online-submit div{padding:0 .75rem .75rem;color:#a9c0c9;font-size:.82rem}.online-submit a{display:inline-flex;margin-top:.35rem;padding:.5rem .65rem;border-radius:8px;background:#173b45;color:#dff8ff;text-decoration:none;font-weight:850}.finished-box{display:grid;gap:.32rem;border-color:#3a7765;background:#09241f}.finished-box strong{color:#fff}.finished-box span{color:#bce0d5}.finished-box p{margin:.25rem 0 0;color:#8fb3a8;font-size:.82rem}.print-packet{display:none}
+  @media(max-width:760px){.mission-hero{grid-template-columns:1fr}.science-grid{grid-template-columns:1fr 1fr}.step-nav{grid-template-columns:repeat(5,86px);overflow-x:auto}.step-nav a{display:grid;justify-items:center;text-align:center}.reasoning-frame{grid-template-columns:1fr}.assignment-result{grid-template-columns:auto 1fr}.species-box{grid-column:1/-1;text-align:left}.lab-setup,.clue-grid{grid-template-columns:1fr}.adaptation-head{display:none}.adaptation-row{grid-template-columns:1fr}.fair-test{display:grid}}
+  @media(max-width:520px){.mission-shell{padding-inline:.7rem}.mission-hero h1{font-size:3rem}.science-grid{grid-template-columns:1fr}.block-title{display:grid}.record-actions{display:grid}.record-actions>*{width:100%}.handoff-strip i{display:none}.no-continent{display:grid}}
+  @media print{body.print-mission2-packet .site-header,body.print-mission2-packet footer,body.print-mission2-packet .mission-shell>*:not(.print-packet),body.print-mission2-packet .jcec-submission-dock,body.print-mission2-packet .jcec-device-tools{display:none!important}body.print-mission2-packet{background:#fff!important}.print-mission2-packet .mission-shell{max-width:none;padding:0;color:#111}.print-mission2-packet .print-packet{display:block!important;color:#111;font-family:Arial,sans-serif}.print-page{min-height:9.5in;page-break-after:always}.print-page:last-child{page-break-after:auto}.print-page h1{font-size:22pt}.print-page table{width:100%;border-collapse:collapse;margin:18px 0}.print-page th,.print-page td{height:52px;padding:8px;border:1px solid #333;text-align:left;vertical-align:top}.print-lines{height:45px;border-bottom:1px solid #777}.print-sketch{display:grid;align-content:start;height:260px;margin:15px 0;padding:12px;border:2px solid #555}.print-sketch span{margin-top:4px;font-size:10pt;color:#555}}
+</style>
