@@ -1,0 +1,285 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecWorkMode from '../../../../../../components/JcecWorkMode.astro';
+import { operation06Cases } from '../../../../../../data/jabberwockyOperation06';
+
+const base = import.meta.env.BASE_URL;
+const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZDtZrNtCG3WB78ttvZdtEmq29kapujg/viewform';
+---
+
+<BaseLayout title="Operation 06: Environmental Change | Jabberwocky 2190" description="A Grade 7 Science investigation of disturbance, succession, recovery, monitoring, and evidence-based restoration decisions." themeColor="#071b2e">
+  <div class="operation-shell">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 1', href: `${base}courses/grade-7-science/jabberwocky/phase-1/` },
+      { label: 'Operation 06' }
+    ]} />
+
+    <nav class="mission-nav" aria-label="Operation navigation">
+      <a href={`${base}courses/grade-7-science/jabberwocky/`}>Mission Control</a>
+      <a href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Phase 1</a>
+      <a class="active" href="#briefing">Operation 06</a>
+      <a href="#erosion-lab">Hands-on Lab</a>
+      <a href="#recovery-zone">Recovery Zone</a>
+      <a href="#archive">Archive</a>
+    </nav>
+
+    <header class="operation-hero" id="briefing">
+      <p class="system-label">MISSION PHASE 01 // OPERATION 06</p>
+      <div class="hero-grid">
+        <div>
+          <p class="division">JCEC ECOLOGICAL SURVEY DIVISION</p>
+          <h1>ENVIRONMENTAL<br /><span>CHANGE</span></h1>
+          <p class="lead">JCEC exploration has disturbed a small area near every base camp. Your team must monitor what happens next. Is the ecosystem recovering? Is it becoming something different? And when should humans intervene?</p>
+        </div>
+        <aside>
+          <span>MISSION PURPOSE</span>
+          <strong>Judge ecosystem recovery with evidence</strong>
+          <dl>
+            <div><dt>Science focus</dt><dd>Disturbance + succession</dd></div>
+            <div><dt>Hands-on work</dt><dd>Cover + erosion lab</dd></div>
+            <div><dt>Official record</dt><dd>Recovery recommendation</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </header>
+
+    <section class="mission-question">
+      <p>OPERATION QUESTION</p>
+      <h2>How can an ecosystem change after a disturbance, and how do we decide whether recovery is really happening?</h2>
+    </section>
+
+    <section class="panel route-panel">
+      <p class="system-label">MISSION ROUTE</p>
+      <h2>Where are we going?</h2>
+      <div class="route-grid"><span><b>1</b> Test Surface Cover</span><i>→</i><span><b>2</b> Learn Succession</span><i>→</i><span><b>3</b> Read 4 Surveys</span><i>→</i><span><b>4</b> Compare to Reference</span><i>→</i><span><b>5</b> Decide What JCEC Should Do</span><i>→</i><span><b>6</b> Archive</span></div>
+    </section>
+
+    <section class="panel operation-checklist">
+      <p class="system-label">YOUR OPERATION 06 CHECKLIST</p>
+      <h2>What do I have to complete?</h2>
+      <div class="completion-grid">
+        <article><span>👥</span><div><strong>As a team</strong><ul><li>Complete the Surface Cover & Erosion Lab.</li><li>Analyze all four recovery surveys for your continent.</li><li>Compare the disturbed zone with the reference site.</li><li>Choose and defend a management recommendation.</li></ul></div></article>
+        <article><span>🗂️</span><div><strong>One team member</strong><ul><li>Submit the official Recovery Zone Recommendation to JCEC.</li><li>Keep the Recovery Record in the Continental Archive.</li></ul></div></article>
+        <article><span>👤</span><div><strong>Each Pathfinder</strong><ul><li>Complete the individual reflection when directed.</li></ul></div></article>
+      </div>
+      <p class="completion-rule"><strong>Operation 06 is complete when</strong> your team has explained the recovery pattern, made an evidence-based recommendation, submitted the archive entry, and completed individual reflection.</p>
+    </section>
+
+    <section class="panel science-focus">
+      <p class="system-label">SCIENCE YOU WILL USE</p>
+      <h2>Recovery is a process—not a reset button.</h2>
+      <div class="science-grid">
+        <article><strong>Disturbance</strong><p>An event that changes an ecosystem. Disturbance can remove organisms, alter habitat, expose soil, change water flow, or affect resources.</p></article>
+        <article><strong>Succession</strong><p>The gradual change in a biological community after new habitat forms or an existing community is disturbed.</p></article>
+        <article><strong>Pioneer organisms</strong><p>Early colonizers that can establish in disturbed conditions and begin changing the habitat for other organisms.</p></article>
+        <article><strong>Secondary succession</strong><p>Recovery after a disturbance where soil or other parts of the previous ecosystem remain. JCEC's small landing disturbances are examples.</p></article>
+        <article><strong>Reference site</strong><p>A nearby less-disturbed area used for comparison. It helps scientists judge how different a recovery zone still is.</p></article>
+        <article><strong>Resilience</strong><p>An ecosystem's ability to respond to disturbance and continue or rebuild important structures, functions, and relationships.</p></article>
+      </div>
+      <div class="science-warning"><strong>Important:</strong> more green cover does <em>not</em> automatically mean the original ecosystem has returned. Scientists also monitor species diversity, soil or water conditions, habitat structure, and ecological relationships.</div>
+      <a class="text-link" href={`${base}courses/grade-7-science/interactions-ecosystems/`}>Need a refresher? Open Interactions & Ecosystems resources →</a>
+    </section>
+
+    <section class="panel lab-panel" id="erosion-lab">
+      <JcecWorkMode mode="team" title="Test how surface cover changes a disturbed habitat" />
+      <div class="section-heading"><div><p class="system-label">HANDS-ON INVESTIGATION // DISTURBANCE & RECOVERY</p><h2>Surface Cover & Erosion Lab</h2></div><span class="duration">35–45 min</span></div>
+      <p class="intro">A disturbance often leaves soil exposed. Your team will compare a bare surface with a protected surface to investigate why recovering vegetation and litter can change what happens during rainfall.</p>
+
+      <div class="lab-grid">
+        <article><h3>Equipment per team</h3><ul><li>2 shallow trays or containers</li><li>equal amounts of soil in both trays</li><li>dry leaves, grass, shredded paper, mesh, or other teacher-approved cover material</li><li>2 collection cups</li><li>measuring cup with equal water portions</li><li>books/blocks to create the same gentle slope</li><li>lab record and pencil</li></ul></article>
+        <article><h3>Fair-test variables</h3><ul><li><strong>Change:</strong> amount of surface cover</li><li><strong>Measure:</strong> runoff amount and sediment/turbidity</li><li><strong>Keep the same:</strong> soil amount, tray angle, water volume, pour height, pour time, and collection time</li></ul><p class="equipment-note"><strong>Safety:</strong> keep water away from Chromebooks, wipe spills immediately, and wash hands after handling soil.</p></article>
+      </div>
+
+      <div class="procedure">
+        <h3>Procedure</h3>
+        <ol>
+          <li>Place equal amounts of soil into both trays and set both at the <strong>same gentle slope</strong>.</li>
+          <li>Leave Tray A mostly <strong>bare</strong>. Cover much of Tray B with the same teacher-approved material to represent protective vegetation/litter.</li>
+          <li>Place a collection cup at the lower end of each tray.</li>
+          <li>Predict which tray will produce more muddy runoff and explain why.</li>
+          <li>Pour the <strong>same volume of water</strong> over Tray A from the same height and over the same amount of time. Repeat for Tray B.</li>
+          <li>Measure the collected runoff volume. Give each sample a <strong>turbidity score from 0–5</strong>, where 0 = clear and 5 = very muddy.</li>
+          <li>Compare the soil surface after the test. Record channels, displaced soil, pooling, or other changes.</li>
+        </ol>
+      </div>
+
+      <div class="lab-record-grid">
+        <article><strong>Tray A — Bare</strong><p>Runoff: ______ mL</p><p>Turbidity: ____ / 5</p><p>Surface change: ____________________</p></article>
+        <article><strong>Tray B — Protected</strong><p>Runoff: ______ mL</p><p>Turbidity: ____ / 5</p><p>Surface change: ____________________</p></article>
+        <article><strong>Team conclusion</strong><p>How did surface cover change erosion/runoff?</p><p>_____________________________________</p></article>
+      </div>
+      <p class="lab-connection"><strong>Mission connection:</strong> this model does not recreate an entire ecosystem. It tests one mechanism: exposed surfaces can respond differently to water than covered surfaces. Use that idea carefully when interpreting your continent's recovery evidence.</p>
+    </section>
+
+    <section class="panel succession-checkpoint">
+      <p class="system-label">MISSION CHECKPOINT</p>
+      <h2>What would count as evidence of recovery?</h2>
+      <div class="checkpoint-grid">
+        <article><span>01</span><strong>Less exposed surface?</strong><p>Useful evidence, but not enough by itself.</p></article>
+        <article><span>02</span><strong>More living cover?</strong><p>Useful evidence, but one fast-growing species could dominate.</p></article>
+        <article><span>03</span><strong>More kinds of organisms?</strong><p>Species richness can show community rebuilding.</p></article>
+        <article><span>04</span><strong>Abiotic conditions stabilizing?</strong><p>Soil, drainage, erosion, water flow, and other conditions matter too.</p></article>
+      </div>
+      <p class="checkpoint-note"><strong>JCEC rule:</strong> compare several indicators over time and compare the recovery zone with a reference site.</p>
+    </section>
+
+    <section class="panel recovery-zone" id="recovery-zone">
+      <JcecWorkMode mode="team" title="Monitor your continent's JCEC recovery zone" />
+      <p class="system-label">JCEC RECOVERY MONITORING // 55-DAY DATASET</p>
+      <h2>Open your assigned recovery file.</h2>
+      <p class="intro">JCEC recorded the disturbed zone on Day 1, Day 12, Day 30, and Day 55. Your team must decide what is recovering, what is not, and what should happen next.</p>
+
+      <div class="no-posting" id="no-posting" hidden><strong>No continental posting detected on this device.</strong><p>Return to Operation 01, open the continent your teacher assigned, then come back here.</p><a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Return to Mission Assignment</a></div>
+
+      <div id="recovery-files" hidden>
+        {operation06Cases.map((item) => (
+          <article class="recovery-file" data-recovery={item.id} hidden>
+            <div class="case-heading"><div><p class="system-label">RECOVERY FILE 06-{item.code} // {item.baseCamp}</p><h3>{item.name}: Disturbance Recovery Zone</h3><small>{item.environment}</small></div><span class="case-status">DAY 55</span></div>
+            <div class="disturbance-alert"><strong>WHAT HAPPENED</strong><p>{item.disturbance}</p></div>
+
+            <div class="analysis-team-roles">
+              <article><span>📋</span><div><strong>Timeline Reader</strong><small>Reads each survey in order and reports exact changes.</small></div></article>
+              <article><span>📏</span><div><strong>Indicator Tracker</strong><small>Tracks exposed surface, living cover, and richness.</small></div></article>
+              <article><span>🧭</span><div><strong>Reference Checker</strong><small>Compares Day 55 with the less-disturbed reference site.</small></div></article>
+              <article><span>⚖️</span><div><strong>Decision Challenger</strong><small>Asks whether the recommendation is justified by enough evidence.</small></div></article>
+            </div>
+
+            <section class="reference-box"><p class="system-label">REFERENCE SITE // COMPARISON</p><strong>{item.reference.description}</strong><div><span>Living cover <b>{item.reference.livingCover}%</b></span><span>Species richness <b>{item.reference.speciesRichness}</b></span></div></section>
+
+            <section class="timeline-section">
+              <p class="system-label">STEP 1 // READ THE RECOVERY TIMELINE</p>
+              <div class="timeline-grid">
+                {item.stages.map((stage) => (
+                  <article class="stage-card">
+                    <h4>{stage.day}</h4>
+                    <dl><div><dt>Exposed surface</dt><dd>{stage.exposedSurface}%</dd></div><div><dt>Living cover</dt><dd>{stage.livingCover}%</dd></div><div><dt>Species richness</dt><dd>{stage.speciesRichness}</dd></div></dl>
+                    <div class="bar-label"><span>Living cover</span><b>{stage.livingCover}%</b></div><div class="bar"><span style={`width:${stage.livingCover}%`}></span></div>
+                    <p>{stage.observation}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section class="evidence-section">
+              <p class="system-label">STEP 2 // CHECK FIELD EVIDENCE</p>
+              <h4>Read all three records before deciding what “recovered” means.</h4>
+              <div class="evidence-grid">{item.evidence.map((record,index)=><article><span>{String(index+1).padStart(2,'0')}</span><p>{record}</p></article>)}</div>
+            </section>
+
+            <section class="analysis-prompts">
+              <p class="system-label">STEP 3 // TEAM ANALYSIS</p>
+              <h4>Your Recovery Record must answer all five.</h4>
+              <ol>
+                <li>Which indicator changed the <strong>most</strong> from Day 1 to Day 55? Use exact values.</li>
+                <li>Which indicator shows the site is <strong>still different</strong> from the reference site?</li>
+                <li>What evidence suggests succession is occurring?</li>
+                <li>Why would it be inaccurate to say the site is “back to normal” just because living cover increased?</li>
+                <li>What should JCEC monitor next?</li>
+              </ol>
+            </section>
+
+            <section class="decision-section">
+              <p class="system-label">STEP 4 // MANAGEMENT DECISION</p>
+              <h4>{item.investigationQuestion}</h4>
+              <p>Discuss all three options. These are management choices with trade-offs—not quiz answers. Choose the recommendation your team can defend best from the evidence.</p>
+              <div class="decision-grid">{item.managementChoices.map((choice,index)=><button type="button" class="decision-card" data-choice={choice}><span>OPTION {String.fromCharCode(65+index)}</span><strong>{choice}</strong><small>Select as working recommendation</small></button>)}</div>
+              <p class="working-decision" data-working-decision>No working recommendation selected yet.</p>
+            </section>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="panel archive-panel" id="archive">
+      <JcecWorkMode mode="archive" title="Add the Recovery Zone Recommendation to the Continental Archive" />
+      <p class="system-label">JCEC ARCHIVE TRANSMISSION</p>
+      <h2>Tell future teams what changed—and what still has not recovered.</h2>
+      <div class="archive-grid">
+        <article><strong>Claim / Decision</strong><p>Your management recommendation and current recovery status.</p></article>
+        <article><strong>Evidence</strong><p>At least three specific pieces, including Day 1 → Day 55 values and a comparison with the reference site.</p></article>
+        <article><strong>Reasoning</strong><p>Explain how succession, surface conditions, diversity, or habitat evidence supports your recommendation.</p></article>
+        <article><strong>Uncertainty</strong><p>State what JCEC should keep monitoring before declaring the site recovered.</p></article>
+      </div>
+
+      <div class="submission-guide">
+        <div class="guide-heading"><span>📡</span><div><strong>Submit to the JCEC Portal</strong><small>One designated team member submits.</small></div></div>
+        <dl><div><dt>Submission Type</dt><dd>Continental Archive</dd></div><div><dt>Mission Phase</dt><dd>01 First Contact</dd></div><div><dt>Operation / Task</dt><dd>Environmental Change — Recovery Zone Recommendation</dd></div><div><dt>Continent</dt><dd id="archive-continent">Your assigned continent</dd></div><div><dt>Team ID</dt><dd id="archive-team-id">Use the ID your teacher gives you</dd></div><div><dt>Team Members</dt><dd>List everyone represented</dd></div></dl>
+        <p><strong>Form mapping:</strong> put the recommendation in <em>Claim / Decision</em>, exact timeline/reference values in <em>Evidence</em>, your ecological explanation and uncertainty in <em>Reasoning</em>, and leave Pathfinder Reflection blank unless directed otherwise.</p>
+        <a class="button primary" href={portalUrl} target="_blank" rel="noopener noreferrer">Submit Recovery Zone Recommendation ↗</a>
+        <p class="return-note"><strong>After submitting:</strong> return to Mission Control. The JCEC dashboard—not this webpage—is the official submission record.</p>
+      </div>
+    </section>
+
+    <section class="panel reflection">
+      <JcecWorkMode mode="individual" title="Update your Pathfinder Log" />
+      <h2>Does recovery mean returning to exactly what was there before?</h2>
+      <ol><li>Which recovery indicator did you trust most, and why?</li><li>What evidence showed that your site had changed over time?</li><li>What evidence showed that recovery was incomplete?</li><li>Would you choose natural recovery, active restoration, or a combination? Explain your own choice.</li></ol>
+      <p class="reflection-note">Complete this yourself. Your individual answer may differ from the team's official recommendation if you can support it with evidence.</p>
+    </section>
+
+    <section class="next-operation">
+      <div><span>07</span><strong>NEXT OPERATION</strong></div>
+      <section><p class="system-label">CLASSIFIED // ACCESS PENDING</p><h2>Classified Incident</h2><p>JCEC monitoring has detected a pattern that does not match normal recovery. Details are restricted until your teacher activates the incident file.</p><div class="locked"><span>🔒</span><strong>Clearance required.</strong></div></section>
+    </section>
+
+    <div class="bottom-actions"><a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/operation-05/`}>← Operation 05</a><a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Phase 1 Operations</a><a class="button secondary" href={`${base}courses/grade-7-science/jabberwocky/`}>Mission Control</a></div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const posting = localStorage.getItem('jabberwocky-phase1-posting');
+      const noPosting = document.getElementById('no-posting');
+      const files = document.getElementById('recovery-files');
+      const file = posting ? document.querySelector(`[data-recovery="${posting}"]`) : null;
+      if (!posting || !file) {
+        if (noPosting) noPosting.hidden = false;
+      } else {
+        if (files) files.hidden = false;
+        file.hidden = false;
+        const continentName = file.querySelector('.case-heading h3')?.textContent?.split(':')[0]?.trim() || posting;
+        const archiveContinent = document.getElementById('archive-continent');
+        if (archiveContinent) archiveContinent.textContent = continentName;
+        const signal = file.querySelector('.system-label')?.textContent || '';
+        const codeMatch = signal.match(/06-([A-Z]{2})/);
+        const teamId = document.getElementById('archive-team-id');
+        if (teamId) teamId.textContent = `P1-${codeMatch?.[1] || 'XX'}-__ (use the number your teacher assigns)`;
+      }
+
+      document.querySelectorAll('.recovery-file').forEach((recoveryFile) => {
+        const buttons = [...recoveryFile.querySelectorAll('.decision-card')];
+        const status = recoveryFile.querySelector('[data-working-decision]');
+        const key = `jabberwocky-op6-decision-${recoveryFile.dataset.recovery}`;
+        const select = (button) => {
+          buttons.forEach((other) => other.classList.remove('selected'));
+          button.classList.add('selected');
+          const choice = button.dataset.choice || '';
+          localStorage.setItem(key, choice);
+          if (status) status.textContent = `Working recommendation saved on this device: ${choice}`;
+        };
+        buttons.forEach((button) => button.addEventListener('click', () => select(button)));
+        const saved = localStorage.getItem(key);
+        if (saved) {
+          const match = buttons.find((button) => button.dataset.choice === saved);
+          if (match) select(match);
+        }
+      });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body){background:#06111f}.operation-shell{max-width:1120px;margin:0 auto;padding:0 1.1rem 5rem;color:#eaf5ff}.operation-shell :global(.breadcrumbs){color:#9fb8c8}.operation-shell :global(.breadcrumbs a){color:#d3eafa}.system-label{margin:0;color:#74e9cb;font:800 .8rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em;text-transform:uppercase}
+  .mission-nav{position:sticky;top:.6rem;z-index:20;display:flex;gap:.35rem;align-items:center;overflow:auto;margin:1rem 0;padding:.45rem;border:1px solid #244b60;border-radius:14px;background:rgba(5,20,33,.94);backdrop-filter:blur(12px)}.mission-nav a{flex:0 0 auto;padding:.65rem .78rem;border-radius:9px;color:#b9cfdd;text-decoration:none;font-size:.88rem;font-weight:800}.mission-nav a:hover,.mission-nav a.active{background:#123348;color:#fff}.mission-nav a.active{box-shadow:inset 0 -2px #6ef2cf}
+  .operation-hero{margin:1.2rem 0 1.4rem;padding:clamp(1.5rem,5vw,3rem);border:1px solid #236078;border-radius:26px;background:radial-gradient(circle at 82% 22%,rgba(110,242,207,.18),transparent 25%),linear-gradient(145deg,#071527,#0b2d42 60%,#06111f)}.hero-grid{display:grid;grid-template-columns:1fr 300px;gap:1.5rem;align-items:end}.division{margin:1.4rem 0 .35rem;color:#a9c3d3;font-weight:850;letter-spacing:.1em}.operation-hero h1{margin:0;color:#fff;font-size:clamp(2.8rem,7vw,5.8rem);line-height:.88;letter-spacing:-.055em}.operation-hero h1 span{color:#6ef2cf}.lead{max-width:720px;margin:1.35rem 0 0;color:#c4d9e7;font-size:1.1rem;line-height:1.65}.operation-hero aside{padding:1.1rem;border:1px solid #315d73;border-radius:16px;background:rgba(4,17,29,.82);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.operation-hero aside>span{display:block;color:#8ea8b8;font-size:.75rem}.operation-hero aside>strong{display:block;margin:.3rem 0 1rem;color:#6ef2cf;font-size:1.05rem}.operation-hero dl{margin:0}.operation-hero dl div{display:flex;justify-content:space-between;gap:1rem;padding:.52rem 0;border-top:1px solid #1d4154}.operation-hero dt{color:#90a9b8}.operation-hero dd{margin:0;color:#fff;text-align:right}
+  .mission-question,.panel,.next-operation{margin:1.2rem 0;padding:clamp(1.2rem,4vw,2rem);border:1px solid #183f54;border-radius:20px;background:#0a1d2c}.mission-question{border-color:#39745f;background:linear-gradient(135deg,#0c2a30,#081a27)}.mission-question p{margin:0;color:#74e9cb;font:800 .78rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em}.mission-question h2,.panel h2,.next-operation h2{margin:.5rem 0 .7rem;color:#fff;font-size:clamp(1.5rem,4vw,2.15rem);line-height:1.25}.panel>p,.intro{color:#bcd1dc;line-height:1.65}
+  .route-grid{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;margin-top:1rem}.route-grid span{padding:.55rem .65rem;border:1px solid #315365;border-radius:9px;background:#071923;color:#d6e9f0;font-size:.8rem;font-weight:800}.route-grid b{color:#6ef2cf}.route-grid i{color:#6e8996;font-style:normal}.completion-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:.7rem;margin:1rem 0}.completion-grid article{display:flex;gap:.6rem;padding:.85rem;border:1px solid #315263;border-radius:12px;background:#081823}.completion-grid strong{color:#fff}.completion-grid ul{margin:.35rem 0 0;padding-left:1.05rem;color:#bfd2dc;font-size:.85rem;line-height:1.5}.completion-rule{padding:.75rem;border-left:3px solid #6ef2cf;background:#0a282b;color:#d4e9ee!important}.science-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin:1rem 0}.science-grid article{padding:.9rem;border:1px solid #28495a;border-radius:12px;background:#081823}.science-grid strong{color:#9ed5ff}.science-grid p{margin:.3rem 0 0;color:#b5cbd7;font-size:.86rem;line-height:1.5}.science-warning{padding:.8rem;border-left:3px solid #f2d97d;background:#29220f;color:#dfd3a3;line-height:1.5}.text-link{display:inline-block;margin-top:.9rem;color:#75dfca;font-weight:800;text-decoration:none}
+  .section-heading{display:flex;justify-content:space-between;gap:1rem;align-items:start;margin-top:1rem}.duration{padding:.45rem .6rem;border:1px solid #3c6c78;border-radius:999px;color:#b8dce6;font:800 .76rem ui-monospace,SFMono-Regular,monospace}.lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:1rem 0}.lab-grid article{padding:.9rem;border:1px solid #29495c;border-radius:12px;background:#081923}.lab-grid h3,.procedure h3{margin:0 0 .55rem;color:#fff}.lab-grid ul,.procedure ol{margin:.3rem 0;padding-left:1.2rem;color:#c1d3dc;line-height:1.6}.equipment-note{padding:.65rem;border-left:3px solid #74e9cb;background:#0a2428;color:#bcd2d9;font-size:.85rem}.procedure{padding:1rem;border:1px solid #315365;border-radius:14px;background:#071821}.lab-record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-top:1rem}.lab-record-grid article{padding:.8rem;border:1px solid #315263;border-radius:10px;background:#071923}.lab-record-grid strong{color:#fff}.lab-record-grid p{color:#b9cdd7}.lab-connection{padding:.75rem;border-left:3px solid #9ed5ff;background:#0a2130}.checkpoint-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem}.checkpoint-grid article{padding:.8rem;border:1px solid #315263;border-radius:10px;background:#071923}.checkpoint-grid span{color:#6ef2cf;font:850 .7rem ui-monospace,SFMono-Regular,monospace}.checkpoint-grid strong{display:block;margin:.25rem 0;color:#fff}.checkpoint-grid p{margin:0;color:#afc5cf;font-size:.83rem;line-height:1.45}.checkpoint-note{padding:.7rem;border-left:3px solid #6ef2cf;background:#0a282b}
+  .no-posting{padding:1rem;border:1px solid #7e6330;border-radius:12px;background:#2a210d}.case-heading{display:flex;justify-content:space-between;gap:1rem;align-items:start;margin-top:1.2rem}.case-heading h3{margin:.35rem 0 .15rem;color:#fff;font-size:1.65rem}.case-heading small{color:#9eb8c4}.case-status{padding:.4rem .55rem;border-radius:999px;background:#13392f;color:#7df0c9;font:850 .72rem ui-monospace,SFMono-Regular,monospace}.disturbance-alert{margin:1rem 0;padding:1rem;border-left:4px solid #f2d97d;background:#24200f}.disturbance-alert strong{color:#f2d97d}.disturbance-alert p{margin:.35rem 0 0;color:#e1d8b4;line-height:1.55}.analysis-team-roles{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}.analysis-team-roles article{display:flex;gap:.5rem;padding:.7rem;border:1px solid #315365;border-radius:10px;background:#071923}.analysis-team-roles div{display:grid}.analysis-team-roles strong{color:#fff;font-size:.84rem}.analysis-team-roles small{color:#a7bec8;font-size:.73rem;line-height:1.35}.reference-box{margin:1rem 0;padding:1rem;border:1px solid #4b6b76;border-radius:12px;background:#0a222d}.reference-box>strong{display:block;margin:.4rem 0;color:#fff}.reference-box>div{display:flex;gap:.6rem;flex-wrap:wrap}.reference-box span{padding:.45rem .55rem;border-radius:8px;background:#071923;color:#b7d0db}.reference-box b{color:#9ef1d7}.timeline-section,.evidence-section,.analysis-prompts,.decision-section{margin-top:1rem;padding:1rem;border:1px solid #2d4e59;border-radius:14px;background:#081720}.timeline-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;margin-top:.8rem}.stage-card{padding:.8rem;border:1px solid #315365;border-radius:11px;background:#071923}.stage-card h4{margin:0 0 .6rem;color:#fff}.stage-card dl{margin:0}.stage-card dl div{display:flex;justify-content:space-between;gap:.5rem;padding:.25rem 0;border-bottom:1px solid #173747}.stage-card dt{color:#9fb7c2;font-size:.77rem}.stage-card dd{margin:0;color:#fff;font-weight:850}.bar-label{display:flex;justify-content:space-between;margin-top:.7rem;color:#a9c1cb;font-size:.72rem}.bar{height:8px;margin-top:.25rem;border-radius:999px;background:#112b36;overflow:hidden}.bar span{display:block;height:100%;background:#6ef2cf}.stage-card p{color:#b2c8d2;font-size:.82rem;line-height:1.45}.evidence-section h4,.analysis-prompts h4,.decision-section h4{margin:.35rem 0;color:#fff}.evidence-grid{display:grid;gap:.55rem;margin-top:.8rem}.evidence-grid article{display:flex;gap:.6rem;align-items:flex-start;padding:.7rem;border:1px solid #294852;border-radius:10px;background:#071923}.evidence-grid span{display:grid;place-items:center;flex:0 0 30px;height:30px;border-radius:7px;background:#10364a;color:#9ed5ff;font:850 .7rem ui-monospace,SFMono-Regular,monospace}.evidence-grid p{margin:0;color:#c0d4dd;line-height:1.45}.analysis-prompts ol{color:#c2d7df;line-height:1.65}.decision-section>p:not(.system-label){color:#b7ccd6;line-height:1.5}.decision-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-top:.8rem}.decision-card{display:grid;gap:.4rem;padding:.85rem;border:1px solid #3a5665;border-radius:11px;background:#081923;color:#ddecf2;text-align:left;cursor:pointer}.decision-card>span{color:#90b3c1;font:850 .7rem ui-monospace,SFMono-Regular,monospace}.decision-card strong{line-height:1.45}.decision-card small{color:#6ef2cf}.decision-card.selected{border-color:#6ef2cf;background:#0b302f;box-shadow:inset 0 0 0 1px #6ef2cf}.working-decision{padding:.7rem;border-left:3px solid #6ef2cf;background:#0a282b;color:#cce4df!important;font-size:.85rem}
+  .archive-panel{border-color:#756a3f}.archive-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem;margin:1rem 0}.archive-grid article{padding:.8rem;border:1px solid #5b5334;border-radius:10px;background:#1d1b10}.archive-grid strong{color:#fff}.archive-grid p{margin:.25rem 0 0;color:#cfc8a5;font-size:.84rem;line-height:1.45}.submission-guide{padding:1rem;border:1px solid #756a3f;border-radius:14px;background:#17170e}.guide-heading{display:flex;gap:.6rem;align-items:center}.guide-heading div{display:grid}.guide-heading strong{color:#fff}.guide-heading small{color:#c6ba82}.submission-guide dl{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin:1rem 0}.submission-guide dl div{padding:.65rem;border:1px solid #4e4a30;border-radius:9px;background:#0d1718}.submission-guide dt{color:#b8ab72;font-size:.68rem;font-weight:800;text-transform:uppercase}.submission-guide dd{margin:.2rem 0 0;color:#fff;font-size:.82rem;font-weight:800}.submission-guide>p{color:#d4cfad;line-height:1.5}.return-note{padding:.7rem;border-left:3px solid #6ef2cf;background:#0a2425;color:#c8dcce!important;font-size:.85rem}.button{display:inline-flex;align-items:center;justify-content:center;padding:.72rem 1rem;border-radius:10px;text-decoration:none;font-weight:900;cursor:pointer}.button.primary{border:1px solid #6ef2cf;background:#6ef2cf;color:#06201e}.button.secondary{border:1px solid #3a6576;background:#0c2a38;color:#e7f6ff}.reflection{border-color:#3f6480}.reflection ol{color:#c5d8e2;line-height:1.65}.reflection-note{padding:.7rem;border-left:3px solid #8fc7ef;background:#0b2333;font-size:.86rem}.next-operation{display:grid;grid-template-columns:120px 1fr;gap:1rem;border-color:#4e3545;background:#140b14}.next-operation>div{display:grid;place-content:start center;text-align:center}.next-operation>div span{font-size:3rem;font-weight:900;color:#76556b}.next-operation>div strong{color:#9e7d94;font-size:.7rem}.next-operation section p{color:#b29aaa;line-height:1.55}.locked{display:flex;gap:.6rem;align-items:center;padding:.75rem;border:1px solid #5a4051;border-radius:10px;background:#1b1019;color:#b594aa}.bottom-actions{display:flex;gap:.7rem;justify-content:space-between;margin-top:1rem}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr}.completion-grid,.science-grid{grid-template-columns:1fr 1fr}.timeline-grid{grid-template-columns:1fr 1fr}.analysis-team-roles{grid-template-columns:1fr 1fr}.decision-grid{grid-template-columns:1fr}.submission-guide dl{grid-template-columns:1fr 1fr}}
+  @media(max-width:650px){.completion-grid,.science-grid,.lab-grid,.lab-record-grid,.checkpoint-grid,.timeline-grid,.analysis-team-roles,.archive-grid{grid-template-columns:1fr}.section-heading,.case-heading{display:grid}.submission-guide dl{grid-template-columns:1fr}.next-operation{grid-template-columns:72px 1fr}.bottom-actions{display:grid}.bottom-actions .button{width:100%}}
+</style>
