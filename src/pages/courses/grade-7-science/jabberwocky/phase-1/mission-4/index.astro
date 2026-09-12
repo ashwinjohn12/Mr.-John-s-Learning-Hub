@@ -1,0 +1,398 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecMissionProgress from '../../../../../../components/JcecMissionProgress.astro';
+import JcecPopulationGraph from '../../../../../../components/JcecPopulationGraph.astro';
+import { operation05Cases } from '../../../../../../data/jabberwockyOperation05';
+import { operation06Cases } from '../../../../../../data/jabberwockyOperation06';
+
+const base = import.meta.env.BASE_URL;
+const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZDtZrNtCG3WB78ttvZdtEmq29kapujg/viewform';
+const gridCells = Array.from({ length: 25 }, (_, index) => index + 1);
+
+const continentIcons: Record<string, string> = {
+  gyre: '⛰️',
+  brillig: '🌿',
+  manxome: '🏝️',
+  'slithy-toves': '🏜️',
+  wabe: '❄️',
+  bandersnatch: '🌾',
+  gimble: '🌲',
+  mimsy: '🪷'
+};
+
+const simpleCaseIntro: Record<string, string> = {
+  gyre: 'Ridgeback Grazer detections and Bluecrest Grass both dropped during the survey. What does that pattern suggest?',
+  brillig: 'After a severe storm, Glowfruit and Canopy Glider detections both fell. What changed first?',
+  manxome: 'High waves stripped algae from exposed rocks and Tide Skipper detections fell, then both began to recover.',
+  'slithy-toves': 'Midday Dune Runner detections fell during the hottest weeks, but night-camera detections stayed steady.',
+  wabe: 'Late snow, less green Tundra Mat, and fewer Snow Burrower activity signs appeared during the same survey.',
+  bandersnatch: 'Strider detections fell near Jubjub Station but rose near the East Waterhole as local water became shallow.',
+  gimble: 'A cold snap was followed by fewer Bark Grubs and fewer Barkclimber detections.',
+  mimsy: 'Reedcrawler detections fell at one wetland edge and rose at another as the water level changed.'
+};
+
+const missionCases = operation05Cases.map((population) => {
+  const recovery = operation06Cases.find((item) => item.id === population.id);
+  if (!recovery) throw new Error(`Missing recovery case for ${population.id}`);
+  return {
+    id: population.id,
+    name: population.name,
+    baseCamp: population.baseCamp,
+    environment: population.environment,
+    focalSpecies: population.focalSpecies,
+    icon: continentIcons[population.id],
+    caseIntro: simpleCaseIntro[population.id],
+    timeLabels: population.timeLabels,
+    series: population.series.slice(0, 2),
+    evidence: population.evidence.slice(0, 2),
+    disturbance: recovery.disturbance,
+    recoveryStages: [recovery.stages[0], recovery.stages[2], recovery.stages[3]],
+    reference: recovery.reference
+  };
+});
+---
+
+<BaseLayout title="Mission 4: Watch the Ecosystem Change | Jabberwocky 2190" description="A simplified Grade 7 Science mission about populations, sampling, limiting factors, succession, recovery, and environmental monitoring." themeColor="#071b2e">
+  <div class="mission-shell" id="simplified-mission-4">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 1', href: `${base}courses/grade-7-science/jabberwocky/phase-1/` },
+      { label: 'Mission 4' }
+    ]} />
+
+    <JcecMissionProgress active={4} compact={true} />
+
+    <header class="mission-hero">
+      <div>
+        <p class="eyebrow">MISSION 4 OF 5</p>
+        <h1>WATCH THE ECOSYSTEM <span>CHANGE</span></h1>
+        <p class="question">What happens when conditions change?</p>
+      </div>
+      <aside>
+        <span>YOU ARE LEARNING</span>
+        <strong>How scientists track change over time</strong>
+        <small>4 classes × 45 minutes</small>
+      </aside>
+    </header>
+
+    <nav class="step-nav" aria-label="Mission 4 steps">
+      <a href="#your-mission"><b>1</b><span>Your Mission</span></a>
+      <a href="#learn"><b>2</b><span>Learn</span></a>
+      <a href="#investigate"><b>3</b><span>Investigate</span></a>
+      <a href="#decide"><b>4</b><span>Decide</span></a>
+      <a href="#record"><b>5</b><span>Record It</span></a>
+    </nav>
+
+    <section class="simple-step" id="your-mission">
+      <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
+      <div class="briefing">
+        <p>Your team now understands the basic food web on your continent. But ecosystems do not stay exactly the same. Population counts can rise, fall or shift, and disturbed habitats can recover slowly over time. JCEC needs your team to track these changes and decide whether the ecosystem looks like it is recovering—or whether there is a reason for concern.</p>
+      </div>
+
+      <div class="assignment-box">
+        <div class="assignment-result" id="assignment-result" hidden>
+          <span id="assignment-icon" aria-hidden="true"></span>
+          <div><small>YOUR CONTINENT</small><strong id="assignment-name"></strong><p id="assignment-environment"></p></div>
+          <div class="species-box"><small>SPECIES TO WATCH</small><b id="assignment-species"></b></div>
+        </div>
+        <div class="missing-assignment" id="missing-assignment" hidden>
+          <strong>Your continent is not saved on this device yet.</strong>
+          <p>Go back to Mission 1 and choose the continent your teacher assigned.</p>
+          <a href={`${base}courses/grade-7-science/jabberwocky/phase-1/mission-1/`}>Return to Mission 1 →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="simple-step" id="learn">
+      <div class="step-heading"><span>2</span><div><p>CLASS 1</p><h2>Learn the Science</h2></div></div>
+      <p class="step-intro">You only need four ideas to begin.</p>
+      <div class="science-grid">
+        <article><span>🐾</span><strong>Population</strong><p>All members of one species living in an area.</p></article>
+        <article><span>🚧</span><strong>Limiting factor</strong><p>Something such as food, water, space or temperature that can affect a population.</p></article>
+        <article><span>🔲</span><strong>Sample</strong><p>A smaller part used to learn about a larger population or habitat.</p></article>
+        <article><span>🌱</span><strong>Succession</strong><p>The gradual change in a community after a disturbance.</p></article>
+      </div>
+
+      <details class="help-box">
+        <summary>Important: a lower count does not always mean the whole population got smaller.</summary>
+        <div><p>Organisms can move or become clustered. Scientists compare repeated surveys and other evidence before deciding what a count means.</p></div>
+      </details>
+    </section>
+
+    <section class="simple-step" id="investigate">
+      <div class="step-heading"><span>3</span><div><p>CLASSES 1–4</p><h2>Investigate</h2></div></div>
+
+      <section class="investigation-block sampling-block">
+        <div class="block-title"><div><small>CLASS 1</small><h3>Population Sampling</h3></div><span>TEAM WORK</span></div>
+        <p><strong>Question:</strong> Can a small sample give a useful estimate of a whole population?</p>
+
+        <div class="sampling-layout">
+          <div class="mini-grid" aria-label="5 by 5 habitat grid">
+            {gridCells.map((cell) => <span>{cell}</span>)}
+          </div>
+          <div class="sample-tool">
+            <div><small>ROUND 1 — SPREAD OUT</small><output id="sample-round-1" aria-live="polite">— — — — —</output><button type="button" id="generate-round-1">Choose 5 random squares</button></div>
+            <div><small>ROUND 2 — SAME POPULATION, CLUSTERED</small><output id="sample-round-2" aria-live="polite">— — — — —</output><button type="button" id="generate-round-2" disabled>Choose 5 new squares</button></div>
+          </div>
+        </div>
+
+        <ol class="simple-procedure">
+          <li>Spread your counters across the 5 × 5 habitat grid. <strong>Do not count the total yet.</strong></li>
+          <li>Choose five random squares. Count only the counters in those squares and estimate the whole population.</li>
+          <li>Now count every counter and compare your estimate with the true total.</li>
+          <li>Without adding or removing counters, move many into a cluster. Choose five new random squares and estimate again.</li>
+          <li>Compare the two estimates. Discuss why the same population can give different sample results.</li>
+        </ol>
+        <div class="simple-formula"><strong>Simple estimate:</strong><span>average number in sampled squares × 25 squares</span></div>
+        <button type="button" class="small-button secondary" id="print-mission4-packet">Print sampling grid + Ecosystem Change Record</button>
+      </section>
+
+      <section class="investigation-block population-block">
+        <div class="block-title"><div><small>CLASS 2</small><h3>Your Population Case</h3></div><span>TEAM WORK</span></div>
+        <p>For your continent, use only <strong>two graphs + two field notes</strong>. Look for a pattern that fits the evidence.</p>
+
+        <div class="no-continent" id="no-continent"><strong>Mission 1 continent not found.</strong><a href={`${base}courses/grade-7-science/jabberwocky/phase-1/mission-1/`}>Return to Mission 1 →</a></div>
+        <div id="population-files" hidden>
+          {missionCases.map((item) => (
+            <article class="population-file" data-population={item.id} hidden>
+              <header><span aria-hidden="true">{item.icon}</span><div><small>{item.name} · {item.baseCamp}</small><h3>{item.focalSpecies}</h3><p>{item.caseIntro}</p></div></header>
+              <div class="graph-grid">
+                {item.series.map((series) => (
+                  <JcecPopulationGraph title={series.label} unit={series.unit} labels={item.timeLabels} values={series.values} />
+                ))}
+              </div>
+              <div class="field-notes">
+                {item.evidence.map((note, index) => <article><b>{index + 1}</b><div><strong>{note.source}</strong><p>{note.observation}</p></div></article>)}
+              </div>
+              <div class="quick-thought"><strong>Quick team thought</strong><span>What changed? What evidence makes you think that?</span></div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="investigation-block recovery-block">
+        <div class="block-title"><div><small>CLASS 3</small><h3>Disturbance and Recovery</h3></div><span>TEAM WORK</span></div>
+        <p>Now look at a damaged area on the same continent. Is it recovering? Compare change over time with a nearby less-disturbed area.</p>
+
+        <div id="recovery-files" hidden>
+          {missionCases.map((item) => (
+            <article class="recovery-file" data-recovery={item.id} hidden>
+              <div class="disturbance-card"><small>WHAT HAPPENED?</small><p>{item.disturbance}</p></div>
+              <div class="recovery-timeline">
+                {item.recoveryStages.map((stage) => (
+                  <article><small>{stage.day}</small><strong>{stage.livingCover}% living cover</strong><span>{stage.speciesRichness} species found</span><p>{stage.observation}</p></article>
+                ))}
+                <article class="reference-card"><small>NEARBY LESS-DISTURBED AREA</small><strong>{item.reference.livingCover}% living cover</strong><span>{item.reference.speciesRichness} species found</span><p>{item.reference.description}</p></article>
+              </div>
+              <div class="recovery-prompts"><span>What is improving?</span><span>What has not recovered yet?</span></div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="investigation-block earth-block">
+        <div class="block-title"><div><small>CLASS 4</small><h3>Earth Connection</h3></div><span>TEAM WORK</span></div>
+        <p>Your teacher will give your class one real local environmental case with a few short source cards. This is a quick connection to the ecosystems around us—not another report.</p>
+        <ol class="earth-steps">
+          <li>Look at the photo, map or data your teacher provides.</li>
+          <li>Find <strong>one sign that the ecosystem is changing</strong>.</li>
+          <li>Identify <strong>one condition or human action</strong> that may matter.</li>
+          <li>Read the local and Indigenous/community source cards your teacher provides. Record only what the sources actually say.</li>
+          <li>Discuss one helpful action and one thing scientists should keep monitoring.</li>
+        </ol>
+        <div class="source-rule"><strong>Source rule</strong><span>Do not invent or generalize an Indigenous perspective. Use the specific source your teacher provides and describe what it actually says.</span></div>
+        <p class="no-extra-report">No extra JCEC submission is needed for this Earth connection.</p>
+      </section>
+    </section>
+
+    <section class="simple-step" id="decide">
+      <div class="step-heading"><span>4</span><div><p>CLASS 4</p><h2>Make a Decision</h2></div></div>
+      <div class="decision-card">
+        <p class="mini-label">ONE TEAM QUESTION</p>
+        <h3>What is the best overall description of your continent right now?</h3>
+        <div class="decision-choices">
+          <span>🌱 <strong>Mostly recovering</strong></span>
+          <span>⚖️ <strong>Mixed — some recovery, some concern</strong></span>
+          <span>⚠️ <strong>Reason for concern</strong></span>
+        </div>
+        <div class="reasoning-frame"><strong>Claim</strong><span>Choose the description that fits.</span><strong>Evidence 1</strong><span>Use population evidence.</span><strong>Evidence 2</strong><span>Use recovery evidence.</span><strong>Explanation</strong><span>Explain why the evidence supports your claim.</span></div>
+      </div>
+    </section>
+
+    <section class="simple-step" id="record">
+      <div class="step-heading"><span>5</span><div><p>CLASS 4</p><h2>Record It</h2></div></div>
+      <div class="handoff-strip"><span>👥 <strong>TEAM WORK</strong> discuss</span><i>→</i><span>📝 <strong>TEAM RECORD</strong> one record</span><i>→</i><span>💭 <strong>MY REFLECTION</strong> everyone answers</span></div>
+
+      <form class="team-record" id="mission4-record-form">
+        <div class="record-heading"><div><p class="mini-label">TEAM RECORD</p><h3>Ecosystem Change Record</h3></div><span>ONE PER TEAM</span></div>
+        <p>This is the only team product for Mission 4.</p>
+
+        <fieldset class="claim-options">
+          <legend>Our claim</legend>
+          <label><input type="radio" name="mission4-claim" value="Mostly recovering" required /> Mostly recovering</label>
+          <label><input type="radio" name="mission4-claim" value="Mixed — some recovery, some concern" required /> Mixed — some recovery, some concern</label>
+          <label><input type="radio" name="mission4-claim" value="Reason for concern" required /> Reason for concern</label>
+        </fieldset>
+
+        <label>Evidence 1 — population evidence<textarea id="mission4-evidence-1" maxlength="220" placeholder="Use a graph value, trend, or field note." required></textarea></label>
+        <label>Evidence 2 — recovery evidence<textarea id="mission4-evidence-2" maxlength="220" placeholder="Use a change from Day 1 to Day 55 or compare with the less-disturbed area." required></textarea></label>
+        <label>Explanation<textarea id="mission4-explanation" maxlength="300" placeholder="How do these two pieces of evidence support your claim?" required></textarea></label>
+        <label>What should scientists keep monitoring?<input id="mission4-monitor" maxlength="160" placeholder="One population or environmental condition" required /></label>
+        <div class="record-actions"><button type="submit" class="primary-button">Save Team Record</button><button type="button" class="small-button secondary" id="copy-mission4-record">Copy Team Record</button></div>
+        <p class="save-status" id="mission4-save-status" role="status"></p>
+      </form>
+
+      <div class="reflection-card">
+        <p class="mini-label">MY REFLECTION</p>
+        <h3>Which piece of evidence changed your thinking the most? Why?</h3>
+        <p>Everyone answers this question individually in the place your teacher uses for reflections.</p>
+      </div>
+
+      <details class="online-submit">
+        <summary>Did your teacher tell one person to submit the Team Record online?</summary>
+        <div><p>Use the same Ecosystem Change Record. Put your claim in the decision box, use the two evidence items as evidence, and use your explanation as the reasoning. Do not create another report.</p><a href={portalUrl} target="_blank" rel="noopener noreferrer">Open JCEC submission portal ↗</a></div>
+      </details>
+
+      <div class="finished-box">
+        <strong>Mission 4 is finished when:</strong>
+        <span>✓ your team has one Ecosystem Change Record with a claim, two pieces of evidence and an explanation</span>
+        <span>✓ you answered the short reflection</span>
+        <p>Mission 5 stays locked until your teacher is ready.</p>
+      </div>
+    </section>
+
+    <section class="print-packet" aria-label="Mission 4 printable sampling grid and Ecosystem Change Record">
+      <section class="print-page">
+        <h1>Mission 4 — Population Sampling</h1>
+        <p>Team: ________________________________ &nbsp; Date: ____________</p>
+        <div class="print-habitat-grid">{gridCells.map((cell) => <div>{cell}</div>)}</div>
+        <table><thead><tr><th></th><th>5 sample squares</th><th>Counts</th><th>Average</th><th>Estimate × 25</th><th>True total</th></tr></thead><tbody><tr><th>Round 1</th><td></td><td></td><td></td><td></td><td></td></tr><tr><th>Round 2</th><td></td><td></td><td></td><td></td><td>same</td></tr></tbody></table>
+        <p><strong>Why did the estimates change even though the population stayed the same?</strong></p><div class="print-lines"></div>
+      </section>
+      <section class="print-page">
+        <h1>Mission 4 — Ecosystem Change Record</h1>
+        <p>Continent: ________________________________ &nbsp; Team: ________________________________</p>
+        <p><strong>Our claim:</strong> ☐ Mostly recovering &nbsp; ☐ Mixed &nbsp; ☐ Reason for concern</p>
+        <p><strong>Evidence 1 — population:</strong></p><div class="print-lines"></div>
+        <p><strong>Evidence 2 — recovery:</strong></p><div class="print-lines"></div>
+        <p><strong>Explanation:</strong></p><div class="print-lines tall"></div>
+        <p><strong>What should scientists keep monitoring?</strong></p><div class="print-lines"></div>
+      </section>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ caseData: missionCases }}>
+    (() => {
+      const POSTING_KEY = 'jabberwocky-phase1-posting';
+      const RECORD_KEY = 'jabberwocky-mission4-record';
+      const cases = Object.fromEntries(caseData.map((item) => [item.id, item]));
+      const savedPosting = localStorage.getItem(POSTING_KEY);
+      const item = savedPosting ? cases[savedPosting] : null;
+
+      const assignmentResult = document.getElementById('assignment-result');
+      const missingAssignment = document.getElementById('missing-assignment');
+      const noContinent = document.getElementById('no-continent');
+      const populationFiles = document.getElementById('population-files');
+      const recoveryFiles = document.getElementById('recovery-files');
+
+      if (item) {
+        assignmentResult.hidden = false;
+        missingAssignment.hidden = true;
+        document.getElementById('assignment-icon').textContent = item.icon;
+        document.getElementById('assignment-name').textContent = item.name;
+        document.getElementById('assignment-environment').textContent = `${item.baseCamp} · ${item.environment}`;
+        document.getElementById('assignment-species').textContent = item.focalSpecies;
+        noContinent.hidden = true;
+        populationFiles.hidden = false;
+        recoveryFiles.hidden = false;
+        document.querySelectorAll('[data-population]').forEach((el) => el.hidden = el.dataset.population !== savedPosting);
+        document.querySelectorAll('[data-recovery]').forEach((el) => el.hidden = el.dataset.recovery !== savedPosting);
+      } else {
+        assignmentResult.hidden = true;
+        missingAssignment.hidden = false;
+        noContinent.hidden = false;
+        populationFiles.hidden = true;
+        recoveryFiles.hidden = true;
+      }
+
+      const randomFive = () => {
+        const numbers = Array.from({ length: 25 }, (_, index) => index + 1);
+        for (let i = numbers.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+        }
+        return numbers.slice(0, 5).sort((a, b) => a - b);
+      };
+
+      const round1 = document.getElementById('sample-round-1');
+      const round2 = document.getElementById('sample-round-2');
+      const round2Button = document.getElementById('generate-round-2');
+      document.getElementById('generate-round-1')?.addEventListener('click', () => {
+        round1.textContent = randomFive().join(' · ');
+        round2Button.disabled = false;
+      });
+      round2Button?.addEventListener('click', () => {
+        round2.textContent = randomFive().join(' · ');
+      });
+
+      document.getElementById('print-mission4-packet')?.addEventListener('click', () => {
+        document.body.classList.add('print-mission4-packet');
+        window.print();
+      });
+      window.addEventListener('afterprint', () => document.body.classList.remove('print-mission4-packet'));
+
+      const form = document.getElementById('mission4-record-form');
+      const status = document.getElementById('mission4-save-status');
+      const readRecord = () => ({
+        continent: item?.name ?? '',
+        claim: form?.querySelector('input[name="mission4-claim"]:checked')?.value ?? '',
+        evidence1: document.getElementById('mission4-evidence-1')?.value?.trim() ?? '',
+        evidence2: document.getElementById('mission4-evidence-2')?.value?.trim() ?? '',
+        explanation: document.getElementById('mission4-explanation')?.value?.trim() ?? '',
+        monitor: document.getElementById('mission4-monitor')?.value?.trim() ?? ''
+      });
+
+      const storageKey = `${RECORD_KEY}:${savedPosting ?? 'unassigned'}`;
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+        if (saved) {
+          const claim = form?.querySelector(`input[name="mission4-claim"][value="${CSS.escape(saved.claim || '')}"]`);
+          if (claim) claim.checked = true;
+          document.getElementById('mission4-evidence-1').value = saved.evidence1 || '';
+          document.getElementById('mission4-evidence-2').value = saved.evidence2 || '';
+          document.getElementById('mission4-explanation').value = saved.explanation || '';
+          document.getElementById('mission4-monitor').value = saved.monitor || '';
+        }
+      } catch {}
+
+      form?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+        localStorage.setItem(storageKey, JSON.stringify(readRecord()));
+        status.textContent = 'Team Record saved on this device.';
+      });
+
+      document.getElementById('copy-mission4-record')?.addEventListener('click', async () => {
+        const record = readRecord();
+        const text = `Mission 4 — Ecosystem Change Record\nContinent: ${record.continent}\nClaim: ${record.claim}\nEvidence 1: ${record.evidence1}\nEvidence 2: ${record.evidence2}\nExplanation: ${record.explanation}\nKeep monitoring: ${record.monitor}`;
+        try {
+          await navigator.clipboard.writeText(text);
+          status.textContent = 'Team Record copied.';
+        } catch {
+          status.textContent = 'Copy was blocked. Use the saved answers above.';
+        }
+      });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(body){background:#06111f}.mission-shell{max-width:1050px;margin:0 auto;padding:0 1rem 5rem;color:#eaf5ff}.mission-shell :global(.breadcrumbs){color:#9eb6c4}.mission-shell :global(.breadcrumbs a){color:#d7ecf5}:global(body:has(#simplified-mission-4) .jcec-submission-dock),:global(body:has(#simplified-mission-4) .jcec-device-tools){display:none!important}.eyebrow,.mini-label{margin:0;color:#74e9cb;font:850 .73rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}.mission-hero{display:grid;grid-template-columns:1fr 255px;gap:1.25rem;align-items:end;margin:.8rem 0 1rem;padding:clamp(1.35rem,4vw,2.25rem);border:1px solid #2d6070;border-radius:22px;background:radial-gradient(circle at 82% 18%,rgba(110,242,207,.14),transparent 26%),linear-gradient(145deg,#071727,#0a2939)}.mission-hero h1{margin:.45rem 0;color:#fff;font-size:clamp(2.35rem,6vw,4.8rem);line-height:.9;letter-spacing:-.05em}.mission-hero h1 span{display:block;color:#6ef2cf}.question{margin:.8rem 0 0;color:#d5e8ef;font-size:1.25rem;font-weight:750}.mission-hero aside{display:grid;gap:.18rem;padding:.9rem;border:1px solid #315b69;border-radius:13px;background:#071923}.mission-hero aside span{color:#7ed7c4;font-size:.68rem;font-weight:900;letter-spacing:.08em}.mission-hero aside strong{color:#fff}.mission-hero aside small{color:#95adba}.step-nav{position:sticky;top:.55rem;z-index:20;display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem;margin:1rem 0;padding:.4rem;border:1px solid #294958;border-radius:13px;background:rgba(6,22,32,.96);backdrop-filter:blur(8px)}.step-nav a{display:flex;gap:.4rem;align-items:center;padding:.55rem;border-radius:9px;color:#afc4cf;text-decoration:none;font-size:.78rem;font-weight:850}.step-nav a:hover{background:#0d3040;color:#fff}.step-nav b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#163444;color:#9dc0ce}.simple-step{margin:1rem 0;padding:clamp(1rem,3vw,1.45rem);scroll-margin-top:5.2rem;border:1px solid #244a5a;border-radius:18px;background:#081b28}.step-heading{display:flex;gap:.7rem;align-items:center;margin-bottom:.9rem}.step-heading>span{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:12px;background:#6ef2cf;color:#05231c;font-size:1.2rem;font-weight:950}.step-heading p{margin:0;color:#74e9cb;font-size:.68rem;font-weight:900;letter-spacing:.08em}.step-heading h2{margin:.12rem 0;color:#fff;font-size:1.55rem}.briefing{max-width:790px;padding:1rem 1.1rem;border-left:3px solid #6ef2cf;background:#0a2630}.briefing p{margin:0;color:#c6d9e1;font-size:1rem;line-height:1.65}.assignment-box,.decision-card,.team-record,.reflection-card,.finished-box{margin-top:1rem;padding:1rem;border:1px solid #2b5362;border-radius:13px;background:#071722}.assignment-result{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;padding:.8rem;border:1px solid #397467;border-radius:11px;background:#0b2927}.assignment-result>span{font-size:1.6rem}.assignment-result small,.species-box small{display:block;color:#8fb2b8;font-size:.64rem;font-weight:850;letter-spacing:.07em}.assignment-result strong{color:#fff;font-size:1.08rem}.assignment-result p{margin:.12rem 0 0;color:#a9c2ca;font-size:.82rem}.species-box{text-align:right}.species-box b{display:block;margin-top:.2rem;color:#8ff0d4;font-size:.84rem}.missing-assignment,.no-continent{padding:.8rem;border:1px dashed #4b6877;border-radius:10px;color:#b9cdd5}.missing-assignment strong,.no-continent strong{color:#fff}.missing-assignment p{margin:.25rem 0 .55rem}.missing-assignment a,.no-continent a{color:#8eead3}.step-intro{color:#aac1cb}.science-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem}.science-grid article{padding:.85rem;border:1px solid #294b58;border-radius:11px;background:#071620}.science-grid article>span{display:block;margin-bottom:.35rem;font-size:1.25rem}.science-grid strong{color:#fff}.science-grid p{margin:.22rem 0 0;color:#aabfc9;font-size:.82rem;line-height:1.45}.help-box{margin-top:.7rem;border:1px solid #2c5360;border-radius:10px;background:#071923}.help-box summary{padding:.75rem .85rem;color:#d5e7ee;font-weight:800;cursor:pointer}.help-box div{padding:0 .85rem .8rem;color:#aabfc9}.help-box p{margin:.2rem 0;line-height:1.5}.investigation-block{margin:.8rem 0;padding:1rem;border:1px solid #2d4e5d;border-radius:14px;background:#071721}.block-title{display:flex;justify-content:space-between;gap:.8rem;align-items:center;margin-bottom:.6rem}.block-title small{color:#78d8c2;font-size:.68rem;font-weight:900;letter-spacing:.07em}.block-title h3{margin:.16rem 0;color:#fff;font-size:1.25rem}.block-title>span{padding:.3rem .5rem;border-radius:999px;background:#143a34;color:#9de5d2;font-size:.65rem;font-weight:900}.investigation-block>p{color:#afc4cd;line-height:1.55}.sampling-layout{display:grid;grid-template-columns:280px 1fr;gap:.8rem;align-items:stretch}.mini-grid{display:grid;grid-template-columns:repeat(5,1fr);aspect-ratio:1;border:2px solid #456c79;background:#0a2330}.mini-grid span{display:grid;place-items:center;border:1px solid #35515e;color:#b8d0d9;font:800 .75rem ui-monospace,SFMono-Regular,Menlo,monospace}.sample-tool{display:grid;gap:.7rem}.sample-tool>div{display:grid;gap:.4rem;padding:.8rem;border:1px solid #305361;border-radius:10px;background:#0a1e29}.sample-tool small{color:#77d9c1;font-weight:900;letter-spacing:.06em}.sample-tool output{color:#fff;font:900 1.2rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em}.sample-tool button,.small-button,.primary-button{padding:.68rem .8rem;border:0;border-radius:9px;font:inherit;font-size:.8rem;font-weight:900;cursor:pointer}.sample-tool button,.primary-button{background:#6ef2cf;color:#05231c}.sample-tool button:disabled{background:#24434a;color:#789099;cursor:not-allowed}.secondary{background:#173545;color:#bfe2eb;border:1px solid #365a69}.simple-procedure,.earth-steps{margin:.8rem 0 0;padding-left:1.4rem;color:#b8cdd6}.simple-procedure li,.earth-steps li{margin:.48rem 0;line-height:1.5}.simple-formula{display:flex;gap:.6rem;align-items:center;margin-top:.8rem;padding:.75rem;border:1px solid #3b685f;border-radius:10px;background:#0a2926}.simple-formula strong{color:#9ff0dc}.simple-formula span{color:#d6e9e5}.population-file>header{display:flex;gap:.7rem;align-items:flex-start;padding:.7rem;border:1px solid #345965;border-radius:10px;background:#0a202b}.population-file>header>span{font-size:1.4rem}.population-file header small{color:#82b7bd}.population-file header h3{margin:.12rem 0;color:#fff}.population-file header p{margin:.2rem 0;color:#b7ccd5;line-height:1.5}.graph-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.7rem}.field-notes{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-top:.7rem}.field-notes article{display:flex;gap:.65rem;padding:.75rem;border:1px solid #2f4f5c;border-radius:10px;background:#0a1c26}.field-notes b{display:grid;place-items:center;flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:#173c43;color:#9ee5d2}.field-notes strong{color:#fff;font-size:.85rem}.field-notes p{margin:.2rem 0 0;color:#a9c0ca;font-size:.82rem;line-height:1.45}.quick-thought{display:flex;justify-content:space-between;gap:.7rem;margin-top:.7rem;padding:.7rem;border-left:3px solid #6ef2cf;background:#0a252d}.quick-thought strong{color:#fff}.quick-thought span{color:#b7ccd5}.disturbance-card{padding:.8rem;border-left:3px solid #e1b95e;background:#2a2518}.disturbance-card small{color:#efca74;font-weight:900;letter-spacing:.06em}.disturbance-card p{margin:.3rem 0 0;color:#e5d9b9;line-height:1.5}.recovery-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin-top:.7rem}.recovery-timeline article{display:grid;gap:.2rem;padding:.75rem;border:1px solid #31505d;border-radius:10px;background:#091a24}.recovery-timeline small{color:#76d7bf;font-weight:900}.recovery-timeline strong{color:#fff}.recovery-timeline span{color:#a8c1ca;font-size:.78rem}.recovery-timeline p{margin:.25rem 0 0;color:#9fb5bf;font-size:.8rem;line-height:1.42}.recovery-timeline .reference-card{border-color:#486e65;background:#0b2927}.recovery-prompts{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.7rem}.recovery-prompts span{padding:.7rem;border-radius:9px;background:#102a32;color:#cce1e7;font-weight:800}.earth-block{border-color:#42655f}.source-rule{display:flex;gap:.7rem;align-items:flex-start;margin-top:.8rem;padding:.75rem;border:1px solid #526b75;border-radius:10px;background:#0a202a}.source-rule strong{color:#fff;white-space:nowrap}.source-rule span{color:#b7cbd3;line-height:1.45}.no-extra-report{margin:.7rem 0 0!important;color:#8de5ce!important;font-weight:800}.decision-card h3{margin:.2rem 0 .8rem;color:#fff;font-size:1.35rem}.decision-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}.decision-choices span{padding:.75rem;border:1px solid #355765;border-radius:10px;background:#0a202a;color:#c8dce3}.decision-choices strong{display:block;margin-top:.2rem;color:#fff}.reasoning-frame{display:grid;grid-template-columns:auto 1fr;gap:.45rem .7rem;margin-top:.75rem;padding:.8rem;border:1px solid #3b625c;border-radius:10px;background:#0a2827}.reasoning-frame strong{color:#8ff0d4}.reasoning-frame span{color:#c4d9df}.handoff-strip{display:flex;justify-content:center;gap:.55rem;align-items:center;flex-wrap:wrap;padding:.7rem;border:1px solid #2c4d5a;border-radius:10px;background:#071720;color:#afc5ce;font-size:.8rem}.handoff-strip strong{color:#fff}.handoff-strip i{color:#5f7e89}.record-heading{display:flex;justify-content:space-between;gap:.8rem;align-items:center}.record-heading h3{margin:.2rem 0;color:#fff}.record-heading>span{padding:.3rem .5rem;border-radius:999px;background:#153b34;color:#a1e4d3;font-size:.65rem;font-weight:900}.team-record>p{color:#9fb7c1}.team-record label{display:grid;gap:.3rem;margin-top:.7rem;color:#c9dce3;font-size:.82rem;font-weight:800}.team-record textarea,.team-record input[type="text"],.team-record input:not([type]){box-sizing:border-box;width:100%;padding:.72rem;border:1px solid #3b5967;border-radius:9px;background:#06151e;color:#fff;font:inherit;font-size:.86rem}.team-record textarea{min-height:76px;resize:vertical}.claim-options{display:grid;gap:.45rem;margin:.75rem 0;padding:.75rem;border:1px solid #355765;border-radius:10px}.claim-options legend{padding:0 .35rem;color:#8fe7d1;font-weight:900}.claim-options label{display:flex;gap:.5rem;align-items:center;margin:0;padding:.5rem;border-radius:8px;background:#0a202a;color:#d0e1e7}.record-actions{display:flex;gap:.55rem;margin-top:.8rem}.save-status{min-height:1.2em;margin:.45rem 0 0!important;color:#91e7d0!important;font-size:.8rem}.reflection-card h3{margin:.3rem 0;color:#fff}.reflection-card p:last-child{margin:.35rem 0 0;color:#9fb6c0}.online-submit{margin-top:.8rem;border:1px solid #2e4e5c;border-radius:10px;background:#071923}.online-submit summary{padding:.75rem;color:#bed0d7;font-weight:800;cursor:pointer}.online-submit div{padding:0 .8rem .8rem;color:#a9bdc6}.online-submit a{color:#8fe8d1}.finished-box{display:grid;gap:.35rem;border-color:#3a7466;background:#0b2827}.finished-box strong{color:#8ff2d6}.finished-box span{color:#c8ddd8}.finished-box p{margin:.3rem 0 0;color:#8ba7a3}.print-packet{display:none}
+  @media(max-width:780px){.mission-hero{grid-template-columns:1fr}.science-grid{grid-template-columns:1fr 1fr}.sampling-layout,.graph-grid{grid-template-columns:1fr}.mini-grid{max-width:320px}.recovery-timeline{grid-template-columns:1fr 1fr}.decision-choices{grid-template-columns:1fr}.assignment-result{grid-template-columns:auto 1fr}.species-box{grid-column:1/-1;text-align:left}.field-notes{grid-template-columns:1fr}.quick-thought{display:grid}}
+  @media(max-width:560px){.mission-shell{padding-inline:.7rem}.mission-hero h1{font-size:2.7rem}.step-nav{grid-template-columns:repeat(5,88px);overflow-x:auto}.step-nav a{display:grid;justify-items:center;text-align:center}.science-grid,.recovery-timeline,.recovery-prompts{grid-template-columns:1fr}.block-title{align-items:flex-start}.source-rule{display:grid}.record-actions{display:grid}.record-actions button{width:100%}}
+  @media print{
+    body.print-mission4-packet *{visibility:hidden!important}body.print-mission4-packet .print-packet,body.print-mission4-packet .print-packet *{visibility:visible!important}.print-packet{display:block}.print-packet{position:absolute;inset:0;background:#fff;color:#000}.print-page{box-sizing:border-box;min-height:10in;padding:.35in;page-break-after:always}.print-page:last-child{page-break-after:auto}.print-page h1{margin:0 0 .18in;font:700 20pt Arial}.print-page p{font:11pt Arial}.print-habitat-grid{display:grid;grid-template-columns:repeat(5,1fr);width:6.5in;height:6.5in;border:2px solid #000}.print-habitat-grid div{display:grid;place-items:center;border:1px solid #777;font:700 11pt Arial}.print-page table{width:100%;margin-top:.2in;border-collapse:collapse;font:9pt Arial}.print-page th,.print-page td{height:.45in;border:1px solid #555;padding:.05in}.print-lines{height:.55in;border-bottom:1px solid #777;background:repeating-linear-gradient(to bottom,transparent 0,transparent .25in,#ddd .26in)}.print-lines.tall{height:1.2in}}
+</style>
