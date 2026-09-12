@@ -1,0 +1,30 @@
+---
+interface Props {
+  active?: number;
+  compact?: boolean;
+}
+
+const { active = 1, compact = false } = Astro.props;
+const missions = [
+  { number: 1, short: 'Resource', title: 'Find the Living Resource' },
+  { number: 2, short: 'Growth', title: 'Keep It Growing' },
+  { number: 3, short: 'Growing Zone', title: 'Build the Growing Zone' },
+  { number: 4, short: 'Variety', title: 'Choose the Next Generation' },
+  { number: 5, short: 'Sustainable Use', title: 'Use It Without Losing It' }
+];
+---
+
+<nav class:list={['phase2-progress', { compact }]} aria-label="Phase 2 mission progress">
+  {missions.map((mission) => (
+    <div class:list={['phase2-step', { current: mission.number === active, done: mission.number < active, future: mission.number > active }]} aria-current={mission.number === active ? 'step' : undefined}>
+      <span class="mission-number">{mission.number}</span>
+      <span class="mission-copy"><strong>{mission.short}</strong>{!compact && <small>{mission.title}</small>}</span>
+    </div>
+  ))}
+</nav>
+
+<style>
+  .phase2-progress{display:grid;grid-template-columns:repeat(5,1fr);gap:.45rem;margin:1rem 0 1.4rem}.phase2-step{position:relative;display:flex;gap:.5rem;align-items:center;min-width:0;padding:.65rem;border:1px solid #365746;border-radius:11px;background:#0b1914;color:#9db7a9}.phase2-step:not(:last-child)::after{content:'→';position:absolute;right:-.39rem;z-index:2;color:#607968;font-weight:900}.mission-number{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:#183527;color:#b7cfbf;font-size:.78rem;font-weight:900}.mission-copy{display:grid;min-width:0}.mission-copy strong{color:inherit;font-size:.82rem;white-space:nowrap}.mission-copy small{margin-top:.08rem;color:#819989;font-size:.67rem;line-height:1.25}.phase2-step.current{border-color:#9fd56b;background:#17301e;color:#f2ffe6}.phase2-step.current .mission-number{background:#b7e77d;color:#18320d}.phase2-step.current .mission-copy strong{color:#d9ffb2}.phase2-step.done{border-color:#4f7457;background:#11251a;color:#bee4c7}.phase2-step.done .mission-number{background:#28533a;color:#d8fbe3}.compact .mission-copy small{display:none}
+  @media(max-width:900px){.phase2-progress{grid-template-columns:repeat(5,minmax(105px,1fr));overflow-x:auto;padding-bottom:.3rem}.phase2-step{min-width:105px}.mission-copy small{display:none}}
+  @media(max-width:560px){.phase2-progress{grid-template-columns:repeat(5,94px)}.phase2-step{display:grid;justify-items:center;text-align:center;padding:.55rem .35rem}.mission-copy strong{font-size:.7rem;white-space:normal}.phase2-step:not(:last-child)::after{display:none}}
+</style>
