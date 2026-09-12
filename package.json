@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/audit-jabberwocky-phase1.mjs && astro build",
+    "build": "node scripts/audit-jabberwocky-phase1.mjs && node scripts/audit-jabberwocky-phase2.mjs && astro build",
     "audit:jabberwocky-phase1": "node scripts/audit-jabberwocky-phase1.mjs",
+    "audit:jabberwocky-phase2": "node scripts/audit-jabberwocky-phase2.mjs",
     "audit:grade6": "node scripts/audit-grade6.mjs",
     "audit:grade7": "node scripts/audit-grade7-prototype.mjs",
     "audit:grade7-unit1": "node scripts/audit-grade7-unit1.mjs && node --experimental-strip-types scripts/audit-grade7-unit1-content.ts && node scripts/audit-grade7-unit1-links.mjs",
