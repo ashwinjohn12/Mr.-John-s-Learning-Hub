@@ -1,0 +1,313 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecPhase2Progress from '../../../../../../components/JcecPhase2Progress.astro';
+import { phase2PlantSites } from '../../../../../../data/jabberwockyPhase2';
+
+const base = import.meta.env.BASE_URL;
+
+const growthEvidence: Record<string, { focus: string; clues: Array<{ process: string; evidence: string; challenge: string }> }> = {
+  gyre: {
+    focus: 'Cold temperatures and a short growing season make timing especially important.',
+    clues: [
+      { process: 'Water uptake', evidence: 'Skyroot grows in thin pockets of mountain soil that can dry quickly between rain or snowmelt.', challenge: 'Roots need access to enough liquid water even when conditions are cold.' },
+      { process: 'Photosynthesis', evidence: 'The warm growing season is brief, but summer light can be strong.', challenge: 'The plant has limited time to capture light and make enough food for growth.' },
+      { process: 'Germination', evidence: 'Seeds remain inactive through the cold season and begin growing after soils warm.', challenge: 'Starting too early could expose young plants to freezing conditions.' },
+      { process: 'Reproduction', evidence: 'Skyroot flowers open quickly during the warmest part of summer.', challenge: 'Humans would need a growing schedule that still allows flowering and seed production.' }
+    ]
+  },
+  brillig: {
+    focus: 'Brillig has abundant water, but light, drainage and nutrient movement can still limit growth.',
+    clues: [
+      { process: 'Photosynthesis', evidence: 'Dense forest vegetation creates deep shade below the canopy.', challenge: 'Cultivated plants still need enough light to make food.' },
+      { process: 'Water uptake', evidence: 'Heavy rain keeps soil wet for long periods.', challenge: 'More water is not always better; growing areas need a way to avoid permanently flooded roots.' },
+      { process: 'Transport', evidence: 'Frequent rainfall can move dissolved materials through shallow soils quickly.', challenge: 'Plants need water and dissolved materials to remain available to their roots.' },
+      { process: 'Reproduction', evidence: 'Rainspout Tree flowers and fruit are normally part of a busy canopy community.', challenge: 'A growing system must still allow successful flowering, pollination and seed production.' }
+    ]
+  },
+  manxome: {
+    focus: 'Storms, wind and salt exposure make reliable water balance difficult on the islands.',
+    clues: [
+      { process: 'Osmosis / water uptake', evidence: 'Coastal soils can receive salty spray during storms.', challenge: 'Too much salt can make it harder for roots to take in water.' },
+      { process: 'Transpiration', evidence: 'Strong ocean winds move across exposed islands.', challenge: 'Wind can increase water loss from leaves even when the air is not very hot.' },
+      { process: 'Germination', evidence: 'Young Storm Palms establish best in sheltered patches after storms.', challenge: 'Seedlings need enough fresh water and protection while roots develop.' },
+      { process: 'Reproduction', evidence: 'Fruits can float between islands.', challenge: 'Humans must plan how to grow the plant without accidentally spreading it into sensitive areas.' }
+    ]
+  },
+  'slithy-toves': {
+    focus: 'Water availability is the main challenge, and extra irrigation could also create salt problems.',
+    clues: [
+      { process: 'Osmosis / water uptake', evidence: 'Fresh water is scarce and surface soil is often extremely dry.', challenge: 'Roots need enough available water for cells to stay hydrated.' },
+      { process: 'Transpiration', evidence: 'Hot days and intense sunlight can increase water loss from leaves and stems.', challenge: 'Humans would need to reduce unnecessary water loss.' },
+      { process: 'Germination', evidence: 'Reservoir Thorn seeds often begin growing soon after rare rainfall.', challenge: 'Seeds need the right moisture at the right time.' },
+      { process: 'Water balance', evidence: 'Repeated irrigation can leave salts behind as water evaporates.', challenge: 'Adding more water could solve one problem while creating a new growing problem.' }
+    ]
+  },
+  wabe: {
+    focus: 'Cold temperature and a very short growing season limit when growth and reproduction can happen.',
+    clues: [
+      { process: 'Water uptake', evidence: 'Only a shallow surface layer of soil thaws during the growing season.', challenge: 'Roots can use liquid water only where the ground has thawed.' },
+      { process: 'Photosynthesis', evidence: 'Summer days are long, but temperatures stay cool.', challenge: 'Light may be available while low temperature still slows overall growth.' },
+      { process: 'Germination', evidence: 'Ember Moss seeds begin growing only after the surface layer warms.', challenge: 'A protected growing space could extend the time seedlings can grow.' },
+      { process: 'Reproduction', evidence: 'The plant flowers and produces seed rapidly during midsummer.', challenge: 'Any human growing plan must leave enough time for the whole life cycle.' }
+    ]
+  },
+  bandersnatch: {
+    focus: 'Conditions are favourable, but water timing and seasonal change still matter.',
+    clues: [
+      { process: 'Photosynthesis', evidence: 'Open prairie provides strong light through a long growing season.', challenge: 'Light is rarely the main limitation for Goldstem Grain.' },
+      { process: 'Water uptake', evidence: 'Fresh water is available, but windy periods can dry the upper soil.', challenge: 'Young plants need reliable moisture while roots are small.' },
+      { process: 'Transpiration', evidence: 'Persistent prairie winds move air across narrow leaves.', challenge: 'Plants can lose water quickly during warm, windy periods.' },
+      { process: 'Germination / reproduction', evidence: 'Seeds survive the cold season and germinate when spring conditions improve.', challenge: 'Humans need to match planting and harvesting to the seasonal life cycle.' }
+    ]
+  },
+  gimble: {
+    focus: 'Ironwood has access to water, but young trees compete strongly for light and grow slowly.',
+    clues: [
+      { process: 'Photosynthesis', evidence: 'Dense forest canopy creates shaded ground below mature trees.', challenge: 'Young Ironwood needs enough light to make food and grow.' },
+      { process: 'Transport', evidence: 'Mature trees move water from large roots through tall woody stems to broad leaves.', challenge: 'A growing system must supply enough water for a large plant over many years.' },
+      { process: 'Germination', evidence: 'Seedlings establish most successfully in openings where light reaches the forest floor.', challenge: 'Planting location can affect whether a seedling survives its first years.' },
+      { process: 'Reproduction', evidence: 'Ironwood takes many years before it produces large numbers of seeds.', challenge: 'Slow reproduction means harvested trees cannot be replaced quickly.' }
+    ]
+  },
+  mimsy: {
+    focus: 'Water is abundant, but waterlogged, nutrient-poor conditions create a different set of limits.',
+    clues: [
+      { process: 'Water uptake', evidence: 'Floatroot grows in saturated mud and shallow water.', challenge: 'Humans do not need to add much water, but they must keep water levels suitable.' },
+      { process: 'Photosynthesis / gas exchange', evidence: 'Leaves float or rise above the water surface.', challenge: 'Leaves need access to light and air even when roots are in flooded ground.' },
+      { process: 'Transport', evidence: 'Wetland soils contain relatively few available nutrients.', challenge: 'Plants still need dissolved materials for growth even when water is plentiful.' },
+      { process: 'Reproduction', evidence: 'Flowers rise above the water and seeds can float to new areas.', challenge: 'A contained growing system may be needed if humans want to control where new plants establish.' }
+    ]
+  }
+};
+---
+
+<BaseLayout title="Mission 2: Keep It Growing | Jabberwocky 2190" description="Phase 2 Mission 2: investigate plant needs, transport, photosynthesis, growth and reproduction." themeColor="#0b1c16">
+  <div class="mission-shell" id="phase2-mission2">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 2', href: `${base}courses/grade-7-science/jabberwocky/phase-2/` },
+      { label: 'Mission 2' }
+    ]} />
+
+    <JcecPhase2Progress active={2} compact={true} />
+
+    <header class="mission-hero">
+      <div>
+        <p class="eyebrow">PHASE 2 // MISSION 2 OF 5</p>
+        <h1>KEEP IT <span>GROWING</span></h1>
+        <p class="question">What does a plant need to grow and reproduce?</p>
+      </div>
+      <aside>
+        <span>YOU ARE LEARNING</span>
+        <strong>How plants get, move and use what they need</strong>
+        <small>4 classes × 45 minutes</small>
+      </aside>
+    </header>
+
+    <section class="mission-at-a-glance" aria-label="Mission 2 at a glance">
+      <div><small>WHERE AM I?</small><strong>Mission 2 of 5</strong></div>
+      <div><small>WHAT DO I HAND IN?</small><strong>1 Plant Growth Requirements Card + 1 reflection</strong></div>
+      <div><small>WHAT KEEPS RUNNING?</small><strong>Your Growth Trial continues for about 7–10 days. Quick checks are evidence, not new assignments.</strong></div>
+    </section>
+
+    <nav class="step-nav" aria-label="Mission 2 steps">
+      <a href="#your-mission"><b>1</b><span>Your Mission</span></a>
+      <a href="#learn"><b>2</b><span>Learn</span></a>
+      <a href="#investigate"><b>3</b><span>Investigate</span></a>
+      <a href="#decide"><b>4</b><span>Decide</span></a>
+      <a href="#record"><b>5</b><span>Record It</span></a>
+    </nav>
+
+    <section class="simple-step" id="your-mission">
+      <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
+      <div class="briefing"><p>Finding a useful plant does not mean humans know how to keep it alive. JCEC needs your team to learn what plants need, how water and materials move through them, how they make food, and how new plants begin. You will grow Earth plants under two conditions, then use that evidence to decide which growing condition humans must control most carefully on your Jabberwocky continent.</p></div>
+
+      <div class="assignment-result" id="assignment-result" hidden>
+        <span id="assignment-icon" aria-hidden="true"></span>
+        <div><small>YOUR CONTINENT</small><strong id="assignment-name"></strong><p id="assignment-environment"></p></div>
+        <div class="plant-badge"><small>RESOURCE PLANT</small><b id="assignment-plant"></b></div>
+      </div>
+      <div class="missing-assignment" id="missing-assignment" hidden>
+        <strong>Your Phase 2 posting is not saved on this device yet.</strong>
+        <p>Return to the Phase 2 Hub and choose the continent your teacher assigned.</p>
+        <a href={`${base}courses/grade-7-science/jabberwocky/phase-2/`}>Get Phase 2 posting →</a>
+      </div>
+    </section>
+
+    <section class="simple-step" id="learn">
+      <div class="step-heading"><span>2</span><div><p>CLASSES 1–3</p><h2>Learn the Science</h2></div></div>
+      <p class="step-intro">Six science words, but only three jobs to remember.</p>
+
+      <div class="process-story">
+        <article>
+          <div class="process-title"><span>1</span><div><small>JOB 1</small><h3>GET MATERIALS</h3></div></div>
+          <div class="term"><strong>Diffusion</strong><p>Particles spread from an area where there are more of them toward an area where there are fewer.</p></div>
+          <div class="term"><strong>Osmosis</strong><p>Water moves across a cell membrane toward an area with less available water.</p></div>
+          <p class="why">Plants use these kinds of movement as water and dissolved materials enter and move between cells.</p>
+        </article>
+        <article>
+          <div class="process-title"><span>2</span><div><small>JOB 2</small><h3>MOVE WATER & MATERIALS</h3></div></div>
+          <div class="term"><strong>Conduction / transport</strong><p>Water and dissolved materials move from roots through internal transport tissues toward stems and leaves.</p></div>
+          <div class="term"><strong>Transpiration</strong><p>Water leaves the plant from leaf surfaces as water vapour.</p></div>
+          <p class="why">Water entering roots, moving upward and leaving leaves is part of one connected pathway.</p>
+        </article>
+        <article>
+          <div class="process-title"><span>3</span><div><small>JOB 3</small><h3>MAKE FOOD & EXCHANGE GASES</h3></div></div>
+          <div class="term"><strong>Photosynthesis</strong><p>Plants use light, water and carbon dioxide to make food. Oxygen is released.</p></div>
+          <div class="term"><strong>Gas exchange</strong><p>Carbon dioxide can enter leaves and oxygen can leave through tiny openings.</p></div>
+          <p class="formula">light + water + carbon dioxide → food + oxygen</p>
+        </article>
+      </div>
+
+      <div class="life-cycle">
+        <p class="mini-label">MAKING THE NEXT GENERATION</p>
+        <div class="cycle-row"><span>🌰 <strong>Seed</strong></span><i>→</i><span>🌱 <strong>Germination</strong></span><i>→</i><span>🪴 <strong>Seedling</strong></span><i>→</i><span>🌿 <strong>Mature plant</strong></span><i>→</i><span>🌼 <strong>Flowers / seeds</strong></span></div>
+        <p><strong>Propagation</strong> means making new plants. Seeds are one method; some plants can also start from cuttings, runners or other plant parts.</p>
+      </div>
+
+      <details class="help-box">
+        <summary>Learn More: what are the plant's transport tubes?</summary>
+        <div><p>Plants have specialized tissues that move water, minerals and sugars. You may hear the words <strong>xylem</strong> and <strong>phloem</strong>. For this mission, you only need the bigger idea: materials move through transport tissues inside the plant.</p></div>
+      </details>
+    </section>
+
+    <section class="simple-step" id="investigate">
+      <div class="step-heading"><span>3</span><div><p>CLASSES 1–4 + QUICK CHECKS</p><h2>Investigate</h2></div></div>
+
+      <section class="investigation-block">
+        <div class="block-title"><div><small>CLASS 1</small><h3>JCEC Growth Trial</h3></div><span>TEAM WORK</span></div>
+        <p><strong>Question:</strong> What changes when one important growing condition changes?</p>
+        <div class="trial-design"><div><small>CONTROL</small><strong>Normal growing conditions</strong></div><div><small>CHANGED CONDITION</small><strong>Your teacher chooses one condition for the whole class</strong></div></div>
+
+        <label class="condition-picker" for="trial-condition"><span>Record the condition your teacher chose:</span><select id="trial-condition"><option value="">Choose the teacher-assigned condition…</option><option>Reduced water</option><option>Mild salinity</option><option>Reduced light</option><option>Other teacher-assigned condition</option></select></label>
+        <p class="save-status" id="condition-status" aria-live="polite"></p>
+
+        <ol class="simple-procedure">
+          <li>Label two growing containers: <strong>CONTROL</strong> and <strong>CHANGED</strong>.</li>
+          <li>Use the same seed type, number of seeds and growing medium in both.</li>
+          <li>Give the control normal conditions. Change only the condition your teacher assigned in the second container.</li>
+          <li>Place both containers where your teacher directs and record the starting setup.</li>
+          <li>On observation days, spend only <strong>3–5 minutes</strong> recording germination, height, leaf number and visible health.</li>
+        </ol>
+        <div class="fair-test"><strong>Fair test:</strong><span>Change one condition. Keep the other important conditions as similar as possible.</span></div>
+        <div class="background-note"><strong>🌱 Your plants keep growing after today's class.</strong><span>Quick observations are evidence for this mission and Mission 3. They are not separate assignments or submissions.</span></div>
+        <button type="button" class="small-button" id="print-phase2-mission2">Print Growth Trial sheet + Team Record</button>
+      </section>
+
+      <section class="investigation-block demo-block">
+        <div class="block-title"><div><small>CLASS 2 · SHORT TEACHER DEMO</small><h3>Watch Water Move</h3></div><span>5–10 MIN</span></div>
+        <p>Your teacher may place a cut stem or celery stalk in coloured water. Watch for colour moving upward. This is a quick model of <strong>transport through the plant</strong>—not another lab to hand in.</p>
+      </section>
+
+      <section class="investigation-block continent-block">
+        <div class="block-title"><div><small>CLASS 4</small><h3>What Will Work on Your Continent?</h3></div><span>TEAM WORK</span></div>
+        <p>Use the Earth Growth Trial, then read only four clues about your resource plant. Look for a connection between a <strong>plant process → environmental condition → growing challenge</strong>.</p>
+        <div class="no-continent" id="no-continent"><strong>Phase 2 continent not found.</strong><a href={`${base}courses/grade-7-science/jabberwocky/phase-2/`}>Return to Phase 2 Hub →</a></div>
+        <div id="continent-files" hidden>
+          {phase2PlantSites.map((site) => {
+            const evidence = growthEvidence[site.id];
+            return (
+              <article class="continent-file" data-continent-file={site.id} hidden>
+                <header><span>{site.icon}</span><div><small>{site.name} · {site.baseCamp}</small><h3>{site.plant.name}</h3><p>{evidence.focus}</p></div></header>
+                <div class="clue-grid">
+                  {evidence.clues.map((clue, index) => <article><b>{index + 1}</b><small>{clue.process}</small><strong>{clue.evidence}</strong><p><span>GROWING CHALLENGE:</span> {clue.challenge}</p></article>)}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    </section>
+
+    <section class="simple-step" id="decide">
+      <div class="step-heading"><span>4</span><div><p>CLASS 4</p><h2>Make a Decision</h2></div></div>
+      <div class="decision-card">
+        <p class="mini-label">ONE TEAM QUESTION</p>
+        <h3>Which growing condition will humans need to control most carefully on your continent?</h3>
+        <div class="reasoning-frame"><div><strong>EARTH EVIDENCE</strong><span>When ______ changed, ______ changed.</span></div><div><strong>WHAT IT SUGGESTS</strong><span>This suggests the plant needs ______.</span></div><div><strong>JABBERWOCKY CONNECTION</strong><span>On our continent, this matters because ______.</span></div></div>
+        <p class="decision-note">Use the evidence you have now. You do not need a full CER.</p>
+      </div>
+    </section>
+
+    <section class="simple-step" id="record">
+      <div class="step-heading"><span>5</span><div><p>CLASS 4</p><h2>Record It</h2></div></div>
+      <div class="handoff-strip"><span>👥 <strong>TEAM WORK</strong> discuss</span><i>→</i><span>📝 <strong>TEAM RECORD</strong> one card</span><i>→</i><span>💭 <strong>MY REFLECTION</strong> everyone answers</span></div>
+
+      <div class="team-record">
+        <div class="record-heading"><div><p class="mini-label">TEAM RECORD</p><h3>Plant Growth Requirements Card</h3></div><span>ONE PER TEAM</span></div>
+        <p>Your card needs only these seven pieces.</p>
+        <div class="profile-checklist"><label><input type="checkbox" /> continent</label><label><input type="checkbox" /> resource plant</label><label><input type="checkbox" /> most important growing condition</label><label><input type="checkbox" /> Growth Trial evidence</label><label><input type="checkbox" /> one important plant process</label><label><input type="checkbox" /> one growth/reproduction requirement</label><label><input type="checkbox" /> how this applies to the continent</label></div>
+      </div>
+
+      <div class="reflection-card"><p class="mini-label">MY REFLECTION</p><h3>Which plant process surprised you most, and why does the plant need it?</h3><p>Everyone answers this question individually.</p></div>
+
+      <div class="finished-box"><strong>Mission 2 is finished when:</strong><span>✓ your team has one Plant Growth Requirements Card</span><span>✓ you completed the short individual reflection</span><p>Keep the Growth Trial growing if your teacher tells you to. Later observations will become evidence for Mission 3.</p><a href={`${base}courses/grade-7-science/jabberwocky/phase-2/`}>Return to Phase 2 Mission Hub →</a></div>
+    </section>
+
+    <section class="print-packet" aria-label="Phase 2 Mission 2 printable packet">
+      <section class="print-page">
+        <h1>Phase 2 · Mission 2 — JCEC Growth Trial</h1>
+        <p>Team: ____________________________ &nbsp; Changed condition: ____________________________</p>
+        <p><strong>Fair test:</strong> Change one condition. Keep the other important conditions as similar as possible.</p>
+        <table><thead><tr><th>Date / Day</th><th>Control: germination</th><th>Control: height</th><th>Control: leaves + health</th><th>Changed: germination</th><th>Changed: height</th><th>Changed: leaves + health</th></tr></thead><tbody>{['Start','Check 1','Check 2','Check 3','Final check'].map((label) => <tr><th>{label}</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>)}</tbody></table>
+        <p><strong>What changed most between the control and changed condition?</strong></p><div class="writing-lines"></div>
+      </section>
+      <section class="print-page page-break">
+        <h1>Plant Growth Requirements Card</h1>
+        <p>Continent: ____________________________ &nbsp; Resource plant: ____________________________</p>
+        <div class="print-grid two"><div><strong>Most important growing condition</strong></div><div><strong>One important plant process</strong></div></div>
+        <div class="print-grid two"><div><strong>Growth Trial evidence</strong></div><div><strong>One growth / reproduction requirement</strong></div></div>
+        <p><strong>How this applies to our continent</strong></p><div class="writing-lines tall"></div>
+        <p><strong>Reasoning:</strong> When __________ changed, __________ changed. This suggests the plant needs __________. On our continent, this matters because __________.</p><div class="writing-lines tall"></div>
+        <p><strong>MY REFLECTION:</strong> Which plant process surprised you most, and why does the plant need it?</p><div class="writing-lines tall"></div>
+      </section>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ siteData: phase2PlantSites }}>
+    (() => {
+      const POSTING_KEY = 'jabberwocky-phase2-posting';
+      const CONDITION_KEY = 'jabberwocky-phase2-growth-condition';
+      const sites = Object.fromEntries(siteData.map((site) => [site.id, site]));
+      const saved = localStorage.getItem(POSTING_KEY);
+      const site = saved ? sites[saved] : null;
+      const assignment = document.getElementById('assignment-result');
+      const missing = document.getElementById('missing-assignment');
+      const noContinent = document.getElementById('no-continent');
+      const continentFiles = document.getElementById('continent-files');
+
+      if (site) {
+        assignment.hidden = false; missing.hidden = true; noContinent.hidden = true; continentFiles.hidden = false;
+        document.getElementById('assignment-icon').textContent = site.icon;
+        document.getElementById('assignment-name').textContent = site.name;
+        document.getElementById('assignment-environment').textContent = site.previousTeamBriefing.environment;
+        document.getElementById('assignment-plant').textContent = site.plant.name;
+        document.querySelectorAll('[data-continent-file]').forEach((el) => el.hidden = el.dataset.continentFile !== saved);
+      } else {
+        assignment.hidden = true; missing.hidden = false; noContinent.hidden = false; continentFiles.hidden = true;
+      }
+
+      const picker = document.getElementById('trial-condition');
+      const status = document.getElementById('condition-status');
+      const savedCondition = localStorage.getItem(CONDITION_KEY);
+      if (savedCondition) picker.value = savedCondition;
+      picker?.addEventListener('change', () => {
+        if (picker.value) { localStorage.setItem(CONDITION_KEY, picker.value); status.textContent = `✓ Growth Trial condition saved: ${picker.value}`; }
+        else { localStorage.removeItem(CONDITION_KEY); status.textContent = ''; }
+      });
+
+      document.getElementById('print-phase2-mission2')?.addEventListener('click', () => { document.body.classList.add('print-phase2-mission2'); window.print(); });
+      window.addEventListener('afterprint', () => document.body.classList.remove('print-phase2-mission2'));
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+:global(body){background:#07120e}.mission-shell{max-width:1050px;margin:0 auto;padding:0 1rem 5rem;color:#edf8ef}.mission-shell :global(.breadcrumbs){color:#9eb4a5}.mission-shell :global(.breadcrumbs a){color:#d9eadc}:global(body:has(#phase2-mission2) .jcec-submission-dock),:global(body:has(#phase2-mission2) .jcec-device-tools){display:none!important}.eyebrow,.mini-label{margin:0;color:#a8e779;font:850 .73rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}.mission-hero{display:grid;grid-template-columns:1fr 255px;gap:1.25rem;align-items:end;margin:.8rem 0 1rem;padding:clamp(1.35rem,4vw,2.25rem);border:1px solid #416448;border-radius:22px;background:radial-gradient(circle at 82% 18%,rgba(183,231,125,.14),transparent 26%),linear-gradient(145deg,#081711,#15351f)}.mission-hero h1{margin:.45rem 0;color:#fff;font-size:clamp(2.6rem,7vw,5.1rem);line-height:.9;letter-spacing:-.05em}.mission-hero h1 span{display:block;color:#b7e77d}.question{margin:.8rem 0 0;color:#d4e3d7;font-size:1.2rem;font-weight:750}.mission-hero aside{display:grid;gap:.18rem;padding:.9rem;border:1px solid #45644c;border-radius:13px;background:#0b1c13}.mission-hero aside span{color:#a7d883;font-size:.68rem;font-weight:900;letter-spacing:.08em}.mission-hero aside strong{color:#fff}.mission-hero aside small{color:#9eb4a4}.mission-at-a-glance{display:grid;grid-template-columns:.7fr 1fr 1.5fr;gap:.55rem;margin:1rem 0}.mission-at-a-glance div{display:grid;gap:.22rem;padding:.75rem;border:1px solid #365243;border-radius:10px;background:#0b1b13}.mission-at-a-glance small{color:#91b170;font-size:.62rem;font-weight:900;letter-spacing:.07em}.mission-at-a-glance strong{color:#eaf5eb;font-size:.82rem;line-height:1.35}.step-nav{position:sticky;top:.55rem;z-index:20;display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem;margin:1rem 0;padding:.4rem;border:1px solid #365443;border-radius:13px;background:rgba(7,23,15,.96);backdrop-filter:blur(8px)}.step-nav a{display:flex;gap:.4rem;align-items:center;padding:.55rem;border-radius:9px;color:#adc0b0;text-decoration:none;font-size:.78rem;font-weight:850}.step-nav a:hover{background:#173020;color:#fff}.step-nav b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#1b3928;color:#c2d4c5}.simple-step{margin:1rem 0;padding:clamp(1rem,3vw,1.45rem);scroll-margin-top:5.2rem;border:1px solid #355343;border-radius:18px;background:#0b1b13}.step-heading{display:flex;gap:.7rem;align-items:center;margin-bottom:.9rem}.step-heading>span{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:12px;background:#b7e77d;color:#18320d;font-size:1.2rem;font-weight:950}.step-heading p{margin:0;color:#a8e779;font-size:.68rem;font-weight:900;letter-spacing:.08em}.step-heading h2{margin:.12rem 0;color:#fff;font-size:1.55rem}.briefing{max-width:790px;padding:1rem 1.1rem;border-left:3px solid #b7e77d;background:#13271b}.briefing p{margin:0;color:#c6d5ca;font-size:1rem;line-height:1.62}.assignment-result{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;margin-top:1rem;padding:.85rem;border:1px solid #507458;border-radius:12px;background:#11291a}.assignment-result>span{font-size:1.6rem}.assignment-result small,.plant-badge small{display:block;color:#93b078;font-size:.63rem;font-weight:900;letter-spacing:.07em}.assignment-result strong{color:#fff;font-size:1.08rem}.assignment-result p{margin:.12rem 0 0;color:#a7bca9;font-size:.82rem}.plant-badge{text-align:right}.plant-badge b{display:block;margin-top:.18rem;color:#d7ffae}.missing-assignment{margin-top:1rem;padding:.85rem;border:1px dashed #52695a;border-radius:10px;color:#b2c5b5}.missing-assignment strong{color:#fff}.missing-assignment p{margin:.3rem 0 .55rem}.missing-assignment a,.no-continent a{color:#b8e894}.step-intro{color:#a9bdad}.process-story{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem}.process-story>article{padding:.9rem;border:1px solid #385443;border-radius:12px;background:#09170f}.process-title{display:flex;gap:.55rem;align-items:center;margin-bottom:.6rem}.process-title>span{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;background:#b7e77d;color:#18320d;font-weight:950}.process-title small{color:#8fb570;font-size:.62rem;font-weight:900}.process-title h3{margin:.05rem 0;color:#fff;font-size:.95rem}.term{margin:.45rem 0;padding:.58rem;border-left:3px solid #456b4e;background:#102219}.term strong{color:#d6ffb5}.term p{margin:.18rem 0 0;color:#b2c5b5;font-size:.8rem;line-height:1.45}.why{margin:.55rem 0 0;color:#96aa9a;font-size:.78rem;line-height:1.45}.formula{padding:.5rem;border-radius:8px;background:#182d1e;color:#dfffc5;font-size:.78rem;font-weight:900;text-align:center}.life-cycle{margin-top:.8rem;padding:.9rem;border:1px solid #3d5c46;border-radius:12px;background:#0d1e14}.cycle-row{display:flex;gap:.4rem;align-items:center;justify-content:center;flex-wrap:wrap;margin:.55rem 0}.cycle-row span{padding:.45rem .55rem;border-radius:8px;background:#152a1c;color:#d8e6da;font-size:.82rem}.cycle-row i{color:#6f8b75}.life-cycle>p:last-child{margin:.35rem 0 0;color:#a9bdad;font-size:.82rem;line-height:1.45}.help-box{margin-top:.75rem;border:1px solid #3c5845;border-radius:10px;background:#09170f}.help-box summary{cursor:pointer;padding:.72rem .8rem;color:#cbe1cd;font-size:.84rem;font-weight:850}.help-box div{padding:0 .8rem .75rem}.help-box p{margin:.4rem 0;color:#aebfaf;line-height:1.45}.investigation-block{margin-top:.8rem;padding:1rem;border:1px solid #365343;border-radius:13px;background:#09170f}.block-title{display:flex;justify-content:space-between;gap:.8rem;align-items:start}.block-title small{color:#a8df7a;font-size:.66rem;font-weight:900}.block-title h3{margin:.12rem 0;color:#fff;font-size:1.2rem}.block-title>span{padding:.32rem .5rem;border-radius:999px;background:#23442e;color:#d6f5be;font-size:.68rem;font-weight:900}.investigation-block>p{color:#adc0b0;line-height:1.5}.trial-design{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin:.7rem 0}.trial-design div{padding:.7rem;border:1px solid #3d5945;border-radius:9px;background:#102018}.trial-design small{display:block;color:#97c074;font-size:.63rem;font-weight:900}.trial-design strong{display:block;margin-top:.2rem;color:#fff;font-size:.85rem}.condition-picker{display:grid;gap:.28rem;margin:.75rem 0}.condition-picker span{color:#c8d8cb;font-size:.82rem;font-weight:850}.condition-picker select{padding:.68rem;border:1px solid #4a6750;border-radius:8px;background:#102219;color:#fff;font:inherit}.save-status{min-height:1em;margin:.25rem 0;color:#b7e77d;font-size:.78rem}.simple-procedure{display:grid;gap:.48rem;padding-left:1.45rem;color:#c2d3c5;line-height:1.5}.fair-test,.background-note{display:flex;gap:.55rem;margin:.7rem 0;padding:.72rem;border-left:3px solid #b7e77d;background:#14261a;color:#d8e6da;font-size:.82rem}.background-note{display:grid;border-left-color:#75c9a0;background:#10251c}.background-note span,.fair-test span{color:#adc3b0}.small-button{display:inline-flex;align-items:center;justify-content:center;padding:.68rem .85rem;border:1px solid #526b59;border-radius:9px;background:#132b1d;color:#e1f0e3;font:inherit;font-size:.82rem;font-weight:900;cursor:pointer}.demo-block{border-style:dashed}.no-continent{display:flex;justify-content:space-between;gap:.7rem;align-items:center;padding:.8rem;border:1px dashed #506858;border-radius:9px;color:#b8cbbd}.continent-file header{display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:center}.continent-file header>span{font-size:1.65rem}.continent-file header small{color:#8fa995}.continent-file header h3{margin:.08rem 0;color:#fff;font-size:1.35rem}.continent-file header p{margin:.12rem 0 0;color:#b2c4b5;font-size:.82rem}.clue-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem;margin-top:.8rem}.clue-grid article{position:relative;padding:.78rem;border:1px solid #385242;border-radius:10px;background:#0b1a12}.clue-grid b{position:absolute;top:.55rem;right:.55rem;display:grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#24452e;color:#d6f5be;font-size:.7rem}.clue-grid small{display:block;color:#9bd173;font-size:.65rem;font-weight:900;text-transform:uppercase}.clue-grid strong{display:block;margin:.25rem 1.5rem .35rem 0;color:#fff;font-size:.84rem;line-height:1.42}.clue-grid p{margin:0;color:#a8bbaa;font-size:.78rem;line-height:1.42}.clue-grid p span{color:#d8e8da;font-weight:900}.decision-card,.team-record,.reflection-card,.finished-box{margin-top:1rem;padding:1rem;border:1px solid #3a5845;border-radius:13px;background:#09170f}.decision-card h3,.reflection-card h3{margin:.3rem 0 .7rem;color:#fff}.reasoning-frame{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}.reasoning-frame div{padding:.78rem;border:1px solid #4a684f;border-radius:10px;background:#10251a}.reasoning-frame strong{display:block;color:#b7e77d;font-size:.72rem}.reasoning-frame span{display:block;margin-top:.25rem;color:#b1c5b5;font-size:.82rem;line-height:1.45}.decision-note{margin:.65rem 0 0;color:#94a997;font-size:.8rem}.handoff-strip{display:flex;gap:.55rem;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:.8rem;padding:.7rem;border:1px solid #3a5544;border-radius:10px;background:#09160e;color:#b6c8b9;font-size:.8rem}.handoff-strip strong{color:#fff}.handoff-strip i{color:#617a67}.record-heading{display:flex;justify-content:space-between;align-items:start}.record-heading h3{margin:.2rem 0;color:#fff;font-size:1.25rem}.record-heading>span{padding:.3rem .45rem;border-radius:999px;background:#23442e;color:#d6f5be;font-size:.66rem;font-weight:900}.team-record>p{color:#9fb2a2}.profile-checklist{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}.profile-checklist label{padding:.55rem;border:1px solid #344e3d;border-radius:8px;background:#0d1d14;color:#c1d1c4;font-size:.82rem}.reflection-card{border-color:#52634b;background:#101d14}.reflection-card p:last-child{margin:.3rem 0 0;color:#a7baa9}.finished-box{display:grid;gap:.32rem;border-color:#527653;background:#10251a}.finished-box strong{color:#fff}.finished-box span{color:#c5ddc8}.finished-box p{margin:.25rem 0 0;color:#95ab98;font-size:.82rem}.finished-box a{width:max-content;max-width:100%;margin-top:.35rem;padding:.65rem .75rem;border-radius:8px;background:#b7e77d;color:#18320d!important;text-decoration:none;font-size:.8rem;font-weight:900}.print-packet{display:none}.print-page{color:#111;background:#fff}.print-page table{width:100%;border-collapse:collapse;margin:14px 0;font-size:9pt}.print-page th,.print-page td{height:46px;padding:5px;border:1px solid #333;text-align:left;vertical-align:top}.print-grid.two{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.25in 0}.print-grid>div{min-height:70px;padding:.5rem;border:1px solid #333}.writing-lines{height:65px;border-bottom:1px solid #555;background:repeating-linear-gradient(to bottom,transparent 0,transparent 27px,#aaa 28px)}.writing-lines.tall{height:95px}
+@media(max-width:820px){.mission-hero{grid-template-columns:1fr}.mission-at-a-glance,.process-story{grid-template-columns:1fr}.clue-grid{grid-template-columns:1fr 1fr}.reasoning-frame{grid-template-columns:1fr}.step-nav{grid-template-columns:repeat(5,88px);overflow-x:auto}.step-nav a{display:grid;justify-items:center;text-align:center}.profile-checklist{grid-template-columns:1fr}}
+@media(max-width:560px){.mission-shell{padding-inline:.7rem}.mission-hero h1{font-size:3rem}.clue-grid,.trial-design{grid-template-columns:1fr}.step-nav{position:static;grid-template-columns:1fr}.step-nav a{display:flex;text-align:left}.block-title{display:grid}.assignment-result{grid-template-columns:auto 1fr}.plant-badge{grid-column:1/-1;text-align:left}.fair-test{display:grid}.record-heading{display:grid}.finished-box a{width:100%;box-sizing:border-box;text-align:center}.cycle-row i{display:none}}
+@media print{body.print-phase2-mission2 *{visibility:hidden!important}body.print-phase2-mission2 .print-packet,body.print-phase2-mission2 .print-packet *{visibility:visible!important}body.print-phase2-mission2 .print-packet{display:block!important;position:absolute;inset:0;background:#fff}body.print-phase2-mission2 .print-page{padding:.3in;font:10.5pt Arial,sans-serif}body.print-phase2-mission2 .print-page h1{margin-top:0;font-size:18pt}.page-break{break-before:page;page-break-before:always}}
+</style>
