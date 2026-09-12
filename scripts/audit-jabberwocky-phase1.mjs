@@ -54,10 +54,11 @@ check(missions[3].includes('print-mission4-packet'), 'Mission 4 includes printab
 check(missions[3].includes('Ecosystem Change Record'), 'Mission 4 ends with Ecosystem Change Record');
 check(missions[3].includes('Do not invent or generalize an Indigenous perspective'), 'Mission 4 preserves authentic Indigenous-source safeguard');
 check(missions[3].includes('Population') && missions[3].includes('Succession'), 'Mission 4 includes population and succession science');
-check(missions[4].includes('print-mission5-packet'), 'Mission 5 includes printable Recommendation Board');
+const mission5Lower = missions[4].toLowerCase();
+check(missions[4].includes('print-mission5-board'), 'Mission 5 includes printable Recommendation Board');
 check(missions[4].includes('JCEC Recommendation Board'), 'Mission 5 ends with JCEC Recommendation Board');
 check(missions[4].includes('Introduced does not automatically mean invasive'), 'Mission 5 preserves introduced-versus-invasive evidence rule');
-check(missions[4].includes('local extinction') && missions[4].includes('global extinction'), 'Mission 5 includes local/global extinction concepts');
+check(mission5Lower.includes('local extinction') && mission5Lower.includes('global extinction'), 'Mission 5 includes local/global extinction concepts');
 for (const choice of ['Explore carefully','Explore with strong rules','Very limited exploration','Stop for now']) check(missions[4].includes(choice), `Mission 5 includes recommendation: ${choice}`);
 
 const nav = read('src/components/JcecSimplifiedMissionNavigation.astro');
