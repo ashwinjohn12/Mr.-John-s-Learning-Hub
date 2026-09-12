@@ -1,23 +1,60 @@
 <script is:inline>
   (() => {
     const path = window.location.pathname;
-    if (!/\/courses\/grade-7-science\/jabberwocky\/phase-1\/mission-1\/?$/.test(path)) return;
 
-    const finished = document.querySelector('#simplified-mission-1 .finished-box');
-    if (!finished || finished.querySelector('.next-simple-mission')) return;
+    if (/\/courses\/grade-7-science\/jabberwocky\/phase-1\/mission-1\/?$/.test(path)) {
+      const finished = document.querySelector('#simplified-mission-1 .finished-box');
+      if (!finished || finished.querySelector('.next-simple-mission')) return;
 
-    const note = finished.querySelector('p');
-    if (note) note.textContent = 'When your teacher is ready, continue to the next mission.';
+      const note = finished.querySelector('p');
+      if (note) note.textContent = 'When your teacher is ready, continue to the next mission.';
 
-    const link = document.createElement('a');
-    link.className = 'next-simple-mission';
-    link.href = '../mission-2/';
-    link.textContent = 'Next Mission → Meet a Native Species';
-    finished.append(link);
+      const link = document.createElement('a');
+      link.className = 'next-simple-mission';
+      link.href = '../mission-2/';
+      link.textContent = 'Next Mission → Meet a Native Species';
+      finished.append(link);
+      return;
+    }
+
+    if (!/\/courses\/grade-7-science\/jabberwocky\/phase-1\/mission-2\/?$/.test(path)) return;
+
+    const assignmentSpecies = document.getElementById('assignment-species');
+    const recordSpecies = document.getElementById('record-species');
+    const visibleSpeciesFile = [...document.querySelectorAll('#species-files [data-species]')].find((file) => !file.hidden);
+    const speciesHeading = visibleSpeciesFile?.querySelector('header h3');
+    const reconstructBox = visibleSpeciesFile?.querySelector('.reconstruct-box');
+    const actualName = recordSpecies?.value?.trim() || assignmentSpecies?.textContent?.trim() || speciesHeading?.textContent?.trim();
+
+    if (!actualName || !reconstructBox || reconstructBox.querySelector('.reveal-species-name')) return;
+
+    if (assignmentSpecies) assignmentSpecies.textContent = 'Evidence pending';
+    if (speciesHeading) speciesHeading.textContent = 'Unidentified Native Species';
+    if (recordSpecies) {
+      recordSpecies.dataset.speciesName = actualName;
+      recordSpecies.value = '';
+      recordSpecies.placeholder = 'Reveal the JCEC field name after studying the clues';
+    }
+
+    const revealWrap = document.createElement('div');
+    revealWrap.className = 'species-reveal-wrap';
+    revealWrap.innerHTML = '<span>Read and discuss all four clues first.</span><button type="button" class="reveal-species-name">Reveal JCEC field name</button>';
+    reconstructBox.append(revealWrap);
+
+    revealWrap.querySelector('.reveal-species-name')?.addEventListener('click', (event) => {
+      if (assignmentSpecies) assignmentSpecies.textContent = actualName;
+      if (speciesHeading) speciesHeading.textContent = actualName;
+      if (recordSpecies) recordSpecies.value = actualName;
+      const button = event.currentTarget;
+      button.textContent = `Field name: ${actualName}`;
+      button.disabled = true;
+      revealWrap.querySelector('span').textContent = 'Now use the name only as a label. Your adaptations still need evidence.';
+    });
   })();
 </script>
 
 <style is:global>
   .next-simple-mission{display:inline-flex;align-items:center;justify-content:center;width:max-content;max-width:100%;margin-top:.45rem;padding:.7rem .85rem;border-radius:9px;background:#6ef2cf;color:#05231c!important;text-decoration:none;font-size:.84rem;font-weight:900}.next-simple-mission:hover{filter:brightness(1.05);transform:translateY(-1px)}
-  @media(max-width:520px){.next-simple-mission{width:100%;box-sizing:border-box;text-align:center}}
+  .species-reveal-wrap{display:flex;justify-content:space-between;gap:.7rem;align-items:center;margin-top:.7rem;padding-top:.7rem;border-top:1px solid #35525f}.species-reveal-wrap span{color:#a9c0ca;font-size:.8rem}.reveal-species-name{padding:.6rem .75rem;border:0;border-radius:8px;background:#6ef2cf;color:#05231c;font:inherit;font-size:.8rem;font-weight:900;cursor:pointer;white-space:nowrap}.reveal-species-name:disabled{background:#17483d;color:#b9e7da;cursor:default}
+  @media(max-width:520px){.next-simple-mission{width:100%;box-sizing:border-box;text-align:center}.species-reveal-wrap{display:grid}.reveal-species-name{width:100%}}
 </style>
