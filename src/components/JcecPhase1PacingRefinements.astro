@@ -1,0 +1,126 @@
+<script is:inline>
+  (() => {
+    const path = window.location.pathname;
+    if (!path.includes('/courses/grade-7-science/jabberwocky/phase-1')) return;
+
+    const operationMatch = path.match(/\/phase-1\/operation-(\d{2})\/?$/);
+    const pacing = {
+      '02': { core: '2 × 45 min', ifTime: 'Repeat a sample or compare extra microhabitats.', extension: 'Add a second local field-site comparison.' },
+      '03': { core: '2 × 45 min', ifTime: 'Run a quick gallery critique of organism reconstructions.', extension: 'Polish the labelled field sketch or oral defence.' },
+      '04': { core: '2 × 45 min + 1 cycle checkpoint', ifTime: 'Do a short cross-continent relationship share.', extension: 'Expand Food Web V1 with extra justified links.' },
+      '05': { core: '2 × 45 min', ifTime: 'Peer-check another team’s CER before submission.', extension: 'Analyze an additional population dataset.' },
+      '06': { core: '2 × 45 min + 1 Earth Field Link', ifTime: 'Compare recovery patterns across continents.', extension: 'Design a more detailed restoration trial.' },
+      '07': { core: '3 × 45 min', ifTime: 'Run 30-second cross-continent incident briefings.', extension: 'Write a longer planetary-protection policy memo.' },
+      '08': { core: '3 × 45 min', ifTime: 'Add team presentations or peer critique.', extension: 'Turn the report into a polished public-facing product.' }
+    };
+
+    const addPacingBanner = (operation) => {
+      const info = pacing[operation];
+      const anchor = document.querySelector('.mission-question');
+      if (!info || !anchor || document.getElementById('jcec-five-week-operation-plan')) return;
+      const section = document.createElement('section');
+      section.id = 'jcec-five-week-operation-plan';
+      section.className = 'jcec-five-week-operation-plan';
+      section.innerHTML = `
+        <div class="jcec-five-week-heading">
+          <div><p>5-WEEK CORE PATH</p><strong>Operation ${operation} pacing</strong></div>
+          <span>${info.core}</span>
+        </div>
+        <div class="jcec-pacing-levels">
+          <div class="level-core"><b>CORE</b><span>Complete the mission route and required archive / reflection directions.</span></div>
+          <div class="level-time"><b>IF TIME</b><span>${info.ifTime}</span></div>
+          <div class="level-extension"><b>EXTENSION</b><span>${info.extension}</span></div>
+        </div>`;
+      anchor.insertAdjacentElement('afterend', section);
+    };
+
+    if (operationMatch) addPacingBanner(operationMatch[1]);
+
+    const isPhase1Hub = /\/jabberwocky\/phase-1\/?$/.test(path);
+    if (isPhase1Hub && !document.getElementById('jcec-five-week-plan')) {
+      const anchor = document.getElementById('jcec-collaboration-protocol') || document.querySelector('.mission-question');
+      if (anchor) {
+        const section = document.createElement('section');
+        section.id = 'jcec-five-week-plan';
+        section.className = 'jcec-five-week-plan';
+        section.innerHTML = `
+          <div class="jcec-plan-top"><div><p>MISSION TIMELINE // 5-WEEK PATH</p><h2>19 core classes + 6 flex classes</h2></div><span>45 MIN / DAY</span></div>
+          <p class="jcec-plan-intro">The mission is designed to finish the required Phase 1 science by about Day 19. The remaining six periods protect time for review, assessment, catch-up, reteaching, presentations, and school interruptions.</p>
+          <div class="jcec-week-grid">
+            <article><b>WEEK 1</b><strong>Arrival & First Contact</strong><span>Day 1: Op 01</span><span>Days 2–3: Op 02</span><span>Days 4–5: Op 03</span></article>
+            <article><b>WEEK 2</b><strong>Networks & Populations</strong><span>Days 6–7: Op 04</span><span>Day 8: Carbon + Water Cycles</span><span>Days 9–10: Op 05</span></article>
+            <article><b>WEEK 3</b><strong>Change & Human Impact</strong><span>Days 11–12: Op 06</span><span>Day 13: Earth Field Link 2</span><span>Days 14–15: Op 07</span></article>
+            <article><b>WEEK 4</b><strong>Incident & Final Report</strong><span>Day 16: finish Op 07</span><span>Days 17–19: Op 08</span><span>Day 20: flex / review</span></article>
+            <article><b>WEEK 5</b><strong>Flex & Assessment</strong><span>Days 21–25: catch-up, review, selected assessment, presentations, reteaching, or interruption buffer</span></article>
+          </div>
+          <div class="jcec-level-key"><span class="core">CORE = protect this time</span><span class="time">IF TIME = useful but skippable</span><span class="extension">EXTENSION = enrichment only</span></div>`;
+        anchor.insertAdjacentElement('afterend', section);
+      }
+    }
+
+    const isOperation04 = /\/operation-04\/?$/.test(path);
+    if (isOperation04 && !document.getElementById('planetary-cycles-checkpoint')) {
+      const archive = document.getElementById('archive');
+      if (archive) {
+        const cycles = document.createElement('section');
+        cycles.id = 'planetary-cycles-checkpoint';
+        cycles.className = 'jcec-curriculum-insert';
+        cycles.innerHTML = `
+          <div class="jcec-insert-heading"><div><p>CORE CURRICULUM CHECKPOINT // DAY 8</p><h2>Planetary Cycles: Carbon + Water</h2></div><span>1 × 45 MIN</span></div>
+          <p class="jcec-insert-lead"><strong>Energy flows. Matter cycles.</strong> Before leaving ecosystem networks, your team must trace how water and carbon move through living and non-living parts of an ecosystem.</p>
+          <div class="jcec-cycle-grid">
+            <article><b>WATER CYCLE</b><p>Trace: surface water / soil → evaporation or plant water loss → atmosphere → condensation → precipitation → soil / surface water → organisms.</p><p><strong>Question:</strong> How can water move through both abiotic and biotic parts of an ecosystem?</p></article>
+            <article><b>CARBON CYCLE</b><p>Trace: carbon dioxide → producer → consumer → respiration / waste / dead material → decomposers → carbon dioxide.</p><p><strong>Question:</strong> Where can carbon move without following a food-web arrow?</p></article>
+          </div>
+          <div class="jcec-cycle-task"><strong>Cycle Overlay Challenge</strong><ol><li>Use the back of Food Web V1 or a teacher-provided sheet.</li><li>Draw one water pathway with at least <strong>5 labelled steps</strong>.</li><li>Draw one carbon pathway with at least <strong>5 labelled steps</strong>.</li><li>Circle one place where decomposers matter.</li><li>Finish: <em>“Energy does not cycle the same way matter does because…”</em></li></ol></div>
+          <p class="jcec-no-submit"><strong>No extra JCEC Form submission.</strong> This is core science evidence, but it does not need another archive transmission unless your teacher requests one.</p>`;
+        archive.insertAdjacentElement('beforebegin', cycles);
+      }
+    }
+
+    const isOperation06 = /\/operation-06\/?$/.test(path);
+    if (isOperation06 && !document.getElementById('earth-field-link-2')) {
+      const archive = document.getElementById('archive');
+      if (archive) {
+        const field = document.createElement('section');
+        field.id = 'earth-field-link-2';
+        field.className = 'jcec-curriculum-insert earth-link';
+        field.innerHTML = `
+          <div class="jcec-insert-heading"><div><p>CORE EARTH FIELD LINK 2 // DAY 13</p><h2>Local Ecosystem Change Decision</h2></div><span>1 × 45 MIN</span></div>
+          <p class="jcec-insert-lead">Jabberwocky is the application world. This checkpoint brings the science back to a <strong>real local ecosystem or environmental issue</strong> selected by your teacher.</p>
+          <div class="jcec-earth-grid">
+            <article><b>1 // OBSERVE</b><p>Use a teacher-approved site, field evidence, photographs, maps, or monitoring data. Record at least two signs of ecological change or succession and one abiotic condition that could affect the site.</p></article>
+            <article><b>2 // COMPARE SOURCES</b><p>Use at least two credible sources supplied or approved by your teacher. One should be an <strong>authentic Indigenous source or knowledge perspective relevant to the place or issue</strong> when available.</p></article>
+            <article><b>3 // DECIDE</b><p>Identify one environmental problem or management question. Propose one action, one likely benefit, one possible unintended consequence, and one thing that should be monitored next.</p></article>
+          </div>
+          <div class="jcec-source-rule"><strong>Source rule:</strong> do not invent or generalize an Indigenous perspective. Use the specific source, community, organization, knowledge holder, or resource your teacher provides, and describe what that source actually says.</div>
+          <p class="jcec-no-submit"><strong>No extra JCEC Form submission.</strong> Keep the short Earth Field Link record in your class notes or Pathfinder Log. Your teacher may use it as evidence of local environmental understanding.</p>`;
+        archive.insertAdjacentElement('beforebegin', field);
+      }
+    }
+
+    const isOperation07 = /\/operation-07\/?$/.test(path);
+    if (isOperation07 && !document.getElementById('conservation-risk-checkpoint')) {
+      const archive = document.getElementById('archive');
+      if (archive) {
+        const risk = document.createElement('section');
+        risk.id = 'conservation-risk-checkpoint';
+        risk.className = 'jcec-curriculum-insert conservation-risk';
+        risk.innerHTML = `
+          <div class="jcec-insert-heading"><div><p>CORE CONSERVATION CHECKPOINT</p><h2>When does population pressure become extinction risk?</h2></div><span>15–20 MIN</span></div>
+          <div class="jcec-term-grid"><article><b>Endangered species</b><p>A species facing a serious risk of disappearing. Scientists need strong population, habitat, threat, and trend evidence before making that claim.</p></article><article><b>Local extinction</b><p>A species disappears from one particular area even though it still exists elsewhere.</p></article><article><b>Global extinction</b><p>A species disappears everywhere. The loss is permanent.</p></article></div>
+          <div class="jcec-risk-task"><strong>Use your continent evidence.</strong><ol><li>Choose one native species affected directly or indirectly by the incident.</li><li>Rate the current evidence: <strong>stable / concern / high concern / insufficient evidence</strong>.</li><li>Name two pieces of evidence supporting that rating.</li><li>Predict two food-web or habitat consequences if that species disappeared locally.</li><li>State what additional evidence JCEC would need before calling the species endangered.</li></ol></div>
+          <p class="jcec-no-submit"><strong>Keep the language cautious.</strong> A declining count or one bad season does not automatically prove extinction risk.</p>`;
+        archive.insertAdjacentElement('beforebegin', risk);
+      }
+    }
+  })();
+</script>
+
+<style is:global>
+  .jcec-five-week-operation-plan,.jcec-five-week-plan,.jcec-curriculum-insert{max-width:1120px;margin:1.2rem auto;padding:clamp(1rem,3vw,1.5rem);border:1px solid #315d73;border-radius:18px;background:linear-gradient(145deg,#071b29,#0b2733);color:#eaf5ff}.jcec-five-week-heading,.jcec-plan-top,.jcec-insert-heading{display:flex;justify-content:space-between;gap:1rem;align-items:start}.jcec-five-week-heading p,.jcec-plan-top p,.jcec-insert-heading p{margin:0;color:#74e9cb;font:800 .75rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}.jcec-five-week-heading strong{display:block;margin-top:.25rem;color:#fff;font-size:1.1rem}.jcec-five-week-heading>span,.jcec-plan-top>span,.jcec-insert-heading>span{padding:.45rem .6rem;border:1px solid #3e7078;border-radius:999px;color:#bde7e8;font:850 .72rem ui-monospace,SFMono-Regular,Menlo,monospace;white-space:nowrap}.jcec-pacing-levels{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.9rem}.jcec-pacing-levels>div{display:grid;gap:.25rem;padding:.7rem;border:1px solid #2d4d5e;border-radius:10px;background:#081823}.jcec-pacing-levels b{width:max-content;padding:.2rem .4rem;border-radius:6px;font-size:.68rem;letter-spacing:.06em}.jcec-pacing-levels span{color:#aac2cd;font-size:.8rem;line-height:1.4}.level-core b,.jcec-level-key .core{background:#153e34;color:#8df1d2}.level-time b,.jcec-level-key .time{background:#463b1c;color:#f1d578}.level-extension b,.jcec-level-key .extension{background:#17354b;color:#9ed5ff}
+  .jcec-plan-top h2,.jcec-insert-heading h2{margin:.3rem 0 0;color:#fff;font-size:clamp(1.4rem,3vw,2rem)}.jcec-plan-intro,.jcec-insert-lead{color:#bdd1dc;line-height:1.6}.jcec-week-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;margin-top:1rem}.jcec-week-grid article{display:grid;gap:.28rem;padding:.75rem;border:1px solid #2b4d5b;border-radius:11px;background:#081823}.jcec-week-grid b{color:#74e9cb;font-size:.72rem}.jcec-week-grid strong{color:#fff;font-size:.9rem}.jcec-week-grid span{color:#a9bec8;font-size:.77rem;line-height:1.35}.jcec-level-key{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}.jcec-level-key span{padding:.35rem .5rem;border-radius:7px;font-size:.72rem;font-weight:800}
+  .jcec-curriculum-insert{border-color:#4a756a;background:linear-gradient(145deg,#09232a,#0d3030)}.jcec-cycle-grid,.jcec-earth-grid,.jcec-term-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin-top:1rem}.jcec-cycle-grid article,.jcec-earth-grid article,.jcec-term-grid article{padding:.85rem;border:1px solid #315a5d;border-radius:11px;background:#071c24}.jcec-cycle-grid b,.jcec-earth-grid b,.jcec-term-grid b{color:#9ef1d7}.jcec-cycle-grid p,.jcec-earth-grid p,.jcec-term-grid p{margin:.35rem 0 0;color:#b9cdd6;line-height:1.5}.jcec-earth-grid{grid-template-columns:repeat(3,1fr)}.jcec-term-grid{grid-template-columns:repeat(3,1fr)}.jcec-cycle-task,.jcec-risk-task,.jcec-source-rule{margin-top:.8rem;padding:.85rem;border-left:3px solid #74e9cb;background:#0a282b;color:#d5e9e7}.jcec-cycle-task strong,.jcec-risk-task strong,.jcec-source-rule strong{color:#fff}.jcec-cycle-task ol,.jcec-risk-task ol{margin:.45rem 0 0;padding-left:1.25rem;line-height:1.55}.jcec-no-submit{margin:.8rem 0 0;padding:.7rem;border:1px solid #3f5c66;border-radius:9px;background:#081923;color:#b8cbd3;line-height:1.5}.conservation-risk{border-color:#765b42;background:linear-gradient(145deg,#21170e,#15232a)}.conservation-risk .jcec-insert-heading p{color:#f1cf87}.conservation-risk .jcec-insert-heading>span{border-color:#735f3a;color:#f1cf87}
+  @media(max-width:900px){.jcec-week-grid{grid-template-columns:1fr 1fr}.jcec-earth-grid,.jcec-term-grid{grid-template-columns:1fr}.jcec-pacing-levels{grid-template-columns:1fr}.jcec-cycle-grid{grid-template-columns:1fr}}
+  @media(max-width:620px){.jcec-five-week-heading,.jcec-plan-top,.jcec-insert-heading{display:grid}.jcec-week-grid{grid-template-columns:1fr}.jcec-five-week-heading>span,.jcec-plan-top>span,.jcec-insert-heading>span{width:max-content}}
+</style>
