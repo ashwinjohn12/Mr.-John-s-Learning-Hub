@@ -1,0 +1,307 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecPhase2Progress from '../../../../../../components/JcecPhase2Progress.astro';
+import { phase2PlantSites } from '../../../../../../data/jabberwockyPhase2';
+
+const base = import.meta.env.BASE_URL;
+
+type SelectionCase = {
+  challenge: string;
+  evidence: Array<{ label: string; evidence: string; meaning: string }>;
+  surprise: string;
+  helpful: string;
+};
+
+const selectionCases: Record<string, SelectionCase> = {
+  gyre: {
+    challenge: 'Short seasons favour cold-tolerant plants, but strong anchoring still matters on steep ground.',
+    evidence: [
+      { label: 'SEASON', evidence: 'Snow can remain late and the warm growing window is brief.', meaning: 'Cold tolerance or short-season growth could help plants finish their life cycle.' },
+      { label: 'STABILITY', evidence: 'Skyroot roots help hold thin soil on windy slopes.', meaning: 'Selecting only for fast growth could reduce a feature that keeps plants anchored.' },
+      { label: 'TRADE-OFF', evidence: 'The fastest-growing trial plants had shallower roots.', meaning: 'More growth is useful only if the plants still survive mountain conditions.' }
+    ],
+    surprise: 'An unusually cold, windy summer arrives two weeks earlier than expected.',
+    helpful: 'Cold tolerance, short-season growth and strong anchoring would all help.'
+  },
+  brillig: {
+    challenge: 'High production is attractive, but humid growing areas can spread disease quickly.',
+    evidence: [
+      { label: 'HUMIDITY', evidence: 'Warm, wet conditions keep leaves damp for long periods.', meaning: 'Disease resistance can matter as much as yield.' },
+      { label: 'PRODUCTION', evidence: 'Some Rainspout Trees produce more fruit and bark fibre than others.', meaning: 'Humans may want to favour high production.' },
+      { label: 'TRADE-OFF', evidence: 'Dense uniform plantings leave little space between similar plants.', meaning: 'A pest or disease can move quickly when many plants share the same weakness.' }
+    ],
+    surprise: 'A fungal leaf disease appears after several weeks of heavy rain.',
+    helpful: 'Disease/pest resistance and keeping some variety in the population would help.'
+  },
+  manxome: {
+    challenge: 'Useful production traits must not replace the storm and salt tolerance that keep Storm Palm alive.',
+    evidence: [
+      { label: 'STORMS', evidence: 'Plants with strong flexible stems survive severe winds more often.', meaning: 'Fibre/stem strength remains important even if humans want faster growth.' },
+      { label: 'SALT', evidence: 'Some palms tolerate salty spray better than others.', meaning: 'Salt tolerance can protect plants after coastal storms.' },
+      { label: 'TRADE-OFF', evidence: 'The highest-fruit plants in sheltered sites are not always the strongest in exposed sites.', meaning: 'High yield alone may not fit the whole continent.' }
+    ],
+    surprise: 'A severe storm pushes salt spray far inland and damages exposed young plants.',
+    helpful: 'Salt tolerance and strong flexible structure would help.'
+  },
+  'slithy-toves': {
+    challenge: 'Drought and salt tolerance are valuable, but high-yield plants may demand more scarce water.',
+    evidence: [
+      { label: 'WATER', evidence: 'Reservoir Thorn individuals differ in how long they stay healthy between rainfalls.', meaning: 'Drought tolerance could reduce irrigation demand.' },
+      { label: 'SALT', evidence: 'Some plants continue growing in saltier soil than others.', meaning: 'Salt tolerance could matter where irrigation leaves salts behind.' },
+      { label: 'TRADE-OFF', evidence: 'The plants producing the most seeds also use more water during growth.', meaning: 'Higher yield could make the water problem worse.' }
+    ],
+    surprise: 'A long dry period arrives and the freshwater supply is cut in half.',
+    helpful: 'Drought tolerance and lower water demand would help.'
+  },
+  wabe: {
+    challenge: 'Plants must finish quickly in a short season, but they also need enough cold tolerance for an unusual freeze.',
+    evidence: [
+      { label: 'TIMING', evidence: 'Some Ember Moss plants flower and set seed earlier than others.', meaning: 'Short-season growth could help complete reproduction.' },
+      { label: 'COLD', evidence: 'Some dense mats remain healthy after colder nights.', meaning: 'Cold tolerance still matters even during summer.' },
+      { label: 'TRADE-OFF', evidence: 'The fastest-growing plants lose more tissue during sudden cold snaps.', meaning: 'Rapid growth alone may reduce resilience.' }
+    ],
+    surprise: 'A late cold snap freezes the growing zone during flowering.',
+    helpful: 'Cold tolerance and short-season growth would help.'
+  },
+  bandersnatch: {
+    challenge: 'High yield is easy to value, but drought, pests and soil protection can decide whether a crop remains reliable.',
+    evidence: [
+      { label: 'YIELD', evidence: 'Some Goldstem Grain plants produce much larger seed heads.', meaning: 'High yield could provide more food from the same area.' },
+      { label: 'RESILIENCE', evidence: 'Other plants stay healthy longer during dry, windy periods.', meaning: 'Drought tolerance may protect production in difficult years.' },
+      { label: 'TRADE-OFF', evidence: 'Very uniform test plots were damaged by the same insect at nearly the same time.', meaning: 'Low variety can make one pest more damaging.' }
+    ],
+    surprise: 'A new insect pest arrives during a dry summer.',
+    helpful: 'Pest resistance, drought tolerance and variety would help.'
+  },
+  gimble: {
+    challenge: 'Faster Ironwood growth could shorten harvest time, but strength, longevity and pest resistance still matter.',
+    evidence: [
+      { label: 'GROWTH', evidence: 'Some young Ironwood trees add height more quickly.', meaning: 'Rapid growth could shorten the long production cycle.' },
+      { label: 'WOOD', evidence: 'Slower-growing trees often develop denser, stronger wood.', meaning: 'Selecting only for speed could reduce the resource quality humans want.' },
+      { label: 'TRADE-OFF', evidence: 'A few tree families show less damage from bark-boring insects.', meaning: 'Pest resistance could be important in a long-lived forest crop.' }
+    ],
+    surprise: 'A bark-boring insect spreads through the nursery.',
+    helpful: 'Pest resistance and maintaining strong, varied trees would help.'
+  },
+  mimsy: {
+    challenge: 'Floatroot must keep its wetland tolerance while humans also look for efficient production and nutrient use.',
+    evidence: [
+      { label: 'WATER', evidence: 'Some Floatroot plants remain healthy through deeper flooding.', meaning: 'Waterlogging tolerance fits the natural wetland system.' },
+      { label: 'NUTRIENTS', evidence: 'Some plants produce similar seed amounts with fewer added nutrients.', meaning: 'Nutrient efficiency could reduce the need to alter the wetland.' },
+      { label: 'TRADE-OFF', evidence: 'The highest-production plants spread new shoots beyond test containers more often.', meaning: 'Production plans also need containment and monitoring.' }
+    ],
+    surprise: 'Storms raise water levels and flood the growing zone for several days.',
+    helpful: 'Waterlogging tolerance, nutrient efficiency and containment would help.'
+  }
+};
+
+const starterPopulation = [
+  { id: 'A', traits: ['High yield', 'Pest resistance'] },
+  { id: 'B', traits: ['Drought tolerance', 'Fibre / stem strength'] },
+  { id: 'C', traits: ['Cold tolerance', 'Short-season growth'] },
+  { id: 'D', traits: ['Salt tolerance', 'Strong anchoring'] },
+  { id: 'E', traits: ['Rapid growth', 'High yield'] },
+  { id: 'F', traits: ['Pest resistance', 'Fibre / stem strength'] },
+  { id: 'G', traits: ['Drought tolerance', 'Short-season growth'] },
+  { id: 'H', traits: ['Waterlogging tolerance', 'Nutrient efficiency'] }
+];
+---
+
+<BaseLayout title="Mission 4: Choose the Next Generation | Jabberwocky 2190" description="Phase 2 Mission 4: investigate plant variation, selective breeding, monoculture risk and practical safeguards." themeColor="#0b1c16">
+  <div class="mission-shell" id="phase2-mission4">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 2', href: `${base}courses/grade-7-science/jabberwocky/phase-2/` },
+      { label: 'Mission 4' }
+    ]} />
+
+    <JcecPhase2Progress active={4} compact={true} />
+
+    <header class="mission-hero">
+      <div>
+        <p class="eyebrow">PHASE 2 // MISSION 4 OF 5</p>
+        <h1>CHOOSE THE <span>NEXT GENERATION</span></h1>
+        <p class="question">Which plant traits should humans encourage, and what risks come with that?</p>
+      </div>
+      <aside><span>YOU ARE LEARNING</span><strong>How selection can change cultivated plant populations</strong><small>3 classes × 45 minutes</small></aside>
+    </header>
+
+    <section class="mission-at-a-glance" aria-label="Mission 4 at a glance">
+      <div><small>WHERE AM I?</small><strong>Mission 4 of 5</strong></div>
+      <div><small>WHAT DO I HAND IN?</small><strong>1 Plant Variety Decision Card + 1 reflection</strong></div>
+      <div><small>BIG IDEA</small><strong>Useful traits matter—but keeping variety and safeguards can matter too.</strong></div>
+    </section>
+
+    <nav class="step-nav" aria-label="Mission 4 steps">
+      <a href="#your-mission"><b>1</b><span>Your Mission</span></a>
+      <a href="#learn"><b>2</b><span>Learn</span></a>
+      <a href="#investigate"><b>3</b><span>Investigate</span></a>
+      <a href="#decide"><b>4</b><span>Decide</span></a>
+      <a href="#record"><b>5</b><span>Record It</span></a>
+    </nav>
+
+    <section class="simple-step" id="your-mission">
+      <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
+      <div class="briefing"><p>JCEC now knows what your resource plant is, what it needs and how humans might grow it. The next question is which plants should produce the next generation. Choosing plants with useful traits can improve a cultivated variety—but selecting too narrowly can leave many plants with the same weakness. Your team will model repeated selection, face one surprise change, then recommend one trait JCEC should favour without ignoring the risk.</p></div>
+
+      <div class="assignment-result" id="assignment-result" hidden>
+        <span id="assignment-icon" aria-hidden="true"></span>
+        <div><small>YOUR CONTINENT</small><strong id="assignment-name"></strong><p id="assignment-environment"></p></div>
+        <div class="plant-badge"><small>RESOURCE PLANT</small><b id="assignment-plant"></b></div>
+      </div>
+      <div class="missing-assignment" id="missing-assignment" hidden><strong>Your Phase 2 posting is not saved on this device yet.</strong><p>Return to the Phase 2 Hub and choose the continent your teacher assigned.</p><a href={`${base}courses/grade-7-science/jabberwocky/phase-2/`}>Get Phase 2 posting →</a></div>
+      <div class="challenge-strip" id="challenge-strip" hidden><small>PRODUCTION CHALLENGE FROM EARLIER MISSIONS</small><strong id="challenge-text"></strong></div>
+    </section>
+
+    <section class="simple-step" id="learn">
+      <div class="step-heading"><span>2</span><div><p>CLASS 1</p><h2>Learn the Science</h2></div></div>
+      <p class="step-intro">Plants of the same kind are <strong>not all identical</strong>. Humans can choose which differences they want to encourage.</p>
+
+      <div class="science-grid">
+        <article><span>🌼</span><strong>REPRODUCTION</strong><p>Seed plants make new generations through reproduction. Pollination helps flowering plants form seeds. Some plants can also be propagated from cuttings, runners or other plant parts.</p></article>
+        <article><span>🌿</span><strong>PLANT VARIETY</strong><p>Plants of the same kind can differ in height, yield, drought tolerance, strength, timing and resistance to pests.</p></article>
+        <article><span>🎯</span><strong>SELECTIVE BREEDING</strong><p>Humans repeatedly choose plants with useful characteristics to reproduce so those characteristics become more common in cultivated varieties.</p></article>
+        <article><span>⚠️</span><strong>MONOCULTURE / LOW VARIETY</strong><p>Large areas of very similar plants can be efficient, but one pest, disease or environmental change may affect many plants in the same way.</p></article>
+      </div>
+
+      <div class="core-message"><strong>Grade 7 idea:</strong><span>People choose plants with characteristics they want and use those plants to produce future generations.</span></div>
+
+      <details class="help-box"><summary>Need Help? What selective breeding is NOT in this mission</summary><div><p>You do not need Punnett squares, alleles, genotype, phenotype or dominant/recessive inheritance here. Focus on <strong>observable plant characteristics, repeated human selection and the consequences of that choice.</strong></p></div></details>
+    </section>
+
+    <section class="simple-step" id="investigate">
+      <div class="step-heading"><span>3</span><div><p>CLASSES 1–2</p><h2>Investigate</h2></div></div>
+
+      <section class="investigation-block simulation-block">
+        <div class="block-title"><div><small>MAIN HANDS-ON MODEL</small><h3>Selective Breeding Simulation</h3></div><span>TEAM WORK</span></div>
+        <p><strong>Question:</strong> What happens to a cultivated population when humans keep choosing the same useful trait?</p>
+        <ol class="simple-procedure">
+          <li>Examine the mixed starting population. Notice that different plants have different combinations of traits.</li>
+          <li>Choose <strong>one target trait</strong> JCEC wants to encourage.</li>
+          <li>Select the plant cards with that trait to contribute more offspring to the next generation.</li>
+          <li>Repeat the simplified selection for <strong>2–3 generations</strong>. Track which traits become common and which become rare.</li>
+          <li>When your teacher says so, reveal the surprise event. Check whether your selected population still has traits that help it cope.</li>
+        </ol>
+        <div class="model-note"><strong>This is a model.</strong><span>Real offspring vary and selective breeding usually takes many generations. Here, the model only shows how repeated selection can change which traits are common.</span></div>
+
+        <div class="population-grid" aria-label="Starter plant population">
+          {starterPopulation.map((plant) => <article><b>{plant.id}</b><strong>Plant {plant.id}</strong><span>{plant.traits[0]}</span><span>{plant.traits[1]}</span></article>)}
+        </div>
+        <button type="button" class="small-button" id="print-phase2-mission4">Print Simulation Cards + Decision Card</button>
+      </section>
+
+      <section class="investigation-block case-block">
+        <div class="block-title"><div><small>CLASS 2–3</small><h3>Your Continent Selection Case</h3></div><span>3 EVIDENCE CARDS</span></div>
+        <p>Read only the three cards for your continent. Then open the surprise when your teacher says <strong>REVEAL</strong>.</p>
+        <div class="no-continent" id="no-continent"><strong>Phase 2 continent not found.</strong><a href={`${base}courses/grade-7-science/jabberwocky/phase-2/`}>Return to Phase 2 Hub →</a></div>
+        <div id="case-files" hidden>
+          {phase2PlantSites.map((site) => {
+            const info = selectionCases[site.id];
+            return (
+              <article class="case-file" data-case-file={site.id} hidden>
+                <header><span>{site.icon}</span><div><small>{site.name} · {site.plant.name}</small><h3>{info.challenge}</h3></div></header>
+                <div class="clue-grid">{info.evidence.map((card, index) => <article><b>{index + 1}</b><small>{card.label}</small><strong>{card.evidence}</strong><p><span>WHY IT MATTERS:</span> {card.meaning}</p></article>)}</div>
+                <details class="surprise-box"><summary>⚠️ Reveal the surprise event</summary><div><strong>{info.surprise}</strong><p>{info.helpful}</p><span>Ask: Did our selected population keep enough useful variety to handle this change?</span></div></details>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section class="investigation-block pest-response">
+        <div class="block-title"><div><small>AFTER THE SURPRISE</small><h3>If a pest appears, humans have choices</h3></div><span>KEEP IT SIMPLE</span></div>
+        <div class="control-grid">
+          <article><strong>Biological control</strong><p>Use a living organism or natural enemy to reduce the pest. It must be chosen carefully so it does not create a new problem.</p></article>
+          <article><strong>Physical / cultural control</strong><p>Use barriers, remove infected material, change planting patterns or use other management practices.</p></article>
+          <article><strong>Chemical control</strong><p>Use a pesticide or herbicide when appropriate. It may work quickly, but misuse can affect non-target organisms, soil or water.</p></article>
+        </div>
+        <div class="key-message"><strong>Selective breeding can be useful.</strong><span>Variety and safeguards still matter.</span></div>
+      </section>
+    </section>
+
+    <section class="simple-step" id="decide">
+      <div class="step-heading"><span>4</span><div><p>CLASS 3</p><h2>Make a Decision</h2></div></div>
+      <div class="decision-card">
+        <p class="mini-label">ONE TEAM QUESTION</p>
+        <h3>Which trait should JCEC favour in this plant, and what risk must remain part of the plan?</h3>
+        <div class="reasoning-frame"><div><strong>SELECT</strong><span>We would select ______ because ______.</span></div><div><strong>USE EVIDENCE</strong><span>Use one continent clue + one result from the simulation.</span></div><div><strong>WATCH FOR</strong><span>But we would need to watch for ______.</span></div></div>
+        <p class="decision-note">Your goal is not to find a “perfect” plant. Recommend one useful trait while keeping one real risk visible.</p>
+      </div>
+    </section>
+
+    <section class="simple-step" id="record">
+      <div class="step-heading"><span>5</span><div><p>CLASS 3</p><h2>Record It</h2></div></div>
+      <div class="handoff-strip"><span>👥 <strong>TEAM WORK</strong> select + test</span><i>→</i><span>📝 <strong>TEAM RECORD</strong> one card</span><i>→</i><span>💭 <strong>MY REFLECTION</strong> everyone answers</span></div>
+
+      <div class="team-record">
+        <div class="record-heading"><div><p class="mini-label">TEAM RECORD</p><h3>Plant Variety Decision Card</h3></div><span>ONE PER TEAM</span></div>
+        <p>Your card needs these seven pieces.</p>
+        <div class="profile-checklist"><label><input type="checkbox" /> continent + resource plant</label><label><input type="checkbox" /> trait selected</label><label><input type="checkbox" /> why humans want the trait</label><label><input type="checkbox" /> evidence that it fits the continent</label><label><input type="checkbox" /> one possible trade-off</label><label><input type="checkbox" /> one monoculture / pest / environmental risk</label><label><input type="checkbox" /> one safeguard</label></div>
+      </div>
+
+      <div class="reflection-card"><p class="mini-label">MY REFLECTION</p><h3>Why might the plant with the highest yield not always be the best choice?</h3><p>Everyone answers this question individually.</p></div>
+
+      <div class="finished-box"><strong>Mission 4 is finished when:</strong><span>✓ your team has one Plant Variety Decision Card</span><span>✓ you completed the short individual reflection</span><p>Mission 5 — Use It Without Losing It — is upcoming. Do not start it yet.</p><a href={`${base}courses/grade-7-science/jabberwocky/phase-2/`}>Return to Phase 2 Mission Hub →</a></div>
+    </section>
+
+    <section class="print-packet" aria-label="Phase 2 Mission 4 printable packet">
+      <section class="print-page">
+        <h1>Phase 2 · Mission 4 — Selective Breeding Simulation</h1>
+        <p>Team: ____________________________ &nbsp; Target trait: ____________________________</p>
+        <div class="print-cards">{starterPopulation.map((plant) => <article><h3>Plant {plant.id}</h3><p>{plant.traits[0]}</p><p>{plant.traits[1]}</p></article>)}</div>
+        <table><thead><tr><th>Generation</th><th>Which plant letters reproduce most?</th><th>What trait is becoming more common?</th><th>What useful variety might be disappearing?</th></tr></thead><tbody><tr><th>Start</th><td></td><td></td><td></td></tr><tr><th>2</th><td></td><td></td><td></td></tr><tr><th>3</th><td></td><td></td><td></td></tr></tbody></table>
+        <p><strong>Surprise event:</strong> ________________________________________________</p>
+        <p><strong>What happened to your selected population?</strong></p><div class="writing-lines"></div>
+      </section>
+      <section class="print-page page-break">
+        <h1>Plant Variety Decision Card</h1>
+        <p>Continent: ____________________________ &nbsp; Resource plant: ____________________________</p>
+        <div class="print-grid two"><div><strong>Trait selected</strong></div><div><strong>Why humans want it</strong></div></div>
+        <div class="print-grid two"><div><strong>Evidence that it fits our continent</strong></div><div><strong>Simulation evidence</strong></div></div>
+        <div class="print-grid two"><div><strong>Possible trade-off / risk</strong></div><div><strong>Safeguard</strong></div></div>
+        <p><strong>Reasoning:</strong> We would select __________ because __________. But we would need to watch for __________.</p><div class="writing-lines tall"></div>
+        <p><strong>MY REFLECTION:</strong> Why might the plant with the highest yield not always be the best choice?</p><div class="writing-lines tall"></div>
+      </section>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ siteData: phase2PlantSites, caseData: selectionCases }}>
+    (() => {
+      const POSTING_KEY = 'jabberwocky-phase2-posting';
+      const sites = Object.fromEntries(siteData.map((site) => [site.id, site]));
+      const saved = localStorage.getItem(POSTING_KEY);
+      const site = saved ? sites[saved] : null;
+      const info = saved ? caseData[saved] : null;
+      const assignment = document.getElementById('assignment-result');
+      const missing = document.getElementById('missing-assignment');
+      const challenge = document.getElementById('challenge-strip');
+      const noContinent = document.getElementById('no-continent');
+      const caseFiles = document.getElementById('case-files');
+
+      if (site && info) {
+        assignment.hidden = false; missing.hidden = true; challenge.hidden = false; noContinent.hidden = true; caseFiles.hidden = false;
+        document.getElementById('assignment-icon').textContent = site.icon;
+        document.getElementById('assignment-name').textContent = site.name;
+        document.getElementById('assignment-environment').textContent = site.previousTeamBriefing.environment;
+        document.getElementById('assignment-plant').textContent = site.plant.name;
+        document.getElementById('challenge-text').textContent = site.plant.productionProblem;
+        document.querySelectorAll('[data-case-file]').forEach((el) => el.hidden = el.dataset.caseFile !== saved);
+      } else {
+        assignment.hidden = true; missing.hidden = false; challenge.hidden = true; noContinent.hidden = false; caseFiles.hidden = true;
+      }
+
+      document.getElementById('print-phase2-mission4')?.addEventListener('click', () => { document.body.classList.add('print-phase2-mission4'); window.print(); });
+      window.addEventListener('afterprint', () => document.body.classList.remove('print-phase2-mission4'));
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+:global(body){background:#07120e}.mission-shell{max-width:1050px;margin:0 auto;padding:0 1rem 5rem;color:#edf8ef}.mission-shell :global(.breadcrumbs){color:#9eb4a5}.mission-shell :global(.breadcrumbs a){color:#d9eadc}:global(body:has(#phase2-mission4) .jcec-submission-dock),:global(body:has(#phase2-mission4) .jcec-device-tools){display:none!important}.eyebrow,.mini-label{margin:0;color:#a8e779;font:850 .73rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}.mission-hero{display:grid;grid-template-columns:1fr 255px;gap:1.25rem;align-items:end;margin:.8rem 0 1rem;padding:clamp(1.35rem,4vw,2.25rem);border:1px solid #416448;border-radius:22px;background:radial-gradient(circle at 82% 18%,rgba(183,231,125,.14),transparent 26%),linear-gradient(145deg,#081711,#15351f)}.mission-hero h1{margin:.45rem 0;color:#fff;font-size:clamp(2.45rem,6vw,4.8rem);line-height:.9;letter-spacing:-.05em}.mission-hero h1 span{display:block;color:#b7e77d}.question{margin:.8rem 0 0;color:#d4e3d7;font-size:1.2rem;font-weight:750}.mission-hero aside{display:grid;gap:.18rem;padding:.9rem;border:1px solid #45644c;border-radius:13px;background:#0b1c13}.mission-hero aside span{color:#a7d883;font-size:.68rem;font-weight:900;letter-spacing:.08em}.mission-hero aside strong{color:#fff}.mission-hero aside small{color:#9eb4a4}.mission-at-a-glance{display:grid;grid-template-columns:.7fr 1.1fr 1.2fr;gap:.55rem;margin:1rem 0}.mission-at-a-glance div{display:grid;gap:.22rem;padding:.75rem;border:1px solid #365243;border-radius:10px;background:#0b1b13}.mission-at-a-glance small{color:#91b170;font-size:.62rem;font-weight:900;letter-spacing:.07em}.mission-at-a-glance strong{color:#eaf5eb;font-size:.82rem;line-height:1.35}.step-nav{position:sticky;top:.55rem;z-index:20;display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem;margin:1rem 0;padding:.4rem;border:1px solid #365443;border-radius:13px;background:rgba(7,23,15,.96);backdrop-filter:blur(8px)}.step-nav a{display:flex;gap:.4rem;align-items:center;padding:.55rem;border-radius:9px;color:#adc0b0;text-decoration:none;font-size:.78rem;font-weight:850}.step-nav a:hover{background:#173020;color:#fff}.step-nav b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#1b3928;color:#c2d4c5}.simple-step{margin:1rem 0;padding:clamp(1rem,3vw,1.45rem);scroll-margin-top:5.2rem;border:1px solid #355343;border-radius:18px;background:#0b1b13}.step-heading{display:flex;gap:.7rem;align-items:center;margin-bottom:.9rem}.step-heading>span{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:12px;background:#b7e77d;color:#18320d;font-size:1.2rem;font-weight:950}.step-heading p{margin:0;color:#a8e779;font-size:.68rem;font-weight:900;letter-spacing:.08em}.step-heading h2{margin:.12rem 0;color:#fff;font-size:1.55rem}.briefing{max-width:800px;padding:1rem 1.1rem;border-left:3px solid #b7e77d;background:#13271b}.briefing p{margin:0;color:#c6d5ca;font-size:1rem;line-height:1.62}.assignment-result{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;margin-top:1rem;padding:.85rem;border:1px solid #507458;border-radius:12px;background:#11291a}.assignment-result>span{font-size:1.6rem}.assignment-result small,.plant-badge small,.challenge-strip small{display:block;color:#93b078;font-size:.63rem;font-weight:900;letter-spacing:.07em}.assignment-result strong{color:#fff;font-size:1.08rem}.assignment-result p{margin:.12rem 0 0;color:#a7bca9;font-size:.82rem}.plant-badge{text-align:right}.plant-badge b{display:block;margin-top:.18rem;color:#d7ffae}.missing-assignment{margin-top:1rem;padding:.85rem;border:1px dashed #52695a;border-radius:10px;color:#b2c5b5}.missing-assignment strong{color:#fff}.missing-assignment p{margin:.3rem 0 .55rem}.missing-assignment a,.no-continent a{color:#b8e894}.challenge-strip{margin-top:.75rem;padding:.8rem;border:1px solid #5c6440;border-radius:11px;background:#171d10}.challenge-strip strong{display:block;margin-top:.22rem;color:#fff}.step-intro{color:#a9bdad;line-height:1.5}.science-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem}.science-grid article{padding:.9rem;border:1px solid #375140;border-radius:11px;background:#09160f}.science-grid article>span{display:block;margin-bottom:.35rem;font-size:1.25rem}.science-grid strong{color:#fff}.science-grid p{margin:.3rem 0 0;color:#a9bcae;font-size:.84rem;line-height:1.5}.core-message,.key-message,.model-note{display:flex;gap:.7rem;align-items:center;margin-top:.75rem;padding:.75rem;border-left:3px solid #b7e77d;background:#14271b}.core-message strong,.key-message strong,.model-note strong{color:#d9ffb7}.core-message span,.key-message span,.model-note span{color:#a7baaa;font-size:.82rem;line-height:1.45}.help-box{margin-top:.75rem;border:1px solid #3c5845;border-radius:10px;background:#09170f}.help-box summary{cursor:pointer;padding:.72rem .8rem;color:#cbe1cd;font-size:.84rem;font-weight:850}.help-box>div{padding:0 .8rem .75rem;color:#aebfaf;line-height:1.5}.investigation-block{margin-top:.8rem;padding:1rem;border:1px solid #365343;border-radius:13px;background:#09170f}.block-title{display:flex;justify-content:space-between;gap:.8rem;align-items:start}.block-title small{color:#a8df7a;font-size:.66rem;font-weight:900}.block-title h3{margin:.12rem 0;color:#fff;font-size:1.2rem}.block-title>span{padding:.32rem .5rem;border-radius:999px;background:#23442e;color:#d6f5be;font-size:.68rem;font-weight:900}.investigation-block>p{color:#adc0b0;line-height:1.5}.simple-procedure{display:grid;gap:.48rem;padding-left:1.45rem;color:#c2d3c5;line-height:1.5}.population-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin:.8rem 0}.population-grid article{position:relative;display:grid;gap:.25rem;padding:.75rem;border:1px solid #405b47;border-radius:10px;background:#0d1c14}.population-grid b{position:absolute;top:.45rem;right:.45rem;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#b7e77d;color:#17300f;font-size:.72rem}.population-grid strong{color:#fff}.population-grid span{padding:.25rem .4rem;border-radius:6px;background:#14271b;color:#b8cbbb;font-size:.72rem}.small-button{display:inline-flex;align-items:center;justify-content:center;padding:.68rem .85rem;border:1px solid #526b59;border-radius:9px;background:#132b1d;color:#e1f0e3;font:inherit;font-size:.82rem;font-weight:900;cursor:pointer}.no-continent{display:flex;justify-content:space-between;gap:.7rem;align-items:center;padding:.8rem;border:1px dashed #506858;border-radius:9px;color:#b8cbbd}.case-file header{display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:center}.case-file header>span{font-size:1.65rem}.case-file header small{color:#8fa995}.case-file header h3{margin:.08rem 0;color:#fff;font-size:1.12rem;line-height:1.35}.clue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-top:.8rem}.clue-grid article{position:relative;padding:.78rem;border:1px solid #385242;border-radius:10px;background:#0b1a12}.clue-grid b{position:absolute;top:.55rem;right:.55rem;display:grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#24452e;color:#d6f5be;font-size:.7rem}.clue-grid small{display:block;color:#9bd173;font-size:.65rem;font-weight:900}.clue-grid strong{display:block;margin:.25rem 1.4rem .35rem 0;color:#fff;font-size:.84rem;line-height:1.42}.clue-grid p{margin:0;color:#a8bbaa;font-size:.78rem;line-height:1.42}.clue-grid p span{color:#d8e8da;font-weight:900}.surprise-box{margin-top:.7rem;border:1px solid #785c3a;border-radius:10px;background:#24180e}.surprise-box summary{cursor:pointer;padding:.75rem;color:#ffd9a8;font-size:.85rem;font-weight:900}.surprise-box>div{padding:0 .8rem .8rem}.surprise-box strong{color:#fff}.surprise-box p{margin:.35rem 0;color:#d6c0a7;line-height:1.45}.surprise-box span{color:#f2d6b5;font-size:.78rem}.control-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}.control-grid article{padding:.75rem;border:1px solid #3d5745;border-radius:10px;background:#0d1c14}.control-grid strong{color:#d8ffb9}.control-grid p{margin:.25rem 0 0;color:#9fb2a3;font-size:.79rem;line-height:1.45}.decision-card,.team-record,.reflection-card,.finished-box{margin-top:1rem;padding:1rem;border:1px solid #3a5845;border-radius:13px;background:#09170f}.decision-card h3,.reflection-card h3{margin:.3rem 0 .7rem;color:#fff}.reasoning-frame{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}.reasoning-frame div{padding:.78rem;border:1px solid #4a684f;border-radius:10px;background:#10251a}.reasoning-frame strong{display:block;color:#b7e77d;font-size:.78rem}.reasoning-frame span{display:block;margin-top:.25rem;color:#b1c5b5;font-size:.82rem;line-height:1.45}.decision-note{margin:.65rem 0 0;color:#94a997;font-size:.8rem}.handoff-strip{display:flex;gap:.55rem;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:.8rem;padding:.7rem;border:1px solid #3a5544;border-radius:10px;background:#09160e;color:#b6c8b9;font-size:.8rem}.handoff-strip strong{color:#fff}.handoff-strip i{color:#617a67}.record-heading{display:flex;justify-content:space-between;align-items:start}.record-heading h3{margin:.2rem 0;color:#fff;font-size:1.25rem}.record-heading>span{padding:.28rem .45rem;border-radius:999px;background:#22402c;color:#c7e8ce;font-size:.66rem;font-weight:900}.team-record>p,.reflection-card>p:last-child{color:#9db1a1}.profile-checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:.45rem}.profile-checklist label{display:flex;gap:.45rem;align-items:center;padding:.55rem;border:1px solid #334c3b;border-radius:8px;color:#b6c7b8;font-size:.8rem}.finished-box{display:grid;gap:.35rem;border-color:#52784f;background:#12251a}.finished-box>strong{color:#d8ffb8}.finished-box span{color:#c4d8c7}.finished-box p{margin:.25rem 0;color:#9db1a1}.finished-box a{width:max-content;margin-top:.2rem;padding:.6rem .75rem;border-radius:8px;background:#b7e77d;color:#18320d!important;text-decoration:none;font-size:.8rem;font-weight:900}.print-packet{display:none}.print-page{color:#111;background:#fff}.print-page table{width:100%;border-collapse:collapse}.print-page th,.print-page td{height:42px;padding:5px;border:1px solid #333;font-size:9pt}.print-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:10px 0}.print-cards article{min-height:90px;padding:8px;border:1px solid #222}.print-cards h3{margin:0 0 6px}.print-cards p{margin:4px 0;font-size:9pt}.print-grid{display:grid;gap:8px;margin:10px 0}.print-grid.two{grid-template-columns:1fr 1fr}.print-grid>div{min-height:70px;padding:7px;border:1px solid #333}.writing-lines{min-height:55px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 22px,#aaa 23px)}.writing-lines.tall{min-height:85px}.page-break{break-before:page}
+@media(max-width:760px){.mission-hero{grid-template-columns:1fr}.mission-at-a-glance{grid-template-columns:1fr}.science-grid,.clue-grid,.control-grid{grid-template-columns:1fr}.population-grid{grid-template-columns:repeat(2,1fr)}.reasoning-frame{grid-template-columns:1fr}.profile-checklist{grid-template-columns:1fr}.assignment-result{grid-template-columns:auto 1fr}.plant-badge{grid-column:1/-1;text-align:left}.core-message,.key-message,.model-note{align-items:flex-start;flex-direction:column}}
+@media(max-width:560px){.mission-shell{padding-inline:.7rem}.mission-hero h1{font-size:2.8rem}.step-nav{grid-template-columns:repeat(5,84px);overflow-x:auto}.step-nav a{display:grid;justify-items:center;text-align:center}.population-grid{grid-template-columns:1fr}.block-title{display:grid}.no-continent{display:grid}}
+@media print{body.print-phase2-mission4 *{visibility:hidden!important}body.print-phase2-mission4 .print-packet,body.print-phase2-mission4 .print-packet *{visibility:visible!important}body.print-phase2-mission4 .print-packet{display:block!important;position:absolute;inset:0;padding:0 18mm;background:#fff}body.print-phase2-mission4 .print-page{display:block!important}}
+</style>
