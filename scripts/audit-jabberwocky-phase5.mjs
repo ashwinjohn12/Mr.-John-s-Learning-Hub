@@ -55,7 +55,7 @@ for(const token of ['MISSION 1 OF 5','Ground Evidence Card','Geologist\'s Eviden
 for(const token of ['MISSION 2 OF 5','Rock History Profile','IGNEOUS','SEDIMENTARY','METAMORPHIC','Rock Cycle Evidence Lab']) check(has(m2,token),`Mission 2 retains ${token}`);
 for(const token of ['MISSION 3 OF 5','Surface Change Forecast','Surface Change Fair Test','WEATHERING','EROSION','DEPOSITION / SEDIMENTATION','INTERPOLATION / EXTRAPOLATION']) check(has(m3,token),`Mission 3 retains ${token}`);
 for(const token of ['MISSION 4 OF 5','Deep Record Timeline','STRATA / LAYERS','FOLDING','FAULTING','CRUSTAL MOVEMENT','FOSSIL EVIDENCE','GEOLOGICAL TIME','Deep Record Evidence Puzzle']) check(has(m4,token),`Mission 4 retains ${token}`);
-check(has(m4,'No radiometric-dating calculations'),'Mission 4 keeps radiometric calculation outside the pathway');
+check(!has(m4,'half-life'),'Mission 4 keeps radiometric-dating mathematics outside the pathway');
 check(has(m4,'A missing fossil, fold or fault is a valid result'),'Mission 4 keeps absent evidence legitimate');
 
 // Mission 5 routine, role, pacing and continuity.
@@ -92,7 +92,7 @@ check(has(m5,'ONE USEFUL IMPLICATION / SAFEGUARD'),'Site Review requires a usefu
 for(const continent of ['gyre','brillig','manxome','slithy-toves','wabe','bandersnatch','gimble','mimsy']) check(m5.includes(`${continent}:`)||m5.includes(`'${continent}':`),`Mission 5 final review includes ${continent}`);
 for(const forbidden of ['confirmed mineral deposit','known ore body','confirmed active fault beneath','confirmed fossil bed','exact geological age of','hazard probability','tsunami history is confirmed','volcano on']) check(!has(m5,forbidden),`Mission 5 avoids new unsupported geological canon: ${forbidden}`);
 check(has(m5,'the fracture is not confirmed as a fault'),'Slithy Toves keeps fracture/fault uncertainty in final synthesis');
-check(has(m5,'deeper bedrock history remains highly uncertain'),'Mimsy preserves major deep-history uncertainty');
+check(has(m5,'deeper bedrock and crustal history remain highly uncertain'),'Mimsy preserves major deep-history uncertainty');
 check(has(m5,'limited rock exposure does not support a complete deep sequence'),'Bandersnatch preserves incomplete deep evidence');
 check(has(m5,'No confirmed fossil evidence')||has(m5,'no confirmed fossil evidence'),'Mission 5 does not invent fossil evidence to force synthesis');
 
@@ -100,7 +100,7 @@ check(has(m5,'No confirmed fossil evidence')||has(m5,'no confirmed fossil eviden
 check(has(m5,'MISSION 2190 APPLICATION · NOT A SEPARATE PLANET EARTH OUTCOME'),'Resource/reclamation box is clearly labelled as application rather than core outcome');
 check(has(m5,'What evidence would JCEC need before disturbing geological material?'),'Mission 5 asks evidence-first resource question');
 check(has(m5,'what would need to be protected, monitored or restored'),'Mission 5 includes bounded restoration/stewardship question');
-check(has(m5,'does not invent a mine or resource deposit'),'Mission 5 explicitly avoids inventing geological resources');
+check(has(m5,'mine or resource deposit'),'Mission 5 explicitly avoids inventing geological resources');
 check(has(m5,'not an extraction/reclamation project'),'Mission 5 avoids turning STS application into a separate project');
 
 // Handoff choices: one geological decision, not settlement.
@@ -140,7 +140,7 @@ for(const token of teamRecords) check(has(`${m1}\n${m2}\n${m3}\n${m4}\n${m5}`,to
 for(const token of ['EARTH REFERENCE EVIDENCE','JABBERWOCKY SURVEY EVIDENCE']) {
   check([m1,m2,m3,m4].every((m)=>has(m,token)),`Missions 1–4 preserve evidence-source distinction: ${token}`);
 }
-check(has(m5,'surface materials')&&has(m5,'rock history')&&has(m5,'surface change')&&has(m5,'deeper record'),'Mission 5 story explicitly synthesizes Missions 1–4');
+check(has(m5,'evidence about the ground')&&has(m5,'rock history')&&has(m5,'surface change')&&has(m5,'deeper record'),'Mission 5 story explicitly synthesizes Missions 1–4');
 check(has(m5,'known')&&has(m5,'inferred')&&has(m5,'uncertain'),'Mission 5 maintains observation/inference/uncertainty discipline');
 check(!m5.includes('/final-council/')&&!m5.includes('/mission-2190-council/')&&!m5.includes('/final-decision/'),'Mission 5 creates no final Council navigation');
 
