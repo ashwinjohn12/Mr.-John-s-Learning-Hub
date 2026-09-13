@@ -35,9 +35,9 @@ The teacher manages team/continent assignments, backend metadata, submission log
 - Decide whether Team Records will be paper, digital, or both.
 - Print or stage only the materials needed for the upcoming mission rather than distributing a full-unit packet.
 - Prepare one small **teacher backup Growth Trial** 2–3 days before Mission 2 if practical.
-- Choose **one changed Growth Trial condition for the whole class**: reduced water, mild salinity, reduced light, or another teacher-approved condition.
+- Choose **one changed Growth Trial condition for the whole class**. Prefer a no-purchase condition such as reduced water or reduced light unless there is a reason to use something else.
 - Decide where Growth Trial containers will stay for approximately 7–10 days.
-- Prepare reusable tubs by mission: plant structure, growth, soil/growing system, selective breeding, production footprint.
+- Use **shared stations, reused containers, printables and ordinary classroom supplies first**. Avoid buying a full duplicate lab kit for every team when students can rotate or share.
 
 ## Phase 2 teacher launch rule
 
@@ -52,10 +52,10 @@ Do not teach the whole unit up front. Each mission should feel like the next pro
 ### Day 1 — New Team, New Resource Plant
 
 **BEFORE CLASS**  
-Assign Phase 2 teams/continents. Open the Phase 2 Hub. Set out one teacher-approved flowering/seed plant per team or station. Print Mission 1 Plant Structure Investigation sheets.
+Assign Phase 2 teams/continents. Open the Phase 2 Hub. Set up 3–5 shared flowering/seed-plant stations, or one demonstration station if that is all that is available. Print Mission 1 Plant Structure Investigation sheets.
 
 **MATERIALS**  
-Devices; real flowering/seed plants; trays; hand lenses if available; pencils; Plant Structure Investigation sheet.
+Devices; a few shared real flowering/seed plants; pencils; Plant Structure Investigation sheet. Hand lenses are optional; trays are only needed if specimens are messy.
 
 **STUDENTS SEE / DO**  
 Phase 2 launch → new-team / new-continent handoff → Previous Team Briefing → Mission 1 briefing → learn roots, stems, leaves, reproductive structures → begin real-plant investigation.
@@ -64,7 +64,7 @@ Phase 2 launch → new-team / new-continent handoff → Previous Team Briefing �
 Roots absorb/anchor; stems support/transport; leaves capture light and support photosynthesis/gas exchange; flowers/reproductive structures support reproduction.
 
 **TEACHER EMPHASIS**  
-Use **structure → job → survival**. Students should observe a real plant before reasoning about a fictional one.
+Use **structure → job → survival**. Rotate teams through shared plant stations rather than purchasing one specimen per team.
 
 **COLLECT / ASSESS**  
 Plant Structure Investigation observations — formative only.
@@ -125,10 +125,10 @@ Cut polish / sharing. Keep the team decision, profile, and reflection.
 ### Day 4 — What Does a Plant Need? Launch the Growth Trial
 
 **BEFORE CLASS**  
-Choose the single class-wide changed condition. Stage two containers per team, fast-growing seeds (for example radish), growing medium, labels, water, and treatment materials. If possible, have a teacher backup tray already started.
+Choose the single class-wide changed condition. Prefer reduced water or reduced light to keep the setup simple and inexpensive. Stage two small reused containers per team, fast-growing seeds, growing medium, labels and water. If possible, have one teacher backup tray already started.
 
 **MATERIALS**  
-2 containers/team; fast-growing seeds; potting/growing medium; labels/markers; water; measuring cup/spoon; teacher-prepared treatment materials; tray; Growth Trial data sheet.
+2 small reused containers/team; fast-growing seeds; potting/growing medium; labels/markers; water; measuring cup/spoon; tray or spill mat; Growth Trial data sheet. Extra treatment materials are only needed if you choose a treatment that requires them.
 
 **STUDENTS SEE / DO**  
 Mission launch → basic plant needs → set up CONTROL and CHANGED conditions → record starting state.
@@ -137,7 +137,7 @@ Mission launch → basic plant needs → set up CONTROL and CHANGED conditions �
 Plant growth depends on environmental conditions. A fair comparison changes one condition while keeping other important conditions similar.
 
 **TEACHER EMPHASIS**  
-Use the same changed condition across the class so pooled evidence is interpretable. The goal is evidence, not perfect plants.
+Use the same changed condition across the class so pooled evidence is interpretable. Clean yogurt cups or similar reused containers are fine. The goal is evidence, not specialized equipment.
 
 **COLLECT / ASSESS**  
 Growth Trial setup/data sheet — formative evidence only, not a separate assignment.
@@ -148,7 +148,7 @@ Teacher can finish watering/placement logistics after class. Do not skip labels 
 ### Day 5 — Get and Move Water and Materials
 
 **BEFORE CLASS**  
-Check Growth Trial containers. Prepare a very short coloured-water transport or transpiration demonstration only if it adds value.
+Check Growth Trial containers. Prepare a very short coloured-water transport or transpiration demonstration only if it adds value and materials are already available.
 
 **MATERIALS**  
 Devices; Growth Trial sheet; ruler; optional clear cup, coloured water, celery/carnation or simple transpiration demo materials.
@@ -221,10 +221,10 @@ Complete the card next class/flex. Do not end or discard the Growth Trial simply
 ### Day 9 — What Makes Good Soil?
 
 **BEFORE CLASS**  
-Stage three comparable growing media: sand-rich, clay-rich, organic-rich. Prepare identical cups/filters or drainage containers and water measures.
+Set up shared stations with small class quantities of sand-rich, clay-rich and organic-rich media. Reuse identical cups/filters or drainage containers at the stations.
 
 **MATERIALS**  
-Three media; cups/containers with drainage; trays; water; measuring cylinders/cups; spoons; timer; paper towels; soil/growing-medium investigation sheet.
+Three shared media; reusable drainage cups/containers; trays; water; measuring cups/cylinders; spoons; one or a few timers; paper towels; soil/growing-medium investigation sheet.
 
 **STUDENTS SEE / DO**  
 Mission launch → soil particle size → spaces between particles → drainage, retention, compaction → begin growing-medium investigation.
@@ -233,7 +233,7 @@ Mission launch → soil particle size → spaces between particles → drainage,
 Particle size and pore spaces affect how water moves and how roots experience the growing medium.
 
 **TEACHER EMPHASIS**  
-Connect the words causally: **particles → spaces → water movement → root conditions**.
+Connect the words causally: **particles → spaces → water movement → root conditions**. Teams rotate through stations rather than receiving three complete material sets.
 
 **COLLECT / ASSESS**  
 Investigation observations — formative.
@@ -244,10 +244,10 @@ Finish drainage measurements next class. Cut extra media comparisons first.
 ### Day 10 — Investigate the Growing Medium
 
 **BEFORE CLASS**  
-Reset water/media if necessary. Prepare short examples/cards for fertilizer, irrigation, protected growing, raised/contained beds, and soilless/hydroponic growing.
+Reset shared media stations if necessary. Prepare short examples/cards for fertilizer, irrigation, protected growing, raised/contained beds, and soilless/hydroponic growing.
 
 **MATERIALS**  
-Soil investigation materials; technology cards/images; devices.
+Shared soil investigation stations; technology cards/images; devices.
 
 **STUDENTS SEE / DO**  
 Complete growing-medium tests → compare evidence → learn how fertilizer, irrigation, and modified growing environments can solve problems and create new ones.
@@ -267,25 +267,25 @@ Keep one clear example each of water, nutrient, and environment modification. Mo
 ### Day 11 — Build the Growing Zone
 
 **BEFORE CLASS**  
-Take final/near-final Growth Trial reading if appropriate. Stage cup-sized prototype materials. Confirm continent growing challenge cards.
+Take final/near-final Growth Trial reading if appropriate. Set out one shared prototype-material station. Provide one reused cup/container per team if physically building, or let teams use a labelled design instead. Confirm continent growing challenge cards.
 
 **MATERIALS**  
-Growth Trial sheets; rulers; cups/containers; media; gravel; wick/string; cover material; water; drainage tools/holes; trays; continent evidence.
+Growth Trial sheets; rulers; one reused cup/container per team if building; shared media; gravel; wick/string; cover material; water; safe drainage setup; continent evidence. A labelled design is an equally valid low-material option.
 
 **STUDENTS SEE / DO**  
-Compare control vs changed-condition evidence → read 3–4 continent growing clues → design/build/test one small growing-system model that solves one problem.
+Compare control vs changed-condition evidence → read 3–4 continent growing clues → build/test one small growing-system model OR create a labelled testable design that solves one problem.
 
 **KEY SCIENCE**  
 Evidence about plant needs and media behaviour can guide a practical growing-system choice; solutions can also create consequences.
 
 **TEACHER EMPHASIS**  
-This is a **cup-sized model**, not an engineering competition. Students need one problem, one test, and one consequence to consider.
+One problem, one testable idea, one consequence. Do not create a miniature engineering kit for every team; the reasoning is the checkpoint.
 
 **COLLECT / ASSESS**  
-Prototype evidence and Growth Trial comparison — checkpoint evidence in progress.
+Prototype/design evidence and Growth Trial comparison — checkpoint evidence in progress.
 
 **IF TIME RUNS OUT**  
-Use a labelled sketch instead of a fully built second prototype. Protect the evidence-to-decision connection.
+Use a labelled design instead of a physical build. Protect the evidence-to-decision connection.
 
 ### Day 12 — Recommend a Growing System
 
@@ -293,7 +293,7 @@ Use a labelled sketch instead of a fully built second prototype. Protect the evi
 Make Growing System Recommendation available. Return soil/Growth Trial evidence.
 
 **MATERIALS**  
-Device; growing-medium evidence; Growth Trial evidence; prototype/sketch; Growing System Recommendation.
+Device; growing-medium evidence; Growth Trial evidence; prototype/design; Growing System Recommendation.
 
 **STUDENTS SEE / DO**  
 Refine recommendation → identify one possible environmental consequence → add one safeguard → complete Team Record + reflection.
@@ -390,10 +390,10 @@ Cut whole-class sharing. Keep trait + evidence + risk + safeguard.
 ### Day 18 — How Big Can This Get?
 
 **BEFORE CLASS**  
-Print/stage continent Production Footprint maps/zone mats and planning tiles. Confirm each team sees its continent/resource plant and inherited warning.
+Print continent Production Footprint maps/zone mats and paper planning tiles. Confirm each team sees its continent/resource plant and inherited warning.
 
 **MATERIALS**  
-Continent footprint map; growing/harvest tiles; protected habitat tiles; water-access tiles; road/infrastructure tiles; processing/storage tiles; buffer/protection tiles; devices.
+Printed continent footprint map; paper growing/harvest tiles; protected habitat tiles; water-access tiles; road/infrastructure tiles; processing/storage tiles; buffer/protection tiles; devices.
 
 **STUDENTS SEE / DO**  
 Mission launch → land use, production inputs, variety/resilience, sustainability → receive 6-zone map, one production goal, and 3 constraints → begin resource-use plan.
@@ -402,7 +402,7 @@ Mission launch → land use, production inputs, variety/resilience, sustainabili
 Land conversion, irrigation, fertilizer, pest management, infrastructure, and harvesting can increase production and also affect habitat, soil, water, and resilience.
 
 **TEACHER EMPHASIS**  
-Students are answering **Can we keep producing it without damaging the system?**, not only **Can we produce it?**
+Students are answering **Can we keep producing it without damaging the system?**, not only **Can we produce it?** This is intentionally a paper planning model, not a construction project.
 
 **COLLECT / ASSESS**  
 Initial footprint plan — formative evidence for final synthesis.
@@ -416,7 +416,7 @@ Use fewer tiles. Do not add more map zones or constraints.
 Prepare one continent-appropriate consequence card per team.
 
 **MATERIALS**  
-Footprint maps/tiles; consequence cards; pencils.
+Printed footprint maps/tiles; consequence cards; pencils.
 
 **STUDENTS SEE / DO**  
 Complete initial plan → reveal consequence → identify what the consequence exposes → revise exactly one part of the plan.
@@ -484,9 +484,9 @@ Use Day 22 for essential completion. Cut presentations/gallery walk first.
 # 7 purposeful flex periods
 
 | Day | Purpose | Best uses | Priority |
-|---|---|---|---|
+|---:|---|---|---|
 | **8** | Growth timing + Mission 2 recovery | extra Growth Trial observation; delayed germination; absent-student catch-up; diffusion/osmosis/transport/transpiration/photosynthesis reteach | Protect biological timing and core plant-process understanding |
-| **13** | Growth / Mission 3 lab recovery | final measurement; simple graph; soil-lab spillover/cleanup; prototype completion; absence recovery | Protect evidence needed for Mission 3 checkpoint |
+| **13** | Growth / Mission 3 lab recovery | final measurement; simple graph; soil-lab spillover/cleanup; prototype/design completion; absence recovery | Protect evidence needed for Mission 3 checkpoint |
 | **17** | Science review + targeted reteach | plant structures/processes; soils; selective breeding; recurring vocabulary misconceptions | Fix misconceptions before final sustainability synthesis |
 | **22** | Living Resource Plan completion | finish Mission 5 synthesis; recover missed footprint/simulation evidence | Essential completion before enrichment |
 | **23** | Short individual science check | concise individual assessment if a clean individual mark is needed | Science understanding, not Jabberwocky trivia |
@@ -507,6 +507,8 @@ Run one **class-wide changed condition** so teams can compare/pool evidence. Stu
 - visible plant health
 
 Quick observations should take **3–5 minutes** and remain evidence rather than separate submissions.
+
+Use **reused small containers** wherever practical. Reduced water or reduced light are recommended default changed conditions because they require no additional specialized material.
 
 ## Timeline
 
@@ -541,11 +543,10 @@ Teacher manages watering/light placement as needed. Students do not need daily d
 
 ## Mission 1 — Find the Living Resource
 
-**Reusable / lab**
-- teacher-approved real flowering/seed plants (one per team or station)
-- trays
-- hand lenses if available
+**Shared / reusable**
+- 3–5 teacher-approved flowering/seed plants for station rotation, or one demonstration plant
 - pencils/clipboards
+- hand lenses only if already available
 
 **Print / digital**
 - Plant Structure Investigation
@@ -554,16 +555,16 @@ Teacher manages watering/light placement as needed. Students do not need daily d
 
 ## Mission 2 — Keep It Growing
 
-**Reusable / lab**
-- two small growing containers per team
+**Shared / reusable**
+- two reused small growing containers per team
 - fast-growing seeds such as radish or another practical classroom species
 - potting/growing medium
 - labels/markers
 - watering containers / measuring cup or spoon
 - rulers
-- trays
-- treatment material for one class-wide condition: reduced water, teacher-prepared mild salinity, reduced light, or other approved treatment
-- optional short coloured-water transport / transpiration demonstration materials
+- tray/spill protection
+- one class-wide no-purchase treatment such as reduced water or reduced light
+- optional short coloured-water transport / transpiration demonstration materials if already available
 - optional teacher backup tray started 2–3 days early
 
 **Print / digital**
@@ -572,32 +573,30 @@ Teacher manages watering/light placement as needed. Students do not need daily d
 
 ## Mission 3 — Build the Growing Zone
 
-**Reusable / lab**
-- sand-rich medium
-- clay-rich medium
-- organic-rich potting medium
-- identical cups/containers with drainage
+**Shared / reusable**
+- small shared quantity of sand-rich medium
+- small shared quantity of clay-rich medium
+- small shared quantity of organic-rich potting medium
+- reusable drainage cups/containers at shared stations
 - trays
-- water + measuring cylinders/cups
+- water + measuring cups
 - spoons/scoops
-- timers
+- shared timer(s)
 - paper towels
-- prototype cups/containers
-- gravel
-- wick/string
-- cover material
-- water
-- drainage holes/tools prepared safely by teacher
+- one reused prototype cup/container per team only if physically building
+- shared gravel, wick/string and cover material
+- safe drainage setup
 
 **Print / digital**
 - Soil / Growing Medium Investigation
 - continent growing challenge/evidence cards
 - Growing System Recommendation
 - Growth Trial data from Mission 2
+- labelled design option instead of a physical prototype
 
 ## Mission 4 — Choose the Next Generation
 
-**Reusable / simulation**
+**Shared / simulation**
 - starter plant population cards
 - trait labels
 - 2–3 generation tracking sheet
@@ -610,19 +609,19 @@ Teacher manages watering/light placement as needed. Students do not need daily d
 
 ## Mission 5 — Use It Without Losing It
 
-**Reusable / simulation**
+**Shared / reusable**
+- pencils only if the maps and tiles are printed
+
+**Print / digital**
 - continent Production Footprint maps/zone mats
-- growing/harvest tiles
+- paper growing/harvest tiles
 - protected habitat tiles
 - water-access tiles
 - road/infrastructure tiles
 - processing/storage tiles
 - buffer/protection tiles
 - continent consequence cards
-
-**Print / digital**
 - Evidence Locker (student page)
-- Production Footprint Challenge sheet/map
 - one-page JCEC Living Resource Plan
 
 ---
@@ -729,11 +728,11 @@ Use teacher backup plants, pooled class results, or a teacher-provided dataset. 
 
 ## Missing lab materials
 
-**Mission 1:** use one demonstration plant under document camera / station rotation.  
-**Mission 2:** use teacher-demo containers + pooled class trial.  
-**Mission 3:** test only two media or use prepared drainage/retention data; prototype can be a labelled design.  
+**Mission 1:** use one demonstration plant or a small shared station rotation.  
+**Mission 2:** use reused containers and a no-purchase water/light treatment; if needed, use teacher-demo containers + pooled class trial.  
+**Mission 3:** test only two media or use prepared drainage/retention data; the growing-system checkpoint can use a labelled design instead of a physical prototype.  
 **Mission 4:** display plant cards digitally or use projected cards.  
-**Mission 5:** use paper zone labels on desks instead of printed maps/tiles.
+**Mission 5:** use printed or hand-drawn paper zones/tiles.
 
 ## A class is lost
 
@@ -779,7 +778,7 @@ Return to the mission question and one scaffold:
 
 ## Do I know what to prepare tomorrow?
 
-**Yes.** Every core day identifies setup and materials, and the materials master list separates reusable lab materials from print/digital resources.
+**Yes.** Every core day identifies setup and materials, with shared/printable defaults where the science allows them.
 
 ## Do I know what students should finish each day?
 
@@ -791,7 +790,7 @@ Return to the mission question and one scaffold:
 
 ## Can I recover if plant growth or lab timing changes?
 
-**Yes.** Days 8 and 13 are deliberately positioned around the Growth Trial and Mission 3. The contingency playbook allows backup data, pooled data, sketches, fewer simulation rounds, and written revisions without sacrificing the learning target.
+**Yes.** Days 8 and 13 are deliberately positioned around the Growth Trial and Mission 3. The contingency playbook allows backup data, pooled data, shared stations, labelled designs, fewer simulation rounds, and written revisions without sacrificing the learning target.
 
 ## Do the teacher guide and student website describe the same Phase 2 experience?
 
