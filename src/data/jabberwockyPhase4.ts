@@ -132,7 +132,7 @@ export const phase4StructuralSites: Phase4StructuralSite[] = [
     ],
     mission2Clues: [
       'The compact habitat must carry occupants, equipment and its own structural mass throughout the year.',
-      'An exposed site means outside pushes can matter, but no exact wind speed or new hazard is assumed.',
+      'An exposed site means outside pushes can matter, but no exact environmental force value or new hazard is assumed.',
       'Keeping the footprint compact means JCEC cannot solve every force problem simply by spreading the structure over more land.'
     ]
   },
