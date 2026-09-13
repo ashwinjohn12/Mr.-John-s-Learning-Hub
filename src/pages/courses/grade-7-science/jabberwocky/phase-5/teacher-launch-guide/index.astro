@@ -4,6 +4,7 @@ import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
 
 const base = import.meta.env.BASE_URL;
 const phase5 = (part='') => `${base}courses/grade-7-science/jabberwocky/phase-5/${part}`;
+const council = `${base}courses/grade-7-science/jabberwocky/council/`;
 
 const coreDays = [
   { day:1, mission:'Mission 1 — Read the Ground', title:'How Do Geologists Know?', route:'mission-1/', prep:'Open the Phase 5 Hub; assign/confirm the final Geological Survey continent; preload the Earth Reference Evidence strips; decide whether physical samples or evidence cards will be used on Day 2.', materials:'Devices/projector; Phase 5 posting; Previous Team Geological Briefing; Earth-interior/tool visuals.', student:'Phase launch → new posting → four-card Geological Briefing → Earth Reference vs Jabberwocky Survey Evidence → observation/property/rock/mineral/classification → layered Earth + evidence/tool preview → gradual/sudden-change preview.', science:'Geology begins with evidence. Scientists use direct and indirect observations to classify materials and build models of Earth.', emphasis:'Do not turn Day 1 into rock-name memorization. Keep Earth examples separate from Jabberwocky canon.', collect:'Quick observation-vs-inference check — formative.', cut:'Use one evidence-source example, one tool example and the broad crust/mantle/core model. Protect the evidence-source distinction.' },
@@ -37,7 +38,7 @@ const flexDays = [
   { day:22, title:'Geological Evidence Packet completion', use:'Finish Mission 5 synthesis, recover missing evidence, teacher conferences, complete Council message.', priority:'Essential synthesis before enrichment.' },
   { day:23, title:'Absence recovery / individual assessment', use:'Students recover missed reasoning from supplied/class evidence or complete the optional individual science check.', priority:'Individual science evidence, not Jabberwocky trivia.' },
   { day:24, title:'Optional Geological Evidence gallery/review', use:'Compare how different continents justify different handoff statuses; peer questions about evidence and uncertainty.', priority:'Optional—cut before core learning.' },
-  { day:25, title:'Final buffer / feedback / transition', use:'Normal interruptions, final feedback, reteach, make-up, and transition planning for the future Mission 2190 Council.', priority:'Do not begin the final Council until it is separately approved.' }
+  { day:25, title:'Final buffer / feedback / transition', use:'Normal interruptions, final feedback, reteach, make-up, and transition into the released Mission 2190 Council once each team has finished the Geological Evidence Packet and reflection.', priority:'Keep the same Phase 5 team and continent. Begin the Council only after Phase 5 completion.' }
 ];
 
 const materials = [
@@ -143,8 +144,9 @@ const readiness = [
   ['Do Missions 1–5 remain scientifically distinct?','Yes — observe/classify → formation history → ongoing surface change → reconstruct deep past → geological handoff.'],
   ['Does the teacher system preserve evidence-first geology?','Yes — sample naming is secondary to observations, processes, patterns, uncertainty and evidence-based explanations.'],
   ['Do Earth Reference Evidence and Jabberwocky Survey Evidence stay separate?','Yes — Earth examples teach what evidence can mean; only JCEC survey observations establish Jabberwocky claims.'],
-  ['Does Mission 5 still stop before the final Mission 2190 Council decision?','Yes — the teacher guide repeatedly labels Mission 5 as a geological handoff only.'],
-  ['Do teacher and student systems match?','Yes — mission titles, pacing, investigations, Team Records, assessment roles, evidence lockers and stop point are aligned.']
+  ['Does Mission 5 still stop before the final Mission 2190 Council decision?','Yes — Mission 5 ends with the geological handoff only. After the packet and reflection are complete, students continue to the separately released Council route.'],
+  ['Do I know how Phase 5 hands off to the Council?','Yes — keep the same Phase 5 team and continent; Mission 5 provides the Council transition after the Geological Evidence Packet and reflection are complete.'],
+  ['Do teacher and student systems match?','Yes — mission titles, pacing, investigations, Team Records, assessment roles, evidence lockers and Council handoff are aligned.']
 ];
 ---
 
@@ -158,10 +160,10 @@ const readiness = [
       { label:'Teacher Launch Guide' }
     ]} />
 
-    <header class="hero"><p class="eyebrow">TEACHER SYSTEM // PHASE 5</p><h1>THE DEEP RECORD</h1><p class="division">JCEC GEOLOGICAL SURVEY DIVISION · TEACHER LAUNCH GUIDE</p><p>Complete implementation system for the finished five-mission student experience. <strong>18 core classes + 7 purposeful flex periods = 25 classes.</strong></p><div class="links"><a href={phase5()}>Open student hub →</a><a href={phase5('mission-5/')}>Open final student mission →</a></div></header>
+    <header class="hero"><p class="eyebrow">TEACHER SYSTEM // PHASE 5</p><h1>THE DEEP RECORD</h1><p class="division">JCEC GEOLOGICAL SURVEY DIVISION · TEACHER LAUNCH GUIDE</p><p>Complete implementation system for the five-mission student experience. <strong>18 core classes + 7 purposeful flex periods = 25 classes.</strong></p><div class="links"><a href={phase5()}>Open student hub →</a><a href={phase5('mission-1/')}>Open Mission 1 →</a><a href={council}>Open released Council →</a></div></header>
 
     <section class="rule"><strong>LOW-MATERIAL RULE</strong><span>ordinary classroom supplies → shared/reused equipment → printables/data fallbacks → specialty equipment only as optional enrichment</span></section>
-    <section class="stop"><strong>BOUNDARY</strong><span>Phase 5 ends with a geological evidence handoff. <b>Do not begin the final Mission 2190 Council decision yet.</b></span></section>
+    <section class="stop"><strong>PHASE BOUNDARY</strong><span>Phase 5 ends with a geological evidence handoff. <b>Do not begin the Council before the Geological Evidence Packet and reflection are complete.</b> After that, keep the same Phase 5 team and continent and continue to the released Mission 2190 Council.</span></section>
 
     <section><h2>Five-mission pacing</h2><div class="mission-summary"><article><b>M1</b><strong>Read the Ground</strong><span>3 classes · formative</span></article><article><b>M2</b><strong>Follow the Rock Story</strong><span>3 classes · formative</span></article><article><b>M3</b><strong>Track the Changing Surface</strong><span>4 classes · stronger checkpoint</span></article><article><b>M4</b><strong>Read the Deep Past</strong><span>4 classes · formative synthesis</span></article><article><b>M5</b><strong>Prepare the Final Evidence</strong><span>4 classes · major synthesis</span></article></div></section>
 
@@ -185,7 +187,7 @@ const readiness = [
 
     <section><h2>Teacher launch-readiness audit</h2><div class="readiness">{readiness.map(([q,a])=><article><strong>{q}</strong><span>{a}</span></article>)}</div></section>
 
-    <footer class="final-stop"><strong>PHASE 5 TEACHER SYSTEM COMPLETE</strong><span>Student experience + teacher implementation now describe the same 18-core-class Planet Earth unit. <b>STOP before the final Mission 2190 Council decision.</b></span></footer>
+    <footer class="final-stop"><strong>PHASE 5 TEACHER SYSTEM COMPLETE</strong><span>Student experience + teacher implementation describe the same 18-core-class Planet Earth unit. <b>Finish the Geological Evidence Packet and reflection first; then keep the same team and continent and enter the released Mission 2190 Council.</b></span></footer>
   </main>
 </BaseLayout>
 

@@ -18,36 +18,48 @@ const files = {
   m5: 'src/pages/courses/grade-7-science/jabberwocky/phase-5/mission-5/index.astro',
   progress: 'src/components/JcecPhase5Progress.astro',
   data: 'src/data/jabberwockyPhase5.ts',
-  phase4Progress: 'src/components/JcecPhase4Progress.astro'
+  phase4Progress: 'src/components/JcecPhase4Progress.astro',
+  council: 'src/pages/courses/grade-7-science/jabberwocky/council/index.astro'
 };
 
 for (const file of Object.values(files)) check(fs.existsSync(rel(file)), `exists: ${file}`);
 for (const route of ['final-council','mission-2190-council','final-decision']) {
-  check(!fs.existsSync(rel(`src/pages/courses/grade-7-science/jabberwocky/${route}/index.astro`)), `Final Council route is not built: ${route}`);
+  check(!fs.existsSync(rel(`src/pages/courses/grade-7-science/jabberwocky/${route}/index.astro`)), `No duplicate Council route is built: ${route}`);
 }
 check(!fs.existsSync(rel('src/pages/courses/grade-7-science/jabberwocky/phase-6/index.astro')), 'No Phase 6 route is created');
 
 const hub=read(files.hub),m1=read(files.m1),m2=read(files.m2),m3=read(files.m3),m4=read(files.m4),m5=read(files.m5),progress=read(files.progress),data=read(files.data),phase4Progress=read(files.phase4Progress);
 
-// Complete Phase 5 hub + progression.
+// Classroom-ready Phase 5 hub + progression.
 for (const token of ['THE DEEP RECORD','JCEC GEOLOGICAL SURVEY DIVISION','Read the Ground','Follow the Rock Story','Track the Changing Surface','Read the Deep Past','Prepare the Final Evidence']) check(has(hub,token),`Hub includes ${token}`);
-for (const token of ['Evidence ✓','Rock History ✓','Surface Change ✓','Deep Past ✓','Geological Handoff ●']) check(has(hub,token),`Hub final progression includes ${token}`);
-check((hub.match(/status:'COMPLETE'/g)||[]).length===4,'Hub marks Missions 1–4 complete');
-check((hub.match(/status:'CURRENT'/g)||[]).length===1,'Hub marks only Mission 5 current');
+for (const token of ['Evidence ●','Rock History','Surface Change','Deep Past','Geological Handoff']) check(has(hub,token),`Hub launch progression includes ${token}`);
+check((hub.match(/status:'START HERE'/g)||[]).length===1,'Hub marks exactly one mission START HERE');
+check((hub.match(/status:'READY'/g)||[]).length===4,'Hub marks Missions 2–5 READY');
+check((hub.match(/status:'COMPLETE'/g)||[]).length===0,'Hub does not pre-complete missions for a new class');
+check(has(hub,'Start Mission 1 →'),'Hub gives Mission 1 the primary start CTA');
+check(has(hub,'JcecPhase5Progress active={1}'),'Hub progress begins at Mission 1');
 for (const n of [1,2,3,4,5]) check(hub.includes(`phase-5/mission-${n}/`),`Hub releases Mission ${n}`);
 check(hub.includes('jabberwocky-phase5-posting'),'Hub preserves separate Phase 5 posting state');
 for(const token of ['SURFACE / ENVIRONMENT','STRUCTURAL SITE NEED','GROUND-DISTURBANCE LIMIT','OPEN GEOLOGICAL QUESTION']) check(has(hub,token),`Hub preserves inherited field ${token}`);
-check(has(hub,'Do not reopen Missions 1–4'),'Hub prevents archive overload at Mission 5');
-check(has(hub,'Geological Evidence Locker'),'Hub tells students Mission 5 provides an Evidence Locker');
-check(has(hub,'Mission 5 is not the final human-settlement decision'),'Hub explicitly separates geological handoff from final settlement decision');
-check(has(hub,'FINAL COUNCIL STATUS'),'Hub includes visible final-Council stop state');
-check(has(hub,'Not released'),'Hub states final Council is not released');
+check(has(hub,'PHASE 4 → PHASE 5 HANDOFF'),'Hub identifies the inherited briefing as a Phase 4 → Phase 5 handoff');
+check(has(hub,'Read the inherited site briefing before Mission 1'),'Hub tells students when to use inherited evidence');
+check(has(hub,'starting context—not as finished geological conclusions'),'Hub prevents inherited site notes from becoming finished geology');
+check(!has(hub,'Missions 1–4 are complete'),'Hub no longer tells a new class that Missions 1–4 are complete');
+check(!has(hub,'Mission 5 is now current'),'Hub no longer launches students at Mission 5');
+check(has(hub,'mission-specific evidence record'),'Hub describes one mission-specific Team Record per mission');
+check(has(hub,'Mission 5 combines the strongest findings'),'Hub reserves the Geological Evidence Packet for Mission 5 synthesis');
+check(has(hub,'Finish Missions 1–5 first'),'Hub keeps the Council after Phase 5 completion');
+check(has(hub,'end of Mission 5 provides the transition'),'Hub explains the later Council transition');
 
 // Progress + route release.
 for(const token of ['Evidence','Rock History','Surface Change','Deep Past','Geological Handoff']) check(has(progress,token),`Progress includes ${token}`);
 for(const token of ['Next Mission → Follow the Rock Story','Next Mission → Track the Changing Surface','Next Mission → Read the Deep Past','Next Mission → Prepare the Final Evidence']) check(has(progress,token),`Progress navigation includes ${token}`);
 check(progress.includes('/phase-5/mission-5/'),'Progress releases Mission 5');
-check(!progress.includes('phase-6')&&!progress.includes('final-council'),'Progress creates no post-Phase-5 decision route');
+check(has(progress,'Begin Final Council → Mission 2190 Council'),'Mission 5 completion provides the explicit Council handoff');
+check(progress.includes('/jabberwocky/council/'),'Mission 5 Council handoff uses the approved Council route');
+check(!has(progress,'isPhase5Hub'),'Progress component does not auto-complete the Phase 5 hub');
+check(!has(progress,'All five Geological Survey missions are complete'),'Progress component no longer rewrites the hub as completed');
+check(!progress.includes('phase-6')&&!progress.includes('final-council'),'Progress creates no duplicate post-Phase-5 route');
 check(has(phase4Progress,'Begin Phase 5 → The Deep Record'),'Phase 4 still hands students into Phase 5');
 
 // Earlier missions remain intact and distinct.
@@ -116,7 +128,7 @@ check(has(m5,'geological understanding → evidence use → uncertainty → resp
 check(has(m5,'It does not assess artistic appearance, a physical model'),'Mission 5 does not grade model/art appearance');
 check(has(m5,'What is one geological conclusion JCEC should not make yet because the evidence is still too limited?'),'Mission 5 includes approved individual reflection');
 check(has(m5,'Phase 5 is finished when'),'Mission 5 has explicit completion criteria');
-check(has(m5,'STOP HERE. The final Mission 2190 Council decision has not yet begun.'),'Mission 5 stops before the final Council');
+check(has(m5,'STOP HERE. The final Mission 2190 Council decision has not yet begun.'),'Mission 5 stops its own task before the final Council decision');
 
 // Materials: nearly paper-only and no purchase.
 check(has(m5,'MATERIALS REALITY CHECK'),'Mission 5 includes materials reality check');
@@ -142,7 +154,7 @@ for(const token of ['EARTH REFERENCE EVIDENCE','JABBERWOCKY SURVEY EVIDENCE']) {
 }
 check(has(m5,'evidence about the ground')&&has(m5,'rock history')&&has(m5,'surface change')&&has(m5,'deeper record'),'Mission 5 story explicitly synthesizes Missions 1–4');
 check(has(m5,'known')&&has(m5,'inferred')&&has(m5,'uncertain'),'Mission 5 maintains observation/inference/uncertainty discipline');
-check(!m5.includes('/final-council/')&&!m5.includes('/mission-2190-council/')&&!m5.includes('/final-decision/'),'Mission 5 creates no final Council navigation');
+check(!m5.includes('/final-council/')&&!m5.includes('/mission-2190-council/')&&!m5.includes('/final-decision/'),'Mission 5 itself creates no duplicate Council navigation');
 
 // Existing continent canon still present in Phase 5 data.
 for(const continent of ['gyre','brillig','manxome','slithy-toves','wabe','bandersnatch','gimble','mimsy']) check(data.includes(`id: '${continent}'`),`Phase 5 core data includes ${continent}`);
@@ -157,4 +169,4 @@ if(failures.length){
 }
 console.log(`\nJabberwocky Phase 5 readiness audit: ${passes.length} checks passed.`);
 passes.forEach((pass)=>console.log(`  ✓ ${pass}`));
-console.log('\nPhase 5 student experience is complete: Evidence → Rock History → Surface Change → Deep Past → Geological Handoff. Mission 5 synthesizes prior evidence without archive overload, preserves uncertainty and stewardship, uses a paper-first no-purchase design, and explicitly stops before the final Mission 2190 Council decision.');
+console.log('\nPhase 5 is classroom-ready from a new-team start: Evidence → Rock History → Surface Change → Deep Past → Geological Handoff. Mission 5 synthesizes prior evidence without archive overload and provides the separate Council transition only after Phase 5 completion.');

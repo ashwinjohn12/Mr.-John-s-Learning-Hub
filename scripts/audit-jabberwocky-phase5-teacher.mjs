@@ -10,6 +10,8 @@ const has = (text, token) => text.toLowerCase().includes(token.toLowerCase());
 const check = (ok, message) => ok ? passes.push(message) : failures.push(message);
 
 const files = {
+  hub: 'src/pages/courses/grade-7-science/jabberwocky/phase-5/index.astro',
+  progress: 'src/components/JcecPhase5Progress.astro',
   teacher: 'src/pages/courses/grade-7-science/jabberwocky/phase-5/teacher-launch-guide/index.astro',
   teacherDoc: 'docs/jabberwocky-phase-5-teacher-launch-guide.md',
   pacingDoc: 'docs/jabberwocky-phase-5-five-week-pacing-guide.md',
@@ -17,19 +19,34 @@ const files = {
   m2: 'src/pages/courses/grade-7-science/jabberwocky/phase-5/mission-2/index.astro',
   m3: 'src/pages/courses/grade-7-science/jabberwocky/phase-5/mission-3/index.astro',
   m4: 'src/pages/courses/grade-7-science/jabberwocky/phase-5/mission-4/index.astro',
-  m5: 'src/pages/courses/grade-7-science/jabberwocky/phase-5/mission-5/index.astro'
+  m5: 'src/pages/courses/grade-7-science/jabberwocky/phase-5/mission-5/index.astro',
+  council: 'src/pages/courses/grade-7-science/jabberwocky/council/index.astro'
 };
 
 for (const file of Object.values(files)) check(fs.existsSync(rel(file)), `exists: ${file}`);
 for (const route of ['final-council','mission-2190-council','final-decision','phase-6']) {
-  check(!fs.existsSync(rel(`src/pages/courses/grade-7-science/jabberwocky/${route}/index.astro`)), `Final Council/next-phase route remains unbuilt: ${route}`);
+  check(!fs.existsSync(rel(`src/pages/courses/grade-7-science/jabberwocky/${route}/index.astro`)), `Duplicate Council/next-phase route remains unbuilt: ${route}`);
 }
 
+const hub = read(files.hub);
+const progress = read(files.progress);
 const teacher = read(files.teacher);
 const teacherDoc = read(files.teacherDoc);
 const pacing = read(files.pacingDoc);
 const teacherSystem = `${teacher}\n${teacherDoc}\n${pacing}`;
 const missions = [read(files.m1), read(files.m2), read(files.m3), read(files.m4), read(files.m5)];
+
+// Classroom-ready student launch state.
+check(has(hub,"status:'START HERE'"),'Student hub marks Mission 1 START HERE');
+check((hub.match(/status:'READY'/g)||[]).length===4,'Student hub marks Missions 2–5 READY');
+check((hub.match(/status:'COMPLETE'/g)||[]).length===0,'Student hub does not pre-complete missions for a new class');
+check(has(hub,'Start Mission 1 →'),'Student hub has a clear Mission 1 start CTA');
+check(has(hub,'JcecPhase5Progress active={1}'),'Student hub progress starts at Mission 1');
+check(has(hub,'PHASE 4 → PHASE 5 HANDOFF'),'Student hub labels inherited context as the Phase 4 → Phase 5 handoff');
+check(has(hub,'mission-specific evidence record'),'Student hub accurately describes the mission-specific Team Record routine');
+check(!has(progress,'isPhase5Hub'),'Progress component does not auto-complete the Phase 5 hub');
+check(has(progress,'Begin Final Council → Mission 2190 Council'),'Mission 5 completion supplies the Council CTA');
+check(progress.includes('/jabberwocky/council/'),'Mission 5 completion uses the approved Council route');
 
 // Teacher/student mission architecture.
 for (const token of [
@@ -140,19 +157,21 @@ check(has(missions[1],'Rock Cycle Evidence Lab'),'M2 student experience matches 
 check(has(missions[2],'Surface Change Fair Test'),'M3 student experience matches teacher checkpoint investigation');
 check(has(missions[3],'Deep Record Evidence Puzzle'),'M4 student experience matches teacher deep-record investigation');
 check(has(missions[4],'Geological Evidence Locker') && has(missions[4],'JCEC Geological Site Review'),'M5 student experience matches teacher synthesis system');
-for (const phrase of ['Evidence ✓','Rock History ✓','Surface Change ✓','Deep Past ✓','Geological Handoff ●']) check(has(read('src/pages/courses/grade-7-science/jabberwocky/phase-5/index.astro'), phrase),`Student hub retains completed progression ${phrase}`);
 
-// Teacher readiness questions + stop point.
+// Teacher readiness questions + Council handoff.
 for (const token of [
   'Do I know what to prepare tomorrow?','Do I know what students should finish each day?','Can I run the unit with no geology purchases?',
   'Do I know which activities actually need physical materials?','Do I know what is formative, checkpoint and major assessment?',
   'Can I recover if a lab, dataset, sample set or class goes wrong?','Do Missions 1–5 remain scientifically distinct?',
   'Does the teacher system preserve evidence-first geology?','Do Earth Reference Evidence and Jabberwocky Survey Evidence stay separate?',
-  'Does Mission 5 still stop before the final Mission 2190 Council decision?','Do teacher and student systems match?'
+  'Does Mission 5 still stop before the final Mission 2190 Council decision?','Do I know how Phase 5 hands off to the Council?','Do teacher and student systems match?'
 ]) check(has(teacher,token),`Teacher launch-readiness audit includes ${token}`);
-check(has(teacher,'Do not begin the final Mission 2190 Council decision yet'),'Teacher guide has explicit final-Council stop point');
-check(has(teacherDoc,'final Mission 2190 Council decision is not part of this guide'),'Teacher documentation stops before final Council');
-check(has(pacing,'STOP HERE. The final Mission 2190 Council decision has not yet begun'),'Pacing guide stops before final Council');
+check(has(teacher,'Do not begin the Council before the Geological Evidence Packet and reflection are complete'),'Teacher guide protects the Phase 5 completion boundary');
+check(has(teacher,'released Mission 2190 Council'),'Teacher guide identifies the Council as the released next task');
+check(has(teacherDoc,'released Mission 2190 Council'),'Teacher documentation identifies the released Council handoff');
+check(has(pacing,'STOP PHASE 5 HERE'),'Pacing guide has an explicit Phase 5 stop point');
+check(has(pacing,'Council is a separate released task'),'Pacing guide keeps the Council separate but available');
+for (const text of [teacher,teacherDoc,pacing]) check(has(text,'same Phase 5 team') && has(text,'continent'), 'Teacher system preserves same-team/same-continent Council continuity');
 
 if (failures.length) {
   console.error(`\nJabberwocky Phase 5 teacher-system audit failed: ${failures.length} issue(s).`);
@@ -162,4 +181,4 @@ if (failures.length) {
 
 console.log(`\nJabberwocky Phase 5 teacher-system audit: ${passes.length} checks passed.`);
 passes.forEach((pass)=>console.log(`  ✓ ${pass}`));
-console.log('\nPhase 5 teacher + student systems are aligned: five missions, 18 core classes, seven purposeful flex periods, low-material/no-purchase fallbacks, Planet Earth curriculum coverage, evidence-source safeguards, checkpoint/synthesis assessment, and no final Mission 2190 Council route.');
+console.log('\nPhase 5 teacher + student systems are aligned: five missions, 18 core classes, seven purposeful flex periods, low-material/no-purchase fallbacks, Planet Earth curriculum coverage, evidence-source safeguards, checkpoint/synthesis assessment, and a clear handoff to the separately released Mission 2190 Council.');
