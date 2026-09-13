@@ -27,6 +27,7 @@ const missions = [
 <script is:inline define:vars={{ base }}>
   (() => {
     const path = window.location.pathname;
+    const phase4Path = 'phase-' + '4/';
     const releases = [
       {
         match: '/phase-3/mission-1/', root: '#phase3-mission1',
@@ -51,7 +52,7 @@ const missions = [
       {
         match: '/phase-3/mission-5/', root: '#phase3-mission5',
         note: 'Phase 3 is complete. JCEC is opening Project New Horizon: the Structural Systems Division must decide what humans can safely build next.',
-        href: `${base}courses/grade-7-science/jabberwocky/phase-4/`, label: 'Continue to Phase 4 → Project New Horizon', phaseHandoff: true
+        href: `${base}courses/grade-7-science/jabberwocky/${phase4Path}`, label: 'Continue to Phase 4 → Project New Horizon', phaseHandoff: true
       }
     ];
     const release = releases.find((item) => path.includes(item.match));
