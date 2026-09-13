@@ -6,7 +6,6 @@ interface Props {
 
 const { active = 1, compact = false } = Astro.props;
 const base = import.meta.env.BASE_URL;
-// Mission 5 is now released; Phase 4 remains intentionally unlinked.
 const missions = [
   { number: 1, short: 'Temperature', title: 'Read the Thermal Warning' },
   { number: 2, short: 'Heat Transfer', title: 'Follow the Heat' },
@@ -30,32 +29,29 @@ const missions = [
     const path = window.location.pathname;
     const releases = [
       {
-        match: '/phase-3/mission-1/',
-        root: '#phase3-mission1',
+        match: '/phase-3/mission-1/', root: '#phase3-mission1',
         note: 'Mission 2 is ready. Next, trace how thermal energy is moving into or out of the habitat.',
-        href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-2/`,
-        label: 'Next Mission → Follow the Heat'
+        href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-2/`, label: 'Next Mission → Follow the Heat'
       },
       {
-        match: '/phase-3/mission-2/',
-        root: '#phase3-mission2',
+        match: '/phase-3/mission-2/', root: '#phase3-mission2',
         note: 'Mission 3 is ready. Next, use fair-test evidence to slow the unwanted thermal-energy transfer.',
-        href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-3/`,
-        label: 'Next Mission → Hold the Temperature'
+        href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-3/`, label: 'Next Mission → Hold the Temperature'
       },
       {
-        match: '/phase-3/mission-3/',
-        root: '#phase3-mission3',
+        match: '/phase-3/mission-3/', root: '#phase3-mission3',
         note: 'Mission 4 is ready. Next, build a feedback rule that responds when temperature changes anyway.',
-        href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-4/`,
-        label: 'Next Mission → Control the Habitat'
+        href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-4/`, label: 'Next Mission → Control the Habitat'
       },
       {
-        match: '/phase-3/mission-4/',
-        root: '#phase3-mission4',
+        match: '/phase-3/mission-4/', root: '#phase3-mission4',
         note: 'Mission 5 is ready. Next, balance safety, energy use and environmental protection in the final Thermal Survival Plan.',
-        href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-5/`,
-        label: 'Next Mission → Survive Without Wasting It'
+        href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-5/`, label: 'Next Mission → Survive Without Wasting It'
+      },
+      {
+        match: '/phase-3/mission-5/', root: '#phase3-mission5',
+        note: 'Phase 3 is complete. JCEC is opening Project New Horizon: the Structural Systems Division must decide what humans can safely build next.',
+        href: `${base}courses/grade-7-science/jabberwocky/phase-4/`, label: 'Continue to Phase 4 → Project New Horizon', phaseHandoff: true
       }
     ];
     const release = releases.find((item) => path.includes(item.match));
@@ -64,6 +60,10 @@ const missions = [
     if (!finished || finished.querySelector('.phase3-next-mission-link')) return;
     const note = finished.querySelector('p');
     if (note) note.textContent = release.note;
+    if (release.phaseHandoff) {
+      const stop = finished.querySelector('span');
+      if (stop) stop.textContent = 'NEW DIVISION OPEN: Project New Horizon · Structures & Forces';
+    }
     const next = document.createElement('a');
     next.className = 'phase3-next-mission-link';
     next.href = release.href;
