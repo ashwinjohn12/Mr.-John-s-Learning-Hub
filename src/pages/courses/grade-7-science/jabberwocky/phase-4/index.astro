@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../components/Breadcrumbs.astro';
+import JcecPhase4Progress from '../../../../../components/JcecPhase4Progress.astro';
+import { phase4StructuralSites } from '../../../../../data/jabberwockyPhase4';
+
+const base = import.meta.env.BASE_URL;
+const missions = [
+  { number:1, title:'Read the Building Site', question:'What does a structure need to do before we decide how to build it?', summary:'Identify structural requirements before choosing a design.', icon:'📐', status:'CURRENT', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-4/mission-1/`, linkText:'Start Mission 1 →' },
+  { number:2, title:'Trace the Forces', question:'What forces will our structure need to resist?', summary:'Loads and internal forces come next.', icon:'↔️', status:'UPCOMING', ready:false },
+  { number:3, title:'Choose What Holds', question:'How do materials and joints change what a structure can handle?', summary:'Test material properties and connections.', icon:'🧩', status:'UPCOMING', ready:false },
+  { number:4, title:'Keep It Standing', question:'How can a structure remain stable and safe when conditions change?', summary:'Test stability, improve a weakness and retest.', icon:'🏗️', status:'UPCOMING', ready:false },
+  { number:5, title:'Authorize New Horizon', question:'What structural system should JCEC authorize for this continent?', summary:'Use evidence from the whole phase to make a structural decision.', icon:'✅', status:'UPCOMING', ready:false }
+];
+---
+
+<BaseLayout title="Phase 4: Project New Horizon | Mission 2190" description="Phase 4 of Jabberwocky: Mission 2190 — Grade 7 Structures & Forces." themeColor="#11161d">
+  <div class="phase4-shell" id="phase4-hub">
+    <Breadcrumbs items={[
+      { label:'Home', href:base },
+      { label:'Grade 7 Science', href:`${base}courses/grade-7-science/` },
+      { label:'Jabberwocky', href:`${base}courses/grade-7-science/jabberwocky/` },
+      { label:'Phase 4' }
+    ]} />
+
+    <header class="phase4-hero">
+      <div>
+        <p class="eyebrow">MISSION 2190 // PHASE 4</p>
+        <h1>PROJECT <span>NEW HORIZON</span></h1>
+        <p class="division">JCEC STRUCTURAL SYSTEMS DIVISION</p>
+        <p class="lead">Ecology, plant-resource and thermal-survival teams have shown that long-term human activity may be possible. Temporary shelters are not enough. JCEC now needs evidence about what humans can build safely—and what rules construction must obey.</p>
+      </div>
+      <aside><span>YOUR ROLE</span><strong>Structural Systems Specialist</strong><small>Define. Test. Improve. Authorize.</small></aside>
+    </header>
+
+    <section class="big-question"><span>THE BIG QUESTION</span><h2>Can humans build strong, stable and safe structures without unnecessarily damaging the environments they now depend on?</h2></section>
+
+    <JcecPhase4Progress active={1} />
+
+    <section class="handoff-panel" aria-labelledby="handoff-heading">
+      <div class="handoff-copy">
+        <p class="eyebrow">NEW TEAM // NEW POSTING</p>
+        <h2 id="handoff-heading">Three specialist teams worked here before you.</h2>
+        <p>Your Structural Systems team inherits what they learned—but your problem is different. Choose only the Phase 4 continent your teacher assigned. This posting is stored separately from Phases 1–3.</p>
+      </div>
+      <div class="assignment-control">
+        <label for="phase4-continent"><strong>Your Phase 4 continent</strong><span>Choose the posting your teacher assigned.</span></label>
+        <select id="phase4-continent"><option value="">Choose your assigned continent…</option>{phase4StructuralSites.map((site) => <option value={site.id}>{site.icon} {site.name} — {site.subtitle}</option>)}</select>
+        <p class="save-message" id="save-message" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="previous-team" id="previous-team" hidden aria-labelledby="briefing-heading">
+      <div class="briefing-heading"><div><p class="eyebrow">PREVIOUS TEAM STRUCTURAL BRIEFING</p><h2 id="briefing-heading">Only four inherited findings matter right now</h2></div><strong id="briefing-continent"></strong></div>
+      <p class="briefing-intro">You do not need to reopen old archives. These four cards are the evidence your Structural Systems team needs at launch.</p>
+      <div class="briefing-grid">
+        <article><span>🌦️</span><small>ENVIRONMENT</small><p id="briefing-environment"></p></article>
+        <article><span>🌡️</span><small>THERMAL REQUIREMENT</small><p id="briefing-thermal"></p></article>
+        <article><span>🌱</span><small>ECOLOGICAL RESTRICTION</small><p id="briefing-ecology"></p></article>
+        <article><span>⚠️</span><small>SITE / LOAD WARNING</small><p id="briefing-site"></p></article>
+      </div>
+      <div class="continue-strip"><div><strong>Do not start designing yet.</strong><span>Mission 1 asks what a successful structure on this site actually needs to do.</span></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-4/mission-1/`}>Start Mission 1 →</a></div>
+    </section>
+
+    <section class="quick-start" id="assignment-needed"><div><p class="eyebrow">YOUR NEXT STEP</p><h2>Confirm your Phase 4 posting.</h2><p>Once your teacher-assigned continent is saved, the four inherited cards and Mission 1 will appear.</p></div><span>1</span></section>
+
+    <section class="how-it-works">
+      <div class="section-heading"><p class="eyebrow">SAME ROUTINE EVERY MISSION</p><h2>How Project New Horizon works</h2></div>
+      <div class="work-grid"><article><span>👥</span><div><strong>TEAM WORK</strong><p>Investigate and make one structural decision together.</p></div></article><article><span>📝</span><div><strong>TEAM RECORD</strong><p>One team product keeps only the evidence needed later.</p></div></article><article><span>💭</span><div><strong>MY REFLECTION</strong><p>Everyone answers one short science question.</p></div></article></div>
+    </section>
+
+    <section class="mission-list">
+      <div class="section-heading"><p class="eyebrow">PHASE 4 PATH</p><h2>Five missions. One construction decision.</h2></div>
+      <div class="sequence-strip"><span class="current">Requirements ●</span><b>→</b><span>Forces ○</span><b>→</b><span>Materials ○</span><b>→</b><span>Stability ○</span><b>→</b><span>Authorization ○</span></div>
+      <div class="mission-cards">{missions.map((mission) => (
+        <article class:list={['mission-card', { current: mission.number === 1, locked: !mission.ready }]}>
+          <div class="mission-icon">{mission.icon}</div>
+          <div class="mission-main"><div class="mission-topline"><span>MISSION {mission.number}</span><b>{mission.status}</b></div><h3>{mission.title}</h3><p class="mission-question">{mission.question}</p><p class="mission-summary">{mission.summary}</p></div>
+          {mission.ready ? <a class="mission-ready-link" href={mission.href}>{mission.linkText}</a> : <span class="mission-locked">🔒 Not released yet</span>}
+        </article>
+      ))}</div>
+    </section>
+
+    <section class="phase3-link"><span>←</span><div><strong>Coming from Thermal Survival?</strong><p>Phase 4 already carries forward the thermal and ecological restrictions you need. You do not need to reread Phase 3.</p></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-3/mission-5/`}>Review Phase 3 conclusion</a></section>
+  </div>
+
+  <script is:inline define:vars={{ siteData: phase4StructuralSites }}>
+    (() => {
+      const POSTING_KEY = 'jabberwocky-phase4-posting';
+      const sites = Object.fromEntries(siteData.map((site) => [site.id, site]));
+      const select = document.getElementById('phase4-continent');
+      const previousTeam = document.getElementById('previous-team');
+      const assignmentNeeded = document.getElementById('assignment-needed');
+      const saveMessage = document.getElementById('save-message');
+      const showSite = (id, announce = false) => {
+        const site = sites[id];
+        if (!site) { previousTeam.hidden = true; assignmentNeeded.hidden = false; saveMessage.textContent = ''; return; }
+        localStorage.setItem(POSTING_KEY, id);
+        previousTeam.hidden = false; assignmentNeeded.hidden = true;
+        document.getElementById('briefing-continent').textContent = `${site.icon} ${site.name}`;
+        document.getElementById('briefing-environment').textContent = site.previousTeamStructuralBriefing.environment;
+        document.getElementById('briefing-thermal').textContent = site.previousTeamStructuralBriefing.thermalRequirement;
+        document.getElementById('briefing-ecology').textContent = site.previousTeamStructuralBriefing.ecologicalRestriction;
+        document.getElementById('briefing-site').textContent = site.previousTeamStructuralBriefing.siteLoadWarning;
+        saveMessage.textContent = announce ? `✓ ${site.name} saved for Phase 4 on this device.` : `Saved Phase 4 posting: ${site.name}`;
+      };
+      const saved = localStorage.getItem(POSTING_KEY);
+      if (saved && sites[saved]) { select.value = saved; showSite(saved, false); }
+      select.addEventListener('change', () => showSite(select.value, true));
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+:global(body){background:#080b0f}.phase4-shell{max-width:1120px;margin:0 auto;padding:0 1rem 5rem;color:#eef2f5}.phase4-shell :global(.breadcrumbs){color:#959da7}.phase4-shell :global(.breadcrumbs a){color:#dfe5ea}:global(body:has(#phase4-hub) .jcec-submission-dock),:global(body:has(#phase4-hub) .jcec-device-tools){display:none!important}.eyebrow{margin:0;color:#f2b35d;font:850 .75rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em}.phase4-hero{display:grid;grid-template-columns:1fr 255px;gap:1.5rem;align-items:end;margin:1rem 0;padding:clamp(1.5rem,4vw,2.6rem);border:1px solid #4e5965;border-radius:24px;background:radial-gradient(circle at 84% 15%,rgba(242,179,93,.15),transparent 28%),linear-gradient(145deg,#11171d,#202a33)}.phase4-hero h1{margin:.55rem 0 .35rem;color:#fff;font-size:clamp(3rem,8vw,5.5rem);line-height:.88;letter-spacing:-.055em}.phase4-hero h1 span{display:block;color:#f3b55f}.division{margin:.65rem 0 0;color:#ffd79d;font-size:.75rem;font-weight:900;letter-spacing:.12em}.lead{max-width:760px;margin:.9rem 0 0;color:#c2cbd3;font-size:1.04rem;line-height:1.6}.phase4-hero aside{display:grid;gap:.18rem;padding:1rem;border:1px solid #58636e;border-radius:14px;background:#111820}.phase4-hero aside span{color:#f2b35d;font-size:.72rem;font-weight:900;letter-spacing:.08em}.phase4-hero aside strong{color:#fff;font-size:1.18rem}.phase4-hero aside small{color:#98a3ad}.big-question{margin:1rem 0;padding:1.2rem 1.3rem;border-left:4px solid #f2b35d;border-radius:0 14px 14px 0;background:#171e25}.big-question span{color:#f2b35d;font-size:.72rem;font-weight:900;letter-spacing:.08em}.big-question h2{margin:.35rem 0 0;color:#fff;font-size:clamp(1.35rem,3vw,1.95rem);line-height:1.28}.handoff-panel{display:grid;grid-template-columns:1.25fr .75fr;gap:1rem;margin:1.2rem 0;padding:1.2rem;border:1px solid #4b5863;border-radius:17px;background:#141a20}.handoff-copy h2{margin:.3rem 0;color:#fff;font-size:1.45rem}.handoff-copy p:last-child{margin:.45rem 0 0;color:#aab4bd;line-height:1.5}.assignment-control{display:grid;align-content:start;gap:.45rem;padding:1rem;border:1px solid #4c5862;border-radius:12px;background:#0e1419}.assignment-control label{display:grid;gap:.18rem}.assignment-control label strong{color:#fff}.assignment-control label span{color:#929da7;font-size:.78rem}.assignment-control select{width:100%;padding:.72rem;border:1px solid #606b75;border-radius:8px;background:#1a2229;color:#fff;font:inherit}.save-message{min-height:1.15em;margin:0;color:#ffc77e;font-size:.76rem}.previous-team,.how-it-works,.mission-list{margin:1.3rem 0;padding:1.2rem;border:1px solid #424d57;border-radius:18px;background:#12181e}.briefing-heading{display:flex;justify-content:space-between;gap:1rem;align-items:end}.briefing-heading h2,.section-heading h2{margin:.28rem 0 .8rem;color:#fff;font-size:1.55rem}.briefing-heading>strong{padding:.4rem .6rem;border-radius:999px;background:#273440;color:#edf5fb;font-size:.82rem}.briefing-intro{margin:.1rem 0 .75rem;color:#99a6b0}.briefing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem}.briefing-grid article{padding:.9rem;border:1px solid #424d57;border-radius:12px;background:#0c1217}.briefing-grid article>span{display:block;margin-bottom:.35rem;font-size:1.3rem}.briefing-grid small{color:#f3b55f;font-size:.66rem;font-weight:900;letter-spacing:.07em}.briefing-grid p{margin:.35rem 0 0;color:#c3ccd3;font-size:.84rem;line-height:1.48}.continue-strip{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-top:.8rem;padding:.8rem;border-radius:11px;background:#202a32}.continue-strip div{display:grid;gap:.15rem}.continue-strip strong{color:#fff}.continue-strip span{color:#9da8b0;font-size:.8rem}.continue-strip a,.mission-ready-link{padding:.7rem .85rem;border-radius:9px;background:#f3b55f;color:#2b1a05!important;text-decoration:none;font-size:.82rem;font-weight:900;white-space:nowrap}.quick-start{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin:1.2rem 0;padding:1rem;border:1px dashed #5a6670;border-radius:14px;background:#12181e}.quick-start h2{margin:.2rem 0;color:#fff}.quick-start p:last-child{margin:.3rem 0 0;color:#9da8b1}.quick-start>span{display:grid;place-items:center;width:55px;height:55px;border-radius:50%;background:#f3b55f;color:#2c1b05;font-size:1.35rem;font-weight:950}.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem}.work-grid article{display:flex;gap:.65rem;padding:.85rem;border:1px solid #414c56;border-radius:11px;background:#0d1318}.work-grid article>span{font-size:1.5rem}.work-grid strong{color:#fff}.work-grid p{margin:.25rem 0 0;color:#9ba7b0;font-size:.8rem}.sequence-strip{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;margin:.5rem 0 1rem;padding:.7rem;border-radius:11px;background:#1a232a;color:#8f99a3;font-size:.79rem;font-weight:900}.sequence-strip b{color:#5f6973}.sequence-strip .current{color:#ffd59a}.mission-cards{display:grid;gap:.65rem}.mission-card{display:grid;grid-template-columns:55px 1fr auto;gap:.8rem;align-items:center;padding:.95rem;border:1px solid #3e4a54;border-radius:13px;background:#0d1318}.mission-card.current{border-color:#c28d46;background:#211b13}.mission-card.locked{opacity:.72}.mission-icon{font-size:1.65rem}.mission-topline{display:flex;gap:.6rem;align-items:center}.mission-topline span{color:#f2b35d;font-size:.63rem;font-weight:900}.mission-topline b{color:#9da9b2;font-size:.61rem}.mission-card h3{margin:.2rem 0;color:#fff}.mission-question{margin:.2rem 0;color:#c6cdd3;font-size:.83rem}.mission-summary{margin:.25rem 0 0;color:#89949e;font-size:.78rem}.mission-locked{color:#818c95;font-size:.75rem;font-weight:850}.phase3-link{display:grid;grid-template-columns:32px 1fr auto;gap:.7rem;align-items:center;margin-top:1rem;padding:.9rem;border:1px solid #3e4953;border-radius:12px;background:#10161b}.phase3-link>span{font-size:1.3rem;color:#f2b35d}.phase3-link strong{color:#fff}.phase3-link p{margin:.2rem 0 0;color:#8f9ba4;font-size:.78rem}.phase3-link a{color:#ffd196;font-weight:850;text-decoration:none}
+@media(max-width:850px){.phase4-hero,.handoff-panel{grid-template-columns:1fr}.briefing-grid{grid-template-columns:repeat(2,1fr)}.work-grid{grid-template-columns:1fr}.mission-card{grid-template-columns:45px 1fr}.mission-ready-link,.mission-locked{grid-column:2}.phase3-link{grid-template-columns:28px 1fr}.phase3-link a{grid-column:2}.continue-strip{align-items:flex-start;flex-direction:column}}
+@media(max-width:560px){.briefing-grid{grid-template-columns:1fr}.phase4-hero h1{font-size:3rem}}
+</style>
