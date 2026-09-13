@@ -51,6 +51,16 @@ const missions = [
     if (path.includes('/phase-4/mission-4/')) {
       addNext('#phase4-mission4', 'Next Mission → Authorize New Horizon', `${base}courses/grade-7-science/jabberwocky/phase-4/mission-5/`, 'Mission 5 is ready. Next, use the evidence from the whole phase to review and authorize a structural system.');
     }
+    if (path.includes('/phase-4/mission-5/')) {
+      addNext('#phase4-mission5', 'Begin Phase 5 → The Deep Record', `${base}courses/grade-7-science/jabberwocky/phase-5/`, 'Phase 4 is complete. The Geological Survey Division is ready to investigate the ground beneath the proposed habitat sites.');
+      const stop = document.querySelector('#phase4-mission5 .stop-box');
+      if (stop) {
+        const strong = stop.querySelector('strong');
+        const span = stop.querySelector('span');
+        if (strong) strong.textContent = 'PHASE 5 IS READY';
+        if (span) span.textContent = 'The Deep Record begins with a new Geological Survey team and a new Phase 5 posting. The final Mission 2190 Council decision has not begun yet.';
+      }
+    }
   })();
 </script>
 
