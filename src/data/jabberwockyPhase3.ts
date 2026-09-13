@@ -14,6 +14,7 @@ export interface Phase3ThermalSite {
   mission1Clues: string[];
   mission2Clues: string[];
   mission3Clues: string[];
+  mission4Clues: string[];
 }
 
 export const phase3ThermalSites: Phase3ThermalSite[] = [
@@ -40,6 +41,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'A barrier that slows conduction through walls, roof and floor could reduce heat loss during long cold periods.',
       'Wind exposure means gaps or poorly covered areas can weaken an otherwise useful thermal barrier.',
       'Fragile slopes limit how much humans should disturb the site, so improving the habitat envelope is preferable to simply expanding the development footprint.'
+    ],
+    mission4Clues: [
+      'Long cold periods mean a control system must notice falling indoor temperature and respond before conditions become unsafe.',
+      'Passive solar gain can help when sunlight is available, but it cannot be treated as a constant heat source.',
+      'Because the site is fragile, JCEC should improve control of the existing habitat before expanding the development footprint.'
     ]
   },
   {
@@ -65,6 +71,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'A thermal barrier can slow unwanted energy moving through the habitat shell when outside conditions are warmer than the interior.',
       'Good coverage matters, but a barrier should not be treated as a reason to remove surrounding canopy or block every useful airflow path.',
       'Earlier teams already ruled out large forest clearings, so the thermal strategy must work within existing openings and habitat limits.'
+    ],
+    mission4Clues: [
+      'Shade can reduce radiant heat gain before active cooling is used.',
+      'Ventilation can move air when conditions make it useful, but the control system still needs to monitor indoor temperature rather than vent automatically all the time.',
+      'The rainforest canopy and existing clearings must remain part of the solution instead of being removed for easier habitat control.'
     ]
   },
   {
@@ -90,6 +101,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Because most island conditions are mild, the best barrier may be one that moderates changes rather than maximizing insulation at all times.',
       'Storm exposure makes continuous coverage and protected openings important because gaps can allow rapid thermal exchange with moving air.',
       'Habitat improvements must protect freshwater catchments and sensitive coastal connections rather than relocating the whole system into a more damaging site.'
+    ],
+    mission4Clues: [
+      'Most conditions are mild enough that passive control and careful ventilation may often reduce the need for active heating or cooling.',
+      'Storm-season changes in wind and cloud cover mean the system should respond to measured conditions rather than follow one fixed setting all year.',
+      'Control choices must continue to protect freshwater catchments and coastal habitat connections.'
     ]
   },
   {
@@ -115,6 +131,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'A useful thermal barrier must slow energy transfer in both directions: inward during hot days and outward during cold nights.',
       'Gaps or weakly covered areas can undermine a barrier when the temperature difference between inside and outside is large.',
       'Fresh water is scarce, so the team should reduce unwanted transfer before relying on any water-intensive cooling idea.'
+    ],
+    mission4Clues: [
+      'The control protocol may need different daytime and nighttime responses because conditions can swing from very hot to very cold.',
+      'Shade and reduced radiant gain are useful passive actions before active cooling is considered.',
+      'Any active cooling strategy must respect the established rule that scarce fresh water cannot become the main cooling resource.'
     ]
   },
   {
@@ -140,6 +161,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Long cold periods make slowing conduction through the habitat shell especially important.',
       'Continuous coverage and trapped-air spaces can help reduce transfer, while gaps around doors or joins can weaken the barrier.',
       'Slow-recovering natural plant mats must remain protected, so thermal protection should come from the habitat design rather than repeated ground disturbance.'
+    ],
+    mission4Clues: [
+      'A thermostat-style control should respond quickly when indoor temperature falls below the safe range during prolonged cold.',
+      'Passive solar gain can reduce heating demand when sunlight is available, but active heating still needs a clear backup rule.',
+      'Habitat control must work without repeated disturbance of the slow-recovering natural plant mats.'
     ]
   },
   {
@@ -165,6 +191,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'A useful barrier must slow unwanted transfer during both cold winters and warm summers rather than solving only one season.',
       'Open prairie exposure makes full coverage and control of gaps important when outside air is moving.',
       'The thermal solution must fit within a compact development plan that protects native prairie connections and soil.'
+    ],
+    mission4Clues: [
+      'A single year-round heating-only or cooling-only rule would not fit the established seasonal temperature range.',
+      'Seasonal shade, solar gain and ventilation can reduce active energy use before heating or cooling is switched on.',
+      'The control system must fit a compact habitat plan that keeps prairie connections and soil protection intact.'
     ]
   },
   {
@@ -190,6 +221,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Severe winter conditions make a strong thermal barrier valuable, especially across walls, roof and floor.',
       'Summer conditions are milder, so the design should reduce winter heat loss without assuming maximum heat retention is always helpful.',
       'The team cannot solve the thermal problem by clearing large forest areas; the barrier strategy must work within the existing forest setting.'
+    ],
+    mission4Clues: [
+      'Very cold winters make reliable heating control important, while warmer summer conditions mean the system should not heat automatically all year.',
+      'Passive solar gain and ventilation can be useful when conditions allow, but neither justifies clearing large areas of forest.',
+      'Any control protocol must protect connected forest habitat and work within the existing site.'
     ]
   },
   {
@@ -215,6 +251,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'A barrier can slow unwanted heat transfer through the habitat shell, but the design still needs to work in a warm, humid setting.',
       'Materials or layouts that depend on draining the ground would conflict with the established wetland restriction.',
       'A compact barrier strategy should protect the wetland while reducing the amount of active cooling the habitat may eventually need.'
+    ],
+    mission4Clues: [
+      'Shade can reduce radiant heat gain before active cooling is used.',
+      'Ventilation may help when conditions allow, but the habitat still needs measured temperature feedback instead of a permanently open or closed rule.',
+      'Cooling and control systems cannot depend on draining or heavily altering the wetland.'
     ]
   }
 ];
