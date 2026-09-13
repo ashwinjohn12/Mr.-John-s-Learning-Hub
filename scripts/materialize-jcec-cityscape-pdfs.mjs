@@ -12,7 +12,8 @@ const resources = [
     expectedParts: 9,
     out: 'Project_New_Horizon_CityScape_Field_File.pdf',
     expectedBytes: 37427,
-    expectedSha256: '50c914abbfc1eace66a518805f76d8f5981cb11a47c829c376eb0f2257996c18'
+    expectedSha256: '50c914abbfc1eace66a518805f76d8f5981cb11a47c829c376eb0f2257996c18',
+    restoreFinalNewline: true
   },
   {
     pattern: /^teacher\.approved\.part\d+\.b64$/,
@@ -39,7 +40,19 @@ for (const resource of resources) {
     .map((name) => fs.readFileSync(path.join(sourceDir, name), 'utf8'))
     .join('')
     .replace(/\s+/g, '');
-  const pdf = Buffer.from(encoded, 'base64');
+  let pdf = Buffer.from(encoded, 'base64');
+
+  // GitHub's text transport can normalize the final Base64 character for the
+  // Field File. Restore only the canonical final newline after %%EOF, then
+  // require the exact approved byte count and SHA-256 below.
+  if (
+    resource.restoreFinalNewline &&
+    pdf.length === resource.expectedBytes - 1 &&
+    pdf.subarray(-5).toString('ascii') === '%%EOF'
+  ) {
+    pdf = Buffer.concat([pdf, Buffer.from('\n')]);
+  }
+
   const sha256 = crypto.createHash('sha256').update(pdf).digest('hex');
 
   if (pdf.subarray(0, 5).toString('ascii') !== '%PDF-') {
