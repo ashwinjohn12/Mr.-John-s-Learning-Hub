@@ -1,0 +1,214 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecPhase5Progress from '../../../../../../components/JcecPhase5Progress.astro';
+import { phase5GeologicalSites } from '../../../../../../data/jabberwockyPhase5';
+
+const base = import.meta.env.BASE_URL;
+
+const surfaceProcesses = [
+  { icon:'🪨', title:'WEATHERING', action:'BREAKS material down', text:'Rock or other Earth material changes or breaks into smaller pieces at or near the surface. It does not have to move.' },
+  { icon:'➡️', title:'EROSION', action:'MOVES material', text:'Water, wind, ice or gravity can transport loosened Earth material from one place to another.' },
+  { icon:'⬇️', title:'DEPOSITION / SEDIMENTATION', action:'material SETTLES', text:'Transported material is left behind when the moving agent can no longer carry as much of it.' },
+  { icon:'⏳', title:'TIME', action:'small changes can add up', text:'A process can be slow during one class period and still reshape a landscape when it continues or repeats.' }
+];
+
+const weatheringCards = [
+  { title:'Cracked rock surface', evidence:'A rock surface contains widening cracks and small fragments nearby.', idea:'Evidence that material is breaking down; the card alone does not prove what caused every crack.' },
+  { title:'Freeze–thaw example', evidence:'On Earth, water can enter a crack, freeze and expand, helping widen the crack over repeated cycles.', idea:'A real-Earth example of physical weathering. Do not automatically transfer it to a Jabberwocky site.' },
+  { title:'Roots in a crack', evidence:'Roots can grow into existing cracks and press on rock as they grow.', idea:'A biological contribution to weathering before pieces are transported.' },
+  { title:'Changed surface colour/texture', evidence:'Some Earth minerals react with water or air and develop altered surface material.', idea:'A real-Earth example of chemical weathering. A colour change alone does not identify the reaction.' }
+];
+
+const fallbackData = [
+  { condition:'Lower slope · Trial 1', distance:'11 cm', deposition:'Mostly lower half of tray', observation:'Water spread broadly; several grains stopped early.' },
+  { condition:'Lower slope · Trial 2', distance:'13 cm', deposition:'Lower half / tray end', observation:'A narrow pathway formed; some fine sediment travelled farther.' },
+  { condition:'Higher slope · Trial 1', distance:'25 cm', deposition:'Near tray end', observation:'More material moved quickly down one channel.' },
+  { condition:'Higher slope · Trial 2', distance:'17 cm', deposition:'Mid-to-lower tray', observation:'Unusual result: water ran strongly along one side rather than through the centre.' }
+];
+
+const tyrrellBadlands='https://tyrrellmuseum.com/learn/Badlands_Goodlands';
+const usgsEarthquakes='https://www.usgs.gov/programs/earthquake-hazards/science-earthquakes';
+---
+
+<BaseLayout title="Mission 3: Track the Changing Surface | The Deep Record" description="Phase 5 Mission 3: investigate weathering, erosion, deposition, fair testing and cautious long-term prediction." themeColor="#111916">
+  <div class="mission-shell" id="phase5-mission3">
+    <Breadcrumbs items={[
+      { label:'Home', href:base },
+      { label:'Grade 7 Science', href:`${base}courses/grade-7-science/` },
+      { label:'Jabberwocky', href:`${base}courses/grade-7-science/jabberwocky/` },
+      { label:'Phase 5', href:`${base}courses/grade-7-science/jabberwocky/phase-5/` },
+      { label:'Mission 3' }
+    ]} />
+
+    <JcecPhase5Progress active={3} compact={true} />
+
+    <header class="mission-hero">
+      <div><p class="eyebrow">PHASE 5 // MISSION 3 OF 5</p><h1>TRACK THE <span>CHANGING SURFACE</span></h1><p class="question">How can small surface processes reshape a landscape over long periods of time?</p></div>
+      <aside><span>SCIENCE REASONING CHECKPOINT</span><strong>Fair testing + data + geological-process understanding + cautious prediction</strong><small>4 classes × 45 minutes</small></aside>
+    </header>
+
+    <section class="mission-at-a-glance">
+      <div><small>WHERE AM I?</small><strong>Mission 3 of 5 · Surface Change</strong></div>
+      <div><small>WHAT DO I HAND IN?</small><strong>1 Surface Change Forecast + 1 reflection</strong></div>
+      <div><small>WHY DOES IT MATTER?</small><strong>JCEC needs to know what surface process could keep changing a site after settlement planning begins.</strong></div>
+    </section>
+
+    <nav class="step-nav" aria-label="Mission 3 steps"><a href="#your-mission"><b>1</b><span>Your Mission</span></a><a href="#learn"><b>2</b><span>Learn</span></a><a href="#investigate"><b>3</b><span>Investigate</span></a><a href="#decide"><b>4</b><span>Decide</span></a><a href="#record"><b>5</b><span>Record It</span></a></nav>
+
+    <section class="simple-step" id="your-mission">
+      <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
+      <div class="briefing"><p>Mission 2 reconstructed how geological materials <strong>may have formed in the past</strong>. But the surface is still changing now. Your Geological Survey team must separate weathering from erosion and deposition, run a controlled model of sediment movement, explain the pattern in the data, and decide which surface-change process JCEC should monitor most carefully. Slow change still matters when it repeats for a long time.</p></div>
+
+      <div class="assignment-result" id="assignment-result" hidden><span id="assignment-icon"></span><div><small>YOUR PHASE 5 CONTINENT</small><strong id="assignment-name"></strong><p id="assignment-subtitle"></p></div><div class="challenge-badge"><small>SURFACE / ENVIRONMENT</small><b id="assignment-surface"></b></div></div>
+      <div class="missing-assignment" id="missing-assignment" hidden><strong>Your Phase 5 posting is not saved on this device yet.</strong><p>Return to The Deep Record hub and confirm the continent your teacher assigned. Mission 3 does not create a new posting.</p><a href={`${base}courses/grade-7-science/jabberwocky/phase-5/`}>Get Phase 5 posting →</a></div>
+      <div class="continuity-strip"><strong>MISSIONS 1–2 ARE ALREADY DONE</strong><span>You do not need to reopen the Ground Evidence Card or Rock History Profile. Mission 3 gives you the surface-change clues you need.</span></div>
+
+      <section class="evidence-source-rule">
+        <article class="earth"><small>EARTH REFERENCE EVIDENCE</small><strong>REAL EARTH · AUTHENTIC SOURCE</strong><p>Use real Earth cases to learn what surface-change evidence can mean.</p></article>
+        <article class="jabber"><small>JABBERWOCKY SURVEY EVIDENCE</small><strong>MISSION 2190 SURVEY</strong><p>Use only JCEC observations when deciding what process matters on your continent.</p></article>
+        <div><b>Keep them separate:</b> real-Earth examples can teach a process. They do <strong>not</strong> automatically create a flood, landslide, earthquake or other hazard on Jabberwocky.</div>
+      </section>
+    </section>
+
+    <section class="simple-step" id="learn">
+      <div class="step-heading"><span>2</span><div><p>CLASS 1</p><h2>Learn the Science</h2></div></div>
+      <p class="section-lead">A simple way to keep the three surface processes straight is:</p>
+      <div class="big-chain"><span>BREAK</span><b>→</b><span>MOVE</span><b>→</b><span>SETTLE</span></div>
+      <div class="science-grid">{surfaceProcesses.map((idea)=><article><span>{idea.icon}</span><strong>{idea.title}</strong><b>{idea.action}</b><p>{idea.text}</p></article>)}</div>
+
+      <div class="misconception"><strong>WEATHERING ≠ EROSION</strong><p><b>Weathering can happen without transport.</b> A rock can crack or change in place. <b>Erosion requires movement.</b> Once loosened material is transported, erosion is occurring; when it settles, deposition/sedimentation is occurring.</p></div>
+
+      <section class="weathering-panel">
+        <div class="block-title"><div><small>EARTH REFERENCE EVIDENCE</small><h3>What shows material breaking down before it is moved?</h3></div><span>WEATHERING EVIDENCE</span></div>
+        <div class="weathering-grid">{weatheringCards.map((card)=><article><strong>{card.title}</strong><p>{card.evidence}</p><span>{card.idea}</span></article>)}</div>
+        <p class="source-note">These are short evidence examples, not a second investigation. Your main physical model in this mission focuses most directly on <b>erosion + deposition</b>.</p>
+      </section>
+
+      <section class="change-panel">
+        <div class="source-heading"><div><small>EARTH REFERENCE EVIDENCE</small><h3>Gradual change and sudden change both reshape Earth.</h3></div><a href={usgsEarthquakes} target="_blank" rel="noreferrer">USGS sudden-change example ↗</a></div>
+        <div class="change-grid"><article><strong>GRADUAL / INCREMENTAL</strong><p>Weathering, erosion and deposition can repeat slowly and accumulate over long periods.</p></article><article><strong>SUDDEN</strong><p>Earthquakes are a real-Earth example of rapid change. Mission 4 will use real Earth evidence to study deeper crustal change.</p></article></div>
+        <p><b>Mission 3 stays focused on gradual surface processes.</b> A real-Earth sudden-change example does not prove that your Jabberwocky continent has that hazard.</p>
+      </section>
+
+      <section class="alberta-panel">
+        <div class="source-heading"><div><small>EARTH REFERENCE EVIDENCE · ALBERTA</small><h3>Badlands: erosion exposes a layered record</h3></div><a href={tyrrellBadlands} target="_blank" rel="noreferrer">Royal Tyrrell Museum source ↗</a></div>
+        <p>Alberta's badlands are a useful reference because students can see how sedimentation builds layers and erosion later exposes and reshapes them. Use this Earth example to understand the processes—<strong>not</strong> to claim that a Jabberwocky site is becoming badlands.</p>
+      </section>
+    </section>
+
+    <section class="simple-step" id="investigate">
+      <div class="step-heading"><span>3</span><div><p>CLASSES 1–3</p><h2>Investigate</h2></div></div>
+      <section class="investigation-block">
+        <div class="block-title"><div><small>MAIN INVESTIGATION</small><h3>Surface Change Fair Test</h3></div><span>CONTROL ONE MAIN VARIABLE</span></div>
+        <p><strong>Question:</strong> How does changing slope affect how far sediment is transported by the same amount of moving water in our model?</p>
+        <div class="fair-test-grid"><article><small>CHANGE</small><strong>SLOPE</strong><p>Compare a lower slope with a higher slope.</p></article><article><small>MEASURE</small><strong>TRANSPORT DISTANCE (cm)</strong><p>Measure how far the sediment front moves.</p></article><article><small>OBSERVE</small><strong>DEPOSITION LOCATION</strong><p>Where does transported sediment settle?</p></article></div>
+
+        <div class="control-box"><small>KEEP THESE REASONABLY SIMILAR</small><div><span>same tray</span><span>same sediment mixture</span><span>same sediment amount</span><span>same starting shape</span><span>same water amount</span><span>same pouring point</span><span>same approximate pouring time/rate</span></div></div>
+
+        <div class="setup-grid"><article><small>LOWER SLOPE</small><strong>Raise the tray with one identical book/block.</strong><p>No angle calculation is required.</p></article><article><small>HIGHER SLOPE</small><strong>Raise the same tray with two or three identical books/blocks.</strong><p>Change slope—not everything else.</p></article></div>
+
+        <div class="materials-check"><strong>MATERIALS REALITY CHECK</strong><p>Use shallow reused trays/containers, a small quantity of sand/soil/gravel, a marked cup or bottle, ruler, towels and ordinary books/blocks. Teacher chooses one water amount between <b>50–100 mL per trial</b> and uses the same amount for both conditions. Assign one water manager per group. <b>No running hose and no commercial stream table are required.</b></p></div>
+        <div class="safety-note"><strong>CLASSROOM SAFETY</strong><span>Desk-sized trays only. Keep water inside the tray, wipe spills immediately, keep devices away from wet stations, and wash hands after handling classroom sediment.</span></div>
+
+        <section class="data-table">
+          <div class="block-title"><div><small>ONE SMALL DATA TABLE</small><h4>Record numbers and observations together.</h4></div><span>QUANTITATIVE + QUALITATIVE</span></div>
+          <div class="table-wrap"><table><thead><tr><th>Slope condition</th><th>Transport distance (cm)</th><th>Deposition location</th><th>Observation</th></tr></thead><tbody><tr><td>Lower slope</td><td>_____ cm</td><td>________________</td><td>____________________________</td></tr><tr><td>Higher slope</td><td>_____ cm</td><td>________________</td><td>____________________________</td></tr></tbody></table></div>
+        </section>
+
+        <section class="fallback-panel">
+          <div class="block-title"><div><small>NO-PURCHASE / ABSENCE FALLBACK</small><h4>Use supplied evidence if the physical model cannot run.</h4></div><span>TRAINING DATA · NOT JABBERWOCKY CANON</span></div>
+          <div class="fallback-grid">{fallbackData.map((row)=><article><strong>{row.condition}</strong><span>{row.distance}</span><p><b>Deposition:</b> {row.deposition}</p><p>{row.observation}</p></article>)}</div>
+          <p>Students who miss the physical investigation can use class data or this supplied dataset and complete the same reasoning. If available, pair the data with before/after tray photos or simple deposition diagrams.</p>
+        </section>
+
+        <section class="anomaly-panel">
+          <small>DO NOT ERASE THE WEIRD RESULT</small><h4>Which result did not fit the overall pattern? What might explain it?</h4>
+          <div class="anomaly-grid"><span>different pouring rate</span><span>uneven starting sediment</span><span>measurement error</span><span>water flowed along one side</span></div>
+          <p>An unusual result is evidence about the <b>quality of the test</b>. Explain it instead of deleting it.</p>
+        </section>
+
+        <section class="prediction-panel">
+          <div class="block-title"><div><small>MODEL-DATA TASK</small><h4>Predict—but keep the conditions attached to the prediction.</h4></div><span>INTERPOLATION / EXTRAPOLATION</span></div>
+          <p class="training-note">JCEC training data: after controlled pours under the same model conditions, a sediment front is recorded at <b>4 cm → 7 cm → 10 cm → 13 cm</b>.</p>
+          <div class="prediction-grid"><article><small>INTERPOLATE</small><strong>If the 10 cm measurement were missing, what value would fit the pattern between 7 cm and 13 cm?</strong><p>Estimate: __________</p></article><article><small>EXTRAPOLATE</small><strong>If the same model pattern continued one more trial, what next value would you predict?</strong><p>Predict: __________</p></article></div>
+          <blockquote>Why would it be unsafe to assume a real landscape will continue changing at exactly this rate for hundreds or thousands of years?</blockquote>
+          <p><b>Model prediction = useful, but conditional.</b> Real landscapes change when water amount, vegetation, sediment, weather, slope or other conditions change.</p>
+        </section>
+
+        <div class="checkpoint-focus"><strong>THIS CHECKPOINT ASSESSES</strong><span>fair testing → data → geological-process understanding → cautious prediction</span><em>Not whose tray moved the most sediment.</em></div>
+        <button type="button" class="small-button" id="print-phase5-mission3">Print Fair Test + Surface Change Forecast</button>
+      </section>
+    </section>
+
+    <section class="simple-step" id="decide">
+      <div class="step-heading"><span>4</span><div><p>CLASSES 3–4</p><h2>Make a Decision</h2></div></div>
+      <section class="survey-panel" id="survey-panel" hidden>
+        <div class="block-title"><div><small>JABBERWOCKY SURVEY EVIDENCE</small><h3 id="survey-title">Surface-change clues</h3></div><span>MISSION 2190 SURVEY</span></div>
+        <p class="survey-warning"><strong>Several processes may matter.</strong> These clues do not create a predetermined answer or a new disaster. Choose the process JCEC should monitor first and explain why.</p>
+        <div class="survey-grid"><article><small>CLUE 1</small><p id="clue-1"></p></article><article><small>CLUE 2</small><p id="clue-2"></p></article><article><small>CLUE 3</small><p id="clue-3"></p></article></div>
+      </section>
+
+      <section class="decision-card">
+        <small>ONE TEAM DECISION</small><h3>Which surface-change process should JCEC monitor most carefully at this site?</h3>
+        <div class="reasoning-chain"><span>CLAIM</span><b>→</b><span>DATA</span><b>→</b><span>PROCESS</span><b>→</b><span>LONG-TERM PREDICTION</span><b>→</b><span>LIMITATION</span></div>
+        <div class="sentence-stems"><p><b>We think JCEC should monitor</b> __________________________________________.</p><p><b>Our investigation showed</b> ______________________________________________.</p><p><b>This is evidence of</b> __________________ because ____________________________.</p><p><b>If similar conditions continued, we would predict</b> __________________________.</p><p><b>One reason the real site may not change exactly like our model is</b> __________________.</p></div>
+      </section>
+    </section>
+
+    <section class="simple-step" id="record">
+      <div class="step-heading"><span>5</span><div><p>CLASS 4</p><h2>Record It</h2></div></div>
+      <div class="collab-row"><article><b>TEAM WORK</b><span>Compare the model evidence and continent clues, then choose one monitoring priority.</span></article><article><b>TEAM RECORD</b><span>One person records the Surface Change Forecast.</span></article><article><b>MY REFLECTION</b><span>Everyone completes one short science reflection.</span></article></div>
+
+      <section class="team-record">
+        <div class="record-heading"><div><small>SCIENCE REASONING CHECKPOINT</small><h3>SURFACE CHANGE FORECAST</h3></div><span>ONE PER TEAM</span></div>
+        <div class="record-grid">
+          <label><strong>CONTINENT</strong><span id="record-continent">____________________________</span></label>
+          <label><strong>PRIORITY SURFACE-CHANGE PROCESS</strong><span>________________________________________</span></label>
+          <label><strong>QUANTITATIVE EXPERIMENTAL EVIDENCE</strong><span>________________________________________</span></label>
+          <label><strong>ONE QUALITATIVE OBSERVATION</strong><span>________________________________________</span></label>
+          <label class="wide"><strong>CONNECTION TO OUR SITE EVIDENCE</strong><span>________________________________________________________________</span></label>
+          <label class="wide"><strong>PREDICTED LONG-TERM DIRECTION OF CHANGE</strong><span>________________________________________________________________</span></label>
+          <label><strong>ONE FACTOR THAT COULD CHANGE THE PREDICTION</strong><span>________________________________________</span></label>
+          <label><strong>ONE MONITORING RECOMMENDATION</strong><span>________________________________________</span></label>
+        </div>
+      </section>
+
+      <section class="reflection-card"><small>MY REFLECTION</small><h3>Why can a very slow geological process still become important over a long time?</h3><p>________________________________________________________________________________</p><p>________________________________________________________________________________</p></section>
+      <div class="finished-box"><strong>Mission 3 is finished when:</strong><span>your team has one <b>Surface Change Forecast</b> and you have completed <b>your reflection</b>.</span><em>Mission 4 — Read the Deep Past remains locked/upcoming.</em></div>
+    </section>
+
+    <section class="class-plan"><small>4 × 45-MINUTE CLASSES</small><div><article><b>CLASS 1</b><strong>Break, Move, Settle</strong><p>Weathering vs erosion vs deposition, gradual/sudden change and fair-test planning.</p></article><article><b>CLASS 2</b><strong>Surface Change Fair Test</strong><p>Run the controlled slope comparison and collect quantitative + qualitative evidence.</p></article><article><b>CLASS 3</b><strong>What Does the Pattern Show?</strong><p>Combine/interpret data, explain an anomaly, practise interpolation/extrapolation, discuss model limits and read continent clues.</p></article><article><b>CLASS 4</b><strong>What Should JCEC Monitor?</strong><p>Select one priority process, complete checkpoint reasoning, Surface Change Forecast and reflection.</p></article></div></section>
+  </div>
+
+  <script is:inline define:vars={{ siteData: phase5GeologicalSites }}>
+    (() => {
+      const KEY='jabberwocky-phase5-posting';
+      const sites=Object.fromEntries(siteData.map((site)=>[site.id,site]));
+      const saved=localStorage.getItem(KEY);
+      const result=document.getElementById('assignment-result');
+      const missing=document.getElementById('missing-assignment');
+      const survey=document.getElementById('survey-panel');
+      if(saved&&sites[saved]){
+        const site=sites[saved];
+        result.hidden=false;missing.hidden=true;survey.hidden=false;
+        document.getElementById('assignment-icon').textContent=site.icon;
+        document.getElementById('assignment-name').textContent=site.name;
+        document.getElementById('assignment-subtitle').textContent=site.subtitle;
+        document.getElementById('assignment-surface').textContent=site.previousTeamGeologicalBriefing.surfaceEnvironment;
+        document.getElementById('survey-title').textContent=`${site.icon} ${site.name} · Surface-change clues`;
+        const clues=site.mission3SurfaceChangeClues||[];
+        ['clue-1','clue-2','clue-3'].forEach((id,i)=>{document.getElementById(id).textContent=clues[i]||'No additional clue supplied.';});
+        document.getElementById('record-continent').textContent=site.name;
+      }else{result.hidden=true;missing.hidden=false;survey.hidden=true;}
+      document.getElementById('print-phase5-mission3')?.addEventListener('click',()=>window.print());
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+:global(body){background:#08100d}.mission-shell{max-width:1060px;margin:0 auto;padding:0 1rem 5rem;color:#eef3f0}.mission-shell :global(.breadcrumbs){color:#93a098}.mission-shell :global(.breadcrumbs a){color:#dbe6e0}:global(body:has(#phase5-mission3) .jcec-submission-dock),:global(body:has(#phase5-mission3) .jcec-device-tools){display:none!important}.eyebrow{margin:0;color:#e4b46e;font:900 .72rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em}.mission-hero{display:grid;grid-template-columns:1fr 300px;gap:1rem;align-items:end;margin:1rem 0;padding:clamp(1.35rem,4vw,2.35rem);border:1px solid #56645d;border-radius:22px;background:radial-gradient(circle at 85% 15%,rgba(228,180,110,.16),transparent 28%),linear-gradient(145deg,#101915,#1d2a24)}.mission-hero h1{margin:.45rem 0;color:#fff;font-size:clamp(2.7rem,7vw,5rem);line-height:.91;letter-spacing:-.05em}.mission-hero h1 span{display:block;color:#e4b46e}.question{margin:.6rem 0 0;color:#cdd8d2;font-size:1.05rem;font-weight:750}.mission-hero aside{display:grid;gap:.25rem;padding:1rem;border:1px solid #76623d;border-radius:13px;background:#1a160e}.mission-hero aside span{color:#e4b46e;font-size:.68rem;font-weight:900}.mission-hero aside strong{color:#fff;line-height:1.35}.mission-hero aside small{color:#a9a08d}.mission-at-a-glance{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin:1rem 0}.mission-at-a-glance div{display:grid;gap:.2rem;padding:.8rem;border:1px solid #3f4e47;border-radius:11px;background:#101915}.mission-at-a-glance small{color:#e4b46e;font-size:.63rem;font-weight:900}.mission-at-a-glance strong{color:#e8efeb;font-size:.84rem;line-height:1.4}.step-nav{position:sticky;top:.4rem;z-index:10;display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem;margin:1rem 0;padding:.4rem;border:1px solid #414f48;border-radius:12px;background:rgba(8,16,13,.94);backdrop-filter:blur(8px)}.step-nav a{display:flex;gap:.45rem;align-items:center;padding:.5rem;border-radius:8px;color:#b7c3bd;text-decoration:none;font-size:.76rem;font-weight:850}.step-nav b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#28352f;color:#e4b46e}.step-nav a:hover{background:#19251f;color:#fff}.simple-step{margin:1.15rem 0;padding:1.25rem;border:1px solid #3f4e47;border-radius:17px;background:#101915}.step-heading{display:flex;gap:.7rem;align-items:center;margin-bottom:.95rem}.step-heading>span{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#e4b46e;color:#291a08;font-size:1.1rem;font-weight:950}.step-heading p{margin:0;color:#89968f;font-size:.65rem;font-weight:900}.step-heading h2{margin:.08rem 0;color:#fff}.briefing{padding:1rem;border-left:4px solid #e4b46e;border-radius:0 10px 10px 0;background:#19241f;color:#cbd5d0;line-height:1.62}.assignment-result{display:grid;grid-template-columns:50px 1fr 1.25fr;gap:.7rem;align-items:center;margin-top:.85rem;padding:.8rem;border:1px solid #4b5b53;border-radius:11px;background:#0b1410}.assignment-result>span{font-size:2rem}.assignment-result div{display:grid;gap:.1rem}.assignment-result small,.challenge-badge small{color:#e4b46e;font-size:.62rem;font-weight:900}.assignment-result strong{color:#fff}.assignment-result p{margin:0;color:#8f9d95;font-size:.76rem}.challenge-badge{padding:.6rem;border-left:1px solid #3f4d46}.challenge-badge b{color:#c8d2cd;font-size:.76rem;line-height:1.4}.missing-assignment{margin-top:.8rem;padding:.9rem;border:1px solid #7d5d31;border-radius:10px;background:#241b11}.missing-assignment strong{color:#ffd293}.missing-assignment p{color:#cdbb9f}.missing-assignment a{color:#ffd293;font-weight:900}.continuity-strip{display:flex;gap:.65rem;margin-top:.7rem;padding:.75rem;border-radius:9px;background:#17231e}.continuity-strip strong{flex:0 0 190px;color:#e4b46e;font-size:.65rem}.continuity-strip span{color:#aab7b0;font-size:.78rem;line-height:1.45}.evidence-source-rule{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.8rem}.evidence-source-rule article{display:grid;gap:.18rem;padding:.8rem;border-radius:10px}.evidence-source-rule article small{font-size:.61rem;font-weight:900}.evidence-source-rule article strong{color:#fff;font-size:.77rem}.evidence-source-rule article p{margin:.15rem 0;color:#aebcc0;font-size:.75rem;line-height:1.42}.evidence-source-rule .earth{border:1px solid #52798e;background:#10212b}.evidence-source-rule .earth small{color:#8ed0f1}.evidence-source-rule .jabber{border:1px solid #80623a;background:#281f12}.evidence-source-rule .jabber small{color:#efc785}.evidence-source-rule>div{grid-column:1/-1;padding:.75rem;border-radius:9px;background:#19241f;color:#aebbb4;font-size:.77rem}.section-lead{color:#b9c5bf;line-height:1.55}.big-chain,.reasoning-chain{display:flex;justify-content:center;align-items:center;gap:.35rem;flex-wrap:wrap;margin:.7rem 0;padding:.65rem;border-radius:9px;background:#16221c}.big-chain span,.reasoning-chain span{padding:.38rem .55rem;border-radius:6px;background:#26372f;color:#fff;font-size:.67rem;font-weight:900}.big-chain b,.reasoning-chain b{color:#6d7b74}.science-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem}.science-grid article{padding:.85rem;border:1px solid #414f48;border-radius:10px;background:#0b1410}.science-grid article>span{font-size:1.4rem}.science-grid strong{display:block;color:#fff}.science-grid b{display:block;margin:.15rem 0;color:#e8c58d;font-size:.75rem}.science-grid p{color:#9ca9a2;font-size:.74rem;line-height:1.45}.misconception,.weathering-panel,.change-panel,.alberta-panel,.investigation-block,.survey-panel,.decision-card{margin-top:.8rem;padding:1rem;border:1px solid #435149;border-radius:12px;background:#0b1410}.misconception strong{color:#e4b46e}.misconception p{margin:.25rem 0;color:#aab7b0;line-height:1.48}.block-title,.source-heading{display:flex;justify-content:space-between;gap:.8rem;align-items:center}.block-title small,.source-heading small{color:#e4b46e;font-size:.63rem;font-weight:900}.block-title h3,.source-heading h3,.block-title h4{margin:.15rem 0;color:#fff}.block-title>span{padding:.3rem .5rem;border-radius:999px;background:#24332c;color:#dce8e2;font-size:.64rem;font-weight:900}.weathering-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin-top:.65rem}.weathering-grid article{padding:.75rem;border-radius:9px;background:#17231e}.weathering-grid strong{color:#fff}.weathering-grid p{color:#a7b4ad;font-size:.75rem}.weathering-grid span{color:#e7c58e;font-size:.7rem}.source-note{color:#9eaaa4;font-size:.75rem}.source-heading a{color:#9bd6f2;font-size:.74rem;font-weight:850}.change-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.6rem}.change-grid article{padding:.75rem;border-radius:9px;background:#17231e}.change-grid strong{color:#fff}.change-grid p,.change-panel>p,.alberta-panel>p{color:#a7b4ad;font-size:.75rem;line-height:1.48}.fair-test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin:.7rem 0}.fair-test-grid article{padding:.75rem;border:1px solid #4a584f;border-radius:9px;background:#151f1a}.fair-test-grid small{color:#e4b46e;font-size:.61rem;font-weight:900}.fair-test-grid strong{display:block;color:#fff;margin:.15rem 0}.fair-test-grid p{color:#aab7b0;font-size:.74rem}.control-box{padding:.75rem;border:1px dashed #59675f;border-radius:9px}.control-box small{color:#e4b46e;font-size:.61rem;font-weight:900}.control-box div{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.45rem}.control-box span{padding:.35rem .5rem;border-radius:999px;background:#17231e;color:#b8c4be;font-size:.68rem}.setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.65rem}.setup-grid article{padding:.75rem;border-radius:9px;background:#17231e}.setup-grid small{color:#e4b46e;font-size:.61rem;font-weight:900}.setup-grid strong{display:block;color:#fff;margin:.15rem 0}.setup-grid p{color:#9eaaa4;font-size:.72rem}.materials-check,.safety-note{margin-top:.65rem;padding:.75rem;border:1px solid #4a584f;border-radius:9px;background:#151f1a}.materials-check strong,.safety-note strong{color:#e4b46e;font-size:.68rem}.materials-check p{margin:.25rem 0;color:#a6b3ac;font-size:.76rem;line-height:1.48}.safety-note{display:flex;gap:.7rem}.safety-note span{color:#aab7b0;font-size:.75rem}.data-table,.fallback-panel,.anomaly-panel,.prediction-panel{margin-top:.7rem;padding:.8rem;border:1px solid #3f4d46;border-radius:10px;background:#111c17}.table-wrap{overflow-x:auto;margin-top:.55rem}.data-table table{width:100%;border-collapse:collapse;min-width:650px}.data-table th,.data-table td{padding:.55rem;border:1px solid #3c4a43;text-align:left;font-size:.72rem}.data-table th{color:#e4b46e;background:#17231e}.data-table td{color:#c3cec8}.fallback-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.45rem;margin-top:.55rem}.fallback-grid article{padding:.7rem;border-radius:8px;background:#17231e}.fallback-grid strong{color:#fff;font-size:.73rem}.fallback-grid span{display:block;color:#e4b46e;font-weight:900;margin:.2rem 0}.fallback-grid p,.fallback-panel>p{color:#a5b2ab;font-size:.71rem}.anomaly-panel small,.prediction-panel small{color:#e4b46e;font-size:.61rem;font-weight:900}.anomaly-panel h4{margin:.2rem 0;color:#fff}.anomaly-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;margin:.55rem 0}.anomaly-grid span{padding:.55rem;border-radius:8px;background:#17231e;color:#aab7b0;font-size:.7rem}.anomaly-panel p{color:#aab7b0;font-size:.74rem}.training-note{padding:.65rem;border-radius:8px;background:#17231e;color:#c8d2cd;font-size:.76rem}.prediction-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}.prediction-grid article{padding:.7rem;border-radius:8px;background:#17231e}.prediction-grid strong{display:block;color:#fff;font-size:.74rem;line-height:1.45}.prediction-grid p{color:#e4b46e}.prediction-panel blockquote{margin:.6rem 0;padding:.75rem;border-left:4px solid #e4b46e;background:#17231e;color:#fff;font-weight:800}.prediction-panel>p{color:#a7b4ad;font-size:.74rem}.checkpoint-focus{display:grid;gap:.2rem;margin-top:.7rem;padding:.75rem;border:1px solid #8b713f;border-radius:9px;background:#201a0f}.checkpoint-focus strong{color:#e4b46e}.checkpoint-focus span{color:#fff}.checkpoint-focus em{color:#b6aa91;font-size:.74rem;font-style:normal}.small-button{margin-top:.7rem;padding:.65rem .8rem;border:0;border-radius:8px;background:#e4b46e;color:#291a08;font-weight:900;cursor:pointer}.survey-warning{padding:.65rem;border-left:3px solid #e4b46e;background:#17231e;color:#9eaaa4;font-size:.76rem}.survey-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-top:.6rem}.survey-grid article{padding:.75rem;border:1px solid #765f3c;border-radius:9px;background:#211a10}.survey-grid small{color:#efc987;font-size:.59rem;font-weight:900}.survey-grid p{color:#d0c2aa;font-size:.75rem;line-height:1.45}.decision-card>small{color:#e4b46e;font-size:.63rem;font-weight:900}.decision-card h3{margin:.25rem 0;color:#fff}.sentence-stems{padding:.75rem;border-radius:9px;background:#17231e}.sentence-stems p{color:#aab7b0;font-size:.78rem}.sentence-stems b{color:#fff}.collab-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}.collab-row article{display:grid;gap:.2rem;padding:.75rem;border:1px solid #3f4e47;border-radius:9px;background:#0b1410}.collab-row b{color:#e4b46e;font-size:.67rem}.collab-row span{color:#a5b1aa;font-size:.74rem}.team-record{margin-top:.8rem;padding:1rem;border:1px solid #665038;border-radius:12px;background:#15120e}.record-heading{display:flex;justify-content:space-between;gap:.7rem;align-items:center}.record-heading small{color:#e4b46e;font-size:.6rem;font-weight:900}.record-heading h3{margin:.15rem 0;color:#fff}.record-heading>span{color:#e8c78f;font-size:.64rem;font-weight:900}.record-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.45rem;margin-top:.7rem}.record-grid label{display:grid;gap:.3rem;padding:.62rem;border:1px solid #453e33;border-radius:7px}.record-grid strong{color:#e4b46e;font-size:.61rem}.record-grid span{color:#d1cbc1;font-size:.72rem;line-height:1.5}.record-grid .wide{grid-column:1/-1}.reflection-card{margin-top:.8rem;padding:.9rem;border:1px solid #405c68;border-radius:11px;background:#0f1b20}.reflection-card small{color:#92d0ea;font-weight:900}.reflection-card h3{color:#fff}.reflection-card p{color:#90a2aa}.finished-box{display:grid;gap:.25rem;margin-top:.75rem;padding:.8rem;border:1px solid #3f765c;border-radius:9px;background:#10241a}.finished-box strong{color:#8ae0ad}.finished-box span{color:#bed8c7}.finished-box em{color:#9fb3a6;font-size:.75rem;font-style:normal}.class-plan{margin-top:1rem;padding:1rem;border:1px solid #424f48;border-radius:12px;background:#0e1713}.class-plan>small{color:#e4b46e;font-weight:900}.class-plan>div{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:.65rem}.class-plan article{padding:.7rem;border-radius:8px;background:#18241e}.class-plan b{color:#e4b46e;font-size:.61rem}.class-plan strong{display:block;margin:.15rem 0;color:#fff;font-size:.76rem}.class-plan p{margin:.15rem 0;color:#98a59e;font-size:.7rem;line-height:1.4}
+@media(max-width:900px){.mission-hero{grid-template-columns:1fr}.science-grid,.class-plan>div{grid-template-columns:repeat(2,1fr)}.anomaly-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.mission-at-a-glance,.science-grid,.weathering-grid,.change-grid,.fair-test-grid,.setup-grid,.fallback-grid,.prediction-grid,.survey-grid,.collab-row,.record-grid,.class-plan>div,.evidence-source-rule{grid-template-columns:1fr}.record-grid .wide,.evidence-source-rule>div{grid-column:auto}.step-nav{grid-template-columns:repeat(5,82px);overflow-x:auto}.step-nav a{justify-content:center}.step-nav span{display:none}.assignment-result{grid-template-columns:45px 1fr}.challenge-badge{grid-column:1/-1;border-left:0;border-top:1px solid #3f4d46}.continuity-strip,.safety-note{display:grid}.continuity-strip strong{flex:auto}.block-title,.source-heading,.record-heading{align-items:flex-start;flex-direction:column}.big-chain,.reasoning-chain{justify-content:flex-start}.anomaly-grid{grid-template-columns:1fr 1fr}}
+@media print{body{background:#fff!important}.mission-shell{color:#111}.mission-hero,.step-nav,.mission-at-a-glance,#your-mission,#learn,.materials-check,.safety-note,.control-box,.checkpoint-focus,#decide,.class-plan,:global(.breadcrumbs),:global(.phase5-progress){display:none!important}.simple-step{border:0;background:#fff;padding:0}.step-heading,.collab-row,.finished-box{display:none}.investigation-block,.data-table,.fallback-panel,.anomaly-panel,.prediction-panel,.team-record,.reflection-card{border:1px solid #444;background:#fff;color:#111;break-inside:avoid}.investigation-block *,.data-table *,.fallback-panel *,.anomaly-panel *,.prediction-panel *,.team-record *,.reflection-card *{color:#111!important}.small-button{display:none}.record-grid label{border-color:#999}}
+</style>
