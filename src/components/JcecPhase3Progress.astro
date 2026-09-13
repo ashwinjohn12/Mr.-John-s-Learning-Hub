@@ -6,7 +6,7 @@ interface Props {
 
 const { active = 1, compact = false } = Astro.props;
 const base = import.meta.env.BASE_URL;
-// Mission 4 is the current release gate; Mission 5 stays unlinked until teacher approval.
+// Mission 5 is now released; Phase 4 remains intentionally unlinked.
 const missions = [
   { number: 1, short: 'Temperature', title: 'Read the Thermal Warning' },
   { number: 2, short: 'Heat Transfer', title: 'Follow the Heat' },
@@ -49,6 +49,13 @@ const missions = [
         note: 'Mission 4 is ready. Next, build a feedback rule that responds when temperature changes anyway.',
         href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-4/`,
         label: 'Next Mission → Control the Habitat'
+      },
+      {
+        match: '/phase-3/mission-4/',
+        root: '#phase3-mission4',
+        note: 'Mission 5 is ready. Next, balance safety, energy use and environmental protection in the final Thermal Survival Plan.',
+        href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-5/`,
+        label: 'Next Mission → Survive Without Wasting It'
       }
     ];
     const release = releases.find((item) => path.includes(item.match));
