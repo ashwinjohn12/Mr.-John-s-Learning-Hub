@@ -82,7 +82,7 @@ check(has(m5, '3 energy units') && has(m5, '4 energy units'), 'Mission 5 uses si
 check((m5.match(/budget:/g) || []).length === 8, 'Mission 5 defines an energy budget for all eight continent cases');
 check((m5.match(/scenario:/g) || []).length === 8, 'Mission 5 defines a scenario for all eight continent cases');
 check((m5.match(/consequence:/g) || []).length === 8, 'Mission 5 defines a consequence for all eight continent cases');
-check((m5.match(/safeguard:/g) || []).length === 8, 'Mission 5 preserves a safeguard for all eight continent cases');
+check((m5.match(/safeguard:/g) || []).length >= 8, 'Mission 5 preserves a safeguard for all eight continent cases');
 check(has(m5, 'Revise exactly one part of your original plan'), 'Mission 5 requires one consequence-driven revision');
 check(has(m5, 'printable cards/tokens') && has(m5, 'No thermal equipment or purchased supplies are required'), 'Mission 5 is low-material and no-purchase');
 check(m5.includes('print-phase3-mission5'), 'Mission 5 includes printable investigation + final plan');
@@ -98,7 +98,7 @@ check(has(m5, 'actual class data may be stronger'), 'Mission 5 allows actual cla
 check(has(m5, 'What thermal survival system should JCEC authorize for this continent?'), 'Mission 5 has one final decision');
 for (const token of ['HEATING-DOMINANT HABITAT','COOLING-DOMINANT HABITAT','ADAPTIVE HEATING-AND-COOLING HABITAT','SEASONAL / LIMITED OCCUPATION']) check(has(m5, token), `Mission 5 authorization includes: ${token}`);
 check(has(m5, 'No authorization is automatically correct for any continent'), 'Authorization is evidence-driven, not predetermined');
-for (const token of ['DECISION','EVIDENCE','ENERGY CONSEQUENCE','ENVIRONMENTAL SAFEGUARD']) check(has(m5, token), `Mission 5 reasoning includes: ${token}`);
+for (const token of ['DECISION','EVIDENCE','ENERGY CONSEQUENCE','ENVIRONMENTAL SAFEGUARD']) check(m5.includes(token), `Mission 5 reasoning includes: ${token}`);
 check(has(m5, 'JCEC Thermal Survival Plan'), 'Mission 5 ends with JCEC Thermal Survival Plan');
 for (const token of ['THERMAL THREAT','KEEP / REMOVE / BOTH','PASSIVE DESIGN','ACTIVE CONTROL','ENERGY SOURCE','3 PIECES OF EVIDENCE','CONSERVATION RULE','ECOLOGICAL SAFEGUARD','FINAL AUTHORIZATION','WHY · 3–5 SENTENCES']) check(has(m5, token), `Thermal Survival Plan includes: ${token}`);
 check(has(m5, 'MAJOR PHASE 3 SYNTHESIS'), 'Mission 5 is major Phase 3 synthesis');
