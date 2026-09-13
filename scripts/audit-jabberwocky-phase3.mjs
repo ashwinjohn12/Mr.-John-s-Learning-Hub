@@ -64,7 +64,7 @@ check(has(m4, 'THEN → NOW THERMAL TECHNOLOGY'), 'Mission 4 includes concise hi
 check(has(m4, 'human problem → thermal technology → new benefits and new trade-offs'), 'Mission 4 keeps historical technology focused on human need and trade-offs');
 for (const token of ['Solar','Combustion','Geothermal','Biological / living systems']) check(has(m4, token), `Mission 4 Thermal Source Board includes: ${token}`);
 check(has(m4, 'PASSIVE SOLAR') && has(m4, 'ACTIVE SOLAR'), 'Mission 4 explicitly distinguishes passive and active solar');
-check(has(m4, 'does not mean it is available') && has(m4, 'every Jabberwocky continent'), 'Mission 4 does not invent continent energy resources');
+check(has(m4, 'Mission 5 will compare source choices more carefully'), 'Mission 4 frames source examples without assigning them to every continent');
 for (const token of ['hot surfaces','combustion','fire','overheating']) check(has(m4, token), `Mission 4 integrates safety concept: ${token}`);
 
 check(has(m4, 'Habitat Control Loop Challenge'), 'Mission 4 uses the approved control-loop investigation');
