@@ -730,10 +730,10 @@ const equationBank = () => {
     if (stage === 4)
       out.push(
         q(
-          `Does n=${x} make ${a}n+${b}=${total} true?`,
+          `Does n=${x} make ${a}n+${b}=${total + (i % 2)} true?`,
           ["Yes", "No", "Only if n=0", "There is not enough information"],
-          0,
-          `${a}(${x})+${b}=${total}, so both sides match.`,
+          i % 2 ? 1 : 0,
+          i % 2 ? `${a}(${x})+${b}=${total}, not ${total + 1}.` : `${a}(${x})+${b}=${total}, so both sides match.`,
           "Evaluate the entire left side.",
           "truth",
         ),
@@ -793,16 +793,21 @@ const tileBank = () => {
         ),
       );
     if (stage === 2)
-      out.push(
-        q(
+      out.push(i%2===0?q(
+          `Which value verifies x ÷ ${c} = ${x}?`,
+          [String(x*c), String(x), String(x+c), String(Math.max(1,x-c))],
+          0,
+          `${x*c}÷${c}=${x}.`,
+          "Multiplication undoes division.",
+          "verify",
+        ):q(
           `Which value verifies x + ${c} = ${x + c}?`,
           [String(x), String(x + c), String(x - 1), String(x + c + 1)],
           0,
           `${x}+${c}=${x + c}.`,
           "Substitute into the original equation.",
           "verify",
-        ),
-      );
+        ));
     if (stage === 3)
       out.push(
         q(
@@ -815,8 +820,14 @@ const tileBank = () => {
         ),
       );
     if (stage === 4)
-      out.push(
-        q(
+      out.push(i%2===0?q(
+          `Solve ${groups}x + ${c} = ${groups*x+c}.`,
+          [String(x),String(x+c),String(groups*x),String(x+1)],
+          0,
+          `Subtract ${c} from both sides, then divide both sides by ${groups}: x=${x}.`,
+          "Undo addition, then multiplication, on both sides.",
+          "reason",
+        ):q(
           `A student solves ${groups}x=${groups * x} by subtracting ${groups}. Which repair is valid?`,
           [
             `Divide both sides by ${groups}`,
@@ -828,8 +839,7 @@ const tileBank = () => {
           `Division undoes multiplication, giving x=${x}.`,
           "Name the inverse operation and apply it to both sides.",
           "reason",
-        ),
-      );
+        ));
   }
   return out.map((item, index) => rotateChoices(item, index % 4));
 };
@@ -841,7 +851,7 @@ export const grade7Unit1Lessons: LessonSpec[] = [
     title: "More Patterns in Division",
     outcome:
       "N1 — determine and explain divisibility by 2, 3, 4, 5, 6, 8, 9, and 10, and why division by zero is undefined.",
-    duration: "55–70 minutes",
+    duration: "Two sessions of 30–40 minutes",
     promise:
       "Use digit patterns to test 3, 6, and 9, find factors, and explain why zero cannot be a divisor.",
     goals: [
@@ -1132,7 +1142,7 @@ export const grade7Unit1Lessons: LessonSpec[] = [
     title: "Algebraic Expressions",
     outcome:
       "PR4 — distinguish expressions from equations (introduced); PR5 — evaluate expressions by substitution.",
-    duration: "55–70 minutes",
+    duration: "Two sessions of 30–40 minutes",
     promise:
       "Translate situations into expressions, identify each part, and evaluate for a chosen value.",
     goals: [
@@ -2138,7 +2148,7 @@ export const grade7Unit1Lessons: LessonSpec[] = [
       number: specs.number,
       title: specs.title,
       outcome: specs.outcome,
-      duration: "50–65 minutes",
+      duration: "Two sessions of 30–35 minutes",
       promise: specs.promise,
       goals: specs.goals,
       prerequisites: specs.prior,
@@ -2203,7 +2213,7 @@ export const grade7Unit1Lessons: LessonSpec[] = [
     title: "Reading and Writing Equations",
     outcome:
       "PR4 — explain the difference between an expression and an equation; translate and verify equation statements.",
-    duration: "50–65 minutes",
+    duration: "Two sessions of 30–35 minutes",
     promise:
       "Distinguish equations from expressions and translate situations into equality statements.",
     goals: [
@@ -2465,14 +2475,14 @@ export const grade7Unit1Lessons: LessonSpec[] = [
     number: "1.8",
     title: "Solving Equations Using Algebra Tiles",
     outcome:
-      "PR3 — demonstrate preservation of equality (developed); PR6 — model and solve x + a = b problems (introduced); PR7 — model and solve ax = b problems (introduced).",
-    duration: "55–70 minutes",
+      "PR3 — demonstrate preservation of equality (developed); PR6 — model and solve x + a = b with introductory integer contexts; PR7 — introduce whole-number ax + b = c, ax = b, and x/a = b forms, with mastery continuing in Unit 6.",
+    duration: "Two sessions of 30–40 minutes",
     promise:
       "Model and solve introductory whole-number equations while preserving equality.",
     goals: [
       "Represent a variable and constants with algebra tiles.",
       "Explain why the same move must be made to both sides.",
-      "Solve addition and multiplication equations.",
+      "Solve introductory addition, multiplication, two-step, and division-form equations.",
       "Verify a solution by substitution.",
     ],
     prerequisites: [

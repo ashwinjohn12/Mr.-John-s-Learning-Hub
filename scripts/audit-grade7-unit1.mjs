@@ -189,8 +189,8 @@ else {
     if (!html.includes(widget)) failures.push(`Review missing ${widget}`);
   if ((html.match(/class="station-example"/g) || []).length !== 5)
     failures.push("Review does not contain five worked concept stations");
-  if ((html.match(/<summary[^>]*>“/g) || []).length !== 8)
-    failures.push("Repair Shop does not route all eight lesson misconceptions");
+  if ((html.match(/<summary[^>]*>“/g) || []).length !== 10)
+    failures.push("Repair Shop does not contain the approved ten misconception repairs");
   if (html.includes('href="/courses/grade-7-math/integers/"'))
     failures.push("Review links students into unfinished Unit 2");
   const match = html.match(/data-independent-check[^>]*data-bank="([^"]+)"/);
@@ -212,8 +212,8 @@ else {
 const source = readFileSync(join(root, "src/data/grade7Unit1.ts"), "utf8");
 for (const marker of [
   "PR3 — demonstrate preservation of equality (developed)",
-  "PR6 — model and solve x + a = b problems (introduced)",
-  "PR7 — model and solve ax = b problems (introduced)",
+  "PR6 — model and solve x + a = b",
+  "PR7 — introduce whole-number ax + b = c, ax = b, and x/a = b forms",
 ])
   if (!source.includes(marker))
     failures.push(`Lesson 1.8 alignment missing ${marker}`);

@@ -1,4 +1,7 @@
 import { grade7Unit1Lessons } from "../src/data/grade7Unit1.ts";
+import { grade7Unit1ApplySupport } from "../src/data/grade7Unit1Apply.ts";
+import { grade7Unit1ExploreChecks } from "../src/data/grade7Unit1ExploreChecks.ts";
+import { grade7Unit1UnitCheckBank } from "../src/data/grade7Unit1UnitCheck.ts";
 declare const process: { exitCode?: number };
 
 const failures: string[] = [];
@@ -17,6 +20,12 @@ for (const lesson of grade7Unit1Lessons) {
     failures.push(`${lesson.number}: expected a three-question exit ticket`);
   if (lesson.explore.phases.length !== 4)
     failures.push(`${lesson.number}: expected four Explore phases`);
+  if (grade7Unit1ExploreChecks[lesson.slug]?.length !== 4)
+    failures.push(`${lesson.number}: Explore lacks four mathematical checkpoints`);
+  if (grade7Unit1ApplySupport[lesson.slug]?.resources.length < 1)
+    failures.push(`${lesson.number}: application lacks the data students need`);
+  if (grade7Unit1ApplySupport[lesson.slug]?.checks.length < 2)
+    failures.push(`${lesson.number}: application lacks mathematical validation`);
   if (lesson.apply.tasks.length < 4)
     failures.push(`${lesson.number}: application task is too thin`);
   if (!lesson.next?.href)
@@ -61,6 +70,18 @@ for (const lesson of grade7Unit1Lessons) {
       `${lesson.number}: correct answers are too predictable by position`,
     );
 }
+
+if (grade7Unit1UnitCheckBank.length !== 40)
+  failures.push("Unit Check must contain exactly 40 independent questions");
+const lessonCheckPrompts = new Set(
+  grade7Unit1Lessons.flatMap((lesson) => lesson.check.map((item) => normalize(item.prompt))),
+);
+grade7Unit1UnitCheckBank.forEach((item, index) => {
+  if (lessonCheckPrompts.has(normalize(item.prompt)))
+    failures.push(`Unit Check item ${index + 1} repeats a lesson Check Yourself prompt`);
+  if (!Number.isInteger(item.answer) || item.answer < 0 || item.answer >= item.choices.length)
+    failures.push(`Unit Check item ${index + 1} has an invalid answer`);
+});
 
 const byNumber = Object.fromEntries(
   grade7Unit1Lessons.map((lesson) => [lesson.number, lesson]),

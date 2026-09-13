@@ -11,6 +11,11 @@ const portalUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZD
   <a href={portalUrl} target="_blank" rel="noopener noreferrer">Open ↗</a>
 </div>
 
+<style>
+  /* The dock is mounted by the shared layout, but belongs only to JCEC routes. */
+  #jcec-submission-dock[hidden]{display:none!important}
+</style>
+
 <script is:inline define:vars={{ portalUrl }}>
   (() => {
     const path = window.location.pathname;
