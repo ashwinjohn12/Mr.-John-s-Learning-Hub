@@ -1,0 +1,276 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecPhase3Progress from '../../../../../../components/JcecPhase3Progress.astro';
+import { phase3ThermalSites } from '../../../../../../data/jabberwockyPhase3';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Mission 4: Control the Habitat | Jabberwocky 2190" description="Phase 3 Mission 4: use feedback, passive controls and thermal technologies to keep a habitat within a useful temperature range." themeColor="#081722">
+  <div class="mission-shell" id="phase3-mission4">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 3', href: `${base}courses/grade-7-science/jabberwocky/phase-3/` },
+      { label: 'Mission 4' }
+    ]} />
+
+    <JcecPhase3Progress active={4} compact={true} />
+
+    <header class="mission-hero">
+      <div>
+        <p class="eyebrow">PHASE 3 // MISSION 4 OF 5</p>
+        <h1>CONTROL THE <span>HABITAT</span></h1>
+        <p class="question">How do humans keep temperatures within a useful range?</p>
+      </div>
+      <aside>
+        <span>YOU ARE LEARNING</span>
+        <strong>How feedback, passive controls and active systems respond to changing temperature</strong>
+        <small>4 classes × 45 minutes</small>
+      </aside>
+    </header>
+
+    <section class="mission-at-a-glance">
+      <div><small>WHERE AM I?</small><strong>Mission 4 of 5</strong></div>
+      <div><small>WHAT DO I HAND IN?</small><strong>1 Habitat Control Protocol + 1 reflection</strong></div>
+      <div><small>WHY DOES IT MATTER?</small><strong>Insulation slows transfer, but a safe habitat still needs a system that notices change and responds.</strong></div>
+    </section>
+
+    <nav class="step-nav" aria-label="Mission 4 steps">
+      <a href="#your-mission"><b>1</b><span>Your Mission</span></a>
+      <a href="#learn"><b>2</b><span>Learn</span></a>
+      <a href="#investigate"><b>3</b><span>Investigate</span></a>
+      <a href="#decide"><b>4</b><span>Decide</span></a>
+      <a href="#record"><b>5</b><span>Record It</span></a>
+    </nav>
+
+    <section class="simple-step" id="your-mission">
+      <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
+      <div class="briefing">
+        <p>Your team has already learned how to slow unwanted thermal-energy transfer. But insulation alone cannot keep a habitat safe under every condition. JCEC now needs a control system that notices when temperature leaves a useful range, chooses the least wasteful response and checks again. Build a simple control rule, test it with simulated temperature readings and decide what should respond first on your continent.</p>
+      </div>
+
+      <div class="assignment-result" id="assignment-result" hidden>
+        <span id="assignment-icon"></span>
+        <div><small>YOUR PHASE 3 CONTINENT</small><strong id="assignment-name"></strong><p id="assignment-subtitle"></p></div>
+        <div class="challenge-badge"><small>THERMAL CHALLENGE</small><b id="assignment-challenge"></b></div>
+      </div>
+      <div class="carry-forward-note">
+        <strong>Mission 3 still matters, but do not recreate it.</strong>
+        <span>Your barrier recommendation is the passive starting point. Mission 4 asks what the habitat should do when temperature changes anyway.</span>
+      </div>
+      <div class="missing-assignment" id="missing-assignment" hidden>
+        <strong>Your Phase 3 posting is not saved on this device yet.</strong>
+        <p>Return to the Phase 3 Hub and choose the continent your teacher assigned. Do not create a new posting for this mission.</p>
+        <a href={`${base}courses/grade-7-science/jabberwocky/phase-3/`}>Get Phase 3 posting →</a>
+      </div>
+    </section>
+
+    <section class="simple-step" id="learn">
+      <div class="step-heading"><span>2</span><div><p>CLASSES 1 & 3</p><h2>Learn the Science</h2></div></div>
+      <p class="step-intro"><strong>One connected system:</strong> a habitat can generate, transfer, remove and control thermal energy.</p>
+
+      <div class="science-grid four">
+        <article><span>🔥</span><strong>GENERATE</strong><p>Heaters and furnaces add thermal energy to a space. Combustion is one possible source; other systems can transfer energy from elsewhere.</p></article>
+        <article><span>↔️</span><strong>TRANSFER</strong><p>Ducts, pipes, moving air and materials can move thermal energy from one place to another.</p></article>
+        <article><span>❄️</span><strong>REMOVE</strong><p>Refrigerators and air conditioners move thermal energy out of a cooler space and release it somewhere else. They do not “make cold.”</p></article>
+        <article><span>🎛️</span><strong>CONTROL</strong><p>A thermostat measures temperature, compares it with a target and tells a system when to respond.</p></article>
+      </div>
+
+      <div class="control-loop" aria-label="Thermostat feedback loop">
+        <span>MEASURE</span><b>→</b><span>COMPARE WITH TARGET</span><b>→</b><span>RESPOND</span><b>→</b><span>MEASURE AGAIN</span>
+      </div>
+
+      <div class="device-grid">
+        <article><small>THERMOMETER</small><strong>Measures</strong><p>Tells the system what the temperature is now.</p></article>
+        <article><small>THERMOSTAT</small><strong>Decides when to respond</strong><p>Uses a target or safe range to switch actions on or off.</p></article>
+        <article><small>HEATER / FURNACE</small><strong>Adds thermal energy</strong><p>Useful when the habitat is too cold.</p></article>
+        <article><small>REFRIGERATOR / AIR CONDITIONER</small><strong>Moves thermal energy out</strong><p>Useful when a space must be kept cooler than its surroundings.</p></article>
+      </div>
+
+      <details class="help-box">
+        <summary>Need Help? What makes this a feedback system?</summary>
+        <div>
+          <p>A thermostat does more than turn a machine on. It keeps checking what happened after the last response.</p>
+          <p>If the temperature is still outside the target range, the system may keep responding. Once the target is reached, the active system can switch off.</p>
+          <p>This repeated <strong>measure → compare → respond → measure again</strong> pattern is called feedback.</p>
+        </div>
+      </details>
+
+      <section class="technology-strip">
+        <div><p class="mini-label">THEN → NOW THERMAL TECHNOLOGY</p><h3>Human needs shaped thermal technology.</h3></div>
+        <div class="then-now-grid">
+          <article><small>NEED: STAY WARM</small><strong>Open fire / simple shelter</strong><b>→</b><span>controlled heaters, furnaces and thermostats</span></article>
+          <article><small>NEED: KEEP THINGS COOL</small><strong>shade, cool storage, ice</strong><b>→</b><span>refrigerators and air-conditioning systems</span></article>
+          <article><small>NEED: USE SUNLIGHT</small><strong>orientation and sun-facing surfaces</strong><b>→</b><span>passive solar design and active solar collectors</span></article>
+        </div>
+        <p class="technology-note">The point is not to memorize a timeline. Notice the pattern: <strong>human problem → thermal technology → new benefits and new trade-offs.</strong></p>
+      </section>
+
+      <section class="source-board">
+        <div><p class="mini-label">THERMAL SOURCE BOARD</p><h3>Where can thermal energy come from?</h3></div>
+        <div class="source-grid">
+          <article><span>☀️</span><strong>Solar</strong><p>Radiant energy from a star can warm surfaces directly or be collected and transferred.</p></article>
+          <article><span>🔥</span><strong>Combustion</strong><p>Burning fuel releases thermal energy, but also introduces safety and environmental trade-offs.</p></article>
+          <article><span>🌋</span><strong>Geothermal</strong><p>Thermal energy stored within a planet can sometimes be used where suitable conditions exist.</p></article>
+          <article><span>🌱</span><strong>Biological / living systems</strong><p>Living processes and decomposition can release thermal energy on a smaller scale.</p></article>
+        </div>
+        <p class="source-note">A source appearing here does <strong>not</strong> mean it is available on every Jabberwocky continent. Mission 5 will compare source choices more carefully.</p>
+      </section>
+
+      <section class="solar-compare">
+        <article><small>PASSIVE SOLAR</small><strong>Use sunlight through design</strong><p>Examples: orientation, windows, shade and surfaces that change how much solar energy enters. No pump or collector is required to move the energy.</p></article>
+        <article><small>ACTIVE SOLAR</small><strong>Collect and move solar energy</strong><p>A collector captures solar energy and a system moves the energy or heated fluid where it is needed.</p></article>
+      </section>
+
+      <div class="safety-strip"><strong>Safety is part of control:</strong><span>hot surfaces can burn, combustion can create fire and air-quality risks, overheating can be unsafe, and thermal systems should switch off when they are no longer needed.</span></div>
+    </section>
+
+    <section class="simple-step" id="investigate">
+      <div class="step-heading"><span>3</span><div><p>CLASSES 1–3</p><h2>Investigate</h2></div></div>
+
+      <section class="investigation-block">
+        <div class="block-title"><div><small>MAIN INVESTIGATION</small><h3>Habitat Control Loop Challenge</h3></div><span>TEAM WORK</span></div>
+        <p>This is a control-system simulation, not another insulation lab. Your team receives temperature readings, compares them with a safe range and chooses the response that should happen next.</p>
+
+        <div class="target-range"><small>TRAINING TARGET RANGE</small><strong>18°C–22°C</strong><span>Your teacher may change the practice range. This is a simulation target, not a new continent climate fact.</span></div>
+
+        <div class="action-cards">
+          <article><strong>HEATER ON</strong><small>+2 energy units</small></article>
+          <article><strong>HEATER OFF</strong><small>0 units</small></article>
+          <article><strong>COOLING ON</strong><small>+3 energy units</small></article>
+          <article><strong>COOLING OFF</strong><small>0 units</small></article>
+          <article><strong>SHADE / UNSHADE</strong><small>passive</small></article>
+          <article><strong>VENT / CLOSE VENT</strong><small>passive in this model</small></article>
+        </div>
+
+        <div class="loop-steps">
+          <article><b>1</b><p>Read the current habitat temperature.</p></article>
+          <article><b>2</b><p>Compare it with the target range.</p></article>
+          <article><b>3</b><p>Choose one response card and explain why.</p></article>
+          <article><b>4</b><p>Record any active-energy cost.</p></article>
+          <article><b>5</b><p>Read the next training value and repeat.</p></article>
+        </div>
+
+        <div class="simulation-table">
+          <div class="sim-head"><span>ROUND</span><span>READING</span><span>YOUR RESPONSE</span><span>WHY?</span></div>
+          <div><strong>1</strong><span>17°C</span><span>____________</span><span>________________</span></div>
+          <div><strong>2</strong><span>19°C</span><span>____________</span><span>________________</span></div>
+          <div><strong>3</strong><span>23°C</span><span>____________</span><span>________________</span></div>
+          <div><strong>4</strong><span>24°C</span><span>____________</span><span>________________</span></div>
+          <div><strong>5</strong><span>21°C</span><span>____________</span><span>________________</span></div>
+          <div><strong>6</strong><span>16°C</span><span>____________</span><span>________________</span></div>
+        </div>
+        <p class="model-note"><strong>Model limit:</strong> the next reading is supplied by the training simulation; it is not a precise prediction caused by your previous card. The science goal is to build a sensible feedback rule, not calculate a real HVAC system.</p>
+
+        <section class="rule-builder">
+          <p class="mini-label">BUILD YOUR CONTROL RULE</p>
+          <div><strong>If the temperature falls below ______, then ______.</strong></div>
+          <div><strong>If the temperature rises above ______, then ______.</strong></div>
+          <div><strong>If the temperature is inside the target range, then ______.</strong></div>
+        </section>
+
+        <div class="fallback-note"><strong>Low-material rule:</strong><span>The core challenge needs only printed/projected readings, response cards and pencils. Thermometers, bimetal strips or other demonstrations are optional. No electronics or purchased thermostat equipment is required.</span></div>
+        <button type="button" class="small-button" id="print-phase3-mission4">Print Mission 4 Control Loop + Protocol</button>
+      </section>
+
+      <section class="continent-case">
+        <div class="block-title"><div><small>CLASS 3</small><h3>Your Continent Control Case</h3></div><span>3 CLUES ONLY</span></div>
+        <p>Use the training loop to think about control. Then apply the idea to the real thermal challenge already established for your continent.</p>
+        <div class="no-continent" id="no-continent"><strong>Phase 3 continent not found.</strong><a href={`${base}courses/grade-7-science/jabberwocky/phase-3/`}>Return to Phase 3 Hub →</a></div>
+        <div id="control-files" hidden>
+          {phase3ThermalSites.map((site) => (
+            <article class="control-file" data-control-file={site.id} hidden>
+              <header><span>{site.icon}</span><div><small>{site.name} · {site.subtitle}</small><h3>{site.thermalChallenge}</h3></div></header>
+              <div class="clue-grid">{site.mission4Clues.map((clue, index) => <article><b>{index + 1}</b><p>{clue}</p></article>)}</div>
+              <div class="restriction"><small>DEVELOPMENT LIMIT STILL ACTIVE</small><p>{site.previousTeamThermalBriefing.developmentRestriction}</p></div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </section>
+
+    <section class="simple-step" id="decide">
+      <div class="step-heading"><span>4</span><div><p>CLASSES 3–4</p><h2>Make a Decision</h2></div></div>
+      <div class="decision-card">
+        <p class="mini-label">ONE TEAM QUESTION</p>
+        <h3>What should control the habitat temperature before JCEC spends more energy?</h3>
+        <p class="decision-note">You may recommend a combination, but identify the first priority. Passive controls should be considered before active heating or cooling when they can solve the problem safely.</p>
+        <div class="reasoning-frame three">
+          <div><strong>CONDITION</strong><span>When the habitat is ______…</span></div>
+          <div><strong>CONTROL RESPONSE</strong><span>…our system should ______…</span></div>
+          <div><strong>EXPECTED RESULT</strong><span>…so the temperature should move/stay ______.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="simple-step" id="record">
+      <div class="step-heading"><span>5</span><div><p>CLASS 4</p><h2>Record It</h2></div></div>
+      <div class="handoff-strip"><span>👥 <strong>TEAM WORK</strong> control</span><i>→</i><span>📝 <strong>TEAM RECORD</strong> one protocol</span><i>→</i><span>💭 <strong>MY REFLECTION</strong> everyone answers</span></div>
+
+      <div class="team-record">
+        <div class="record-heading"><div><p class="mini-label">TEAM RECORD</p><h3>Habitat Control Protocol</h3></div><span>ONE PER TEAM</span></div>
+        <p>Keep it short. This is a control rule another JCEC team could actually follow.</p>
+        <div class="protocol-grid">
+          <article><small>TARGET RANGE</small><strong>________ °C to ________ °C</strong></article>
+          <article><small>PASSIVE CONTROL FIRST</small><strong>We use __________________ first.</strong></article>
+          <article><small>WHEN HEATING ACTIVATES</small><strong>If __________________, heating __________________.</strong></article>
+          <article><small>WHEN COOLING / VENTILATION ACTIVATES</small><strong>If __________________, __________________.</strong></article>
+          <article><small>SAFETY RULE</small><strong>Humans must __________________.</strong></article>
+        </div>
+      </div>
+
+      <div class="reflection-card">
+        <p class="mini-label">MY REFLECTION</p>
+        <h3>Why is a thermostat useful even when a habitat already has a heater or cooler?</h3>
+        <p>Everyone answers individually. Explain the feedback idea, not just “because it turns it on.”</p>
+      </div>
+
+      <div class="finished-box">
+        <strong>Mission 4 is finished when:</strong>
+        <ul><li>your team has one Habitat Control Protocol;</li><li>your protocol uses a measured condition and a response rule;</li><li>you have completed your individual reflection.</li></ul>
+        <p>Mission 5 — Survive Without Wasting It — is upcoming and locked.</p>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ siteData: phase3ThermalSites }}>
+    (() => {
+      const PHASE3_POSTING_KEY = 'jabberwocky-phase3-posting';
+      const sites = Object.fromEntries(siteData.map((site) => [site.id, site]));
+      const saved = localStorage.getItem(PHASE3_POSTING_KEY);
+      const assignmentResult = document.getElementById('assignment-result');
+      const missing = document.getElementById('missing-assignment');
+      const noContinent = document.getElementById('no-continent');
+      const files = document.getElementById('control-files');
+      if (saved && sites[saved]) {
+        const site = sites[saved];
+        assignmentResult.hidden = false;
+        missing.hidden = true;
+        document.getElementById('assignment-icon').textContent = site.icon;
+        document.getElementById('assignment-name').textContent = site.name;
+        document.getElementById('assignment-subtitle').textContent = site.subtitle;
+        document.getElementById('assignment-challenge').textContent = site.thermalChallenge;
+        noContinent.hidden = true;
+        files.hidden = false;
+        document.querySelectorAll('[data-control-file]').forEach((el) => { el.hidden = el.dataset.controlFile !== saved; });
+      } else {
+        assignmentResult.hidden = true;
+        missing.hidden = false;
+        noContinent.hidden = false;
+        files.hidden = true;
+      }
+      const printBtn = document.getElementById('print-phase3-mission4');
+      if (printBtn) printBtn.addEventListener('click', () => window.print());
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+:global(body){background:#061019}.mission-shell{max-width:1080px;margin:0 auto;padding:0 1rem 5rem;color:#e7f2f8}.mission-shell :global(.breadcrumbs){color:#90a7b5}.mission-shell :global(.breadcrumbs a){color:#d8ebf4}:global(body:has(#phase3-mission4) .jcec-submission-dock),:global(body:has(#phase3-mission4) .jcec-device-tools){display:none!important}.eyebrow,.mini-label{margin:0;color:#ffb25f;font:900 .72rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em}.mission-hero{display:grid;grid-template-columns:1fr 280px;gap:1rem;align-items:end;padding:1.5rem;border:1px solid #37576a;border-radius:20px;background:linear-gradient(145deg,#071722,#102b3b)}.mission-hero h1{margin:.45rem 0;color:#fff;font-size:clamp(2.6rem,7vw,4.8rem);line-height:.93;letter-spacing:-.045em}.mission-hero h1 span{color:#ffb25f}.question{margin:.5rem 0 0;color:#d5e7ef;font-size:1.16rem;font-weight:750}.mission-hero aside{display:grid;gap:.25rem;padding:1rem;border:1px solid #39576a;border-radius:12px;background:#071923}.mission-hero aside span{color:#ffb25f;font-size:.68rem;font-weight:900;letter-spacing:.08em}.mission-hero aside strong{color:#fff}.mission-hero aside small{color:#91a9b7}.mission-at-a-glance{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin:1rem 0}.mission-at-a-glance div{display:grid;gap:.2rem;padding:.8rem;border:1px solid #2f4b5b;border-radius:11px;background:#0a1a24}.mission-at-a-glance small{color:#ffb25f;font-weight:900}.mission-at-a-glance strong{color:#fff;font-size:.88rem}.step-nav{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;margin:1rem 0}.step-nav a{display:flex;gap:.45rem;align-items:center;padding:.55rem;border:1px solid #2e4a5a;border-radius:9px;background:#081923;color:#b9cbd5;text-decoration:none;font-size:.76rem;font-weight:800}.step-nav b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#173447;color:#fff}.simple-step{margin:1.15rem 0;padding:1.15rem;border:1px solid #294858;border-radius:16px;background:#091923}.step-heading{display:flex;gap:.7rem;align-items:center;margin-bottom:.8rem}.step-heading>span{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#ffb25f;color:#2b1907;font-size:1.1rem;font-weight:950}.step-heading p{margin:0;color:#829aa8;font-size:.68rem;font-weight:900;letter-spacing:.08em}.step-heading h2{margin:.08rem 0;color:#fff}.briefing,.carry-forward-note,.direction-note,.fallback-note,.safety-strip,.model-note{padding:.9rem;border:1px solid #345366;border-radius:11px;background:#0d2430;color:#c5d7e0;line-height:1.55}.briefing p{margin:0}.carry-forward-note,.fallback-note,.safety-strip,.model-note{display:grid;gap:.2rem;margin-top:.7rem}.carry-forward-note strong,.fallback-note strong,.safety-strip strong,.model-note strong{color:#fff}.assignment-result{display:grid;grid-template-columns:auto 1fr auto;gap:.75rem;align-items:center;margin-top:.8rem;padding:.85rem;border:1px solid #3c5d70;border-radius:11px;background:#071720}.assignment-result>span{font-size:1.6rem}.assignment-result div{display:grid}.assignment-result small{color:#8fa7b5;font-size:.65rem;font-weight:900}.assignment-result strong{color:#fff}.assignment-result p{margin:.1rem 0 0;color:#9db3bf;font-size:.8rem}.challenge-badge{max-width:360px}.challenge-badge b{color:#ffd0a0;font-size:.8rem}.missing-assignment{margin-top:.8rem;padding:.9rem;border:1px solid #8c6339;border-radius:11px;background:#241d16}.missing-assignment strong{color:#ffd2a1}.missing-assignment p{color:#c5b7a7}.missing-assignment a{color:#ffc17c;font-weight:900}.step-intro{color:#b9ccd7}.science-grid{display:grid;gap:.65rem}.science-grid.four{grid-template-columns:repeat(4,1fr)}.science-grid article,.device-grid article,.source-grid article,.solar-compare article{padding:.85rem;border:1px solid #2f4c5d;border-radius:11px;background:#07161f}.science-grid article>span,.source-grid article>span{display:block;font-size:1.35rem}.science-grid strong,.device-grid strong,.source-grid strong,.solar-compare strong{display:block;margin:.3rem 0;color:#fff}.science-grid p,.device-grid p,.source-grid p,.solar-compare p{margin:0;color:#abc0cb;font-size:.82rem;line-height:1.48}.control-loop{display:flex;gap:.45rem;align-items:center;justify-content:center;flex-wrap:wrap;margin:.9rem 0;padding:.85rem;border-radius:11px;background:#102936}.control-loop span{padding:.45rem .6rem;border-radius:8px;background:#071822;color:#fff;font-size:.76rem;font-weight:900}.control-loop b{color:#ffb25f}.device-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem}.device-grid small,.solar-compare small,.source-board small,.technology-strip small{color:#ffb25f;font-weight:900;letter-spacing:.06em}.help-box,.fallback-evidence{margin-top:.8rem;border:1px solid #345366;border-radius:10px;background:#071720}.help-box summary,.fallback-evidence summary{cursor:pointer;padding:.8rem;color:#ffd0a0;font-weight:900}.help-box div,.fallback-evidence>div,.fallback-evidence>p{padding:0 .8rem .8rem;color:#b7c9d3;line-height:1.5}.technology-strip,.source-board{margin-top:.9rem;padding:.9rem;border:1px solid #304f61;border-radius:12px;background:#0a1d28}.technology-strip h3,.source-board h3,.investigation-block h3,.continent-case h3{margin:.2rem 0;color:#fff}.then-now-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.7rem}.then-now-grid article{display:grid;gap:.25rem;padding:.75rem;border-radius:9px;background:#06151e;color:#bcd0da}.then-now-grid strong{color:#fff}.then-now-grid b{color:#ffb25f}.technology-note,.source-note{margin:.7rem 0 0;color:#9fb5c1}.source-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-top:.7rem}.solar-compare{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.9rem}.investigation-block,.continent-case{margin-top:.8rem;padding:.9rem;border:1px solid #335366;border-radius:12px;background:#071720}.block-title{display:flex;justify-content:space-between;gap:1rem;align-items:end}.block-title small{color:#ffb25f;font-weight:900}.block-title>span{padding:.35rem .55rem;border-radius:999px;background:#153447;color:#d8eef9;font-size:.7rem;font-weight:900}.target-range{display:grid;grid-template-columns:auto auto 1fr;gap:.7rem;align-items:center;margin:.8rem 0;padding:.8rem;border-radius:10px;background:#102936}.target-range small{color:#ffb25f;font-weight:900}.target-range strong{color:#fff;font-size:1.2rem}.target-range span{color:#9fb5c1;font-size:.8rem}.action-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem}.action-cards article{display:grid;gap:.15rem;padding:.7rem;border:1px solid #315063;border-radius:9px;background:#0b202b}.action-cards strong{color:#fff;font-size:.78rem}.action-cards small{color:#ffbf7b}.loop-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin:.8rem 0}.loop-steps article{display:flex;gap:.45rem;padding:.65rem;border-radius:9px;background:#0c222e;color:#b9ccd7}.loop-steps b{display:grid;place-items:center;flex:0 0 25px;height:25px;border-radius:50%;background:#ffb25f;color:#2c1906}.loop-steps p{margin:0;font-size:.78rem}.simulation-table{display:grid;gap:.25rem;margin:.8rem 0}.simulation-table>div{display:grid;grid-template-columns:70px 90px 1fr 1fr;gap:.5rem;padding:.55rem;border-radius:7px;background:#0b202b;color:#c0d1da;font-size:.78rem}.simulation-table .sim-head{background:#173447;color:#fff;font-weight:900}.rule-builder{margin:.8rem 0;padding:.85rem;border-left:4px solid #ffb25f;background:#102936}.rule-builder div{margin-top:.45rem;color:#fff}.small-button{margin-top:.75rem;padding:.65rem .8rem;border:0;border-radius:8px;background:#ffb25f;color:#2d1906;font-weight:900;cursor:pointer}.no-continent{display:flex;justify-content:space-between;gap:1rem;padding:.8rem;border-radius:9px;background:#241d16}.no-continent strong{color:#ffd0a0}.no-continent a{color:#ffc17b}.control-file header{display:flex;gap:.7rem;align-items:center}.control-file header>span{font-size:1.8rem}.control-file header small{color:#8fa7b4}.clue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-top:.75rem}.clue-grid article{display:flex;gap:.5rem;padding:.7rem;border-radius:9px;background:#0c222e}.clue-grid b{display:grid;place-items:center;flex:0 0 26px;height:26px;border-radius:50%;background:#ffb25f;color:#301b07}.clue-grid p{margin:0;color:#b9ccd6;font-size:.8rem;line-height:1.45}.restriction{margin-top:.6rem;padding:.7rem;border-left:3px solid #e58e55;background:#241b16}.restriction small{color:#ffb87b;font-weight:900}.restriction p{margin:.25rem 0 0;color:#c9b9ac}.decision-card,.team-record,.reflection-card,.finished-box{padding:.9rem;border:1px solid #315163;border-radius:11px;background:#071720}.decision-card h3,.team-record h3,.reflection-card h3{margin:.25rem 0;color:#fff}.decision-note{color:#a9bec9}.reasoning-frame{display:grid;gap:.6rem;margin-top:.7rem}.reasoning-frame.three{grid-template-columns:repeat(3,1fr)}.reasoning-frame div{display:grid;gap:.25rem;padding:.7rem;border-radius:9px;background:#0d2531}.reasoning-frame strong{color:#ffb25f}.reasoning-frame span{color:#d6e5ec}.handoff-strip{display:flex;gap:.55rem;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:.8rem;padding:.7rem;border-radius:10px;background:#102936;color:#d3e3eb}.handoff-strip i{color:#ffb25f}.record-heading{display:flex;justify-content:space-between;gap:1rem;align-items:end}.record-heading>span{color:#ffb25f;font-size:.7rem;font-weight:900}.protocol-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-top:.7rem}.protocol-grid article{display:grid;gap:.25rem;padding:.75rem;border-radius:9px;background:#0c222e}.protocol-grid article:last-child{grid-column:1/-1}.protocol-grid small{color:#ffb25f;font-weight:900}.protocol-grid strong{color:#fff}.reflection-card{margin-top:.8rem}.reflection-card p:last-child{color:#9fb5c0}.finished-box{margin-top:.8rem;border-color:#4b7187}.finished-box strong{color:#fff}.finished-box li,.finished-box p{color:#b6cad4}.finished-box p{margin-bottom:0}
+@media(max-width:900px){.mission-hero{grid-template-columns:1fr}.science-grid.four,.device-grid,.source-grid{grid-template-columns:repeat(2,1fr)}.then-now-grid{grid-template-columns:1fr}.action-cards{grid-template-columns:repeat(2,1fr)}.loop-steps{grid-template-columns:1fr 1fr}.clue-grid{grid-template-columns:1fr}.mission-at-a-glance{grid-template-columns:1fr}.step-nav{grid-template-columns:repeat(5,minmax(105px,1fr));overflow-x:auto}.assignment-result{grid-template-columns:auto 1fr}.challenge-badge{grid-column:1/-1}.reasoning-frame.three{grid-template-columns:1fr}}
+@media(max-width:620px){.science-grid.four,.device-grid,.source-grid,.solar-compare,.protocol-grid{grid-template-columns:1fr}.protocol-grid article:last-child{grid-column:auto}.simulation-table>div{grid-template-columns:45px 65px 1fr}.simulation-table>div span:last-child{grid-column:3}.target-range{grid-template-columns:1fr}.loop-steps{grid-template-columns:1fr}.step-nav{grid-template-columns:repeat(5,95px)}.step-nav a{display:grid;justify-items:center;text-align:center}.record-heading,.block-title{align-items:flex-start;flex-direction:column}}
+@media print{.step-nav,.breadcrumbs,.small-button,.phase3-progress{display:none!important}.mission-shell{max-width:none;padding:0;color:#000}.simple-step,.team-record,.reflection-card,.investigation-block{break-inside:avoid;border-color:#888;background:#fff;color:#000}.simple-step *,.team-record *,.reflection-card *,.investigation-block *{color:#000!important}.mission-hero{background:#fff;border-color:#888}.mission-hero h1,.mission-hero .question{color:#000}.mission-hero aside{display:none}}
+</style>
