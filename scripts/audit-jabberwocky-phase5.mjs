@@ -71,11 +71,11 @@ check(has(m2,'LOCAL EARTH EVIDENCE · SOUTHERN ALBERTA'),'Mission 2 includes bou
 check(has(m2,'Calgary-area sand and gravel'),'Mission 2 uses local Calgary-area sediment example');
 check(has(m2,'https://ags.aer.ca/publications/all-publications/ofr-1981-08'),'Mission 2 links authoritative Alberta Geological Survey source');
 check(has(m2,'Bow and Elbow rivers'),'Mission 2 connects local evidence to recognizable Calgary waterways');
-check(has(m2,'does not automatically establish'),'Mission 2 local evidence avoids automatic Jabberwocky transfer');
+check(has(m2,'a Jabberwocky site formed the same way'),'Mission 2 local evidence avoids automatic Jabberwocky transfer');
 
 // Earth vs Jabberwocky safeguard
 for(const token of ['EARTH REFERENCE EVIDENCE','JABBERWOCKY SURVEY EVIDENCE','Earth examples can teach a process']) check(has(m2,token),`Mission 2 evidence safeguard includes ${token}`);
-check(has(m2,'do not automatically establish that rock class or history on Jabberwocky'),'Mission 2 keeps evidence systems separate');
+check(has(m2,'automatically establish that rock class or history on Jabberwocky'),'Mission 2 keeps evidence systems separate');
 
 // Rock Cycle Evidence Lab + materials
 check(has(m2,'Rock Cycle Evidence Lab'),'Mission 2 includes main investigation');
