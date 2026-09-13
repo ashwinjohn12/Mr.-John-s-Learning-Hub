@@ -79,6 +79,7 @@ for (const token of [
 const teacherPage = read('src/pages/courses/grade-7-science/jabberwocky/phase-1/teacher-launch-guide/index.astro');
 const teacherDoc = read('docs/jabberwocky-phase-1-teacher-launch-guide.md');
 const pacingDoc = read('docs/jabberwocky-phase-1-five-week-pacing-guide.md');
+const teacherPageLower = teacherPage.toLowerCase();
 
 for (const source of [teacherPage, teacherDoc, pacingDoc]) {
   check(source.includes('18 core') || source.includes('18 CORE') || source.includes('18 core mission'), 'teacher pacing source includes 18 core classes');
@@ -96,7 +97,10 @@ for (const day of flexDays) check(teacherPage.includes(`day:${day},`), `Teacher 
 
 for (const token of ['BEFORE CLASS','MATERIALS','STUDENTS SEE / DO','KEY SCIENCE','TEACHER EMPHASIS','COLLECT / ASSESS','IF TIME RUNS OUT']) check(teacherPage.includes(token), `Teacher Launch Guide includes planning field: ${token}`);
 for (const token of ['MISSION MATERIALS MASTER LIST','FORMATIVE','CHECKPOINT','MAJOR SYNTHESIS','55%','30%','15%']) check(teacherPage.includes(token), `Teacher Launch Guide includes assessment/materials element: ${token}`);
-for (const material of ['Thermometer','tweezers','yarn/string','5×5 grid','6 cups/zones','JCEC Recommendation Board']) check(teacherPage.includes(material), `Teacher materials plan includes: ${material}`);
+check(teacherPageLower.includes('thermometer'), 'Teacher materials plan includes shared thermometer access');
+for (const material of ['tweezers','yarn/string','5×5 grid','JCEC Recommendation Board']) check(teacherPage.includes(material), `Teacher materials plan includes: ${material}`);
+check(teacherPageLower.includes('six-zone') && teacherPageLower.includes('no cups required'), 'Teacher materials plan replaces six cups/team with a printable six-zone Stowaway mat');
+check(teacherPageLower.includes('shared stations') && teacherPageLower.includes('reused') && teacherPageLower.includes('printed'), 'Teacher materials plan prioritizes shared, reused and printable materials');
 
 const localUrls = [
   'https://www.calgary.ca/water/stormwater/source-water-protection.html',
@@ -110,7 +114,7 @@ for (const url of localUrls) {
 check(teacherPage.includes('do not invent or generalize an Indigenous perspective'), 'live Teacher Launch Guide preserves authentic-source rule');
 check(teacherDoc.includes('do not ask students to invent or generalize an Indigenous perspective'), 'teacher documentation preserves authentic-source rule');
 
-for (const phrase of ['Lab runs long','A class is lost','Outdoor work cancelled','Device failure','Student misses a lab','Students overwhelmed']) check(teacherPage.includes(phrase), `Teacher Launch Guide has contingency: ${phrase}`);
+for (const phrase of ['Lab runs long','A class is lost','Outdoor work cancelled','Device failure','Student misses a lab','Materials are limited','Students overwhelmed']) check(teacherPage.includes(phrase), `Teacher Launch Guide has contingency: ${phrase}`);
 for (const question of ['Do I know what to prepare tomorrow?','Do I know what students should finish?','Do I know what to assess?','Can I recover if time is lost?','Do teacher and student systems match?']) check(teacherPage.includes(question), `Teacher Launch Guide readiness audit includes: ${question}`);
 
 const legacyRefinement = read('src/components/JcecPhase1PacingRefinements.astro');
@@ -162,4 +166,4 @@ if (failures.length) {
   for (const item of failures) console.error(`  ✗ ${item}`);
   process.exit(1);
 }
-console.log('\nPhase 1 remains internally consistent, and the Phase 2 hub + Mission 1 prototype preserve separate state, inherited evidence, the approved five-mission sequence, plant canon, print resources, and Grade 7 cognitive-load rules.');
+console.log('\nPhase 1 remains internally consistent, and the Phase 2 hub + Mission 1 prototype preserve separate state, inherited evidence, the approved five-mission sequence, plant canon, print resources, low-material teacher defaults, and Grade 7 cognitive-load rules.');
