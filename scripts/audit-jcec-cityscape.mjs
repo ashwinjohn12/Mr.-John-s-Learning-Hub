@@ -28,6 +28,7 @@ function requireApprovedPdf(rel, expectedBytes, expectedSha256){
 }
 
 const component = read('src/components/JcecCityscapeIntegration.astro');
+const alignment = read('src/components/JcecCityscapeRecordAlignment.astro');
 const layout = read('src/layouts/BaseLayout.astro');
 const teacher = read('src/pages/courses/grade-7-science/jabberwocky/phase-4/teacher-launch-guide/index.astro');
 const teacherDoc = read('docs/jabberwocky-phase-4-teacher-launch-guide.md');
@@ -55,6 +56,8 @@ requireApprovedPdf(
 
 requireText(layout, "import JcecCityscapeIntegration", 'BaseLayout imports CityScape integration');
 requireText(layout, '<JcecCityscapeIntegration />', 'BaseLayout renders CityScape integration');
+requireText(layout, "import JcecCityscapeRecordAlignment", 'BaseLayout imports packet record alignment');
+requireText(layout, '<JcecCityscapeRecordAlignment />', 'BaseLayout renders packet record alignment');
 
 for (const token of [
   'Project New Horizon — JCEC CityScape Prototype Challenge',
@@ -85,6 +88,27 @@ const teamRecords = [
   'JCEC NEW HORIZON STRUCTURAL AUTHORIZATION'
 ];
 teamRecords.forEach((record,i) => requireText(missions[i], record, `Mission ${i+1} retains recognizable Team Record`));
+
+for (const token of [
+  'data-packet-aligned-record',
+  'New Horizon Requirements Card',
+  'Inherited environment finding',
+  'Structural Force Map',
+  'Mass vs force mini-check',
+  'Material & Joint Recommendation',
+  'Load–deformation evidence and graph',
+  'New Horizon Safety Protocol',
+  'Final Build Readiness check',
+  'JCEC New Horizon Structural Authorization',
+  'Use evidence from at least three missions',
+  'Primary Structural Test Building is the normal test object',
+  'reference model is the fallback, not the default',
+  'Page 10 is separate individual Math resource evidence',
+  'Prepare one standardized small baseline model per team or shared station',
+  'Have teams bring their Primary Structural Test Building',
+  'Set identical/near-identical baseline models',
+  'Use each team’s Primary Structural Test Building when the comparison is fair'
+]) requireText(alignment, token, 'Packet-aligned Phase 4 records/testing policy');
 
 for (const token of ['PROJECT NEW HORIZON','18 core','7 purposeful flex']) requireText(teacher, token, 'Phase 4 live teacher guide remains intact');
 for (const token of ['Read the Building Site','Trace the Forces','Choose What Holds','Keep It Standing','Authorize New Horizon']) requireText(hub, token, 'Phase 4 hub keeps five-mission Science sequence');
