@@ -27,16 +27,24 @@ const missions = [
 <script is:inline define:vars={{ base }}>
   (() => {
     const path = window.location.pathname;
-    if (!path.includes('/phase-4/mission-1/')) return;
-    const finished = document.querySelector('#phase4-mission1 .finished-box');
-    if (!finished || finished.querySelector('.phase4-next-mission-link')) return;
-    const note = finished.querySelector('span');
-    if (note) note.textContent = 'Mission 2 is ready. Next, trace the loads and internal forces your structure must resist.';
-    const next = document.createElement('a');
-    next.className = 'phase4-next-mission-link';
-    next.href = `${base}courses/grade-7-science/jabberwocky/phase-4/mission-2/`;
-    next.textContent = 'Next Mission → Trace the Forces';
-    finished.appendChild(next);
+    const addNext = (missionId, text, href, noteText) => {
+      const finished = document.querySelector(`${missionId} .finished-box`);
+      if (!finished || finished.querySelector('.phase4-next-mission-link')) return;
+      const note = finished.querySelector('span');
+      if (note) note.textContent = noteText;
+      const next = document.createElement('a');
+      next.className = 'phase4-next-mission-link';
+      next.href = href;
+      next.textContent = text;
+      finished.appendChild(next);
+    };
+
+    if (path.includes('/phase-4/mission-1/')) {
+      addNext('#phase4-mission1', 'Next Mission → Trace the Forces', `${base}courses/grade-7-science/jabberwocky/phase-4/mission-2/`, 'Mission 2 is ready. Next, trace the loads and internal forces your structure must resist.');
+    }
+    if (path.includes('/phase-4/mission-2/')) {
+      addNext('#phase4-mission2', 'Next Mission → Choose What Holds', `${base}courses/grade-7-science/jabberwocky/phase-4/mission-3/`, 'Mission 3 is ready. Next, test which material properties and joint behaviours fit those force jobs.');
+    }
   })();
 </script>
 
