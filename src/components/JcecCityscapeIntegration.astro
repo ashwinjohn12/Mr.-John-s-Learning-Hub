@@ -1,0 +1,144 @@
+---
+const base = import.meta.env.BASE_URL;
+const pathname = Astro.url.pathname;
+const phase4Root = '/courses/grade-7-science/jabberwocky/phase-4/';
+const isPhase4 = pathname.includes(phase4Root);
+const isTeacherGuide = pathname.includes(`${phase4Root}teacher-launch-guide/`);
+const isHub = isPhase4 && !isTeacherGuide && !/\/phase-4\/mission-[1-5]\//.test(pathname);
+const missionMatch = pathname.match(/\/phase-4\/mission-([1-5])\//);
+const missionNumber = missionMatch ? Number(missionMatch[1]) : null;
+const show = isHub || isTeacherGuide || missionNumber !== null;
+
+const fieldFileHref = `${base}resources/jcec/Project_New_Horizon_CityScape_Field_File.pdf`;
+const teacherGuideHref = `${base}resources/jcec/Project_New_Horizon_CityScape_Teacher_Guide.pdf`;
+
+const missionThreads = {
+  1: {
+    eyebrow:'CITYSCAPE THREAD · DEFINE THE DISTRICT',
+    title:'Start the JCEC research district prototype',
+    student:'Use Field File Page 2 for the New Horizon Requirements Card. Your team also begins the three-building district concept. In Math, Pages 3–5 handle building geometry and the measured blueprint.',
+    science:'Science still comes first: function, form, materials and performance requirements. Do not choose a final structural solution before the requirements are clear.',
+    pages:'Field File: Pages 1–5'
+  },
+  2: {
+    eyebrow:'CITYSCAPE THREAD · ANALYZE THE PRIMARY BUILDING',
+    title:'Trace forces on one Primary Structural Test Building',
+    student:'Use your actual CityScape Primary Structural Test Building on Field File Page 7. Show external loads, force directions, internal-force patterns and one likely failure point.',
+    science:'Mission 2 remains the force lesson. Math blueprint work runs alongside the project, but the Science decision is the priority load / force risk.',
+    pages:'Field File: Page 7'
+  },
+  3: {
+    eyebrow:'CITYSCAPE THREAD · CHOOSE WHAT HOLDS',
+    title:'Use fair-test evidence before releasing build materials',
+    student:'Use Field File Pages 8–9 for the Material & Joint Fair Test, load–deformation graph and Material & Joint Recommendation. Page 10 is separate individual Math budget evidence.',
+    science:'The checkpoint is not “which material held the most?” It is fair testing → quantitative evidence → property → structural application → limitation.',
+    pages:'Field File: Pages 8–10'
+  },
+  4: {
+    eyebrow:'CITYSCAPE THREAD · BUILD, TEST & IMPROVE',
+    title:'Test the Primary Building, then redesign from evidence',
+    student:'Use Field File Pages 11–13. Baseline test the Primary Structural Test Building when a fair comparison is possible, identify one weakness, propose two alternatives, choose one, modify and retest.',
+    science:'If team models are too different for a controlled comparison, use the standardized reference model / fallback dataset first, then apply the stability principle to the CityScape. Only the Primary Building completes the full testing cycle.',
+    pages:'Field File: Pages 11–13'
+  },
+  5: {
+    eyebrow:'CITYSCAPE THREAD · DEFEND THE PROPOSAL',
+    title:'Use the completed district as evidence — do not build a new model',
+    student:'Use Field File Page 14 for the JCEC New Horizon Structural Authorization. Point to the CityScape when useful, but make the decision from M1 requirements, M2 forces, M3 materials and M4 safety evidence.',
+    science:'This is structural authorization only. Phase 4 answers “Could JCEC build this safely?” The final Mission 2190 Council later decides whether human presence should actually proceed.',
+    pages:'Field File: Page 14'
+  }
+};
+
+const current = missionNumber ? missionThreads[missionNumber] : null;
+---
+
+{show && (
+  <aside class:list={["jcec-cityscape-integration", { teacher: isTeacherGuide, hub: isHub }]} aria-label="Project New Horizon CityScape integration">
+    {isTeacherGuide ? (
+      <>
+        <div class="cityscape-copy">
+          <small>PHASE 4 · INTEGRATED MATH + SCIENCE IMPLEMENTATION</small>
+          <strong>Project New Horizon — JCEC CityScape Prototype Challenge</strong>
+          <span>The daily guide below remains the <b>Science spine</b>: 18 core classes + 7 purposeful flex periods. CityScape is the physical project thread that develops across those five missions while selected Math periods handle building geometry, geometric constructions and resource mathematics.</span>
+          <div class="teacher-rules">
+            <b>Printing:</b> one 11-page team set per group + Pages 3, 6 and 10 individually per student.
+            <b>Primary Building:</b> only one of the three district buildings receives the complete force/material/stability/redesign Science investigation.
+            <b>Fair testing:</b> if team buildings are not comparable, keep the standardized reference-model / supplied-data pathway, then apply the result to the CityScape.
+            <b>Mission 5:</b> no new physical build is required; use the completed district as an evidence object during Structural Design Review.
+          </div>
+        </div>
+        <div class="cityscape-actions teacher-actions">
+          <a href={fieldFileHref} target="_blank" rel="noopener">Open / Print Student Field File · 14 pages</a>
+          <a href={teacherGuideHref} target="_blank" rel="noopener">Open Teacher Marking & Setup Guide · 7 pages</a>
+        </div>
+      </>
+    ) : isHub ? (
+      <>
+        <div class="cityscape-copy">
+          <small>PROJECT NEW HORIZON · PHYSICAL PROJECT THREAD</small>
+          <strong>JCEC CityScape Prototype Challenge</strong>
+          <span>Across all five Phase 4 missions, your team develops one <b>three-building research district prototype</b>: circular base + triangular base + parallelogram base. Choose one as the <b>Primary Structural Test Building</b>. Only that building receives the complete Science testing and redesign cycle.</span>
+          <div class="sequence">DEFINE → ANALYZE → CHOOSE → TEST & IMPROVE → DEFEND</div>
+          <span class="math-note"><b>Math runs alongside the Science project:</b> building geometry, geometric constructions, measured blueprint and resource mathematics are clearly marked in the Field File. The Science mission pages stay focused on Structures & Forces.</span>
+        </div>
+        <div class="cityscape-actions">
+          <a href={fieldFileHref} target="_blank" rel="noopener">Download / Print the CityScape Field File</a>
+        </div>
+      </>
+    ) : current ? (
+      <>
+        <div class="cityscape-copy">
+          <small>{current.eyebrow}</small>
+          <strong>{current.title}</strong>
+          <span>{current.student}</span>
+          <span class="science-rule"><b>Science focus:</b> {current.science}</span>
+          <em>{current.pages}</em>
+        </div>
+        <div class="cityscape-actions">
+          <a href={fieldFileHref} target="_blank" rel="noopener">Open CityScape Field File</a>
+        </div>
+      </>
+    ) : null}
+  </aside>
+)}
+
+<style>
+  .jcec-cityscape-integration {
+    width: min(1160px, calc(100% - 2rem));
+    margin: 1rem auto 0;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border: 1px solid rgba(242, 179, 93, .44);
+    border-left: 5px solid #f2b35d;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #111820, #202a33);
+    color: #f4f7f9;
+    box-shadow: 0 10px 28px rgba(0,0,0,.14);
+  }
+  .jcec-cityscape-integration.teacher { border-left-color:#7dd3fc; border-color:rgba(125,211,252,.4); }
+  .cityscape-copy { display:grid; gap:.22rem; min-width:0; }
+  .cityscape-copy small { color:#f3b55f; font-size:.7rem; letter-spacing:.09em; font-weight:900; }
+  .teacher .cityscape-copy small { color:#bae6fd; }
+  .cityscape-copy strong { color:#fff; font-size:1.05rem; }
+  .cityscape-copy span { color:#d2dae0; font-size:.83rem; line-height:1.42; }
+  .cityscape-copy em { color:#f7d8a8; font-size:.72rem; font-style:normal; font-weight:850; }
+  .sequence { margin:.25rem 0; color:#ffd79d; font:850 .75rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.04em; }
+  .math-note,.science-rule { display:block; }
+  .teacher-rules { display:grid; gap:.18rem; margin-top:.28rem; color:#d5e6ed; font-size:.77rem; line-height:1.38; }
+  .teacher-rules b { color:#fff; }
+  .cityscape-actions { flex:0 0 auto; display:grid; gap:.45rem; min-width:220px; }
+  .cityscape-actions a {
+    display:inline-flex; align-items:center; justify-content:center; min-height:42px; padding:.65rem .85rem;
+    border-radius:10px; background:#fff7ed; color:#7c2d12; text-decoration:none; text-align:center;
+    font-size:.8rem; font-weight:900;
+  }
+  .teacher-actions a:first-child { background:#f0f9ff; color:#0c4a6e; }
+  .teacher-actions a:last-child { background:#ecfeff; color:#164e63; }
+  .cityscape-actions a:hover,.cityscape-actions a:focus-visible { outline:3px solid rgba(255,255,255,.3); outline-offset:2px; }
+  @media (max-width:780px){ .jcec-cityscape-integration{align-items:stretch;flex-direction:column}.cityscape-actions{min-width:0;width:100%}.cityscape-actions a{width:100%} }
+  @media print { .jcec-cityscape-integration { display:none!important; } }
+</style>
