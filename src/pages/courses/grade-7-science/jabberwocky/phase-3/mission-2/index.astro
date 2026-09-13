@@ -1,0 +1,290 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecPhase3Progress from '../../../../../../components/JcecPhase3Progress.astro';
+import { phase3ThermalSites } from '../../../../../../data/jabberwockyPhase3';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Mission 2: Follow the Heat | Jabberwocky 2190" description="Phase 3 Mission 2: trace conduction, convection and radiation through a habitat." themeColor="#081722">
+  <div class="mission-shell" id="phase3-mission2">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 3', href: `${base}courses/grade-7-science/jabberwocky/phase-3/` },
+      { label: 'Mission 2' }
+    ]} />
+
+    <JcecPhase3Progress active={2} compact={true} />
+
+    <header class="mission-hero">
+      <div>
+        <p class="eyebrow">PHASE 3 // MISSION 2 OF 5</p>
+        <h1>FOLLOW THE <span>HEAT</span></h1>
+        <p class="question">How does thermal energy get from one place to another?</p>
+      </div>
+      <aside>
+        <span>YOU ARE LEARNING</span>
+        <strong>How conduction, convection and radiation move thermal energy</strong>
+        <small>3 classes × 45 minutes</small>
+      </aside>
+    </header>
+
+    <section class="mission-at-a-glance">
+      <div><small>WHERE AM I?</small><strong>Mission 2 of 5</strong></div>
+      <div><small>WHAT DO I HAND IN?</small><strong>1 Habitat Heat Map + 1 reflection</strong></div>
+      <div><small>WHY DOES IT MATTER?</small><strong>JCEC knows the temperature problem. Now it must trace how energy is getting in or out.</strong></div>
+    </section>
+
+    <nav class="step-nav" aria-label="Mission 2 steps">
+      <a href="#your-mission"><b>1</b><span>Your Mission</span></a>
+      <a href="#learn"><b>2</b><span>Learn</span></a>
+      <a href="#investigate"><b>3</b><span>Investigate</span></a>
+      <a href="#decide"><b>4</b><span>Decide</span></a>
+      <a href="#record"><b>5</b><span>Record It</span></a>
+    </nav>
+
+    <section class="simple-step" id="your-mission">
+      <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
+      <div class="briefing">
+        <p>Mission 1 told your team what thermal condition JCEC must prepare for. It did not explain how thermal energy is moving. Now trace the pathways. Test three ways thermal energy can travel, compare the evidence, then decide which pathway your habitat must control most carefully. Your continent stays the same—this mission begins with the thermal challenge your team already identified.</p>
+      </div>
+
+      <div class="assignment-result" id="assignment-result" hidden>
+        <span id="assignment-icon"></span>
+        <div><small>YOUR PHASE 3 CONTINENT</small><strong id="assignment-name"></strong><p id="assignment-subtitle"></p></div>
+        <div class="challenge-badge"><small>MISSION 1 THERMAL CHALLENGE</small><b id="assignment-challenge"></b></div>
+      </div>
+      <div class="missing-assignment" id="missing-assignment" hidden>
+        <strong>Your Phase 3 posting is not saved on this device yet.</strong>
+        <p>Return to the Phase 3 Hub and choose the continent your teacher assigned. You do not need to choose again once it is saved.</p>
+        <a href={`${base}courses/grade-7-science/jabberwocky/phase-3/`}>Get Phase 3 posting →</a>
+      </div>
+    </section>
+
+    <section class="simple-step" id="learn">
+      <div class="step-heading"><span>2</span><div><p>CLASSES 1–2</p><h2>Learn the Science</h2></div></div>
+      <p class="step-intro"><strong>One question. Three pathways.</strong> All three can happen in the same habitat at the same time.</p>
+
+      <div class="science-grid three">
+        <article>
+          <span>🤝</span><strong>CONDUCTION</strong>
+          <p>Thermal energy transfers through interactions between particles in matter. It is especially important when materials are touching and is easy to observe in solids.</p>
+          <small>It does not happen only in solids.</small>
+        </article>
+        <article>
+          <span>↺</span><strong>CONVECTION</strong>
+          <p>Thermal energy is transferred by the movement of a <b>fluid</b>. Fluids include <b>liquids and gases</b>.</p>
+          <small>Warmer fluid becomes less dense and moves → cooler fluid moves in → circulation can form.</small>
+        </article>
+        <article>
+          <span>☀️</span><strong>RADIATION</strong>
+          <p>Thermal energy can travel by electromagnetic radiation. <b>Radiation does not need matter between the source and receiver.</b></p>
+          <small>Sunlight is the clearest example.</small>
+        </article>
+      </div>
+
+      <div class="pathway-visual" aria-label="Heat transfer pathway comparison">
+        <div><span>TOUCHING MATERIALS</span><strong>→ CONDUCTION</strong></div>
+        <div><span>MOVING LIQUID / GAS</span><strong>→ CONVECTION</strong></div>
+        <div><span>ENERGY ACROSS SPACE</span><strong>→ RADIATION</strong></div>
+      </div>
+
+      <div class="air-fluid-visual">
+        <span>cooler air moves in ↓</span><strong>↺ AIR IS A FLUID ↻</strong><span>warm air moves ↑</span>
+      </div>
+
+      <details class="help-box">
+        <summary>Need Help? / Learn More</summary>
+        <div>
+          <p><strong>Conduction:</strong> particles transfer energy through collisions and vibrations. A material can conduct energy even if the material itself does not move from place to place.</p>
+          <p><strong>Convection:</strong> part of a liquid or gas moves, carrying thermal energy with it. Density helps create the circulation, but you do not need density equations here.</p>
+          <p><strong>Radiation:</strong> energy can travel through empty space. That is how energy from the Sun reaches Jabberwocky.</p>
+          <p><strong>Real habitats:</strong> walls can conduct, moving air can convect and sunlight can radiate—all at once.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="simple-step" id="investigate">
+      <div class="step-heading"><span>3</span><div><p>CLASSES 1–2</p><h2>Investigate</h2></div></div>
+
+      <section class="investigation-block">
+        <div class="block-title"><div><small>MAIN INVESTIGATION</small><h3>Heat Pathway Stations</h3></div><span>TEAM WORK</span></div>
+        <p>Rotate through the three shared stations. At every station answer the same two questions:</p>
+        <div class="question-pair"><strong>Where did thermal energy move?</strong><strong>What evidence shows that it moved?</strong></div>
+
+        <div class="equipment-strip">
+          <strong>Shared supplies:</strong>
+          <span>cups</span><span>warm water</span><span>metal / plastic / wood pieces</span><span>food colouring if used</span><span>dark / light paper</span><span>shared thermometers</span><span>sunlight or an existing lamp if available</span>
+        </div>
+        <div class="safety-strip"><strong>Safety:</strong><span>Warm water only—no boiling water. Do not use your skin as a thermometer. Follow teacher directions around lamps and glassware.</span></div>
+
+        <div class="station-grid">
+          <article>
+            <header><b>A</b><div><small>STATION A</small><h4>Conduction</h4></div></header>
+            <p>Place equal lengths of metal, plastic and wood into the same warm-water source. Use the teacher-approved setup to observe or measure how quickly the upper part of each material warms.</p>
+            <strong class="station-focus">Look for:</strong><span>Which material transfers thermal energy along itself most noticeably?</span>
+          </article>
+          <article>
+            <header><b>B</b><div><small>STATION B</small><h4>Convection</h4></div></header>
+            <p>Observe a safe warm/cool coloured-water setup or teacher demonstration. Watch how the fluid moves and where the warmer and cooler portions travel.</p>
+            <strong class="station-focus">Remember:</strong><span>Air is also a fluid. The small air-convection visual above is enough; this is not a second major experiment.</span>
+          </article>
+          <article>
+            <header><b>C</b><div><small>STATION C</small><h4>Radiation</h4></div></header>
+            <p>Compare dark/light or exposed/shaded surfaces under the same sunlight or shared lamp. Use equal time and distance. Record temperature evidence if suitable thermometers are available.</p>
+            <strong class="station-focus">Look for:</strong><span>Can energy arrive even though the source is not touching the surface?</span>
+          </article>
+        </div>
+
+        <section class="station-record">
+          <p class="mini-label">ONE SMALL STATION SHEET — NOT THREE LAB REPORTS</p>
+          <div class="record-arrow-row"><span>WHAT MOVED?</span><b>→</b><span>EVIDENCE</span><b>→</b><span>PATHWAY</span></div>
+          <div class="mini-table">
+            <div><strong>Conduction station</strong><span>________________</span><span>________________</span><span>CONDUCTION</span></div>
+            <div><strong>Convection station</strong><span>________________</span><span>________________</span><span>CONVECTION</span></div>
+            <div><strong>Radiation station</strong><span>________________</span><span>________________</span><span>RADIATION</span></div>
+          </div>
+        </section>
+
+        <details class="fallback-evidence">
+          <summary>No-purchase fallback: teacher demonstration + observation cards</summary>
+          <div class="fallback-grid">
+            <article><strong>CONDUCTION CARD</strong><p>Equal metal, plastic and wood pieces were placed into the same warm water. Over the same time, the upper part of the metal warmed most noticeably. The materials were not carried from one place to another.</p></article>
+            <article><strong>CONVECTION CARD</strong><p>A small amount of coloured warm water rose and spread while cooler water moved in to replace it. A circulating pattern formed in the fluid.</p></article>
+            <article><strong>RADIATION CARD</strong><p>Two surfaces were placed the same distance from a light source for the same time. The more exposed surface gained more thermal energy even though the source did not touch it.</p></article>
+          </div>
+          <p>If any physical station cannot be run, use the matching observation card. The goal is to reason from evidence, not to purchase specialty equipment.</p>
+        </details>
+
+        <div class="fallback-note"><strong>Low-material rule:</strong><span>Normal classroom supplies and shared stations are enough. No infrared camera, specialty heat-transfer kit or purchased sensor is required.</span></div>
+        <button type="button" class="small-button" id="print-phase3-mission2">Print Mission 2 station sheet + Habitat Heat Map</button>
+      </section>
+
+      <section class="continent-case">
+        <div class="block-title"><div><small>CLASS 3</small><h3>Your Continent Heat-Pathway Case</h3></div><span>3 CLUES ONLY</span></div>
+        <p>Use these clues with your station evidence. More than one pathway may matter. Your job is to decide which one deserves the most attention first.</p>
+        <div class="no-continent" id="no-continent"><strong>Phase 3 continent not found.</strong><a href={`${base}courses/grade-7-science/jabberwocky/phase-3/`}>Return to Phase 3 Hub →</a></div>
+        <div id="pathway-files" hidden>
+          {phase3ThermalSites.map((site) => (
+            <article class="pathway-file" data-pathway-file={site.id} hidden>
+              <header><span>{site.icon}</span><div><small>{site.name} · {site.subtitle}</small><h3>{site.thermalChallenge}</h3></div></header>
+              <div class="clue-grid">{site.mission2Clues.map((clue, index) => <article><b>{index + 1}</b><p>{clue}</p></article>)}</div>
+              <div class="multiple-note"><strong>Important:</strong><span>Your continent can involve conduction, convection and radiation at the same time. Choose a priority; do not pretend the other pathways disappear.</span></div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </section>
+
+    <section class="simple-step" id="decide">
+      <div class="step-heading"><span>4</span><div><p>CLASS 3</p><h2>Make a Decision</h2></div></div>
+      <div class="decision-card">
+        <p class="mini-label">ONE TEAM QUESTION</p>
+        <h3>Which heat-transfer pathway should our habitat control most carefully?</h3>
+        <div class="option-row"><span>Conduction</span><span>Convection</span><span>Radiation</span></div>
+        <p class="decision-note">All three may be happening. You are choosing the first priority—not claiming the other two do not matter.</p>
+        <div class="reasoning-frame three">
+          <div><strong>PATHWAY</strong><span>We think ______ is the priority…</span></div>
+          <div><strong>EVIDENCE</strong><span>…because we observed ______.</span></div>
+          <div><strong>WHY IT MATTERS</strong><span>On our continent, this matters because ______.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="simple-step" id="record">
+      <div class="step-heading"><span>5</span><div><p>CLASS 3</p><h2>Record It</h2></div></div>
+      <div class="handoff-strip"><span>👥 <strong>TEAM WORK</strong> trace</span><i>→</i><span>📝 <strong>TEAM RECORD</strong> one map</span><i>→</i><span>💭 <strong>MY REFLECTION</strong> everyone answers</span></div>
+
+      <div class="team-record">
+        <div class="record-heading"><div><p class="mini-label">TEAM RECORD</p><h3>Habitat Heat Map</h3></div><span>ONE PER TEAM</span></div>
+        <p>This is a science diagram, not an art project. A simple box-shaped habitat is enough.</p>
+        <div class="heat-map-preview" aria-label="Simple example of a habitat heat map">
+          <span class="sun">☀️</span><span class="rad-arrow">radiation ↓</span>
+          <div class="habitat-box"><b>HABITAT</b><span class="wall-left">← conduction</span><span class="air-loop">↺ convection</span><span class="wall-right">conduction →</span></div>
+        </div>
+        <div class="profile-checklist">
+          <label><input type="checkbox" /> one basic habitat outline</label>
+          <label><input type="checkbox" /> arrows showing likely thermal-energy movement</label>
+          <label><input type="checkbox" /> conduction / convection / radiation labels where they fit</label>
+          <label><input type="checkbox" /> one circled priority pathway</label>
+          <label><input type="checkbox" /> one short evidence statement explaining the priority</label>
+        </div>
+      </div>
+
+      <div class="reflection-card">
+        <p class="mini-label">MY REFLECTION</p>
+        <h3>Which form of heat transfer was easiest to observe? Which was hardest to see directly? Why?</h3>
+        <p>Everyone answers this question individually.</p>
+      </div>
+
+      <div class="finished-box">
+        <strong>Mission 2 is finished when:</strong>
+        <span>✓ your team has one Habitat Heat Map</span>
+        <span>✓ you completed the short individual reflection</span>
+        <p>Mission 3 — Hold the Temperature — is upcoming and locked. Stop here until your teacher opens it.</p>
+        <a href={`${base}courses/grade-7-science/jabberwocky/phase-3/`}>Return to Phase 3 Mission Hub →</a>
+      </div>
+    </section>
+
+    <section class="print-packet" aria-label="Phase 3 Mission 2 printable packet">
+      <section class="print-page">
+        <h1>Phase 3 · Mission 2 — Heat Pathway Stations</h1>
+        <p>Team: ________________________________ &nbsp; Date: ____________</p>
+        <table><thead><tr><th>Station</th><th>What moved?</th><th>What evidence shows energy moved?</th><th>Pathway</th></tr></thead><tbody><tr><th>A</th><td></td><td></td><td>Conduction</td></tr><tr><th>B</th><td></td><td></td><td>Convection</td></tr><tr><th>C</th><td></td><td></td><td>Radiation</td></tr></tbody></table>
+        <p><strong>One pattern we noticed across the stations:</strong></p><div class="writing-lines"></div>
+      </section>
+      <section class="print-page page-break">
+        <h1>Habitat Heat Map</h1>
+        <p>Continent: ________________________________ &nbsp; Team: ________________________________</p>
+        <div class="map-space"><span>Draw a simple habitat. Add arrows and label conduction, convection and radiation where they fit. Circle your priority pathway.</span></div>
+        <p><strong>We think __________________ is the priority because we observed:</strong></p><div class="writing-lines"></div>
+        <p><strong>On our continent, this matters because:</strong></p><div class="writing-lines"></div>
+        <p><strong>MY REFLECTION:</strong> Which form of heat transfer was easiest to observe? Which was hardest to see directly? Why?</p><div class="writing-lines tall"></div>
+      </section>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ siteData: phase3ThermalSites }}>
+    (() => {
+      const KEY = 'jabberwocky-phase3-posting';
+      const sites = Object.fromEntries(siteData.map((site) => [site.id, site]));
+      const saved = localStorage.getItem(KEY);
+      const site = saved ? sites[saved] : null;
+      const assignment = document.getElementById('assignment-result');
+      const missing = document.getElementById('missing-assignment');
+      const pathwayFiles = document.getElementById('pathway-files');
+      const noContinent = document.getElementById('no-continent');
+
+      if (site) {
+        assignment.hidden = false;
+        missing.hidden = true;
+        pathwayFiles.hidden = false;
+        noContinent.hidden = true;
+        document.getElementById('assignment-icon').textContent = site.icon;
+        document.getElementById('assignment-name').textContent = site.name;
+        document.getElementById('assignment-subtitle').textContent = site.subtitle;
+        document.getElementById('assignment-challenge').textContent = site.thermalChallenge;
+        document.querySelectorAll('[data-pathway-file]').forEach((el) => {
+          el.hidden = el.getAttribute('data-pathway-file') !== site.id;
+        });
+      } else {
+        assignment.hidden = true;
+        missing.hidden = false;
+        pathwayFiles.hidden = true;
+        noContinent.hidden = false;
+      }
+
+      document.getElementById('print-phase3-mission2')?.addEventListener('click', () => window.print());
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+:global(body){background:#061019}.mission-shell{max-width:1060px;margin:0 auto;padding:0 1rem 5rem;color:#eaf4fb}.mission-shell :global(.breadcrumbs){color:#91a7b5}.mission-shell :global(.breadcrumbs a){color:#dcecf5}:global(body:has(#phase3-mission2) .jcec-submission-dock),:global(body:has(#phase3-mission2) .jcec-device-tools){display:none!important}.eyebrow,.mini-label{margin:0;color:#ffb25f;font:850 .72rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}.mission-hero{display:grid;grid-template-columns:1fr 255px;gap:1.4rem;align-items:end;margin:1rem 0;padding:clamp(1.4rem,4vw,2.3rem);border:1px solid #36566b;border-radius:22px;background:radial-gradient(circle at 85% 15%,rgba(255,178,95,.14),transparent 28%),linear-gradient(145deg,#071722,#102c3c)}.mission-hero h1{margin:.45rem 0;color:#fff;font-size:clamp(2.8rem,7vw,5rem);line-height:.9;letter-spacing:-.05em}.mission-hero h1 span{display:block;color:#ffb25f}.question{margin:.65rem 0 0;color:#d5e7f1;font-size:1.2rem;font-weight:750}.mission-hero aside{display:grid;gap:.18rem;padding:1rem;border:1px solid #3b596b;border-radius:13px;background:#081924}.mission-hero aside span{color:#ffb25f;font-size:.68rem;font-weight:900;letter-spacing:.08em}.mission-hero aside strong{color:#fff;line-height:1.35}.mission-hero aside small{color:#8fa6b3}.mission-at-a-glance{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:1rem 0}.mission-at-a-glance>div{display:grid;gap:.2rem;padding:.8rem;border:1px solid #2d495a;border-radius:11px;background:#091a24}.mission-at-a-glance small{color:#ffb25f;font-size:.65rem;font-weight:900;letter-spacing:.06em}.mission-at-a-glance strong{color:#eaf5fb;font-size:.84rem;line-height:1.35}.step-nav{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;margin:1.2rem 0}.step-nav a{display:flex;gap:.4rem;align-items:center;padding:.55rem;border:1px solid #2d4959;border-radius:9px;background:#071720;color:#b9ced9!important;text-decoration:none;font-size:.74rem;font-weight:800}.step-nav b{display:grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#173448;color:#ffc17d}.simple-step{margin:1.35rem 0;padding:1.25rem;border:1px solid #29485a;border-radius:18px;background:#091a24}.step-heading{display:flex;gap:.7rem;align-items:center;margin-bottom:1rem}.step-heading>span{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#ffb25f;color:#301b06;font-weight:950}.step-heading p{margin:0;color:#829ba9;font-size:.66rem;font-weight:900;letter-spacing:.08em}.step-heading h2{margin:.1rem 0;color:#fff;font-size:1.55rem}.briefing{padding:1rem 1.05rem;border-left:4px solid #ffb25f;border-radius:0 12px 12px 0;background:#102936}.briefing p{margin:0;color:#c4d7e1;line-height:1.65}.assignment-result{display:grid;grid-template-columns:50px 1fr 1.2fr;gap:.8rem;align-items:center;margin-top:.8rem;padding:.85rem;border:1px solid #3d5e71;border-radius:12px;background:#071720}.assignment-result>span{font-size:1.8rem}.assignment-result small,.challenge-badge small{display:block;color:#ffb25f;font-size:.62rem;font-weight:900;letter-spacing:.07em}.assignment-result strong{display:block;color:#fff;font-size:1.1rem}.assignment-result p{margin:.15rem 0 0;color:#8ea6b4}.challenge-badge{padding:.6rem;border-radius:9px;background:#112d3b}.challenge-badge b{display:block;margin-top:.15rem;color:#dcecf5;font-size:.78rem;line-height:1.4}.missing-assignment{margin-top:.8rem;padding:.85rem;border:1px solid #7a5937;border-radius:11px;background:#221a12}.missing-assignment strong{color:#ffd1a0}.missing-assignment p{color:#c9ae92}.missing-assignment a{color:#ffc17c;font-weight:850}.step-intro{color:#b5c8d3}.science-grid.three{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem}.science-grid article{padding:.9rem;border:1px solid #304d5e;border-radius:12px;background:#07151e}.science-grid article>span{display:block;font-size:1.45rem}.science-grid strong{display:block;margin:.3rem 0;color:#fff;font-size:.84rem}.science-grid p{margin:0;color:#9fb4c0;font-size:.82rem;line-height:1.48}.science-grid small{display:block;margin-top:.5rem;padding-top:.45rem;border-top:1px solid #294452;color:#d1e2ea;font-size:.74rem;line-height:1.45}.pathway-visual{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin:1rem 0}.pathway-visual div{display:grid;gap:.2rem;padding:.75rem;border:1px solid #355568;border-radius:10px;background:#102936;text-align:center}.pathway-visual span{color:#8fa7b5;font-size:.68rem;font-weight:900}.pathway-visual strong{color:#ffc17d}.air-fluid-visual{display:flex;justify-content:center;gap:1rem;align-items:center;padding:.7rem;border-radius:10px;background:#0b202b;color:#9fb6c2;font-size:.78rem}.air-fluid-visual strong{color:#dff3ff}.help-box,.fallback-evidence{margin-top:.8rem;border:1px solid #355467;border-radius:10px;background:#071720}.help-box summary,.fallback-evidence summary{cursor:pointer;padding:.75rem;color:#ffd1a0;font-weight:850}.help-box div,.fallback-evidence>div{padding:0 .8rem .8rem;color:#a9bdc9}.investigation-block,.continent-case{margin-top:.85rem;padding:1rem;border:1px solid #355568;border-radius:14px;background:#071720}.block-title{display:flex;justify-content:space-between;gap:1rem;align-items:center}.block-title small{color:#8fa7b5;font-size:.64rem;font-weight:900;letter-spacing:.07em}.block-title h3{margin:.2rem 0;color:#fff}.block-title>span{padding:.35rem .5rem;border-radius:999px;background:#15374a;color:#bfe8ff;font-size:.67rem;font-weight:900}.question-pair{display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem;margin:.7rem 0}.question-pair strong{padding:.7rem;border-radius:9px;background:#102936;color:#e4f4fc}.equipment-strip{display:flex;flex-wrap:wrap;gap:.45rem;margin:.7rem 0}.equipment-strip>*{padding:.35rem .5rem;border-radius:7px;background:#102b39;color:#b9ced9;font-size:.76rem}.equipment-strip strong{color:#fff}.safety-strip{display:flex;gap:.5rem;margin:.6rem 0;padding:.65rem;border-radius:9px;background:#2b1d12;color:#efd1b1;font-size:.8rem}.safety-strip strong{color:#ffb25f}.station-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.8rem}.station-grid>article{padding:.85rem;border:1px solid #304d5d;border-radius:11px;background:#0b202b}.station-grid header{display:flex;gap:.55rem;align-items:center}.station-grid header>b{display:grid;place-items:center;width:31px;height:31px;border-radius:50%;background:#ffb25f;color:#2e1906}.station-grid header small{color:#7893a2;font-size:.62rem;font-weight:900}.station-grid h4{margin:.1rem 0;color:#fff}.station-grid p{color:#a9bdc8;font-size:.8rem;line-height:1.5}.station-focus{display:block;color:#ffc27f;font-size:.7rem}.station-grid article>span{display:block;margin-top:.2rem;color:#d0e1e9;font-size:.76rem;line-height:1.4}.station-record{margin-top:.9rem;padding:.8rem;border-radius:11px;background:#102936}.record-arrow-row{display:flex;justify-content:center;gap:.65rem;align-items:center;flex-wrap:wrap;margin:.6rem 0;color:#d4e8f2;font-size:.74rem;font-weight:900}.record-arrow-row b{color:#ffb25f}.mini-table{display:grid;gap:.4rem}.mini-table>div{display:grid;grid-template-columns:1.1fr 1fr 1fr .8fr;gap:.35rem;padding:.5rem;border:1px solid #355365;border-radius:8px;background:#071720}.mini-table strong,.mini-table span{font-size:.72rem}.mini-table strong{color:#fff}.mini-table span{color:#9fb4c0}.fallback-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}.fallback-grid article{padding:.7rem;border-radius:9px;background:#0c202b}.fallback-grid strong{color:#ffc17c;font-size:.72rem}.fallback-grid p{margin:.3rem 0 0;color:#a9bdc8;font-size:.77rem;line-height:1.45}.fallback-evidence>p{margin:.2rem .8rem .8rem;color:#91a8b5;font-size:.78rem}.fallback-note{display:flex;gap:.45rem;margin-top:.75rem;padding:.7rem;border-radius:9px;background:#13272f;color:#adc0ca;font-size:.78rem}.fallback-note strong{color:#ffd09d}.small-button{margin-top:.8rem;padding:.65rem .8rem;border:0;border-radius:8px;background:#ffb25f;color:#2d1906;font:inherit;font-size:.8rem;font-weight:900;cursor:pointer}.no-continent{display:grid;gap:.35rem;padding:.75rem;border-radius:9px;background:#211911;color:#d8b693}.no-continent a{color:#ffc17e}.pathway-file header{display:flex;gap:.7rem;align-items:center}.pathway-file header>span{font-size:1.8rem}.pathway-file header small{color:#8fa7b5}.pathway-file header h3{margin:.15rem 0;color:#fff;line-height:1.35}.clue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin:.75rem 0}.clue-grid article{display:grid;grid-template-columns:28px 1fr;gap:.45rem;align-items:start;padding:.7rem;border:1px solid #304c5d;border-radius:9px;background:#0b202b}.clue-grid b{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#ffb25f;color:#2b1805}.clue-grid p{margin:.1rem 0;color:#b5c8d3;font-size:.8rem;line-height:1.45}.multiple-note{display:flex;gap:.45rem;padding:.7rem;border-left:3px solid #ffb25f;background:#181d1d;color:#c5d5dd;font-size:.8rem}.multiple-note strong{color:#ffc17c}.decision-card{padding:1rem;border:1px solid #7a572f;border-radius:13px;background:#1b1814}.decision-card h3{margin:.35rem 0;color:#fff;font-size:1.35rem}.option-row{display:flex;flex-wrap:wrap;gap:.4rem;margin:.75rem 0}.option-row span{padding:.4rem .55rem;border:1px solid #5f4a31;border-radius:999px;background:#241c13;color:#f0d2af;font-size:.75rem}.decision-note{color:#bfa991;font-size:.8rem}.reasoning-frame.three{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}.reasoning-frame div{display:grid;gap:.2rem;padding:.7rem;border-radius:9px;background:#0c202b}.reasoning-frame strong{color:#ffb25f;font-size:.68rem}.reasoning-frame span{color:#d3e3eb;font-size:.82rem}.handoff-strip{display:flex;justify-content:center;gap:.6rem;align-items:center;flex-wrap:wrap;margin:.4rem 0 1rem;color:#a9bec9;font-size:.78rem}.handoff-strip strong{color:#fff}.handoff-strip i{color:#ffb25f}.team-record,.reflection-card,.finished-box{margin-top:.8rem;padding:1rem;border:1px solid #345365;border-radius:13px;background:#071720}.record-heading{display:flex;justify-content:space-between;gap:1rem}.record-heading h3,.reflection-card h3{margin:.2rem 0;color:#fff}.record-heading>span{height:max-content;padding:.3rem .45rem;border-radius:999px;background:#153549;color:#bee6fb;font-size:.62rem;font-weight:900}.heat-map-preview{display:grid;place-items:center;position:relative;min-height:180px;margin:.8rem 0;border:1px dashed #446173;border-radius:12px;background:#0a1d27}.sun{position:absolute;top:10px;right:15%;font-size:1.7rem}.rad-arrow{position:absolute;top:45px;right:11%;color:#ffc17c;font-size:.72rem}.habitat-box{display:grid;place-items:center;position:relative;width:min(360px,70%);height:95px;border:3px solid #88a9bb;border-radius:8px;color:#fff}.wall-left,.wall-right,.air-loop{position:absolute;color:#cce3ee;font-size:.72rem}.wall-left{left:-90px}.wall-right{right:-90px}.air-loop{font-size:1rem}.profile-checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:.4rem}.profile-checklist label{padding:.5rem;border-radius:7px;background:#0d2531;color:#b8cbd6;font-size:.8rem}.reflection-card{border-color:#664d32;background:#191711}.reflection-card p:last-child{color:#bda990}.finished-box{display:grid;gap:.35rem;border-color:#49697b;background:#0d2633}.finished-box strong{color:#fff}.finished-box span{color:#c5dce7}.finished-box p{margin:.25rem 0;color:#8fa6b3}.finished-box a{width:max-content;margin-top:.2rem;padding:.6rem .75rem;border-radius:8px;background:#ffb25f;color:#2d1906!important;text-decoration:none;font-size:.8rem;font-weight:900}.print-packet{display:none}
+@media(max-width:800px){.mission-hero{grid-template-columns:1fr}.mission-at-a-glance,.science-grid.three,.pathway-visual,.station-grid,.fallback-grid{grid-template-columns:1fr}.step-nav{overflow-x:auto;grid-template-columns:repeat(5,minmax(105px,1fr))}.assignment-result{grid-template-columns:45px 1fr}.challenge-badge{grid-column:1/-1}.clue-grid,.reasoning-frame.three{grid-template-columns:1fr}.mini-table>div{grid-template-columns:1fr 1fr}.wall-left{left:-65px}.wall-right{right:-65px}}
+@media(max-width:560px){.mission-at-a-glance,.question-pair,.profile-checklist{grid-template-columns:1fr}.simple-step{padding:1rem}.mission-hero h1{font-size:2.7rem}.block-title,.air-fluid-visual{align-items:flex-start;flex-direction:column}.mini-table>div{grid-template-columns:1fr}.habitat-box{width:55%}.wall-left,.wall-right{position:static;margin:.2rem}}
+@media print{body *{visibility:hidden!important}.print-packet,.print-packet *{visibility:visible!important}.print-packet{display:block!important;position:absolute;inset:0;padding:0;color:#000;background:#fff}.print-page{padding:14mm;font-family:Arial,sans-serif}.print-page h1{font-size:20pt}.print-page table{width:100%;border-collapse:collapse;margin:8mm 0}.print-page th,.print-page td{height:20mm;padding:3mm;border:1px solid #333;text-align:left;vertical-align:top}.page-break{break-before:page}.map-space{display:grid;place-items:center;min-height:105mm;margin:6mm 0;border:2px solid #333}.map-space span{max-width:70%;color:#666;text-align:center}.writing-lines{min-height:22mm;border-bottom:1px solid #777;background:repeating-linear-gradient(to bottom,transparent 0,transparent 7mm,#bbb 7.2mm,#bbb 7.4mm)}.writing-lines.tall{min-height:38mm}}
+</style>
