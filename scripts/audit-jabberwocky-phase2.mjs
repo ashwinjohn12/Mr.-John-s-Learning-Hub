@@ -13,13 +13,19 @@ const hubPath = 'src/pages/courses/grade-7-science/jabberwocky/phase-2/index.ast
 const missionPaths = [1,2,3,4,5].map((n) => `src/pages/courses/grade-7-science/jabberwocky/phase-2/mission-${n}/index.astro`);
 const progressPath = 'src/components/JcecPhase2Progress.astro';
 const dataPath = 'src/data/jabberwockyPhase2.ts';
+const teacherGuidePath = 'src/pages/courses/grade-7-science/jabberwocky/phase-2/teacher-launch-guide/index.astro';
+const teacherDocPath = 'docs/jabberwocky-phase-2-teacher-launch-guide.md';
+const pacingDocPath = 'docs/jabberwocky-phase-2-five-week-pacing-guide.md';
 
-for (const file of [hubPath, ...missionPaths, progressPath, dataPath]) check(fs.existsSync(rel(file)), `exists: ${file}`);
+for (const file of [hubPath, ...missionPaths, progressPath, dataPath, teacherGuidePath, teacherDocPath, pacingDocPath]) check(fs.existsSync(rel(file)), `exists: ${file}`);
 
 const hub = read(hubPath);
 const missions = missionPaths.map(read);
 const progress = read(progressPath);
 const data = read(dataPath);
+const teacherGuide = read(teacherGuidePath);
+const teacherDoc = read(teacherDocPath);
+const pacingDoc = read(pacingDocPath);
 
 check(hub.includes('JcecPhase2Progress active={5}'), 'Phase 2 hub shows Mission 5 as current');
 check(hub.includes("number: 4") && hub.includes("status: 'COMPLETE'") && hub.includes("number: 5") && hub.includes("status: 'CURRENT'"), 'Phase 2 hub marks Missions 1–4 complete and Mission 5 current');
@@ -124,6 +130,41 @@ check(has(mission4, '3 classes × 45 minutes'), 'Mission 4 is designed for 3 cor
 check(has(mission5, '4 classes × 45 minutes'), 'Mission 5 is designed for 4 core classes');
 check(3 + 4 + 4 + 3 + 4 === 18, 'Phase 2 core mission pacing totals 18 classes');
 
+// Teacher implementation system: same five-mission unit, 18 core + 7 purposeful flex.
+for (const source of [teacherGuide, teacherDoc, pacingDoc]) {
+  check(has(source, '18 core'), 'teacher pacing source includes 18 core classes');
+  check(has(source, '7') && has(source, 'flex'), 'teacher pacing source includes 7 purposeful flex classes');
+  for (const title of ['Find the Living Resource','Keep It Growing','Build the Growing Zone','Choose the Next Generation','Use It Without Losing It']) check(has(source, title), `teacher pacing source uses five-mission name: ${title}`);
+}
+
+for (const day of [1,2,3,4,5,6,7,9,10,11,12,14,15,16,18,19,20,21]) check(has(teacherGuide, `DAY ${day}`), `Phase 2 Teacher Launch Guide includes core Day ${day}`);
+for (const day of [8,13,17,22,23,24,25]) check(has(teacherGuide, `DAY ${day}`), `Phase 2 Teacher Launch Guide includes flex Day ${day}`);
+for (const label of ['BEFORE CLASS','MATERIALS','STUDENTS SEE / DO','KEY SCIENCE','TEACHER EMPHASIS','COLLECT / ASSESS','IF TIME RUNS OUT']) check(teacherGuide.includes(label), `Phase 2 Teacher Launch Guide includes planning field: ${label}`);
+
+// Materials master list.
+for (const token of ['real flowering/seed plants','fast-growing seeds','sand-rich medium','clay-rich medium','organic-rich medium','wick/string','starter plant population cards','continent footprint maps/zone mats','JCEC Living Resource Plan']) check(has(teacherGuide, token) && has(teacherDoc, token), `Phase 2 materials plan includes: ${token}`);
+
+// Growth Trial management across Missions 2–3.
+for (const token of ['7–10 calendar days','3–5 minutes','teacher backup','Day 4','Day 8 FLEX','Day 11','Day 13 FLEX','Poor germination','Little difference']) check(has(teacherGuide, token), `Phase 2 Growth Trial management includes: ${token}`);
+check(has(teacherDoc, 'pooled class data') && has(teacherDoc, 'sample dataset'), 'Phase 2 teacher documentation includes Growth Trial fallback data options');
+
+// Assessment load.
+for (const token of ['Missions 1, 2 and 4','Mission 3','Mission 5','30%','55%','15%']) check(has(teacherGuide, token), `Phase 2 assessment map includes: ${token}`);
+check(has(teacherGuide, 'science understanding') && has(teacherGuide, 'evidence') && has(teacherGuide, 'reasoning') && has(teacherGuide, 'practical decision'), 'Phase 2 checkpoint/synthesis assessment focuses on science and reasoning rather than polish');
+
+// Purposeful flex and contingency plan.
+for (const token of ['Growth timing','absence','reteach','individual science check','gallery walk','Final buffer']) check(has(teacherGuide, token), `Phase 2 flex system supports: ${token}`);
+for (const token of ['Failed germination','Missing lab materials','A class is lost','Student absent during a lab','Growth Trial shows little difference','Selective-breeding simulation runs long','Production Footprint Challenge runs long']) check(has(teacherGuide, token) && has(teacherDoc, token), `Phase 2 contingency exists: ${token}`);
+
+// Curriculum alignment and enrichment boundary.
+for (const token of ['Plants for Food & Fibre','OUTCOME AREA 1','OUTCOME AREA 2','OUTCOME AREA 3','OUTCOME AREA 4','diffusion','osmosis','transpiration','photosynthesis','selective breeding','monoculture','sustainability']) check(has(teacherGuide, token), `Phase 2 teacher curriculum alignment includes: ${token}`);
+check(has(teacherGuide, 'Punnett squares') && has(teacherGuide, 'Hydroponics is one possible'), 'Phase 2 teacher guide separates optional enrichment/examples from core learning');
+check(has(teacherGuide, 'https://education.alberta.ca/media/159716/sci7to9.pdf'), 'Phase 2 teacher guide links the official Alberta Grade 7 Science program source');
+
+// Teacher launch-readiness questions.
+for (const token of ['Do I know what to prepare tomorrow?','Do I know what students should finish each day?','Do I know what I actually need to assess?','Can I recover if plant growth or lab timing changes?','Do teacher and student systems match?']) check(has(teacherGuide, token), `Phase 2 teacher readiness audit includes: ${token}`);
+check(has(teacherGuide, 'STOP AFTER PHASE 2') && !teacherGuide.includes('phase-3/'), 'Phase 2 teacher system explicitly stops before Phase 3 and creates no Phase 3 route');
+
 console.log(`\nJabberwocky Phase 2 readiness audit: ${passes.length} checks passed.`);
 for (const item of passes) console.log(`  ✓ ${item}`);
 if (failures.length) {
@@ -131,4 +172,4 @@ if (failures.length) {
   for (const item of failures) console.error(`  ✗ ${item}`);
   process.exit(1);
 }
-console.log('\nPhase 2 Missions 1–5 are internally consistent: separate continent state, structures/functions, plant processes, Growth Trial evidence, soils and growing systems, selective breeding and pest risk, sustainable resource-use synthesis, print resources, 18 core classes, and no Phase 3 student route.');
+console.log('\nPhase 2 student + teacher systems are internally consistent: five missions, 18 core classes, seven purposeful flex periods, Growth Trial contingencies, materials, assessment, Plants for Food & Fibre alignment, final sustainability synthesis, and no Phase 3 route.');
