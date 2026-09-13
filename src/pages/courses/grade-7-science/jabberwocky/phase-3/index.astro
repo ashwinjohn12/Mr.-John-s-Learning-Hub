@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../components/Breadcrumbs.astro';
+import JcecPhase3Progress from '../../../../../components/JcecPhase3Progress.astro';
+import { phase3ThermalSites } from '../../../../../data/jabberwockyPhase3';
+
+const base = import.meta.env.BASE_URL;
+const missions = [
+  { number: 1, title: 'Read the Thermal Warning', question: 'What is temperature actually telling us?', summary: 'Measure temperature, use the particle model and identify the main thermal risk on your continent.', icon: '🌡️', status: 'CURRENT', ready: true, href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-1/`, linkText: 'Start Mission 1 →' },
+  { number: 2, title: 'Follow the Heat', question: 'How does thermal energy get from one place to another?', summary: 'Trace conduction, convection and radiation through a habitat.', icon: '↗️', status: 'UPCOMING', ready: false },
+  { number: 3, title: 'Hold the Temperature', question: 'How can materials and design slow unwanted thermal-energy transfer?', summary: 'Use a fair test to compare thermal barriers.', icon: '🧱', status: 'UPCOMING', ready: false },
+  { number: 4, title: 'Control the Habitat', question: 'How do humans keep temperatures within a useful range?', summary: 'Build a simple control rule for heating, cooling and passive strategies.', icon: '🎛️', status: 'UPCOMING', ready: false },
+  { number: 5, title: 'Survive Without Wasting It', question: 'How can humans stay safe without wasting energy or damaging the environment?', summary: 'Use the whole phase to create a Thermal Survival Plan.', icon: '⚡', status: 'UPCOMING', ready: false }
+];
+---
+
+<BaseLayout title="Phase 3: Surviving Jabberwocky | Mission 2190" description="Phase 3 of Jabberwocky: Mission 2190 — Grade 7 Heat & Temperature." themeColor="#081722">
+  <div class="phase3-shell" id="phase3-hub">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 3' }
+    ]} />
+
+    <header class="phase3-hero">
+      <div>
+        <p class="eyebrow">MISSION 2190 // PHASE 3</p>
+        <h1>SURVIVING <span>JABBERWOCKY</span></h1>
+        <p class="division">JCEC THERMAL SURVIVAL DIVISION</p>
+        <p class="lead">Ecological and botanical teams have shown that humans may be able to live here—but extended habitat tests reveal a new problem. Some habitats lose heat rapidly, some become too warm, and some continents face large thermal changes. Before permanent habitats can be approved, JCEC must understand and control temperature safely and efficiently.</p>
+      </div>
+      <aside><span>YOUR ROLE</span><strong>Thermal Survival Specialist</strong><small>Measure. Trace. Control.</small></aside>
+    </header>
+
+    <section class="big-question"><span>THE BIG QUESTION</span><h2>How can humans maintain safe living conditions without wasting energy or damaging Jabberwocky?</h2></section>
+
+    <JcecPhase3Progress active={1} />
+
+    <section class="handoff-panel" aria-labelledby="handoff-heading">
+      <div class="handoff-copy">
+        <p class="eyebrow">NEW SPECIALIST TEAM // NEW POSTING</p>
+        <h2 id="handoff-heading">Two research teams worked here before you. Your problem is different.</h2>
+        <p>Phase 3 normally uses a new team and a newly assigned continent. Choose only the posting your teacher gives you. Your Phase 1 and Phase 2 assignments remain saved separately.</p>
+      </div>
+      <div class="assignment-control">
+        <label for="phase3-continent"><strong>Your Phase 3 continent</strong><span>Choose the posting your teacher assigned.</span></label>
+        <select id="phase3-continent"><option value="">Choose your assigned continent…</option>{phase3ThermalSites.map((site) => <option value={site.id}>{site.icon} {site.name} — {site.subtitle}</option>)}</select>
+        <p class="save-message" id="save-message" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="previous-team" id="previous-team" hidden aria-labelledby="briefing-heading">
+      <div class="briefing-heading"><div><p class="eyebrow">PREVIOUS TEAM THERMAL BRIEFING</p><h2 id="briefing-heading">Four things you inherit</h2></div><strong id="briefing-continent"></strong></div>
+      <p class="briefing-intro">You do not need the old archives. JCEC has already pulled forward only the evidence that matters to this thermal mission.</p>
+      <div class="briefing-grid">
+        <article><span>🌦️</span><small>ENVIRONMENT</small><p id="briefing-environment"></p></article>
+        <article><span>🌱</span><small>RESOURCE</small><p id="briefing-resource"></p></article>
+        <article><span>⚠️</span><small>ECOSYSTEM WARNING</small><p id="briefing-warning"></p></article>
+        <article><span>🚧</span><small>DEVELOPMENT RESTRICTION</small><p id="briefing-restriction"></p></article>
+      </div>
+      <div class="continue-strip"><div><strong>Your Thermal Survival posting is ready.</strong><span>Mission 1 starts by asking what the temperature evidence actually means.</span></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-3/mission-1/`}>Start Mission 1 →</a></div>
+    </section>
+
+    <section class="quick-start" id="assignment-needed"><div><p class="eyebrow">YOUR NEXT STEP</p><h2>Get your Phase 3 posting.</h2><p>Once you choose the continent your teacher assigned, your four inherited findings and current mission will appear.</p></div><span>1</span></section>
+
+    <section class="how-it-works">
+      <div class="section-heading"><p class="eyebrow">SAME ROUTINE EVERY MISSION</p><h2>How Phase 3 works</h2></div>
+      <div class="work-grid"><article><span>👥</span><div><strong>TEAM WORK</strong><p>Investigate and make one decision together.</p></div></article><article><span>📝</span><div><strong>TEAM RECORD</strong><p>One clear team product captures the evidence that matters.</p></div></article><article><span>💭</span><div><strong>MY REFLECTION</strong><p>Everyone answers one short science question.</p></div></article></div>
+    </section>
+
+    <section class="mission-list">
+      <div class="section-heading"><p class="eyebrow">PHASE 3 PATH</p><h2>Five missions. One survival problem.</h2></div>
+      <div class="sequence-strip"><span>Temperature</span><b>→</b><span>Heat Transfer</span><b>→</b><span>Thermal Barrier</span><b>→</b><span>Habitat Control</span><b>→</b><span>Sustainable Survival</span></div>
+      <div class="mission-cards">{missions.map((mission) => (
+        <article class:list={['mission-card', { ready: mission.ready, current: mission.number === 1, locked: !mission.ready }]}>
+          <div class="mission-icon">{mission.icon}</div>
+          <div class="mission-main"><div class="mission-topline"><span>MISSION {mission.number}</span><b>{mission.status}</b></div><h3>{mission.title}</h3><p class="mission-question">{mission.question}</p><p class="mission-summary">{mission.summary}</p></div>
+          {mission.ready ? <a class="mission-ready-link" href={mission.href}>{mission.linkText}</a> : <span class="mission-locked">🔒 Wait for your teacher</span>}
+        </article>
+      ))}</div>
+    </section>
+
+    <section class="phase2-link"><span>←</span><div><strong>Need to check the plant-resource phase?</strong><p>Phase 2 stays available, but your Thermal Briefing already carries forward the evidence you need.</p></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-2/`}>Phase 2 Mission Hub</a></section>
+  </div>
+
+  <script is:inline define:vars={{ siteData: phase3ThermalSites }}>
+    (() => {
+      const PHASE3_POSTING_KEY = 'jabberwocky-phase3-posting';
+      const sites = Object.fromEntries(siteData.map((site) => [site.id, site]));
+      const select = document.getElementById('phase3-continent');
+      const previousTeam = document.getElementById('previous-team');
+      const assignmentNeeded = document.getElementById('assignment-needed');
+      const saveMessage = document.getElementById('save-message');
+      const showSite = (id, announce = false) => {
+        const site = sites[id];
+        if (!site) { previousTeam.hidden = true; assignmentNeeded.hidden = false; saveMessage.textContent = ''; return; }
+        localStorage.setItem(PHASE3_POSTING_KEY, id);
+        previousTeam.hidden = false; assignmentNeeded.hidden = true;
+        document.getElementById('briefing-continent').textContent = `${site.icon} ${site.name}`;
+        document.getElementById('briefing-environment').textContent = site.previousTeamThermalBriefing.environment;
+        document.getElementById('briefing-resource').textContent = site.previousTeamThermalBriefing.resource;
+        document.getElementById('briefing-warning').textContent = site.previousTeamThermalBriefing.ecosystemWarning;
+        document.getElementById('briefing-restriction').textContent = site.previousTeamThermalBriefing.developmentRestriction;
+        saveMessage.textContent = announce ? `✓ ${site.name} saved for Phase 3 on this device.` : `Saved Phase 3 posting: ${site.name}`;
+      };
+      const saved = localStorage.getItem(PHASE3_POSTING_KEY);
+      if (saved && sites[saved]) { select.value = saved; showSite(saved, false); }
+      select.addEventListener('change', () => showSite(select.value, true));
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+:global(body){background:#061019}.phase3-shell{max-width:1120px;margin:0 auto;padding:0 1rem 5rem;color:#eaf4fb}.phase3-shell :global(.breadcrumbs){color:#91a7b5}.phase3-shell :global(.breadcrumbs a){color:#dcecf5}:global(body:has(#phase3-hub) .jcec-submission-dock),:global(body:has(#phase3-hub) .jcec-device-tools){display:none!important}.eyebrow{margin:0;color:#ffb25f;font:850 .75rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em}.phase3-hero{display:grid;grid-template-columns:1fr 255px;gap:1.5rem;align-items:end;margin:1rem 0;padding:clamp(1.5rem,4vw,2.6rem);border:1px solid #35586f;border-radius:24px;background:radial-gradient(circle at 82% 18%,rgba(255,178,95,.14),transparent 28%),linear-gradient(145deg,#071722,#102b3b)}.phase3-hero h1{margin:.55rem 0 .35rem;color:#fff;font-size:clamp(3rem,8vw,5.6rem);line-height:.88;letter-spacing:-.055em}.phase3-hero h1 span{display:block;color:#ffb25f}.division{margin:.65rem 0 0;color:#ffd2a2;font-size:.75rem;font-weight:900;letter-spacing:.12em}.lead{max-width:760px;margin:.9rem 0 0;color:#b8cbd7;font-size:1.04rem;line-height:1.6}.phase3-hero aside{display:grid;gap:.18rem;padding:1rem;border:1px solid #36566a;border-radius:14px;background:#081923}.phase3-hero aside span{color:#f2ae65;font-size:.72rem;font-weight:900;letter-spacing:.08em}.phase3-hero aside strong{color:#fff;font-size:1.18rem}.phase3-hero aside small{color:#8ea6b5}.big-question{margin:1rem 0;padding:1.2rem 1.3rem;border-left:4px solid #ffb25f;border-radius:0 14px 14px 0;background:#0d2330}.big-question span{color:#ffb25f;font-size:.72rem;font-weight:900;letter-spacing:.08em}.big-question h2{margin:.35rem 0 0;color:#fff;font-size:clamp(1.35rem,3vw,1.95rem);line-height:1.28}.handoff-panel{display:grid;grid-template-columns:1.25fr .75fr;gap:1rem;margin:1.2rem 0;padding:1.2rem;border:1px solid #36566b;border-radius:17px;background:#0b1d28}.handoff-copy h2{margin:.3rem 0;color:#fff;font-size:1.45rem}.handoff-copy p:last-child{margin:.45rem 0 0;color:#a9bdc8;line-height:1.5}.assignment-control{display:grid;align-content:start;gap:.45rem;padding:1rem;border:1px solid #3a5668;border-radius:12px;background:#071720}.assignment-control label{display:grid;gap:.18rem}.assignment-control label strong{color:#fff}.assignment-control label span{color:#8fa5b2;font-size:.78rem}.assignment-control select{width:100%;padding:.72rem;border:1px solid #4c697b;border-radius:8px;background:#0d222e;color:#fff;font:inherit}.save-message{min-height:1.15em;margin:0;color:#ffc585;font-size:.76rem}.previous-team,.how-it-works,.mission-list{margin:1.3rem 0;padding:1.2rem;border:1px solid #29485b;border-radius:18px;background:#091a24}.briefing-heading{display:flex;justify-content:space-between;gap:1rem;align-items:end}.briefing-heading h2,.section-heading h2{margin:.28rem 0 .8rem;color:#fff;font-size:1.55rem}.briefing-heading>strong{padding:.4rem .6rem;border-radius:999px;background:#153446;color:#d9f1ff;font-size:.82rem}.briefing-intro{margin:.1rem 0 .75rem;color:#94aab7}.briefing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem}.briefing-grid article{padding:.9rem;border:1px solid #304d5e;border-radius:12px;background:#07151e}.briefing-grid article>span{display:block;margin-bottom:.35rem;font-size:1.3rem}.briefing-grid small{color:#ffb86d;font-size:.66rem;font-weight:900;letter-spacing:.07em}.briefing-grid p{margin:.35rem 0 0;color:#bdd0da;font-size:.84rem;line-height:1.48}.continue-strip{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-top:.8rem;padding:.8rem;border-radius:11px;background:#102936}.continue-strip div{display:grid;gap:.15rem}.continue-strip strong{color:#fff}.continue-strip span{color:#9db2bf;font-size:.8rem}.continue-strip a,.mission-ready-link{padding:.7rem .85rem;border-radius:9px;background:#ffb25f;color:#301c07!important;text-decoration:none;font-size:.82rem;font-weight:900;white-space:nowrap}.quick-start{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin:1.2rem 0;padding:1.1rem 1.2rem;border:1px solid #365264;border-radius:15px;background:#0c202b}.quick-start h2{margin:.25rem 0;color:#fff}.quick-start p:last-child{margin:.2rem 0 0;color:#9db1bd}.quick-start>span{display:grid;place-items:center;width:45px;height:45px;border-radius:50%;background:#ffb25f;color:#2d1906;font-weight:950}.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}.work-grid article{display:flex;gap:.7rem;align-items:flex-start;padding:.85rem;border:1px solid #2d4858;border-radius:12px;background:#06141c}.work-grid article>span{font-size:1.35rem}.work-grid strong{color:#fff}.work-grid p{margin:.2rem 0 0;color:#91a7b4;font-size:.82rem;line-height:1.45}.sequence-strip{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:.2rem 0 1rem}.sequence-strip span{padding:.35rem .55rem;border-radius:999px;background:#102b39;color:#c9deea;font-size:.76rem;font-weight:800}.sequence-strip b{color:#ffb25f}.mission-cards{display:grid;gap:.7rem}.mission-card{display:grid;grid-template-columns:52px 1fr auto;gap:.85rem;align-items:center;padding:1rem;border:1px solid #2e4959;border-radius:14px;background:#07151e}.mission-card.current{border-color:#b87535;background:#161a19}.mission-card.locked{opacity:.67}.mission-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:12px;background:#102b39;font-size:1.45rem}.mission-topline{display:flex;justify-content:space-between;gap:.5rem}.mission-topline span,.mission-topline b{font-size:.68rem;font-weight:900;letter-spacing:.07em}.mission-topline span{color:#8fa5b2}.mission-topline b{color:#ffb25f}.mission-main h3{margin:.2rem 0;color:#fff}.mission-question{margin:.2rem 0;color:#d2e4ed;font-weight:750}.mission-summary{margin:.25rem 0 0;color:#8fa6b3;font-size:.82rem}.mission-locked{padding:.55rem .7rem;border:1px solid #385160;border-radius:8px;color:#8fa4b0;font-size:.76rem;font-weight:800;white-space:nowrap}.phase2-link{display:flex;gap:.9rem;align-items:center;margin-top:1.3rem;padding:1rem;border:1px solid #2d4757;border-radius:14px;background:#081720}.phase2-link>span{font-size:1.4rem;color:#ffb25f}.phase2-link div{flex:1}.phase2-link strong{color:#fff}.phase2-link p{margin:.2rem 0 0;color:#8fa6b2;font-size:.82rem}.phase2-link a{color:#ffc17b;font-weight:850;text-decoration:none}
+@media(max-width:850px){.phase3-hero,.handoff-panel{grid-template-columns:1fr}.briefing-grid{grid-template-columns:repeat(2,1fr)}.phase3-hero aside{max-width:300px}.mission-card{grid-template-columns:48px 1fr}.mission-card>a,.mission-locked{grid-column:1/-1;text-align:center}.work-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.briefing-grid{grid-template-columns:1fr}.continue-strip,.phase2-link{align-items:flex-start;flex-direction:column}.continue-strip a{width:100%;box-sizing:border-box;text-align:center}.mission-card{grid-template-columns:42px 1fr;padding:.8rem}.mission-icon{width:40px;height:40px}.phase3-hero h1{font-size:2.9rem}}
+</style>
