@@ -4,6 +4,8 @@
 
 **18 core classes + 7 purposeful flex periods**
 
+**Purposeful flex days: Day 7, Day 12, Day 17, Day 22, Day 23, Day 24, Day 25.**
+
 ### Week / day map
 
 | Day | Plan |
