@@ -134,7 +134,7 @@ check(has(teacher, 'education.alberta.ca/media/159716/sci7to9.pdf'), 'Teacher gu
 // Teacher documentation and pacing mirror the live guide.
 for (const source of [teacherDoc,pacingDoc]) {
   for (const token of ['18 core','7 purposeful flex','Read the Thermal Warning','Follow the Heat','Hold the Temperature','Control the Habitat','Survive Without Wasting It']) check(has(source, token), `Teacher documentation mirrors approved pacing: ${token}`);
-  check(!has(source, 'Phase 4 student content'), 'Teacher documentation does not introduce Phase 4 student content');
+  check(!source.includes('phase-4/'), 'Teacher documentation creates no Phase 4 route');
 }
 check(has(teacherDoc, '4–6 shared thermometers'), 'Teacher documentation includes thermometer-sharing plan');
 check(has(teacherDoc, 'No-purchase fallback'), 'Teacher documentation includes no-purchase fallbacks');
