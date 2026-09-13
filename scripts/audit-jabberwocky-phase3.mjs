@@ -14,6 +14,7 @@ const files = {
   m1: 'src/pages/courses/grade-7-science/jabberwocky/phase-3/mission-1/index.astro',
   m2: 'src/pages/courses/grade-7-science/jabberwocky/phase-3/mission-2/index.astro',
   m3: 'src/pages/courses/grade-7-science/jabberwocky/phase-3/mission-3/index.astro',
+  m4: 'src/pages/courses/grade-7-science/jabberwocky/phase-3/mission-4/index.astro',
   progress: 'src/components/JcecPhase3Progress.astro',
   data: 'src/data/jabberwockyPhase3.ts',
   phase2Progress: 'src/components/JcecPhase2Progress.astro'
@@ -24,6 +25,7 @@ const hub = read(files.hub);
 const m1 = read(files.m1);
 const m2 = read(files.m2);
 const m3 = read(files.m3);
+const m4 = read(files.m4);
 const progress = read(files.progress);
 const data = read(files.data);
 const phase2Progress = read(files.phase2Progress);
@@ -32,61 +34,71 @@ const phase2Progress = read(files.phase2Progress);
 for (const token of ['SURVIVING JABBERWOCKY','JCEC THERMAL SURVIVAL DIVISION','Read the Thermal Warning','Follow the Heat','Hold the Temperature','Control the Habitat','Survive Without Wasting It']) check(has(hub, token), `hub includes: ${token}`);
 check(hub.includes('jabberwocky-phase3-posting'), 'Phase 3 uses separate posting state');
 check(!hub.includes("localStorage.setItem('jabberwocky-phase2-posting'"), 'Phase 3 does not overwrite Phase 2 state');
-check((hub.match(/status: 'COMPLETE'/g) || []).length >= 2, 'Hub marks Missions 1–2 complete');
-check(hub.includes("number: 3") && hub.includes("status: 'CURRENT'"), 'Hub marks Mission 3 current');
-for (const n of [1,2,3]) check(hub.includes(`phase-3/mission-${n}/`), `Hub links Mission ${n}`);
-for (const n of [4,5]) check(!hub.includes(`phase-3/mission-${n}/`), `Hub keeps Mission ${n} unreleased`);
+check((hub.match(/status: 'COMPLETE'/g) || []).length >= 3, 'Hub marks Missions 1–3 complete');
+check(hub.includes("number: 4") && hub.includes("status: 'CURRENT'"), 'Hub marks Mission 4 current');
+for (const n of [1,2,3,4]) check(hub.includes(`phase-3/mission-${n}/`), `Hub links Mission ${n}`);
+check(!hub.includes('phase-3/mission-5/'), 'Hub keeps Mission 5 unreleased');
 for (const token of ['ENVIRONMENT','RESOURCE','ECOSYSTEM WARNING','DEVELOPMENT RESTRICTION']) check(hub.includes(token), `Thermal briefing includes ${token}`);
-check(has(hub, 'Temperature ✓') && has(hub, 'Heat Transfer ✓') && has(hub, 'Thermal Barrier ●'), 'Hub progress shows Missions 1–2 done and Mission 3 current');
-check(has(progress, 'Next Mission → Follow the Heat') && has(progress, 'Next Mission → Hold the Temperature'), 'Progress component provides approved next-mission links');
-check(progress.includes('phase-3/mission-3/') && !progress.includes('phase-3/mission-4/'), 'Navigation releases Mission 3 but not Mission 4');
+check(has(hub, 'Temperature ✓') && has(hub, 'Heat Transfer ✓') && has(hub, 'Thermal Barrier ✓') && has(hub, 'Habitat Control ●') && has(hub, 'Sustainable Survival ○'), 'Hub progress shows Missions 1–3 done, Mission 4 current and Mission 5 upcoming');
+check(has(progress, 'Next Mission → Follow the Heat') && has(progress, 'Next Mission → Hold the Temperature') && has(progress, 'Next Mission → Control the Habitat'), 'Progress component provides approved next-mission links');
+check(progress.includes('phase-3/mission-4/') && !progress.includes('phase-3/mission-5/'), 'Navigation releases Mission 4 but not Mission 5');
 
 // Shared student structure and state carry-forward.
-for (const [name, text] of [['Mission 1',m1],['Mission 2',m2],['Mission 3',m3]]) {
+for (const [name, text] of [['Mission 1',m1],['Mission 2',m2],['Mission 3',m3],['Mission 4',m4]]) {
   for (const token of ['Your Mission','Learn the Science','Investigate','Make a Decision','Record It']) check(text.includes(token), `${name} includes step: ${token}`);
   check(text.includes('jabberwocky-phase3-posting'), `${name} carries Phase 3 posting`);
 }
-check(!m2.includes('<select') && !m3.includes('<select'), 'Missions 2–3 do not ask students to choose continent again');
+check(!m2.includes('<select') && !m3.includes('<select') && !m4.includes('<select'), 'Missions 2–4 do not ask students to choose continent again');
 
-// Mission 1 approved foundation.
-for (const token of ['What is temperature actually telling us?','TEMPERATURE','THERMAL ENERGY','average kinetic energy','Thermal Change Investigation','Thermal Risk Card','No boiling water','print-phase3-mission1']) check(has(m1, token), `Mission 1 keeps approved element: ${token}`);
+// Preserve approved Missions 1–3.
+for (const token of ['What is temperature actually telling us?','THERMAL ENERGY','Thermal Change Investigation','Thermal Risk Card']) check(has(m1, token), `Mission 1 keeps approved element: ${token}`);
+for (const token of ['CONDUCTION','CONVECTION','RADIATION','Heat Pathway Stations','Habitat Heat Map']) check(has(m2, token), `Mission 2 keeps approved element: ${token}`);
+for (const token of ['THERMAL CONDUCTOR','THERMAL INSULATOR','Thermal Barrier Fair Test','Thermal Barrier Recommendation','SCIENCE REASONING CHECKPOINT']) check(has(m3, token), `Mission 3 keeps approved element: ${token}`);
+check(has(m3, 'Next Mission') || has(progress, 'Next Mission → Control the Habitat'), 'Mission 3 receives clear Mission 4 navigation');
 
-// Mission 2 approved heat-transfer experience.
-for (const token of ['How does thermal energy get from one place to another?','CONDUCTION','CONVECTION','RADIATION','liquids and gases','Radiation does not need matter between the source and receiver','Heat Pathway Stations','No-purchase fallback','Habitat Heat Map','science diagram, not an art project','print-phase3-mission2']) check(has(m2, token), `Mission 2 keeps approved element: ${token}`);
+// Mission 4 core science and distinct purpose.
+for (const token of ['Mission 4 of 5','How do humans keep temperatures within a useful range?','4 classes × 45 minutes','GENERATE','TRANSFER','REMOVE','CONTROL']) check(has(m4, token), `Mission 4 includes core element: ${token}`);
+check(has(m4, 'Insulation alone cannot keep a habitat safe'), 'Mission 4 clearly advances beyond Mission 3 insulation');
+check(has(m4, 'does not “make cold.”') || has(m4, 'do not “make cold.”'), 'Mission 4 avoids the misconception that cooling systems make cold');
+for (const token of ['THERMOMETER','THERMOSTAT','HEATER / FURNACE','REFRIGERATOR / AIR CONDITIONER']) check(has(m4, token), `Mission 4 includes thermal-control device: ${token}`);
+check(has(m4, 'MEASURE') && has(m4, 'COMPARE WITH TARGET') && has(m4, 'RESPOND') && has(m4, 'MEASURE AGAIN'), 'Mission 4 teaches thermostat feedback loop');
+check(has(m4, 'feedback'), 'Mission 4 names the repeated control process as feedback');
 
-// Mission 3 science and cognitive load.
-for (const token of ['Mission 3 of 5','How can materials and design slow unwanted thermal-energy transfer?','4 classes × 45 minutes','THERMAL CONDUCTOR','THERMAL INSULATOR','TRAPPED AIR CAN HELP','DESIGN MATTERS']) check(has(m3, token), `Mission 3 includes core element: ${token}`);
-check(has(m3, 'does not create heat or cold'), 'Mission 3 prevents insulation misconception');
-check(has(m3, 'slows thermal energy leaving') && has(m3, 'slow thermal energy entering'), 'Mission 3 explains barriers work in either direction');
-check(has(m3, 'Mission 2') && has(m3, 'Habitat Heat Map') && has(m3, 'without recreating it'), 'Mission 3 reuses Mission 2 evidence without paperwork burden');
+// Thermal technology, sources, solar and safety.
+check(has(m4, 'THEN → NOW THERMAL TECHNOLOGY'), 'Mission 4 includes concise historical technology connection');
+check(has(m4, 'human problem → thermal technology → new benefits and new trade-offs'), 'Mission 4 keeps historical technology focused on human need and trade-offs');
+for (const token of ['Solar','Combustion','Geothermal','Biological / living systems']) check(has(m4, token), `Mission 4 Thermal Source Board includes: ${token}`);
+check(has(m4, 'PASSIVE SOLAR') && has(m4, 'ACTIVE SOLAR'), 'Mission 4 explicitly distinguishes passive and active solar');
+check(has(m4, 'A source appearing here does not mean it is available on every Jabberwocky continent'), 'Mission 4 does not invent continent energy resources');
+for (const token of ['hot surfaces','combustion','fire','overheating']) check(has(m4, token), `Mission 4 integrates safety concept: ${token}`);
 
-// Mission 3 fair-test checkpoint.
-for (const token of ['Thermal Barrier Fair Test','Which material slows temperature change most effectively','Barrier material','Temperature change','Container · water amount · starting temperature · coverage · time','CONTROL','BARRIER','about 10 minutes','starting temperature − ending temperature','class bar graph','Did any result not fit the overall pattern?']) check(has(m3, token), `Mission 3 fair-test includes: ${token}`);
-check(has(m3, 'Do not mix several design changes into the test itself'), 'Mission 3 protects fair-test validity');
-for (const token of ['identical reused cups/containers','warm water','shared thermometers','paper / cardboard / fabric','LOW-MATERIAL CLASSROOM MODE','reduces the number of thermometers and materials needed']) check(has(m3, token), `Mission 3 low-material system includes: ${token}`);
-check(has(m3, 'No-purchase fallback') && has(m3, 'JCEC backup dataset'), 'Mission 3 includes no-purchase data fallback');
-check(has(m3, 'not a universal ranking of materials'), 'Backup data is labelled as model evidence');
-check(has(m3, 'Warm water only') && has(m3, 'no boiling water'), 'Mission 3 includes safe warm-water rule');
-check(m3.includes('print-phase3-mission3'), 'Mission 3 includes printable investigation/recommendation packet');
+// Main low-material investigation.
+check(has(m4, 'Habitat Control Loop Challenge'), 'Mission 4 uses the approved control-loop investigation');
+check(!has(m4, 'model-box heating') && !has(m4, 'build a model box'), 'Mission 4 does not repeat the Mission 3 physical-build pattern');
+check(has(m4, '18°C–22°C'), 'Mission 4 includes a clear training target range');
+check(has(m4, 'simulation target, not a new continent climate fact'), 'Mission 4 labels training range as simulation data rather than canon');
+for (const token of ['HEATER ON','HEATER OFF','COOLING ON','COOLING OFF','SHADE / UNSHADE','VENT / CLOSE VENT']) check(has(m4, token), `Mission 4 provides response card: ${token}`);
+check(has(m4, '+2 energy units') && has(m4, '+3 energy units'), 'Mission 4 uses simple relative active-energy consequences');
+for (const token of ['17°C','19°C','23°C','24°C','21°C','16°C']) check(has(m4, token), `Mission 4 simulation includes reading: ${token}`);
+check(has(m4, 'If the temperature falls below') && has(m4, 'If the temperature rises above') && has(m4, 'inside the target range'), 'Mission 4 students build explicit feedback rules');
+check(has(m4, 'not a precise prediction caused by your previous card'), 'Mission 4 states the control simulation model limit');
+check(has(m4, 'printed/projected readings') && has(m4, 'No electronics') && has(m4, 'purchased thermostat equipment'), 'Mission 4 is explicitly low-material and no-purchase');
+check(m4.includes('print-phase3-mission4'), 'Mission 4 includes printable Control Loop + Protocol');
 
-// Mission 3 continent application, reasoning and assessment.
-check(has(m3, '3 CLUES ONLY'), 'Mission 3 limits continent reading to three clues');
-check(has(m3, 'The same material does not automatically solve every thermal problem'), 'Mission 3 avoids a universal-answer misconception');
-check(has(m3, 'Which material/design strategy should protect our habitat first?'), 'Mission 3 has one main team decision');
-for (const token of ['CLAIM','DATA','THERMAL EXPLANATION','LIMITATION / UNCERTAINTY']) check(m3.includes(token), `Mission 3 reasoning includes ${token}`);
-check(has(m3, 'Thermal Barrier Recommendation'), 'Mission 3 has one Team Record');
-check(has(m3, 'SCIENCE REASONING CHECKPOINT'), 'Mission 3 is the stronger reasoning checkpoint');
-check(has(m3, 'fairness of your evidence') && has(m3, 'not decoration'), 'Checkpoint emphasizes evidence/science, not polish');
-check(has(m3, 'Why is the thickest-looking material not automatically the best insulator?'), 'Mission 3 includes approved reflection');
-check(has(m3, 'Mission 3 is finished when:'), 'Mission 3 has explicit finish line');
-check(has(m3, 'Mission 4 — Control the Habitat — is upcoming and locked'), 'Mission 4 remains locked');
-check(!m3.includes('phase-3/mission-4/'), 'Mission 3 does not create Mission 4 route');
+// Continent application, decision and record.
+check(has(m4, '3 CLUES ONLY'), 'Mission 4 limits continent control case to three clues');
+check((data.match(/mission4Clues: \[/g) || []).length === 8, 'All eight continents include Mission 4 control clues');
+check(has(m4, 'What should control the habitat temperature before JCEC spends more energy?'), 'Mission 4 has one main team decision');
+for (const token of ['CONDITION','CONTROL RESPONSE','EXPECTED RESULT']) check(m4.includes(token), `Mission 4 reasoning includes ${token}`);
+check(has(m4, 'Habitat Control Protocol'), 'Mission 4 ends with one Habitat Control Protocol');
+for (const token of ['TARGET RANGE','PASSIVE CONTROL FIRST','WHEN HEATING ACTIVATES','WHEN COOLING / VENTILATION ACTIVATES','SAFETY RULE']) check(has(m4, token), `Habitat Control Protocol includes: ${token}`);
+check(has(m4, 'Why is a thermostat useful even when a habitat already has a heater or cooler?'), 'Mission 4 includes approved individual reflection');
+check(has(m4, 'Mission 4 is finished when:'), 'Mission 4 states a clear completion condition');
+check(has(m4, 'Mission 5 — Survive Without Wasting It — is upcoming and locked'), 'Mission 5 remains explicitly locked');
+check(!m4.includes('phase-3/mission-5/'), 'Mission 4 does not create a Mission 5 route');
 
-// Canon and continent cases.
+// Canon safeguards.
 for (const continent of ['gyre','brillig','manxome','slithy-toves','wabe','bandersnatch','gimble','mimsy']) check(data.includes(`id: '${continent}'`), `Phase 3 data includes ${continent}`);
-for (const plant of ['Skyroot','Rainspout Tree','Storm Palm','Reservoir Thorn','Ember Moss','Goldstem Grain','Ironwood','Floatroot']) check(data.includes(plant), `Inherited resource canon preserves ${plant}`);
-check((data.match(/mission2Clues: \[/g) || []).length === 8, 'All eight continents retain Mission 2 clues');
-check((data.match(/mission3Clues: \[/g) || []).length === 8, 'All eight continents include Mission 3 clues');
 check(data.includes('40°C') && data.includes('−5°C'), 'Slithy Toves preserves established temperatures');
 check(data.includes('−30°C') && data.includes('+30°C'), 'Bandersnatch preserves established temperatures');
 check(data.includes('−40°C') && data.includes('+24°C'), 'Gimble preserves established temperatures');
@@ -102,4 +114,4 @@ if (failures.length) {
 
 console.log(`\nJabberwocky Phase 3 readiness audit: ${passes.length} checks passed.`);
 passes.forEach((pass) => console.log(`  ✓ ${pass}`));
-console.log('\nPhase 3 hub + Missions 1–3 preserve separate state, low-material Grade 7 thermal investigations, fair-test reasoning, continent canon, printable records, and locked Missions 4–5.');
+console.log('\nPhase 3 hub + Missions 1–4 preserve separate state, Grade 7 thermal science, low-material investigations, feedback control, continent canon, printable records, and locked Mission 5.');
