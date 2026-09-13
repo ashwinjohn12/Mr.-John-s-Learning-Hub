@@ -1,0 +1,74 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<script is:inline define:vars={{ base }}>
+  (() => {
+    const hub = document.querySelector('#phase4-hub');
+    if (!hub) return;
+
+    // The whole-year release system makes every phase available for review, but
+    // availability is not student progress. Phase 4 must still open as a fresh
+    // classroom sequence with Mission 1 as the clear starting point.
+    hub.querySelector('.whole-year-release-handoff')?.remove();
+
+    const heroLead = hub.querySelector('.phase4-hero .lead');
+    if (heroLead) {
+      heroLead.textContent = 'Project New Horizon begins by defining what a safe structure must do on your assigned continent. Start with Mission 1, then use evidence from forces, materials and stability to reach the final structural authorization.';
+    }
+
+    const steps = [...hub.querySelectorAll('.phase4-progress .phase4-step')];
+    steps.forEach((step, index) => {
+      step.classList.remove('done', 'current', 'future');
+      step.removeAttribute('aria-current');
+      if (index === 0) {
+        step.classList.add('current');
+        step.setAttribute('aria-current', 'step');
+      } else {
+        step.classList.add('future');
+      }
+    });
+
+    const sequence = [...hub.querySelectorAll('.sequence-strip span')];
+    const sequenceLabels = ['Requirements ●', 'Forces', 'Materials', 'Stability', 'Authorization'];
+    sequence.forEach((item, index) => {
+      item.classList.remove('done', 'current');
+      item.textContent = sequenceLabels[index] || item.textContent.replace(/[✓●]/g, '').trim();
+      if (index === 0) item.classList.add('current');
+    });
+
+    const cards = [...hub.querySelectorAll('.mission-card')];
+    cards.forEach((card, index) => {
+      const missionNumber = index + 1;
+      card.classList.remove('complete', 'current', 'locked');
+      if (index === 0) card.classList.add('current');
+      const status = card.querySelector('.mission-topline b');
+      if (status) status.textContent = index === 0 ? 'START HERE' : 'READY';
+      const link = card.querySelector('.mission-ready-link');
+      if (link) link.textContent = index === 0 ? 'Start Mission 1 →' : `Open Mission ${missionNumber} →`;
+    });
+
+    const continueStrip = hub.querySelector('.previous-team .continue-strip');
+    if (continueStrip) {
+      const strong = continueStrip.querySelector('strong');
+      const span = continueStrip.querySelector('span');
+      const link = continueStrip.querySelector('a');
+      if (strong) strong.textContent = 'Mission 1 starts with the requirements.';
+      if (span) span.textContent = 'Use the inherited site limits to decide what your structure must do before choosing a final design.';
+      if (link) {
+        link.href = `${base}courses/grade-7-science/jabberwocky/phase-4/mission-1/`;
+        link.textContent = 'Start Mission 1 →';
+      }
+    }
+
+    const quickStart = hub.querySelector('.quick-start');
+    if (quickStart) {
+      const heading = quickStart.querySelector('h2');
+      const copy = quickStart.querySelector('p:not(.eyebrow)');
+      const badge = quickStart.querySelector(':scope > span');
+      if (heading) heading.textContent = 'Confirm your Phase 4 posting.';
+      if (copy) copy.textContent = 'Once the teacher-assigned continent is saved, begin Mission 1: Read the Building Site.';
+      if (badge) badge.textContent = '1';
+    }
+  })();
+</script>
