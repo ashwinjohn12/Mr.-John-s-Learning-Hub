@@ -40,7 +40,7 @@
 | 22 | FLEX | Geological Evidence Packet completion | Essential synthesis recovery |
 | 23 | FLEX | Absence recovery / optional individual assessment | Individual science evidence |
 | 24 | FLEX | Optional Geological Evidence gallery/review | Compare handoffs/evidence across continents |
-| 25 | FLEX | Final buffer / feedback / transition | Reteach, make-up, interruptions; **do not start final Council** |
+| 25 | FLEX | Final buffer / feedback / transition | Reteach, make-up, interruptions; transition to the released Council only after the Phase 5 packet/reflection are complete |
 
 ## Implementation priorities by week
 
@@ -107,6 +107,8 @@ Protect:
 
 Use Days 22–25 for completion, absence recovery, optional individual assessment, gallery review, feedback and interruptions.
 
+After Phase 5 is complete, the released Mission 2190 Council is the separate next task. Keep the same Phase 5 team and assigned continent for that handoff.
+
 ## Seven flex periods — purposeful uses
 
 1. **Day 7 — sample/classification recovery**
@@ -167,4 +169,4 @@ Without the individual check: approximately **35% M3 / 65% M5**.
 
 **Phase 5 ends when students complete the JCEC Geological Evidence Packet and reflection.**
 
-**STOP HERE. The final Mission 2190 Council decision has not yet begun and is not part of this pacing guide.**
+**STOP PHASE 5 HERE. The Council is a separate released task, not part of these 25 periods. After the packet/reflection are complete, keep the same team and continent and continue to the Mission 2190 Council.**
