@@ -91,10 +91,16 @@ const purchases = [
     </header>
 
     <nav class="jump-nav" aria-label="Dashboard sections">
+      <a href={`${root}before-students-arrive/`}>Before Students Arrive</a>
       {phases.map((item)=><a href={`#phase-${item.number}`}>Phase {item.number}</a>)}
       <a href="#council">Final Council</a>
       <a href="#materials">Materials</a>
     </nav>
+
+    <section class="quick-launch">
+      <div><small>TEACHER OPERATIONS</small><strong>Mission 2190 — Before Students Arrive</strong><span>Whole-year setup, phase prep, first-week launch, printable equipment inventory and quick recovery guide.</span></div>
+      <a href={`${root}before-students-arrive/`}>Open Teacher Operations →</a>
+    </section>
 
     <section class="quick-launch">
       <div><small>STUDENT YEAR-LONG ENTRY</small><strong>Jabberwocky: Mission 2190</strong><span>Use this for the story launch, continent overview and whole-year roadmap.</span></div>
