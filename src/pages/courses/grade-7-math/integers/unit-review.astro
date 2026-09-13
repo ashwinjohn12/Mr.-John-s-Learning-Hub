@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import LearningSection from '../../../../components/LearningSection.astro';
+import Grade7Unit2Practice from '../../../../components/Grade7Unit2Practice.astro';
+import Grade7Unit2Check from '../../../../components/Grade7Unit2Check.astro';
+import Grade7Unit2Arcade from '../../../../components/Grade7Unit2Arcade.astro';
+import { findCourse } from '../../../../data/courses';
+import { grade7Unit2UnitCheckBank } from '../../../../data/grade7Unit2UnitCheck';
+import type { Unit2Question } from '../../../../data/grade7Unit2';
+const course=findCourse('grade-7-math')!;const base=import.meta.env.BASE_URL;
+const q=(prompt:string,choices:string[],answer:number,feedback:string,hint:string,category:string,route:string):Unit2Question=>({prompt,choices,answer,feedback,hint,hint2:'',category,route});
+const stations=[
+ {id:'station-a',title:'Represent and compare',lesson:'2.1',remember:'Name the reference, use opposites, and calculate chip value as P-N.',model:'3P/7N → cancel 3 pairs → 4N → -4.',challenge:'Which 10-chip build represents +4?',choices:['3P/7N','7P/3N','4P/6N'],answer:1,misconception:'Total pieces describe model size, not signed value.',href:'../representing-integers/#understand-4'},
+ {id:'station-b',title:'Add with tiles',lesson:'2.2',remember:'Build both addends, combine, cancel unlike pairs, and count the signed remainder.',model:'(+7)+(-12) → 7 pairs cancel → 5N → -5.',challenge:'What remains in (+9)+(-4)?',choices:['5N','13P','5P'],answer:2,misconception:'Unlike signs do not mean “always negative”; compare what remains.',href:'../adding-integers-tiles/#explore'},
+ {id:'station-c',title:'Add on a line',lesson:'2.3',remember:'First addend is the start; second addend is directed movement; endpoint is the sum.',model:'(-9)+(+14): start -9 → right 14 → end +5.',challenge:'Start +3 and add -8. Where do you end?',choices:['-5','+11','-8'],answer:0,misconception:'The second addend is movement, not the endpoint.',href:'../adding-integers-number-line/#understand-1'},
+ {id:'station-d',title:'Subtract with tiles',lesson:'2.4',remember:'Build only the minuend. Add the exact shortage as zero pairs, then remove the subtrahend.',model:'(-3)-(-8) → add 5 pairs → remove 8N → 5P.',challenge:'How many pairs are needed for (+4)-(+9)?',choices:['9 pairs','4 pairs','5 pairs'],answer:2,misconception:'Adding unmatched chips changes the minuend; add complete pairs only.',href:'../subtracting-integers-tiles/#explore'},
+ {id:'station-e',title:'Subtract on a line',lesson:'2.5',remember:'Keep the first integer and add the opposite of the second. Separate directed change from distance.',model:'From -7°C to +4°C: change +11°C; distance 11°C.',challenge:'What is the directed change from +6 to -2?',choices:['8','-8','+4'],answer:1,misconception:'Distance is nonnegative, but directed change keeps its sign.',href:'../subtracting-integers-number-line/#understand-4'}
+];
+const routeFinder=[
+ q('Quick route 1: What is the value of 5P/9N?',['-4','+4','-14','+14'],0,'Four negative chips remain.','','Station A','station-a'),
+ q('Quick route 2: What is (-6)+(+10)?',['-16','-4','+4','+16'],2,'Six pairs cancel; four positives remain.','','Station B','station-b'),
+ q('Quick route 3: Start -3 and add -7. Endpoint?',['+10','+4','-4','-10'],3,'Move left seven from -3 to -10.','','Station C','station-c'),
+ q('Quick route 4: Minimum pairs for (+2)-(-4)?',['2','4','6','0'],1,'Four N are needed, so add four complete pairs.','','Station D','station-d'),
+ q('Quick route 5: Rewrite (-8)-(-5).',['(-8)+(+5)','(+8)+(+5)','(-8)+(-5)','(+8)+(-5)'],0,'Keep -8 and add the opposite +5.','','Station E','station-e')
+];
+const practice:Unit2Question[]=[
+ q('A bank record shows a debt of $16. Which integer records it?',['+16','-16','0','16 gain'],1,'The reference is a zero balance; debt is negative.','Debt means below zero.','Lesson 2.1','../representing-integers/#understand-1'),
+ q('Simplify the fresh chip model 11P/6N.',['+17','-17','+5','-5'],2,'Six pairs cancel and 5P remain.','Pair unlike chips.','Lesson 2.1','../representing-integers/#understand-3'),
+ q('Which 8-chip build gives -2?',['3P/5N','5P/3N','2P/6N','0P/8N'],0,'3-5=-2 and 3+5=8.','Use both constraints.','Lesson 2.1','../representing-integers/#understand-4'),
+ q('Why is zero impossible with exactly 9 chips?',['Nine is negative','Equal P/N counts need an even total','Zero needs all positive chips','Magnitude cannot be zero'],1,'A zero model pairs every chip, so the total must be even.','Try splitting 9 into two equal whole counts.','Lesson 2.1','../representing-integers/#understand-4'),
+ q('Evaluate the new sum (-12)+(-5).',['+17','-17','-7','+7'],1,'Same-sign negative chips combine to 17N.','No zero pairs form.','Lesson 2.2','../adding-integers-tiles/#examples'),
+ q('Evaluate the new sum (+14)+(-9).',['+23','-23','+5','-5'],2,'Nine pairs cancel and 5P remain.','Compare magnitudes.','Lesson 2.2','../adding-integers-tiles/#understand-3'),
+ q('Complete the fresh equation (-6)+x=0.',['x=-6','x=0','x=+6','x=+12'],2,'Opposite addends total zero.','Find the additive inverse.','Lesson 2.2','../adding-integers-tiles/#understand-3'),
+ q('A player loses 12 points, then gains 5. Overall change?',['+17','-17','+7','-7'],3,'(-12)+(+5)=-7.','Translate each action first.','Lesson 2.2','../adding-integers-tiles/#understand-1'),
+ q('On a new route, start +4 and add -11. Endpoint?',['+15','-15','+7','-7'],3,'Move left 11 intervals to -7.','First addend is the start.','Lesson 2.3','../adding-integers-number-line/#understand-1'),
+ q('A line begins -13 and ends +2. What change was added?',['-15','+15','-11','+11'],1,'Move right 15 intervals.','Endpoint minus start.','Lesson 2.3','../adding-integers-number-line/#understand-2'),
+ q('Which endpoints fit (-5)+(+8)+(-6)?',['-5,+3,-3','-5,+8,-6','0,+8,+2','-5,-13,-19'],0,'Begin -5, land +3, then -3.','Do not restart at zero.','Lesson 2.3','../adding-integers-number-line/#understand-5'),
+ q('Why does a +9 arrow from -4 end +5, not +9?',['+9 is the change, not the endpoint','The sign should be negative','Start at zero','Nine intervals equal five'],0,'The destination combines start and change.','Say the roles of -4 and +9.','Lesson 2.3','../adding-integers-number-line/#understand-1'),
+ q('For a fresh tile model of (+6)-(+10), what happens?',['Add 4 pairs; 4N remain','Add 10 pairs; 16P remain','No pairs; 4P remain','Add 6 pairs; 10N remain'],0,'The positive-chip shortage is four.','Build +6 first.','Lesson 2.4','../subtracting-integers-tiles/#understand-3'),
+ q('Calculate the ready removal (-7)-(-2).',['-9','-5','+5','+9'],1,'Remove 2N directly and leave 5N.','No pairs are needed.','Lesson 2.4','../subtracting-integers-tiles/#understand-2'),
+ q('Model the fresh subtraction (+3)-(-8).',['8 pairs; +11','3 pairs; -5','8 pairs; -11','No pairs; +11'],0,'Add eight pairs, remove 8N, leave 11P.','Supply the negative-chip shortage.','Lesson 2.4','../subtracting-integers-tiles/#understand-3'),
+ q('Repair combining both integers in (-4)-(+5).',['Build -4, add 5 pairs, remove 5P, leave -9','Combine 4N and 5P to get +1','Build +5 first','Remove 4N from 5P'],0,'Subtraction begins with -4 only.','Name the first model and removal.','Lesson 2.4','../subtracting-integers-tiles/#understand-1'),
+ q('Rewrite and solve the fresh example (-12)-(-7).',['(-12)+(+7)=-5','(+12)+(+7)=+19','(-12)+(-7)=-19','(+12)+(-7)=+5'],0,'Keep -12 and add the opposite +7.','Keep, change, opposite.','Lesson 2.5','../subtracting-integers-number-line/#understand-2'),
+ q('A temperature moves from +8°C to -6°C. Directed change?',['+14°C','-14°C','2°C','-2°C'],1,'Final-initial=-6-(+8)=-14°C.','Keep the order.','Lesson 2.5','../subtracting-integers-number-line/#understand-4'),
+ q('What is the distance between -9 and +4?',['-13','13','-5','5'],1,'Distance is the nonnegative separation, 13.','Count intervals or use magnitude of the change.','Lesson 2.5','../subtracting-integers-number-line/#understand-4'),
+ q('Which two-model proof fits (+2)-(-6)=+8?',['Tiles: add 6 pairs and remove 6N; line: move right 6','Tiles: add 6N only; line: move left 6','Tiles: remove 2P; line: start -6','No model can show it'],0,'Both representations show adding the opposite +6.','Match removal to directed movement.','Lesson 2.5','../subtracting-integers-number-line/#understand-1')
+];
+const repairs:Unit2Question[]=[
+ q('Repair R1: “7P/10N equals 17.”',['Cancel 7 pairs; 3N remain, so -3','Add the chips to 17','Remove 3N; +7 remains','Change all signs'],0,'Verification: 7-10=-3.','Find the first incorrect step.','R1 · 2.1','../representing-integers/#understand-3'),
+ q('Repair R2: “Zero is positive because it has no minus sign.”',['Zero is neither positive nor negative; it is the reference','Zero is negative','Zero is not an integer','Every unsigned number is positive'],0,'Zero separates positive and negative values.','Use the number-line reference.','R2 · 2.1','../representing-integers/#understand-2'),
+ q('Repair R3: (-5)+(-4)=+9.',['Combine 9N, so -9','Two negatives always become positive','Cancel four pairs','Answer +1'],0,'No positive chips exist, so no zero pairs form.','Build both addends.','R3 · 2.2','../adding-integers-tiles/#understand-2'),
+ q('Repair R4: (+6)+(-9)=+15.',['Six pairs cancel; 3N remain, so -3','Add magnitudes','Keep the first sign','Answer +3'],0,'Unlike signs create six zero pairs.','Pair unlike chips.','R4 · 2.2','../adding-integers-tiles/#understand-3'),
+ q('Repair R5: For (-3)+(+8), start 0 and end +8.',['Start -3, move right 8, end +5','Start 0 is correct','Move left 8','End -11'],0,'The first addend is the starting position.','Label start, change, endpoint.','R5 · 2.3','../adding-integers-number-line/#understand-1'),
+ q('Repair R6: Arrow from -5 to +2 represents +2.',['The change is +7; +2 is endpoint','The change is -7','The arrow is +2','Start at zero'],0,'Count seven intervals right.','Do not confuse change with destination.','R6 · 2.3','../adding-integers-number-line/#understand-2'),
+ q('Repair R7: Model (+4)-(-3) by combining 4P and 3N.',['Build 4P, add 3 pairs, remove 3N, leave +7','The combination is correct','Remove 3P','Build -3 first'],0,'Subtraction removes the subtrahend.','Build only the first value.','R7 · 2.4','../subtracting-integers-tiles/#understand-1'),
+ q('Repair R8: Add three N only so 3N can be removed.',['Add three complete zero pairs','Add three N only','Add three P only','Change the start'],0,'Only 3P/3N adds total zero.','Verify the model before removal.','R8 · 2.4','../subtracting-integers-tiles/#understand-3'),
+ q('Repair R9: (-6)-(-9)=(+6)+(+9).',['Keep -6; add +9; result +3','Change both signs','Keep -9 instead','Result -15'],0,'Only the subtrahend becomes its opposite.','Use keep-change-opposite.','R9 · 2.5','../subtracting-integers-number-line/#understand-2'),
+ q('Repair R10: Change from -8 to +3 is -8-(+3).',['Use final-initial: (+3)-(-8)=+11','Use larger-minus-smaller only','The change is -11','Distance and change are always identical'],0,'Direction from -8 to +3 is positive.','Write final minus initial.','R10 · 2.5','../subtracting-integers-number-line/#understand-4')
+];
+const mixedHintTwo=[
+ 'Use zero as the account reference and decide whether the amount lies above or below that reference.',
+ 'Cancel six unlike pairs in the model, then identify the sign of the five chips that remain.',
+ 'Solve P+N=8 and P−N=−2 together; both conditions must describe the same chip build.',
+ 'A zero model needs equal positive and negative counts, so its total chip count must split into two equal whole groups.',
+ 'With two negative addends, combine the negative-chip magnitudes before keeping the common sign.',
+ 'Cancel nine positive-negative pairs; determine which signed collection still has five unmatched chips.',
+ 'Choose the addend that forms six complete zero pairs with the existing negative collection.',
+ 'Cancel five points of gain against the twelve-point loss, then keep the sign of the unmatched change.',
+ 'Place +4 first and count eleven intervals left; the endpoint lies on the negative side of zero.',
+ 'Use change = endpoint − start; moving from a negative start to a positive endpoint is rightward.',
+ 'Track the first landing point from −5, then apply the final negative jump from that new location.',
+ 'Treat +9 as the jump length and direction, while the endpoint combines that jump with the −4 start.',
+ 'Compare the ten positives to remove with the six present; each complete pair supplies one missing positive.',
+ 'The seven-negative start already contains the two negatives to remove, so count what remains after removal.',
+ 'A positive start needs eight complete pairs to supply eight removable negative chips; count the positive halves left.',
+ 'Discard the incorrect combined collection, rebuild only −4, and supply enough positive chips through zero pairs.',
+ 'Keep −12 and change only subtracting −7 into adding its opposite; then move toward zero.',
+ 'Use final − initial with −6 as final and +8 as initial; the direction must be negative.',
+ 'Count the intervals from −9 to zero and from zero to +4, then combine those nonnegative lengths.',
+ 'For chips, supply the missing negatives with pairs; for the line, use the opposite of −6 as a rightward jump.'
+];
+const repairHintTwo=[
+ 'Cancel seven complete P/N pairs first; the three unmatched chips determine both sign and magnitude.',
+ 'On a number line, zero is the dividing reference between negative and positive integers, not part of either side.',
+ 'Both addends contribute negative chips, so combine their counts without forming any unlike pair.',
+ 'Match all six positives with six negatives; inspect the sign of the three unmatched chips.',
+ 'Move the start marker from zero to −3 before drawing the positive-eight jump and locating its endpoint.',
+ 'Count intervals from −5 to +2; that signed movement is different from the endpoint label.',
+ 'Build only four positives, add complete pairs to create removable negatives, then remove the three negative chips.',
+ 'Add the same number of positive and negative chips so the starting value stays unchanged before removal.',
+ 'Keep the first integer negative and replace only the subtraction of −9 with addition of its positive opposite.',
+ 'Write final minus initial as (+3)−(−8); the rightward direction determines the sign before calculating magnitude.'
+];
+practice.forEach((item,index)=>{item.hint2=mixedHintTwo[index];});
+repairs.forEach((item,index)=>{item.hint2=repairHintTwo[index];});
+---
+<BaseLayout title="Unit 2 Review & Temperature Rescue | Grade 7 Math" description="Review integer representations, addition, subtraction, and applications." themeColor={course.color}>
+<div class="page-wrap" style={`--course:${course.color};--course-soft:${course.accent}`}>
+ <Breadcrumbs items={[{label:'Home',href:base},{label:'Grade 7 Math',href:`${base}courses/grade-7-math/`},{label:'Integers',href:`${base}courses/grade-7-math/integers/`},{label:'Unit Review'}]}/>
+ <header class="review-hero"><p class="eyebrow">UNIT 2 · INTEGERS</p><h1>Unit 2 Review<br/><span>& Temperature Rescue</span></h1><p>Choose a route, repair misconceptions, prove independent readiness, and use integers to guide a rescue through an Alberta cold front.</p></header>
+ <LearningSection id="overview" eyebrow="QUICK ROUTE FINDER" title="Find your best starting point" icon="🎯" tone="idea"><p>Try all five. This does not affect a grade. Missed ideas become suggested stations, but every station stays available.</p><div class="route-finder" data-route-finder>{routeFinder.map((item,i)=><fieldset data-route-item data-answer={item.answer} data-route={item.route}><legend>{item.prompt}</legend>{item.choices.map((choice,j)=><label><input type="radio" name={`route-${i}`} value={j}/>{choice}</label>)}</fieldset>)}<button type="button" data-route-check>Build my route</button><div data-route-result role="status" tabindex="-1">No route built yet.</div></div></LearningSection>
+ <LearningSection id="targeted-review" eyebrow="TARGET YOUR REVIEW" title="Five concept stations" icon="🗺️" tone="learn"><div class="stations" data-review-stations>{stations.map(station=><details id={station.id}><summary><span>LESSON {station.lesson}</span><strong>{station.title}</strong></summary><p><b>Remember:</b> {station.remember}</p><p class="checkpoint"><b>Compact model:</b> {station.model}</p><fieldset data-station-question data-answer={station.answer}><legend>{station.challenge}</legend>{station.choices.map((choice,index)=><label><input type="radio" name={`${station.id}-check`} value={index}/>{choice}</label>)}<button type="button" data-station-check>Check station</button><p data-station-status role="status">Not checked yet.</p></fieldset><p class="misconception"><b>Misconception check:</b> {station.misconception}</p><a href={station.href}>Open the exact lesson repair →</a></details>)}</div></LearningSection>
+ <LearningSection id="practice" eyebrow="20 SUPPORTED QUESTIONS" title="Mixed practice in sets of four" icon="✏️" tone="practice"><p>Work one question at a time. Feedback appears immediately; hints help repair the next step rather than merely reveal an answer.</p><Grade7Unit2Practice questions={practice} lesson="unit-2-review"/></LearningSection>
+ <LearningSection id="repair" eyebrow="COMMON-MISTAKE REPAIR" title="Repair Shop" icon="🛠️" tone="learn"><p>For each case, identify the first incorrect idea and choose a repair that a model can verify.</p><Grade7Unit2Practice questions={repairs} lesson="unit-2-repair"/></LearningSection>
+ <LearningSection id="check" eyebrow="INDEPENDENT UNIT CHECK" title="Can you connect the whole unit?" icon="✅" tone="review"><p>Ten questions come from a separate 40-question bank: exactly two from each lesson. Results and exact repair links appear only after full submission.</p><Grade7Unit2Check bank={grade7Unit2UnitCheckBank} lesson="unit-2-check" count={10} balancedUnit={true}/><div class="score-routes"><strong>Performance guide</strong><span>9–10 and at least 1/2 per lesson: ready for Temperature Rescue</span><span>7–8: revisit each exact missed section, then retry</span><span>5–6: complete the lowest lesson station and one repair</span><span>0–4: rebuild from the earliest lesson with 0/2</span></div></LearningSection>
+ <LearningSection id="arcade" eyebrow="MATH ARCADE" title="Temperature Rescue" icon="🎮" tone="play"><Grade7Unit2Arcade/></LearningSection>
+ <LearningSection id="finish" eyebrow="READY FOR WHAT'S NEXT?" title="Finish Unit 2" icon="🏁" tone="review"><p>You are ready to move forward when you can represent signed values, add and subtract with a chosen model, distinguish change from distance, and explain at least one procedure. The next approved course-map destination is Unit 3; no unfinished Unit 3 page is linked here.</p><div class="final-links"><a class="button secondary" href={`${base}courses/grade-7-math/integers/`}>Return to Unit 2</a><span class="button coming-next" aria-disabled="true">Unit 3 · next approved destination</span></div></LearningSection>
+</div>
+</BaseLayout>
+<script>
+document.querySelectorAll<HTMLElement>('[data-route-finder]').forEach(root=>{
+ const result=root.querySelector<HTMLElement>('[data-route-result]');
+ root.querySelectorAll('input').forEach(input=>input.addEventListener('change',()=>{if(result)result.textContent='An answer changed. Build your route again.';}));
+ root.querySelector('[data-route-check]')?.addEventListener('click',()=>{const items=[...root.querySelectorAll<HTMLElement>('[data-route-item]')],first=items.find(x=>!x.querySelector('input:checked'));if(first){if(result)result.textContent='Answer all five quick questions to build a route.';first.querySelector<HTMLInputElement>('input')?.focus();return;}const missed=items.filter(item=>Number(item.querySelector<HTMLInputElement>('input:checked')?.value)!==Number(item.dataset.answer));if(result){result.innerHTML=missed.length?`<strong>Suggested route:</strong> ${missed.map(x=>`<a href="#${x.dataset.route}">${String(x.dataset.route).replace('station-','Station ').toUpperCase()}</a>`).join(' ')}`:'<strong>All five secure.</strong> Begin with supported mixed practice or the independent Unit Check.';result.focus({preventScroll:true});}});
+});
+document.querySelectorAll<HTMLElement>('[data-station-question]').forEach(field=>{
+ const status=field.querySelector<HTMLElement>('[data-station-status]');
+ const details=field.closest('details'),lesson=details?.querySelector('summary span')?.textContent||'',visual=document.createElement('div');
+ visual.className='station-visual';
+ visual.setAttribute('role','img');
+ const chips=(p:number,n:number)=>`${Array.from({length:p},()=>'<span class="review-chip positive">+</span>').join('')}${Array.from({length:n},()=>'<span class="review-chip negative">−</span>').join('')}`;
+ if(lesson.includes('2.1')){visual.setAttribute('aria-label','Three positive chips and seven negative chips. Cancel three zero pairs; four negative chips remain, so the value is negative four.');visual.innerHTML=`<div>${chips(3,7)}</div><b>cancel 3 pairs → 4N → −4</b>`;}
+ else if(lesson.includes('2.2')){visual.setAttribute('aria-label','Seven positive chips plus twelve negative chips. Cancel seven zero pairs; five negative chips remain, so the sum is negative five.');visual.innerHTML=`<div>${chips(7,12)}</div><b>7 pairs cancel → 5N → −5</b>`;}
+ else if(lesson.includes('2.3')){visual.setAttribute('aria-label','Scaled number line. Start negative nine, move positive fourteen to endpoint positive five.');visual.innerHTML='<div class="review-line"><span class="point start" style="--p:20%">−9</span><span class="move" style="--from:20%;--to:80%">+14</span><span class="point end" style="--p:80%">+5</span></div><b>start −9 → +14 → end +5</b>';}
+ else if(lesson.includes('2.4')){visual.setAttribute('aria-label','Start with three negative chips. Add five complete zero pairs to make five positive and eight negative chips. Remove eight negative chips; five positive chips remain.');visual.innerHTML=`<div>${chips(5,8)}</div><b>add 5 pairs → remove 8N → 5P</b>`;}
+ else{visual.setAttribute('aria-label','Scaled number line from negative seven to positive four. Directed change positive eleven; distance eleven.');visual.innerHTML='<div class="review-line"><span class="point start" style="--p:20%">−7</span><span class="move" style="--from:20%;--to:80%">+11</span><span class="point end" style="--p:80%">+4</span></div><b>change +11 · distance 11</b>';}
+ field.before(visual);
+ field.querySelectorAll('input').forEach(input=>input.addEventListener('change',()=>{if(status)status.textContent='Answer changed. Check the station again.';}));
+ field.querySelector('[data-station-check]')?.addEventListener('click',()=>{const selected=field.querySelector<HTMLInputElement>('input:checked');if(!selected){if(status)status.textContent='Choose an answer first.';field.querySelector<HTMLInputElement>('input')?.focus();return;}const answer=Number(field.dataset.answer),ok=Number(selected.value)===answer,correct=field.querySelectorAll<HTMLLabelElement>('label')[answer]?.textContent?.trim();if(status)status.innerHTML=ok?'<strong>Secure.</strong> Your response matches the compact model.':`<strong>Repair this station.</strong> Correct answer: ${correct}. Compare it with the compact model and misconception note, then explain the first incorrect step.`;});
+});
+</script>
+<style>
+.review-hero{padding:2rem 0 1rem}.review-hero h1{font-size:clamp(2.4rem,7vw,5rem);line-height:.94;margin:.35rem 0}.review-hero h1 span{color:var(--course)}.review-hero>p:last-child{max-width:780px;font-size:1.08rem;color:#526174}.route-finder{display:grid;gap:.7rem}.route-finder fieldset{display:grid;grid-template-columns:repeat(4,1fr);gap:.45rem;padding:1rem;border:1px solid #dfe5ee;border-radius:12px;background:#fff}.route-finder legend{grid-column:1/-1;font-weight:850}.route-finder label{padding:.55rem;border:1px solid #dfe5ee;border-radius:8px}.route-finder button{justify-self:start;border:0;border-radius:9px;background:#2457c5;color:#fff;padding:.7rem .9rem;font-weight:850}.route-finder [data-route-result],.score-routes{display:flex;flex-wrap:wrap;gap:.5rem;padding:.8rem;border-radius:10px;background:var(--course-soft)}.route-finder [data-route-result] a{padding:.45rem .6rem;border-radius:7px;background:#fff;font-weight:800}.stations{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}.stations details{border:1px solid #dfe5ee;border-radius:14px;background:#fff;overflow:hidden}.stations summary{display:grid;gap:.2rem;padding:1rem;cursor:pointer}.stations summary span{font-size:.78rem;font-weight:900;letter-spacing:.06em;color:var(--course)}.stations details>p,.stations details>a{margin:.7rem 1rem}.stations a{display:inline-block;color:var(--course);font-weight:800}.checkpoint{padding:.7rem;border-radius:9px;background:var(--course-soft)}.score-routes{display:grid;margin-top:1rem}.final-links{display:flex;gap:.6rem;flex-wrap:wrap}.final-links a{text-decoration:none}.coming-next{background:#e8edf4;color:#526174;cursor:not-allowed}.final-links .button{display:inline-flex;align-items:center}@media(max-width:700px){.route-finder fieldset,.stations{grid-template-columns:1fr}.route-finder legend{grid-column:1}.route-finder button{width:100%}.review-hero{padding-top:1rem}}
+.stations fieldset{display:grid;gap:.4rem;margin:.7rem 1rem;padding:.7rem;border:1px solid #dce3eb;border-radius:9px}.stations fieldset label{display:flex;gap:.45rem;align-items:center;min-height:44px}.stations fieldset button{justify-self:start;min-height:44px;border:0;border-radius:8px;padding:.6rem .75rem;background:var(--course);color:#fff;font-weight:800}.stations [data-station-status],.misconception{padding:.6rem;border-radius:8px;background:#fff8e4}@media(max-width:390px){.route-finder,.stations{overflow-wrap:anywhere}.route-finder label{min-height:44px;box-sizing:border-box}}
+</style>
+<style>
+.station-visual{display:grid;gap:.6rem;margin:.7rem 1rem;padding:.7rem;border-radius:9px;background:#eef5ff;min-height:44px}.station-visual>div:first-child{display:flex;gap:.25rem;flex-wrap:wrap}.review-chip{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;border:3px solid #17343c;font-weight:900}.review-chip.negative{background:#17343c;color:#fff}.review-line{position:relative;height:62px;margin:1.2rem .5rem 0;border-top:3px solid #263447}.review-line .point{position:absolute;left:var(--p);top:-14px;transform:translateX(-50%);font-size:.76rem;padding-top:22px}.review-line .point:before{content:'';position:absolute;left:50%;top:5px;width:12px;height:12px;border-radius:50%;transform:translate(-50%,-50%);background:#2457c5}.review-line .end:before{background:#d76a20}.review-line .move{position:absolute;left:var(--from);width:calc(var(--to) - var(--from));top:-22px;border-top:4px solid #d76a20;text-align:center;font-size:.75rem;color:#8b3e0e}@media(max-width:390px){.station-visual{margin:.6rem .75rem}.review-chip{width:25px;height:25px}.review-line{width:100%}}
+</style>

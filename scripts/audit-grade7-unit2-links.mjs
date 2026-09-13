@@ -1,0 +1,10 @@
+import { readFileSync, existsSync, statSync } from 'node:fs';
+import { resolve } from 'node:path';
+const dist=resolve('dist');
+const astroConfig=readFileSync(resolve('astro.config.mjs'),'utf8');
+const base=astroConfig.match(/base:\s*['"]([^'"]+)['"]/)?.[1]??'/';
+const routes=['courses/grade-7-math/integers/','courses/grade-7-math/integers/representing-integers/','courses/grade-7-math/integers/adding-integers-tiles/','courses/grade-7-math/integers/adding-integers-number-line/','courses/grade-7-math/integers/subtracting-integers-tiles/','courses/grade-7-math/integers/subtracting-integers-number-line/','courses/grade-7-math/integers/unit-review/'];
+let checks=0;const fail=[];const ids=(html)=>new Set([...html.matchAll(/\sid="([^"]+)"/g)].map(x=>x[1]));
+for(const route of routes){const file=resolve(dist,route,'index.html');if(!existsSync(file)){fail.push(`missing ${route}`);continue;}checks++;const html=readFileSync(file,'utf8');const markup=html.replace(/<script\b[\s\S]*?<\/script>/gi,'').replace(/<style\b[\s\S]*?<\/style>/gi,'');const from=new URL(`https://example.test${base}${route}`);for(const match of markup.matchAll(/\shref="([^"]+)"/g)){const href=match[1];if(/^(https?:|mailto:|tel:|javascript:)/.test(href)||href==='#')continue;const url=new URL(href,from);if(url.origin!=='https://example.test')continue;let path=url.pathname.startsWith(base)?url.pathname.slice(base.length):url.pathname.replace(/^\//,'');let target=resolve(dist,path);if(path.endsWith('/'))target=resolve(target,'index.html');else if(!existsSync(target)&&existsSync(`${target}/index.html`))target=resolve(target,'index.html');if(!existsSync(target)){fail.push(`${route} -> ${href}`);continue;}checks++;if(url.hash){const targetHtml=readFileSync(statSync(target).isDirectory()?resolve(target,'index.html'):target,'utf8');if(!ids(targetHtml).has(decodeURIComponent(url.hash.slice(1))))fail.push(`${route} -> missing anchor ${href}`);else checks++;}}}
+if(fail.length)throw new Error(`Unit 2 link audit failed:\n${fail.join('\n')}`);
+console.log(`Grade 7 Unit 2 link audit: ${checks} route and anchor checks passed.`);

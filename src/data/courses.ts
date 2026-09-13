@@ -159,7 +159,16 @@ export const courses: Course[] = [
           { slug: 'equations-algebra-tiles', number: '1.8', title: 'Solving Equations Using Algebra Tiles', summary: 'Model and solve introductory whole-number equations while preserving equality.', status: 'ready' }
         ]
       },
-      { slug: 'integers', number: '02', title: 'Integers', description: 'Represent, add, and subtract integers using tiles, number lines, and efficient symbolic strategies.', topics: [] },
+      {
+        slug: 'integers', number: '02', title: 'Integers', description: 'Represent, add, and subtract integers using tiles, number lines, and efficient symbolic strategies.',
+        topics: [
+          { slug: 'representing-integers', number: '2.1', title: 'Representing Integers', summary: 'Connect contexts, opposites, zero pairs, chip models, and number-line positions.', status: 'ready' },
+          { slug: 'adding-integers-tiles', number: '2.2', title: 'Adding Integers with Tiles', summary: 'Combine signed chip sets, cancel zero pairs, and explain what remains.', status: 'ready' },
+          { slug: 'adding-integers-number-line', number: '2.3', title: 'Adding Integers on a Number Line', summary: 'Model addition as a starting position and a directed change.', status: 'ready' },
+          { slug: 'subtracting-integers-tiles', number: '2.4', title: 'Subtracting Integers with Tiles', summary: 'Build the first value, remove the second, and add zero pairs when needed.', status: 'ready' },
+          { slug: 'subtracting-integers-number-line', number: '2.5', title: 'Subtracting Integers on a Number Line', summary: 'Connect subtraction, adding the opposite, directed change, and distance.', status: 'ready' }
+        ]
+      },
       { slug: 'fractions-decimals-percents', number: '03', title: 'Fractions, Decimals, and Percents', description: 'Connect positive rational-number representations and solve decimal and percent problems.', topics: [] },
       { slug: 'circles-area-circle-graphs', number: '04', title: 'Circles, Area, and Circle Graphs', description: 'Investigate circle relationships, develop area formulas, and represent data with circle graphs.', topics: [] },
       { slug: 'operations-fractions', number: '05', title: 'Operations with Fractions', description: 'Add and subtract positive fractions and mixed numbers using models and symbols.', topics: [] },

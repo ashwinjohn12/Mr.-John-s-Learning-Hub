@@ -28,7 +28,9 @@ const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-neg
                   ? { title:'Unit 9 Review & Math Arcade', summary:'Connect fair experiments, relative frequency, sample size, predictions, and data reliability, then complete the Statistics Lab Arcade.' }
                   : course.slug === 'grade-7-math' && unit.slug === 'patterns-relations'
                     ? { title:'Unit 1 Review & Math Arcade', summary:'Repair common mistakes, complete a balanced Unit Check, and restore the Pattern Machine.' }
-                    : null;
+                    : course.slug === 'grade-7-math' && unit.slug === 'integers'
+                      ? { title:'Unit 2 Review & Math Arcade', summary:'Repair integer misconceptions, take a balanced Unit Check, and complete Temperature Rescue.' }
+                      : null;
 ---
 <BaseLayout title={`${unit.title} | ${course.grade} ${course.shortSubject}`} description={unit.description} themeColor={course.color}>
   <div class="page-wrap" style={`--course:${course.color};--course-soft:${course.accent}`}>
