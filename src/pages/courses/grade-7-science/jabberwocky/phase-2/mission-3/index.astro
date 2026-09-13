@@ -134,7 +134,7 @@ const growingCases: Record<string, GrowingCase> = {
 
     <section class="simple-step" id="your-mission">
       <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
-      <div class="briefing"><p>You know what your resource plant needs. Now JCEC wants enough plants to make the resource useful. That means humans may need to change soil, water, nutrients or temperature. Your team will test growing materials, use the Growth Trial you already started, and build one small growing-system model. The challenge is not simply to grow more—it is to solve the growing problem without creating a new environmental problem.</p></div>
+      <div class="briefing"><p>You know what your resource plant needs. Now JCEC wants enough plants to make the resource useful. That means humans may need to change soil, water, nutrients or temperature. Your team will test growing materials, use the Growth Trial you already started, and build or sketch one simple growing-system solution. The challenge is not simply to grow more—it is to solve the growing problem without creating a new environmental problem.</p></div>
 
       <div class="assignment-result" id="assignment-result" hidden>
         <span id="assignment-icon" aria-hidden="true"></span>
@@ -169,11 +169,11 @@ const growingCases: Record<string, GrowingCase> = {
       <section class="investigation-block soil-lab">
         <div class="block-title"><div><small>CLASSES 1–2</small><h3>Soil / Growing Medium Investigation</h3></div><span>TEAM WORK</span></div>
         <p><strong>Question:</strong> Which growing material holds water, drains water, and supports useful root conditions most effectively?</p>
-        <div class="equipment-strip"><strong>You need:</strong><span>3 teacher-provided media</span><span>3 equal containers</span><span>equal water amounts</span><span>timer / measuring cup if available</span><span>field sheet</span></div>
+        <div class="equipment-strip"><strong>Your teacher provides:</strong><span>3 media at shared stations</span><span>shared equal containers</span><span>equal water amounts</span><span>timer / measuring cup if available</span><span>field sheet</span></div>
         <ol class="simple-procedure">
-          <li>Label three samples: <strong>sand-rich, clay-rich and organic-rich</strong> (or the teacher-provided equivalents).</li>
+          <li>At the shared station, compare <strong>sand-rich, clay-rich and organic-rich</strong> samples (or the teacher-provided equivalents).</li>
           <li>Observe texture and particle size. Gently press each sample once to compare how easily it compacts.</li>
-          <li>Put the same amount of each material into similar containers.</li>
+          <li>Use the same amount of each material in similar shared containers.</li>
           <li>Add the same amount of water. Record how quickly or how much drains through.</li>
           <li>Compare what remains damp, what drains fastest and what became most compact. Decide what each material might be useful for.</li>
         </ol>
@@ -200,7 +200,7 @@ const growingCases: Record<string, GrowingCase> = {
               <article class="case-file" data-case-file={site.id} hidden>
                 <header><span>{site.icon}</span><div><small>{site.name} · {site.plant.name}</small><h3>{info.challenge}</h3></div></header>
                 <div class="clue-grid">{info.evidence.map((card, index) => <article><b>{index + 1}</b><small>{card.label}</small><strong>{card.evidence}</strong><p><span>WHY IT MATTERS:</span> {card.meaning}</p></article>)}</div>
-                <div class="prototype-goal"><small>YOUR MODEL'S JOB</small><strong>{info.prototypeGoal}</strong></div>
+                <div class="prototype-goal"><small>YOUR SOLUTION'S JOB</small><strong>{info.prototypeGoal}</strong></div>
               </article>
             );
           })}
@@ -208,8 +208,8 @@ const growingCases: Record<string, GrowingCase> = {
       </section>
 
       <section class="investigation-block prototype-block">
-        <div class="block-title"><div><small>CLASS 3</small><h3>Growing System Challenge</h3></div><span>SMALL MODEL</span></div>
-        <p>Build a cup-sized model that solves <strong>one</strong> growing problem. It does not need to grow a plant today.</p>
+        <div class="block-title"><div><small>CLASS 3</small><h3>Growing System Challenge</h3></div><span>MODEL OR DESIGN</span></div>
+        <p>Create one simple solution to <strong>one</strong> growing problem. Your teacher may have you build a cup-sized model from shared materials <strong>or make a labelled testable design</strong>. It does not need to grow a plant today.</p>
         <div class="prototype-tools">
           <article><strong>Drainage</strong><p>holes, gravel or a medium that lets extra water leave</p></article>
           <article><strong>Water saving</strong><p>wick/reservoir or cover that slows evaporation</p></article>
@@ -217,13 +217,13 @@ const growingCases: Record<string, GrowingCase> = {
           <article><strong>Protection</strong><p>simple clear cover or shelter from cold/wind</p></article>
         </div>
         <ol class="simple-procedure compact-list">
-          <li>Choose the single growing problem your model will solve.</li>
-          <li>Select only the materials you need.</li>
-          <li>Build a small model in one container.</li>
-          <li>Test the feature once with water, drainage, cover or another teacher-approved check.</li>
+          <li>Choose the single growing problem your solution will solve.</li>
+          <li>Choose only the shared materials or design features you actually need.</li>
+          <li>Build one small model in a reused container <strong>or draw and label a testable design</strong>.</li>
+          <li>If you built it, test one feature once. If you drew it, explain the one test you would use.</li>
           <li>Identify one problem your solution could create and one change that could reduce it.</li>
         </ol>
-        <div class="prototype-warning"><strong>Keep it simple.</strong><span>This is evidence for a decision, not an engineering competition.</span></div>
+        <div class="prototype-warning"><strong>Keep it simple.</strong><span>The science reasoning matters more than constructing a polished device.</span></div>
       </section>
     </section>
 
@@ -258,8 +258,8 @@ const growingCases: Record<string, GrowingCase> = {
         <p>Team: ________________________________ &nbsp; Date: ____________</p>
         <table><thead><tr><th>Growing material</th><th>Texture / particles</th><th>Compaction</th><th>Drainage</th><th>Water retained / dampness</th><th>What could this be useful for?</th></tr></thead><tbody><tr><th>Sand-rich</th><td></td><td></td><td></td><td></td><td></td></tr><tr><th>Clay-rich</th><td></td><td></td><td></td><td></td><td></td></tr><tr><th>Organic-rich</th><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>
         <p><strong>Growth Trial evidence:</strong> Compared with the control, what is one useful difference in the changed condition?</p><div class="writing-lines"></div>
-        <p><strong>Growing System Challenge:</strong> What problem will your model solve?</p><div class="writing-lines short"></div>
-        <p><strong>Test result:</strong> What worked? What could your model accidentally make worse?</p><div class="writing-lines"></div>
+        <p><strong>Growing System Challenge:</strong> What problem will your model or labelled design solve?</p><div class="writing-lines short"></div>
+        <p><strong>Test/design evidence:</strong> What worked—or what would you test? What could your solution accidentally make worse?</p><div class="writing-lines"></div>
       </section>
       <section class="print-page page-break">
         <h1>Growing System Recommendation</h1>
