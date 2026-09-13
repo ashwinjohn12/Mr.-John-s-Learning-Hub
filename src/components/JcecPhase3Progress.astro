@@ -9,7 +9,7 @@ const base = import.meta.env.BASE_URL;
 const missions = [
   { number: 1, short: 'Temperature', title: 'Read the Thermal Warning' },
   { number: 2, short: 'Heat Transfer', title: 'Follow the Heat' },
-  { number: 3, short: 'Thermal Barrier', title: 'Hold the Temperature' },
+  { number: 3, short: 'Thermal Design', title: 'The Director Is Coming' },
   { number: 4, short: 'Habitat Control', title: 'Control the Habitat' },
   { number: 5, short: 'Sustainable Survival', title: 'Survive Without Wasting It' }
 ];
@@ -36,12 +36,12 @@ const missions = [
       },
       {
         match: '/phase-3/mission-2/', root: '#phase3-mission2',
-        note: 'Mission 3 is ready. Next, use fair-test evidence to slow the unwanted thermal-energy transfer.',
-        href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-3/`, label: 'Next Mission → Hold the Temperature'
+        note: 'Mission 3 is ready. Next, use conduction, convection and radiation to design, test and improve a DIY thermos.',
+        href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-3/`, label: 'Next Mission → The Director Is Coming'
       },
       {
         match: '/phase-3/mission-3/', root: '#phase3-mission3',
-        note: 'Mission 4 is ready. Next, build a feedback rule that responds when temperature changes anyway.',
+        note: 'Mission 4 is ready. Scale your thermos design thinking up from one small container to an entire habitat control system.',
         href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-4/`, label: 'Next Mission → Control the Habitat'
       },
       {
@@ -58,18 +58,34 @@ const missions = [
     const release = releases.find((item) => path.includes(item.match));
     if (!release) return;
     const finished = document.querySelector(`${release.root} .finished-box`);
-    if (!finished || finished.querySelector('.phase3-next-mission-link')) return;
-    const note = finished.querySelector('p');
-    if (note) note.textContent = release.note;
-    if (release.phaseHandoff) {
-      const stop = finished.querySelector('span');
-      if (stop) stop.textContent = 'NEW DIVISION OPEN: Project New Horizon · Structures & Forces';
+    if (finished && !finished.querySelector('.phase3-next-mission-link')) {
+      const note = finished.querySelector('p');
+      if (note) note.textContent = release.note;
+      if (release.phaseHandoff) {
+        const stop = finished.querySelector('span');
+        if (stop) stop.textContent = 'NEW DIVISION OPEN: Project New Horizon · Structures & Forces';
+      }
+      const next = document.createElement('a');
+      next.className = 'phase3-next-mission-link';
+      next.href = release.href;
+      next.textContent = release.label;
+      finished.appendChild(next);
     }
-    const next = document.createElement('a');
-    next.className = 'phase3-next-mission-link';
-    next.href = release.href;
-    next.textContent = release.label;
-    finished.appendChild(next);
+
+    // Mission 5 keeps its existing Evidence Locker structure but now inherits
+    // the approved Mission 3 thermos evidence instead of the retired barrier label.
+    if (path.includes('/phase-3/mission-5/')) {
+      document.querySelectorAll('.locker-file small').forEach((label) => {
+        if (label.textContent?.trim() === 'M3 · BARRIER') label.textContent = 'M3 · THERMAL DESIGN';
+      });
+      const locker = document.querySelector('#phase3-mission5 .evidence-locker');
+      if (locker && !locker.querySelector('.thermos-locker-note')) {
+        const note = document.createElement('p');
+        note.className = 'locker-note thermos-locker-note';
+        note.textContent = 'For M3, use one strong thermos-test result plus one useful thermal-design principle. Your actual prototype/final-test evidence is stronger than the reminder when you have it.';
+        locker.appendChild(note);
+      }
+    }
   })();
 </script>
 
