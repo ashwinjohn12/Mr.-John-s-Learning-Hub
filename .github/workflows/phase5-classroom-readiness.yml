@@ -1,0 +1,23 @@
+name: Phase 5 Classroom Readiness
+
+on:
+  push:
+    branches:
+      - audit/phase5-classroom-readiness
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+env:
+  BASE_URL: /Mr.-John-s-Learning-Hub/
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: withastro/action@v3
+        with:
+          node-version: 20
