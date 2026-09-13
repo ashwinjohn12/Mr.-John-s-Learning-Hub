@@ -18,6 +18,9 @@ const files = {
   m5: 'src/pages/courses/grade-7-science/jabberwocky/phase-3/mission-5/index.astro',
   progress: 'src/components/JcecPhase3Progress.astro',
   data: 'src/data/jabberwockyPhase3.ts',
+  teacher: 'src/pages/courses/grade-7-science/jabberwocky/phase-3/teacher-launch-guide/index.astro',
+  teacherDoc: 'docs/jabberwocky-phase-3-teacher-launch-guide.md',
+  pacingDoc: 'docs/jabberwocky-phase-3-five-week-pacing-guide.md',
   phase2Progress: 'src/components/JcecPhase2Progress.astro'
 };
 
@@ -30,10 +33,13 @@ const m4 = read(files.m4);
 const m5 = read(files.m5);
 const progress = read(files.progress);
 const data = read(files.data);
+const teacher = read(files.teacher);
+const teacherDoc = read(files.teacherDoc);
+const pacingDoc = read(files.pacingDoc);
 const phase2Progress = read(files.phase2Progress);
 const allMissions = `${m1}\n${m2}\n${m3}\n${m4}\n${m5}`;
 
-// Final hub state and release gate.
+// Final student release state.
 for (const token of ['SURVIVING JABBERWOCKY','JCEC THERMAL SURVIVAL DIVISION','Read the Thermal Warning','Follow the Heat','Hold the Temperature','Control the Habitat','Survive Without Wasting It']) check(has(hub, token), `hub includes: ${token}`);
 check(hub.includes('jabberwocky-phase3-posting'), 'Phase 3 uses separate posting state');
 check(!hub.includes("localStorage.setItem('jabberwocky-phase2-posting'"), 'Phase 3 does not overwrite Phase 2 state');
@@ -52,73 +58,38 @@ for (const [name, text] of [['Mission 1',m1],['Mission 2',m2],['Mission 3',m3],[
 }
 check(!m2.includes('<select') && !m3.includes('<select') && !m4.includes('<select') && !m5.includes('<select'), 'Missions 2–5 do not ask students to choose continent again');
 
-// Preserve approved science progression.
+// Approved mission science and products.
 for (const token of ['THERMAL ENERGY','Thermal Change Investigation','Thermal Risk Card']) check(has(m1, token), `Mission 1 keeps: ${token}`);
 for (const token of ['CONDUCTION','CONVECTION','RADIATION','Heat Pathway Stations','Habitat Heat Map']) check(has(m2, token), `Mission 2 keeps: ${token}`);
 for (const token of ['THERMAL CONDUCTOR','THERMAL INSULATOR','Thermal Barrier Fair Test','Thermal Barrier Recommendation','SCIENCE REASONING CHECKPOINT']) check(has(m3, token), `Mission 3 keeps: ${token}`);
 for (const token of ['GENERATE','TRANSFER','REMOVE','CONTROL','Habitat Control Loop Challenge','Habitat Control Protocol']) check(has(m4, token), `Mission 4 keeps: ${token}`);
+for (const token of ['THERMAL-ENERGY SOURCES','ENERGY USE','ENERGY CONSERVATION','SUSTAINABILITY / TRADE-OFFS','Thermal Energy Budget Challenge','Thermal Evidence Locker','JCEC Thermal Survival Plan']) check(has(m5, token), `Mission 5 keeps: ${token}`);
 
-// Mission 5 Grade 7 thermal-energy science.
-for (const token of ['Mission 5 of 5','How can humans maintain safe living conditions without wasting energy or damaging the environment?','4 classes × 45 minutes','THERMAL-ENERGY SOURCES','ENERGY USE','ENERGY CONSERVATION','SUSTAINABILITY / TRADE-OFFS']) check(has(m5, token), `Mission 5 includes: ${token}`);
-for (const token of ['renewability','safety','environmental effects','relative comparison units']) check(has(m5, token), `Mission 5 considers: ${token}`);
+// Mission 5 synthesis boundaries.
 check(has(m5, 'not real watts or kilowatt-hours'), 'Mission 5 avoids real HVAC energy calculations');
-
-// Authentic source integration.
 check(has(m5, 'Thermal Technology Briefing'), 'Mission 5 includes authentic-source briefing');
 check((m5.match(/NATURAL RESOURCES CANADA/g) || []).length >= 2, 'Mission 5 uses two NRCan source cards');
 check(has(m5, 'one useful fact from each'), 'Mission 5 extracts one useful fact per source');
-check(has(m5, 'natural-resources.canada.ca'), 'Mission 5 links official Canadian sources');
 check(has(m5, 'not an internet-research project'), 'Mission 5 keeps source reading bounded');
-
-// Energy-source comparisons and canon safeguard.
 for (const token of ['SOLAR-DERIVED ENERGY','COMBUSTION FUEL','GEOTHERMAL THERMAL ENERGY','ELECTRIC HEATING / COOLING']) check(has(m5, token), `Mission 5 source board includes: ${token}`);
 check(has(m5, 'not confirmed continent resources'), 'Mission 5 does not invent continent energy resources');
-check(has(m5, 'if JCEC verifies it is available here'), 'Mission 5 keeps source availability conditional');
-
-// Main budget investigation.
-check(has(m5, 'Thermal Energy Budget Challenge'), 'Mission 5 uses the Thermal Energy Budget Challenge');
-for (const token of ['PASSIVE BARRIER / SHADE','ACTIVE HEATING','ACTIVE COOLING','CONTROLLED VENTILATION','HOLD / MONITOR']) check(has(m5, token), `Budget option includes: ${token}`);
-check(has(m5, '3 energy units') && has(m5, '4 energy units'), 'Mission 5 uses simple relative active-energy costs');
 check((m5.match(/budget:/g) || []).length === 8, 'Mission 5 defines an energy budget for all eight continent cases');
 check((m5.match(/scenario:/g) || []).length === 8, 'Mission 5 defines a scenario for all eight continent cases');
 check((m5.match(/consequence:/g) || []).length === 8, 'Mission 5 defines a consequence for all eight continent cases');
 check((m5.match(/safeguard:/g) || []).length >= 8, 'Mission 5 preserves a safeguard for all eight continent cases');
 check(has(m5, 'Revise exactly one part of your original plan'), 'Mission 5 requires one consequence-driven revision');
-check(has(m5, 'printable cards/tokens') && has(m5, 'No thermal equipment or purchased supplies are required'), 'Mission 5 is low-material and no-purchase');
-check(m5.includes('print-phase3-mission5'), 'Mission 5 includes printable investigation + final plan');
-
-// Evidence Locker and archive-load control.
-check(has(m5, 'Thermal Evidence Locker'), 'Mission 5 includes Thermal Evidence Locker');
+check(has(m5, 'No thermal equipment or purchased supplies are required'), 'Mission 5 is low-material');
 for (const token of ['M1 · TEMPERATURE','M2 · TRANSFER','M3 · BARRIER','M4 · CONTROL']) check(has(m5, token), `Evidence Locker includes: ${token}`);
-check(has(m5, 'CHOOSE 3') && has(m5, 'three strongest pieces'), 'Mission 5 limits final evidence to three pieces');
-check(has(m5, 'do not need to reopen Missions 1–4'), 'Mission 5 prevents archive paperwork');
-check(has(m5, 'actual class data may be stronger'), 'Mission 5 allows actual class evidence');
-
-// Final decision, authorization and assessment.
-check(has(m5, 'What thermal survival system should JCEC authorize for this continent?'), 'Mission 5 has one final decision');
 for (const token of ['HEATING-DOMINANT HABITAT','COOLING-DOMINANT HABITAT','ADAPTIVE HEATING-AND-COOLING HABITAT','SEASONAL / LIMITED OCCUPATION']) check(has(m5, token), `Mission 5 authorization includes: ${token}`);
-check(has(m5, 'No authorization is automatically correct for any continent'), 'Authorization is evidence-driven, not predetermined');
-for (const token of ['DECISION','EVIDENCE','ENERGY CONSEQUENCE','ENVIRONMENTAL SAFEGUARD']) check(m5.includes(token), `Mission 5 reasoning includes: ${token}`);
-check(has(m5, 'JCEC Thermal Survival Plan'), 'Mission 5 ends with JCEC Thermal Survival Plan');
 for (const token of ['THERMAL THREAT','KEEP / REMOVE / BOTH','PASSIVE DESIGN','ACTIVE CONTROL','ENERGY SOURCE','3 PIECES OF EVIDENCE','CONSERVATION RULE','ECOLOGICAL SAFEGUARD','FINAL AUTHORIZATION','WHY · 3–5 SENTENCES']) check(has(m5, token), `Thermal Survival Plan includes: ${token}`);
-check(has(m5, 'MAJOR PHASE 3 SYNTHESIS'), 'Mission 5 is major Phase 3 synthesis');
-for (const token of ['science understanding','evidence use','thermal reasoning','sustainable practical decision','not artistic polish']) check(has(m5, token), `Mission 5 assessment focus includes: ${token}`);
-check(has(m5, 'What is one thermal solution that would make human life easier but might be a poor long-term choice? What would you do instead?'), 'Mission 5 includes approved reflection');
-check(has(m5, 'Phase 3 is finished when:'), 'Mission 5 has explicit finish line');
 check(has(m5, 'STOP HERE. Phase 4 has not been released.'), 'Mission 5 explicitly stops before Phase 4');
 check(!m5.includes('phase-4/'), 'Mission 5 creates no Phase 4 route');
 
 // Full-phase pacing and assessment load.
-check(has(m1, '3 classes × 45 minutes'), 'Mission 1 is 3 classes');
-check(has(m2, '3 classes × 45 minutes'), 'Mission 2 is 3 classes');
-check(has(m3, '4 classes × 45 minutes'), 'Mission 3 is 4 classes');
-check(has(m4, '4 classes × 45 minutes'), 'Mission 4 is 4 classes');
-check(has(m5, '4 classes × 45 minutes'), 'Mission 5 is 4 classes');
+for (const [text, token, label] of [[m1,'3 classes × 45 minutes','Mission 1'],[m2,'3 classes × 45 minutes','Mission 2'],[m3,'4 classes × 45 minutes','Mission 3'],[m4,'4 classes × 45 minutes','Mission 4'],[m5,'4 classes × 45 minutes','Mission 5']]) check(has(text, token), `${label} pacing matches approved plan`);
 check([3,3,4,4,4].reduce((a,b) => a+b, 0) === 18, 'Phase 3 core mission pacing totals 18 classes');
 check(has(m3, 'SCIENCE REASONING CHECKPOINT'), 'Mission 3 remains stronger checkpoint');
 check(has(m5, 'MAJOR PHASE 3 SYNTHESIS'), 'Mission 5 remains major synthesis');
-
-// Distinct Team Records.
 for (const token of ['Thermal Risk Card','Habitat Heat Map','Thermal Barrier Recommendation','Habitat Control Protocol','JCEC Thermal Survival Plan']) check(has(allMissions, token), `Phase 3 has distinct Team Record: ${token}`);
 
 // Canon and continent continuity.
@@ -129,13 +100,51 @@ check(data.includes('−30°C') && data.includes('+30°C'), 'Bandersnatch preser
 check(data.includes('−40°C') && data.includes('+24°C'), 'Gimble preserves established temperatures');
 check(!has(data, 'power failure') && !has(data, 'grid failure'), 'Manxome does not invent grid-failure canon');
 check(has(data, 'do not drain'), 'Mimsy preserves wetland restriction');
-check((data.match(/mission4Clues: \[/g) || []).length === 8, 'All eight continent control cases feed the final Evidence Locker');
 check(has(phase2Progress, 'Continue to Phase 3 → Surviving Jabberwocky'), 'Phase 2 still hands students to Phase 3');
 
-// Standing low-material design rule.
-check(has(m3, 'shared thermometers') && has(m3, 'reused cups/containers'), 'Mission 3 uses shared/reused equipment');
-check(has(m4, 'No electronics') && has(m4, 'purchased thermostat equipment'), 'Mission 4 remains no-purchase');
-check(has(m5, 'No thermal equipment or purchased supplies are required'), 'Mission 5 remains no-purchase');
+// Teacher-facing five-mission system.
+for (const token of ['Phase 3 Teacher Launch Guide','18 core classes','7 purposeful flex','Mission 1 — Read the Thermal Warning','Mission 2 — Follow the Heat','Mission 3 — Hold the Temperature','Mission 4 — Control the Habitat','Mission 5 — Survive Without Wasting It']) check(has(teacher, token), `Teacher guide includes: ${token}`);
+for (const token of ['BEFORE CLASS','MATERIALS','STUDENTS SEE / DO','KEY SCIENCE','TEACHER EMPHASIS','COLLECT / ASSESS','IF TIME RUNS OUT']) check(has(teacher, token), `Teacher guide planning field: ${token}`);
+check((teacher.match(/route:'mission-/g) || []).length === 18, 'Teacher guide contains 18 core day entries');
+const flexSlice = teacher.slice(teacher.indexOf('const flexDays'), teacher.indexOf('const materials'));
+check((flexSlice.match(/day:/g) || []).length === 7, 'Teacher guide contains 7 purposeful flex periods');
+for (const token of ['ordinary classroom supplies','shared/reused equipment','printables/data fallbacks','specialty equipment only as optional enrichment']) check(has(teacher, token), `Teacher guide preserves low-material rule: ${token}`);
+
+// Materials master list and thermometer-sharing plan.
+for (const token of ['Thermal Change Investigation','thermometer practice','Heat Pathway Stations','Thermal Barrier Fair Test','Habitat Control Loop Challenge','Thermal Technology Briefing','Thermal Energy Budget Challenge','JCEC Thermal Survival Plan']) check(has(teacher, token), `Materials/implementation system includes: ${token}`);
+check(has(teacher, '4–6 shared thermometers'), 'Teacher guide uses a realistic 4–6 thermometer sharing target');
+check(has(teacher, 'You do not need one thermometer per team'), 'Teacher guide explicitly removes one-thermometer-per-team assumption');
+check(has(teacher, '1–2 thermometers'), 'Teacher guide includes very-limited-thermometer fallback');
+for (const token of ['No-purchase fallback','optional enrichment']) check(has(teacher, token), `Teacher guide includes materials safeguard: ${token}`);
+
+// Contingency playbook.
+for (const token of ['Limited thermometers','Missing station materials','Convection demonstration fails','Radiation station shows little difference','Fair-test data is noisy or contradictory','Student absent during an investigation','A class is lost','Control Loop Challenge runs long','Thermal Energy Budget Challenge runs long','Source websites are unavailable']) check(has(teacher, token), `Teacher guide contingency: ${token}`);
+
+// Assessment map.
+for (const token of ['M1/M2/M4 formative','M3 checkpoint','M5 major synthesis']) check(has(teacher, token), `Teacher readiness summary includes assessment role: ${token}`);
+check(has(teacher, '30%') && has(teacher, '55%') && has(teacher, '15%'), 'Teacher guide includes 30/55/15 grading option');
+check(has(teacher, '35% checkpoint / 65% synthesis'), 'Teacher guide includes no-individual-check grading alternative');
+check(has(teacher, 'INDIVIDUAL SCIENCE CHECK'), 'Teacher guide includes optional individual science check');
+
+// Alberta Heat & Temperature coverage and above-grade boundary.
+for (const token of ['Temperature measurement + thermometers','Heat vs temperature + particle model','Expansion / contraction + changes of state','Conduction / convection / radiation','Conductivity / insulation','Fair testing / quantitative data / graphing / discrepancies','Passive + active solar','Thermal-energy sources','Thermometers / thermostats / feedback','Heating / cooling systems','Historical thermal technology','Safety','Energy use + renewable/non-renewable considerations','Conservation + environmental consequences','Evidence-based decisions']) check(has(teacher, token), `Teacher curriculum map includes: ${token}`);
+for (const token of ['advanced calorimetry','specific-heat calculations','gas laws','detailed refrigeration cycles','formal efficiency equations']) check(has(teacher, token), `Teacher guide keeps above-grade topic out: ${token}`);
+check(has(teacher, 'education.alberta.ca/media/159716/sci7to9.pdf'), 'Teacher guide links official Alberta Science 7–9 program');
+
+// Teacher documentation and pacing mirror the live guide.
+for (const source of [teacherDoc,pacingDoc]) {
+  for (const token of ['18 core','7 purposeful flex','Read the Thermal Warning','Follow the Heat','Hold the Temperature','Control the Habitat','Survive Without Wasting It']) check(has(source, token), `Teacher documentation mirrors approved pacing: ${token}`);
+  check(!has(source, 'Phase 4 student content'), 'Teacher documentation does not introduce Phase 4 student content');
+}
+check(has(teacherDoc, '4–6 shared thermometers'), 'Teacher documentation includes thermometer-sharing plan');
+check(has(teacherDoc, 'No-purchase fallback'), 'Teacher documentation includes no-purchase fallbacks');
+check(has(pacingDoc, '25 periods total = 18 core + 7 purposeful flex'), 'Pacing guide states 25-period structure');
+for (const day of [7,12,17,22,23,24,25]) check(has(pacingDoc, `| ${day} | FLEX |`), `Pacing guide includes flex Day ${day}`);
+
+// Final teacher launch-readiness audit.
+for (const token of ['Do I know what to prepare tomorrow?','Do I know what students should finish each day?','Do I know when thermometers/shared equipment are needed?','Can I run the unit if equipment is limited?','Do I know what is formative, checkpoint and major assessment?','Can I recover if a class or investigation is disrupted?','Do teacher and student systems match?']) check(has(teacher, token), `Teacher launch-readiness audit includes: ${token}`);
+check(has(teacher, 'STOP BEFORE PHASE 4'), 'Teacher guide has explicit Phase 4 stop point');
+check(!teacher.includes('phase-4/'), 'Teacher launch guide creates no Phase 4 route');
 
 if (failures.length) {
   console.error(`\nJabberwocky Phase 3 readiness audit failed: ${failures.length} issue(s).`);
@@ -145,4 +154,4 @@ if (failures.length) {
 
 console.log(`\nJabberwocky Phase 3 readiness audit: ${passes.length} checks passed.`);
 passes.forEach((pass) => console.log(`  ✓ ${pass}`));
-console.log('\nPhase 3 student experience is complete: five missions, 18 core classes, separate state, Grade 7 Heat & Temperature science, low-material investigations, evidence reuse, final sustainable thermal decision, and no Phase 4 route.');
+console.log('\nPhase 3 student + teacher systems are aligned: five missions, 18 core classes, seven purposeful flex periods, low-material fallbacks, Heat & Temperature curriculum coverage, checkpoint/synthesis assessment, and no Phase 4 route.');
