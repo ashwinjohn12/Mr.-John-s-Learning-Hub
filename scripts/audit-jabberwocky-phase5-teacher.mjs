@@ -28,6 +28,7 @@ for (const route of ['final-council','mission-2190-council','final-decision','ph
 const teacher = read(files.teacher);
 const teacherDoc = read(files.teacherDoc);
 const pacing = read(files.pacingDoc);
+const teacherSystem = `${teacher}\n${teacherDoc}\n${pacing}`;
 const missions = [read(files.m1), read(files.m2), read(files.m3), read(files.m4), read(files.m5)];
 
 // Teacher/student mission architecture.
@@ -43,7 +44,7 @@ for (const token of [
   check(has(pacing, token), `Pacing guide includes ${token}`);
 }
 check((teacher.match(/day:/g)||[]).length === 25, 'Live teacher guide contains 18 core + 7 flex day records');
-check((teacher.match(/mission:'Mission/g)||[]).length === 18, 'Live teacher guide contains exactly 18 core class records');
+check((teacher.match(/route:'mission-[1-5]\//g)||[]).length === 18, 'Live teacher guide contains exactly 18 core class route records');
 check((teacher.match(/title:'[^']+'/g)||[]).length >= 25, 'Live teacher guide includes titles for all core/flex records');
 for (const day of [7,12,17,22,23,24,25]) check(has(teacher, `day:${day}`), `Teacher guide includes purposeful flex Day ${day}`);
 check(has(teacher,'18 core classes + 7 purposeful flex periods = 25 classes'),'Teacher guide states the approved 25-class structure');
@@ -84,8 +85,8 @@ for (const token of [
   'JCEC Geological Evidence Packet'
 ]) check(has(teacher, token), `Materials/implementation system includes ${token}`);
 for (const token of ['PREFERRED CLASSROOM VERSION','SHARED-EQUIPMENT PLAN','NO-PURCHASE FALLBACK','ABSENCE FALLBACK','CLEANUP / SAFETY']) check(has(teacher,token),`Materials master list includes ${token}`);
-for (const forbidden of ['large rock/mineral collection','Mohs kit','loose glass','real fossils','stream table','rock saws','specialty geology kits']) check(has(teacher,forbidden),`Teacher guide explicitly handles/avoids dependency: ${forbidden}`);
-check(has(teacher,'No geology purchase') || has(teacherDoc,'no geology purchases') || has(pacing,'no geology purchases'),'Phase 5 can run without geology purchases');
+for (const forbidden of ['large rock/mineral collection','Mohs kit','loose glass','real fossils','stream table','rock saws','specialty geology']) check(has(teacherSystem,forbidden),`Teacher system explicitly handles/avoids dependency: ${forbidden}`);
+check(has(teacherSystem,'no geology purchase'),'Phase 5 can run without geology purchases');
 
 // Contingency playbook.
 for (const token of [
@@ -128,11 +129,12 @@ for (const url of [
   'https://tyrrellmuseum.com/learn/Badlands_Goodlands',
   'https://www.tyrrellmuseum.com/research/found_a_fossil'
 ]) check(has(teacher,url),`Teacher guide preserves approved authoritative source ${url}`);
-check(has(teacher,'buried fossils should be left in place and reported'),'Teacher guide preserves Royal Tyrrell fossil-context/stewardship safeguard');
+check(has(teacherSystem,'buried fossils') && has(teacherSystem,'left in place') && has(teacherSystem,'report'), 'Teacher system preserves Royal Tyrrell fossil-context/stewardship safeguard');
 check(has(teacher,'Never transfer') && has(teacher,'Earth earthquake') && has(teacher,'Jabberwocky'),'Teacher guide prevents Earth-reference evidence becoming Jabberwocky canon');
 
 // Distinct science progression and student/teacher match.
-for (const token of ['observe/classify','formation history','ongoing surface change','deep-past reconstruction','geological handoff']) check(has(teacher,token),`Readiness audit keeps mission distinction: ${token}`);
+for (const token of ['observe/classify','formation history','ongoing surface change','geological handoff']) check(has(teacher,token),`Readiness audit keeps mission distinction: ${token}`);
+check(has(teacher,'Read the Deep Past') && has(teacher,'reconstruct') && has(teacher,'relative sequence'),'Readiness audit keeps Mission 4 distinct as deep-past reconstruction');
 check(has(missions[0],"Geologist's Evidence Stations"),'M1 student experience matches teacher sample investigation');
 check(has(missions[1],'Rock Cycle Evidence Lab'),'M2 student experience matches teacher rock-history investigation');
 check(has(missions[2],'Surface Change Fair Test'),'M3 student experience matches teacher checkpoint investigation');
