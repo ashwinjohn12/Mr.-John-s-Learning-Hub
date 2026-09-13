@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+
+const base = import.meta.env.BASE_URL;
+const council = `${base}courses/grade-7-science/jabberwocky/council/`;
+const coreDays = [
+  {
+    day:1,
+    title:'Open the Evidence Vault',
+    before:'Confirm each team keeps its Phase 5 team and continent. Open the Council page and verify the saved Phase 5 posting loads the correct five-card Evidence Vault. Decide whether students will work on paper, Chromebook or both.',
+    materials:'Mission 2190 Evidence Vault, Five-Lens Council Review, pencils and/or Chromebooks. No old Team Records.',
+    students:'Read exactly five evidence cards → sort what each lens supports, limits, protects and leaves uncertain → complete the Five-Lens Council Review → identify two plausible Council outcomes.',
+    science:'Cross-unit transfer: ecosystems, plant resources, thermal survival, structures/forces and geology all constrain one decision. Evidence is not the same as a recommendation.',
+    emphasis:'Do not let students choose an outcome first and then hunt for supporting evidence. Every team must consider all five lenses. No continent has a predetermined correct answer.',
+    collect:'Completed Five-Lens Council Review and two plausible candidate outcomes — capstone evidence in progress.',
+    cut:'If time is short, complete one strong SUPPORTS/LIMITS/PROTECTS/UNCERTAIN entry per lens and identify two candidate outcomes. Do not reopen archives.'
+  },
+  {
+    day:2,
+    title:'The Council Deliberates',
+    before:'Prepare the five outcome cards and the two-option comparison board. Review which safeguards are already established canon for each continent.',
+    materials:'Five-Lens Council Review, outcome cards, two-option comparison board, pencils/Chromebooks.',
+    students:'Compare at least two plausible outcomes → identify strongest supporting evidence, biggest limit, required safeguard and important uncertainty for each → discuss mixed directives where appropriate → choose a draft directive.',
+    science:'Scientific decision making weighs multiple forms of evidence, trade-offs, protection needs and uncertainty. A responsible recommendation can remain conditional.',
+    emphasis:'A directive is not a popularity vote. Environmental safeguards matter as much as human convenience. “Delay and collect more evidence” is a legitimate outcome when a critical uncertainty remains.',
+    collect:'Two-option comparison and draft directive — year-long transfer reasoning.',
+    cut:'Compare exactly two outcomes and require one explicit trade-off, one safeguard and one uncertainty before choosing.'
+  },
+  {
+    day:3,
+    title:'Issue the Mission 2190 Directive',
+    before:'Prepare one Mission 2190 Council Directive per team and one reflection prompt per student. Decide whether to use optional 60-second Council Statements or a quiet gallery after core work is complete.',
+    materials:'Council Directive, five evidence cards, completed review board, pencils/Chromebooks.',
+    students:'Finalize level of human presence + where/scale + protection requirements → cite all five science lenses → select three non-negotiable safeguards → name one uncertainty and next investigation → write 4–6 sentence Council message → complete individual reflection.',
+    science:'A final scientific recommendation should be evidence-based, revisable and explicit about uncertainty, safeguards and next questions.',
+    emphasis:'Assess evidence integration and reasoning, not presentation polish or memorized vocabulary. One directive per team; one reflection per student.',
+    collect:'Mission 2190 Council Directive + individual reflection — final year-long transfer task.',
+    cut:'Protect the directive, three safeguards, one uncertainty, five evidence lenses and individual reflection. Cut gallery/presentation first.'
+  }
+];
+---
+
+<BaseLayout title="Mission 2190 Council — Teacher Guide" description="Three-class teacher implementation guide for the final Mission 2190 Council capstone." themeColor="#08172b">
+  <div class="teacher-shell" id="mission-2190-council-teacher-guide">
+    <Breadcrumbs items={[
+      { label:'Home', href:base },
+      { label:'Grade 7 Science', href:`${base}courses/grade-7-science/` },
+      { label:'Jabberwocky', href:`${base}courses/grade-7-science/jabberwocky/` },
+      { label:'Mission 2190 Council', href:council },
+      { label:'Teacher Guide' }
+    ]} />
+
+    <header class="teacher-hero">
+      <div><p class="eyebrow">FINAL CAPSTONE // TEACHER IMPLEMENTATION</p><h1>MISSION 2190<br /><span>COUNCIL GUIDE</span></h1><p>The Council is a <strong>3-class year-long transfer task</strong>, not a sixth science unit. Students stay with their Phase 5 teams and continents and use exactly five concise Evidence Vault cards instead of reopening old Team Records.</p></div>
+      <aside><span>CORE DESIGN</span><strong>Evidence Vault → Five-Lens Review → Compare Two Outcomes → Council Directive → Reflection</strong><small>No new content unit · essentially no-purchase</small></aside>
+    </header>
+
+    <section class="quick-grid">
+      <article><small>STUDENT ROLE</small><strong>JCEC Council Delegation</strong></article>
+      <article><small>TEAM RECORD</small><strong>1 Mission 2190 Council Directive</strong></article>
+      <article><small>INDIVIDUAL</small><strong>1 short reflection</strong></article>
+      <article><small>TIME</small><strong>3 × 45 minutes</strong></article>
+    </section>
+
+    <section class="guardrails">
+      <p class="eyebrow">NON-NEGOTIABLE COUNCIL GUARDRAILS</p>
+      <div class="guard-grid">
+        <article><strong>NO ARCHIVE REOPENING</strong><span>The five Evidence Vault cards are the capstone evidence source.</span></article>
+        <article><strong>NO PREDETERMINED OUTCOME</strong><span>Do not score a continent against a hidden “correct” settlement status.</span></article>
+        <article><strong>NO NEW JABBERWOCKY CANON</strong><span>Do not invent hazards, resources, energy systems, structures, fossil beds, faults or ecosystem conditions to make the decision easier.</span></article>
+        <article><strong>NO VOCABULARY TEST</strong><span>Students should apply science rather than re-memorize five units.</span></article>
+        <article><strong>UNCERTAINTY COUNTS</strong><span>A responsible Council may limit or delay activity because evidence remains incomplete.</span></article>
+        <article><strong>PROTECTION IS PART OF THE DECISION</strong><span>Safeguards are not an optional add-on after the human-presence choice.</span></article>
+      </div>
+    </section>
+
+    <section class="days">
+      <div class="section-heading"><p class="eyebrow">3-CLASS IMPLEMENTATION</p><h2>What to do each day</h2></div>
+      {coreDays.map((day) => (
+        <article class="day-card">
+          <header><span>CLASS {day.day}</span><h3>{day.title}</h3></header>
+          <div class="day-grid">
+            <div><small>BEFORE CLASS</small><p>{day.before}</p></div>
+            <div><small>MATERIALS</small><p>{day.materials}</p></div>
+            <div><small>STUDENTS SEE / DO</small><p>{day.students}</p></div>
+            <div><small>KEY SCIENCE / SYNTHESIS</small><p>{day.science}</p></div>
+            <div><small>TEACHER EMPHASIS</small><p>{day.emphasis}</p></div>
+            <div><small>COLLECT / ASSESS</small><p>{day.collect}</p></div>
+            <div class="wide"><small>IF TIME RUNS OUT</small><p>{day.cut}</p></div>
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <section class="materials">
+      <div class="section-heading"><p class="eyebrow">LOW-MATERIAL IMPLEMENTATION</p><h2>The final Council should require no new purchases.</h2></div>
+      <div class="materials-grid">
+        <article><small>PREFERRED</small><strong>Printed or digital Evidence Vault</strong><span>Exactly five cards per team.</span></article>
+        <article><small>PREFERRED</small><strong>Five-Lens Council Review</strong><span>Paper or website prompts.</span></article>
+        <article><small>PREFERRED</small><strong>Mission 2190 Council Directive</strong><span>One per team.</span></article>
+        <article><small>OPTIONAL</small><strong>Chromebooks / projector</strong><span>Useful but not required if cards are printed.</span></article>
+        <article><small>ESSENTIAL</small><strong>Pencils</strong><span>No laboratory materials or physical model needed.</span></article>
+        <article><small>NO-PURCHASE FALLBACK</small><strong>Project the Evidence Vault</strong><span>Teams complete the review and directive on ordinary paper.</span></article>
+      </div>
+    </section>
+
+    <section class="evidence-system">
+      <div class="section-heading"><p class="eyebrow">MISSION 2190 EVIDENCE VAULT</p><h2>Exactly five concise science lenses</h2></div>
+      <div class="lens-list">
+        <article><b>1</b><strong>ECOSYSTEM EVIDENCE + ECOLOGICAL SAFEGUARD</strong><span>Phase 1</span></article>
+        <article><b>2</b><strong>PLANT RESOURCE EVIDENCE + SUSTAINABILITY RULE</strong><span>Phase 2</span></article>
+        <article><b>3</b><strong>THERMAL EVIDENCE + SURVIVAL / ENERGY RULE</strong><span>Phase 3</span></article>
+        <article><b>4</b><strong>STRUCTURAL EVIDENCE + SAFETY / SITE RULE</strong><span>Phase 4</span></article>
+        <article><b>5</b><strong>GEOLOGICAL EVIDENCE + LIMIT / UNCERTAINTY / PROTECTION RULE</strong><span>Phase 5</span></article>
+      </div>
+      <p class="note"><strong>Teacher check:</strong> the Evidence Vault summarizes established project canon. It must not become an answer key. The cards contain evidence and constraints only; students choose the final directive.</p>
+    </section>
+
+    <section class="assessment">
+      <div class="section-heading"><p class="eyebrow">ASSESSMENT ROLE</p><h2>Year-long transfer task</h2></div>
+      <p>The Council is best assessed as evidence transfer and scientific decision making. It should <strong>not</strong> replace unit-specific science assessments and should not become a vocabulary exam.</p>
+      <div class="assessment-grid">
+        <article><strong>EVIDENCE INTEGRATION</strong><span>Uses all five science lenses accurately and relevantly.</span></article>
+        <article><strong>REASONING / TRADE-OFFS</strong><span>Explains why the directive fits the combined evidence better than at least one alternative.</span></article>
+        <article><strong>SAFEGUARDS + UNCERTAINTY</strong><span>Protection rules are specific and uncertainty meaningfully affects the plan.</span></article>
+        <article><strong>FINAL COMMUNICATION</strong><span>Council message is concise, evidence-based and revisable if new evidence appears.</span></article>
+      </div>
+      <p class="note">If a numeric score is needed, use four roughly equal criteria. Do not add points for artistic design, elaborate presentation or recalling old Team Record wording.</p>
+    </section>
+
+    <section class="fallback">
+      <div class="section-heading"><p class="eyebrow">2-CLASS COMPRESSED FALLBACK</p><h2>If the end-of-year calendar collapses</h2></div>
+      <div class="fallback-grid">
+        <article><small>CLASS 1</small><strong>Evidence Vault + Review + Compare Two Outcomes</strong><p>Read the five cards, complete one strong SUPPORTS/LIMITS/PROTECTS/UNCERTAIN entry per lens, compare exactly two outcomes, and select a draft directive.</p></article>
+        <article><small>CLASS 2</small><strong>Directive + Reflection + Closure</strong><p>Finalize human-presence level, scale, three safeguards, protection, uncertainty, next investigation, Council message and individual reflection.</p></article>
+      </div>
+      <p class="note">Cut gallery walks and presentations first. Do not cut the five-lens evidence review, uncertainty, safeguards or individual reflection.</p>
+    </section>
+
+    <section class="contingencies">
+      <div class="section-heading"><p class="eyebrow">COMMON END-OF-YEAR CONTINGENCIES</p><h2>Keep the reasoning, not the ceremony</h2></div>
+      <div class="contingency-grid">
+        <article><strong>Phase 5 posting missing</strong><span>Use the teacher-assigned Phase 5 continent and restore it through the Phase 5 hub. Do not assign a new continent in the Council.</span></article>
+        <article><strong>Students want old assignments</strong><span>Redirect to the five Evidence Vault cards. The capstone is intentionally archive-light.</span></article>
+        <article><strong>Students pick an answer immediately</strong><span>Require the Five-Lens Review and comparison of two plausible outcomes before a directive is accepted.</span></article>
+        <article><strong>Students ignore environmental safeguards</strong><span>Remind them that three non-negotiable safeguards and a protection statement are required parts of the final record.</span></article>
+        <article><strong>Students think “delay” means failure</strong><span>Reframe it as a scientific decision when a critical uncertainty remains.</span></article>
+        <article><strong>Teams disagree</strong><span>Ask which claim is better supported by the Evidence Vault; allow a mixed directive if the evidence supports it.</span></article>
+        <article><strong>A class is lost</strong><span>Switch to the approved two-class compressed pathway.</span></article>
+        <article><strong>Printing/device failure</strong><span>Project the five evidence cards and use ordinary lined paper for the review/directive. No special template is required.</span></article>
+      </div>
+    </section>
+
+    <section class="closure">
+      <p class="eyebrow">YEAR-LONG STORY CLOSURE</p><h2>End with evidence—not conquest.</h2>
+      <p>Avoid treating permanent settlement as the “successful” ending. The project is complete when students can make a defensible, revisable Council directive from multiple scientific constraints. Some teams may support long-term presence, some seasonal or research-only presence, some protection, and some delay for more evidence.</p>
+      <blockquote>“Jabberwocky was never a puzzle with one correct answer. Science gave JCEC stronger evidence, clearer limits, better questions and reasons to protect systems that cannot simply be replaced.”</blockquote>
+    </section>
+
+    <section class="ready-audit">
+      <p class="eyebrow">TEACHER LAUNCH-READINESS</p><h2>Final check</h2>
+      <div class="check-grid">
+        <span>✓ Do I know what to prepare tomorrow?</span>
+        <span>✓ Do I know what students finish each class?</span>
+        <span>✓ Can the Council run with no purchases?</span>
+        <span>✓ Do all five science phases appear?</span>
+        <span>✓ Is uncertainty allowed to change the decision?</span>
+        <span>✓ Are safeguards part of the directive?</span>
+        <span>✓ Is there only one final Team Record?</span>
+        <span>✓ Is the individual reflection clear?</span>
+        <span>✓ Can I switch to the two-class fallback?</span>
+        <span>✓ Does Mission 2190 clearly end here?</span>
+      </div>
+      <a href={council}>Open the student Mission 2190 Council →</a>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+:global(body){background:#08131f}.teacher-shell{max-width:1160px;margin:0 auto;padding:0 1rem 5rem;color:#edf4fa}.teacher-shell :global(.breadcrumbs){color:#91a6bb}.teacher-shell :global(.breadcrumbs a){color:#dcebf7}.eyebrow{margin:0;color:#f0be68;font:850 .71rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em}.teacher-hero{display:grid;grid-template-columns:1fr 330px;gap:1.3rem;margin:1rem 0;padding:2rem;border:1px solid #3d607f;border-radius:22px;background:linear-gradient(145deg,#0b1d31,#172c43)}.teacher-hero h1{margin:.4rem 0;color:#fff;font-size:clamp(2.7rem,7vw,5rem);line-height:.9}.teacher-hero h1 span{color:#f0be68}.teacher-hero p{color:#b7c8d6;line-height:1.6}.teacher-hero aside{display:grid;gap:.35rem;padding:1rem;border:1px solid #4d6e88;border-radius:13px;background:#071522}.teacher-hero aside span{color:#f0be68;font-size:.64rem;font-weight:900}.teacher-hero aside strong{color:#fff;line-height:1.45}.teacher-hero aside small{color:#8fa4b3}.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin:1rem 0}.quick-grid article,.materials-grid article,.assessment-grid article{display:grid;gap:.18rem;padding:.8rem;border:1px solid #314d65;border-radius:10px;background:#0b1825}.quick-grid small,.materials-grid small{color:#f0be68;font-size:.6rem;font-weight:900}.quick-grid strong,.materials-grid strong,.assessment-grid strong{color:#fff}.materials-grid span,.assessment-grid span{color:#97aab9;font-size:.73rem}.guardrails,.days,.materials,.evidence-system,.assessment,.fallback,.contingencies,.closure,.ready-audit{margin:1.2rem 0;padding:1.1rem;border:1px solid #304d66;border-radius:16px;background:#0a1825}.guard-grid,.materials-grid,.assessment-grid,.contingency-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem;margin-top:.7rem}.guard-grid article,.contingency-grid article{display:grid;gap:.2rem;padding:.75rem;border-radius:9px;background:#07131f}.guard-grid strong,.contingency-grid strong{color:#fff;font-size:.75rem}.guard-grid span,.contingency-grid span{color:#94a8b7;font-size:.72rem;line-height:1.45}.section-heading h2{margin:.25rem 0;color:#fff}.day-card{margin:.85rem 0;border:1px solid #35536c;border-radius:12px;background:#07131f;overflow:hidden}.day-card header{display:flex;gap:.7rem;align-items:center;padding:.7rem .8rem;background:#102337}.day-card header span{padding:.3rem .45rem;border-radius:999px;background:#f0be68;color:#251706;font-size:.62rem;font-weight:900}.day-card h3{margin:0;color:#fff}.day-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;padding:.7rem}.day-grid>div{padding:.65rem;border:1px solid #263e52;border-radius:8px}.day-grid .wide{grid-column:1/-1}.day-grid small{color:#8fc1e3;font-size:.6rem;font-weight:900}.day-grid p{margin:.22rem 0 0;color:#afc0cd;font-size:.75rem;line-height:1.45}.lens-list{display:grid;gap:.45rem}.lens-list article{display:grid;grid-template-columns:32px 1fr auto;gap:.55rem;align-items:center;padding:.65rem;border-radius:9px;background:#07131f}.lens-list b{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#23445e;color:#fff}.lens-list strong{color:#fff;font-size:.76rem}.lens-list span{color:#f0be68;font-size:.64rem;font-weight:900}.note{margin:.7rem 0 0;padding:.75rem;border-radius:9px;background:#15283a;color:#b9c8d3;line-height:1.5}.fallback-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}.fallback-grid article{padding:.8rem;border-radius:10px;background:#07131f}.fallback-grid small{color:#f0be68;font-weight:900}.fallback-grid strong{display:block;margin:.15rem 0;color:#fff}.fallback-grid p{color:#9eafbb}.closure blockquote{margin:1rem 0 0;padding:1rem;border-left:4px solid #73a866;background:#0c2114;color:#d6ead8;font-weight:750}.check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.45rem;margin:.7rem 0}.check-grid span{padding:.6rem;border-radius:8px;background:#07131f;color:#b9c9d5;font-size:.76rem}.ready-audit>a{display:inline-flex;margin-top:.4rem;padding:.65rem .8rem;border-radius:8px;background:#f0be68;color:#251706;text-decoration:none;font-weight:900}
+@media(max-width:800px){.teacher-hero,.quick-grid{grid-template-columns:1fr}.guard-grid,.materials-grid,.assessment-grid,.contingency-grid,.day-grid,.fallback-grid,.check-grid{grid-template-columns:1fr}.day-grid .wide{grid-column:auto}.lens-list article{grid-template-columns:30px 1fr}.lens-list span{grid-column:2}}
+</style>
