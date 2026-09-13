@@ -1,0 +1,192 @@
+---
+const pathname = Astro.url.pathname;
+const phase4Root = '/courses/grade-7-science/jabberwocky/phase-4/';
+const isPhase4 = pathname.includes(phase4Root);
+const isTeacherGuide = pathname.includes(`${phase4Root}teacher-launch-guide/`);
+const missionMatch = pathname.match(/\/phase-4\/mission-([1-5])\//);
+const missionNumber = missionMatch ? Number(missionMatch[1]) : null;
+
+const records = {
+  1: {
+    title: 'New Horizon Requirements Card',
+    source: 'Official Team Record · Field File Page 2',
+    prompts: [
+      'Inherited environment finding',
+      'Inherited thermal finding',
+      'Inherited ecological finding',
+      'Inherited site / load finding',
+      'Research-district purpose',
+      'Performance requirement 1 + why it matters',
+      'Performance requirement 2 + why it matters',
+      'Performance requirement 3 + why it matters',
+      'Likely structural form choice(s) + reason',
+      'One likely failure if the evidence is ignored',
+      'Tentative Primary Structural Test Building'
+    ],
+    note: 'Keep the Primary Building choice tentative. Requirements come before a final structural solution.'
+  },
+  2: {
+    title: 'Structural Force Map',
+    source: 'Official Team Record · Field File Page 7',
+    prompts: [
+      'Mass vs force mini-check: state the units and explain the difference',
+      'External load / force arrows on the Primary Structural Test Building',
+      'Internal-force labels: tension, compression, shearing and/or bending',
+      'Friction example, if relevant',
+      'Priority load / force risk',
+      'Likely failure if that risk is ignored',
+      'Where the priority force acts on the Primary Building',
+      'How force evidence should influence the structure'
+    ],
+    note: 'Use the actual Primary Structural Test Building as the application object. The diagram is Science evidence, not architectural art.'
+  },
+  3: {
+    title: 'Material & Joint Recommendation',
+    source: 'Official Science Team Record · Field File Pages 8–9',
+    prompts: [
+      'Investigation question + operational definitions',
+      'Fair test: what changes, what is measured, what stays the same',
+      'Load–deformation evidence and graph',
+      'Fixed / flexible joint evidence',
+      'Structural part / job being recommended for',
+      'Required material property',
+      'Numerical test evidence supporting the recommendation',
+      'Recommended joint approach + reason',
+      'How the recommendation fits the continent / structural need',
+      'One limitation or uncertainty'
+    ],
+    note: 'Page 10 is separate individual Math resource evidence. It is not part of this Science Team Record or Science grade.'
+  },
+  4: {
+    title: 'New Horizon Safety Protocol',
+    source: 'Official Team Record · Field File Pages 11–13',
+    prompts: [
+      'Primary Building baseline test evidence',
+      'One stability weakness identified from evidence',
+      'Possible improvement 1',
+      'Possible improvement 2',
+      'Chosen modification + reason',
+      'Retest evidence using the same comparison',
+      'Main stability risk',
+      'Foundation / mass-distribution safety rule',
+      'Strengthening technique or structural safeguard',
+      'Environmental / site condition the protocol must respect',
+      'Margin-of-safety rule',
+      'One remaining uncertainty',
+      'Final Build Readiness check'
+    ],
+    note: 'The Primary Structural Test Building is the normal test object. Use a standardized reference model or fallback dataset only when Primary Buildings are too different for a fair comparison.'
+  },
+  5: {
+    title: 'JCEC New Horizon Structural Authorization',
+    source: 'Official Team Record · Field File Page 14',
+    prompts: [
+      'Review the six JCEC lenses: function, reliability, safety, material efficiency, construction/resource demand and environmental responsibility',
+      'Evidence from Mission 1 requirements',
+      'Evidence from Mission 2 forces',
+      'Evidence from Mission 3 materials / joints',
+      'Evidence from Mission 4 stability / safety',
+      'Use evidence from at least three missions in the final reasoning',
+      'Authorization status: Proceed / Proceed after modifications / Limit the build / Hold for more evidence',
+      'Final JCEC message: 3–5 evidence-based sentences'
+    ],
+    note: 'Use the completed CityScape as an evidence object. Do not build a second model. Structural authorization is not the final Mission 2190 settlement decision.'
+  }
+};
+
+const record = missionNumber ? records[missionNumber] : null;
+---
+
+{isPhase4 && record && (
+  <template id="jcec-cityscape-packet-record">
+    <section class="cityscape-packet-record" data-packet-aligned-record={`mission-${missionNumber}`}>
+      <div class="cityscape-record-heading">
+        <div><small>TEAM RECORD · PACKET ALIGNED</small><h3>{record.title}</h3></div>
+        <span>{record.source}</span>
+      </div>
+      <p class="cityscape-record-instruction">Complete these prompts in the approved <strong>Project New Horizon — JCEC CityScape Field File</strong>. This on-screen record mirrors the evidence your team submits.</p>
+      <div class="cityscape-record-grid">
+        {record.prompts.map((prompt, index) => (
+          <div class="cityscape-record-field"><b>{index + 1}</b><span>{prompt}</span><i aria-hidden="true"></i></div>
+        ))}
+      </div>
+      <p class="cityscape-record-note"><strong>Project boundary:</strong> {record.note}</p>
+    </section>
+  </template>
+)}
+
+{isPhase4 && (
+<script is:inline define:vars={{ missionNumber, isTeacherGuide }}>
+(() => {
+  const run = () => {
+    if (missionNumber) {
+      const recordRoot = document.querySelector('#record');
+      const legacyRecord = recordRoot?.querySelector('.team-record, .record-card');
+      const template = document.getElementById('jcec-cityscape-packet-record');
+      if (legacyRecord && template?.content?.firstElementChild) {
+        legacyRecord.replaceWith(template.content.firstElementChild.cloneNode(true));
+      }
+    }
+
+    if (missionNumber === 4) {
+      const briefing = document.querySelector('#phase4-mission4 #your-mission .briefing p');
+      if (briefing) briefing.innerHTML = 'Mission 3 tested material samples and joint behaviour. Now JCEC needs to know whether the <strong>whole structural system</strong> will stay stable. A structure can use good materials and still tip, shift or fail if its foundation, mass distribution or overall arrangement creates a weakness. Your team will test its <strong>Primary Structural Test Building</strong> when a fair comparison is possible, identify one weakness, propose alternatives, make one change and retest it. If Primary Buildings are too different to compare fairly, your teacher may use the standardized reference model or fallback dataset first.';
+
+      const investigationTitle = document.querySelector('#phase4-mission4 #investigate .investigation-block > .block-title h3');
+      if (investigationTitle) investigationTitle.textContent = 'Primary Building Stability & Improvement Investigation';
+
+      const investigationIntro = document.querySelector('#phase4-mission4 #investigate .investigation-block > p');
+      if (investigationIntro) investigationIntro.innerHTML = 'Use your <strong>Primary Structural Test Building</strong> for the baseline → weakness → alternatives → modify → retest cycle whenever that produces a fair comparison. If team models are too different, use the teacher-supplied standardized reference model or fallback dataset for the controlled comparison, then apply the stability principle back to your CityScape. The reference model is the fallback, not the default.';
+    }
+
+    if (isTeacherGuide) {
+      const replacements = new Map([
+        ['Prepare one standardized small baseline model per team or shared station; choose stability comparison and test ceiling.', 'Have teams bring their Primary Structural Test Building; keep one standardized reference model or fallback dataset ready only if team models are too different for a fair comparison; choose the stability comparison and test ceiling.'],
+        ['Set identical/near-identical baseline models; choose one repeatable disturbance; post maximum load.', 'Use each team’s Primary Structural Test Building when the comparison is fair. If Primary Buildings are too different, use one standardized teacher reference model or fallback dataset; choose one repeatable disturbance and post the maximum load.'],
+        ['Standardized small models; small loads; string/tilt method; evidence sheet.', 'Primary Structural Test Buildings; one standardized reference model only if needed; small loads; string/tilt method; evidence sheet.'],
+        ['Standardized Stability & Improvement Investigation', 'Primary Building Stability & Improvement Investigation'],
+        ['Baseline stability models behave differently', 'Primary Structural Test Buildings are too different for a fair comparison'],
+        ['Treat the variation as evidence about uncontrolled variables; use one teacher reference model or the fallback dataset for comparison.', 'Use one teacher reference model or the fallback dataset for the controlled comparison, then have teams apply the stability principle back to their own Primary Building.']
+      ]);
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      let node;
+      while ((node = walker.nextNode())) {
+        let value = node.nodeValue;
+        if (!value) continue;
+        for (const [from, to] of replacements) {
+          if (value.includes(from)) value = value.replace(from, to);
+        }
+        node.nodeValue = value;
+      }
+    }
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run, { once:true });
+  else run();
+})();
+</script>
+)}
+
+<style>
+  .cityscape-packet-record {
+    padding: 1rem;
+    border: 1px solid #5b6670;
+    border-radius: 13px;
+    background: linear-gradient(145deg,#0d1419,#151e25);
+    color: #edf2f5;
+  }
+  .cityscape-record-heading { display:flex; justify-content:space-between; gap:1rem; align-items:flex-end; }
+  .cityscape-record-heading small { color:#f2b35d; font-size:.64rem; font-weight:900; letter-spacing:.08em; }
+  .cityscape-record-heading h3 { margin:.15rem 0 0; color:#fff; font-size:1.15rem; }
+  .cityscape-record-heading > span { max-width:300px; color:#aeb9c2; font-size:.72rem; font-weight:800; text-align:right; }
+  .cityscape-record-instruction,.cityscape-record-note { margin:.7rem 0 0; color:#c4cdd4; font-size:.8rem; line-height:1.5; }
+  .cityscape-record-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem; margin-top:.75rem; }
+  .cityscape-record-field { display:grid; grid-template-columns:24px 1fr; gap:.45rem; align-items:start; min-height:72px; padding:.65rem; border:1px solid #3d4953; border-radius:9px; background:#0a1015; }
+  .cityscape-record-field b { display:grid; place-items:center; width:22px; height:22px; border-radius:50%; background:#f2b35d; color:#241605; font-size:.68rem; }
+  .cityscape-record-field span { color:#e3e9ed; font-size:.77rem; line-height:1.35; font-weight:750; }
+  .cityscape-record-field i { grid-column:2; display:block; min-height:20px; border-bottom:1px solid #4e5b66; }
+  .cityscape-record-note { padding:.65rem .75rem; border-left:3px solid #f2b35d; background:#1e2830; }
+  .cityscape-record-note strong { color:#fff; }
+  @media (max-width:700px){ .cityscape-record-heading{align-items:flex-start;flex-direction:column}.cityscape-record-heading>span{text-align:left}.cityscape-record-grid{grid-template-columns:1fr} }
+  @media print { .cityscape-packet-record { break-inside:avoid; } }
+</style>
