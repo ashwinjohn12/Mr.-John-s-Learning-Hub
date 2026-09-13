@@ -13,6 +13,7 @@ export interface Phase5GeologicalSite {
   };
   mission1SurveyPacket: string[];
   mission2RockHistoryClues: string[];
+  mission3SurfaceChangeClues: string[];
 }
 
 export const phase5GeologicalSites: Phase5GeologicalSite[] = [
@@ -34,6 +35,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'Several outcrop layers contain visibly different grain sizes, but JCEC has not confirmed whether they are one rock type or several.',
       'Some loose fragments appear similar in colour and texture to nearby exposed layers; others do not.',
       'Layering is consistent with a history involving deposition, but the present survey does not prove exactly how or when those layers formed.'
+    ],
+    mission3SurfaceChangeClues: [
+      'Loose angular fragments sit on steep or exposed ground near bedrock, so breakdown and later movement are both worth monitoring.',
+      'Surface sediment is thin and patchy, meaning a small amount of material movement could expose more rock in one place and build a deposit in another.',
+      'Fragile mountain soils make JCEC especially cautious about any process that removes or redistributes surface material.'
     ]
   },
   {
@@ -54,6 +60,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'Rounded stream particles show that transport has changed some surface material, so loose sediment is not automatically the same as the rock beneath it.',
       'Fine material occurs in quiet-water deposits while coarser particles remain in faster-moving areas.',
       'The survey supports transport and deposition, but it does not yet establish the rock class of buried or weathered bedrock.'
+    ],
+    mission3SurfaceChangeClues: [
+      'Strongly weathered surfaces show that exposed material is already breaking down in the humid environment.',
+      'Rounded stream grains and pebbles show that moving water transports surface material.',
+      'Fine sediment collecting beside slower water gives direct evidence of deposition as well as erosion elsewhere.'
     ]
   },
   {
@@ -74,6 +85,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'Some solid coastal exposures show visible layers; nearby rounded pebbles are loose and may have travelled before deposition.',
       'Bands of sand contain particles of more than one colour and grain size.',
       'The evidence supports more than one stage of geological change, but it does not prove one rock class for the entire island.'
+    ],
+    mission3SurfaceChangeClues: [
+      'Rounded shoreline pebbles show that coastal material has been moved and worn during transport.',
+      'Bands of sand and other sediment show that material is also being deposited along parts of the coast.',
+      'The established storm season can change how much shoreline material moves, but JCEC has no exact erosion rate for this site.'
     ]
   },
   {
@@ -94,6 +110,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'Fragments beside some exposures share visible texture with nearby rock, suggesting they may have broken from local material.',
       'Other loose sediment is more sorted by grain size and may have been moved before it settled.',
       'Fractures and loose particles do not by themselves identify an igneous, sedimentary or metamorphic origin.'
+    ],
+    mission3SurfaceChangeClues: [
+      'Fractured exposed rock and nearby angular fragments are consistent with surface breakdown, but they do not identify one weathering mechanism by themselves.',
+      'Loose sediment is sorted differently from place to place, showing that some material has been moved and redeposited.',
+      'Dry storms are already part of the site canon, so JCEC can consider sediment movement without inventing a new geological hazard.'
     ]
   },
   {
@@ -114,6 +135,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'Some exposed surfaces show small visible grains, but the current survey does not show enough detail to confirm a rock class.',
       'Angular debris near the exposure is consistent with local breakdown rather than long transport.',
       'Seasonal sediment deposits record a later surface process and should not be mistaken for evidence of how the original rock first formed.'
+    ],
+    mission3SurfaceChangeClues: [
+      'Fractured surfaces and angular debris show that exposed material is breaking down near the outcrop.',
+      'Small seasonal meltwater deposits show that loose sediment can be transported and then deposited over short surface pathways.',
+      'Because ecosystems recover slowly, even modest repeated surface disturbance matters to JCEC monitoring.'
     ]
   },
   {
@@ -134,6 +160,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'The layered sediment includes sand-sized material and gravel, but loose sediment is not automatically sedimentary rock.',
       'The few solid rock exposures are too limited for JCEC to assume one rock class across the site.',
       'The strongest current history may describe sediment transport and deposition while leaving the underlying bedrock origin unresolved.'
+    ],
+    mission3SurfaceChangeClues: [
+      'Productive prairie soil covers most of the site, so monitoring surface-material loss matters more immediately than identifying deep bedrock.',
+      'Layered loose sediment and gravel show that material has been transported and deposited at different times.',
+      'Open terrain can expose loose surface material to movement, but JCEC has not measured a site-wide erosion rate.'
     ]
   },
   {
@@ -154,6 +185,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'The exposed outcrop contains more than one visible grain type, but weathering makes some original features difficult to interpret.',
       'Rounded stream sediment has been transported and may include material from beyond the immediate survey point.',
       'The current evidence can support a cautious rock-history hypothesis, not a site-wide rock identity.'
+    ],
+    mission3SurfaceChangeClues: [
+      'The outcrop surface is visibly weathered, showing that exposed material is breaking down beneath the forest cover.',
+      'Rounded grains and pebbles in the stream show transport, while quieter stream-edge areas can collect deposited material.',
+      'Because most ground is protected by soil and vegetation, JCEC should not assume the same surface-change rate everywhere.'
     ]
   },
   {
@@ -174,6 +210,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'Fine layered sediment shows repeated deposition, but loose wetland sediment is not yet rock.',
       'Some layers contain different proportions of mineral grains and organic material, recording changing surface conditions.',
       'Because solid bedrock is scarcely exposed, “not enough evidence yet” may be the strongest rock-class conclusion.'
+    ],
+    mission3SurfaceChangeClues: [
+      'Fine saturated layers show repeated deposition in a low-energy wetland setting.',
+      'Very little bedrock is exposed, so JCEC can monitor sediment movement and settling without claiming a bedrock weathering rate.',
+      'The no-drainage rule means the survey must study natural wetland sediment patterns without changing water storage to make them easier to see.'
     ]
   }
 ];
