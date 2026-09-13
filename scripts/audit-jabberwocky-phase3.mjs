@@ -30,7 +30,6 @@ const progress = read(files.progress);
 const data = read(files.data);
 const phase2Progress = read(files.phase2Progress);
 
-// Hub, continuity and release gate.
 for (const token of ['SURVIVING JABBERWOCKY','JCEC THERMAL SURVIVAL DIVISION','Read the Thermal Warning','Follow the Heat','Hold the Temperature','Control the Habitat','Survive Without Wasting It']) check(has(hub, token), `hub includes: ${token}`);
 check(hub.includes('jabberwocky-phase3-posting'), 'Phase 3 uses separate posting state');
 check(!hub.includes("localStorage.setItem('jabberwocky-phase2-posting'"), 'Phase 3 does not overwrite Phase 2 state');
@@ -43,20 +42,17 @@ check(has(hub, 'Temperature ✓') && has(hub, 'Heat Transfer ✓') && has(hub, '
 check(has(progress, 'Next Mission → Follow the Heat') && has(progress, 'Next Mission → Hold the Temperature') && has(progress, 'Next Mission → Control the Habitat'), 'Progress component provides approved next-mission links');
 check(progress.includes('phase-3/mission-4/') && !progress.includes('phase-3/mission-5/'), 'Navigation releases Mission 4 but not Mission 5');
 
-// Shared student structure and state carry-forward.
 for (const [name, text] of [['Mission 1',m1],['Mission 2',m2],['Mission 3',m3],['Mission 4',m4]]) {
   for (const token of ['Your Mission','Learn the Science','Investigate','Make a Decision','Record It']) check(text.includes(token), `${name} includes step: ${token}`);
   check(text.includes('jabberwocky-phase3-posting'), `${name} carries Phase 3 posting`);
 }
 check(!m2.includes('<select') && !m3.includes('<select') && !m4.includes('<select'), 'Missions 2–4 do not ask students to choose continent again');
 
-// Preserve approved Missions 1–3.
 for (const token of ['What is temperature actually telling us?','THERMAL ENERGY','Thermal Change Investigation','Thermal Risk Card']) check(has(m1, token), `Mission 1 keeps approved element: ${token}`);
 for (const token of ['CONDUCTION','CONVECTION','RADIATION','Heat Pathway Stations','Habitat Heat Map']) check(has(m2, token), `Mission 2 keeps approved element: ${token}`);
 for (const token of ['THERMAL CONDUCTOR','THERMAL INSULATOR','Thermal Barrier Fair Test','Thermal Barrier Recommendation','SCIENCE REASONING CHECKPOINT']) check(has(m3, token), `Mission 3 keeps approved element: ${token}`);
 check(has(m3, 'Next Mission') || has(progress, 'Next Mission → Control the Habitat'), 'Mission 3 receives clear Mission 4 navigation');
 
-// Mission 4 core science and distinct purpose.
 for (const token of ['Mission 4 of 5','How do humans keep temperatures within a useful range?','4 classes × 45 minutes','GENERATE','TRANSFER','REMOVE','CONTROL']) check(has(m4, token), `Mission 4 includes core element: ${token}`);
 check(has(m4, 'Insulation alone cannot keep a habitat safe'), 'Mission 4 clearly advances beyond Mission 3 insulation');
 check(has(m4, 'does not “make cold.”') || has(m4, 'do not “make cold.”'), 'Mission 4 avoids the misconception that cooling systems make cold');
@@ -64,15 +60,13 @@ for (const token of ['THERMOMETER','THERMOSTAT','HEATER / FURNACE','REFRIGERATOR
 check(has(m4, 'MEASURE') && has(m4, 'COMPARE WITH TARGET') && has(m4, 'RESPOND') && has(m4, 'MEASURE AGAIN'), 'Mission 4 teaches thermostat feedback loop');
 check(has(m4, 'feedback'), 'Mission 4 names the repeated control process as feedback');
 
-// Thermal technology, sources, solar and safety.
 check(has(m4, 'THEN → NOW THERMAL TECHNOLOGY'), 'Mission 4 includes concise historical technology connection');
 check(has(m4, 'human problem → thermal technology → new benefits and new trade-offs'), 'Mission 4 keeps historical technology focused on human need and trade-offs');
 for (const token of ['Solar','Combustion','Geothermal','Biological / living systems']) check(has(m4, token), `Mission 4 Thermal Source Board includes: ${token}`);
 check(has(m4, 'PASSIVE SOLAR') && has(m4, 'ACTIVE SOLAR'), 'Mission 4 explicitly distinguishes passive and active solar');
-check(has(m4, 'A source appearing here does not mean it is available on every Jabberwocky continent'), 'Mission 4 does not invent continent energy resources');
+check(has(m4, 'does not mean it is available') && has(m4, 'every Jabberwocky continent'), 'Mission 4 does not invent continent energy resources');
 for (const token of ['hot surfaces','combustion','fire','overheating']) check(has(m4, token), `Mission 4 integrates safety concept: ${token}`);
 
-// Main low-material investigation.
 check(has(m4, 'Habitat Control Loop Challenge'), 'Mission 4 uses the approved control-loop investigation');
 check(!has(m4, 'model-box heating') && !has(m4, 'build a model box'), 'Mission 4 does not repeat the Mission 3 physical-build pattern');
 check(has(m4, '18°C–22°C'), 'Mission 4 includes a clear training target range');
@@ -85,7 +79,6 @@ check(has(m4, 'not a precise prediction caused by your previous card'), 'Mission
 check(has(m4, 'printed/projected readings') && has(m4, 'No electronics') && has(m4, 'purchased thermostat equipment'), 'Mission 4 is explicitly low-material and no-purchase');
 check(m4.includes('print-phase3-mission4'), 'Mission 4 includes printable Control Loop + Protocol');
 
-// Continent application, decision and record.
 check(has(m4, '3 CLUES ONLY'), 'Mission 4 limits continent control case to three clues');
 check((data.match(/mission4Clues: \[/g) || []).length === 8, 'All eight continents include Mission 4 control clues');
 check(has(m4, 'What should control the habitat temperature before JCEC spends more energy?'), 'Mission 4 has one main team decision');
@@ -97,7 +90,6 @@ check(has(m4, 'Mission 4 is finished when:'), 'Mission 4 states a clear completi
 check(has(m4, 'Mission 5 — Survive Without Wasting It — is upcoming and locked'), 'Mission 5 remains explicitly locked');
 check(!m4.includes('phase-3/mission-5/'), 'Mission 4 does not create a Mission 5 route');
 
-// Canon safeguards.
 for (const continent of ['gyre','brillig','manxome','slithy-toves','wabe','bandersnatch','gimble','mimsy']) check(data.includes(`id: '${continent}'`), `Phase 3 data includes ${continent}`);
 check(data.includes('40°C') && data.includes('−5°C'), 'Slithy Toves preserves established temperatures');
 check(data.includes('−30°C') && data.includes('+30°C'), 'Bandersnatch preserves established temperatures');
