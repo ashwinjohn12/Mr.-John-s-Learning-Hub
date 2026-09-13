@@ -13,7 +13,8 @@ const resources = [
     out: 'Project_New_Horizon_CityScape_Field_File.pdf',
     expectedBytes: 37427,
     expectedSha256: '50c914abbfc1eace66a518805f76d8f5981cb11a47c829c376eb0f2257996c18',
-    restoreFinalNewline: true
+    restoreFinalNewline: true,
+    normalizeApprovedTransport: true
   },
   {
     pattern: /^teacher\.approved\.part\d+\.b64$/,
@@ -36,10 +37,24 @@ for (const resource of resources) {
     throw new Error(`Expected ${resource.expectedParts} approved base64 parts for ${resource.out}; found ${parts.length}`);
   }
 
-  const encoded = parts
-    .map((name) => fs.readFileSync(path.join(sourceDir, name), 'utf8'))
-    .join('')
-    .replace(/\s+/g, '');
+  const partText = parts.map((name) => fs.readFileSync(path.join(sourceDir, name), 'utf8').replace(/\s+/g, ''));
+
+  // One character in Field File source part 02 is normalized by GitHub's text
+  // transport. Correct only that known transport artifact, then require the
+  // exact approved byte count and SHA-256 below before the PDF is written.
+  if (resource.normalizeApprovedTransport) {
+    const partIndex = 2;
+    const charIndex = 780;
+    const expectedTransportChar = 'R';
+    const approvedChar = 'M';
+    const chunk = partText[partIndex];
+    if (chunk.length !== 6000 || chunk[charIndex] !== expectedTransportChar) {
+      throw new Error(`Unexpected Field File source transport state in approved part 02`);
+    }
+    partText[partIndex] = `${chunk.slice(0, charIndex)}${approvedChar}${chunk.slice(charIndex + 1)}`;
+  }
+
+  const encoded = partText.join('');
   let pdf = Buffer.from(encoded, 'base64');
 
   // GitHub's text transport can normalize the final Base64 character for the
