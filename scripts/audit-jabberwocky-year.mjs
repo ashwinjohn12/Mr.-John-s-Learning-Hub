@@ -27,7 +27,6 @@ expect(has(release,'FULL YEAR RELEASED'),'student launch remains full-year relea
 expect(has(release,'MISSION 2190 COUNCIL RELEASED'),'final Council remains released');
 expect(has(council,'MISSION 2190 — COUNCIL RECORD COMPLETE'),'Council remains narrative endpoint');
 
-// Posting separation.
 const postingSources = [
   [`${basePath}/phase-1/mission-1/index.astro`,'jabberwocky-phase1-posting'],
   [`${basePath}/phase-2/index.astro`,'jabberwocky-phase2-posting'],
@@ -40,7 +39,6 @@ for (const [file,key] of postingSources) { const text=read(file); expect(has(tex
 expect(new Set(keys).size===5,'all five phase localStorage keys remain separate');
 expect(has(council,'jabberwocky-phase5-posting'),'Council still carries Phase 5 posting');
 
-// Current phase definitions and Team Records.
 const defs = [
   {p:1,unit:'Interactions & Ecosystems',missions:['Explore Your Environment','Meet a Native Species','Build the Ecosystem','Watch the Ecosystem Change','Humans Have Arrived'],records:['Environment Profile','Native Species Card','Ecosystem Map','Ecosystem Change Record','JCEC Recommendation Board'],checkpoint:'Ecosystem Change Record',synthesis:'JCEC Recommendation Board'},
   {p:2,unit:'Plants for Food & Fibre',missions:['Find the Living Resource','Keep It Growing','Build the Growing Zone','Choose the Next Generation','Use It Without Losing It'],records:['Living Resource Profile','Plant Growth Requirements Card','Growing System Recommendation','Plant Variety Decision Card','JCEC Living Resource Plan'],checkpoint:'Growing System Recommendation',synthesis:'JCEC Living Resource Plan'},
@@ -58,7 +56,6 @@ for (const def of defs) {
   def.records.forEach((record,i)=>expect(has(read(`${basePath}/phase-${def.p}/mission-${i+1}/index.astro`),record),`Phase ${def.p} Mission ${i+1} retains ${record}`));
 }
 
-// Revised Phase 3 whole-year references.
 const p3hub=read(`${basePath}/phase-3/index.astro`), p3m2=read(`${basePath}/phase-3/mission-2/index.astro`), p3m3=read(`${basePath}/phase-3/mission-3/index.astro`), p3m4=read(`${basePath}/phase-3/mission-4/index.astro`), p3m5=read(`${basePath}/phase-3/mission-5/index.astro`), p3progress=read('src/components/JcecPhase3Progress.astro'), p3teacher=read(`${basePath}/phase-3/teacher-launch-guide/index.astro`);
 for (const token of ['The Director Is Coming','Thermal Design ✓']) expect(has(p3hub,token),`Phase 3 hub includes ${token}`);
 expect(has(p3progress,'Next Mission → The Director Is Coming'),'Mission 2 navigation points to thermos mission');
@@ -69,9 +66,8 @@ expect(has(p3m4,'Habitat Control Protocol'),'Mission 4 remains unchanged in role
 expect(has(p3progress,'M3 · THERMAL DESIGN'),'Mission 5 locker rendered label uses M3 Thermal Design');
 expect(has(p3progress,'thermos-test result'),'Mission 5 locker receives thermos evidence');
 expect(has(p3m5,'JCEC Thermal Survival Plan'),'Mission 5 synthesis remains intact');
-for (const token of ['Mission 3 · The Director Is Coming','JCEC Thermos Design Report','Prototype Test','Evidence → Redesign','Final Test + JCEC Decision']) expect(has(p3teacher,token),`Phase 3 teacher guide includes ${token}`);
+for (const token of ['Mission 3 — The Director Is Coming','JCEC Thermos Design Report','Prototype Test','Evidence → Redesign','Final Test + JCEC Decision']) expect(has(p3teacher,token),`Phase 3 teacher guide includes ${token}`);
 
-// Teacher dashboard + operations remain navigable.
 expect(has(dashboard,'Before Students Arrive'),'dashboard links teacher operations');
 expect(has(dashboard,'MISSION 2190 COUNCIL'),'dashboard links final Council');
 ['6 hand lenses','6 shallow reusable trays','6 classroom thermometers','6 plastic measuring containers','3 spring scales'].forEach((item)=>expect(has(dashboard,item),`dashboard materials includes ${item}`));
@@ -81,7 +77,6 @@ for (const token of ['standardized inner cups','JCEC Thermos Design Report','sup
 ['6 hand lenses','6 shallow reusable trays','6 classroom thermometers','6 plastic measuring containers','3 spring scales'].forEach((item)=>expect(has(operations,item),`operations inventory includes ${item}`));
 for (const token of ['Chromebooks fail','Printing is unavailable','A lab runs long','Materials are missing','A student is absent','A class is lost','A group loses its saved continent posting']) expect(has(operations,token),`operations recovery includes ${token}`);
 
-// Teacher guides retain core/flex and fallback language.
 for (let p=1;p<=5;p++) {
   const guide=read(`${basePath}/phase-${p}/teacher-launch-guide/index.astro`);
   expect(has(guide,'18 core'),`Phase ${p} teacher guide preserves 18-core pacing`);
@@ -89,11 +84,9 @@ for (let p=1;p<=5;p++) {
   expect(/fallback|shared|reused|no-purchase/i.test(guide),`Phase ${p} teacher guide preserves low-material fallback`);
 }
 
-// Council remains intact and independent of Phase 3 implementation detail.
 for (const token of ['ECOSYSTEM EVIDENCE','PLANT RESOURCE EVIDENCE','THERMAL EVIDENCE','STRUCTURAL EVIDENCE','GEOLOGICAL EVIDENCE','3 NON-NEGOTIABLE SAFEGUARDS','ONE IMPORTANT UNCERTAINTY']) expect(has(council,token),`Council retains ${token}`);
 expect(has(council,'MY REFLECTION'),'Council retains individual reflection');
 
-// Build/audit wiring.
 expect(has(pkg,'audit-jabberwocky-phase3.mjs'),'production build runs Phase 3 readiness audit');
 expect(has(pkg,'audit-jabberwocky-council.mjs'),'production build runs Council audit');
 expect(has(pkg,'audit-jabberwocky-year.mjs'),'production build runs whole-year audit');
