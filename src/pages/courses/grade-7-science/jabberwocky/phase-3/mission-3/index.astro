@@ -1,0 +1,288 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecPhase3Progress from '../../../../../../components/JcecPhase3Progress.astro';
+import { phase3ThermalSites } from '../../../../../../data/jabberwockyPhase3';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Mission 3: Hold the Temperature | Jabberwocky 2190" description="Phase 3 Mission 3: use a fair test to compare thermal barriers and recommend how to slow unwanted thermal-energy transfer." themeColor="#081722">
+  <div class="mission-shell" id="phase3-mission3">
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 7 Science', href: `${base}courses/grade-7-science/` },
+      { label: 'Jabberwocky', href: `${base}courses/grade-7-science/jabberwocky/` },
+      { label: 'Phase 3', href: `${base}courses/grade-7-science/jabberwocky/phase-3/` },
+      { label: 'Mission 3' }
+    ]} />
+
+    <JcecPhase3Progress active={3} compact={true} />
+
+    <header class="mission-hero">
+      <div>
+        <p class="eyebrow">PHASE 3 // MISSION 3 OF 5</p>
+        <h1>HOLD THE <span>TEMPERATURE</span></h1>
+        <p class="question">How can materials and design slow unwanted thermal-energy transfer?</p>
+      </div>
+      <aside>
+        <span>YOU ARE LEARNING</span>
+        <strong>How conductors, insulators and fair tests help JCEC choose a thermal barrier</strong>
+        <small>4 classes × 45 minutes</small>
+      </aside>
+    </header>
+
+    <section class="mission-at-a-glance">
+      <div><small>WHERE AM I?</small><strong>Mission 3 of 5</strong></div>
+      <div><small>WHAT DO I HAND IN?</small><strong>1 Thermal Barrier Recommendation + 1 reflection</strong></div>
+      <div><small>WHY DOES IT MATTER?</small><strong>Before JCEC spends energy on heating or cooling, it should slow unwanted transfer first.</strong></div>
+    </section>
+
+    <nav class="step-nav" aria-label="Mission 3 steps">
+      <a href="#your-mission"><b>1</b><span>Your Mission</span></a>
+      <a href="#learn"><b>2</b><span>Learn</span></a>
+      <a href="#investigate"><b>3</b><span>Investigate</span></a>
+      <a href="#decide"><b>4</b><span>Decide</span></a>
+      <a href="#record"><b>5</b><span>Record It</span></a>
+    </nav>
+
+    <section class="simple-step" id="your-mission">
+      <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
+      <div class="briefing">
+        <p>Your team has already traced how thermal energy can move through a habitat. Now JCEC wants to reduce the unwanted transfer before adding more heaters or coolers. Test thermal-barrier materials fairly, compare real temperature data and decide which material and design idea should protect your habitat first. This is not an engineering competition—the strongest recommendation is the one supported by the clearest evidence.</p>
+      </div>
+
+      <div class="assignment-result" id="assignment-result" hidden>
+        <span id="assignment-icon"></span>
+        <div><small>YOUR PHASE 3 CONTINENT</small><strong id="assignment-name"></strong><p id="assignment-subtitle"></p></div>
+        <div class="challenge-badge"><small>THERMAL CHALLENGE</small><b id="assignment-challenge"></b></div>
+      </div>
+      <div class="carry-forward-note">
+        <strong>Use Mission 2 without recreating it.</strong>
+        <span>If you have your Habitat Heat Map, keep your circled priority pathway nearby. If not, the three continent clues later in this mission give you enough evidence to continue.</span>
+      </div>
+      <div class="missing-assignment" id="missing-assignment" hidden>
+        <strong>Your Phase 3 posting is not saved on this device yet.</strong>
+        <p>Return to the Phase 3 Hub and choose the continent your teacher assigned. Do not create a new posting for this mission.</p>
+        <a href={`${base}courses/grade-7-science/jabberwocky/phase-3/`}>Get Phase 3 posting →</a>
+      </div>
+    </section>
+
+    <section class="simple-step" id="learn">
+      <div class="step-heading"><span>2</span><div><p>CLASS 1</p><h2>Learn the Science</h2></div></div>
+      <p class="step-intro"><strong>New goal:</strong> do not stop thermal energy completely. Slow the unwanted transfer enough to make the habitat easier to control.</p>
+
+      <div class="science-grid four">
+        <article><span>🥄</span><strong>THERMAL CONDUCTOR</strong><p>A material that allows thermal energy to transfer through it comparatively readily.</p></article>
+        <article><span>🧤</span><strong>THERMAL INSULATOR</strong><p>A material that slows thermal-energy transfer. It does not create heat or cold.</p></article>
+        <article><span>🫧</span><strong>TRAPPED AIR CAN HELP</strong><p>Air can slow conduction, and small trapped-air spaces also reduce large convection currents.</p></article>
+        <article><span>🧩</span><strong>DESIGN MATTERS</strong><p>Coverage, gaps and air spaces can change how well a material works as a barrier.</p></article>
+      </div>
+
+      <div class="direction-note">
+        <strong>Insulation does not know which direction is “good.”</strong>
+        <span>A barrier that slows thermal energy leaving a warm habitat can also slow thermal energy entering when the outside is hotter.</span>
+      </div>
+
+      <section class="fair-test-panel">
+        <div><p class="mini-label">THE FAIR-TEST QUESTION</p><h3>Which material slows temperature change most effectively when the other important conditions stay as similar as possible?</h3></div>
+        <div class="fair-grid">
+          <article><small>CHANGE</small><strong>Barrier material</strong><p>This is the variable your class compares.</p></article>
+          <article><small>MEASURE</small><strong>Temperature change</strong><p>Record start and end temperature after the same test time.</p></article>
+          <article><small>KEEP THE SAME</small><strong>Container · water amount · starting temperature · coverage · time</strong><p>The closer these are, the stronger your comparison.</p></article>
+        </div>
+      </section>
+
+      <details class="help-box">
+        <summary>Need Help? Why does a fair test matter?</summary>
+        <div>
+          <p>If one cup has more water, starts much hotter or is wrapped with twice as much material, you cannot tell whether the <em>material</em> caused the difference.</p>
+          <p>A fair test changes one main factor and keeps other important conditions as similar as practical.</p>
+          <p><strong>After the fair test</strong>, you may suggest a design improvement such as reducing gaps or adding a trapped-air layer. Do not mix several design changes into the test itself.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="simple-step" id="investigate">
+      <div class="step-heading"><span>3</span><div><p>CLASSES 1–3</p><h2>Investigate</h2></div></div>
+
+      <section class="investigation-block">
+        <div class="block-title"><div><small>MAIN INVESTIGATION</small><h3>Thermal Barrier Fair Test</h3></div><span>TEAM WORK</span></div>
+        <p><strong>Question:</strong> Which barrier material slows the temperature change of warm water most effectively under the same test conditions?</p>
+
+        <div class="equipment-strip">
+          <strong>Shared supplies:</strong>
+          <span>identical reused cups/containers</span><span>warm water</span><span>shared thermometers</span><span>timer</span><span>equal-size barrier pieces</span><span>paper / cardboard / fabric / other teacher-approved reused materials</span>
+        </div>
+        <div class="safety-strip"><strong>Safety:</strong><span>Warm water only—no boiling water. Handle thermometers carefully. Keep water away from devices and electrical equipment.</span></div>
+
+        <div class="recommended-mode">
+          <p class="mini-label">LOW-MATERIAL CLASSROOM MODE</p>
+          <h4>Use matched control + barrier setups at shared stations</h4>
+          <p>Your teacher can assign different materials to different teams or stations. Each setup compares one barrier with an unwrapped control. The class then combines the results. This reduces the number of thermometers and materials needed.</p>
+        </div>
+
+        <ol class="simple-procedure">
+          <li>Label two identical containers: <strong>CONTROL</strong> and <strong>BARRIER</strong>.</li>
+          <li>Add the same amount of warm water to both. Record starting temperatures as close together in time as possible.</li>
+          <li>Wrap the BARRIER container with the assigned material using the teacher-set amount and coverage. Leave the CONTROL unwrapped.</li>
+          <li>Keep both containers in the same location for the same amount of time—about 10 minutes works well.</li>
+          <li>Record ending temperatures and calculate each temperature change. Add your result to the class evidence table.</li>
+        </ol>
+
+        <div class="data-table-preview">
+          <div class="data-head"><span>SETUP</span><span>START °C</span><span>END °C</span><span>TEMP. CHANGE °C</span></div>
+          <div><strong>Control</strong><span>_____</span><span>_____</span><span>_____</span></div>
+          <div><strong>Barrier: __________</strong><span>_____</span><span>_____</span><span>_____</span></div>
+        </div>
+        <p class="calculation-note"><strong>Cooling test:</strong> temperature change = starting temperature − ending temperature. A smaller change means the setup slowed heat loss more during this test.</p>
+
+        <section class="class-evidence">
+          <p class="mini-label">CLASS EVIDENCE</p>
+          <h4>Combine results before deciding</h4>
+          <p>Record each tested material and its temperature change. Make one simple class bar graph: <strong>barrier material → temperature change (°C)</strong>.</p>
+          <div class="graph-note"><span>Smaller temperature change in this cooling test</span><b>→</b><strong>slower unwanted thermal-energy transfer</strong></div>
+          <div class="discrepancy-prompt"><strong>Science check:</strong><span>Did any result not fit the overall pattern? What might explain it—starting temperature, coverage, timing, measurement or another variable?</span></div>
+        </section>
+
+        <details class="fallback-evidence">
+          <summary>No-purchase fallback: JCEC backup dataset</summary>
+          <div class="backup-table">
+            <div class="data-head"><span>BARRIER</span><span>START °C</span><span>END °C</span><span>CHANGE °C</span></div>
+            <div><strong>No barrier</strong><span>60</span><span>46</span><span>14</span></div>
+            <div><strong>Cardboard sleeve</strong><span>60</span><span>51</span><span>9</span></div>
+            <div><strong>Fabric layer</strong><span>60</span><span>53</span><span>7</span></div>
+            <div><strong>Paper + trapped-air sleeve</strong><span>60</span><span>55</span><span>5</span></div>
+          </div>
+          <p>Use this only if physical testing is not practical or if a class dataset fails. These are model data for reasoning practice—not a universal ranking of materials in every situation.</p>
+        </details>
+
+        <div class="fallback-note"><strong>Low-material rule:</strong><span>Shared thermometers, reused containers and classroom/recycled barrier materials are enough. If the physical test cannot run, use the backup dataset rather than purchasing specialty insulation or sensors.</span></div>
+        <button type="button" class="small-button" id="print-phase3-mission3">Print Mission 3 fair-test sheet + recommendation</button>
+      </section>
+
+      <section class="continent-case">
+        <div class="block-title"><div><small>CLASS 3</small><h3>Your Continent Barrier Case</h3></div><span>3 CLUES ONLY</span></div>
+        <p>Now connect the fair-test evidence to your continent. The same material does not automatically solve every thermal problem.</p>
+        <div class="no-continent" id="no-continent"><strong>Phase 3 continent not found.</strong><a href={`${base}courses/grade-7-science/jabberwocky/phase-3/`}>Return to Phase 3 Hub →</a></div>
+        <div id="barrier-files" hidden>
+          {phase3ThermalSites.map((site) => (
+            <article class="barrier-file" data-barrier-file={site.id} hidden>
+              <header><span>{site.icon}</span><div><small>{site.name} · {site.subtitle}</small><h3>{site.thermalChallenge}</h3></div></header>
+              <div class="clue-grid">{site.mission3Clues.map((clue, index) => <article><b>{index + 1}</b><p>{clue}</p></article>)}</div>
+              <div class="restriction"><small>DEVELOPMENT LIMIT STILL ACTIVE</small><p>{site.previousTeamThermalBriefing.developmentRestriction}</p></div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </section>
+
+    <section class="simple-step" id="decide">
+      <div class="step-heading"><span>4</span><div><p>CLASSES 3–4</p><h2>Make a Decision</h2></div></div>
+      <div class="decision-card">
+        <p class="mini-label">ONE TEAM QUESTION</p>
+        <h3>Which material/design strategy should protect our habitat first?</h3>
+        <p class="decision-note">Use the fair-test result first. Then add one practical design idea—such as full coverage, reducing gaps or using a trapped-air layer—that fits your continent.</p>
+        <div class="reasoning-frame three">
+          <div><strong>CLAIM</strong><span>We recommend ______.</span></div>
+          <div><strong>DATA</strong><span>Our fair-test evidence shows ______ °C of temperature change.</span></div>
+          <div><strong>THERMAL EXPLANATION</strong><span>This suggests the barrier slowed ______ transfer because ______.</span></div>
+        </div>
+        <div class="limitation-frame"><strong>LIMITATION / UNCERTAINTY</strong><span>One thing our test does not prove—or one continent problem we still need to solve—is ______.</span></div>
+      </div>
+    </section>
+
+    <section class="simple-step" id="record">
+      <div class="step-heading"><span>5</span><div><p>CLASS 4</p><h2>Record It</h2></div></div>
+      <div class="handoff-strip"><span>👥 <strong>TEAM WORK</strong> compare</span><i>→</i><span>📝 <strong>TEAM RECORD</strong> one recommendation</span><i>→</i><span>💭 <strong>MY REFLECTION</strong> everyone answers</span></div>
+
+      <div class="checkpoint-note"><strong>SCIENCE REASONING CHECKPOINT</strong><span>Your teacher is looking at the fairness of your evidence and the science in your explanation—not decoration or model appearance.</span></div>
+
+      <div class="team-record">
+        <div class="record-heading"><div><p class="mini-label">TEAM RECORD</p><h3>Thermal Barrier Recommendation</h3></div><span>ONE PER TEAM</span></div>
+        <p>Keep it to one page. Record only the evidence another JCEC team would need.</p>
+        <div class="profile-checklist">
+          <label><input type="checkbox" /> continent + thermal challenge</label>
+          <label><input type="checkbox" /> barrier material we tested</label>
+          <label><input type="checkbox" /> strongest temperature-change evidence</label>
+          <label><input type="checkbox" /> recommended material / barrier strategy</label>
+          <label><input type="checkbox" /> how it slows unwanted transfer</label>
+          <label><input type="checkbox" /> one design improvement</label>
+          <label><input type="checkbox" /> one limitation or uncertainty</label>
+        </div>
+      </div>
+
+      <div class="reflection-card">
+        <p class="mini-label">MY REFLECTION</p>
+        <h3>Why is the thickest-looking material not automatically the best insulator?</h3>
+        <p>Everyone answers individually. Use evidence or fair-test thinking in your explanation.</p>
+      </div>
+
+      <div class="finished-box">
+        <strong>Mission 3 is finished when:</strong>
+        <span>✓ your team has one Thermal Barrier Recommendation</span>
+        <span>✓ your recommendation uses fair-test data and a thermal explanation</span>
+        <span>✓ you completed the individual reflection</span>
+        <p>Mission 4 — Control the Habitat — is upcoming and locked. Do not start it yet.</p>
+        <a href={`${base}courses/grade-7-science/jabberwocky/phase-3/`}>Return to Phase 3 Mission Hub →</a>
+      </div>
+    </section>
+
+    <section class="print-packet" aria-label="Phase 3 Mission 3 printable packet">
+      <section class="print-page">
+        <h1>Phase 3 · Mission 3 — Thermal Barrier Fair Test</h1>
+        <p>Team: ________________________________ &nbsp; Date: ____________</p>
+        <h2>Fair-Test Plan</h2>
+        <p><strong>Question:</strong> Which material slows temperature change most effectively when other important conditions stay as similar as possible?</p>
+        <table><tbody><tr><th>We change</th><td>Barrier material: ________________________________</td></tr><tr><th>We measure</th><td>Starting and ending temperature / temperature change</td></tr><tr><th>We keep similar</th><td>Container, water amount, starting temperature, coverage and test time</td></tr></tbody></table>
+        <h2>Our Data</h2>
+        <table><thead><tr><th>Setup</th><th>Start °C</th><th>End °C</th><th>Temperature change °C</th></tr></thead><tbody><tr><th>Control</th><td></td><td></td><td></td></tr><tr><th>Barrier: __________</th><td></td><td></td><td></td></tr></tbody></table>
+        <p><strong>Class pattern:</strong> ________________________________________________________________________</p>
+        <p><strong>Did any result not fit the pattern? What might explain it?</strong></p><div class="writing-lines"></div>
+      </section>
+      <section class="print-page page-break">
+        <h1>Thermal Barrier Recommendation</h1>
+        <p>Continent: ________________________________ &nbsp; Team: ________________________________</p>
+        <div class="print-grid two"><div><strong>Thermal challenge / Mission 2 pathway</strong></div><div><strong>Barrier material tested</strong></div></div>
+        <div class="print-grid two"><div><strong>Strongest temperature evidence</strong></div><div><strong>Recommended material / barrier strategy</strong></div></div>
+        <p><strong>CLAIM:</strong> We recommend ________________________________________________________________</p>
+        <p><strong>DATA:</strong> Our fair-test evidence shows __________________________________________________</p>
+        <p><strong>THERMAL EXPLANATION:</strong></p><div class="writing-lines"></div>
+        <p><strong>One design improvement:</strong> _____________________________________________________________</p>
+        <p><strong>One limitation or uncertainty:</strong> ________________________________________________________</p>
+        <p><strong>MY REFLECTION:</strong> Why is the thickest-looking material not automatically the best insulator?</p><div class="writing-lines tall"></div>
+      </section>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ siteData: phase3ThermalSites }}>
+    (() => {
+      const KEY = 'jabberwocky-phase3-posting';
+      const sites = Object.fromEntries(siteData.map((site) => [site.id, site]));
+      const saved = localStorage.getItem(KEY);
+      const site = saved ? sites[saved] : null;
+      const assignment = document.getElementById('assignment-result');
+      const missing = document.getElementById('missing-assignment');
+      const barrierFiles = document.getElementById('barrier-files');
+      const noContinent = document.getElementById('no-continent');
+      if (site) {
+        assignment.hidden = false; missing.hidden = true; barrierFiles.hidden = false; noContinent.hidden = true;
+        document.getElementById('assignment-icon').textContent = site.icon;
+        document.getElementById('assignment-name').textContent = site.name;
+        document.getElementById('assignment-subtitle').textContent = site.subtitle;
+        document.getElementById('assignment-challenge').textContent = site.thermalChallenge;
+        document.querySelectorAll('[data-barrier-file]').forEach((el) => { el.hidden = el.getAttribute('data-barrier-file') !== site.id; });
+      } else {
+        assignment.hidden = true; missing.hidden = false; barrierFiles.hidden = true; noContinent.hidden = false;
+      }
+      document.getElementById('print-phase3-mission3')?.addEventListener('click', () => window.print());
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+:global(body){background:#061019}.mission-shell{max-width:1060px;margin:0 auto;padding:0 1rem 5rem;color:#eaf4fb}.mission-shell :global(.breadcrumbs){color:#91a7b5}.mission-shell :global(.breadcrumbs a){color:#dcecf5}:global(body:has(#phase3-mission3) .jcec-submission-dock),:global(body:has(#phase3-mission3) .jcec-device-tools){display:none!important}.eyebrow,.mini-label{margin:0;color:#ffb25f;font:850 .72rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}.mission-hero{display:grid;grid-template-columns:1fr 255px;gap:1.4rem;align-items:end;margin:1rem 0;padding:clamp(1.4rem,4vw,2.3rem);border:1px solid #36566b;border-radius:22px;background:radial-gradient(circle at 85% 15%,rgba(255,178,95,.14),transparent 28%),linear-gradient(145deg,#071722,#102c3c)}.mission-hero h1{margin:.45rem 0;color:#fff;font-size:clamp(2.8rem,7vw,5rem);line-height:.9;letter-spacing:-.05em}.mission-hero h1 span{display:block;color:#ffb25f}.question{margin:.65rem 0 0;color:#d5e7f1;font-size:1.2rem;font-weight:750}.mission-hero aside{display:grid;gap:.18rem;padding:1rem;border:1px solid #3b596b;border-radius:13px;background:#081924}.mission-hero aside span{color:#ffb25f;font-size:.68rem;font-weight:900;letter-spacing:.08em}.mission-hero aside strong{color:#fff;line-height:1.35}.mission-hero aside small{color:#8fa6b3}.mission-at-a-glance{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:1rem 0}.mission-at-a-glance>div{display:grid;gap:.2rem;padding:.8rem;border:1px solid #2d495a;border-radius:11px;background:#091a24}.mission-at-a-glance small{color:#ffb25f;font-size:.65rem;font-weight:900;letter-spacing:.06em}.mission-at-a-glance strong{color:#eaf5fb;font-size:.84rem;line-height:1.35}.step-nav{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;margin:1.2rem 0}.step-nav a{display:flex;gap:.4rem;align-items:center;padding:.55rem;border:1px solid #2d4959;border-radius:9px;background:#071720;color:#b9ced9!important;text-decoration:none;font-size:.74rem;font-weight:800}.step-nav b{display:grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#173448;color:#ffc17d}.simple-step{margin:1.35rem 0;padding:1.25rem;border:1px solid #29485a;border-radius:18px;background:#091a24}.step-heading{display:flex;gap:.7rem;align-items:center;margin-bottom:1rem}.step-heading>span{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#ffb25f;color:#301b06;font-weight:950}.step-heading p{margin:0;color:#829ba9;font-size:.66rem;font-weight:900;letter-spacing:.08em}.step-heading h2{margin:.1rem 0;color:#fff;font-size:1.55rem}.briefing{padding:1rem 1.05rem;border-left:4px solid #ffb25f;border-radius:0 12px 12px 0;background:#102936}.briefing p{margin:0;color:#c4d7e1;line-height:1.65}.assignment-result{display:grid;grid-template-columns:50px 1fr 1.2fr;gap:.8rem;align-items:center;margin-top:.8rem;padding:.85rem;border:1px solid #3d5e71;border-radius:12px;background:#071720}.assignment-result>span{font-size:1.8rem}.assignment-result small,.challenge-badge small{display:block;color:#ffb25f;font-size:.62rem;font-weight:900;letter-spacing:.07em}.assignment-result strong{display:block;color:#fff;font-size:1.1rem}.assignment-result p{margin:.15rem 0 0;color:#8ea6b4}.challenge-badge{padding:.6rem;border-radius:9px;background:#112d3b}.challenge-badge b{display:block;margin-top:.15rem;color:#dcecf5;font-size:.78rem;line-height:1.4}.carry-forward-note,.missing-assignment,.direction-note,.fallback-note,.checkpoint-note{display:flex;gap:.55rem;align-items:flex-start;margin-top:.8rem;padding:.75rem;border-radius:10px;background:#102936;color:#b9ccd6;font-size:.8rem}.carry-forward-note strong,.direction-note strong,.fallback-note strong,.checkpoint-note strong{color:#ffd09d}.missing-assignment{display:grid;border:1px solid #775432;background:#211811}.missing-assignment strong{color:#ffd0a0}.missing-assignment p{margin:.1rem 0;color:#c8ad91}.missing-assignment a{color:#ffc17c;font-weight:850}.step-intro{color:#b5c8d3}.science-grid{display:grid;gap:.65rem}.science-grid.four{grid-template-columns:repeat(4,1fr)}.science-grid article{padding:.9rem;border:1px solid #304d5e;border-radius:12px;background:#07151e}.science-grid article>span{display:block;font-size:1.4rem}.science-grid strong{display:block;margin:.3rem 0;color:#fff;font-size:.82rem}.science-grid p{margin:0;color:#9fb4c0;font-size:.82rem;line-height:1.48}.fair-test-panel{margin:1rem 0;padding:1rem;border:1px solid #3d5c6e;border-radius:13px;background:#071720}.fair-test-panel h3{margin:.25rem 0 .75rem;color:#fff}.fair-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}.fair-grid article{padding:.7rem;border-radius:9px;background:#0d2633}.fair-grid small{color:#ffb25f;font-weight:900}.fair-grid strong{display:block;margin:.2rem 0;color:#fff}.fair-grid p{margin:0;color:#98afbb;font-size:.78rem;line-height:1.4}.help-box,.fallback-evidence{margin-top:.8rem;border:1px solid #355467;border-radius:10px;background:#071720}.help-box summary,.fallback-evidence summary{cursor:pointer;padding:.75rem;color:#ffd1a0;font-weight:850}.help-box div,.fallback-evidence>div,.fallback-evidence>p{padding:0 .8rem .8rem;color:#a9bdc9}.investigation-block,.continent-case{margin-top:.85rem;padding:1rem;border:1px solid #355568;border-radius:14px;background:#071720}.block-title{display:flex;justify-content:space-between;gap:1rem;align-items:center}.block-title small{color:#8fa7b5;font-size:.64rem;font-weight:900;letter-spacing:.07em}.block-title h3{margin:.2rem 0;color:#fff}.block-title>span{padding:.35rem .5rem;border-radius:999px;background:#15374a;color:#bfe8ff;font-size:.67rem;font-weight:900}.equipment-strip{display:flex;flex-wrap:wrap;gap:.45rem;margin:.7rem 0}.equipment-strip>*{padding:.35rem .5rem;border-radius:7px;background:#102b39;color:#b9ced9;font-size:.76rem}.equipment-strip strong{color:#fff}.safety-strip{display:flex;gap:.5rem;margin:.6rem 0;padding:.65rem;border-radius:9px;background:#2b1d12;color:#efd1b1;font-size:.8rem}.safety-strip strong{color:#ffb25f}.recommended-mode{margin:.8rem 0;padding:.85rem;border-left:3px solid #5ea6cb;border-radius:0 9px 9px 0;background:#0d2633}.recommended-mode h4{margin:.2rem 0;color:#fff}.recommended-mode p:last-child{margin:.25rem 0 0;color:#a7bbc6}.simple-procedure{color:#b9ccd7;line-height:1.55}.simple-procedure li{margin:.4rem 0}.data-table-preview,.backup-table{display:grid;margin:.8rem 0;border:1px solid #334f60;border-radius:10px;overflow:hidden}.data-table-preview>div,.backup-table>div{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:.4rem;padding:.55rem;border-bottom:1px solid #2a4657}.data-table-preview>div:last-child,.backup-table>div:last-child{border-bottom:0}.data-table-preview span,.backup-table span{color:#c1d3dc}.data-table-preview strong,.backup-table strong{color:#fff}.data-head{background:#102c39;color:#ffbf78!important;font-size:.7rem;font-weight:900}.calculation-note{padding:.65rem;border-radius:9px;background:#102936;color:#b9ccd7}.class-evidence{margin-top:.9rem;padding:.85rem;border-radius:11px;background:#0d2633}.class-evidence h4{margin:.2rem 0;color:#fff}.class-evidence p{color:#a9bdc9}.graph-note{display:flex;gap:.5rem;align-items:center;justify-content:center;margin:.65rem 0;padding:.65rem;border-radius:9px;background:#071720;color:#b9ccd7}.graph-note b{color:#ffb25f}.graph-note strong{color:#fff}.discrepancy-prompt{display:flex;gap:.5rem;padding:.65rem;border-left:3px solid #ffb25f;background:#151e20;color:#bdcbd1}.discrepancy-prompt strong{color:#ffd09d}.fallback-evidence p{margin:.2rem 0 .8rem}.small-button{margin-top:.8rem;padding:.65rem .8rem;border:0;border-radius:8px;background:#ffb25f;color:#2d1906;font:inherit;font-size:.8rem;font-weight:900;cursor:pointer}.no-continent{display:grid;gap:.35rem;padding:.75rem;border-radius:9px;background:#211911;color:#d8b693}.no-continent a{color:#ffc17e}.barrier-file header{display:flex;gap:.7rem;align-items:center}.barrier-file header>span{font-size:1.8rem}.barrier-file header small{color:#8fa7b5}.barrier-file header h3{margin:.15rem 0;color:#fff;line-height:1.35}.clue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin:.75rem 0}.clue-grid article{display:grid;grid-template-columns:28px 1fr;gap:.45rem;align-items:start;padding:.7rem;border:1px solid #304c5d;border-radius:9px;background:#0b202b}.clue-grid b{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#ffb25f;color:#2b1805}.clue-grid p{margin:.1rem 0;color:#b5c8d3;font-size:.8rem;line-height:1.45}.restriction{padding:.7rem;border-left:3px solid #f0a154;background:#181d1d}.restriction small{color:#ffb25f;font-size:.62rem;font-weight:900}.restriction p{margin:.25rem 0 0;color:#c2d1d9;font-size:.8rem}.decision-card{padding:1rem;border:1px solid #7a572f;border-radius:13px;background:#1b1814}.decision-card h3{margin:.35rem 0;color:#fff;font-size:1.35rem}.decision-note{color:#bfa991}.reasoning-frame{display:grid;gap:.55rem}.reasoning-frame.three{grid-template-columns:repeat(3,1fr)}.reasoning-frame div,.limitation-frame{display:grid;gap:.2rem;padding:.7rem;border-radius:9px;background:#0c202b}.reasoning-frame strong,.limitation-frame strong{color:#ffb25f;font-size:.68rem}.reasoning-frame span,.limitation-frame span{color:#d3e3eb;font-size:.82rem}.limitation-frame{margin-top:.55rem}.handoff-strip{display:flex;justify-content:center;gap:.6rem;align-items:center;flex-wrap:wrap;margin:.4rem 0 1rem;color:#a9bec9;font-size:.78rem}.handoff-strip strong{color:#fff}.handoff-strip i{color:#ffb25f}.team-record,.reflection-card,.finished-box{margin-top:.8rem;padding:1rem;border:1px solid #345365;border-radius:13px;background:#071720}.record-heading{display:flex;justify-content:space-between;gap:1rem}.record-heading h3,.reflection-card h3{margin:.2rem 0;color:#fff}.record-heading>span{height:max-content;padding:.3rem .45rem;border-radius:999px;background:#153549;color:#bee6fb;font-size:.62rem;font-weight:900}.profile-checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:.4rem}.profile-checklist label{padding:.5rem;border-radius:7px;background:#0d2531;color:#b8cbd6;font-size:.8rem}.reflection-card{border-color:#664d32;background:#191711}.reflection-card p:last-child{color:#bda990}.finished-box{display:grid;gap:.35rem;border-color:#49697b;background:#0d2633}.finished-box strong{color:#fff}.finished-box span{color:#c5dce7}.finished-box p{margin:.25rem 0;color:#8fa6b3}.finished-box a{width:max-content;margin-top:.2rem;padding:.6rem .75rem;border-radius:8px;background:#ffb25f;color:#2d1906!important;text-decoration:none;font-size:.8rem;font-weight:900}.print-packet{display:none}
+@media(max-width:820px){.mission-hero{grid-template-columns:1fr}.mission-at-a-glance,.science-grid.four,.fair-grid,.reasoning-frame.three{grid-template-columns:repeat(2,1fr)}.step-nav{overflow-x:auto;grid-template-columns:repeat(5,minmax(105px,1fr))}.assignment-result{grid-template-columns:45px 1fr}.challenge-badge{grid-column:1/-1}.clue-grid{grid-template-columns:1fr}.data-table-preview>div,.backup-table>div{grid-template-columns:1.4fr repeat(3,.8fr)}}
+@media(max-width:560px){.mission-at-a-glance,.science-grid.four,.fair-grid,.reasoning-frame.three,.profile-checklist{grid-template-columns:1fr}.simple-step{padding:1rem}.mission-hero h1{font-size:2.65rem}.block-title{align-items:flex-start;flex-direction:column}.carry-forward-note,.direction-note,.fallback-note,.checkpoint-note,.graph-note,.discrepancy-prompt{flex-direction:column}.data-table-preview,.backup-table{overflow-x:auto}.data-table-preview>div,.backup-table>div{min-width:600px}.finished-box a{width:100%;box-sizing:border-box;text-align:center}}
+@media print{body *{visibility:hidden!important}.print-packet,.print-packet *{visibility:visible!important}.print-packet{display:block!important;position:absolute;inset:0;padding:0;color:#000;background:#fff}.print-page{padding:14mm;font-family:Arial,sans-serif}.print-page h1{font-size:20pt}.print-page h2{font-size:14pt}.print-page table{width:100%;border-collapse:collapse;margin:6mm 0}.print-page th,.print-page td{height:12mm;padding:3mm;border:1px solid #333;text-align:left;vertical-align:top}.page-break{break-before:page}.print-grid.two{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin:5mm 0}.print-grid>div{min-height:24mm;padding:3mm;border:1px solid #444}.writing-lines{min-height:22mm;border-bottom:1px solid #777;background:repeating-linear-gradient(to bottom,transparent 0,transparent 7mm,#bbb 7.2mm,#bbb 7.4mm)}.writing-lines.tall{min-height:38mm}}
+</style>
