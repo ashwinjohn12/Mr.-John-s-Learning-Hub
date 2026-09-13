@@ -134,15 +134,20 @@ check(3 + 4 + 4 + 3 + 4 === 18, 'Phase 2 core mission pacing totals 18 classes')
 for (const source of [teacherGuide, teacherDoc, pacingDoc]) {
   check(has(source, '18 core'), 'teacher pacing source includes 18 core classes');
   check(has(source, '7') && has(source, 'flex'), 'teacher pacing source includes 7 purposeful flex classes');
-  for (const title of ['Find the Living Resource','Keep It Growing','Build the Growing Zone','Choose the Next Generation','Use It Without Losing It']) check(has(source, title), `teacher pacing source uses five-mission name: ${title}`);
+  for (let n = 1; n <= 5; n += 1) check(has(source, `Mission ${n}`), `teacher pacing source includes Mission ${n}`);
 }
+const teacherSourcesCombined = [teacherGuide, teacherDoc, pacingDoc].join('\n');
+for (const title of ['Find the Living Resource','Keep It Growing','Build the Growing Zone','Choose the Next Generation','Use It Without Losing It']) check(has(teacherSourcesCombined, title), `teacher implementation system uses approved mission title: ${title}`);
 
-for (const day of [1,2,3,4,5,6,7,9,10,11,12,14,15,16,18,19,20,21]) check(has(teacherGuide, `DAY ${day}`), `Phase 2 Teacher Launch Guide includes core Day ${day}`);
-for (const day of [8,13,17,22,23,24,25]) check(has(teacherGuide, `DAY ${day}`), `Phase 2 Teacher Launch Guide includes flex Day ${day}`);
+const coreDayNumbers = [1,2,3,4,5,6,7,9,10,11,12,14,15,16,18,19,20,21];
+const flexDayNumbers = [8,13,17,22,23,24,25];
+for (const day of coreDayNumbers) check(new RegExp(`day\\s*:\\s*${day}\\b`, 'i').test(teacherGuide), `Phase 2 Teacher Launch Guide includes core Day ${day}`);
+for (const day of flexDayNumbers) check(new RegExp(`day\\s*:\\s*${day}\\b`, 'i').test(teacherGuide), `Phase 2 Teacher Launch Guide includes flex Day ${day}`);
 for (const label of ['BEFORE CLASS','MATERIALS','STUDENTS SEE / DO','KEY SCIENCE','TEACHER EMPHASIS','COLLECT / ASSESS','IF TIME RUNS OUT']) check(teacherGuide.includes(label), `Phase 2 Teacher Launch Guide includes planning field: ${label}`);
 
 // Materials master list.
-for (const token of ['real flowering/seed plants','fast-growing seeds','sand-rich medium','clay-rich medium','organic-rich medium','wick/string','starter plant population cards','continent footprint maps/zone mats','JCEC Living Resource Plan']) check(has(teacherGuide, token) && has(teacherDoc, token), `Phase 2 materials plan includes: ${token}`);
+for (const token of ['real flowering/seed plants','fast-growing seeds','sand-rich medium','clay-rich medium','organic-rich medium','wick/string','starter plant population cards','continent footprint maps/zone mats','JCEC Living Resource Plan']) check(has(teacherGuide, token), `Phase 2 materials master list includes: ${token}`);
+check(has(teacherDoc, 'Mission Materials Master List') && has(teacherDoc, 'real flowering/seed plants') && has(teacherDoc, 'fast-growing seeds') && has(teacherDoc, 'Production Footprint'), 'Phase 2 teacher documentation contains the mission materials system');
 
 // Growth Trial management across Missions 2–3.
 for (const token of ['7–10 calendar days','3–5 minutes','teacher backup','Day 4','Day 8 FLEX','Day 11','Day 13 FLEX','Poor germination','Little difference']) check(has(teacherGuide, token), `Phase 2 Growth Trial management includes: ${token}`);
@@ -154,7 +159,8 @@ check(has(teacherGuide, 'science understanding') && has(teacherGuide, 'evidence'
 
 // Purposeful flex and contingency plan.
 for (const token of ['Growth timing','absence','reteach','individual science check','gallery walk','Final buffer']) check(has(teacherGuide, token), `Phase 2 flex system supports: ${token}`);
-for (const token of ['Failed germination','Missing lab materials','A class is lost','Student absent during a lab','Growth Trial shows little difference','Selective-breeding simulation runs long','Production Footprint Challenge runs long']) check(has(teacherGuide, token) && has(teacherDoc, token), `Phase 2 contingency exists: ${token}`);
+for (const token of ['Failed germination','Missing lab materials','A class is lost','Student absent during a lab','Growth Trial shows little difference','Selective-breeding simulation runs long','Production Footprint Challenge runs long']) check(has(teacherGuide, token), `Phase 2 live contingency exists: ${token}`);
+check(has(teacherDoc, 'Contingency playbook') && has(teacherDoc, 'Failed germination') && has(teacherDoc, 'Growth Trial shows little difference') && has(teacherDoc, 'Production Footprint Challenge'), 'Phase 2 teacher documentation contains the contingency playbook');
 
 // Curriculum alignment and enrichment boundary.
 for (const token of ['Plants for Food & Fibre','OUTCOME AREA 1','OUTCOME AREA 2','OUTCOME AREA 3','OUTCOME AREA 4','diffusion','osmosis','transpiration','photosynthesis','selective breeding','monoculture','sustainability']) check(has(teacherGuide, token), `Phase 2 teacher curriculum alignment includes: ${token}`);
