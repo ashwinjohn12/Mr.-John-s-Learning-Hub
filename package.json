@@ -19,6 +19,7 @@
     "audit:grade7": "node scripts/audit-grade7-prototype.mjs",
     "audit:grade7-unit1": "node scripts/audit-grade7-unit1.mjs && node --experimental-strip-types scripts/audit-grade7-unit1-content.ts && node scripts/audit-grade7-unit1-links.mjs",
     "audit:grade7-unit2": "node --experimental-strip-types scripts/audit-grade7-unit2-content.ts && node --experimental-strip-types scripts/audit-grade7-unit2-student-experience.ts && node --experimental-strip-types scripts/audit-grade7-unit2-final-corrections.ts && node scripts/audit-grade7-unit2-links.mjs",
+    "audit:grade7-unit3": "node --experimental-strip-types scripts/audit-grade7-unit3-content.ts && node --experimental-strip-types scripts/audit-grade7-unit3-experience.ts && node scripts/audit-grade7-unit3-links.mjs",
     "preview": "astro preview"
   },
   "dependencies": {

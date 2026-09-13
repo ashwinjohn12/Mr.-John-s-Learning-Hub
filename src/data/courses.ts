@@ -169,7 +169,16 @@ export const courses: Course[] = [
           { slug: 'subtracting-integers-number-line', number: '2.5', title: 'Subtracting Integers on a Number Line', summary: 'Connect subtraction, adding the opposite, directed change, and distance.', status: 'ready' }
         ]
       },
-      { slug: 'fractions-decimals-percents', number: '03', title: 'Fractions, Decimals, and Percents', description: 'Connect positive rational-number representations and solve decimal and percent problems.', topics: [] },
+      { slug: 'fractions-decimals-percents', number: '03', title: 'Fractions, Decimals, and Percents', description: 'Connect positive rational-number representations and solve decimal and percent problems.', topics: [
+        {slug:'fractions-to-decimals',number:'3.1',title:'Fractions to Decimals',summary:'Connect fractions, division, terminating decimals, and repeating decimals.',status:'ready'},
+        {slug:'compare-order-rational',number:'3.2',title:'Comparing and Ordering Fractions and Decimals',summary:'Compare and order positive fractions, decimals, and whole numbers using benchmarks and common representations.',status:'ready'},
+        {slug:'decimal-add-subtract',number:'3.3',title:'Adding and Subtracting Decimals',summary:'Use place value, estimation, and aligned algorithms to solve decimal problems.',status:'ready'},
+        {slug:'multiplying-decimals',number:'3.4',title:'Multiplying Decimals',summary:'Use area models, partial products, and estimation to calculate decimal products.',status:'ready'},
+        {slug:'dividing-decimals',number:'3.5',title:'Dividing Decimals',summary:'Interpret decimal division as sharing and grouping, then calculate reasonable quotients.',status:'ready'},
+        {slug:'decimal-order-operations',number:'3.6',title:'Order of Operations with Decimals',summary:'Evaluate multi-step decimal expressions using grouping and operation priority.',status:'ready'},
+        {slug:'relating-fractions-decimals-percents',number:'3.7',title:'Relating Fractions, Decimals, and Percents',summary:'Represent the same positive amount as a fraction, decimal, and percent.',status:'ready'},
+        {slug:'solving-percent-problems',number:'3.8',title:'Solving Percent Problems',summary:'Solve percent problems from 1% to 100% using benchmarks, models, and proportional reasoning.',status:'ready'}
+      ] },
       { slug: 'circles-area-circle-graphs', number: '04', title: 'Circles, Area, and Circle Graphs', description: 'Investigate circle relationships, develop area formulas, and represent data with circle graphs.', topics: [] },
       { slug: 'operations-fractions', number: '05', title: 'Operations with Fractions', description: 'Add and subtract positive fractions and mixed numbers using models and symbols.', topics: [] },
       { slug: 'equations', number: '06', title: 'Equations', description: 'Model, solve, verify, and compare strategies for one- and two-step equations.', topics: [] },

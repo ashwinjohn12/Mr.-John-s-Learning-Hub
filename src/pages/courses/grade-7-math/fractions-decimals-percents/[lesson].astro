@@ -1,0 +1,5 @@
+---
+import Grade7Unit3LessonPage from'../../../../components/Grade7Unit3LessonPage.astro';import{findCourse}from'../../../../data/courses';import{findGrade7Unit3Lesson,grade7Unit3Lessons}from'../../../../data/grade7Unit3';
+export function getStaticPaths(){return grade7Unit3Lessons.map(x=>({params:{lesson:x.slug}}));}const{lesson}=Astro.params;const course=findCourse('grade-7-math')!;const unit=course.units.find(x=>x.slug==='fractions-decimals-percents')!;const topic=unit.topics.find(x=>x.slug===lesson)!;const spec=findGrade7Unit3Lesson(lesson!)!;
+---
+<Grade7Unit3LessonPage {course} {unit} {topic} lesson={spec}/>
