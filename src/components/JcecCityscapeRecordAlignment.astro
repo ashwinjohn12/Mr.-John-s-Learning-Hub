@@ -11,17 +11,18 @@ const records = {
     title: 'New Horizon Requirements Card',
     source: 'Official Team Record · Field File Page 2',
     prompts: [
-      'Inherited environment finding',
-      'Inherited thermal finding',
-      'Inherited ecological finding',
-      'Inherited site / load finding',
-      'Research-district purpose',
-      'Performance requirement 1 + why it matters',
-      'Performance requirement 2 + why it matters',
-      'Performance requirement 3 + why it matters',
-      'Likely structural form choice(s) + reason',
-      'One likely failure if the evidence is ignored',
-      'Tentative Primary Structural Test Building'
+      'Inherited finding · Environment',
+      'Inherited finding · Thermal requirement',
+      'Inherited finding · Ecological restriction',
+      'Inherited finding · Site / load warning',
+      "Our district's job · Small long-term JCEC research district prototype",
+      'Performance requirement 1 + why the continent makes it important',
+      'Performance requirement 2 + why the continent makes it important',
+      'Performance requirement 3 + why the continent makes it important',
+      'Structural thinking · Frame / Shell / Frame + shell / Not enough evidence yet',
+      'One likely failure point we need to investigate',
+      'Primary Structural Test Building · tentative choice: circular / triangular / parallelogram',
+      'Why might this be an important structure to test?'
     ],
     note: 'Keep the Primary Building choice tentative. Requirements come before a final structural solution.'
   },
@@ -29,51 +30,54 @@ const records = {
     title: 'Structural Force Map',
     source: 'Official Team Record · Field File Page 7',
     prompts: [
-      'Mass vs force mini-check: state the units and explain the difference',
-      'External load / force arrows on the Primary Structural Test Building',
-      'Internal-force labels: tension, compression, shearing and/or bending',
-      'Friction example, if relevant',
-      'Priority load / force risk',
-      'Likely failure if that risk is ignored',
-      'Where the priority force acts on the Primary Building',
-      'How force evidence should influence the structure'
+      'Primary Structural Test Building · draw the structural system, not the decoration',
+      'Show at least one important external load and force-direction arrows',
+      'Add internal-force labels where evidence supports them: tension / compression / shearing / bending',
+      'Mark one likely failure point',
+      'Mass tells us ______ · mass units ______',
+      'Force tells us ______ · force unit ______',
+      'Our priority load / force risk is ______',
+      'Because ______'
     ],
     note: 'Use the actual Primary Structural Test Building as the application object. The diagram is Science evidence, not architectural art.'
   },
   3: {
     title: 'Material & Joint Recommendation',
-    source: 'Official Science Team Record · Field File Pages 8–9',
+    source: 'Official Science Evidence · Field File Pages 8–9',
     prompts: [
-      'Investigation question + operational definitions',
-      'Fair test: what changes, what is measured, what stays the same',
-      'Load–deformation evidence and graph',
-      'Fixed / flexible joint evidence',
-      'Structural part / job being recommended for',
-      'Required material property',
-      'Numerical test evidence supporting the recommendation',
-      'Recommended joint approach + reason',
-      'How the recommendation fits the continent / structural need',
-      'One limitation or uncertainty'
+      'Operational definitions · stiffness / flexibility / strength',
+      'Fair test · what will change?',
+      'Fair test · what will be measured?',
+      'Fair test · what must stay similar?',
+      'Load–deformation data + fixed / flexible joint evidence',
+      'Load–deformation graph · at least two candidate materials',
+      'For ______ part of our Primary Building, we recommend material ______',
+      'Recommended joint ______',
+      'Our strongest numerical evidence is ______',
+      'This matters because the structure needs ______',
+      'This material / joint fits the job because ______',
+      'One thing our test does NOT prove is ______'
     ],
-    note: 'Page 10 is separate individual Math resource evidence. It is not part of this Science Team Record or Science grade.'
+    note: 'Field File Page 10 is separate individual Math Resource Mathematics evidence. It is not an added Science lesson or Science grade.'
   },
   4: {
     title: 'New Horizon Safety Protocol',
     source: 'Official Team Record · Field File Pages 11–13',
     prompts: [
-      'Primary Building baseline test evidence',
-      'One stability weakness identified from evidence',
-      'Possible improvement 1',
-      'Possible improvement 2',
-      'Chosen modification + reason',
-      'Retest evidence using the same comparison',
-      'Main stability risk',
-      'Foundation / mass-distribution safety rule',
-      'Strengthening technique or structural safeguard',
-      'Environmental / site condition the protocol must respect',
-      'Margin-of-safety rule',
-      'One remaining uncertainty',
-      'Final Build Readiness check'
+      'Primary Building · predicted stability weakness + reason',
+      'Fair-test conditions that stay the same for baseline and retest',
+      'Baseline test evidence · quantitative result if available + what happened',
+      'Observed weakness + evidence',
+      'Foundation / support effect + mass-distribution effect',
+      'Alternative A · change + Science reason + possible disadvantage + estimated extra resource cost',
+      'Alternative B · change + Science reason + possible disadvantage + estimated extra resource cost',
+      'Chosen redesign + what changed + what stayed the same',
+      'Retest · baseline vs redesigned result + observation + weak point',
+      'Stability rule · JCEC should require ______',
+      'Foundation / mass rule + strengthening rule',
+      'Environmental / site condition + margin-of-safety rule',
+      'One important uncertainty',
+      'Final CityScape Readiness · three buildings + Primary Building + M1–M4 evidence + blueprint/restriction/energy/transport checks'
     ],
     note: 'The Primary Structural Test Building is the normal test object. Use a standardized reference model or fallback dataset only when Primary Buildings are too different for a fair comparison.'
   },
@@ -81,14 +85,19 @@ const records = {
     title: 'JCEC New Horizon Structural Authorization',
     source: 'Official Team Record · Field File Page 14',
     prompts: [
-      'Review the six JCEC lenses: function, reliability, safety, material efficiency, construction/resource demand and environmental responsibility',
-      'Evidence from Mission 1 requirements',
-      'Evidence from Mission 2 forces',
-      'Evidence from Mission 3 materials / joints',
-      'Evidence from Mission 4 stability / safety',
-      'Use evidence from at least three missions in the final reasoning',
-      'Authorization status: Proceed / Proceed after modifications / Limit the build / Hold for more evidence',
-      'Final JCEC message: 3–5 evidence-based sentences'
+      'Structural Evidence Locker · M1 Requirements · strongest evidence to carry forward',
+      'Structural Evidence Locker · M2 Forces · strongest evidence to carry forward',
+      'Structural Evidence Locker · M3 Materials · strongest evidence to carry forward',
+      'Structural Evidence Locker · M4 Safety · strongest evidence to carry forward',
+      'Review lens · FUNCTION · evidence strong enough? Yes / Not yet · concern / required revision',
+      'Review lens · RELIABILITY · evidence strong enough? Yes / Not yet · concern / required revision',
+      'Review lens · SAFETY · evidence strong enough? Yes / Not yet · concern / required revision',
+      'Review lens · MATERIAL EFFICIENCY · evidence strong enough? Yes / Not yet · concern / required revision',
+      'Review lens · COST / COMPLEXITY · evidence strong enough? Yes / Not yet · concern / required revision',
+      'Review lens · ENVIRONMENTAL IMPACT · evidence strong enough? Yes / Not yet · concern / required revision',
+      'Final Structural Authorization · Proceed / Proceed after required modifications / Limit the build / Hold for more evidence',
+      'Required modification / restriction / next evidence',
+      'Final JCEC message · 3–5 sentences using evidence from at least three different missions'
     ],
     note: 'Use the completed CityScape as an evidence object. Do not build a second model. Structural authorization is not the final Mission 2190 settlement decision.'
   }
@@ -118,6 +127,19 @@ const record = missionNumber ? records[missionNumber] : null;
 {isPhase4 && (
 <script is:inline define:vars={{ missionNumber, isTeacherGuide }}>
 (() => {
+  const replaceText = (replacements) => {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+      let value = node.nodeValue;
+      if (!value) continue;
+      for (const [from, to] of replacements) {
+        if (value.includes(from)) value = value.replace(from, to);
+      }
+      node.nodeValue = value;
+    }
+  };
+
   const run = () => {
     if (missionNumber) {
       const recordRoot = document.querySelector('#record');
@@ -130,34 +152,39 @@ const record = missionNumber ? records[missionNumber] : null;
 
     if (missionNumber === 4) {
       const briefing = document.querySelector('#phase4-mission4 #your-mission .briefing p');
-      if (briefing) briefing.innerHTML = 'Mission 3 tested material samples and joint behaviour. Now JCEC needs to know whether the <strong>whole structural system</strong> will stay stable. A structure can use good materials and still tip, shift or fail if its foundation, mass distribution or overall arrangement creates a weakness. Your team will test its <strong>Primary Structural Test Building</strong> when a fair comparison is possible, identify one weakness, propose alternatives, make one change and retest it. If Primary Buildings are too different to compare fairly, your teacher may use the standardized reference model or fallback dataset first.';
+      if (briefing) briefing.innerHTML = 'Mission 3 tested material samples and joint behaviour. Now JCEC needs to know whether the <strong>whole structural system</strong> will stay stable. A structure can use good materials and still tip, shift or fail if its foundation, mass distribution or overall arrangement creates a weakness. Your team will test its <strong>Primary Structural Test Building</strong> when a fair comparison is possible, identify one weakness, propose two alternatives, make one evidence-based change and retest it. If Primary Buildings are too different to compare fairly, your teacher may use the standardized reference model or fallback dataset first, then you will apply that stability evidence back to your CityScape.';
 
       const investigationTitle = document.querySelector('#phase4-mission4 #investigate .investigation-block > .block-title h3');
       if (investigationTitle) investigationTitle.textContent = 'Primary Building Stability & Improvement Investigation';
 
       const investigationIntro = document.querySelector('#phase4-mission4 #investigate .investigation-block > p');
       if (investigationIntro) investigationIntro.innerHTML = 'Use your <strong>Primary Structural Test Building</strong> for the baseline → weakness → alternatives → modify → retest cycle whenever that produces a fair comparison. If team models are too different, use the teacher-supplied standardized reference model or fallback dataset for the controlled comparison, then apply the stability principle back to your CityScape. The reference model is the fallback, not the default.';
+
+      const classTwo = document.querySelector('#phase4-mission4 .class-plan .class-grid article:nth-child(2) p');
+      if (classTwo) classTwo.textContent = 'Baseline test the Primary Structural Test Building when a fair comparison is possible; use the standardized reference model / fallback dataset only when needed.';
+
+      const reflection = document.querySelector('#phase4-mission4 .reflection-card h3');
+      if (reflection) reflection.textContent = 'Why can adding more material make a structure less efficient—or even create a new problem?';
+    }
+
+    if (missionNumber === 5) {
+      const materials = document.querySelector('#phase4-mission5 .materials-panel p');
+      if (materials) materials.textContent = 'Use the completed CityScape as the application object. Mission 5 requires no new physical build: the structural decision comes from the completed district plus the Mission 1–4 evidence.';
+      const fallback = document.querySelector('#phase4-mission5 .fallback-panel p');
+      if (fallback) fallback.textContent = 'If a team lacks usable model evidence, use its Phase 4 records plus the shared/reference evidence. Do not start a replacement build just for Mission 5.';
     }
 
     if (isTeacherGuide) {
-      const replacements = new Map([
+      replaceText([
         ['Prepare one standardized small baseline model per team or shared station; choose stability comparison and test ceiling.', 'Have teams bring their Primary Structural Test Building; keep one standardized reference model or fallback dataset ready only if team models are too different for a fair comparison; choose the stability comparison and test ceiling.'],
         ['Set identical/near-identical baseline models; choose one repeatable disturbance; post maximum load.', 'Use each team’s Primary Structural Test Building when the comparison is fair. If Primary Buildings are too different, use one standardized teacher reference model or fallback dataset; choose one repeatable disturbance and post the maximum load.'],
         ['Standardized small models; small loads; string/tilt method; evidence sheet.', 'Primary Structural Test Buildings; one standardized reference model only if needed; small loads; string/tilt method; evidence sheet.'],
+        ['Compare base/support or high-vs-low mass using one factor at a time → identify a weakness.', 'Baseline test the Primary Structural Test Building with the teacher-selected repeatable procedure → identify a weakness; use reference/fallback evidence only when fair testing is not possible.'],
         ['Standardized Stability & Improvement Investigation', 'Primary Building Stability & Improvement Investigation'],
         ['Baseline stability models behave differently', 'Primary Structural Test Buildings are too different for a fair comparison'],
-        ['Treat the variation as evidence about uncontrolled variables; use one teacher reference model or the fallback dataset for comparison.', 'Use one teacher reference model or the fallback dataset for the controlled comparison, then have teams apply the stability principle back to their own Primary Building.']
+        ['Treat the variation as evidence about uncontrolled variables; use one teacher reference model or the fallback dataset for comparison.', 'Use one teacher reference model or the fallback dataset for the controlled comparison, then have teams apply the stability principle back to their own Primary Building.'],
+        ['No final physical habitat build.', 'No new physical build in Mission 5; use the completed CityScape and Phase 4 records.']
       ]);
-      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-      let node;
-      while ((node = walker.nextNode())) {
-        let value = node.nodeValue;
-        if (!value) continue;
-        for (const [from, to] of replacements) {
-          if (value.includes(from)) value = value.replace(from, to);
-        }
-        node.nodeValue = value;
-      }
     }
   };
 
@@ -178,7 +205,7 @@ const record = missionNumber ? records[missionNumber] : null;
   .cityscape-record-heading { display:flex; justify-content:space-between; gap:1rem; align-items:flex-end; }
   .cityscape-record-heading small { color:#f2b35d; font-size:.64rem; font-weight:900; letter-spacing:.08em; }
   .cityscape-record-heading h3 { margin:.15rem 0 0; color:#fff; font-size:1.15rem; }
-  .cityscape-record-heading > span { max-width:300px; color:#aeb9c2; font-size:.72rem; font-weight:800; text-align:right; }
+  .cityscape-record-heading > span { max-width:320px; color:#aeb9c2; font-size:.72rem; font-weight:800; text-align:right; }
   .cityscape-record-instruction,.cityscape-record-note { margin:.7rem 0 0; color:#c4cdd4; font-size:.8rem; line-height:1.5; }
   .cityscape-record-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem; margin-top:.75rem; }
   .cityscape-record-field { display:grid; grid-template-columns:24px 1fr; gap:.45rem; align-items:start; min-height:72px; padding:.65rem; border:1px solid #3d4953; border-radius:9px; background:#0a1015; }
