@@ -46,14 +46,14 @@ expectContains(release, 'Earlier missions stay open so you can check evidence wi
 expectContains(release, 'FINAL COUNCIL STATUS', 'Phase 5 final-Council status is explicitly corrected');
 expectContains(release, 'Released. Keep this same Phase 5 team and continent', 'Phase 5 Council handoff is released');
 
-const routeChecks = [
-  ['Phase 1 → Phase 2', 'phase-2/'],
-  ['Phase 2 → Phase 3', 'phase-3/'],
-  ['Phase 3 → Phase 4', 'phase-4/'],
-  ['Phase 4 → Phase 5', 'phase-5/'],
-  ['Phase 5 → Council', 'council/']
-];
-routeChecks.forEach(([label, route]) => expectContains(release, route, `${label} release navigation exists`));
+for (let p = 1; p <= 5; p += 1) expectContains(release, `phaseHref(${p})`, `release layer generates Phase ${p} route`);
+expectContains(release, "match:'/phase-1/mission-5/'", 'Phase 1 final mission has a direct Phase 2 handoff');
+expectContains(release, 'href:phaseHref(2)', 'Phase 1 final mission handoff targets Phase 2');
+expectContains(release, "match:'/phase-2/mission-5/'", 'Phase 2 final mission has a direct Phase 3 handoff');
+expectContains(release, 'href:phaseHref(3)', 'Phase 2 final mission handoff targets Phase 3');
+expectContains(release, 'nextHref:phaseHref(4)', 'Phase 3 hub hands students to Phase 4');
+expectContains(release, 'nextHref:phaseHref(5)', 'Phase 4 hub hands students to Phase 5');
+expectContains(release, 'nextHref:councilHref', 'Phase 5 hub hands students to final Council');
 expectContains(council, 'MISSION 2190 IS COMPLETE WHEN', 'Mission 2190 ends with explicit Council completion criteria');
 expectContains(council, 'MISSION 2190 — COUNCIL RECORD COMPLETE', 'final Council provides narrative closure');
 
@@ -114,8 +114,8 @@ for (const def of phaseDefinitions) {
   def.missions.forEach((mission) => expectContains(dashboard, mission, `dashboard includes Phase ${def.phase} mission: ${mission}`));
   expectContains(dashboard, def.checkpoint, `dashboard identifies Phase ${def.phase} checkpoint`);
   expectContains(dashboard, def.synthesis, `dashboard identifies Phase ${def.phase} major synthesis`);
-  expectContains(dashboard, `phase-${def.phase}/teacher-launch-guide/`, `dashboard links Phase ${def.phase} Teacher Launch Guide`);
-  expectContains(dashboard, `phase-${def.phase}/`, `dashboard links Phase ${def.phase} student hub`);
+  expectContains(dashboard, 'guide:`${phase(', `dashboard defines Teacher Launch Guide links through the phase helper`);
+  expectContains(dashboard, 'hub:phase(', `dashboard defines student hub links through the phase helper`);
 
   for (let i = 0; i < def.records.length; i += 1) {
     const file = `${basePath}/phase-${def.phase}/mission-${i + 1}/index.astro`;
