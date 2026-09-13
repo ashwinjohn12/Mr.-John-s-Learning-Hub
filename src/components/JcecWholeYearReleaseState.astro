@@ -1,0 +1,213 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<script is:inline define:vars={{ base }}>
+  (() => {
+    const path = window.location.pathname;
+    if (!path.includes('/courses/grade-7-science/jabberwocky/')) return;
+
+    const root = `${base}courses/grade-7-science/jabberwocky/`;
+    const dashboardHref = `${root}teacher-dashboard/`;
+    const phaseHref = (number) => `${root}phase-${number}/`;
+    const councilHref = `${root}council/`;
+
+    const makeLink = (href, text, className = 'jcec-release-link') => {
+      const link = document.createElement('a');
+      link.href = href;
+      link.textContent = text;
+      link.className = className;
+      return link;
+    };
+
+    const addTeacherDashboardShortcut = () => {
+      const teacherPage = path.includes('/teacher-launch-guide/') || path.includes('/council/teacher-guide/');
+      const launchPage = /\/jabberwocky\/?$/.test(path) || /\/jabberwocky\/index\.html$/.test(path);
+      if (!teacherPage && !launchPage) return;
+      if (document.querySelector('.jcec-master-dashboard-shortcut')) return;
+      const shortcut = makeLink(dashboardHref, 'Teacher Master Dashboard', 'jcec-master-dashboard-shortcut');
+      shortcut.setAttribute('aria-label', 'Open Jabberwocky Teacher Master Launch Dashboard');
+      document.body.append(shortcut);
+    };
+
+    const releaseLaunchPage = () => {
+      const launchPage = /\/jabberwocky\/?$/.test(path) || /\/jabberwocky\/index\.html$/.test(path);
+      if (!launchPage) return;
+
+      const returning = document.querySelector('.hero-actions .mission-button.current');
+      if (returning) {
+        returning.href = '#mission-phases';
+        returning.textContent = 'Returning Pathfinder? Open Mission Roadmap';
+      }
+
+      const readoutStatus = document.querySelector('.mission-readout > strong');
+      if (readoutStatus) readoutStatus.textContent = 'FULL YEAR RELEASED';
+      document.querySelectorAll('.mission-readout dl div').forEach((row) => {
+        const label = row.querySelector('dt')?.textContent?.trim();
+        const value = row.querySelector('dd');
+        if (label === 'Survey completion' && value) value.textContent = '5 PHASES + COUNCIL AVAILABLE';
+        if (label === 'Safe settlement regions' && value) value.textContent = 'TO BE DECIDED BY COUNCIL';
+      });
+
+      const navCurrent = document.querySelector('.mission-nav a.active');
+      if (navCurrent) {
+        navCurrent.href = '#mission-phases';
+        navCurrent.textContent = 'Mission Roadmap';
+      }
+
+      document.querySelectorAll('.classified').forEach((item) => {
+        item.textContent = 'ADDITIONAL EVIDENCE IS GATHERED DURING THE MISSIONS';
+        item.classList.add('released-note');
+      });
+
+      const phaseSection = document.querySelector('#mission-phases');
+      const stack = phaseSection?.querySelector('.phase-stack');
+      const phaseIntro = phaseSection?.querySelector('.section-title-row > p');
+      if (phaseIntro) phaseIntro.textContent = 'All five science phases and the final Council are available. Your teacher controls when the class moves forward.';
+      if (stack) {
+        const phases = [
+          ['01','FIRST CONTACT','Ecological Survey Division','Interactions & Ecosystems',phaseHref(1)],
+          ['02','THE LIVING RESOURCE','Botanical Resources Division','Plants for Food & Fibre',phaseHref(2)],
+          ['03','SURVIVING JABBERWOCKY','Thermal Survival Division','Heat & Temperature',phaseHref(3)],
+          ['04','PROJECT NEW HORIZON','Structural Systems Division','Structures & Forces',phaseHref(4)],
+          ['05','THE DEEP RECORD','Geological Survey Division','Planet Earth',phaseHref(5)],
+          ['★','MISSION 2190 COUNCIL','JCEC Council Delegations','Year-long evidence transfer task',councilHref]
+        ];
+        stack.innerHTML = phases.map(([number,title,division,unit,href], index) => `
+          <article class="phase-card released-phase">
+            <div class="phase-summary">
+              <span class="phase-number">${number}</span>
+              <span class="phase-title"><small>${division}</small><strong>${title}</strong><em>${unit}</em></span>
+              <span class="phase-status">${index === 5 ? 'FINAL CAPSTONE' : 'RELEASED'}</span>
+            </div>
+            <div class="released-actions"><span>${index === 5 ? 'Use evidence from all five science phases.' : 'Open this phase for current work or review.'}</span><a href="${href}">${index === 5 ? 'Enter Final Council →' : `Open Phase ${number} →`}</a></div>
+          </article>`).join('');
+      }
+
+      const archive = document.querySelector('.archive-file ul');
+      if (archive) {
+        archive.innerHTML = `
+          <li class="done"><span>✓</span> Arrival Data</li>
+          <li class="done"><span>✓</span> Ecological Survey</li>
+          <li class="done"><span>✓</span> Botanical Survey</li>
+          <li class="done"><span>✓</span> Thermal Systems Report</li>
+          <li class="done"><span>✓</span> Structural Systems Report</li>
+          <li class="done"><span>✓</span> Geological Report</li>
+          <li class="done"><span>✓</span> Mission 2190 Council Directive</li>`;
+      }
+
+      const console = document.querySelector('.final-console');
+      if (console) {
+        const lines = console.querySelectorAll('p');
+        if (lines[0]) lines[0].innerHTML = 'PATHFINDER STATUS: <strong>CONFIRMED</strong>';
+        if (lines[1]) lines[1].innerHTML = 'MISSION ROADMAP: <strong>FULL YEAR AVAILABLE</strong>';
+        if (lines[2]) lines[2].innerHTML = 'FINAL CAPSTONE: <strong>MISSION 2190 COUNCIL RELEASED</strong>';
+        const button = console.querySelector('.mission-button');
+        if (button) {
+          button.href = '#mission-phases';
+          button.textContent = '▶ Open Mission Roadmap';
+        }
+        if (!console.querySelector('.dashboard-inline')) {
+          console.append(makeLink(dashboardHref, 'Teacher planning → Master Launch Dashboard', 'dashboard-inline'));
+        }
+      }
+    };
+
+    const completePhaseHub = ({ rootSelector, progressSelector, nextHref, nextLabel, lead, sequenceSelector = '.sequence-strip .current' }) => {
+      const hub = document.querySelector(rootSelector);
+      if (!hub) return;
+
+      const progress = hub.querySelector(`${progressSelector} .current`);
+      if (progress) {
+        progress.classList.remove('current');
+        progress.classList.add('done');
+        progress.removeAttribute('aria-current');
+      }
+
+      const currentCard = hub.querySelector('.mission-card.current');
+      if (currentCard) {
+        currentCard.classList.remove('current');
+        currentCard.classList.add('complete');
+        const status = currentCard.querySelector('.mission-topline b');
+        if (status) status.textContent = 'COMPLETE';
+        const link = currentCard.querySelector('.mission-ready-link');
+        if (link) link.textContent = 'Review Mission 5 →';
+      }
+
+      const sequence = hub.querySelector(sequenceSelector);
+      if (sequence) {
+        sequence.classList.remove('current');
+        sequence.classList.add('done');
+        sequence.textContent = sequence.textContent.replace('●','✓');
+      }
+
+      const heroLead = hub.querySelector('header .lead');
+      if (heroLead && lead) heroLead.innerHTML = lead;
+
+      const continueStrip = hub.querySelector('.previous-team .continue-strip');
+      if (continueStrip) {
+        const strong = continueStrip.querySelector('strong');
+        const span = continueStrip.querySelector('span');
+        const link = continueStrip.querySelector('a');
+        if (strong) strong.textContent = 'This phase is complete.';
+        if (span) span.textContent = 'Use Mission 5 for review, or continue forward when your teacher is ready.';
+        if (link) { link.href = nextHref; link.textContent = nextLabel; }
+      }
+
+      if (!hub.querySelector('.whole-year-release-handoff')) {
+        const progressNav = hub.querySelector(progressSelector);
+        const panel = document.createElement('section');
+        panel.className = 'whole-year-release-handoff';
+        panel.innerHTML = `<div><small>WHOLE-YEAR RELEASE STATUS</small><strong>Phase complete · available for review</strong><span>Earlier missions stay open so you can check evidence without confusing them with new work.</span></div><a href="${nextHref}">${nextLabel}</a>`;
+        progressNav?.insertAdjacentElement('afterend', panel);
+      }
+    };
+
+    releaseLaunchPage();
+
+    completePhaseHub({
+      rootSelector:'#phase2-hub',
+      progressSelector:'.phase2-progress',
+      nextHref:phaseHref(3),
+      nextLabel:'Continue to Phase 3 →',
+      lead:'Phase 2 is complete. Your Botanical Resources team identified a living resource, tested what it needs, planned how it could be grown, considered variety and finished a <strong>JCEC Living Resource Plan</strong>.'
+    });
+
+    completePhaseHub({
+      rootSelector:'#phase3-hub',
+      progressSelector:'.phase3-progress',
+      nextHref:phaseHref(4),
+      nextLabel:'Continue to Phase 4 →',
+      lead:'Phase 3 is complete. Your Thermal Survival team measured the problem, followed heat transfer, tested thermal barriers, controlled a habitat and finished a <strong>JCEC Thermal Survival Plan</strong>.'
+    });
+
+    completePhaseHub({
+      rootSelector:'#phase4-hub',
+      progressSelector:'.phase4-progress',
+      nextHref:phaseHref(5),
+      nextLabel:'Continue to Phase 5 →',
+      lead:'Phase 4 is complete. Your Structural Systems team defined requirements, traced forces, tested materials and joints, improved stability and finished the <strong>JCEC New Horizon Structural Authorization</strong>.'
+    });
+
+    completePhaseHub({
+      rootSelector:'#phase5-hub',
+      progressSelector:'.phase5-progress',
+      nextHref:councilHref,
+      nextLabel:'Enter Mission 2190 Council →',
+      lead:'Phase 5 is complete. Your Geological Survey team gathered ground evidence, reconstructed rock history, tracked surface change, read the deep record and prepared the <strong>JCEC Geological Evidence Packet</strong> for the final Council.'
+    });
+
+    const councilStop = document.querySelector('#phase5-hub .council-stop');
+    if (councilStop) {
+      councilStop.innerHTML = `<strong>FINAL COUNCIL STATUS</strong><span>Released. Keep this same Phase 5 team and continent; your group now becomes a JCEC Council Delegation.</span><a class="jcec-release-link" href="${councilHref}">Enter Mission 2190 Council →</a>`;
+    }
+
+    addTeacherDashboardShortcut();
+  })();
+</script>
+
+<style is:global>
+  .jcec-master-dashboard-shortcut{position:fixed;right:1rem;bottom:1rem;z-index:70;padding:.7rem .9rem;border:1px solid #7be8ce;border-radius:999px;background:#082a2d;color:#baf9e8!important;box-shadow:0 10px 28px rgba(0,0,0,.35);text-decoration:none;font-size:.78rem;font-weight:900}.jcec-master-dashboard-shortcut:hover{transform:translateY(-1px);background:#0d3739}.dashboard-inline{display:inline-flex;margin-top:.8rem;color:#8ff0d6!important;font-size:.78rem;font-weight:850;text-decoration:none}.released-note{color:#a9c5d3!important;border-color:#315d70!important}.released-phase{border-color:#3b6d68!important;opacity:1!important}.released-phase .phase-status{color:#8ef1d5!important}.released-actions{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:0 1.1rem 1rem}.released-actions span{color:#9eb4bf;font-size:.82rem}.released-actions a,.whole-year-release-handoff>a,.jcec-release-link{display:inline-flex;align-items:center;justify-content:center;padding:.67rem .82rem;border-radius:9px;background:#6fe4c7;color:#06241c!important;text-decoration:none;font-size:.8rem;font-weight:900;white-space:nowrap}.whole-year-release-handoff{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin:1rem 0 1.25rem;padding:.95rem 1rem;border:1px solid #3b7569;border-radius:14px;background:#0d2827}.whole-year-release-handoff div{display:grid;gap:.15rem}.whole-year-release-handoff small{color:#79ddc4;font-size:.65rem;font-weight:900;letter-spacing:.08em}.whole-year-release-handoff strong{color:#fff}.whole-year-release-handoff span{color:#a5bbb8;font-size:.8rem}.phase2-step.done .mission-number::after{content:'✓';font-size:.72rem}.phase2-step.done .mission-number{font-size:0}
+  @media(max-width:650px){.released-actions,.whole-year-release-handoff{display:grid}.released-actions a,.whole-year-release-handoff>a{width:100%;box-sizing:border-box}.jcec-master-dashboard-shortcut{right:.65rem;bottom:.65rem}.mission-shell .phase-stack .released-phase .phase-summary{grid-template-columns:auto 1fr}.mission-shell .phase-stack .released-phase .phase-status{grid-column:1/-1;width:max-content}}
+  @media print{.jcec-master-dashboard-shortcut{display:none!important}}
+</style>
