@@ -6,6 +6,18 @@
 
 **Purposeful flex days: Day 7, Day 12, Day 17, Day 22, Day 23, Day 24, Day 25.**
 
+## CityScape cross-curricular overlay
+
+The five Science missions and their day counts do not change. The approved **JCEC CityScape Prototype Challenge** is the physical project thread that carries the same structural decisions forward from Mission 1 through Mission 5.
+
+- **M1:** define the three-building district requirements and begin the CityScape concept.
+- **M2:** apply force analysis to the chosen **Primary Structural Test Building**.
+- **M3:** use fair material/joint evidence and a load-versus-deformation graph to justify structural choices.
+- **M4:** baseline test → weakness → two alternatives → modify → retest the **Primary Building** when fair comparable testing is possible. Use the standardized reference model / fallback dataset only when team models are not comparable, then apply the result back to CityScape.
+- **M5:** use the completed CityScape as an evidence object for structural authorization. **No new physical build is required.**
+
+Math runs alongside this Science pacing rather than inside it: **Field File Page 3 — Building Geometry; Page 6 — Geometric Constructions / measured blueprint; Page 10 — Resource Mathematics.** These are individual Math evidence pages and do not consume the 18 core + 7 flex Science periods.
+
 ### Week / day map
 
 | Day | Plan |
@@ -38,11 +50,13 @@
 
 ## Non-negotiable evidence by mission
 
-- **M1:** New Horizon Requirements Card
-- **M2:** Structural Force Map
-- **M3:** Material & Joint Recommendation — stronger checkpoint
-- **M4:** New Horizon Safety Protocol
-- **M5:** JCEC New Horizon Structural Authorization — major synthesis
+Use the approved Field File wording as the official record source of truth.
+
+- **M1:** New Horizon Requirements Card — Field File Page 2
+- **M2:** Structural Force Map — Field File Page 7
+- **M3:** Material & Joint Recommendation — stronger checkpoint — Field File Pages 8–9
+- **M4:** New Horizon Safety Protocol + Final Build Readiness — Field File Page 13, supported by Pages 11–12
+- **M5:** JCEC New Horizon Structural Authorization — major synthesis — Field File Page 14
 
 ## Flex priorities
 
@@ -54,7 +68,7 @@
 
 ## Low-material pacing note
 
-Mission 2 is the only point where a spring scale may be useful. One shared teacher station or a few force meters are enough. Missions 1, 3 and 4 use ordinary paper/cardboard/classroom materials; Mission 5 is almost entirely printable/projectable.
+Mission 2 is the only point where a spring scale may be useful. One shared teacher station or a few force meters are enough. Missions 1 and 3 use ordinary paper/cardboard/classroom materials. Mission 4 uses the team's Primary Building when fair testing is possible, with a standardized reference/fallback pathway if it is not. Mission 5 uses the completed CityScape plus printable/projectable evidence; it does not require a second final build.
 
 ## Stop point
 
