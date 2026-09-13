@@ -7,8 +7,8 @@ import { phase5GeologicalSites } from '../../../../../data/jabberwockyPhase5';
 const base = import.meta.env.BASE_URL;
 const missions = [
   { number:1, title:'Read the Ground', question:'What can observations of rocks and minerals tell us about a site?', summary:'Learn how geologists gather evidence before making claims.', icon:'🔎', status:'COMPLETE', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-5/mission-1/`, linkText:'Review Mission 1 →' },
-  { number:2, title:'Follow the Rock Story', question:'How can rocks record the processes that formed and changed them?', summary:'Use formation evidence to reconstruct rock history.', icon:'🪨', status:'CURRENT', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-5/mission-2/`, linkText:'Start Mission 2 →' },
-  { number:3, title:'Track the Changing Surface', question:'How can small surface processes reshape a landscape over long periods?', summary:'Investigate weathering, erosion, deposition and gradual change.', icon:'💧', status:'UPCOMING', ready:false },
+  { number:2, title:'Follow the Rock Story', question:'How can rocks record the processes that formed and changed them?', summary:'Use formation evidence to reconstruct rock history.', icon:'🪨', status:'COMPLETE', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-5/mission-2/`, linkText:'Review Mission 2 →' },
+  { number:3, title:'Track the Changing Surface', question:'How can small surface processes reshape a landscape over long periods?', summary:'Investigate weathering, erosion, deposition and gradual change.', icon:'💧', status:'CURRENT', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-5/mission-3/`, linkText:'Start Mission 3 →' },
   { number:4, title:'Read the Deep Past', question:'How can layers, landforms and fossils reveal events we never observed?', summary:'Reconstruct past change using accumulated geological evidence.', icon:'🧭', status:'UPCOMING', ready:false },
   { number:5, title:'Prepare the Final Evidence', question:'What geological evidence must JCEC carry into the final Mission 2190 decision?', summary:'Build the geological handoff without making the final settlement decision.', icon:'📁', status:'UPCOMING', ready:false }
 ];
@@ -28,52 +28,52 @@ const missions = [
         <p class="eyebrow">MISSION 2190 // FINAL SCIENCE PHASE</p>
         <h1>THE <span>DEEP RECORD</span></h1>
         <p class="division">JCEC GEOLOGICAL SURVEY DIVISION</p>
-        <p class="lead">Mission 1 established what geological evidence your team can actually observe. Mission 2 is now current: use formation processes to ask what history those Earth materials may record—without pretending one clue proves the whole story.</p>
+        <p class="lead">Mission 1 gathered geological evidence. Mission 2 used formation processes to build a cautious rock history. Mission 3 is now current: investigate how the exposed surface keeps changing through <strong>weathering, erosion and deposition</strong>—and how small changes can matter over long periods.</p>
       </div>
-      <aside><span>YOUR ROLE</span><strong>Geological Survey Specialist</strong><small>Observe. Explain formation. Keep uncertainty visible.</small></aside>
+      <aside><span>YOUR ROLE</span><strong>Geological Survey Specialist</strong><small>Test. Measure. Explain patterns. Predict cautiously.</small></aside>
     </header>
 
     <section class="big-question"><span>THE FINAL SCIENCE QUESTION</span><h2>What does the geological evidence tell us about where and how humans could live on Jabberwocky—and what must remain protected?</h2><p>Phase 5 prepares evidence for the future JCEC Council. It does <b>not</b> make the final settlement decision yet.</p></section>
 
-    <JcecPhase5Progress active={2} />
+    <JcecPhase5Progress active={3} />
 
     <section class="posting-panel">
-      <div><p class="eyebrow">YOUR PHASE 5 POSTING</p><h2>Keep the same Geological Survey continent.</h2><p>Mission 2 automatically uses the posting saved for Mission 1. If this device has not saved it yet, choose only the continent your teacher assigned.</p></div>
+      <div><p class="eyebrow">YOUR PHASE 5 POSTING</p><h2>Keep the same Geological Survey continent.</h2><p>Mission 3 automatically uses the posting saved earlier in Phase 5. If this device has not saved it yet, choose only the continent your teacher assigned.</p></div>
       <div class="assignment-control"><label for="phase5-continent"><strong>Your Phase 5 continent</strong><span>Choose only your teacher-assigned Geological Survey posting.</span></label><select id="phase5-continent"><option value="">Choose your assigned continent…</option>{phase5GeologicalSites.map((site) => <option value={site.id}>{site.icon} {site.name} — {site.subtitle}</option>)}</select><p id="save-message" aria-live="polite"></p></div>
     </section>
 
     <section class="previous-team" id="previous-team" hidden>
-      <div class="briefing-heading"><div><p class="eyebrow">PHASE 5 CONTINUITY</p><h2>Keep the posting. Do not reopen Mission 1.</h2></div><strong id="briefing-continent"></strong></div>
-      <p class="briefing-intro">The four inherited site limits remain available here. Mission 2 itself will give you the small rock-history clue set you need, so your Ground Evidence Card does not need to be reconstructed.</p>
+      <div class="briefing-heading"><div><p class="eyebrow">PHASE 5 CONTINUITY</p><h2>Keep the posting. Do not reopen Missions 1–2.</h2></div><strong id="briefing-continent"></strong></div>
+      <p class="briefing-intro">Mission 3 will provide the few site clues needed for the surface-change decision. Your earlier Ground Evidence Card and Rock History Profile do not need to be reconstructed.</p>
       <div class="briefing-grid">
         <article><small>SURFACE / ENVIRONMENT</small><p id="briefing-surface"></p></article>
         <article><small>STRUCTURAL SITE NEED</small><p id="briefing-structure"></p></article>
         <article><small>GROUND-DISTURBANCE LIMIT</small><p id="briefing-ground"></p></article>
         <article><small>OPEN GEOLOGICAL QUESTION</small><p id="briefing-question"></p></article>
       </div>
-      <div class="continue-strip"><div><strong>Mission 1 gathered the evidence.</strong><span>Mission 2 asks which formation processes are consistent with that evidence and what remains uncertain.</span></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-5/mission-2/`}>Start Mission 2 →</a></div>
+      <div class="continue-strip"><div><strong>The earlier missions explained what is there and how it may have formed.</strong><span>Mission 3 asks what processes are changing the surface now and what JCEC should monitor.</span></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-5/mission-3/`}>Start Mission 3 →</a></div>
     </section>
 
-    <section class="quick-start" id="assignment-needed"><div><p class="eyebrow">YOUR NEXT STEP</p><h2>Confirm your Geological Survey posting.</h2><p>Once your assigned continent is saved, Mission 2 can load the correct rock-history clues.</p></div><span>2</span></section>
+    <section class="quick-start" id="assignment-needed"><div><p class="eyebrow">YOUR NEXT STEP</p><h2>Confirm your Geological Survey posting.</h2><p>Once your assigned continent is saved, Mission 3 can load the correct surface-change clues.</p></div><span>3</span></section>
 
     <section class="evidence-system">
       <div class="section-heading"><p class="eyebrow">ONE RULE FOR ALL OF PHASE 5</p><h2>Keep two kinds of evidence separate.</h2></div>
       <div class="evidence-grid">
-        <article class="earth"><small>EARTH REFERENCE EVIDENCE</small><h3>REAL EARTH · AUTHENTIC SOURCE</h3><p>Use real Earth evidence to learn what geological observations and formation processes can mean.</p></article>
-        <article class="jabber"><small>JABBERWOCKY SURVEY EVIDENCE</small><h3>MISSION 2190 SURVEY</h3><p>Use only JCEC survey observations when making claims about your assigned continent.</p></article>
+        <article class="earth"><small>EARTH REFERENCE EVIDENCE</small><h3>REAL EARTH · AUTHENTIC SOURCE</h3><p>Use real Earth evidence to learn what weathering, erosion, deposition and landscape change can mean.</p></article>
+        <article class="jabber"><small>JABBERWOCKY SURVEY EVIDENCE</small><h3>MISSION 2190 SURVEY</h3><p>Use only JCEC observations when deciding what process matters on your assigned continent.</p></article>
       </div>
-      <div class="evidence-rule"><strong>Earth Reference Evidence teaches us what evidence can mean.</strong><span>Jabberwocky Survey Evidence tells us what JCEC actually found.</span><b>Do not use an Earth example to assign a rock type or geological history to Jabberwocky automatically.</b></div>
+      <div class="evidence-rule"><strong>Earth Reference Evidence teaches us what evidence can mean.</strong><span>Jabberwocky Survey Evidence tells us what JCEC actually found.</span><b>Do not transfer an Earth hazard or process to Jabberwocky unless its survey evidence supports it.</b></div>
     </section>
 
     <section class="how-it-works"><div class="section-heading"><p class="eyebrow">SAME ROUTINE EVERY MISSION</p><h2>How The Deep Record works</h2></div><div class="work-grid"><article>👥 <div><strong>TEAM WORK</strong><p>Investigate one geological question and make one team decision.</p></div></article><article>📝 <div><strong>TEAM RECORD</strong><p>Keep only the evidence the next mission or final Council will need.</p></div></article><article>💭 <div><strong>MY REFLECTION</strong><p>Everyone answers one short science question.</p></div></article></div></section>
 
     <section class="mission-list">
       <div class="section-heading"><p class="eyebrow">PHASE 5 PATH</p><h2>Five missions. One geological handoff.</h2></div>
-      <div class="sequence-strip"><span class="done">Evidence ✓</span><b>→</b><span class="current">Rock History ●</span><b>→</b><span>Surface Change ○</span><b>→</b><span>Deep Past ○</span><b>→</b><span>Geological Handoff ○</span></div>
-      <div class="mission-cards">{missions.map((mission) => <article class:list={['mission-card',{complete:mission.number<2,current:mission.number===2,locked:!mission.ready}]}><div class="mission-icon">{mission.icon}</div><div class="mission-main"><div class="mission-topline"><span>MISSION {mission.number}</span><b>{mission.status}</b></div><h3>{mission.title}</h3><p class="mission-question">{mission.question}</p><p class="mission-summary">{mission.summary}</p></div>{mission.ready?<a class="mission-ready-link" href={mission.href}>{mission.linkText}</a>:<span class="mission-locked">🔒 Not released yet</span>}</article>)}</div>
+      <div class="sequence-strip"><span class="done">Evidence ✓</span><b>→</b><span class="done">Rock History ✓</span><b>→</b><span class="current">Surface Change ●</span><b>→</b><span>Deep Past ○</span><b>→</b><span>Geological Handoff ○</span></div>
+      <div class="mission-cards">{missions.map((mission) => <article class:list={['mission-card',{complete:mission.number<3,current:mission.number===3,locked:!mission.ready}]}><div class="mission-icon">{mission.icon}</div><div class="mission-main"><div class="mission-topline"><span>MISSION {mission.number}</span><b>{mission.status}</b></div><h3>{mission.title}</h3><p class="mission-question">{mission.question}</p><p class="mission-summary">{mission.summary}</p></div>{mission.ready?<a class="mission-ready-link" href={mission.href}>{mission.linkText}</a>:<span class="mission-locked">🔒 Not released yet</span>}</article>)}</div>
     </section>
 
-    <section class="phase4-link"><span>←</span><div><strong>Need earlier evidence?</strong><p>Phase 5 already carries forward the structural and ecological limits you need. Mission 2 also provides the relevant Mission 1 survey clues. Students do not need to reopen older phases.</p></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-5/mission-1/`}>Review Mission 1</a></section>
+    <section class="phase4-link"><span>←</span><div><strong>Need earlier evidence?</strong><p>Phase 5 already carries forward the site limits you need. Mission 3 supplies the current surface-change clues, so students do not need to reopen older records.</p></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-5/mission-2/`}>Review Mission 2</a></section>
   </div>
 
   <script is:inline define:vars={{ siteData: phase5GeologicalSites }}>
