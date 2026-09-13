@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -7,30 +8,50 @@ const outDir = path.join(root, 'public', 'resources', 'jcec');
 
 const resources = [
   {
-    prefix: 'field.part',
+    pattern: /^field\.approved\.part\d+\.b64$/,
+    expectedParts: 9,
     out: 'Project_New_Horizon_CityScape_Field_File.pdf',
-    minBytes: 30000
+    expectedBytes: 37427,
+    expectedSha256: '50c914abbfc1eace66a518805f76d8f5981cb11a47c829c376eb0f2257996c18'
   },
   {
-    prefix: 'teacher.part',
+    pattern: /^teacher\.approved\.part\d+\.b64$/,
+    expectedParts: 4,
     out: 'Project_New_Horizon_CityScape_Teacher_Guide.pdf',
-    minBytes: 14000
+    expectedBytes: 17580,
+    expectedSha256: 'f7f781ee1155152b8c9fabe8e366a61f386b5f8b4703b3d98d2c9374dfd89cb0'
   }
 ];
 
 fs.mkdirSync(outDir, { recursive: true });
+if (!fs.existsSync(sourceDir)) throw new Error(`Missing CityScape source directory: ${sourceDir}`);
 
 for (const resource of resources) {
-  if (!fs.existsSync(sourceDir)) throw new Error(`Missing CityScape source directory: ${sourceDir}`);
   const parts = fs.readdirSync(sourceDir)
-    .filter((name) => name.startsWith(resource.prefix) && name.endsWith('.b64'))
-    .sort();
-  if (!parts.length) throw new Error(`No base64 parts found for ${resource.out}`);
-  const encoded = parts.map((name) => fs.readFileSync(path.join(sourceDir, name), 'utf8').trim()).join('');
-  const pdf = Buffer.from(encoded, 'base64');
-  if (pdf.subarray(0, 5).toString('ascii') !== '%PDF-' || pdf.length < resource.minBytes) {
-    throw new Error(`Materialized ${resource.out} failed PDF header/size validation`);
+    .filter((name) => resource.pattern.test(name))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+
+  if (parts.length !== resource.expectedParts) {
+    throw new Error(`Expected ${resource.expectedParts} approved base64 parts for ${resource.out}; found ${parts.length}`);
   }
+
+  const encoded = parts
+    .map((name) => fs.readFileSync(path.join(sourceDir, name), 'utf8'))
+    .join('')
+    .replace(/\s+/g, '');
+  const pdf = Buffer.from(encoded, 'base64');
+  const sha256 = crypto.createHash('sha256').update(pdf).digest('hex');
+
+  if (pdf.subarray(0, 5).toString('ascii') !== '%PDF-') {
+    throw new Error(`Materialized ${resource.out} failed PDF header validation`);
+  }
+  if (pdf.length !== resource.expectedBytes) {
+    throw new Error(`Materialized ${resource.out} byte mismatch: expected ${resource.expectedBytes}, got ${pdf.length}`);
+  }
+  if (sha256 !== resource.expectedSha256) {
+    throw new Error(`Materialized ${resource.out} SHA-256 mismatch: expected ${resource.expectedSha256}, got ${sha256}`);
+  }
+
   fs.writeFileSync(path.join(outDir, resource.out), pdf);
-  console.log(`Materialized ${resource.out} (${pdf.length} bytes)`);
+  console.log(`Materialized approved ${resource.out} (${pdf.length} bytes, sha256 ${sha256})`);
 }
