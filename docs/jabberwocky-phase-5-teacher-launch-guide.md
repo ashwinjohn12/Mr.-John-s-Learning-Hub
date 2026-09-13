@@ -3,7 +3,7 @@
 ## PHASE 5 — THE DEEP RECORD
 **JCEC Geological Survey Division**
 
-This teacher guide matches the completed student experience exactly:
+This teacher guide matches the five-mission student experience:
 
 1. **Mission 1 — Read the Ground — 3 classes — formative**
 2. **Mission 2 — Follow the Rock Story — 3 classes — formative**
@@ -15,7 +15,7 @@ This teacher guide matches the completed student experience exactly:
 
 > Low-material rule: **ordinary classroom supplies → shared/reused equipment → printables/data fallbacks → specialty equipment only as optional enrichment.**
 
-> Phase boundary: **Mission 5 ends with a geological evidence handoff. Do not begin the final Mission 2190 Council decision yet.**
+> Phase boundary: **Mission 5 ends with a geological evidence handoff. Do not begin the Council before the Geological Evidence Packet and reflection are complete. After that, keep the same Phase 5 team and continent and continue to the released Mission 2190 Council.**
 
 ---
 
@@ -197,7 +197,7 @@ Every core class follows:
 - **Day 22 — Geological Evidence Packet completion:** finish M5 synthesis and teacher conferences.
 - **Day 23 — Absence recovery / short individual assessment:** recover missed reasoning using shared/supplied evidence.
 - **Day 24 — Optional Geological Evidence gallery/review:** compare different continent handoffs and evidence choices.
-- **Day 25 — Final buffer / feedback / transition:** normal interruptions, reteach, make-up and transition planning. **Do not begin the final Council unless separately approved.**
+- **Day 25 — Final buffer / feedback / transition:** normal interruptions, reteach, make-up and transition into the released Mission 2190 Council once the Geological Evidence Packet and reflection are complete. **Keep the same Phase 5 team and continent.**
 
 ---
 
@@ -399,7 +399,8 @@ Keep fossil context/location scientifically important. Do not turn Mission 4 int
 - **Do Missions 1–5 remain distinct?** Yes: observe/classify → formation history → ongoing surface change → deep-past reconstruction → geological handoff.
 - **Does the system stay evidence-first?** Yes — rock names are secondary to observations, processes, patterns, uncertainty and explanations.
 - **Do Earth Reference Evidence and Jabberwocky Survey Evidence stay separate?** Yes.
-- **Does Mission 5 stop before the final Council?** Yes.
+- **Does Mission 5 stop before the final Council decision?** Yes — Mission 5 itself ends with the geological handoff only.
+- **Do I know how Phase 5 hands off to the Council?** Yes — after the Geological Evidence Packet and reflection are complete, keep the same Phase 5 team and continent and use the Mission 5 transition into the released Council.
 - **Do teacher and student systems match?** Yes.
 
-**STOP. The final Mission 2190 Council decision is not part of this guide and must remain unreleased until separately approved.**
+**STOP PHASE 5 instruction after the Geological Evidence Packet and reflection. Then continue to the separately released Mission 2190 Council with the same Phase 5 team and continent.**
