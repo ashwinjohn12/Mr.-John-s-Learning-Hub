@@ -8,8 +8,8 @@ const base = import.meta.env.BASE_URL;
 const missions = [
   { number: 1, title: 'Read the Thermal Warning', question: 'What is temperature actually telling us?', summary: 'Measure temperature, use the particle model and identify the main thermal risk on your continent.', icon: '🌡️', status: 'COMPLETE', ready: true, href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-1/`, linkText: 'Review Mission 1 →' },
   { number: 2, title: 'Follow the Heat', question: 'How does thermal energy get from one place to another?', summary: 'Trace conduction, convection and radiation through a habitat.', icon: '↗️', status: 'COMPLETE', ready: true, href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-2/`, linkText: 'Review Mission 2 →' },
-  { number: 3, title: 'Hold the Temperature', question: 'How can materials and design slow unwanted thermal-energy transfer?', summary: 'Use a fair test to compare thermal barriers.', icon: '🧱', status: 'CURRENT', ready: true, href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-3/`, linkText: 'Start Mission 3 →' },
-  { number: 4, title: 'Control the Habitat', question: 'How do humans keep temperatures within a useful range?', summary: 'Build a simple control rule for heating, cooling and passive strategies.', icon: '🎛️', status: 'UPCOMING', ready: false },
+  { number: 3, title: 'Hold the Temperature', question: 'How can materials and design slow unwanted thermal-energy transfer?', summary: 'Use a fair test to compare thermal barriers.', icon: '🧱', status: 'COMPLETE', ready: true, href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-3/`, linkText: 'Review Mission 3 →' },
+  { number: 4, title: 'Control the Habitat', question: 'How do humans keep temperatures within a useful range?', summary: 'Use feedback, passive controls and active systems to build a habitat control protocol.', icon: '🎛️', status: 'CURRENT', ready: true, href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-4/`, linkText: 'Start Mission 4 →' },
   { number: 5, title: 'Survive Without Wasting It', question: 'How can humans stay safe without wasting energy or damaging the environment?', summary: 'Use the whole phase to create a Thermal Survival Plan.', icon: '⚡', status: 'UPCOMING', ready: false }
 ];
 ---
@@ -35,7 +35,7 @@ const missions = [
 
     <section class="big-question"><span>THE BIG QUESTION</span><h2>How can humans maintain safe living conditions without wasting energy or damaging Jabberwocky?</h2></section>
 
-    <JcecPhase3Progress active={3} />
+    <JcecPhase3Progress active={4} />
 
     <section class="handoff-panel" aria-labelledby="handoff-heading">
       <div class="handoff-copy">
@@ -59,7 +59,7 @@ const missions = [
         <article><span>⚠️</span><small>ECOSYSTEM WARNING</small><p id="briefing-warning"></p></article>
         <article><span>🚧</span><small>DEVELOPMENT RESTRICTION</small><p id="briefing-restriction"></p></article>
       </div>
-      <div class="continue-strip"><div><strong>Missions 1–2 identified the thermal problem and traced the pathways.</strong><span>Mission 3 is current: use fair-test evidence to slow the unwanted transfer.</span></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-3/mission-3/`}>Start Mission 3 →</a></div>
+      <div class="continue-strip"><div><strong>Missions 1–3 measured, traced and slowed the thermal problem.</strong><span>Mission 4 is current: build a feedback rule for what the habitat should do when temperature changes anyway.</span></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-3/mission-4/`}>Start Mission 4 →</a></div>
     </section>
 
     <section class="quick-start" id="assignment-needed"><div><p class="eyebrow">YOUR NEXT STEP</p><h2>Get your Phase 3 posting.</h2><p>Once you choose the continent your teacher assigned, your four inherited findings and current mission will appear.</p></div><span>1</span></section>
@@ -71,9 +71,9 @@ const missions = [
 
     <section class="mission-list">
       <div class="section-heading"><p class="eyebrow">PHASE 3 PATH</p><h2>Five missions. One survival problem.</h2></div>
-      <div class="sequence-strip"><span class="done">Temperature ✓</span><b>→</b><span class="done">Heat Transfer ✓</span><b>→</b><span class="current">Thermal Barrier ●</span><b>→</b><span>Habitat Control ○</span><b>→</b><span>Sustainable Survival ○</span></div>
+      <div class="sequence-strip"><span class="done">Temperature ✓</span><b>→</b><span class="done">Heat Transfer ✓</span><b>→</b><span class="done">Thermal Barrier ✓</span><b>→</b><span class="current">Habitat Control ●</span><b>→</b><span>Sustainable Survival ○</span></div>
       <div class="mission-cards">{missions.map((mission) => (
-        <article class:list={['mission-card', { ready: mission.ready, current: mission.number === 3, complete: mission.number < 3, locked: !mission.ready }]}>
+        <article class:list={['mission-card', { ready: mission.ready, current: mission.number === 4, complete: mission.number < 4, locked: !mission.ready }]}>
           <div class="mission-icon">{mission.icon}</div>
           <div class="mission-main"><div class="mission-topline"><span>MISSION {mission.number}</span><b>{mission.status}</b></div><h3>{mission.title}</h3><p class="mission-question">{mission.question}</p><p class="mission-summary">{mission.summary}</p></div>
           {mission.ready ? <a class="mission-ready-link" href={mission.href}>{mission.linkText}</a> : <span class="mission-locked">🔒 Wait for your teacher</span>}
