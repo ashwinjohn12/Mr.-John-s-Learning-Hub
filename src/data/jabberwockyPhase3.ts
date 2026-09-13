@@ -12,6 +12,7 @@ export interface Phase3ThermalSite {
   };
   thermalChallenge: string;
   mission1Clues: string[];
+  mission2Clues: string[];
 }
 
 export const phase3ThermalSites: Phase3ThermalSite[] = [
@@ -28,6 +29,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Cold alpine conditions make long periods of heat loss a serious concern.',
       'Wind exposure can make an unprotected habitat lose heat faster.',
       'Some slopes receive useful sunlight, but fragile ground limits where humans should build.'
+    ],
+    mission2Clues: [
+      'Exposed moving air can carry thermal energy away from a warmer habitat by convection.',
+      'Walls, floors and other touching materials can conduct thermal energy from the warmer inside toward colder surroundings.',
+      'Sunlight on some slopes can add thermal energy by radiation when it is available.'
     ]
   },
   {
@@ -43,6 +49,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'The environment is already warm and humid for long periods.',
       'Dense canopy changes how much direct sunlight reaches different locations.',
       'Large forest clearings would create a new ecological problem even if they made construction easier.'
+    ],
+    mission2Clues: [
+      'Warm, humid air moving around a habitat can transfer thermal energy by convection.',
+      'Dense canopy changes how much direct sunlight reaches a site, so radiant energy gain can differ by location.',
+      'Any temperature difference across habitat walls or roofs can move thermal energy through those materials by conduction.'
     ]
   },
   {
@@ -58,6 +69,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Most conditions are mild compared with the coldest or hottest continents.',
       'Storm season can quickly change wind, cloud cover and exposure around a habitat.',
       'A thermal plan should remain useful without requiring new damage to freshwater or coastal habitat.'
+    ],
+    mission2Clues: [
+      'Storm-season air movement can make convection an important pathway around an exposed habitat.',
+      'Changing cloud cover and exposure can change how much solar radiation reaches habitat surfaces.',
+      'When indoor and outdoor temperatures differ, thermal energy can conduct through the habitat materials between them.'
     ]
   },
   {
@@ -73,6 +89,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Daytime temperatures can reach about 40°C.',
       'Night temperatures can fall to about −5°C.',
       'Fresh water is scarce, so water-intensive cooling would create another survival problem.'
+    ],
+    mission2Clues: [
+      'During hot daytime conditions, exposed habitat surfaces can gain thermal energy from sunlight by radiation.',
+      'At night, much colder outside air can carry thermal energy away from a warmer habitat by convection.',
+      'The large inside-outside temperature difference can drive conduction through walls in either direction as conditions change.'
     ]
   },
   {
@@ -88,6 +109,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Very cold conditions can continue for long periods.',
       'Storms increase exposure and can make temperature control more difficult.',
       'Natural vegetation recovers slowly, so habitat solutions should minimize disturbance.'
+    ],
+    mission2Clues: [
+      'Very cold moving air during exposed conditions can carry thermal energy away by convection.',
+      'Walls, doors and floors can conduct thermal energy from the warmer habitat toward colder surroundings.',
+      'Radiation can still add thermal energy to exposed surfaces when sunlight is available, so it is not the only pathway to consider.'
     ]
   },
   {
@@ -103,6 +129,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Winter temperatures can fall to about −30°C.',
       'Summer temperatures can rise to about +30°C.',
       'One habitat may therefore face both heating and cooling problems at different times of year.'
+    ],
+    mission2Clues: [
+      'Seasonal temperature changes can reverse the direction of conduction through habitat walls and roofs.',
+      'The open prairie allows moving air around a habitat, so convection can matter in both cold and warm seasons.',
+      'Sunlight can add energy by radiation, and its importance may change with the season.'
     ]
   },
   {
@@ -118,6 +149,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Winter temperatures can fall to about −40°C.',
       'Summer temperatures can reach about +24°C.',
       'Clearing large forest areas to change solar exposure would conflict with earlier ecological evidence.'
+    ],
+    mission2Clues: [
+      'Very cold winter conditions can create strong conduction from the warmer habitat through its materials toward the outside.',
+      'Moving outdoor air can carry thermal energy away by convection when the habitat is warmer than its surroundings.',
+      'Solar radiation can add energy to exposed surfaces, but the team must work with the existing forest rather than clear it for exposure.'
     ]
   },
   {
@@ -133,6 +169,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'The wetland environment is warm and humid.',
       'Saturated ground and shallow water limit where ordinary dry-land structures can be placed.',
       'Cooling solutions cannot depend on draining or heavily modifying the wetland.'
+    ],
+    mission2Clues: [
+      'Warm, humid air moving through the wetland environment can transfer thermal energy by convection.',
+      'Sunlight can transfer thermal energy to exposed habitat surfaces by radiation.',
+      'Any habitat materials touching wet or saturated surroundings can exchange thermal energy by conduction; the solution cannot depend on draining the wetland.'
     ]
   }
 ];
