@@ -13,6 +13,7 @@ export interface Phase3ThermalSite {
   thermalChallenge: string;
   mission1Clues: string[];
   mission2Clues: string[];
+  mission3Clues: string[];
 }
 
 export const phase3ThermalSites: Phase3ThermalSite[] = [
@@ -34,6 +35,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Exposed moving air can carry thermal energy away from a warmer habitat by convection.',
       'Walls, floors and other touching materials can conduct thermal energy from the warmer inside toward colder surroundings.',
       'Sunlight on some slopes can add thermal energy by radiation when it is available.'
+    ],
+    mission3Clues: [
+      'A barrier that slows conduction through walls, roof and floor could reduce heat loss during long cold periods.',
+      'Wind exposure means gaps or poorly covered areas can weaken an otherwise useful thermal barrier.',
+      'Fragile slopes limit how much humans should disturb the site, so improving the habitat envelope is preferable to simply expanding the development footprint.'
     ]
   },
   {
@@ -54,6 +60,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Warm, humid air moving around a habitat can transfer thermal energy by convection.',
       'Dense canopy changes how much direct sunlight reaches a site, so radiant energy gain can differ by location.',
       'Any temperature difference across habitat walls or roofs can move thermal energy through those materials by conduction.'
+    ],
+    mission3Clues: [
+      'A thermal barrier can slow unwanted energy moving through the habitat shell when outside conditions are warmer than the interior.',
+      'Good coverage matters, but a barrier should not be treated as a reason to remove surrounding canopy or block every useful airflow path.',
+      'Earlier teams already ruled out large forest clearings, so the thermal strategy must work within existing openings and habitat limits.'
     ]
   },
   {
@@ -74,6 +85,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Storm-season air movement can make convection an important pathway around an exposed habitat.',
       'Changing cloud cover and exposure can change how much solar radiation reaches habitat surfaces.',
       'When indoor and outdoor temperatures differ, thermal energy can conduct through the habitat materials between them.'
+    ],
+    mission3Clues: [
+      'Because most island conditions are mild, the best barrier may be one that moderates changes rather than maximizing insulation at all times.',
+      'Storm exposure makes continuous coverage and protected openings important because gaps can allow rapid thermal exchange with moving air.',
+      'Habitat improvements must protect freshwater catchments and sensitive coastal connections rather than relocating the whole system into a more damaging site.'
     ]
   },
   {
@@ -94,6 +110,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'During hot daytime conditions, exposed habitat surfaces can gain thermal energy from sunlight by radiation.',
       'At night, much colder outside air can carry thermal energy away from a warmer habitat by convection.',
       'The large inside-outside temperature difference can drive conduction through walls in either direction as conditions change.'
+    ],
+    mission3Clues: [
+      'A useful thermal barrier must slow energy transfer in both directions: inward during hot days and outward during cold nights.',
+      'Gaps or weakly covered areas can undermine a barrier when the temperature difference between inside and outside is large.',
+      'Fresh water is scarce, so the team should reduce unwanted transfer before relying on any water-intensive cooling idea.'
     ]
   },
   {
@@ -114,6 +135,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Very cold moving air during exposed conditions can carry thermal energy away by convection.',
       'Walls, doors and floors can conduct thermal energy from the warmer habitat toward colder surroundings.',
       'Radiation can still add thermal energy to exposed surfaces when sunlight is available, so it is not the only pathway to consider.'
+    ],
+    mission3Clues: [
+      'Long cold periods make slowing conduction through the habitat shell especially important.',
+      'Continuous coverage and trapped-air spaces can help reduce transfer, while gaps around doors or joins can weaken the barrier.',
+      'Slow-recovering natural plant mats must remain protected, so thermal protection should come from the habitat design rather than repeated ground disturbance.'
     ]
   },
   {
@@ -134,6 +160,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Seasonal temperature changes can reverse the direction of conduction through habitat walls and roofs.',
       'The open prairie allows moving air around a habitat, so convection can matter in both cold and warm seasons.',
       'Sunlight can add energy by radiation, and its importance may change with the season.'
+    ],
+    mission3Clues: [
+      'A useful barrier must slow unwanted transfer during both cold winters and warm summers rather than solving only one season.',
+      'Open prairie exposure makes full coverage and control of gaps important when outside air is moving.',
+      'The thermal solution must fit within a compact development plan that protects native prairie connections and soil.'
     ]
   },
   {
@@ -154,6 +185,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Very cold winter conditions can create strong conduction from the warmer habitat through its materials toward the outside.',
       'Moving outdoor air can carry thermal energy away by convection when the habitat is warmer than its surroundings.',
       'Solar radiation can add energy to exposed surfaces, but the team must work with the existing forest rather than clear it for exposure.'
+    ],
+    mission3Clues: [
+      'Severe winter conditions make a strong thermal barrier valuable, especially across walls, roof and floor.',
+      'Summer conditions are milder, so the design should reduce winter heat loss without assuming maximum heat retention is always helpful.',
+      'The team cannot solve the thermal problem by clearing large forest areas; the barrier strategy must work within the existing forest setting.'
     ]
   },
   {
@@ -174,6 +210,11 @@ export const phase3ThermalSites: Phase3ThermalSite[] = [
       'Warm, humid air moving through the wetland environment can transfer thermal energy by convection.',
       'Sunlight can transfer thermal energy to exposed habitat surfaces by radiation.',
       'Any habitat materials touching wet or saturated surroundings can exchange thermal energy by conduction; the solution cannot depend on draining the wetland.'
+    ],
+    mission3Clues: [
+      'A barrier can slow unwanted heat transfer through the habitat shell, but the design still needs to work in a warm, humid setting.',
+      'Materials or layouts that depend on draining the ground would conflict with the established wetland restriction.',
+      'A compact barrier strategy should protect the wetland while reducing the amount of active cooling the habitat may eventually need.'
     ]
   }
 ];
