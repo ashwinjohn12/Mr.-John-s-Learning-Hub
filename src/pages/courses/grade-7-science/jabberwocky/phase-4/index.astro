@@ -7,8 +7,8 @@ import { phase4StructuralSites } from '../../../../../data/jabberwockyPhase4';
 const base = import.meta.env.BASE_URL;
 const missions = [
   { number:1, title:'Read the Building Site', question:'What does a structure need to do before we decide how to build it?', summary:'Define the requirements before designing.', icon:'📐', status:'COMPLETE', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-4/mission-1/`, linkText:'Review Mission 1 →' },
-  { number:2, title:'Trace the Forces', question:'What forces will our structure need to resist?', summary:'Trace loads, internal forces and possible failure.', icon:'↔️', status:'CURRENT', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-4/mission-2/`, linkText:'Start Mission 2 →' },
-  { number:3, title:'Choose What Holds', question:'How do materials and joints change what a structure can handle?', summary:'Test material properties and connections.', icon:'🧩', status:'UPCOMING', ready:false },
+  { number:2, title:'Trace the Forces', question:'What forces will our structure need to resist?', summary:'Trace loads, internal forces and possible failure.', icon:'↔️', status:'COMPLETE', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-4/mission-2/`, linkText:'Review Mission 2 →' },
+  { number:3, title:'Choose What Holds', question:'How do materials and joints change what a structure can handle?', summary:'Test material properties and connections.', icon:'🧩', status:'CURRENT', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-4/mission-3/`, linkText:'Start Mission 3 →' },
   { number:4, title:'Keep It Standing', question:'How can a structure remain stable and safe when conditions change?', summary:'Test stability, improve a weakness and retest.', icon:'🏗️', status:'UPCOMING', ready:false },
   { number:5, title:'Authorize New Horizon', question:'What structural system should JCEC authorize for this continent?', summary:'Use evidence from the whole phase to make a structural decision.', icon:'✅', status:'UPCOMING', ready:false }
 ];
@@ -24,13 +24,13 @@ const missions = [
     ]} />
 
     <header class="phase4-hero">
-      <div><p class="eyebrow">MISSION 2190 // PHASE 4</p><h1>PROJECT <span>NEW HORIZON</span></h1><p class="division">JCEC STRUCTURAL SYSTEMS DIVISION</p><p class="lead">You now know what a successful structure must do on your site. Mission 2 asks what could push, pull, load, deform or cause that structure to fail.</p></div>
+      <div><p class="eyebrow">MISSION 2190 // PHASE 4</p><h1>PROJECT <span>NEW HORIZON</span></h1><p class="division">JCEC STRUCTURAL SYSTEMS DIVISION</p><p class="lead">You know what the structure must do and which forces could make it deform or fail. Mission 3 now asks what material properties and joint behaviours can handle those jobs.</p></div>
       <aside><span>YOUR ROLE</span><strong>Structural Systems Specialist</strong><small>Define. Trace. Test. Improve. Authorize.</small></aside>
     </header>
 
     <section class="big-question"><span>THE BIG QUESTION</span><h2>Can humans build strong, stable and safe structures without unnecessarily damaging the environments they now depend on?</h2></section>
 
-    <JcecPhase4Progress active={2} />
+    <JcecPhase4Progress active={3} />
 
     <section class="handoff-panel">
       <div><p class="eyebrow">YOUR PHASE 4 POSTING</p><h2>Keep the same Structural Systems continent.</h2><p>Your Phase 4 posting stays separate from Phases 1–3. Choose only the continent your teacher assigned if this device has not saved it yet.</p></div>
@@ -39,19 +39,19 @@ const missions = [
 
     <section class="previous-team" id="previous-team" hidden>
       <div class="briefing-heading"><div><p class="eyebrow">PREVIOUS TEAM STRUCTURAL BRIEFING</p><h2>Four inherited limits still matter</h2></div><strong id="briefing-continent"></strong></div>
-      <p class="briefing-intro">You do not need to reopen old archives. Mission 2 only needs the site challenge and the requirements your team set in Mission 1.</p>
+      <p class="briefing-intro">You do not need to reopen old archives. Mission 3 carries the site challenge forward, and your Mission 2 Force Map is useful evidence only if you already have it.</p>
       <div class="briefing-grid"><article><small>ENVIRONMENT</small><p id="briefing-environment"></p></article><article><small>THERMAL REQUIREMENT</small><p id="briefing-thermal"></p></article><article><small>ECOLOGICAL RESTRICTION</small><p id="briefing-ecology"></p></article><article><small>SITE / LOAD WARNING</small><p id="briefing-site"></p></article></div>
-      <div class="continue-strip"><div><strong>Mission 1 defined the requirements.</strong><span>Mission 2 is current: trace the loads and internal forces the structure must resist.</span></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-4/mission-2/`}>Start Mission 2 →</a></div>
+      <div class="continue-strip"><div><strong>Missions 1–2 set the requirements and traced the forces.</strong><span>Mission 3 is current: fairly test material properties and choose joint behaviour that fits the structural job.</span></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-4/mission-3/`}>Start Mission 3 →</a></div>
     </section>
 
-    <section class="quick-start" id="assignment-needed"><div><p class="eyebrow">YOUR NEXT STEP</p><h2>Confirm your Phase 4 posting.</h2><p>Once the teacher-assigned continent is saved, your current mission will appear.</p></div><span>2</span></section>
+    <section class="quick-start" id="assignment-needed"><div><p class="eyebrow">YOUR NEXT STEP</p><h2>Confirm your Phase 4 posting.</h2><p>Once the teacher-assigned continent is saved, your current mission will appear.</p></div><span>3</span></section>
 
     <section class="how-it-works"><div class="section-heading"><p class="eyebrow">SAME ROUTINE EVERY MISSION</p><h2>How Project New Horizon works</h2></div><div class="work-grid"><article>👥 <div><strong>TEAM WORK</strong><p>Investigate and make one structural decision together.</p></div></article><article>📝 <div><strong>TEAM RECORD</strong><p>One team product keeps only the evidence needed later.</p></div></article><article>💭 <div><strong>MY REFLECTION</strong><p>Everyone answers one short science question.</p></div></article></div></section>
 
     <section class="mission-list">
       <div class="section-heading"><p class="eyebrow">PHASE 4 PATH</p><h2>Five missions. One construction decision.</h2></div>
-      <div class="sequence-strip"><span class="done">Requirements ✓</span><b>→</b><span class="current">Forces ●</span><b>→</b><span>Materials ○</span><b>→</b><span>Stability ○</span><b>→</b><span>Authorization ○</span></div>
-      <div class="mission-cards">{missions.map((mission) => <article class:list={['mission-card',{complete:mission.number===1,current:mission.number===2,locked:!mission.ready}]}><div class="mission-icon">{mission.icon}</div><div class="mission-main"><div class="mission-topline"><span>MISSION {mission.number}</span><b>{mission.status}</b></div><h3>{mission.title}</h3><p class="mission-question">{mission.question}</p><p class="mission-summary">{mission.summary}</p></div>{mission.ready?<a class="mission-ready-link" href={mission.href}>{mission.linkText}</a>:<span class="mission-locked">🔒 Not released yet</span>}</article>)}</div>
+      <div class="sequence-strip"><span class="done">Requirements ✓</span><b>→</b><span class="done">Forces ✓</span><b>→</b><span class="current">Materials ●</span><b>→</b><span>Stability ○</span><b>→</b><span>Authorization ○</span></div>
+      <div class="mission-cards">{missions.map((mission) => <article class:list={['mission-card',{complete:mission.number<3,current:mission.number===3,locked:!mission.ready}]}><div class="mission-icon">{mission.icon}</div><div class="mission-main"><div class="mission-topline"><span>MISSION {mission.number}</span><b>{mission.status}</b></div><h3>{mission.title}</h3><p class="mission-question">{mission.question}</p><p class="mission-summary">{mission.summary}</p></div>{mission.ready?<a class="mission-ready-link" href={mission.href}>{mission.linkText}</a>:<span class="mission-locked">🔒 Not released yet</span>}</article>)}</div>
     </section>
 
     <section class="phase3-link"><span>←</span><div><strong>Need earlier thermal evidence?</strong><p>Phase 4 already carries forward the thermal and ecological limits you need. You do not need to reopen Phase 3.</p></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-3/mission-5/`}>Review Phase 3 conclusion</a></section>
