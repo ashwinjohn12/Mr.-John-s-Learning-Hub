@@ -78,7 +78,8 @@ for (const token of [
   'The website record below is a planning/reference version if its wording differs'
 ]) requireText(component, token, 'CityScape integration component');
 
-for (const route of ['mission-1','mission-2','mission-3','mission-4','mission-5','teacher-launch-guide']) requireText(component, route, `CityScape route support ${route}`);
+requireText(component, 'mission-([1-5])', 'CityScape shared Mission 1–5 route matcher');
+requireText(component, 'teacher-launch-guide', 'CityScape teacher-guide route support');
 
 const teamRecords = [
   'New Horizon Requirements Card',
