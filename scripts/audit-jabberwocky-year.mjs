@@ -17,6 +17,7 @@ const basePath = 'src/pages/courses/grade-7-science/jabberwocky';
 const required = [
   `${basePath}/index.astro`,
   `${basePath}/teacher-dashboard/index.astro`,
+  `${basePath}/before-students-arrive/index.astro`,
   `${basePath}/council/index.astro`,
   `${basePath}/council/teacher-guide/index.astro`,
   'src/components/JcecWholeYearReleaseState.astro',
@@ -31,6 +32,7 @@ for (let p = 1; p <= 5; p += 1) {
 required.forEach((file) => expectExists(file));
 
 const dashboard = read(`${basePath}/teacher-dashboard/index.astro`);
+const operations = read(`${basePath}/before-students-arrive/index.astro`);
 const release = read('src/components/JcecWholeYearReleaseState.astro');
 const layout = read('src/layouts/BaseLayout.astro');
 const pkg = read('package.json');
@@ -160,6 +162,30 @@ expectContains(dashboard, 'Mission 2190 Council Directive', 'dashboard identifie
 expectContains(dashboard, 'council/teacher-guide/', 'dashboard links Teacher Council Guide');
 expectContains(dashboard, 'council/', 'dashboard links student Council');
 
+expectContains(dashboard, 'before-students-arrive/', 'Teacher Master Dashboard links the Before Students Arrive operations system');
+expectContains(dashboard, 'Mission 2190 — Before Students Arrive', 'dashboard labels the teacher operations shortcut clearly');
+expectContains(operations, 'This is an operations resource only.', 'operations page explicitly preserves frozen v1.0 curriculum/student experience');
+expectContains(operations, '1 · BEFORE THE SCHOOL YEAR', 'operations page includes whole-year setup checklist');
+expectContains(operations, '2 · BEFORE EACH PHASE', 'operations page includes phase-prep section');
+expectContains(operations, '3 · FIRST WEEK / PHASE 1 LAUNCH', 'operations page includes exact first-week launch');
+expectContains(operations, '4 · EQUIPMENT INVENTORY', 'operations page includes printable equipment inventory');
+expectContains(operations, '5 · QUICK RECOVERY GUIDE', 'operations page includes quick recovery section');
+expectContains(operations, 'Print / Save PDF', 'operations page includes print/save support');
+expectContains(operations, 'normal browser profile, not Guest/Incognito', 'Chromebook readiness protects localStorage persistence');
+for (let p = 1; p <= 5; p += 1) expectContains(operations, `number:${p}`, `operations page includes Phase ${p} prep card`);
+expectContains(operations, 'DAY 1', 'first-week operations include Day 1');
+expectContains(operations, 'DAY 5', 'first-week operations include Day 5');
+expectContains(operations, 'The preliminary JCEC rating is a starting idea, not the answer.', 'Day 1 teacher emphasis matches approved Phase 1 guide');
+expectContains(operations, 'Environment Profile — formative.', 'Day 3 finish target matches approved Team Record');
+expectContains(operations, 'EVIDENCE FIRST — IMAGINATION SECOND.', 'Day 5 emphasis matches approved Phase 1 guide');
+expectContains(operations, 'ALREADY HAVE', 'equipment inventory includes Already Have column');
+expectContains(operations, 'NEED TO FIND', 'equipment inventory includes Need to Find column');
+expectContains(operations, 'NEED TO BUY', 'equipment inventory includes Need to Buy column');
+['6 hand lenses','6 shallow reusable trays','6 classroom thermometers','6 plastic measuring containers','3 spring scales'].forEach((item) => expectContains(operations, item, `operations inventory preserves priority item: ${item}`));
+['Chromebooks fail','Printing is unavailable','A lab runs long','Materials are missing','A student is absent','A class is lost','A group loses its saved continent posting'].forEach((caseName) => expectContains(operations, caseName, `operations recovery guide includes: ${caseName}`));
+expectContains(operations, 'The five phase keys are separate.', 'lost-posting recovery preserves separate phase state');
+expectContains(operations, 'assigned continent saved', 'Day 1 checklist has a clear completion point');
+
 expectContains(release, 'Teacher Master Dashboard', 'teacher shortcut makes master dashboard easy to find');
 expectContains(release, 'Open Mission Roadmap', 'returning students can immediately find the whole-year roadmap');
 expectContains(release, 'available for review', 'old phase hubs clearly present as review rather than current work');
@@ -170,4 +196,4 @@ expectContains(pkg, 'audit-jabberwocky-year.mjs', 'production build runs whole-y
 expectContains(pkg, 'audit:jabberwocky-year', 'package exposes whole-year audit command');
 
 console.log(`\nJabberwocky whole-year release-readiness audit: ${checks} checks passed.`);
-console.log('The complete student journey, teacher dashboard, phase posting separation, assessment map, materials fallbacks, evidence handoffs and final Council closure are release-ready.');
+console.log('The complete student journey, teacher dashboard, teacher operations system, phase posting separation, assessment map, materials fallbacks, evidence handoffs and final Council closure are release-ready.');
