@@ -14,114 +14,120 @@ const files = {
   m1: 'src/pages/courses/grade-7-science/jabberwocky/phase-5/mission-1/index.astro',
   m2: 'src/pages/courses/grade-7-science/jabberwocky/phase-5/mission-2/index.astro',
   m3: 'src/pages/courses/grade-7-science/jabberwocky/phase-5/mission-3/index.astro',
+  m4: 'src/pages/courses/grade-7-science/jabberwocky/phase-5/mission-4/index.astro',
   progress: 'src/components/JcecPhase5Progress.astro',
   data: 'src/data/jabberwockyPhase5.ts',
   phase4Progress: 'src/components/JcecPhase4Progress.astro'
 };
-
 for (const file of Object.values(files)) check(fs.existsSync(rel(file)), `exists: ${file}`);
-for (const mission of [4, 5]) check(!fs.existsSync(rel(`src/pages/courses/grade-7-science/jabberwocky/phase-5/mission-${mission}/index.astro`)), `Mission ${mission} is not built yet`);
-for (const route of ['final-council', 'mission-2190-council', 'final-decision']) check(!fs.existsSync(rel(`src/pages/courses/grade-7-science/jabberwocky/${route}/index.astro`)), `Final Council route is not built: ${route}`);
+check(!fs.existsSync(rel('src/pages/courses/grade-7-science/jabberwocky/phase-5/mission-5/index.astro')), 'Mission 5 is not built yet');
+for (const route of ['final-council','mission-2190-council','final-decision']) check(!fs.existsSync(rel(`src/pages/courses/grade-7-science/jabberwocky/${route}/index.astro`)), `Final Council route is not built: ${route}`);
 
-const hub = read(files.hub);
-const m1 = read(files.m1);
-const m2 = read(files.m2);
-const m3 = read(files.m3);
-const progress = read(files.progress);
-const data = read(files.data);
-const phase4Progress = read(files.phase4Progress);
+const hub=read(files.hub),m1=read(files.m1),m2=read(files.m2),m3=read(files.m3),m4=read(files.m4),progress=read(files.progress),data=read(files.data),phase4Progress=read(files.phase4Progress);
 
-// Phase 5 hub and navigation state.
-for (const token of ['THE DEEP RECORD', 'JCEC GEOLOGICAL SURVEY DIVISION', 'Read the Ground', 'Follow the Rock Story', 'Track the Changing Surface', 'Read the Deep Past', 'Prepare the Final Evidence']) check(has(hub, token), `Hub includes ${token}`);
-for (const token of ['Evidence ✓', 'Rock History ✓', 'Surface Change ●', 'Deep Past ○', 'Geological Handoff ○']) check(has(hub, token), `Hub progression includes ${token}`);
-check((hub.match(/status:'COMPLETE'/g) || []).length === 2, 'Hub marks Missions 1–2 complete');
-check((hub.match(/status:'CURRENT'/g) || []).length === 1, 'Hub marks only Mission 3 current');
-check(hub.includes('phase-5/mission-1/') && hub.includes('phase-5/mission-2/') && hub.includes('phase-5/mission-3/'), 'Hub releases Missions 1–3');
-check(!hub.includes('phase-5/mission-4/') && !hub.includes('phase-5/mission-5/'), 'Hub keeps Missions 4–5 locked/unbuilt');
-check(hub.includes('jabberwocky-phase5-posting'), 'Phase 5 preserves separate posting state');
-for (const token of ['SURFACE / ENVIRONMENT', 'STRUCTURAL SITE NEED', 'GROUND-DISTURBANCE LIMIT', 'OPEN GEOLOGICAL QUESTION']) check(has(hub, token), `Hub preserves inherited field ${token}`);
-for (const token of ['EARTH REFERENCE EVIDENCE', 'REAL EARTH · AUTHENTIC SOURCE', 'JABBERWOCKY SURVEY EVIDENCE', 'MISSION 2190 SURVEY']) check(has(hub, token), `Hub preserves evidence-source label ${token}`);
-check(has(hub, 'Do not transfer an Earth hazard or process to Jabberwocky unless its survey evidence supports it'), 'Hub preserves Earth/Jabberwocky evidence safeguard');
-check(!has(hub, 'settlement vote'), 'Hub still stops before final settlement decision');
+// Hub + continuity.
+for (const token of ['THE DEEP RECORD','JCEC GEOLOGICAL SURVEY DIVISION','Read the Ground','Follow the Rock Story','Track the Changing Surface','Read the Deep Past','Prepare the Final Evidence']) check(has(hub,token),`Hub includes ${token}`);
+for (const token of ['Evidence ✓','Rock History ✓','Surface Change ✓','Deep Past ●','Geological Handoff ○']) check(has(hub,token),`Hub progression includes ${token}`);
+check((hub.match(/status:'COMPLETE'/g)||[]).length===3,'Hub marks Missions 1–3 complete');
+check((hub.match(/status:'CURRENT'/g)||[]).length===1,'Hub marks only Mission 4 current');
+check(hub.includes('phase-5/mission-1/')&&hub.includes('phase-5/mission-2/')&&hub.includes('phase-5/mission-3/')&&hub.includes('phase-5/mission-4/'),'Hub releases Missions 1–4');
+check(!hub.includes('phase-5/mission-5/'),'Hub keeps Mission 5 locked/unbuilt');
+check(hub.includes('jabberwocky-phase5-posting'),'Phase 5 preserves separate posting state');
+for(const token of ['SURFACE / ENVIRONMENT','STRUCTURAL SITE NEED','GROUND-DISTURBANCE LIMIT','OPEN GEOLOGICAL QUESTION']) check(has(hub,token),`Hub preserves inherited field ${token}`);
+for(const token of ['EARTH REFERENCE EVIDENCE','REAL EARTH · AUTHENTIC SOURCE','JABBERWOCKY SURVEY EVIDENCE','MISSION 2190 SURVEY']) check(has(hub,token),`Hub preserves evidence-source label ${token}`);
+check(has(hub,'Do not transfer an Earth fossil, fault, earthquake, volcano or other event to Jabberwocky unless its survey evidence supports it'),'Hub keeps Earth/Jabberwocky deep-past safeguard');
+check(!has(hub,'settlement vote'),'Hub still stops before final settlement decision');
 
-for (const token of ['Evidence', 'Rock History', 'Surface Change', 'Deep Past', 'Geological Handoff']) check(has(progress, token), `Progress includes ${token}`);
-check(has(progress, 'Next Mission → Follow the Rock Story'), 'Progress keeps Mission 1 → Mission 2 navigation');
-check(has(progress, 'Next Mission → Track the Changing Surface'), 'Progress adds Mission 2 → Mission 3 navigation');
-check(progress.includes('/phase-5/mission-3/') && !progress.includes('/phase-5/mission-4/'), 'Progress releases Mission 3 and no later mission');
-check(has(phase4Progress, 'Begin Phase 5 → The Deep Record'), 'Phase 4 still hands students to Phase 5');
+// Progress + prior missions.
+for(const token of ['Evidence','Rock History','Surface Change','Deep Past','Geological Handoff']) check(has(progress,token),`Progress includes ${token}`);
+for(const token of ['Next Mission → Follow the Rock Story','Next Mission → Track the Changing Surface','Next Mission → Read the Deep Past']) check(has(progress,token),`Progress includes ${token}`);
+check(progress.includes('/phase-5/mission-4/')&&!progress.includes('/phase-5/mission-5/'),'Progress releases Mission 4 and no later mission');
+check(has(phase4Progress,'Begin Phase 5 → The Deep Record'),'Phase 4 still hands students to Phase 5');
+for(const token of ['MISSION 1 OF 5','Ground Evidence Card']) check(has(m1,token),`Mission 1 retains ${token}`);
+for(const token of ['MISSION 2 OF 5','Rock History Profile']) check(has(m2,token),`Mission 2 retains ${token}`);
+for(const token of ['MISSION 3 OF 5','Surface Change Forecast','Surface Change Fair Test']) check(has(m3,token),`Mission 3 retains ${token}`);
 
-// Approved earlier missions remain intact.
-for (const token of ['MISSION 1 OF 5', 'Ground Evidence Card', 'OBSERVATION', 'PROPERTY', 'ROCK', 'MINERAL', 'CLASSIFICATION', "Geologist's Evidence Stations"]) check(has(m1, token), `Mission 1 retains ${token}`);
-for (const token of ['MISSION 2 OF 5', 'Rock History Profile', 'IGNEOUS', 'SEDIMENTARY', 'METAMORPHIC', 'Rock Cycle Evidence Lab', 'NOT ENOUGH EVIDENCE YET']) check(has(m2, token), `Mission 2 retains ${token}`);
+// Mission 4 student routine + continuity.
+for(const token of ['MISSION 4 OF 5','How can layers, landforms and fossils reveal events we never observed?','4 classes × 45 minutes','FORMATIVE SYNTHESIS','Deep Record Timeline']) check(has(m4,token),`Mission 4 includes ${token}`);
+for(const token of ['Your Mission','Learn the Science','Investigate','Make a Decision','Record It']) check(has(m4,token),`Mission 4 includes step ${token}`);
+check(m4.includes('jabberwocky-phase5-posting'),'Mission 4 carries existing Phase 5 posting');
+check(!m4.includes('<select'),'Mission 4 does not ask students to reselect continent');
+check(has(m4,'MISSIONS 1–3 ARE ALREADY DONE'),'Mission 4 avoids reopening prior Team Records');
 
-// Mission 3 experience and posting continuity.
-for (const token of ['MISSION 3 OF 5', 'How can small surface processes reshape a landscape over long periods of time?', '4 classes × 45 minutes', 'SCIENCE REASONING CHECKPOINT', 'Surface Change Forecast']) check(has(m3, token), `Mission 3 includes ${token}`);
-for (const token of ['Your Mission', 'Learn the Science', 'Investigate', 'Make a Decision', 'Record It']) check(has(m3, token), `Mission 3 includes step ${token}`);
-check(m3.includes('jabberwocky-phase5-posting'), 'Mission 3 carries existing Phase 5 posting');
-check(!m3.includes('<select'), 'Mission 3 does not ask students to choose continent again');
-check(has(m3, 'MISSIONS 1–2 ARE ALREADY DONE'), 'Mission 3 avoids reopening prior Team Records');
+// Core deep-past science.
+for(const token of ['STRATA / LAYERS','FOLDING','FAULTING','CRUSTAL MOVEMENT','FOSSIL EVIDENCE','GEOLOGICAL TIME','UNCERTAINTY']) check(has(m4,token),`Mission 4 core science includes ${token}`);
+for(const token of ['OBSERVATION','PATTERN','SCIENTIFIC EXPLANATION']) check(has(m4,token),`Mission 4 science reasoning includes ${token}`);
+for(const forbidden of ['radiometric-dating calculations','seismic-wave mathematics','detailed plate vectors','advanced tectonic terminology']) check(has(m4,forbidden),`Mission 4 explicitly excludes ${forbidden}`);
+check(has(m4,'A fracture is not automatically a fault unless movement is supported by evidence'),'Mission 4 prevents fracture=fault misconception');
 
-// Surface-process concepts and source guardrails.
-for (const token of ['WEATHERING', 'EROSION', 'DEPOSITION / SEDIMENTATION', 'TIME', 'BREAK', 'MOVE', 'SETTLE']) check(has(m3, token), `Mission 3 core science includes ${token}`);
-check(has(m3, 'WEATHERING ≠ EROSION'), 'Mission 3 explicitly separates weathering from erosion');
-check(has(m3, 'Weathering can happen without transport'), 'Mission 3 teaches weathering can happen in place');
-check(has(m3, 'Erosion requires movement'), 'Mission 3 teaches erosion requires movement');
-for (const token of ['EARTH REFERENCE EVIDENCE', 'JABBERWOCKY SURVEY EVIDENCE', 'GRADUAL / INCREMENTAL', 'SUDDEN']) check(has(m3, token), `Mission 3 evidence/change system includes ${token}`);
-check(has(m3, 'automatically create a flood') && has(m3, 'hazard on Jabberwocky'), 'Mission 3 keeps real-Earth hazards out of Jabberwocky canon');
-check(has(m3, 'Royal Tyrrell Museum source'), 'Mission 3 includes authoritative Alberta badlands source');
-check(has(m3, 'USGS sudden-change example'), 'Mission 3 includes authentic sudden-change Earth reference');
+// Authentic Earth Reference Evidence.
+for(const token of ['EARTH REFERENCE EVIDENCE','JABBERWOCKY SURVEY EVIDENCE']) check(has(m4,token),`Mission 4 evidence system includes ${token}`);
+check(has(m4,'CANADIAN ROCKIES / CORDILLERA'),'Mission 4 includes Rockies/Cordillera reference file');
+check(has(m4,'https://parks.canada.ca/culture/spm-whs/sites-canada/sec02h'),'Mission 4 links Parks Canada source');
+for(const token of ['faulted','folded','uplifted sedimentary rocks']) check(has(m4,token),`Rockies reference includes ${token}`);
+check(has(m4,'GLOBAL CRUSTAL-MOVEMENT PATTERNS'),'Mission 4 includes global crustal-pattern file');
+check(has(m4,'https://www.usgs.gov/maps/dynamic-planet-world-map-volcanoes-earthquakes-impact-craters-and-plate-tectonics'),'Mission 4 links USGS Dynamic Planet source');
+check(has(m4,'without memorizing detailed boundary categories'),'Mission 4 keeps plate tectonics qualitative');
+check(has(m4,'ALBERTA BADLANDS / ROYAL TYRRELL'),'Mission 4 includes Alberta badlands reference');
+check(has(m4,'https://tyrrellmuseum.com/learn/Badlands_Goodlands'),'Mission 4 links Royal Tyrrell badlands source');
+check(has(m4,'https://www.tyrrellmuseum.com/research/found_a_fossil'),'Mission 4 links Royal Tyrrell fossil stewardship source');
+check(has(m4,'do not create folds, faults, earthquakes, volcanoes or fossil beds on your Jabberwocky continent'),'Mission 4 keeps Earth examples out of Jabberwocky canon');
 
-// Weathering evidence is brief and distinct from the fair test.
-for (const token of ['Cracked rock surface', 'Freeze–thaw example', 'Roots in a crack', 'Changed surface colour/texture']) check(has(m3, token), `Weathering evidence includes ${token}`);
-check(has(m3, 'not a second investigation'), 'Weathering evidence remains a small support set');
-check(has(m3, 'erosion + deposition'), 'Main physical model remains focused on erosion and deposition');
+// Fossils + geological time.
+for(const token of ['BODY FOSSIL','TRACE FOSSIL','MOLD / CAST-TYPE EVIDENCE']) check(has(m4,token),`Mission 4 fossil set includes ${token}`);
+check(has(m4,'context matters'),'Mission 4 teaches fossil context');
+check(has(m4,'location is scientifically important'),'Mission 4 includes Alberta fossil stewardship reason');
+check(has(m4,'buried fossils should be left in place and reported'),'Mission 4 includes Alberta fossil handling safeguard');
+check(has(m4,'What can a fossil tell us—and what can it NOT tell us by itself?'),'Mission 4 treats fossils as evidence rather than trivia');
+for(const token of ['PRECAMBRIAN','PALEOZOIC','MESOZOIC','CENOZOIC']) check(has(m4,token),`Geological-time strip includes ${token}`);
+check(has(m4,'You do not need to memorize numerical boundaries or calculate ages in millions/billions of years'),'Mission 4 avoids huge-number memorization/calculation');
 
-// Surface Change Fair Test.
-check(has(m3, 'Surface Change Fair Test'), 'Mission 3 includes approved fair test');
-check(has(m3, 'How does changing slope affect how far sediment is transported by the same amount of moving water in our model?'), 'Fair-test question matches approved design');
-for (const token of ['CHANGE', 'SLOPE', 'MEASURE', 'TRANSPORT DISTANCE (cm)', 'OBSERVE', 'DEPOSITION LOCATION']) check(has(m3, token), `Fair-test structure includes ${token}`);
-for (const token of ['same tray', 'same sediment mixture', 'same sediment amount', 'same starting shape', 'same water amount', 'same pouring point', 'same approximate pouring time/rate']) check(has(m3, token), `Fair test controls ${token}`);
-check(has(m3, 'LOWER SLOPE') && has(m3, 'HIGHER SLOPE'), 'Mission 3 compares lower and higher slope');
-check(!has(m3, 'slope angle') && !has(m3, 'degrees'), 'Mission 3 avoids slope-angle calculations');
-for (const token of ['50–100 mL per trial', 'one water manager per group', 'No running hose', 'no commercial stream table']) check(has(m3, token), `Water/material plan includes ${token}`);
-for (const token of ['SLOPE CONDITION', 'TRANSPORT DISTANCE (cm)', 'DEPOSITION LOCATION', 'OBSERVATION']) check(has(m3, token), `Data table includes ${token}`);
-check(has(m3, 'QUANTITATIVE + QUALITATIVE'), 'Mission 3 collects both quantitative and qualitative evidence');
-check(has(m3, 'CLASSROOM SAFETY'), 'Mission 3 includes classroom water/sediment safety');
+// Deep Record Evidence Puzzle.
+check(has(m4,'Deep Record Evidence Puzzle'),'Mission 4 includes approved main investigation');
+check(has(m4,'EARTH TRAINING CROSS-SECTION'),'Mission 4 begins with common Earth training case');
+check((m4.match(/code:'[A-F]'/g)||[]).length===6,'Training puzzle defines six evidence/event cards');
+for(const token of ['LOWEST LAYER','SECOND LAYER','THIRD LAYER','FAULT EVENT','EROSION SURFACE','YOUNGEST LAYER']) check(has(m4,token),`Training puzzle includes ${token}`);
+for(const token of ['FIRST','NEXT','LATER','MOST RECENT']) check(has(m4,token),`Training sequence includes ${token}`);
+for(const token of ['lower deposited layers are generally older','fold or fault happened after the layers it affected','erosion surface formed after','later layer/deposit formed after']) check(has(m4,token),`Mission 4 relative-history rule includes ${token}`);
+check(has(m4,'RELATIVE SEQUENCE · NO ABSOLUTE AGES'),'Mission 4 keeps investigation relative rather than absolute');
+check(!has(m4,'half-life'),'Mission 4 does not introduce radiometric half-life math');
+check(has(m4,'ONE CLUE')&&has(m4,'SEVERAL CLUES THAT AGREE'),'Mission 4 teaches accumulated evidence');
+check(has(m4,'AMBIGUOUS CLUE'),'Mission 4 preserves uncertainty with ambiguous evidence');
+check(has(m4,'cannot by itself date the surface'),'Mission 4 prevents overclaiming from a moved fossil fragment');
 
-// Fallback, discrepancies and conditional prediction.
-check(has(m3, 'NO-PURCHASE / ABSENCE FALLBACK'), 'Mission 3 includes a complete no-purchase/absence fallback');
-check((m3.match(/condition:'(Lower|Higher) slope/g) || []).length === 4, 'Mission 3 supplies four fallback data cases');
-check(has(m3, 'TRAINING DATA · NOT JABBERWOCKY CANON'), 'Fallback data are clearly non-canon training evidence');
-check(has(m3, 'Which result did not fit the overall pattern? What might explain it?'), 'Mission 3 explicitly analyzes an anomaly');
-for (const token of ['different pouring rate', 'uneven starting sediment', 'measurement error', 'water flowed along one side']) check(has(m3, token), `Anomaly support includes ${token}`);
-check(has(m3, 'Explain it instead of deleting it'), 'Students explain rather than erase unusual data');
-for (const token of ['INTERPOLATION / EXTRAPOLATION', '4 cm → 7 cm → 10 cm → 13 cm', 'INTERPOLATE', 'EXTRAPOLATE']) check(has(m3, token), `Model-data task includes ${token}`);
-check(has(m3, 'Why would it be unsafe to assume a real landscape will continue changing at exactly this rate for hundreds or thousands of years?'), 'Mission 3 limits long-term extrapolation');
-check(has(m3, 'Model prediction = useful, but conditional'), 'Mission 3 communicates conditional model prediction');
-check(has(m3, 'Not whose tray moved the most sediment'), 'Mission 3 rejects erosion competition');
+// Materials reality.
+check(has(m4,'MATERIALS REALITY CHECK / NO-PURCHASE FALLBACK'),'Mission 4 includes explicit no-purchase implementation');
+for(const token of ['cross-section','layer/event cards','fossil/evidence cards','pencils']) check(has(m4,token),`Mission 4 paper-first materials include ${token}`);
+for(const token of ['No real fossils','rock saws','specialty geology kits','purchases']) check(has(m4,token),`Mission 4 avoids purchase/equipment dependency: ${token}`);
 
-// Continent-specific Mission 3 evidence and canon guardrails.
-for (const continent of ['gyre', 'brillig', 'manxome', 'slithy-toves', 'wabe', 'bandersnatch', 'gimble', 'mimsy']) check(data.includes(`id: '${continent}'`), `Phase 5 data includes ${continent}`);
-check((data.match(/mission3SurfaceChangeClues:/g) || []).length === 9, 'All eight sites plus interface define Mission 3 surface-change clues');
-for (const forbidden of ['tsunami', 'earthquake zone', 'active fault', 'ore body', 'mineral deposit', 'hazard probability', 'soil bearing capacity']) check(!has(data, forbidden), `Mission 3 continent data avoids unsupported canon: ${forbidden}`);
-check(has(data, 'no fault or tectonic cause has been confirmed'), 'Slithy Toves still avoids assuming tectonic faulting');
-check(has(data, 'no exact erosion rate') || has(data, 'not measured a site-wide erosion rate'), 'Mission 3 preserves uncertainty about real erosion rates');
-check(has(data, 'do not identify one weathering mechanism') || has(data, 'does not identify one weathering mechanism') || has(data, 'do not identify one weathering mechanism by themselves'), 'Mission 3 does not force a single weathering mechanism from incomplete evidence');
+// Eight Jabberwocky deep files.
+for(const continent of ['gyre','brillig','manxome','slithy-toves','wabe','bandersnatch','gimble','mimsy']) check(m4.includes(`${continent}:`)||m4.includes(`'${continent}':`),`Mission 4 Deep Record Survey File includes ${continent}`);
+check((m4.match(/No confirmed fossil evidence/g)||[]).length>=5,'Most continent files explicitly allow no confirmed fossil evidence');
+check(has(m4,'does not establish that the fracture is a fault'),'Slithy Toves preserves fracture/fault uncertainty');
+check(has(m4,'deeper bedrock history remains incomplete'),'Bandersnatch preserves incomplete deep history');
+check(has(m4,'deeper geological history remains highly uncertain'),'Mimsy preserves deep-history uncertainty');
+for(const forbidden of ['exact geological age of','confirmed active fault beneath','confirmed volcano on','confirmed fossil bed','confirmed mineral deposit']) check(!has(m4,forbidden),`Mission 4 avoids unsupported Jabberwocky claim: ${forbidden}`);
+check(has(m4,'A missing fossil, fold or fault is a valid result'),'Mission 4 legitimizes absent evidence');
 
-// Decision, reasoning and checkpoint record.
-check(has(m3, 'Which surface-change process should JCEC monitor most carefully at this site?'), 'Mission 3 has one main team decision');
-for (const token of ['CLAIM', 'DATA', 'PROCESS', 'LONG-TERM PREDICTION', 'LIMITATION']) check(has(m3, token), `Mission 3 reasoning scaffold includes ${token}`);
-for (const token of ['CONTINENT', 'PRIORITY SURFACE-CHANGE PROCESS', 'QUANTITATIVE EXPERIMENTAL EVIDENCE', 'ONE QUALITATIVE OBSERVATION', 'CONNECTION TO OUR SITE EVIDENCE', 'PREDICTED LONG-TERM DIRECTION OF CHANGE', 'ONE FACTOR THAT COULD CHANGE THE PREDICTION', 'ONE MONITORING RECOMMENDATION']) check(has(m3, token), `Surface Change Forecast includes ${token}`);
-check(has(m3, 'fair testing → data → geological-process understanding → cautious prediction'), 'Mission 3 checkpoint focus matches approved assessment');
-check(has(m3, 'Why can a very slow geological process still become important over a long time?'), 'Mission 3 includes approved reflection');
-check(has(m3, 'Mission 4 — Read the Deep Past remains locked/upcoming'), 'Mission 3 stops before Mission 4');
-for (const token of ['Break, Move, Settle', 'Surface Change Fair Test', 'What Does the Pattern Show?', 'What Should JCEC Monitor?']) check(has(m3, token), `Four-class pacing includes ${token}`);
+// Decision + record.
+check(has(m4,'What past geological change best explains the evidence at our site, and what remains uncertain?'),'Mission 4 has one main team interpretation');
+for(const token of ['OBSERVATION','SEQUENCE','PROCESS','INTERPRETATION','UNCERTAINTY']) check(has(m4,token),`Mission 4 decision scaffold includes ${token}`);
+check(has(m4,'Our explanation is stronger because these clues agree'),'Mission 4 requires accumulated evidence in reasoning');
+for(const token of ['CONTINENT','IMPORTANT LAYERS / EVIDENCE','RELATIVE EVENT SEQUENCE','FOLDING / FAULTING / CRUSTAL EVIDENCE','FOSSIL EVIDENCE','LIKELY LANDSCAPE / GEOLOGICAL CHANGE','ACCUMULATED EVIDENCE 1','ACCUMULATED EVIDENCE 2','ONE UNCERTAINTY']) check(has(m4,token),`Deep Record Timeline includes ${token}`);
+check(has(m4,'OR none confirmed'),'Timeline allows absent deformation/fossil evidence');
+check(has(m4,'Why do scientists become more confident when many different pieces of geological evidence support the same explanation?'),'Mission 4 includes approved reflection');
+check(has(m4,'Mission 5 — Prepare the Final Evidence remains locked/upcoming'),'Mission 4 stops before Mission 5');
+for(const token of ['When Earth’s Layers Bend and Break','Fossils and Geological Time','Reconstruct the Deep Record','What Happened at Our Site?']) check(has(m4,token),`Four-class pacing includes ${token}`);
 
-if (failures.length) {
+// Existing continent data remains intact.
+for(const continent of ['gyre','brillig','manxome','slithy-toves','wabe','bandersnatch','gimble','mimsy']) check(data.includes(`id: '${continent}'`),`Phase 5 core data includes ${continent}`);
+check((data.match(/mission3SurfaceChangeClues:/g)||[]).length===9,'Phase 5 keeps all Mission 3 surface-change clue sets');
+
+if(failures.length){
   console.error(`\nJabberwocky Phase 5 readiness audit failed: ${failures.length} issue(s).`);
-  failures.forEach((failure) => console.error(`  ✗ ${failure}`));
+  failures.forEach((failure)=>console.error(`  ✗ ${failure}`));
   process.exit(1);
 }
 console.log(`\nJabberwocky Phase 5 readiness audit: ${passes.length} checks passed.`);
-passes.forEach((pass) => console.log(`  ✓ ${pass}`));
-console.log('\nPhase 5 is aligned through Mission 3: Evidence → Rock History → Surface Change, controlled low-material slope testing, quantitative + qualitative evidence, anomalies, conditional prediction, continent-specific monitoring decisions, and Missions 4–5/final Council still locked.');
+passes.forEach((pass)=>console.log(`  ✓ ${pass}`));
+console.log('\nPhase 5 is aligned through Mission 4: Evidence → Rock History → Surface Change → Deep Past, authentic Earth-reference evidence, paper-first relative-history reasoning, accumulated evidence, uncertainty, continent-specific deep files, and Mission 5/final Council still locked.');
