@@ -92,22 +92,25 @@ teamRecords.forEach((record,i) => requireText(missions[i], record, `Mission ${i+
 for (const token of [
   'data-packet-aligned-record',
   'New Horizon Requirements Card',
-  'Inherited environment finding',
+  'Inherited finding · Environment',
+  'Primary Structural Test Building · tentative choice',
   'Structural Force Map',
-  'Mass vs force mini-check',
+  'Mass tells us ______ · mass units ______',
   'Material & Joint Recommendation',
-  'Load–deformation evidence and graph',
+  'Load–deformation data + fixed / flexible joint evidence',
   'New Horizon Safety Protocol',
-  'Final Build Readiness check',
+  'Final CityScape Readiness',
   'JCEC New Horizon Structural Authorization',
-  'Use evidence from at least three missions',
-  'Primary Structural Test Building is the normal test object',
+  'using evidence from at least three different missions',
+  'The Primary Structural Test Building is the normal test object',
   'reference model is the fallback, not the default',
-  'Page 10 is separate individual Math resource evidence',
+  'Field File Page 10 is separate individual Math Resource Mathematics evidence',
   'Prepare one standardized small baseline model per team or shared station',
   'Have teams bring their Primary Structural Test Building',
   'Set identical/near-identical baseline models',
-  'Use each team’s Primary Structural Test Building when the comparison is fair'
+  'Use each team’s Primary Structural Test Building when the comparison is fair',
+  'No new physical build in Mission 5',
+  'adding more material make a structure less efficient'
 ]) requireText(alignment, token, 'Packet-aligned Phase 4 records/testing policy');
 
 for (const token of ['PROJECT NEW HORIZON','18 core','7 purposeful flex']) requireText(teacher, token, 'Phase 4 live teacher guide remains intact');
