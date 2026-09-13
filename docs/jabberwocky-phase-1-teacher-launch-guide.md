@@ -31,6 +31,9 @@ Student sequence:
 - Prepare a simple roster showing student names → continent → Team ID.
 - Students only need to know their continent and, when required, which person is the TEAM RECORD recorder.
 
+## Low-material implementation rule
+Use **shared stations, printed mats/cards, reused classroom containers and ordinary classroom objects first**. Specialized equipment is optional unless it clearly improves the science. Do not duplicate a full lab kit for every team when teams can rotate through a shared station.
+
 ## Printing plan
 Use the print controls already built into the mission pages where available.
 
@@ -93,11 +96,12 @@ Calgary-area default sources already used in this project:
 **Before class**
 - choose three safe microhabitat sample areas or an indoor fallback
 - check weather
-- stage field kits
+- stage one or a few shared field kits
 
 **Materials**
-- thermometer
-- ~1 m² string / markers / metre stick
+- shared thermometer(s)
+- string / markers
+- metre stick if available
 - clipboards + pencils
 - Mission 1 field sheet
 - optional light/moisture tools
@@ -113,6 +117,7 @@ Calgary-area default sources already used in this project:
 
 **Teacher emphasis**
 - record what you actually observe before explaining it
+- rotate shared tools rather than requiring one set per team
 
 **Collect**
 - field sheet for formative feedback
@@ -153,17 +158,17 @@ Calgary-area default sources already used in this project:
 
 ### Day 4 — How Structures Help
 **Before class**
-- set up resource zones before students enter
+- set up 2–3 shared resource stations before students enter
+- use desks, paper zones or reused shallow containers instead of dedicated trays
 
 **Materials**
-- spoon
+- shared spoons
 - tweezers
-- clothespin/tongs
+- clothespins/tongs
 - chopsticks
-- timers
-- 3 resource-zone trays
-- safe craft objects / counters
-- collection cups
+- one class timer
+- small classroom objects / counters
+- paper or desk resource zones
 - Mission 2 lab sheet
 
 **Students see/do**
@@ -175,6 +180,7 @@ Calgary-area default sources already used in this project:
 
 **Teacher emphasis**
 - same time, same resource amount, same rules; change the structure
+- teams can rotate; no team needs a full duplicate kit
 
 **Collect**
 - lab observations — formative
@@ -349,11 +355,11 @@ Calgary-area default sources already used in this project:
 
 ### Day 11 — Population Sampling
 **Before class**
-- place a counter set and 5×5 grid at each team
+- place one 5×5 grid and a set of simple markers at each team
 
 **Materials**
-- 5×5 sampling grid
-- roughly 30–50 counters/team
+- printed 5×5 sampling grid
+- roughly 30–50 beans, paper squares or existing classroom counters/team
 - device randomizer if used
 - calculator optional
 
@@ -461,13 +467,14 @@ Calgary-area default sources already used in this project:
 
 ### Day 16 — The Incident
 **Before class**
-- stage Stowaway Spread Simulation kits
+- print or draw one six-zone Stowaway Spread mat per team
+- no cups are required
 
 **Materials**
-- 6 cups/zones per team
-- neutral counters
-- 4 visibly different stowaway counters
-- spoon/scoop
+- six-zone paper mat
+- neutral counters / beans / paper markers
+- 4 visibly different stowaway markers
+- spoon/scoop if useful
 - Mission 5 incident record / packet
 
 **Students see/do**
@@ -480,6 +487,7 @@ Calgary-area default sources already used in this project:
 
 **Teacher emphasis**
 - introduced does not automatically mean invasive
+- move markers between printed zones rather than building a container setup
 
 **Collect**
 - simulation record — formative
@@ -492,7 +500,7 @@ Calgary-area default sources already used in this project:
 - prepare teacher-guided pollutant token model
 
 **Materials**
-- 16 producer cards/tokens
+- 16 producer paper tokens/cards
 - 4 consumer cards
 - 1 predator card
 - continent incident evidence on device
@@ -510,6 +518,7 @@ Calgary-area default sources already used in this project:
 
 **Teacher emphasis**
 - X-17 is fictional; the ecological pattern is the learning target
+- paper tokens work as well as purchased counters
 
 **Collect**
 - no separate major submission
@@ -605,12 +614,12 @@ Make-up, final feedback, school interruption recovery, or transition to Phase 2.
 # Mission Materials Master List
 
 ## Mission 1 — Explore Your Environment
-**Reusable:** thermometers; string/markers/metre sticks; clipboards; optional hand lenses/light/moisture tools.
+**Reusable:** shared thermometer(s); string/markers; metre stick if available; clipboards. Hand lenses/light/moisture tools are optional.
 
 **Print/digital:** continent roster; Earth Environmental Survey field sheet; Environment Profile.
 
 ## Mission 2 — Meet a Native Species
-**Reusable:** spoons; tweezers; clothespins/tongs; chopsticks; three resource-zone trays/team; safe craft objects/counters; timers; collection cups.
+**Reusable:** a few shared spoons; tweezers; clothespins/tongs; chopsticks; classroom objects/counters; paper/desk resource zones; one class timer.
 
 **Print/digital:** Survival Structures Lab sheet; reconstruction sheet; Native Species Card.
 
@@ -620,14 +629,14 @@ Make-up, final feedback, school interruption recovery, or transition to Phase 2.
 **Print/digital:** Ecosystem Map.
 
 ## Mission 4 — Watch the Ecosystem Change
-**Reusable:** 5×5 sampling grids if laminated; 30–50 counters/team.
+**Reusable:** printed/laminated 5×5 sampling grids; beans, paper markers or existing classroom counters.
 
 **Print/digital:** sampling record; Ecosystem Change Record; local source cards/photos/maps/data; teacher-selected authentic Indigenous/community source.
 
 ## Mission 5 — Humans Have Arrived
-**Reusable:** six cups/zones/team; neutral counters; four contrasting stowaway counters; scoop/spoon; 16 producer cards/tokens; four consumer cards; one predator card; contaminant tokens.
+**Reusable/shared:** no cups required; use a printed six-zone mat, neutral markers, four contrasting stowaway markers, an optional scoop, and printed producer/consumer/predator/pollutant tokens.
 
-**Print/digital:** incident record as needed; JCEC Recommendation Board; Missions 1–4 artifacts available for evidence review.
+**Print/digital:** six-zone Stowaway mat or hand-drawn zones; incident record as needed; JCEC Recommendation Board; Missions 1–4 artifacts available for evidence review.
 
 ---
 
@@ -666,6 +675,9 @@ Use printed mission artifacts. The scientific sequence still works offline becau
 
 ## If a student misses a lab
 Use team data plus a short individual interpretation. Do not require the student to recreate every physical investigation alone.
+
+## If materials are limited
+Use shared stations, printable zones/cards, reused classroom objects and teacher demonstrations before purchasing duplicate kits. Preserve the scientific comparison and reasoning target rather than the apparatus.
 
 ## If students are overwhelmed
 Return to the mission's one essential question and one reasoning scaffold. Optional details can wait.
