@@ -5,6 +5,7 @@ interface Props {
 }
 
 const { active = 1, compact = false } = Astro.props;
+const base = import.meta.env.BASE_URL;
 const missions = [
   { number: 1, short: 'Evidence', title: 'Read the Ground' },
   { number: 2, short: 'Rock History', title: 'Follow the Rock Story' },
@@ -23,8 +24,36 @@ const missions = [
   ))}
 </nav>
 
+<script is:inline define:vars={{ base }}>
+  (() => {
+    const path = window.location.pathname;
+    const addNext = (missionId, text, href, noteText) => {
+      const finished = document.querySelector(`${missionId} .finished-box`);
+      if (!finished || finished.querySelector('.phase5-next-mission-link')) return;
+      const note = finished.querySelector('span');
+      const locked = finished.querySelector('em');
+      if (note) note.innerHTML = noteText;
+      if (locked) locked.remove();
+      const next = document.createElement('a');
+      next.className = 'phase5-next-mission-link';
+      next.href = href;
+      next.textContent = text;
+      finished.appendChild(next);
+    };
+
+    if (path.includes('/phase-5/mission-1/')) {
+      addNext(
+        '#phase5-mission1',
+        'Next Mission → Follow the Rock Story',
+        `${base}courses/grade-7-science/jabberwocky/phase-5/mission-2/`,
+        'Your team has one <b>Ground Evidence Card</b> and you have completed <b>your reflection</b>. Mission 2 is ready.'
+      );
+    }
+  })();
+</script>
+
 <style>
-.phase5-progress{display:grid;grid-template-columns:repeat(5,1fr);gap:.45rem;margin:1rem 0 1.4rem}.phase5-step{position:relative;display:flex;gap:.5rem;align-items:center;min-width:0;padding:.65rem;border:1px solid #4b5260;border-radius:11px;background:#11171a;color:#99a6aa}.phase5-step:not(:last-child)::after{content:'→';position:absolute;right:-.39rem;z-index:2;color:#647175;font-weight:900}.mission-number{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:#263136;color:#c5d0d2;font-size:.78rem;font-weight:900}.mission-copy{display:grid;min-width:0}.mission-copy strong{color:inherit;font-size:.8rem;white-space:nowrap}.mission-copy small{margin-top:.08rem;color:#7e8b8f;font-size:.65rem;line-height:1.25}.phase5-step.current{border-color:#d6a45b;background:#2a2116;color:#fff2dc}.phase5-step.current .mission-number{background:#e5b66f;color:#2b1b08}.phase5-step.current .mission-copy strong{color:#ffd89d}.phase5-step.done{border-color:#58766f;background:#172722;color:#d9ece6}.phase5-step.done .mission-number{background:#345c52;color:#f1fbf7}.phase5-step.done .mission-number::after{content:'✓';font-size:.72rem}.phase5-step.done .mission-number{font-size:0}.compact .mission-copy small{display:none}
+.phase5-progress{display:grid;grid-template-columns:repeat(5,1fr);gap:.45rem;margin:1rem 0 1.4rem}.phase5-step{position:relative;display:flex;gap:.5rem;align-items:center;min-width:0;padding:.65rem;border:1px solid #4b5260;border-radius:11px;background:#11171a;color:#99a6aa}.phase5-step:not(:last-child)::after{content:'→';position:absolute;right:-.39rem;z-index:2;color:#647175;font-weight:900}.mission-number{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:#263136;color:#c5d0d2;font-size:.78rem;font-weight:900}.mission-copy{display:grid;min-width:0}.mission-copy strong{color:inherit;font-size:.8rem;white-space:nowrap}.mission-copy small{margin-top:.08rem;color:#7e8b8f;font-size:.65rem;line-height:1.25}.phase5-step.current{border-color:#d6a45b;background:#2a2116;color:#fff2dc}.phase5-step.current .mission-number{background:#e5b66f;color:#2b1b08}.phase5-step.current .mission-copy strong{color:#ffd89d}.phase5-step.done{border-color:#58766f;background:#172722;color:#d9ece6}.phase5-step.done .mission-number{background:#345c52;color:#f1fbf7}.phase5-step.done .mission-number::after{content:'✓';font-size:.72rem}.phase5-step.done .mission-number{font-size:0}.compact .mission-copy small{display:none}:global(.phase5-next-mission-link){display:inline-flex;align-items:center;justify-content:center;width:max-content;max-width:100%;margin-top:.35rem;padding:.65rem .8rem;border-radius:8px;background:#e4b46e;color:#2a1b08!important;text-decoration:none;font-size:.8rem;font-weight:900}:global(.phase5-next-mission-link:hover){filter:brightness(1.05);transform:translateY(-1px)}
 @media(max-width:900px){.phase5-progress{grid-template-columns:repeat(5,minmax(112px,1fr));overflow-x:auto;padding-bottom:.3rem}.phase5-step{min-width:112px}.mission-copy small{display:none}}
-@media(max-width:560px){.phase5-progress{grid-template-columns:repeat(5,98px)}.phase5-step{display:grid;justify-items:center;text-align:center;padding:.55rem .35rem}.mission-copy strong{font-size:.68rem;white-space:normal}.phase5-step:not(:last-child)::after{display:none}}
+@media(max-width:560px){.phase5-progress{grid-template-columns:repeat(5,98px)}.phase5-step{display:grid;justify-items:center;text-align:center;padding:.55rem .35rem}.mission-copy strong{font-size:.68rem;white-space:normal}.phase5-step:not(:last-child)::after{display:none}:global(.phase5-next-mission-link){width:100%;box-sizing:border-box;text-align:center}}
 </style>
