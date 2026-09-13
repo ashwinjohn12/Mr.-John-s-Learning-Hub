@@ -5,6 +5,7 @@ interface Props {
 }
 
 const { active = 1, compact = false } = Astro.props;
+const base = import.meta.env.BASE_URL;
 const missions = [
   { number: 1, short: 'Requirements', title: 'Read the Building Site' },
   { number: 2, short: 'Forces', title: 'Trace the Forces' },
@@ -23,8 +24,24 @@ const missions = [
   ))}
 </nav>
 
+<script is:inline define:vars={{ base }}>
+  (() => {
+    const path = window.location.pathname;
+    if (!path.includes('/phase-4/mission-1/')) return;
+    const finished = document.querySelector('#phase4-mission1 .finished-box');
+    if (!finished || finished.querySelector('.phase4-next-mission-link')) return;
+    const note = finished.querySelector('span');
+    if (note) note.textContent = 'Mission 2 is ready. Next, trace the loads and internal forces your structure must resist.';
+    const next = document.createElement('a');
+    next.className = 'phase4-next-mission-link';
+    next.href = `${base}courses/grade-7-science/jabberwocky/phase-4/mission-2/`;
+    next.textContent = 'Next Mission → Trace the Forces';
+    finished.appendChild(next);
+  })();
+</script>
+
 <style>
-.phase4-progress{display:grid;grid-template-columns:repeat(5,1fr);gap:.45rem;margin:1rem 0 1.4rem}.phase4-step{position:relative;display:flex;gap:.5rem;align-items:center;min-width:0;padding:.65rem;border:1px solid #4b5260;border-radius:11px;background:#12161b;color:#9fa8b5}.phase4-step:not(:last-child)::after{content:'→';position:absolute;right:-.39rem;z-index:2;color:#6e7784;font-weight:900}.mission-number{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:#262d35;color:#c1c8cf;font-size:.78rem;font-weight:900}.mission-copy{display:grid;min-width:0}.mission-copy strong{color:inherit;font-size:.82rem;white-space:nowrap}.mission-copy small{margin-top:.08rem;color:#7f8995;font-size:.67rem;line-height:1.25}.phase4-step.current{border-color:#e3a54f;background:#2a2115;color:#fff4df}.phase4-step.current .mission-number{background:#f5b456;color:#2b1904}.phase4-step.current .mission-copy strong{color:#ffd59a}.phase4-step.done{border-color:#627487;background:#1b2731;color:#d2e4f2}.phase4-step.done .mission-number{background:#3a5267;color:#eef7fd}.phase4-step.done .mission-number::after{content:'✓';font-size:.72rem}.phase4-step.done .mission-number{font-size:0}.compact .mission-copy small{display:none}
+.phase4-progress{display:grid;grid-template-columns:repeat(5,1fr);gap:.45rem;margin:1rem 0 1.4rem}.phase4-step{position:relative;display:flex;gap:.5rem;align-items:center;min-width:0;padding:.65rem;border:1px solid #4b5260;border-radius:11px;background:#12161b;color:#9fa8b5}.phase4-step:not(:last-child)::after{content:'→';position:absolute;right:-.39rem;z-index:2;color:#6e7784;font-weight:900}.mission-number{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:#262d35;color:#c1c8cf;font-size:.78rem;font-weight:900}.mission-copy{display:grid;min-width:0}.mission-copy strong{color:inherit;font-size:.82rem;white-space:nowrap}.mission-copy small{margin-top:.08rem;color:#7f8995;font-size:.67rem;line-height:1.25}.phase4-step.current{border-color:#e3a54f;background:#2a2115;color:#fff4df}.phase4-step.current .mission-number{background:#f5b456;color:#2b1904}.phase4-step.current .mission-copy strong{color:#ffd59a}.phase4-step.done{border-color:#627487;background:#1b2731;color:#d2e4f2}.phase4-step.done .mission-number{background:#3a5267;color:#eef7fd}.phase4-step.done .mission-number::after{content:'✓';font-size:.72rem}.phase4-step.done .mission-number{font-size:0}.compact .mission-copy small{display:none}:global(.phase4-next-mission-link){display:inline-flex;align-items:center;justify-content:center;width:max-content;max-width:100%;margin-top:.35rem;padding:.65rem .8rem;border-radius:8px;background:#f3b55f;color:#2b1905!important;text-decoration:none;font-size:.8rem;font-weight:900}:global(.phase4-next-mission-link:hover){filter:brightness(1.05);transform:translateY(-1px)}
 @media(max-width:900px){.phase4-progress{grid-template-columns:repeat(5,minmax(110px,1fr));overflow-x:auto;padding-bottom:.3rem}.phase4-step{min-width:110px}.mission-copy small{display:none}}
-@media(max-width:560px){.phase4-progress{grid-template-columns:repeat(5,96px)}.phase4-step{display:grid;justify-items:center;text-align:center;padding:.55rem .35rem}.mission-copy strong{font-size:.7rem;white-space:normal}.phase4-step:not(:last-child)::after{display:none}}
+@media(max-width:560px){.phase4-progress{grid-template-columns:repeat(5,96px)}.phase4-step{display:grid;justify-items:center;text-align:center;padding:.55rem .35rem}.mission-copy strong{font-size:.7rem;white-space:normal}.phase4-step:not(:last-child)::after{display:none}:global(.phase4-next-mission-link){width:100%;box-sizing:border-box;text-align:center}}
 </style>
