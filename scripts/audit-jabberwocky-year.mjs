@@ -173,8 +173,8 @@ expectContains(operations, '5 · QUICK RECOVERY GUIDE', 'operations page include
 expectContains(operations, 'Print / Save PDF', 'operations page includes print/save support');
 expectContains(operations, 'normal browser profile, not Guest/Incognito', 'Chromebook readiness protects localStorage persistence');
 for (let p = 1; p <= 5; p += 1) expectContains(operations, `number:${p}`, `operations page includes Phase ${p} prep card`);
-expectContains(operations, 'DAY 1', 'first-week operations include Day 1');
-expectContains(operations, 'DAY 5', 'first-week operations include Day 5');
+expectContains(operations, 'day:1', 'first-week operations include Day 1');
+expectContains(operations, 'day:5', 'first-week operations include Day 5');
 expectContains(operations, 'The preliminary JCEC rating is a starting idea, not the answer.', 'Day 1 teacher emphasis matches approved Phase 1 guide');
 expectContains(operations, 'Environment Profile — formative.', 'Day 3 finish target matches approved Team Record');
 expectContains(operations, 'EVIDENCE FIRST — IMAGINATION SECOND.', 'Day 5 emphasis matches approved Phase 1 guide');
