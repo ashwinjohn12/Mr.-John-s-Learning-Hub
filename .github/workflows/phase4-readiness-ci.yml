@@ -3,7 +3,7 @@ name: Phase 4 classroom readiness validation
 on:
   push:
     branches:
-      - audit/phase4-classroom-readiness-20260913
+      - audit/phase4-classroom-readiness-rebase-20260913
 
 permissions:
   contents: read
