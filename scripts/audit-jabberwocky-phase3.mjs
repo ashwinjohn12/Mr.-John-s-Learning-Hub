@@ -51,7 +51,7 @@ check(has(mission1, 'No boiling water'), 'Mission 1 includes explicit hot-water 
 for (const token of ['ice melting','condensing','Expansion / contraction','Liquid expansion','Solid expansion']) check(has(mission1, token), `Mission 1 includes matter-response evidence: ${token}`);
 check(has(mission1, 'liquid thermometer') && has(mission1, 'expands'), 'Mission 1 connects expansion to a temperature-responsive device');
 check(has(mission1, 'If equipment is limited'), 'Mission 1 includes shared-station/no-purchase fallback');
-check(has(mission1, 'shared thermometers'), 'Mission 1 defaults to shared thermometer access');
+check(has(mission1, 'shared thermometer stations'), 'Mission 1 defaults to shared thermometer access');
 check(has(mission1, '3 CLUES ONLY'), 'Mission 1 limits continent thermal case to three clues');
 check(has(mission1, 'What is the biggest thermal condition JCEC must prepare for on your continent?'), 'Mission 1 has one main team decision');
 for (const token of ['Losing heat too quickly','Gaining too much heat','Large temperature change','Prolonged cold']) check(has(mission1, token), `Mission 1 includes helpful non-mandatory category: ${token}`);
