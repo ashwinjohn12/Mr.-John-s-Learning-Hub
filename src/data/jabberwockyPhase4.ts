@@ -12,6 +12,7 @@ export interface Phase4StructuralSite {
   };
   structuralChallenge: string;
   mission1Clues: string[];
+  mission2Clues: string[];
 }
 
 export const phase4StructuralSites: Phase4StructuralSite[] = [
@@ -28,6 +29,11 @@ export const phase4StructuralSites: Phase4StructuralSite[] = [
       'Useful building ground is limited and may be uneven or sloped.',
       'Snow and exposed alpine conditions must be considered when deciding what the structure needs to withstand.',
       'Fragile soils and slopes mean the structure should minimize ground disturbance rather than simply use a larger footprint.'
+    ],
+    mission2Clues: [
+      'Snow resting on a roof or upper surface is an external load that the structure must carry.',
+      'A downward load can create compression in some supports and bending in horizontal members.',
+      'Uneven ground may change how loads move through supports, but foundation design will be investigated later in Mission 4.'
     ]
   },
   {
@@ -43,6 +49,11 @@ export const phase4StructuralSites: Phase4StructuralSite[] = [
       'The site is warm, humid and frequently wet, so the structure must remain useful in a moisture-rich environment.',
       'Large canopy clearing is already ruled out because it can increase erosion and habitat damage.',
       'A successful structure must fit into a limited site rather than requiring a large open construction area.'
+    ],
+    mission2Clues: [
+      'The structure must carry its own mass plus people, equipment and stored materials even when no dramatic weather event is occurring.',
+      'Heavy rainfall can add temporary external loading to exposed surfaces if water is not shed effectively.',
+      'Connections and supports must transfer these loads without requiring a much larger cleared footprint.'
     ]
   },
   {
@@ -58,6 +69,11 @@ export const phase4StructuralSites: Phase4StructuralSite[] = [
       'The islands are usually mild, but a severe storm season changes the loading conditions a structure may face.',
       'Connections between structural parts may be especially important when external forces change quickly.',
       'Freshwater catchments and coastal habitat connections limit where construction should spread.'
+    ],
+    mission2Clues: [
+      'Storm-season conditions can push on exposed walls and roofs from outside.',
+      'Those external pushes can create tension, compression, shear or bending in different structural parts and connections.',
+      'A team may prioritize connections or exposed surfaces, but the evidence does not prescribe one final design.'
     ]
   },
   {
@@ -73,6 +89,11 @@ export const phase4StructuralSites: Phase4StructuralSite[] = [
       'The site is extremely dry and exposed, so construction cannot depend on large amounts of fresh water.',
       'Large day-night thermal changes from earlier missions remain a structural design requirement.',
       'The structure must use land carefully because productive areas near water are limited.'
+    ],
+    mission2Clues: [
+      'The habitat still has to carry its own mass, occupants and equipment even though the site is dry.',
+      'Established desert storms can apply changing external pushes to exposed structural surfaces.',
+      'The large day-night temperature change remains an important design requirement, but Mission 2 focuses on mechanical loads and internal forces.'
     ]
   },
   {
@@ -88,6 +109,11 @@ export const phase4StructuralSites: Phase4StructuralSite[] = [
       'Snow and long storms are normal environmental conditions that a structure must be able to handle safely.',
       'The habitat also needs a strong thermal envelope, so structural choices cannot ignore the Phase 3 requirement.',
       'Slow-recovering vegetation means construction and repairs should minimize repeated ground disturbance.'
+    ],
+    mission2Clues: [
+      'Snow on the structure creates an external downward load that must be carried safely.',
+      'Long storms can add changing external pushes to exposed surfaces while the snow load remains important.',
+      'Supports and connections may experience different internal forces even when they are resisting the same outside condition.'
     ]
   },
   {
@@ -103,6 +129,11 @@ export const phase4StructuralSites: Phase4StructuralSite[] = [
       'The open prairie gives the structure little natural shelter from the surrounding environment.',
       'Large seasonal temperature changes mean structural requirements must remain compatible with the Phase 3 thermal plan.',
       'A larger footprint is not automatically better because prairie habitat connections and soil must be protected.'
+    ],
+    mission2Clues: [
+      'The compact habitat must carry occupants, equipment and its own structural mass throughout the year.',
+      'An exposed site means outside pushes can matter, but no exact wind speed or new hazard is assumed.',
+      'Keeping the footprint compact means JCEC cannot solve every force problem simply by spreading the structure over more land.'
     ]
   },
   {
@@ -118,6 +149,11 @@ export const phase4StructuralSites: Phase4StructuralSite[] = [
       'Severe winter conditions must be considered when deciding what the structure must withstand.',
       'The site is inside an existing forest, so clearing a large construction footprint conflicts with earlier evidence.',
       'The structure must work with the thermal plan rather than requiring a separate cleared site to solve winter heating problems.'
+    ],
+    mission2Clues: [
+      'A forest habitat still carries its own mass, occupants and equipment through every season.',
+      'Severe winter conditions make accumulated snow or other established winter loading a reasonable design concern.',
+      'The team must work within a compact forest site rather than clear extra space simply to make structural loading easier.'
     ]
   },
   {
@@ -133,6 +169,11 @@ export const phase4StructuralSites: Phase4StructuralSite[] = [
       'The ground is saturated, so ordinary dry-ground foundation assumptions may not work here.',
       'The wetland cannot be drained simply to make the site easier to build on.',
       'A successful structure should keep its footprint and disturbance limited while remaining stable on the wet site.'
+    ],
+    mission2Clues: [
+      'The structure must carry its own mass, occupants and equipment even though the support conditions are unusual.',
+      'Those loads must travel through structural members before they reach the support system below.',
+      'Saturated ground affects support and foundation choices, but Mission 2 does not assume a new flood, storm or other disaster.'
     ]
   }
 ];
