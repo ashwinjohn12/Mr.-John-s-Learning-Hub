@@ -12,6 +12,7 @@ export interface Phase5GeologicalSite {
     openGeologicalQuestion: string;
   };
   mission1SurveyPacket: string[];
+  mission2RockHistoryClues: string[];
 }
 
 export const phase5GeologicalSites: Phase5GeologicalSite[] = [
@@ -28,6 +29,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'An exposed outcrop shows several visible layers. JCEC has not assigned an age or rock identity to them.',
       'Loose fragments near the outcrop are mostly angular rather than rounded.',
       'Surface sediment is thin and discontinuous, with bedrock exposed in several places.'
+    ],
+    mission2RockHistoryClues: [
+      'Several outcrop layers contain visibly different grain sizes, but JCEC has not confirmed whether they are one rock type or several.',
+      'Some loose fragments appear similar in colour and texture to nearby exposed layers; others do not.',
+      'Layering is consistent with a history involving deposition, but the present survey does not prove exactly how or when those layers formed.'
     ]
   },
   {
@@ -43,6 +49,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'Several exposed rock surfaces appear strongly weathered and roughened.',
       'Stream sediment includes many rounded grains and small pebbles.',
       'Fine sediment has accumulated in quieter areas beside moving water.'
+    ],
+    mission2RockHistoryClues: [
+      'Rounded stream particles show that transport has changed some surface material, so loose sediment is not automatically the same as the rock beneath it.',
+      'Fine material occurs in quiet-water deposits while coarser particles remain in faster-moving areas.',
+      'The survey supports transport and deposition, but it does not yet establish the rock class of buried or weathered bedrock.'
     ]
   },
   {
@@ -58,6 +69,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'A coastal exposure reveals solid rock at several points along the shoreline.',
       'Nearby beaches contain many rounded pebbles and smaller grains.',
       'Visible bands of sand and other sediment occur along parts of the shore.'
+    ],
+    mission2RockHistoryClues: [
+      'Some solid coastal exposures show visible layers; nearby rounded pebbles are loose and may have travelled before deposition.',
+      'Bands of sand contain particles of more than one colour and grain size.',
+      'The evidence supports more than one stage of geological change, but it does not prove one rock class for the entire island.'
     ]
   },
   {
@@ -73,6 +89,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'Exposed rock surfaces contain visible fractures; no fault or tectonic cause has been confirmed.',
       'Angular fragments occur close to several exposed rock surfaces.',
       'Loose sediment in open areas shows visible differences in grain size from place to place.'
+    ],
+    mission2RockHistoryClues: [
+      'Fragments beside some exposures share visible texture with nearby rock, suggesting they may have broken from local material.',
+      'Other loose sediment is more sorted by grain size and may have been moved before it settled.',
+      'Fractures and loose particles do not by themselves identify an igneous, sedimentary or metamorphic origin.'
     ]
   },
   {
@@ -88,6 +109,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'Several exposed rock surfaces contain visible fractures and broken edges.',
       'Loose debris near exposures is mostly angular.',
       'Small deposits of sediment are visible where seasonal meltwater has moved across the surface.'
+    ],
+    mission2RockHistoryClues: [
+      'Some exposed surfaces show small visible grains, but the current survey does not show enough detail to confirm a rock class.',
+      'Angular debris near the exposure is consistent with local breakdown rather than long transport.',
+      'Seasonal sediment deposits record a later surface process and should not be mistaken for evidence of how the original rock first formed.'
     ]
   },
   {
@@ -103,6 +129,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'Most of the site is covered by soil rather than exposed rock.',
       'A shallow cut exposes several layers of sediment and gravel beneath the soil.',
       'Only a few small rock exposures are visible in the current survey area.'
+    ],
+    mission2RockHistoryClues: [
+      'The layered sediment includes sand-sized material and gravel, but loose sediment is not automatically sedimentary rock.',
+      'The few solid rock exposures are too limited for JCEC to assume one rock class across the site.',
+      'The strongest current history may describe sediment transport and deposition while leaving the underlying bedrock origin unresolved.'
     ]
   },
   {
@@ -118,6 +149,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'A small outcrop beneath the forest soil has a visibly weathered surface.',
       'Nearby stream sediment contains many rounded grains and pebbles.',
       'Most of the ground remains covered by soil and vegetation, so the rock record is only partly exposed.'
+    ],
+    mission2RockHistoryClues: [
+      'The exposed outcrop contains more than one visible grain type, but weathering makes some original features difficult to interpret.',
+      'Rounded stream sediment has been transported and may include material from beyond the immediate survey point.',
+      'The current evidence can support a cautious rock-history hypothesis, not a site-wide rock identity.'
     ]
   },
   {
@@ -133,6 +169,11 @@ export const phase5GeologicalSites: Phase5GeologicalSite[] = [
       'Shallow survey cores show fine saturated sediment in visible layers.',
       'Some layers contain more mineral grains while others contain more organic material.',
       'Very little solid rock is exposed at the surface in the current survey area.'
+    ],
+    mission2RockHistoryClues: [
+      'Fine layered sediment shows repeated deposition, but loose wetland sediment is not yet rock.',
+      'Some layers contain different proportions of mineral grains and organic material, recording changing surface conditions.',
+      'Because solid bedrock is scarcely exposed, “not enough evidence yet” may be the strongest rock-class conclusion.'
     ]
   }
 ];
