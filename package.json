@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/audit-jabberwocky-phase1.mjs && node scripts/audit-jabberwocky-phase2.mjs && node scripts/audit-jabberwocky-phase3.mjs && node scripts/audit-jabberwocky-phase4.mjs && node scripts/audit-jabberwocky-phase5.mjs && node scripts/audit-jabberwocky-phase5-teacher.mjs && node scripts/audit-jabberwocky-council.mjs && node scripts/audit-jabberwocky-year.mjs && astro build",
+    "build": "node scripts/audit-jabberwocky-phase1.mjs && node scripts/audit-jabberwocky-phase2.mjs && node scripts/audit-jabberwocky-phase3.mjs && node scripts/audit-jcec-thermos-packet.mjs && node scripts/audit-jabberwocky-phase4.mjs && node scripts/audit-jabberwocky-phase5.mjs && node scripts/audit-jabberwocky-phase5-teacher.mjs && node scripts/audit-jabberwocky-council.mjs && node scripts/audit-jabberwocky-year.mjs && astro build",
     "audit:jabberwocky-phase1": "node scripts/audit-jabberwocky-phase1.mjs",
     "audit:jabberwocky-phase2": "node scripts/audit-jabberwocky-phase2.mjs",
     "audit:jabberwocky-phase3": "node scripts/audit-jabberwocky-phase3.mjs",
+    "audit:jcec-thermos-packet": "node scripts/audit-jcec-thermos-packet.mjs",
     "audit:jabberwocky-phase4": "node scripts/audit-jabberwocky-phase4.mjs",
     "audit:jabberwocky-phase5": "node scripts/audit-jabberwocky-phase5.mjs && node scripts/audit-jabberwocky-phase5-teacher.mjs",
     "audit:jabberwocky-council": "node scripts/audit-jabberwocky-council.mjs",

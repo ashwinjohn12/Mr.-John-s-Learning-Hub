@@ -7,6 +7,7 @@ import JcecPhase1PacingRefinements from '../components/JcecPhase1PacingRefinemen
 import JcecTeacherLaunchLink from '../components/JcecTeacherLaunchLink.astro';
 import JcecSimplifiedMissionNavigation from '../components/JcecSimplifiedMissionNavigation.astro';
 import JcecWholeYearReleaseState from '../components/JcecWholeYearReleaseState.astro';
+import JcecThermosPacketLink from '../components/JcecThermosPacketLink.astro';
 
 interface Props {
   title?: string;
@@ -44,7 +45,10 @@ const base = import.meta.env.BASE_URL;
         <a href={`${base}#how-to-use`}>How to use</a>
       </nav>
     </header>
-    <main id="main"><slot /></main>
+    <main id="main">
+      <JcecThermosPacketLink />
+      <slot />
+    </main>
     <footer>
       <p><strong>Mr. John’s Learning Hub</strong></p>
       <p>Learn it. Try it. Explain it.</p>
