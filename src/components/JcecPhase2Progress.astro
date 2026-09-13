@@ -27,11 +27,11 @@ const missions = [
 <script is:inline define:vars={{ base }}>
   (() => {
     const path = window.location.pathname;
-    const addNext = (selector, href, label) => {
+    const addNext = (selector, href, label, noteText = 'When your teacher is ready, continue to the next mission.') => {
       const finished = document.querySelector(selector);
       if (!finished || finished.querySelector('.phase2-next-mission-link')) return;
       const note = finished.querySelector('p');
-      if (note) note.textContent = 'When your teacher is ready, continue to the next mission.';
+      if (note) note.textContent = noteText;
       const next = document.createElement('a');
       next.className = 'phase2-next-mission-link';
       next.href = href;
@@ -49,6 +49,10 @@ const missions = [
     }
     if (path.includes('/phase-2/mission-4/')) {
       addNext('#phase2-mission4 .finished-box', `${base}courses/grade-7-science/jabberwocky/phase-2/mission-5/`, 'Next Mission → Use It Without Losing It');
+      return;
+    }
+    if (path.includes('/phase-2/mission-5/')) {
+      addNext('#phase2-mission5 .finished-box', `${base}courses/grade-7-science/jabberwocky/phase-3/`, 'Continue to Phase 3 → Surviving Jabberwocky', 'Phase 2 is complete. When your teacher launches the Thermal Survival Division, continue to Phase 3.');
     }
   })();
 </script>
