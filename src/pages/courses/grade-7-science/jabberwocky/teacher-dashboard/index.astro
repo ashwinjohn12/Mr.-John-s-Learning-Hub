@@ -1,0 +1,157 @@
+---
+import BaseLayout from '../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../components/Breadcrumbs.astro';
+
+const base = import.meta.env.BASE_URL;
+const root = `${base}courses/grade-7-science/jabberwocky/`;
+const phase = (n) => `${root}phase-${n}/`;
+const phases = [
+  {
+    number:1,
+    title:'FIRST CONTACT',
+    unit:'Interactions & Ecosystems',
+    missions:['Explore Your Environment','Meet a Native Species','Build the Ecosystem','Watch the Ecosystem Change','Humans Have Arrived'],
+    core:'18 core classes', flex:'~7 purposeful flex classes',
+    materials:'Shared thermometer(s); a few spoons/tweezers/tongs; yarn/string; printed 5×5 grids + counters; printable six-zone Stowaway mat.',
+    checkpoint:'Mission 4 · Ecosystem Change Record — formative / light checkpoint',
+    synthesis:'Mission 5 · JCEC Recommendation Board — major synthesis',
+    hub:phase(1), guide:`${phase(1)}teacher-launch-guide/`
+  },
+  {
+    number:2,
+    title:'THE LIVING RESOURCE',
+    unit:'Plants for Food & Fibre',
+    missions:['Find the Living Resource','Keep It Growing','Build the Growing Zone','Choose the Next Generation','Use It Without Losing It'],
+    core:'18 core classes', flex:'~7 purposeful flex classes',
+    materials:'Real plants / fast-growing seeds; reused containers; sand-rich, clay-rich and organic-rich growing media; wick/string; paper planning models.',
+    checkpoint:'Mission 3 · Growing System Recommendation — stronger reasoning checkpoint',
+    synthesis:'Mission 5 · JCEC Living Resource Plan — major synthesis',
+    hub:phase(2), guide:`${phase(2)}teacher-launch-guide/`
+  },
+  {
+    number:3,
+    title:'SURVIVING JABBERWOCKY',
+    unit:'Heat & Temperature',
+    missions:['Read the Thermal Warning','Follow the Heat','Hold the Temperature','Control the Habitat','Survive Without Wasting It'],
+    core:'18 core classes', flex:'~7 purposeful flex classes',
+    materials:'About 4–6 shared classroom thermometers; reused cups/containers; ordinary insulation/barrier materials; simple conduction, convection and radiation stations.',
+    checkpoint:'Mission 3 · Thermal Barrier Recommendation — stronger checkpoint',
+    synthesis:'Mission 5 · JCEC Thermal Survival Plan — major synthesis',
+    hub:phase(3), guide:`${phase(3)}teacher-launch-guide/`
+  },
+  {
+    number:4,
+    title:'PROJECT NEW HORIZON',
+    unit:'Structures & Forces',
+    missions:['Read the Building Site','Trace the Forces','Choose What Holds','Keep It Standing','Authorize New Horizon'],
+    core:'18 core classes', flex:'~7 purposeful flex classes',
+    materials:'Shared spring scales if available; paper/card/recycled plastic/craft sticks; tape + rulers; standardized paper/card stability models. No large build required.',
+    checkpoint:'Mission 3 · Material & Joint Recommendation — stronger checkpoint',
+    synthesis:'Mission 5 · JCEC New Horizon Structural Authorization — major synthesis',
+    hub:phase(4), guide:`${phase(4)}teacher-launch-guide/`
+  },
+  {
+    number:5,
+    title:'THE DEEP RECORD',
+    unit:'Planet Earth',
+    missions:['Read the Ground','Follow the Rock Story','Track the Changing Surface','Read the Deep Past','Prepare the Final Evidence'],
+    core:'18 core classes', flex:'~7 purposeful flex classes',
+    materials:'Shared hand lenses; optional small rock/mineral samples or photo/property cards; shallow reusable trays + sediment/water for surface-change testing; supplied datasets.',
+    checkpoint:'Mission 3 · Surface Change Forecast — stronger checkpoint',
+    synthesis:'Mission 5 · JCEC Geological Evidence Packet — major synthesis',
+    hub:phase(5), guide:`${phase(5)}teacher-launch-guide/`
+  }
+];
+
+const purchases = [
+  ['1','6 hand lenses','Highest reuse in Phase 5; also useful for general science observation.'],
+  ['2','6 shallow reusable trays','Useful for Phase 5 surface-change work and reusable station organization.'],
+  ['3','6 classroom thermometers','Supports Phase 1 environmental survey and Phase 3 thermal investigations.'],
+  ['4','6 plastic measuring containers','Reusable across thermal, plant and Earth-system investigations.'],
+  ['5','3 spring scales','Enough for shared Phase 4 force-measurement stations; not one per group.']
+];
+---
+
+<BaseLayout title="Jabberwocky Teacher Master Launch Dashboard" description="Whole-year teacher launch dashboard for Jabberwocky: Mission 2190." themeColor="#071b2e">
+  <div class="dashboard-shell" id="jcec-teacher-master-dashboard">
+    <Breadcrumbs items={[
+      {label:'Home',href:base},
+      {label:'Grade 7 Science',href:`${base}courses/grade-7-science/`},
+      {label:'Jabberwocky',href:root},
+      {label:'Teacher Master Dashboard'}
+    ]} />
+
+    <header class="hero">
+      <div>
+        <p class="eyebrow">TEACHER CONTROL // WHOLE-YEAR RELEASE</p>
+        <h1>JABBERWOCKY<br/><span>MASTER LAUNCH DASHBOARD</span></h1>
+        <p>One place to launch tomorrow's lesson, open a teacher guide, see where materials are needed, and find the checkpoint or major synthesis for every phase.</p>
+      </div>
+      <aside><strong>5 SCIENCE PHASES</strong><span>90 core classes + purposeful flex</span><strong>1 FINAL COUNCIL</strong><span>3-class year-long transfer task</span></aside>
+    </header>
+
+    <nav class="jump-nav" aria-label="Dashboard sections">
+      {phases.map((item)=><a href={`#phase-${item.number}`}>Phase {item.number}</a>)}
+      <a href="#council">Final Council</a>
+      <a href="#materials">Materials</a>
+    </nav>
+
+    <section class="quick-launch">
+      <div><small>STUDENT YEAR-LONG ENTRY</small><strong>Jabberwocky: Mission 2190</strong><span>Use this for the story launch, continent overview and whole-year roadmap.</span></div>
+      <a href={root}>Open Student Launch →</a>
+    </section>
+
+    <main class="phase-grid">
+      {phases.map((item)=>(
+        <section class="phase-card" id={`phase-${item.number}`}>
+          <header><span>PHASE {item.number}</span><div><small>{item.unit}</small><h2>{item.title}</h2></div></header>
+          <div class="pacing"><b>{item.core}</b><span>{item.flex}</span></div>
+
+          <div class="mission-list">
+            <small>FIVE MISSIONS</small>
+            <ol>{item.missions.map((mission,index)=><li><a href={`${item.hub}mission-${index+1}/`}><b>{index+1}</b>{mission}</a></li>)}</ol>
+          </div>
+
+          <div class="info-grid">
+            <article><small>MAJOR PHYSICAL-MATERIAL MOMENTS</small><p>{item.materials}</p></article>
+            <article><small>CHECKPOINT</small><p>{item.checkpoint}</p></article>
+            <article><small>MAJOR SYNTHESIS</small><p>{item.synthesis}</p></article>
+          </div>
+
+          <div class="card-actions"><a class="student" href={item.hub}>Student Hub →</a><a class="teacher" href={item.guide}>Teacher Launch Guide →</a></div>
+        </section>
+      ))}
+    </main>
+
+    <section class="council-card" id="council">
+      <header><span>FINAL CAPSTONE</span><div><small>Year-long evidence transfer task</small><h2>MISSION 2190 COUNCIL</h2></div></header>
+      <div class="council-grid">
+        <article><small>PACING</small><strong>3 × 45-minute classes</strong><p>Approved two-class compressed fallback is in the Teacher Council Guide.</p></article>
+        <article><small>CLASS PATH</small><strong>Open the Evidence Vault → The Council Deliberates → Issue the Mission 2190 Directive</strong></article>
+        <article><small>MATERIALS</small><strong>Evidence Vault + Council Review + Council Directive + pencils / Chromebooks</strong><p>Essentially no-purchase.</p></article>
+        <article><small>FINAL ASSESSMENT</small><strong>Mission 2190 Council Directive</strong><p>One team transfer task + one individual reflection.</p></article>
+      </div>
+      <div class="card-actions"><a class="student" href={`${root}council/`}>Student Council →</a><a class="teacher" href={`${root}council/teacher-guide/`}>Teacher Council Guide →</a></div>
+    </section>
+
+    <section class="materials-card" id="materials">
+      <div class="section-heading"><p class="eyebrow">WHOLE-YEAR MATERIALS AT A GLANCE</p><h2>Five highest-value purchases</h2><p>These are the best shared-equipment purchases if the classroom does not already have them. <strong>Every phase keeps its existing no-purchase / print-data fallback.</strong></p></div>
+      <div class="purchase-list">
+        {purchases.map(([rank,item,use])=><article><b>{rank}</b><div><strong>{item}</strong><span>{use}</span></div></article>)}
+      </div>
+      <div class="materials-rule"><strong>BUY SHARED, NOT PER TEAM.</strong><span>Reuse containers and ordinary classroom materials first. Print/photo/data versions remain valid whenever equipment is missing.</span></div>
+    </section>
+
+    <section class="readiness-card">
+      <p class="eyebrow">TEACHER READY-CHECK</p>
+      <h2>Before tomorrow's class, I can answer:</h2>
+      <div><span>✓ Which phase and mission are we on?</span><span>✓ What must students finish?</span><span>✓ What physical materials are actually needed?</span><span>✓ Is this formative, checkpoint or synthesis?</span><span>✓ What is my no-purchase / lost-time fallback?</span></div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+:global(body){background:#06111f}.dashboard-shell{max-width:1180px;margin:0 auto;padding:0 1rem 5rem;color:#eaf5ff}.dashboard-shell :global(.breadcrumbs){color:#9cb5c4}.dashboard-shell :global(.breadcrumbs a){color:#d9edf6}.eyebrow{margin:0;color:#73e8ca;font:850 .73rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em}.hero{display:grid;grid-template-columns:1fr 280px;gap:1.2rem;align-items:end;margin:1rem 0;padding:clamp(1.5rem,4vw,2.6rem);border:1px solid #2b5a6c;border-radius:24px;background:radial-gradient(circle at 84% 15%,rgba(110,242,207,.16),transparent 28%),linear-gradient(145deg,#081827,#0b2939)}.hero h1{margin:.45rem 0;color:#fff;font-size:clamp(2.8rem,7vw,5.5rem);line-height:.88;letter-spacing:-.055em}.hero h1 span{display:block;color:#6ef2cf;font-size:.62em}.hero p:last-child{max-width:760px;color:#bdd0db;line-height:1.6}.hero aside{display:grid;gap:.2rem;padding:1rem;border:1px solid #355f6e;border-radius:14px;background:#071923}.hero aside strong{color:#fff}.hero aside span{margin-bottom:.55rem;color:#8fb0bd;font-size:.78rem}.jump-nav{position:sticky;top:.6rem;z-index:25;display:flex;gap:.35rem;overflow:auto;margin:0 0 1rem;padding:.45rem;border:1px solid #294e5f;border-radius:13px;background:rgba(6,22,32,.96);backdrop-filter:blur(10px)}.jump-nav a{flex:0 0 auto;padding:.6rem .72rem;border-radius:8px;color:#bfd2dc;text-decoration:none;font-size:.79rem;font-weight:850}.jump-nav a:hover{background:#123641;color:#fff}.quick-launch{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin:1rem 0;padding:1rem;border:1px solid #3e786d;border-radius:14px;background:#0b2928}.quick-launch div{display:grid;gap:.15rem}.quick-launch small,.phase-card header>span,.council-card header>span,.info-grid small,.mission-list>small,.council-grid small{color:#75ddc6;font-size:.65rem;font-weight:900;letter-spacing:.08em}.quick-launch strong{color:#fff}.quick-launch span{color:#a5bbb9;font-size:.82rem}.quick-launch a,.card-actions a{padding:.68rem .82rem;border-radius:9px;text-decoration:none;font-size:.8rem;font-weight:900}.quick-launch a,.card-actions .teacher{background:#6ef2cf;color:#06251c}.phase-grid{display:grid;gap:1rem}.phase-card,.council-card,.materials-card,.readiness-card{scroll-margin-top:5rem;padding:1.15rem;border:1px solid #294b5a;border-radius:18px;background:#081b28}.phase-card header,.council-card header{display:grid;grid-template-columns:auto 1fr;gap:.85rem;align-items:center}.phase-card header>span,.council-card header>span{display:grid;place-items:center;min-width:70px;min-height:54px;padding:.35rem;border-radius:11px;background:#12362f;color:#8ff0d5}.phase-card header small,.council-card header small{color:#8fa7b5}.phase-card h2,.council-card h2,.materials-card h2,.readiness-card h2{margin:.12rem 0;color:#fff;font-size:1.55rem}.pacing{display:flex;gap:.7rem;flex-wrap:wrap;margin:.8rem 0;padding:.65rem .75rem;border-radius:10px;background:#071620}.pacing b{color:#dff8f1}.pacing span{color:#9fb6c1}.mission-list{margin:.8rem 0}.mission-list ol{display:grid;grid-template-columns:repeat(5,1fr);gap:.45rem;margin:.45rem 0 0;padding:0;list-style:none}.mission-list a{display:flex;gap:.45rem;align-items:flex-start;height:100%;box-sizing:border-box;padding:.65rem;border:1px solid #31505e;border-radius:10px;background:#071720;color:#d6e7ee;text-decoration:none;font-size:.74rem;line-height:1.35;font-weight:800}.mission-list a:hover{border-color:#6edfc4;background:#0b292b}.mission-list b{display:grid;place-items:center;flex:0 0 23px;width:23px;height:23px;border-radius:50%;background:#173f38;color:#9ef4dc}.info-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:.55rem}.info-grid article{padding:.75rem;border:1px solid #2c4b58;border-radius:10px;background:#071720}.info-grid p{margin:.3rem 0 0;color:#a9c0ca;font-size:.8rem;line-height:1.48}.card-actions{display:flex;justify-content:flex-end;gap:.55rem;margin-top:.8rem}.card-actions .student{border:1px solid #436777;color:#dcecf3}.council-card{margin-top:1rem;border-color:#6f5f39;background:linear-gradient(135deg,#101c24,#241e12)}.council-card header>span{background:#3e3118;color:#ffd58e}.council-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem;margin-top:.8rem}.council-grid article{padding:.8rem;border:1px solid #5a5039;border-radius:10px;background:#111820}.council-grid strong{display:block;margin-top:.3rem;color:#fff;line-height:1.4}.council-grid p{margin:.25rem 0 0;color:#b7b29f;font-size:.8rem}.materials-card{margin-top:1rem}.section-heading>p:last-child{color:#a9bfca;line-height:1.5}.purchase-list{display:grid;gap:.45rem;margin-top:.8rem}.purchase-list article{display:grid;grid-template-columns:38px 1fr;gap:.65rem;align-items:center;padding:.7rem;border:1px solid #2d4e5c;border-radius:10px;background:#071720}.purchase-list b{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:#153d37;color:#8ef0d5}.purchase-list div{display:grid;gap:.1rem}.purchase-list strong{color:#fff}.purchase-list span{color:#9fb5bf;font-size:.79rem}.materials-rule{display:flex;gap:.65rem;align-items:center;margin-top:.75rem;padding:.75rem;border-left:3px solid #6ef2cf;background:#0b2928;color:#a9c1bc;font-size:.82rem}.materials-rule strong{color:#9af3dc}.readiness-card{margin-top:1rem}.readiness-card>div{display:grid;grid-template-columns:repeat(5,1fr);gap:.45rem;margin-top:.7rem}.readiness-card span{padding:.65rem;border:1px solid #2d4c59;border-radius:9px;background:#071720;color:#b7ccd5;font-size:.76rem;line-height:1.4}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.mission-list ol{grid-template-columns:repeat(2,1fr)}.info-grid{grid-template-columns:1fr}.readiness-card>div{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.dashboard-shell{padding-inline:.7rem}.quick-launch,.materials-rule{display:grid}.quick-launch a{width:100%;box-sizing:border-box;text-align:center}.mission-list ol,.council-grid,.readiness-card>div{grid-template-columns:1fr}.card-actions{display:grid}.card-actions a{text-align:center}.hero h1{font-size:3rem}}
+</style>
