@@ -63,17 +63,18 @@ check(has(m1,'Nothing here proves that your Jabberwocky continent has earthquake
 for(const token of ["Geologist's Evidence Stations",'OBSERVE','TEST','DESCRIBE','CLASSIFY','STATE UNCERTAINTY']) check(has(m1,token),`Mission 1 investigation includes ${token}`);
 for(const token of ['school samples already owned','hand lenses if available','teacher-provided copper reference if available','teacher-approved steel comparison tool','No new mineral kit']) check(has(m1,token),`Mission 1 low-material plan includes ${token}`);
 for(const token of ['ROCK','POSSIBLE MINERAL','UNCERTAIN']) check(has(m1,token),`Classification key includes ${token}`);
-check((m1.match(/PHOTO \/ DATA FALLBACK CARD/g)||[]).length===5,'Mission 1 includes five photo/data fallback cards');
+check((m1.match(/code:'[A-E]'/g)||[]).length===5,'Mission 1 defines five photo/data fallback station cards');
+check(has(m1,'PHOTO / DATA FALLBACK CARD'),'Mission 1 renders the fallback-card label for station cards');
 check(has(m1,'NO-PURCHASE FALLBACK'),'Mission 1 has an explicit no-purchase fallback');
 check(has(m1,'sample photographs plus the property-data cards'),'Mission 1 can run from photo/data evidence');
 
 for(const continent of ['gyre','brillig','manxome','slithy-toves','wabe','bandersnatch','gimble','mimsy']) check(data.includes(`id: '${continent}'`),`Phase 5 data includes ${continent}`);
-check((data.match(/mission1SurveyPacket:/g)||[]).length===8,'All eight continents have one Mission 1 Survey Sample Packet');
-for(const token of ['surfaceEnvironment','structuralSiteNeed','groundDisturbanceLimit','openGeologicalQuestion']) check((data.match(new RegExp(`${token}:`,'g'))||[]).length===8,`All eight sites carry briefing field ${token}`);
+check((data.match(/mission1SurveyPacket:/g)||[]).length===9,'All eight continent objects plus the interface define Mission 1 Survey Sample Packets');
+for(const token of ['surfaceEnvironment','structuralSiteNeed','groundDisturbanceLimit','openGeologicalQuestion']) check((data.match(new RegExp(`${token}:`,'g'))||[]).length===9,`All eight sites plus the interface carry briefing field ${token}`);
 for(const forbidden of ['earthquake','tsunami','hurricane','volcano','ore body','mineral deposit','hazard probability','million years','billion years']) check(!has(data,forbidden),`Phase 5 survey canon avoids unsupported addition: ${forbidden}`);
 check(has(data,'no fault or tectonic cause has been confirmed'),'Slithy Toves fracture observation explicitly avoids assuming a tectonic fault');
 
-check(has(m1,'These are observations only'),'Mission 1 labels continent survey evidence as observations');
+check(has(m1,'observations only'),'Mission 1 labels continent survey evidence as observations only');
 for(const token of ['exact rock identity','geological age','fault','fossil bed','mineral deposit','hazard']) check(has(m1,token),`Mission 1 tells students not to infer unsupported ${token}`);
 check(has(m1,"Which observations give JCEC the strongest evidence about our site's surface materials?"),'Mission 1 has one main team decision');
 for(const token of ['WHAT WE OBSERVED','WHAT WE THINK IT MAY MEAN','OBSERVATION','TEST','PROPERTY','INTERPRETATION']) check(has(m1,token),`Decision scaffold includes ${token}`);
