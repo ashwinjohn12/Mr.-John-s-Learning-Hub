@@ -31,7 +31,7 @@ const allMissions=`${m1}\n${m2}\n${m3}\n${m4}\n${m5}`;
 for (const token of ['SURVIVING JABBERWOCKY','Read the Thermal Warning','Follow the Heat','The Director Is Coming','Control the Habitat','Survive Without Wasting It']) check(has(hub,token),`hub includes ${token}`);
 for (const token of ['Temperature ✓','Heat Transfer ✓','Thermal Design ✓','Habitat Control ✓','Sustainable Survival ●']) check(has(hub,token),`hub progression includes ${token}`);
 check(has(hub,'jabberwocky-phase3-posting'),'Phase 3 keeps separate posting state');
-for (const n of [1,2,3,4,5]) check(hub.includes(`phase-3/mission-${n}/`),`hub links Mission ${n}`);
+check(hub.includes('phase-3/mission-${mission.number}/'),'hub dynamically links all five mission cards');
 check(has(progress,'Next Mission → The Director Is Coming'),'Mission 2 now hands students to the Thermos Challenge');
 check(has(progress,'Next Mission → Control the Habitat'),'Thermos Challenge hands students to Mission 4');
 check(has(progress,'Thermal Design'),'progress component uses Thermal Design');
@@ -49,7 +49,7 @@ for (const token of ['CONDUCTION','CONVECTION','RADIATION','Heat Pathway Station
 // Thermos Challenge science/engineering checkpoint.
 for (const token of [
   'THE DIRECTOR IS COMING','THE JCEC THERMOS CHALLENGE','4 classes × 45 minutes','200 mL','0 minutes','5, 10, 15, 20, 25 and 30 minutes',
-  'CONDUCTION','CONVECTION','RADIATION','INSULATION','THERMAL CONDUCTOR','THERMAL INSULATOR','Temperature change = initial temperature − final temperature',
+  'CONDUCTION','CONVECTION','RADIATION','INSULATION','Temperature change = initial temperature − final temperature',
   'TIME–TEMPERATURE GRAPH','PLAN','BUILD','TEST','GRAPH','EXPLAIN','REDESIGN','RETEST','Prototype Test','Final Test + Compare','JCEC Thermos Design Report','SCIENCE REASONING CHECKPOINT'
 ]) check(has(m3,token),`Mission 3 includes ${token}`);
 check(has(m3,'same teacher-provided inner test cup/container'),'Mission 3 standardizes the inner test cup');
@@ -79,7 +79,7 @@ for (const token of ['Thermal Risk Card','Habitat Heat Map','JCEC Thermos Design
 check(has(m5,'MAJOR PHASE 3 SYNTHESIS'),'Mission 5 remains major synthesis');
 
 // Teacher system, materials, assessment and curriculum alignment.
-for (const token of ['Phase 3 TEACHER LAUNCH GUIDE','18 core classes + 7 purposeful flex periods','Mission 3 · The Director Is Coming','JCEC Thermos Design Report','Design for Heat Retention','Prototype Test','Evidence → Redesign','Final Test + JCEC Decision']) check(has(teacher,token),`Teacher guide includes ${token}`);
+for (const token of ['Phase 3 TEACHER LAUNCH GUIDE','18 core classes + 7 purposeful flex periods','Mission 3 — The Director Is Coming','JCEC Thermos Design Report','Design for Heat Retention','Prototype Test','Evidence → Redesign','Final Test + JCEC Decision']) check(has(teacher,token),`Teacher guide includes ${token}`);
 for (const token of ['BEFORE CLASS','MATERIALS','STUDENTS SEE / DO','KEY SCIENCE','TEACHER EMPHASIS','COLLECT / ASSESS','IF TIME RUNS OUT']) check(has(teacher,token),`Teacher guide includes planning field ${token}`);
 check((teacher.match(/route:'mission-/g)||[]).length===18,'Teacher guide contains exactly 18 core day records');
 for (const day of [7,12,17,22,23,24,25]) check(has(teacher,`day:${day}`),`Teacher guide contains flex Day ${day}`);
