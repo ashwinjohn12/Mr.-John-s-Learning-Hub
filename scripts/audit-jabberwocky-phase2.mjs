@@ -145,8 +145,12 @@ for (const day of coreDayNumbers) check(new RegExp(`day\\s*:\\s*${day}\\b`, 'i')
 for (const day of flexDayNumbers) check(new RegExp(`day\\s*:\\s*${day}\\b`, 'i').test(teacherGuide), `Phase 2 Teacher Launch Guide includes flex Day ${day}`);
 for (const label of ['BEFORE CLASS','MATERIALS','STUDENTS SEE / DO','KEY SCIENCE','TEACHER EMPHASIS','COLLECT / ASSESS','IF TIME RUNS OUT']) check(teacherGuide.includes(label), `Phase 2 Teacher Launch Guide includes planning field: ${label}`);
 
-// Materials master list.
-for (const token of ['real flowering/seed plants','fast-growing seeds','sand-rich medium','clay-rich medium','organic-rich medium','wick/string','starter plant population cards','continent footprint maps/zone mats','JCEC Living Resource Plan']) check(has(teacherGuide, token), `Phase 2 materials master list includes: ${token}`);
+// Materials master list and low-material defaults.
+for (const token of ['real flowering/seed plants','fast-growing seeds','sand-rich','clay-rich','organic-rich','wick/string','starter plant population cards','Production Footprint','JCEC Living Resource Plan']) check(has(teacherGuide, token), `Phase 2 materials system includes: ${token}`);
+check(has(teacherGuide, 'shared') && has(teacherGuide, 'reused') && has(teacherGuide, 'printable'), 'Phase 2 teacher guide prioritizes shared, reused and printable materials');
+check(has(teacherGuide, 'reduced water') && has(teacherGuide, 'reduced light'), 'Phase 2 Growth Trial offers no-purchase changed-condition defaults');
+check(has(teacherGuide, 'labelled design') && has(teacherGuide, 'low-material option'), 'Phase 2 Mission 3 allows a labelled design instead of a full physical prototype');
+check(has(teacherGuide, 'paper planning model'), 'Phase 2 Mission 5 is explicitly a paper planning model');
 check(has(teacherDoc, 'Mission Materials Master List') && has(teacherDoc, 'real flowering/seed plants') && has(teacherDoc, 'fast-growing seeds') && has(teacherDoc, 'Production Footprint'), 'Phase 2 teacher documentation contains the mission materials system');
 
 // Growth Trial management across Missions 2–3.
@@ -178,4 +182,4 @@ if (failures.length) {
   for (const item of failures) console.error(`  ✗ ${item}`);
   process.exit(1);
 }
-console.log('\nPhase 2 student + teacher systems are internally consistent: five missions, 18 core classes, seven purposeful flex periods, Growth Trial contingencies, materials, assessment, Plants for Food & Fibre alignment, final sustainability synthesis, and no Phase 3 route.');
+console.log('\nPhase 2 student + teacher systems are internally consistent: five missions, 18 core classes, seven purposeful flex periods, Growth Trial contingencies, low-material defaults, assessment, Plants for Food & Fibre alignment, final sustainability synthesis, and no Phase 3 route.');
