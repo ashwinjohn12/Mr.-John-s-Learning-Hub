@@ -6,7 +6,7 @@ interface Props {
 
 const { active = 1, compact = false } = Astro.props;
 const base = import.meta.env.BASE_URL;
-// Mission 2 is the current release gate; Missions 3–5 stay unlinked until teacher approval.
+// Mission 3 is the current release gate; Missions 4–5 stay unlinked until teacher approval.
 const missions = [
   { number: 1, short: 'Temperature', title: 'Read the Thermal Warning' },
   { number: 2, short: 'Heat Transfer', title: 'Follow the Heat' },
@@ -28,15 +28,32 @@ const missions = [
 <script is:inline define:vars={{ base }}>
   (() => {
     const path = window.location.pathname;
-    if (!path.includes('/phase-3/mission-1/')) return;
-    const finished = document.querySelector('#phase3-mission1 .finished-box');
+    const releases = [
+      {
+        match: '/phase-3/mission-1/',
+        root: '#phase3-mission1',
+        note: 'Mission 2 is ready. Next, trace how thermal energy is moving into or out of the habitat.',
+        href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-2/`,
+        label: 'Next Mission → Follow the Heat'
+      },
+      {
+        match: '/phase-3/mission-2/',
+        root: '#phase3-mission2',
+        note: 'Mission 3 is ready. Next, use fair-test evidence to slow the unwanted thermal-energy transfer.',
+        href: `${base}courses/grade-7-science/jabberwocky/phase-3/mission-3/`,
+        label: 'Next Mission → Hold the Temperature'
+      }
+    ];
+    const release = releases.find((item) => path.includes(item.match));
+    if (!release) return;
+    const finished = document.querySelector(`${release.root} .finished-box`);
     if (!finished || finished.querySelector('.phase3-next-mission-link')) return;
     const note = finished.querySelector('p');
-    if (note) note.textContent = 'Mission 2 is ready. Next, trace how thermal energy is moving into or out of the habitat.';
+    if (note) note.textContent = release.note;
     const next = document.createElement('a');
     next.className = 'phase3-next-mission-link';
-    next.href = `${base}courses/grade-7-science/jabberwocky/phase-3/mission-2/`;
-    next.textContent = 'Next Mission → Follow the Heat';
+    next.href = release.href;
+    next.textContent = release.label;
     finished.appendChild(next);
   })();
 </script>
