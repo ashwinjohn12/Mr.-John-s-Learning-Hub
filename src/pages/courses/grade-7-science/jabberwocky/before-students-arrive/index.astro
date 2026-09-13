@@ -1,0 +1,258 @@
+---
+import BaseLayout from '../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../components/Breadcrumbs.astro';
+
+const base = import.meta.env.BASE_URL;
+const root = `${base}courses/grade-7-science/jabberwocky/`;
+const dashboard = `${root}teacher-dashboard/`;
+const phase = (n) => `${root}phase-${n}/`;
+
+const purchases = [
+  ['1','6 hand lenses','Phase 5 observation; useful across science.'],
+  ['2','6 shallow reusable trays','Phase 5 surface-change testing and shared-station organization.'],
+  ['3','6 classroom thermometers','Phase 1 environmental survey + Phase 3 thermal investigations.'],
+  ['4','6 plastic measuring containers','Reusable in plant, thermal and Earth-system investigations.'],
+  ['5','3 spring scales','Shared Phase 4 force-measurement stations; not one per team.']
+];
+
+const phasePrep = [
+  {
+    number:1,title:'FIRST CONTACT',unit:'Interactions & Ecosystems',
+    gather:'Shared thermometers; a few spoons/tweezers/tongs/chopsticks; yarn/string; beans/counters/paper markers; metre sticks/clipboards if already available.',
+    print:'Week 1 only: continent roster, Earth Environmental Survey field sheet, Environment Profile, Survival Structures Lab sheet, species reconstruction sheet / Native Species Card.',
+    wait:'Mission 3 organism cards, Mission 4 sampling/local-source pack and Mission 5 Stowaway / pollutant tokens can wait until their week.',
+    fallback:'Project the evidence, use notebook paper, share one station set, use printed/paper markers and teacher-provided observations/data. No dedicated lab kit is required.'
+  },
+  {
+    number:2,title:'THE LIVING RESOURCE',unit:'Plants for Food & Fibre',
+    gather:'Real flowering/seed plants if available; fast-growing seeds; reused containers; small amounts of sand-rich, clay-rich and organic-rich media; wick/string.',
+    print:'Mission 1 plant profile / observation material and the Mission 2 Growth Trial recording sheet. Print later mission decision pages only when you reach them.',
+    wait:'Selective-breeding simulation cards, growing-zone planning pieces and Production Footprint materials can wait.',
+    fallback:'Use teacher plant examples/photos, supplied growth data, evidence cards and a labelled testable design instead of a physical growing prototype.'
+  },
+  {
+    number:3,title:'SURVIVING JABBERWOCKY',unit:'Heat & Temperature',
+    gather:'About 4–6 shared thermometers; reused cups/containers; ordinary classroom barrier/insulation materials; simple items for conduction/convection/radiation demonstrations.',
+    print:'Mission 1 thermal investigation / risk record and any station sheets you know you will use first.',
+    wait:'Thermal Barrier Fair Test sheets, Habitat Control materials and Mission 5 energy/source cards can wait until their mission.',
+    fallback:'Run a teacher demonstration, rotate a few thermometers, or use supplied datasets / observation cards. No one-thermometer-per-team requirement.'
+  },
+  {
+    number:4,title:'PROJECT NEW HORIZON',unit:'Structures & Forces',
+    gather:'3 shared spring scales if available; paper/card/recycled plastic; tape; rulers; small safe loads; materials for standardized paper/card stability models.',
+    print:'Mission 1 Requirements Card / detective sheet and Mission 2 force-recording material first.',
+    wait:'Material-test graphing pages, stability/retest materials and the final Design Review / Authorization can wait.',
+    fallback:'Use a teacher force demo + supplied data, evidence cards, equal-sized paper samples and labelled structural designs. No large build, hot glue, saws or specialty equipment.'
+  },
+  {
+    number:5,title:'THE DEEP RECORD',unit:'Planet Earth',
+    gather:'Shared hand lenses; optional small rock/mineral samples; shallow reusable trays; sediment/water; plastic measuring containers if using the surface-change fair test.',
+    print:'Mission 1 photo/property or sample evidence cards and the first observation/classification record.',
+    wait:'Rock-cycle cards, surface-change dataset, authentic Earth-reference source cards and the final Geological Evidence Packet can wait.',
+    fallback:'Use photo/property cards, projected evidence, supplied quantitative data and teacher-curated source cards. Phase 5 can run with no geology purchases.'
+  }
+];
+
+const weekOne = [
+  {
+    day:1,title:'Welcome to Jabberwocky',mission:'Mission 1 — Explore Your Environment',href:`${phase(1)}mission-1/`,
+    prep:'Have the student → continent → Team ID roster ready. Test the Student Launch and Mission 1 on a Chromebook. Decide whether students use paper, digital Team Records or both.',
+    see:'Story launch → assigned continent → preliminary JCEC rating → short starting prediction → four core science ideas.',
+    say:'“The preliminary JCEC rating is a starting idea, not the answer. Your job this year is to test ideas with evidence.”',
+    finish:'Assigned continent saved on the Chromebook + short baseline prediction. No major grade.'
+  },
+  {
+    day:2,title:'Earth Environmental Survey',mission:'Mission 1 — Explore Your Environment',href:`${phase(1)}mission-1/#investigate`,
+    prep:'Choose 3 safe microhabitats; check weather; stage one or a few shared field kits and field sheets.',
+    see:'Sample 3 areas and record temperature, light/moisture, evidence of life, surface/soil and human impact.',
+    say:'“Record what you observe before you explain it. Shared tools rotate; your team does not need its own full kit.”',
+    finish:'Earth Environmental Survey field sheet — formative.'
+  },
+  {
+    day:3,title:'Explore Your Continent',mission:'Mission 1 — Explore Your Environment',href:`${phase(1)}mission-1/#decide`,
+    prep:'Return field sheets. Confirm each group still has the correct Phase 1 continent posting saved.',
+    see:'Analyze the simplified continent scan → one team decision → Environment Profile + individual reflection.',
+    say:'“One strong observation beats several vague claims.”',
+    finish:'Environment Profile — formative.'
+  },
+  {
+    day:4,title:'How Structures Help',mission:'Mission 2 — Meet a Native Species',href:`${phase(1)}mission-2/#investigate`,
+    prep:'Set up 2–3 shared Survival Structures stations using desks, paper zones or reused shallow containers.',
+    see:'Learn structure/function/adaptation/needs → complete the Survival Structures Lab.',
+    say:'“Keep time, amount and rules the same. Change the structure. We are testing how structure affects the job.”',
+    finish:'Lab observations — formative.'
+  },
+  {
+    day:5,title:'First Contact',mission:'Mission 2 — Meet a Native Species',href:`${phase(1)}mission-2/#investigate`,
+    prep:'Confirm the continent posting is saved. Have species reconstruction sheets/pencils ready if using paper.',
+    see:'Examine 4 clues → infer features/behaviours → begin species reconstruction.',
+    say:'“EVIDENCE FIRST — IMAGINATION SECOND.”',
+    finish:'A reconstruction in progress that uses the four clues; no major submission yet.'
+  }
+];
+
+const inventory = [
+  ['6 hand lenses','Priority purchase #1'],
+  ['6 shallow reusable trays','Priority purchase #2'],
+  ['6 classroom thermometers','Priority purchase #3'],
+  ['6 plastic measuring containers','Priority purchase #4'],
+  ['3 spring scales','Priority purchase #5'],
+  ['Rulers / metre sticks','Use existing classroom supply'],
+  ['Yarn / string','Small reusable class set'],
+  ['Spoons / tweezers / tongs / chopsticks','A few shared station tools; mixed types are fine'],
+  ['Beans / counters / paper markers','Reusable manipulatives; paper replacements are valid'],
+  ['Reused cups / small containers','Clean classroom/recycling stock; do not buy a team set']
+];
+
+const recovery = [
+  ['Chromebooks fail','Project the student page, give one paper/notebook Team Record per team, and keep the same continent/team. Pair devices if only some work. Resume digitally later only if useful.'],
+  ['Printing is unavailable','Project cards/sheets and have students reproduce only the needed table, diagram or Team Record headings on blank paper/notebooks. Do not postpone the science just to get the designed packet.'],
+  ['A lab runs long','Stop when students have enough evidence to make the intended decision. Use the next purposeful flex period, a teacher dataset or shared class results for the missing portion. Cut extra trials/polish first.'],
+  ['Materials are missing','Switch to shared stations → teacher demonstration → supplied data/evidence cards, in that order. The fallback counts as the same lesson pathway.'],
+  ['A student is absent','Use the team record plus supplied/teacher data for missed observations. The student completes the short individual reflection when they return; do not recreate an entire lab unless it is genuinely useful.'],
+  ['A class is lost','Protect the core investigation, one team decision and Team Record. Remove gallery walks, extra trials, presentations and polish before cutting core science. Use the phase flex days for recovery.'],
+  ['A group loses its saved continent posting','Use your teacher roster. For Phase 1, return to Mission 1 and restore the assigned continent. For Phases 2–5, return to that phase hub and reselect the teacher-assigned continent. Do not guess or choose a new continent. For the final Council, restore the Phase 5 posting first, then reopen Council. The five phase keys are separate.']
+];
+---
+
+<BaseLayout title="Mission 2190 — Before Students Arrive" description="Concise teacher operations guide for preparing and recovering the year-long Jabberwocky: Mission 2190 experience." themeColor="#071b2e">
+  <div class="ops-shell" id="jcec-before-students-arrive">
+    <Breadcrumbs items={[
+      {label:'Home',href:base},
+      {label:'Grade 7 Science',href:`${base}courses/grade-7-science/`},
+      {label:'Jabberwocky',href:root},
+      {label:'Teacher Master Dashboard',href:dashboard},
+      {label:'Before Students Arrive'}
+    ]} />
+
+    <header class="hero">
+      <div>
+        <p class="eyebrow">TEACHER OPERATIONS // MISSION 2190 v1.0</p>
+        <h1>BEFORE<br/><span>STUDENTS ARRIVE</span></h1>
+        <p>This is an operations resource only. The approved science, missions, assessments, continent canon, storyline and student page structure remain frozen.</p>
+      </div>
+      <aside><strong>SET UP ONCE</strong><span>then prep one phase at a time</span><strong>FALLBACK FIRST</strong><span>shared · reused · printable · projected</span></aside>
+    </header>
+
+    <div class="top-actions">
+      <a class="button secondary" href={dashboard}>← Teacher Master Dashboard</a>
+      <button class="button primary" id="print-ops" type="button">Print / Save PDF</button>
+    </div>
+
+    <nav class="jump-nav" aria-label="Operations sections">
+      <a href="#school-year">Before the Year</a>
+      <a href="#phases">Before Each Phase</a>
+      <a href="#week-one">First Week</a>
+      <a href="#inventory">Equipment Inventory</a>
+      <a href="#recovery">Quick Recovery</a>
+      <a href="#day-one">Day 1 Checklist</a>
+    </nav>
+
+    <section class="panel setup-sheet" id="school-year">
+      <div class="section-heading"><p class="eyebrow">1 · BEFORE THE SCHOOL YEAR</p><h2>One-page setup checklist</h2><p>Do the durable setup now. Leave mission-specific printing and consumables until the phase that needs them.</p></div>
+
+      <div class="check-grid">
+        <label><input type="checkbox"/> Bookmark the <a href={root}>Student Launch</a> and <a href={dashboard}>Teacher Master Dashboard</a>.</label>
+        <label><input type="checkbox"/> Open the Student Launch, one phase hub, one mission and the Council on an actual student Chromebook/network.</label>
+        <label><input type="checkbox"/> Test one continent posting, refresh the page and confirm it persists on that Chromebook/browser.</label>
+        <label><input type="checkbox"/> Tell students to use their normal browser profile, not Guest/Incognito, because phase postings are stored locally on that browser/device.</label>
+        <label><input type="checkbox"/> Prepare the Phase 1 student → continent → Team ID roster.</label>
+        <label><input type="checkbox"/> Decide the normal Team Record submission mode: paper, digital or both.</label>
+        <label><input type="checkbox"/> Test classroom projection and one print-to-PDF / printer route for teacher resources.</label>
+        <label><input type="checkbox"/> Create one reusable JCEC equipment bin and five labelled phase folders/envelopes using containers you already have.</label>
+        <label><input type="checkbox"/> Keep one teacher master copy of each roster and phase posting assignment so lost localStorage can be restored quickly.</label>
+        <label><input type="checkbox"/> Check the five priority equipment items below before buying anything.</label>
+      </div>
+
+      <div class="three-grid compact-blocks">
+        <article><small>PRINT AHEAD</small><strong>Only the launch essentials</strong><p>Phase 1 continent roster, Week 1 field/lab sheets and any reusable station cards you prefer on paper. Print this operations guide/inventory if a paper clipboard copy helps.</p></article>
+        <article><small>DO NOT PRINT YET</small><strong>The whole year</strong><p>Do not stockpile all 25 mission packets. Print later Team Records, source cards and evidence sets as each phase approaches.</p></article>
+        <article><small>STORE</small><strong>Simple, not elaborate</strong><p>One central reusable-equipment bin; five phase folders/envelopes for masters/cards; one active-team folder location for current records. Existing boxes are enough.</p></article>
+      </div>
+
+      <div class="purchase-block">
+        <p class="eyebrow">PURCHASE PRIORITY — ONLY IF YOU DO NOT ALREADY HAVE THEM</p>
+        <div class="purchase-list">{purchases.map(([rank,item,use])=><article><b>{rank}</b><div><strong>{item}</strong><span>{use}</span></div></article>)}</div>
+        <p class="rule"><strong>Preserve the no-purchase pathway.</strong> These improve convenience; none is required for Mission 2190 to run.</p>
+      </div>
+    </section>
+
+    <section class="panel" id="phases">
+      <div class="section-heading"><p class="eyebrow">2 · BEFORE EACH PHASE</p><h2>Five short prep cards</h2><p>Use these 5–10 minutes at the start of a unit, then open the full Teacher Launch Guide only when you need day-level detail.</p></div>
+      <div class="phase-prep-grid">
+        {phasePrep.map((item)=>(
+          <article class="phase-prep">
+            <header><span>PHASE {item.number}</span><div><small>{item.unit}</small><h3>{item.title}</h3></div></header>
+            <dl>
+              <div><dt>GATHER</dt><dd>{item.gather}</dd></div>
+              <div><dt>PRINT NOW</dt><dd>{item.print}</dd></div>
+              <div><dt>CAN WAIT</dt><dd>{item.wait}</dd></div>
+              <div><dt>NO-PURCHASE FALLBACK</dt><dd>{item.fallback}</dd></div>
+            </dl>
+            <div class="phase-links"><a href={phase(item.number)}>Student Hub →</a><a href={`${phase(item.number)}teacher-launch-guide/`}>Teacher Launch Guide →</a></div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="panel" id="week-one">
+      <div class="section-heading"><p class="eyebrow">3 · FIRST WEEK / PHASE 1 LAUNCH</p><h2>Exact opening-week sequence</h2><p>Keep the first week moving. The finish line in each row is what matters most.</p></div>
+      <div class="week-grid">
+        {weekOne.map((item)=>(
+          <article class="day-card">
+            <header><b>DAY {item.day}</b><div><small>{item.mission}</small><h3>{item.title}</h3></div><a href={item.href}>Open lesson →</a></header>
+            <div class="day-fields">
+              <div><small>PREPARE</small><p>{item.prep}</p></div>
+              <div><small>STUDENTS SEE / DO</small><p>{item.see}</p></div>
+              <div><small>SAY / EMPHASIZE</small><p>{item.say}</p></div>
+              <div><small>STUDENTS FINISH</small><p>{item.finish}</p></div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="panel inventory-panel" id="inventory">
+      <div class="section-heading"><p class="eyebrow">4 · EQUIPMENT INVENTORY</p><h2>Reusable whole-year supplies</h2><p>Check one status for each line. “Need to buy” should be rare; most ordinary materials can be found, shared, reused or replaced by the approved fallback.</p></div>
+      <div class="inventory-wrap">
+        <table>
+          <thead><tr><th>ITEM</th><th>ALREADY HAVE</th><th>NEED TO FIND</th><th>NEED TO BUY</th></tr></thead>
+          <tbody>{inventory.map(([item,note])=><tr><td><strong>{item}</strong><small>{note}</small></td><td><input type="checkbox" aria-label={`Already have ${item}`}/></td><td><input type="checkbox" aria-label={`Need to find ${item}`}/></td><td><input type="checkbox" aria-label={`Need to buy ${item}`}/></td></tr>)}</tbody>
+        </table>
+      </div>
+      <p class="rule"><strong>Inventory rule:</strong> buy the five priority items only if the school does not already have a workable shared version. Do not create one equipment set per team.</p>
+    </section>
+
+    <section class="panel" id="recovery">
+      <div class="section-heading"><p class="eyebrow">5 · QUICK RECOVERY GUIDE</p><h2>When the plan breaks</h2><p>Protect the science goal, evidence, team decision and Team Record. Everything else is negotiable.</p></div>
+      <div class="recovery-grid">{recovery.map(([problem,response])=><article><strong>{problem}</strong><p>{response}</p></article>)}</div>
+    </section>
+
+    <section class="panel day-one" id="day-one">
+      <div class="section-heading"><p class="eyebrow">DAY 1 · FINAL READY-CHECK</p><h2>Before students walk in</h2></div>
+      <div class="check-grid short">
+        <label><input type="checkbox"/> Phase 1 continent + Team ID roster is ready.</label>
+        <label><input type="checkbox"/> Student Launch and Phase 1 Mission 1 open successfully on a Chromebook.</label>
+        <label><input type="checkbox"/> Projector/display is ready with the Student Launch page.</label>
+        <label><input type="checkbox"/> Students know which normal Chromebook/browser profile to use; no Guest/Incognito.</label>
+        <label><input type="checkbox"/> I have chosen paper, digital or mixed Team Record collection.</label>
+        <label><input type="checkbox"/> Pencils/notebooks or the short starting-prediction sheet are available.</label>
+        <label><input type="checkbox"/> I will emphasize: “The preliminary JCEC rating is a starting idea, not the answer.”</label>
+        <label><input type="checkbox"/> Day 1 ends when each group has its assigned continent saved and each student has made the short baseline prediction.</label>
+        <label><input type="checkbox"/> If technology fails, I will project/share the launch and record the assigned continent on paper rather than postponing the mission.</label>
+      </div>
+      <div class="day-one-actions"><a class="button primary" href={`${phase(1)}mission-1/`}>Open Day 1 · Mission 1 →</a><a class="button secondary" href={`${phase(1)}teacher-launch-guide/`}>Open Phase 1 Teacher Guide →</a></div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  document.getElementById('print-ops')?.addEventListener('click', () => window.print());
+</script>
+
+<style>
+:global(body){background:#06111f}.ops-shell{max-width:1120px;margin:0 auto;padding:0 1rem 5rem;color:#eaf5ff}.ops-shell :global(.breadcrumbs){color:#9cb5c4}.ops-shell :global(.breadcrumbs a){color:#d9edf6}.eyebrow{margin:0;color:#73e8ca;font:850 .72rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em}.hero{display:grid;grid-template-columns:1fr 270px;gap:1rem;align-items:end;margin:1rem 0;padding:clamp(1.35rem,4vw,2.5rem);border:1px solid #2b5a6c;border-radius:24px;background:radial-gradient(circle at 86% 16%,rgba(110,242,207,.15),transparent 30%),linear-gradient(145deg,#081827,#0b2939)}.hero h1{margin:.45rem 0;color:#fff;font-size:clamp(2.8rem,7vw,5.4rem);line-height:.88;letter-spacing:-.055em}.hero h1 span{display:block;color:#6ef2cf;font-size:.68em}.hero p:last-child{max-width:740px;color:#bdd0db;line-height:1.6}.hero aside{display:grid;gap:.2rem;padding:1rem;border:1px solid #355f6e;border-radius:14px;background:#071923}.hero aside strong{color:#fff}.hero aside span{margin-bottom:.55rem;color:#8fb0bd;font-size:.78rem}.top-actions{display:flex;justify-content:flex-end;gap:.5rem;margin:.7rem 0}.button{display:inline-flex;align-items:center;justify-content:center;padding:.7rem .9rem;border:1px solid #426b77;border-radius:9px;text-decoration:none;font:850 .8rem/1.2 system-ui;cursor:pointer}.button.primary{border-color:#6ef2cf;background:#6ef2cf;color:#06251c}.button.secondary{background:#0a1b27;color:#dcecf3}.jump-nav{position:sticky;top:.6rem;z-index:25;display:flex;gap:.3rem;overflow:auto;margin:0 0 1rem;padding:.45rem;border:1px solid #294e5f;border-radius:13px;background:rgba(6,22,32,.96);backdrop-filter:blur(10px)}.jump-nav a{flex:0 0 auto;padding:.6rem .7rem;border-radius:8px;color:#bfd2dc;text-decoration:none;font-size:.77rem;font-weight:850}.jump-nav a:hover{background:#123641;color:#fff}.panel{scroll-margin-top:5rem;margin:1rem 0;padding:1.1rem;border:1px solid #294b5a;border-radius:18px;background:#081b28}.section-heading h2{margin:.18rem 0;color:#fff;font-size:1.65rem}.section-heading>p:last-child{margin:.35rem 0 0;color:#a9bfca;line-height:1.5}.check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.45rem;margin-top:.9rem}.check-grid label{display:flex;gap:.55rem;align-items:flex-start;padding:.65rem;border:1px solid #2d4c59;border-radius:9px;background:#071720;color:#bfd0d7;font-size:.8rem;line-height:1.42}.check-grid input{flex:0 0 auto;margin-top:.17rem;accent-color:#6ef2cf}.check-grid a{color:#82e7d0}.three-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-top:.9rem}.three-grid article{padding:.75rem;border:1px solid #2c4b58;border-radius:10px;background:#071720}.three-grid small,.phase-prep dt,.day-fields small{color:#75ddc6;font-size:.63rem;font-weight:900;letter-spacing:.08em}.three-grid strong{display:block;margin:.2rem 0;color:#fff}.three-grid p{margin:.25rem 0 0;color:#9fb5bf;font-size:.78rem;line-height:1.45}.purchase-block{margin-top:1rem;padding-top:.9rem;border-top:1px solid #284655}.purchase-list{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;margin-top:.65rem}.purchase-list article{display:grid;grid-template-columns:30px 1fr;gap:.45rem;align-items:start;padding:.6rem;border:1px solid #2d4e5c;border-radius:9px;background:#071720}.purchase-list b{display:grid;place-items:center;width:28px;height:28px;border-radius:7px;background:#153d37;color:#8ef0d5}.purchase-list div{display:grid;gap:.08rem}.purchase-list strong{color:#fff;font-size:.78rem}.purchase-list span{color:#91aab5;font-size:.68rem;line-height:1.35}.rule{margin:.75rem 0 0;padding:.7rem;border-left:3px solid #6ef2cf;background:#0b2928;color:#a9c1bc;font-size:.8rem;line-height:1.45}.rule strong{color:#9af3dc}.phase-prep-grid{display:grid;gap:.7rem;margin-top:.9rem}.phase-prep{padding:.85rem;border:1px solid #2c4c59;border-radius:12px;background:#071720}.phase-prep header{display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:center}.phase-prep header>span{display:grid;place-items:center;min-width:65px;min-height:48px;border-radius:9px;background:#153d37;color:#8ef0d5;font-size:.69rem;font-weight:900}.phase-prep h3,.day-card h3{margin:.08rem 0;color:#fff;font-size:1.1rem}.phase-prep header small,.day-card header small{color:#8fa8b4;font-size:.73rem}.phase-prep dl{display:grid;grid-template-columns:repeat(2,1fr);gap:.45rem;margin:.7rem 0}.phase-prep dl>div{padding:.65rem;border:1px solid #284653;border-radius:8px;background:#081925}.phase-prep dt{margin-bottom:.22rem}.phase-prep dd{margin:0;color:#a9bec7;font-size:.77rem;line-height:1.45}.phase-links{display:flex;justify-content:flex-end;gap:.4rem}.phase-links a,.day-card header>a{padding:.5rem .65rem;border-radius:7px;background:#12362f;color:#9af3dc;text-decoration:none;font-size:.72rem;font-weight:900}.week-grid{display:grid;gap:.65rem;margin-top:.9rem}.day-card{border:1px solid #2d4e5c;border-radius:12px;overflow:hidden;background:#071720}.day-card header{display:grid;grid-template-columns:64px 1fr auto;gap:.7rem;align-items:center;padding:.7rem;background:#0a202c}.day-card header>b{display:grid;place-items:center;height:42px;border-radius:9px;background:#153d37;color:#8ef0d5;font-size:.78rem}.day-fields{display:grid;grid-template-columns:repeat(4,1fr);gap:.45rem;padding:.7rem}.day-fields>div{padding:.6rem;border:1px solid #284653;border-radius:8px;background:#081925}.day-fields p{margin:.25rem 0 0;color:#a9bec7;font-size:.75rem;line-height:1.45}.inventory-wrap{overflow:auto;margin-top:.8rem}.inventory-panel table{width:100%;border-collapse:collapse;min-width:690px}.inventory-panel th,.inventory-panel td{padding:.65rem;border:1px solid #2b4b58}.inventory-panel th{background:#0b2630;color:#83ead2;font-size:.68rem;letter-spacing:.06em}.inventory-panel td{background:#071720;color:#dceaf0;text-align:center}.inventory-panel td:first-child{text-align:left}.inventory-panel td strong{display:block}.inventory-panel td small{display:block;margin-top:.12rem;color:#8da6b1}.inventory-panel input{width:18px;height:18px;accent-color:#6ef2cf}.recovery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin-top:.8rem}.recovery-grid article{padding:.75rem;border:1px solid #2d4c59;border-radius:10px;background:#071720}.recovery-grid strong{color:#fff}.recovery-grid p{margin:.3rem 0 0;color:#a8bec7;font-size:.79rem;line-height:1.48}.day-one{border-color:#3e786d;background:linear-gradient(145deg,#081b28,#0b2928)}.check-grid.short{grid-template-columns:repeat(3,1fr)}.day-one-actions{display:flex;justify-content:flex-end;gap:.5rem;margin-top:.8rem}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.purchase-list{grid-template-columns:repeat(2,1fr)}.three-grid,.day-fields{grid-template-columns:1fr 1fr}.check-grid.short{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.ops-shell{padding-inline:.7rem}.check-grid,.three-grid,.purchase-list,.phase-prep dl,.day-fields,.recovery-grid,.check-grid.short{grid-template-columns:1fr}.day-card header{grid-template-columns:58px 1fr}.day-card header>a{grid-column:1/-1;text-align:center}.phase-links,.day-one-actions,.top-actions{display:grid}.phase-links a,.day-one-actions a,.top-actions .button{text-align:center}.hero h1{font-size:3rem}}
+@media print{.top-actions,.jump-nav,.ops-shell :global(.breadcrumbs){display:none!important}:global(body){background:#fff}.ops-shell{max-width:none;padding:0;color:#111}.hero{margin:0 0 .4rem;padding:.7rem;border:1px solid #777;background:#fff}.hero h1,.hero h1 span,.hero aside strong,.section-heading h2,.phase-prep h3,.day-card h3,.purchase-list strong,.recovery-grid strong{color:#111}.hero p:last-child,.hero aside span,.section-heading>p:last-child,.check-grid label,.three-grid p,.purchase-list span,.phase-prep dd,.day-fields p,.recovery-grid p{color:#333}.hero aside,.panel,.phase-prep,.day-card,.day-fields>div,.three-grid article,.purchase-list article,.recovery-grid article,.inventory-panel td{background:#fff;border-color:#999}.panel{break-inside:avoid-page;margin:.4rem 0;padding:.65rem}.setup-sheet{break-after:page}.purchase-list{grid-template-columns:repeat(5,1fr)}.check-grid{gap:.25rem}.check-grid label{padding:.4rem}.phase-prep{break-inside:avoid}.week-grid .day-card{break-inside:avoid}.inventory-panel table{min-width:0}.button{display:none!important}}
+</style>
