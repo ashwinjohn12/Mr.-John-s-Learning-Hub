@@ -18,6 +18,7 @@ const missionThreads = {
     title:'Start the JCEC research district prototype',
     student:'Use Field File Page 2 for the New Horizon Requirements Card. Your team also begins the three-building district concept. In Math, Pages 3–5 handle building geometry and the measured blueprint.',
     science:'Science still comes first: function, form, materials and performance requirements. Do not choose a final structural solution before the requirements are clear.',
+    record:'Official Team Record: Field File Page 2 · New Horizon Requirements Card. Your Primary Structural Test Building choice is still tentative here.',
     pages:'Field File: Pages 1–5'
   },
   2: {
@@ -25,6 +26,7 @@ const missionThreads = {
     title:'Trace forces on one Primary Structural Test Building',
     student:'Use your actual CityScape Primary Structural Test Building on Field File Page 7. Show external loads, force directions, internal-force patterns and one likely failure point.',
     science:'Mission 2 remains the force lesson. Math blueprint work runs alongside the project, but the Science decision is the priority load / force risk.',
+    record:'Official Team Record: Field File Page 7 · Structural Force Map. Include the packet’s mass-versus-force explanation and apply the map to the Primary Building.',
     pages:'Field File: Page 7'
   },
   3: {
@@ -32,6 +34,7 @@ const missionThreads = {
     title:'Use fair-test evidence before releasing build materials',
     student:'Use Field File Pages 8–9 for the Material & Joint Fair Test, load–deformation graph and Material & Joint Recommendation. Page 10 is separate individual Math budget evidence.',
     science:'The checkpoint is not “which material held the most?” It is fair testing → quantitative evidence → property → structural application → limitation.',
+    record:'Official Science Team Record: Field File Pages 8–9 · Material & Joint Recommendation. Page 10 is individual Math work, not an added Science lesson or Science grade.',
     pages:'Field File: Pages 8–10'
   },
   4: {
@@ -39,6 +42,7 @@ const missionThreads = {
     title:'Test the Primary Building, then redesign from evidence',
     student:'Use Field File Pages 11–13. Baseline test the Primary Structural Test Building when a fair comparison is possible, identify one weakness, propose two alternatives, choose one, modify and retest.',
     science:'If team models are too different for a controlled comparison, use the standardized reference model / fallback dataset first, then apply the stability principle to the CityScape. Only the Primary Building completes the full testing cycle.',
+    record:'Official Team Record: Field File Page 13 · New Horizon Safety Protocol + Final Build Readiness, supported by the Primary Building baseline/retest evidence on Pages 11–12.',
     pages:'Field File: Pages 11–13'
   },
   5: {
@@ -46,6 +50,7 @@ const missionThreads = {
     title:'Use the completed district as evidence — do not build a new model',
     student:'Use Field File Page 14 for the JCEC New Horizon Structural Authorization. Point to the CityScape when useful, but make the decision from M1 requirements, M2 forces, M3 materials and M4 safety evidence.',
     science:'This is structural authorization only. Phase 4 answers “Could JCEC build this safely?” The final Mission 2190 Council later decides whether human presence should actually proceed.',
+    record:'Official Team Record: Field File Page 14 · JCEC New Horizon Structural Authorization. Use the six review lenses and evidence from at least three missions.',
     pages:'Field File: Page 14'
   }
 };
@@ -62,10 +67,12 @@ const current = missionNumber ? missionThreads[missionNumber] : null;
           <strong>Project New Horizon — JCEC CityScape Prototype Challenge</strong>
           <span>The daily guide below remains the <b>Science spine</b>: 18 core classes + 7 purposeful flex periods. CityScape is the physical project thread that develops across those five missions while selected Math periods handle building geometry, geometric constructions and resource mathematics.</span>
           <div class="teacher-rules">
+            <b>Packet is the record source of truth:</b> use the Field File Team Records for collection/assessment; the existing on-screen Team Record boxes remain useful planning/reference prompts.
             <b>Printing:</b> one 11-page team set per group + Pages 3, 6 and 10 individually per student.
+            <b>Math boundary:</b> Pages 3, 6 and 10 are Math evidence completed alongside the project; do not turn the Science mission pages into Math lessons or add those periods to the 18 + 7 Science schedule.
             <b>Primary Building:</b> only one of the three district buildings receives the complete force/material/stability/redesign Science investigation.
-            <b>Fair testing:</b> if team buildings are not comparable, keep the standardized reference-model / supplied-data pathway, then apply the result to the CityScape.
-            <b>Mission 5:</b> no new physical build is required; use the completed district as an evidence object during Structural Design Review.
+            <b>Fair testing:</b> the Primary Building is the default Mission 4 test object when a fair comparison is possible. If team buildings are not comparable, use the standardized reference model / fallback dataset, then apply the result to the CityScape.
+            <b>Mission 5:</b> no new physical build is required; use the completed district as an evidence object during Structural Design Review. Structural authorization is not the final settlement decision.
           </div>
         </div>
         <div class="cityscape-actions teacher-actions">
@@ -81,6 +88,7 @@ const current = missionNumber ? missionThreads[missionNumber] : null;
           <span>Across all five Phase 4 missions, your team develops one <b>three-building research district prototype</b>: circular base + triangular base + parallelogram base. Choose one as the <b>Primary Structural Test Building</b>. Only that building receives the complete Science testing and redesign cycle.</span>
           <div class="sequence">DEFINE → ANALYZE → CHOOSE → TEST & IMPROVE → DEFEND</div>
           <span class="math-note"><b>Math runs alongside the Science project:</b> building geometry, geometric constructions, measured blueprint and resource mathematics are clearly marked in the Field File. The Science mission pages stay focused on Structures & Forces.</span>
+          <span class="record-source"><b>Use the Field File as your official project record.</b> The website mission pages teach and guide the Science; the matching packet pages are what your team completes and submits.</span>
         </div>
         <div class="cityscape-actions">
           <a href={fieldFileHref} target="_blank" rel="noopener">Download / Print the CityScape Field File</a>
@@ -93,6 +101,7 @@ const current = missionNumber ? missionThreads[missionNumber] : null;
           <strong>{current.title}</strong>
           <span>{current.student}</span>
           <span class="science-rule"><b>Science focus:</b> {current.science}</span>
+          <span class="record-source"><b>{current.record}</b> The website record below is a planning/reference version if its wording differs.</span>
           <em>{current.pages}</em>
         </div>
         <div class="cityscape-actions">
@@ -127,7 +136,8 @@ const current = missionNumber ? missionThreads[missionNumber] : null;
   .cityscape-copy span { color:#d2dae0; font-size:.83rem; line-height:1.42; }
   .cityscape-copy em { color:#f7d8a8; font-size:.72rem; font-style:normal; font-weight:850; }
   .sequence { margin:.25rem 0; color:#ffd79d; font:850 .75rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.04em; }
-  .math-note,.science-rule { display:block; }
+  .math-note,.science-rule,.record-source { display:block; }
+  .record-source { margin-top:.14rem; padding-left:.65rem; border-left:2px solid rgba(243,181,95,.55); }
   .teacher-rules { display:grid; gap:.18rem; margin-top:.28rem; color:#d5e6ed; font-size:.77rem; line-height:1.38; }
   .teacher-rules b { color:#fff; }
   .cityscape-actions { flex:0 0 auto; display:grid; gap:.45rem; min-width:220px; }
