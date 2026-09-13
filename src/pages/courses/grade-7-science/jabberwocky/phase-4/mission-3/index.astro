@@ -1,0 +1,278 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecPhase4Progress from '../../../../../../components/JcecPhase4Progress.astro';
+import { phase4StructuralSites } from '../../../../../../data/jabberwockyPhase4';
+
+const base = import.meta.env.BASE_URL;
+
+const materialIdeas = [
+  { icon:'🧱', name:'STRENGTH', detail:'How well a material withstands a load without reaching the agreed failure limit.' },
+  { icon:'〰️', name:'FLEXIBILITY', detail:'How much a material can bend or change shape under a specified load.' },
+  { icon:'📏', name:'STIFFNESS', detail:'How strongly a material resists deformation under a load.' },
+  { icon:'↘️', name:'DEFORMATION', detail:'A change in shape caused by a load.' }
+];
+
+const backupData = [
+  { material:'Cardstock strip', sameLoad:'200 g', deformation:'14 mm', safeLoad:'300 g' },
+  { material:'Corrugated cardboard strip', sameLoad:'200 g', deformation:'7 mm', safeLoad:'500 g' },
+  { material:'Flexible recycled plastic strip', sameLoad:'200 g', deformation:'18 mm', safeLoad:'600 g — teacher maximum reached; exact failure strength unknown' }
+];
+
+const mission3Cases = {
+  gyre: {
+    reminder:'Mission 2 showed that snow and other downward loading can create compression in supports and bending in horizontal members.',
+    clues:[
+      'A horizontal member carrying snow-related loading needs a property that limits excessive bending.',
+      'Keeping the habitat lighter can reduce the amount of material and site disturbance on fragile alpine ground.',
+      'Connections must stay reliable under the priority load, but controlled movement may be useful only where the structural job actually requires it.'
+    ]
+  },
+  brillig: {
+    reminder:'Mission 2 showed that the habitat must carry its normal loads while heavy rainfall can add temporary loading to exposed surfaces.',
+    clues:[
+      'A wet environment makes durability and dependable connections important properties to consider.',
+      'A compact footprint means structural parts must do their jobs without simply using much more material or land.',
+      'Some members may need stiffness under bending while some connections may benefit from controlled movement rather than being rigid everywhere.'
+    ]
+  },
+  manxome: {
+    reminder:'Mission 2 showed that storm-season external pushes can create tension, compression, shear and bending in different parts and connections.',
+    clues:[
+      'Connections exposed to changing storm loads may need to resist separation or sliding.',
+      'Some structural parts may need both strength and controlled flexibility instead of maximum stiffness.',
+      'The best property choice depends on the part\'s job: a connection and a horizontal member may need different behaviours.'
+    ]
+  },
+  'slithy-toves': {
+    reminder:'Mission 2 showed that the habitat must carry normal loads and also face established desert storms in an exposed setting.',
+    clues:[
+      'Material-efficient members are valuable because construction cannot depend on heavy resource use or a huge footprint.',
+      'Exposed members may need enough stiffness to limit bending while still meeting the thermal design inherited from Phase 3.',
+      'Large day-night temperature changes make it especially important not to assume every connection should behave exactly the same way.'
+    ]
+  },
+  wabe: {
+    reminder:'Mission 2 showed that snow loading and long storm conditions can create several internal-force patterns at the same time.',
+    clues:[
+      'Members carrying snow-related loading may need strong resistance to bending or compression, depending on their job.',
+      'Light, efficient parts can reduce repeated disturbance on slow-recovering ground.',
+      'Connections should stay dependable under the priority load without adding unnecessary material everywhere.'
+    ]
+  },
+  bandersnatch: {
+    reminder:'Mission 2 showed that the compact prairie habitat must carry normal loads while remaining reliable on an exposed site.',
+    clues:[
+      'A compact design makes efficient use of material especially important.',
+      'Some members may need stiffness under bending while other parts may need controlled flexibility across strong seasonal changes.',
+      'Joint behaviour should match the part\'s job rather than using the same connection everywhere.'
+    ]
+  },
+  gimble: {
+    reminder:'Mission 2 showed that severe winter conditions and a compact forest footprint shape the structure\'s loading problem.',
+    clues:[
+      'Members carrying winter-related loading may need stiffness and safe load capacity without becoming unnecessarily heavy.',
+      'A compact forest site rewards material efficiency rather than simply adding more structural material.',
+      'Connections should fit the force pattern while respecting the existing thermal and habitat restrictions.'
+    ]
+  },
+  mimsy: {
+    reminder:'Mission 2 showed that the habitat must carry normal structural loads even though the support conditions are unusual.',
+    clues:[
+      'Keeping the structure relatively light can reduce the load that eventually reaches the wet support system.',
+      'Members still need enough stiffness and strength for their job even when material use is kept efficient.',
+      'Some connections may need to remain fixed while others may allow controlled movement; foundation design itself waits until Mission 4.'
+    ]
+  }
+};
+---
+
+<BaseLayout title="Mission 3: Choose What Holds | Project New Horizon" description="Phase 4 Mission 3: fairly test material properties and joints, analyze load-deformation evidence, and make a structural recommendation." themeColor="#11161d">
+  <div class="mission-shell" id="phase4-mission3">
+    <Breadcrumbs items={[
+      { label:'Home', href:base },
+      { label:'Grade 7 Science', href:`${base}courses/grade-7-science/` },
+      { label:'Jabberwocky', href:`${base}courses/grade-7-science/jabberwocky/` },
+      { label:'Phase 4', href:`${base}courses/grade-7-science/jabberwocky/phase-4/` },
+      { label:'Mission 3' }
+    ]} />
+
+    <JcecPhase4Progress active={3} compact={true} />
+
+    <header class="mission-hero">
+      <div>
+        <p class="eyebrow">PHASE 4 // MISSION 3 OF 5</p>
+        <h1>CHOOSE WHAT <span>HOLDS</span></h1>
+        <p class="question">How do materials and joints change what a structure can handle?</p>
+      </div>
+      <aside><span>YOU ARE LEARNING</span><strong>How fair tests reveal useful material properties and connection choices</strong><small>4 classes × 45 minutes</small></aside>
+    </header>
+
+    <section class="mission-at-a-glance">
+      <div><small>WHERE AM I?</small><strong>Mission 3 of 5</strong></div>
+      <div><small>WHAT DO I HAND IN?</small><strong>1 Material & Joint Recommendation + 1 reflection</strong></div>
+      <div><small>WHY DOES IT MATTER?</small><strong>Knowing the forces is not enough. Different parts need properties and joints that fit their jobs.</strong></div>
+    </section>
+
+    <nav class="step-nav" aria-label="Mission 3 steps">
+      <a href="#your-mission"><b>1</b><span>Your Mission</span></a><a href="#learn"><b>2</b><span>Learn</span></a><a href="#investigate"><b>3</b><span>Investigate</span></a><a href="#decide"><b>4</b><span>Decide</span></a><a href="#record"><b>5</b><span>Record It</span></a>
+    </nav>
+
+    <section class="simple-step" id="your-mission">
+      <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
+      <div class="briefing"><p>Mission 2 traced the loads and internal forces that could deform your New Horizon habitat. Now JCEC needs evidence about what should resist those forces. Your team will test ordinary material samples fairly, compare how much they deform and how much safe test load they can handle, check when fixed or flexible joints make sense, and recommend the properties that matter most for your site.</p></div>
+
+      <div class="assignment-result" id="assignment-result" hidden>
+        <span id="assignment-icon"></span><div><small>YOUR PHASE 4 CONTINENT</small><strong id="assignment-name"></strong><p id="assignment-subtitle"></p></div><div class="challenge-badge"><small>STRUCTURAL CHALLENGE</small><b id="assignment-challenge"></b></div>
+      </div>
+      <div class="missing-assignment" id="missing-assignment" hidden><strong>Your Phase 4 posting is not saved on this device yet.</strong><p>Return to the Phase 4 Hub and confirm the continent your teacher assigned. Do not create a new posting for Mission 3.</p><a href={`${base}courses/grade-7-science/jabberwocky/phase-4/`}>Get Phase 4 posting →</a></div>
+
+      <div class="continuity-strip"><strong>FROM MISSION 2</strong><span id="force-reminder">Your Structural Force Map is useful evidence if you have it, but you do not need to recreate it.</span></div>
+    </section>
+
+    <section class="simple-step" id="learn">
+      <div class="step-heading"><span>2</span><div><p>CLASS 1</p><h2>Learn the Science</h2></div></div>
+
+      <div class="science-grid four">
+        {materialIdeas.map((idea) => <article><span>{idea.icon}</span><strong>{idea.name}</strong><p>{idea.detail}</p></article>)}
+      </div>
+
+      <div class="misconception-note"><strong>Do not use this shortcut:</strong> “the material that bends least is the strongest.” A sample can be stiff but still fail suddenly. A flexible sample can bend more and still remain useful. <strong>Strength, stiffness and flexibility answer different questions.</strong></div>
+
+      <section class="definitions-block">
+        <div><small>OUR CLASSROOM OPERATIONAL DEFINITION</small><strong>FLEXIBILITY</strong><p>For this investigation, flexibility = the amount of deformation under the same specified load.</p></div>
+        <div><small>OUR CLASSROOM OPERATIONAL DEFINITION</small><strong>STRENGTH</strong><p>For this investigation, strength = the greatest safe test load handled before the agreed failure limit is reached.</p></div>
+      </section>
+
+      <div class="failure-limit"><strong>SAFE FAILURE LIMIT</strong><p>Your teacher will set the stopping rule. It might be permanent bending, deformation past a marked limit, joint separation, or reaching the maximum allowed test load. <b>You do not need to snap or destroy a sample.</b></p></div>
+
+      <div class="joint-grid">
+        <article><span>🔒</span><strong>FIXED JOINT</strong><p>Designed to prevent or greatly limit movement.</p></article>
+        <article><span>↔️</span><strong>FLEXIBLE JOINT</strong><p>Allows controlled movement where the structural job benefits from it.</p></article>
+      </div>
+      <p class="joint-question">The question is not “Which joint is strongest?” It is: <strong>Which joint behaviour fits this structural part's job?</strong></p>
+
+      <section class="nature-strip">
+        <div class="block-title"><div><small>NATURE'S MATERIALS</small><h3>Living structures do not use one material everywhere</h3></div><span>SHORT CONNECTION</span></div>
+        <div class="nature-grid"><article><strong>BONE</strong><span>stiff / strong support</span></article><article><strong>CARTILAGE</strong><span>flexible support</span></article><article><strong>LIGAMENT</strong><span>flexible connection</span></article><article><strong>PLANT TISSUES / LAYERS</strong><span>different materials perform different structural jobs</span></article></div>
+        <p>Ask: <strong>Why don't living structures use one material everywhere?</strong></p>
+      </section>
+
+      <details class="learn-more"><summary>Need Help? / Learn More</summary><div><h3>Natural and synthetic</h3><p>Natural materials come from living things or Earth materials with limited processing. Synthetic materials are manufactured through human-controlled processes. Neither category is automatically “better”; JCEC cares about the properties needed for a specific structural job.</p><h3>Why don't we use engineering equations?</h3><p>Mission 3 is about controlled evidence and structural reasoning. You do not need stress/strain equations, elastic modulus or advanced engineering mathematics.</p></div></details>
+    </section>
+
+    <section class="simple-step" id="investigate">
+      <div class="step-heading"><span>3</span><div><p>CLASSES 1–3</p><h2>Investigate</h2></div></div>
+      <section class="investigation-block">
+        <div class="block-title"><div><small>MAIN INVESTIGATION</small><h3>Material & Joint Fair Test</h3></div><span>SCIENCE CHECKPOINT</span></div>
+        <p>The goal is not to build the best-looking model or make a sample carry the most mass. The goal is to compare materials <strong>fairly</strong> and use the evidence correctly.</p>
+
+        <div class="fair-test-strip"><span><small>CHANGE</small><b>material sample</b></span><i>→</i><span><small>MEASURE</small><b>deformation + greatest safe test load</b></span><i>→</i><span><small>KEEP SIMILAR</small><b>length, width, span, load position and loading method</b></span></div>
+
+        <section class="test-card">
+          <div class="test-title"><b>A</b><div><small>FLEXIBILITY / STIFFNESS</small><h3>Same load, compare deformation</h3></div></div>
+          <ol><li>Place equal-sized samples across the same support span.</li><li>Apply the <strong>same safe load</strong> at the same position.</li><li>Measure deformation in a consistent way, such as millimetres below the starting line.</li><li>Record: <strong>material → load → deformation.</strong></li></ol>
+          <p class="test-note">Less deformation under this same load suggests greater stiffness in this setup. It does <strong>not</strong> automatically prove greater strength.</p>
+        </section>
+
+        <section class="test-card">
+          <div class="test-title"><b>B</b><div><small>STRENGTH</small><h3>Safe stepped-load test</h3></div></div>
+          <ol><li>Begin with a small teacher-approved load.</li><li>Increase the load in small, consistent steps.</li><li>Stop when the agreed failure limit is reached or the teacher maximum is reached.</li><li>Record the greatest safe test load reached.</li></ol>
+          <p class="test-note"><strong>Reached the teacher maximum without failing ≠ exact breaking strength.</strong> It only tells you the sample safely handled the maximum used in this classroom test.</p>
+        </section>
+
+        <section class="data-panel">
+          <div class="block-title"><div><small>DATA DISPLAY</small><h3>Keep it quantitative but manageable</h3></div><span>TABLE + ONE GRAPH</span></div>
+          <div class="blank-table"><div class="head"><span>Material</span><span>Test load</span><span>Deformation</span><span>Greatest safe load reached</span></div><div><span>________</span><span>________</span><span>________</span><span>________</span></div><div><span>________</span><span>________</span><span>________</span><span>________</span></div><div><span>________</span><span>________</span><span>________</span><span>________</span></div></div>
+          <p>Create one simple <strong>load-versus-deformation graph</strong> using the most useful team or pooled class data. The purpose is to interpret evidence, not make a polished graphing project.</p>
+        </section>
+
+        <section class="joint-check">
+          <div class="test-title"><b>C</b><div><small>JOINT CHECK</small><h3>Fixed or controlled movement?</h3></div></div>
+          <p>Compare one simple fixed connection with one connection that allows controlled movement. Use tape, a loose string loop, a paper hinge, or supplied evidence cards.</p>
+          <div class="joint-record"><span>Where would a fixed joint help? __________________________</span><span>Where could controlled flexibility help? __________________</span></div>
+        </section>
+
+        <section class="fallback-data">
+          <div class="block-title"><div><small>NO-PURCHASE / NOISY-DATA FALLBACK</small><h3>JCEC standardized classroom dataset</h3></div><span>USE IF NEEDED</span></div>
+          <p>These are supplied results from one standardized classroom setup. Use them if materials are unavailable or your class data are too noisy to support the reasoning task.</p>
+          <div class="fallback-table"><div class="head"><span>Material</span><span>Same flexibility load</span><span>Deformation</span><span>Greatest safe load reached</span></div>{backupData.map((row) => <div><span>{row.material}</span><span>{row.sameLoad}</span><span>{row.deformation}</span><span>{row.safeLoad}</span></div>)}</div>
+          <p class="fallback-note"><strong>Notice:</strong> the recycled plastic strip bends the most in the same-load test yet reaches the teacher maximum in the safe-load test. That is why “least bending = strongest” is not a valid shortcut.</p>
+        </section>
+
+        <div class="materials-safety">
+          <article><small>LOW-MATERIAL VERSION</small><strong>Paper/cardstock · recycled cardboard · rulers · tape · binder clips · coins/washers/books · recycled strips</strong><p>Craft sticks, standardized masses and spring scales are optional, not required.</p></article>
+          <article><small>SAFETY LIMITS</small><strong>Desk-sized samples · small loads · teacher maximum · no deliberate snapping</strong><p>No hot glue, knives, saws or tall standing structures are required.</p></article>
+        </div>
+
+        <button type="button" class="small-button" id="print-phase4-mission3">Print Material Test + Recommendation</button>
+      </section>
+    </section>
+
+    <section class="simple-step" id="decide">
+      <div class="step-heading"><span>4</span><div><p>CLASSES 3–4</p><h2>Make a Decision</h2></div></div>
+      <div class="continent-evidence">
+        <div class="block-title"><div><small>YOUR CONTINENT</small><h3>Three material / joint clues</h3></div><span id="evidence-continent">PHASE 4 POSTING</span></div>
+        <div id="material-clues" class="clue-grid"><p>Confirm your Phase 4 posting to load the three clues.</p></div>
+        <p class="clue-note">Recommend <strong>properties first</strong>. “This member needs stiffness under bending” is stronger reasoning than simply naming a material such as steel or titanium.</p>
+      </div>
+
+      <div class="decision-card">
+        <p class="mini-label">ONE TEAM QUESTION</p>
+        <h3>What material properties and joint type should JCEC prioritize for the most important parts of our structure?</h3>
+        <div class="reasoning-frame"><div><strong>CLAIM</strong><span>We recommend a ______ material/property because ______.</span></div><div><strong>TEST DATA</strong><span>Our test showed ______.</span></div><div><strong>APPLICATION</strong><span>This matters because this structural part must resist/do ______.</span></div><div><strong>LIMITATION</strong><span>One limitation of our evidence is ______.</span></div></div>
+        <p class="decision-note">Mission 3 is the structural-science checkpoint: use fair evidence, connect it to a property, and explain the structural job. Do not choose the final whole-structure design yet.</p>
+      </div>
+    </section>
+
+    <section class="simple-step" id="record">
+      <div class="step-heading"><span>5</span><div><p>CLASS 4</p><h2>Record It</h2></div></div>
+      <div class="handoff-strip"><span>👥 <strong>TEAM WORK</strong> test</span><i>→</i><span>📝 <strong>TEAM RECORD</strong> one recommendation</span><i>→</i><span>💭 <strong>MY REFLECTION</strong> everyone answers</span></div>
+
+      <div class="team-record">
+        <div class="record-heading"><div><p class="mini-label">TEAM RECORD</p><h3>Material & Joint Recommendation</h3></div><span>CHECKPOINT · EVIDENCE FIRST</span></div>
+        <div class="record-grid"><label>Important structural part / job<textarea></textarea></label><label>Required material property or properties<textarea></textarea></label><label>Quantitative test evidence<textarea></textarea></label><label>Where a fixed joint may help<textarea></textarea></label><label>Where controlled flexibility may help<textarea></textarea></label><label>Connection to the priority force / load<textarea></textarea></label><label class="wide">One limitation or uncertainty<textarea></textarea></label></div>
+        <p class="assessment-note"><strong>Checkpoint focus:</strong> fair testing → evidence → material-property understanding → structural application. <strong>Not</strong> model appearance and <strong>not</strong> which team's sample held the most mass.</p>
+      </div>
+
+      <div class="reflection-card"><p class="mini-label">MY REFLECTION</p><h3>Why is the strongest material not automatically the best material for every part of a structure?</h3><p>Everyone answers individually. Use at least one idea about strength, stiffness, flexibility, a joint, or the job of the structural part.</p></div>
+
+      <div class="finished-box"><strong>Mission 3 is finished when:</strong><p>your team has one Material & Joint Recommendation and you have completed your reflection.</p><span>Mission 4 — Keep It Standing remains locked.</span></div>
+    </section>
+
+    <section class="class-plan">
+      <p class="mini-label">4 × 45-MINUTE CLASSES</p>
+      <div class="class-grid"><article><b>1</b><strong>What Makes a Material Useful?</strong><p>Strength, flexibility, stiffness, deformation, operational definitions and fair-test planning.</p></article><article><b>2</b><strong>Test the Materials</strong><p>Same-load deformation test, safe stepped-load test and quantitative data collection.</p></article><article><b>3</b><strong>What Does the Evidence Show?</strong><p>Table/graph, joints, Nature's Materials and three continent clues.</p></article><article><b>4</b><strong>Choose What Holds</strong><p>One recommendation, checkpoint reasoning, Team Record and reflection.</p></article></div>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ siteData: phase4StructuralSites, caseData: mission3Cases }}>
+    (() => {
+      const POSTING_KEY='jabberwocky-phase4-posting';
+      const saved=localStorage.getItem(POSTING_KEY);
+      const site=siteData.find((item)=>item.id===saved);
+      const assignment=document.getElementById('assignment-result');
+      const missing=document.getElementById('missing-assignment');
+      const clues=document.getElementById('material-clues');
+      const caseInfo=saved?caseData[saved]:null;
+      if(!site){missing.hidden=false;}
+      else{
+        assignment.hidden=false;
+        document.getElementById('assignment-icon').textContent=site.icon;
+        document.getElementById('assignment-name').textContent=site.name;
+        document.getElementById('assignment-subtitle').textContent=site.subtitle;
+        document.getElementById('assignment-challenge').textContent=site.structuralChallenge;
+        document.getElementById('evidence-continent').textContent=`${site.icon} ${site.name}`;
+        if(caseInfo){document.getElementById('force-reminder').textContent=caseInfo.reminder;clues.innerHTML='';caseInfo.clues.forEach((clue,index)=>{const article=document.createElement('article');article.innerHTML=`<b>${index+1}</b><p>${clue}</p>`;clues.appendChild(article);});}
+      }
+      document.getElementById('print-phase4-mission3')?.addEventListener('click',()=>window.print());
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+:global(body){background:#080b0f}.mission-shell{max-width:1080px;margin:0 auto;padding:0 1rem 5rem;color:#eef2f5}.mission-shell :global(.breadcrumbs){color:#929ba5}.mission-shell :global(.breadcrumbs a){color:#e0e6eb}:global(body:has(#phase4-mission3) .jcec-submission-dock),:global(body:has(#phase4-mission3) .jcec-device-tools){display:none!important}.eyebrow,.mini-label{margin:0;color:#f2b35d;font:850 .73rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em}.mission-hero{display:grid;grid-template-columns:1fr 270px;gap:1rem;align-items:end;margin:1rem 0;padding:clamp(1.4rem,4vw,2.3rem);border:1px solid #4f5c68;border-radius:22px;background:radial-gradient(circle at 82% 16%,rgba(242,179,93,.15),transparent 28%),linear-gradient(145deg,#11171d,#202a33)}.mission-hero h1{margin:.45rem 0 .35rem;color:#fff;font-size:clamp(2.8rem,7vw,4.9rem);line-height:.93;letter-spacing:-.045em}.mission-hero h1 span{display:block;color:#f3b55f}.question{max-width:720px;margin:.7rem 0 0;color:#ced5db;font-size:1.12rem;line-height:1.5}.mission-hero aside{display:grid;gap:.2rem;padding:1rem;border:1px solid #596570;border-radius:13px;background:#10171d}.mission-hero aside span{color:#f2b35d;font-size:.67rem;font-weight:900}.mission-hero aside strong{color:#fff;line-height:1.35}.mission-hero aside small{color:#96a1ab}.mission-at-a-glance{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:1rem 0}.mission-at-a-glance div{display:grid;gap:.22rem;padding:.8rem;border:1px solid #444f59;border-radius:10px;background:#12181e}.mission-at-a-glance small{color:#f2b35d;font-size:.62rem;font-weight:900}.mission-at-a-glance strong{color:#fff;font-size:.84rem;line-height:1.35}.step-nav{display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem;position:sticky;top:.3rem;z-index:4;margin:1rem 0;padding:.45rem;border:1px solid #424d57;border-radius:12px;background:rgba(8,11,15,.95);backdrop-filter:blur(8px)}.step-nav a{display:flex;gap:.4rem;align-items:center;padding:.55rem;border-radius:8px;color:#aab3bc;text-decoration:none;font-size:.76rem;font-weight:800}.step-nav b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#2b3540;color:#ffd18d}.simple-step,.class-plan{margin:1.2rem 0;padding:1.15rem;border:1px solid #424d57;border-radius:17px;background:#12181e}.step-heading{display:flex;gap:.7rem;align-items:center;margin-bottom:.8rem}.step-heading>span{display:grid;place-items:center;width:39px;height:39px;border-radius:50%;background:#f3b55f;color:#291904;font-weight:950}.step-heading p{margin:0;color:#87929d;font-size:.64rem;font-weight:900}.step-heading h2{margin:.08rem 0;color:#fff;font-size:1.6rem}.briefing,.decision-card,.team-record,.reflection-card,.investigation-block,.continent-evidence{padding:1rem;border:1px solid #4a5661;border-radius:13px;background:#0e1419}.briefing p{margin:0;color:#c7cfd6;line-height:1.58}.assignment-result{display:grid;grid-template-columns:48px 1fr minmax(220px,.9fr);gap:.8rem;align-items:center;margin-top:.8rem;padding:.85rem;border:1px solid #596673;border-radius:12px;background:#182028}.assignment-result>span{font-size:2rem}.assignment-result div{display:grid;gap:.1rem}.assignment-result small{color:#f2b35d;font-size:.62rem;font-weight:900}.assignment-result strong{color:#fff}.assignment-result p{margin:0;color:#929da7;font-size:.78rem}.challenge-badge{padding:.65rem;border-left:1px solid #4b5661}.challenge-badge b{color:#dfe5ea;font-size:.78rem;line-height:1.4}.missing-assignment{display:grid;gap:.35rem;margin-top:.8rem;padding:.8rem;border:1px solid #784d40;border-radius:10px;background:#2b1b17;color:#ffe0d7}.missing-assignment p{margin:0;color:#d5b9b1}.missing-assignment a{width:max-content;color:#ffc47d;font-weight:900}.continuity-strip,.misconception-note,.failure-limit,.joint-question,.clue-note,.decision-note,.assessment-note,.fallback-note{margin:.75rem 0 0;padding:.7rem;border-radius:9px;background:#202a32;color:#bcc5cd;font-size:.8rem;line-height:1.5}.continuity-strip{display:flex;gap:.6rem}.continuity-strip strong{color:#f3b55f;white-space:nowrap}.science-grid{display:grid;gap:.65rem;margin:.8rem 0}.science-grid.four{grid-template-columns:repeat(4,1fr)}.science-grid article{padding:.9rem;border:1px solid #444f59;border-radius:11px;background:#0d1318}.science-grid article>span{display:block;margin-bottom:.4rem;font-size:1.4rem}.science-grid strong{color:#fff}.science-grid p{margin:.3rem 0 0;color:#aeb8c0;font-size:.8rem;line-height:1.5}.definitions-block{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem;margin-top:.8rem}.definitions-block>div{padding:.85rem;border:1px solid #4b5862;border-radius:11px;background:#0d1318}.definitions-block small{display:block;color:#88949e;font-size:.6rem;font-weight:900}.definitions-block strong{display:block;margin:.2rem 0;color:#f3b55f}.definitions-block p{margin:0;color:#c3cbd2;line-height:1.48}.joint-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem;margin-top:.8rem}.joint-grid article{padding:.85rem;border:1px solid #44505b;border-radius:10px;background:#0d1318}.joint-grid span{font-size:1.4rem}.joint-grid strong{display:block;margin:.3rem 0;color:#fff}.joint-grid p{margin:0;color:#aeb8c0}.nature-strip{margin-top:.8rem;padding:.9rem;border:1px solid #4a5661;border-radius:12px;background:#0e1419}.block-title{display:flex;justify-content:space-between;gap:1rem;align-items:end;margin-bottom:.65rem}.block-title small{color:#f2b35d;font-size:.62rem;font-weight:900}.block-title h3{margin:.12rem 0;color:#fff}.block-title>span{padding:.3rem .5rem;border-radius:999px;background:#293642;color:#e4edf3;font-size:.67rem;font-weight:900}.nature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}.nature-grid article{display:grid;gap:.2rem;padding:.65rem;border-radius:9px;background:#202a32}.nature-grid strong{color:#fff;font-size:.75rem}.nature-grid span{color:#9fabb4;font-size:.7rem}.nature-strip>p{margin:.65rem 0 0;color:#b8c1c9}.learn-more{margin-top:.8rem;border:1px solid #444f59;border-radius:10px;background:#0d1318}.learn-more summary{padding:.75rem;color:#ffd18e;font-weight:900;cursor:pointer}.learn-more div{padding:0 .8rem .8rem}.learn-more h3{margin:.65rem 0 .2rem;color:#fff;font-size:.95rem}.learn-more p{margin:0;color:#aeb8c0;line-height:1.5}.investigation-block>p,.test-card p,.data-panel p,.joint-check p,.fallback-data>p{color:#aeb8c0;line-height:1.5}.fair-test-strip{display:flex;justify-content:center;gap:.55rem;align-items:center;flex-wrap:wrap;padding:.75rem;border-radius:10px;background:#202a32}.fair-test-strip span{display:grid;gap:.12rem;text-align:center}.fair-test-strip small{color:#f2b35d;font-size:.6rem;font-weight:900}.fair-test-strip b{color:#fff;font-size:.73rem}.fair-test-strip i{color:#66717b}.test-card,.data-panel,.joint-check,.fallback-data{margin-top:.8rem;padding:.85rem;border:1px solid #46525d;border-radius:11px;background:#121a21}.test-title{display:flex;gap:.55rem;align-items:center}.test-title>b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#f3b55f;color:#2b1904}.test-title small{color:#89949e;font-size:.6rem;font-weight:900}.test-title h3{margin:.1rem 0;color:#fff}.test-card li{color:#b4bdc5;font-size:.78rem;line-height:1.5}.test-note{padding:.6rem;border-radius:8px;background:#202a32}.blank-table,.fallback-table{display:grid;gap:2px;margin:.6rem 0;background:#39434c}.blank-table>div,.fallback-table>div{display:grid;grid-template-columns:1.2fr .8fr .8fr 1.6fr;gap:2px}.blank-table span,.fallback-table span{padding:.5rem;background:#0e1419;color:#c6ced5;font-size:.72rem}.blank-table .head span,.fallback-table .head span{background:#25313b;color:#fff;font-weight:900}.joint-record{display:grid;gap:.35rem;padding:.6rem;border-radius:8px;background:#202a32;color:#bdc6ce;font-size:.74rem}.materials-safety{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem;margin-top:.8rem}.materials-safety article{padding:.75rem;border:1px solid #46525d;border-radius:10px;background:#0d1318}.materials-safety small{color:#f2b35d;font-size:.6rem;font-weight:900}.materials-safety strong{display:block;margin:.25rem 0;color:#fff;font-size:.78rem;line-height:1.4}.materials-safety p{margin:0;color:#929da7;font-size:.72rem;line-height:1.45}.small-button{margin-top:.75rem;padding:.65rem .8rem;border:0;border-radius:8px;background:#f3b55f;color:#281805;font-weight:900;cursor:pointer}.clue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}.clue-grid article{display:flex;gap:.55rem;padding:.75rem;border:1px solid #46525d;border-radius:9px;background:#121a21}.clue-grid article b{display:grid;place-items:center;flex:0 0 25px;width:25px;height:25px;border-radius:50%;background:#f3b55f;color:#2b1904}.clue-grid p{margin:0;color:#b7c1c9;font-size:.76rem;line-height:1.45}.decision-card{margin-top:.8rem}.decision-card h3{margin:.25rem 0;color:#fff;font-size:1.35rem}.reasoning-frame{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:.75rem}.reasoning-frame div{display:grid;gap:.2rem;padding:.7rem;border-radius:9px;background:#202a32}.reasoning-frame strong{color:#f3b55f;font-size:.64rem}.reasoning-frame span{color:#e2e7eb;font-size:.76rem}.handoff-strip{display:flex;justify-content:center;gap:.55rem;align-items:center;flex-wrap:wrap;margin-bottom:.8rem;padding:.65rem;border-radius:10px;background:#202a32;color:#b3bdc5;font-size:.76rem}.handoff-strip strong{color:#fff}.record-heading{display:flex;justify-content:space-between;gap:1rem;align-items:end}.record-heading h3{margin:.15rem 0;color:#fff}.record-heading>span{color:#f3b55f;font-size:.64rem;font-weight:900}.record-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem;margin-top:.7rem}.record-grid label{display:grid;gap:.3rem;color:#aeb8c0;font-size:.72rem}.record-grid label.wide{grid-column:1/-1}.record-grid textarea{min-height:66px;padding:.55rem;border:1px solid #46515b;border-radius:8px;background:#161e25;color:#fff;resize:vertical}.reflection-card{margin-top:.8rem}.reflection-card h3{margin:.25rem 0;color:#fff;line-height:1.4}.reflection-card p:last-child{color:#919ca6;font-size:.76rem}.finished-box{display:grid;gap:.25rem;margin-top:.8rem;padding:.85rem;border:1px solid #4f745e;border-radius:10px;background:#12271d}.finished-box strong{color:#dff4e5}.finished-box p{margin:0;color:#bbd4c3}.finished-box span{color:#f6c582;font-size:.72rem;font-weight:900}.class-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;margin-top:.65rem}.class-grid article{padding:.8rem;border:1px solid #46525d;border-radius:10px;background:#0e1419}.class-grid b{display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#293642;color:#f3b55f}.class-grid strong{display:block;margin:.45rem 0 .25rem;color:#fff;font-size:.78rem}.class-grid p{margin:0;color:#929da7;font-size:.72rem;line-height:1.45}
+@media(max-width:900px){.mission-hero{grid-template-columns:1fr}.mission-hero aside{max-width:340px}.science-grid.four,.nature-grid{grid-template-columns:repeat(2,1fr)}.clue-grid,.reasoning-frame{grid-template-columns:1fr}.definitions-block,.joint-grid,.materials-safety{grid-template-columns:1fr}}
+@media(max-width:650px){.mission-at-a-glance,.class-grid,.record-grid{grid-template-columns:1fr}.record-grid label.wide{grid-column:auto}.step-nav{overflow-x:auto;grid-template-columns:repeat(5,115px)}.assignment-result{grid-template-columns:42px 1fr}.challenge-badge{grid-column:1/-1;border-left:0;border-top:1px solid #4b5661;padding-left:0}.science-grid.four,.nature-grid{grid-template-columns:1fr}.blank-table>div,.fallback-table>div{grid-template-columns:1fr}.blank-table .head,.fallback-table .head{display:none}.continuity-strip{display:grid}}
+@media print{.mission-shell{max-width:none;color:#111}.mission-hero,.step-nav,.mission-at-a-glance,.simple-step#your-mission,.simple-step#learn,.class-plan,.phase4-progress,.breadcrumbs{display:none!important}.simple-step{border:0;background:#fff;color:#111;padding:0}.simple-step#investigate,.simple-step#decide,.simple-step#record{display:block}.investigation-block,.continent-evidence,.decision-card,.team-record,.reflection-card,.fallback-data,.test-card,.data-panel,.joint-check{background:#fff;color:#111;border:1px solid #bbb;break-inside:avoid}.blank-table span,.fallback-table span,.reasoning-frame div,.clue-grid article{background:#fff;color:#111}.small-button{display:none}.investigation-block p,.test-card li,.data-panel p,.clue-grid p,.assessment-note{color:#111}}
+</style>
