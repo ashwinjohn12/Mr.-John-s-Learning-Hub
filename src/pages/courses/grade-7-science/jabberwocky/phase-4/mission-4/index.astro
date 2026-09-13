@@ -1,0 +1,269 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecPhase4Progress from '../../../../../../components/JcecPhase4Progress.astro';
+import { phase4StructuralSites } from '../../../../../../data/jabberwockyPhase4';
+
+const base = import.meta.env.BASE_URL;
+
+const stabilityIdeas = [
+  { icon:'⚖️', name:'STABILITY', detail:'How likely a structure is to stay in its intended position instead of tipping, sliding or collapsing.' },
+  { icon:'⬇️', name:'MASS DISTRIBUTION + FOUNDATION', detail:'Where mass is located and how the structure is supported can change its stability.' },
+  { icon:'🧱', name:'STRENGTHENING THE DESIGN', detail:'Shape, corrugation, lamination and better fastening or bracing can improve structural performance.' },
+  { icon:'🛡️', name:'MARGIN OF SAFETY', detail:'A safe structure should handle more than the exact ordinary condition we expect.' }
+];
+
+const fallbackStability = [
+  { setup:'Narrow base + mass high', result:'Tipped at JCEC stability level 2 of 5' },
+  { setup:'Wide base + same mass high', result:'Tipped at level 4 of 5' },
+  { setup:'Narrow base + same mass low', result:'Tipped at level 4 of 5' }
+];
+
+const fallbackImprove = [
+  { stage:'Baseline model', evidence:'Connection loosened during 2 of 3 repeated tests' },
+  { stage:'After one bracing improvement', evidence:'Connection loosened during 0 of 3 repeated tests' }
+];
+
+const mission4Cases = {
+  gyre: {
+    reminder:'Earlier missions identified snow/exposure as important loading concerns and a need to keep the alpine footprint small.',
+    clues:[
+      'Useful building ground is limited and may be uneven or sloped.',
+      'Snow and exposure mean stability must be considered beyond an ordinary calm-day condition.',
+      'Fragile soils make simply widening or excavating a huge site a poor default solution.'
+    ]
+  },
+  brillig: {
+    reminder:'Earlier missions showed that the habitat must carry ordinary loads in a wet rainforest while keeping forest clearing limited.',
+    clues:[
+      'The site is frequently wet, so support conditions and reliable connections matter.',
+      'Large canopy clearing is already ruled out because it increases erosion and habitat damage.',
+      'A compact structure still has to remain stable without simply using much more land or material.'
+    ]
+  },
+  manxome: {
+    reminder:'Earlier missions identified storm-season external loading and dependable connections as important structural concerns.',
+    clues:[
+      'Changing storm-season pushes can challenge the whole structure, not just one material sample.',
+      'Connections and the base must work together so the structure does not shift or tip during changing loads.',
+      'Freshwater catchments and coastal habitat connections still limit where construction can spread.'
+    ]
+  },
+  'slithy-toves': {
+    reminder:'Earlier missions showed that the habitat is exposed to desert storms and large thermal changes while water and productive land remain limited.',
+    clues:[
+      'The site is open and exposed, so the whole system must remain stable under changing outside conditions.',
+      'Construction cannot depend on large water use or an unnecessarily large footprint.',
+      'Large day-night thermal changes remain a design requirement even though this mission focuses on stability.'
+    ]
+  },
+  wabe: {
+    reminder:'Earlier missions identified snow and long storms as loading concerns while repeated site disturbance must remain low.',
+    clues:[
+      'Snow and long storms can create conditions beyond an ordinary normal-use case.',
+      'Slow-recovering vegetation means repeated rebuilding or large ground disturbance should be avoided.',
+      'The support system and mass distribution must work together rather than relying only on strong materials.'
+    ]
+  },
+  bandersnatch: {
+    reminder:'Earlier missions showed that the prairie habitat needs a compact footprint and must remain reliable across strong seasonal changes.',
+    clues:[
+      'An open site gives little natural shelter, so the whole structure must stay stable under changing outside conditions.',
+      'Prairie habitat and productive soil make an unnecessarily large foundation footprint a poor default choice.',
+      'Mass placement and support width can change stability even when the same materials are used.'
+    ]
+  },
+  gimble: {
+    reminder:'Earlier missions identified severe winter conditions and the need to keep the forest footprint compact.',
+    clues:[
+      'Winter conditions can push the structure beyond ordinary daily loading expectations.',
+      'A large cleared foundation area conflicts with the forest-fragmentation restriction.',
+      'The whole system must stay stable while fitting within a compact forest site.'
+    ]
+  },
+  mimsy: {
+    reminder:'Earlier missions showed that the habitat must carry normal structural loads even though the support ground is saturated.',
+    clues:[
+      'Saturated ground makes support and foundation choices a major stability question.',
+      'The wetland cannot be drained simply to make construction easier.',
+      'Keeping mass and footprint controlled may reduce demands on the support system, but JCEC must still test the evidence.'
+    ]
+  }
+};
+---
+
+<BaseLayout title="Mission 4: Keep It Standing | Project New Horizon" description="Phase 4 Mission 4: test whole-structure stability, improve one weakness, retest, and set a site safety rule." themeColor="#11161d">
+  <div class="mission-shell" id="phase4-mission4">
+    <Breadcrumbs items={[
+      { label:'Home', href:base },
+      { label:'Grade 7 Science', href:`${base}courses/grade-7-science/` },
+      { label:'Jabberwocky', href:`${base}courses/grade-7-science/jabberwocky/` },
+      { label:'Phase 4', href:`${base}courses/grade-7-science/jabberwocky/phase-4/` },
+      { label:'Mission 4' }
+    ]} />
+
+    <JcecPhase4Progress active={4} compact={true} />
+
+    <header class="mission-hero">
+      <div>
+        <p class="eyebrow">PHASE 4 // MISSION 4 OF 5</p>
+        <h1>KEEP IT <span>STANDING</span></h1>
+        <p class="question">How can a structure remain stable and safe when conditions change?</p>
+      </div>
+      <aside><span>YOU ARE LEARNING</span><strong>How foundation, mass distribution, strengthening and safety margins affect the whole structure</strong><small>4 classes × 45 minutes</small></aside>
+    </header>
+
+    <section class="mission-at-a-glance">
+      <div><small>WHERE AM I?</small><strong>Mission 4 of 5</strong></div>
+      <div><small>WHAT DO I HAND IN?</small><strong>1 New Horizon Safety Protocol + 1 reflection</strong></div>
+      <div><small>WHY DOES IT MATTER?</small><strong>Good parts can still make an unstable structure if the whole system is poorly supported or arranged.</strong></div>
+    </section>
+
+    <nav class="step-nav" aria-label="Mission 4 steps">
+      <a href="#your-mission"><b>1</b><span>Your Mission</span></a><a href="#learn"><b>2</b><span>Learn</span></a><a href="#investigate"><b>3</b><span>Investigate</span></a><a href="#decide"><b>4</b><span>Decide</span></a><a href="#record"><b>5</b><span>Record It</span></a>
+    </nav>
+
+    <section class="simple-step" id="your-mission">
+      <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
+      <div class="briefing"><p>Mission 3 tested material samples and joint behaviour. Now JCEC needs to know whether the <strong>whole structural system</strong> will stay stable. A structure can use good materials and still tip, shift or fail if its foundation, mass distribution or overall arrangement creates a weakness. Your team will test the same small baseline model as other teams, identify one weakness, propose alternatives, make one change and retest it.</p></div>
+
+      <div class="assignment-result" id="assignment-result" hidden>
+        <span id="assignment-icon"></span><div><small>YOUR PHASE 4 CONTINENT</small><strong id="assignment-name"></strong><p id="assignment-subtitle"></p></div><div class="challenge-badge"><small>STRUCTURAL CHALLENGE</small><b id="assignment-challenge"></b></div>
+      </div>
+      <div class="missing-assignment" id="missing-assignment" hidden><strong>Your Phase 4 posting is not saved on this device yet.</strong><p>Return to the Phase 4 Hub and confirm the continent your teacher assigned. Do not create a new posting for Mission 4.</p><a href={`${base}courses/grade-7-science/jabberwocky/phase-4/`}>Get Phase 4 posting →</a></div>
+
+      <div class="continuity-strip"><strong>FROM MISSIONS 2–3</strong><span id="continuity-reminder">Your Force Map and Material & Joint Recommendation can help if you have them, but you do not need to recreate either one.</span></div>
+      <div class="difference-note"><b>Mission 3 tested parts.</b><span>Mission 4 tests the <strong>whole system</strong>: support, mass placement, stability, improvement and retesting.</span></div>
+    </section>
+
+    <section class="simple-step" id="learn">
+      <div class="step-heading"><span>2</span><div><p>CLASS 1</p><h2>Learn the Science</h2></div></div>
+      <div class="science-grid four">{stabilityIdeas.map((idea) => <article><span>{idea.icon}</span><strong>{idea.name}</strong><p>{idea.detail}</p></article>)}</div>
+
+      <div class="centre-note"><strong>CENTRE OF GRAVITY — HELPFUL IDEA, NOT A CALCULATION</strong><p>Mass placed lower and more evenly can often improve stability because the structure is less likely to tip. You do not need to calculate a centre of gravity in Mission 4.</p></div>
+
+      <section class="margin-card">
+        <small>MARGIN OF SAFETY</small><h3>Should a structure fail at exactly its normal expected load?</h3>
+        <div class="margin-visual"><span>NORMAL USE<br/><b>3 load units</b></span><b>→</b><span>SAFE DESIGN<br/><b>more than 3</b></span></div>
+        <p>A safe design should tolerate conditions beyond ordinary expected use. JCEC is looking for a <strong>safety rule</strong>, not a mathematical safety-factor calculation.</p>
+      </section>
+
+      <details class="learn-more"><summary>Need Help? / Learn More</summary><div><h3>What is a foundation?</h3><p>The foundation or support system transfers loads from the structure to the site below. Its job depends on the ground conditions and the structure above it.</p><h3>Why strengthen by shape?</h3><p>Changing shape, corrugating, laminating or bracing can change how a structural part handles forces without simply adding a large amount of material.</p></div></details>
+    </section>
+
+    <section class="simple-step" id="investigate">
+      <div class="step-heading"><span>3</span><div><p>CLASSES 2–3</p><h2>Investigate</h2></div></div>
+      <section class="investigation-block">
+        <div class="block-title"><div><small>MAIN INVESTIGATION</small><h3>Standardized Stability & Improvement Investigation</h3></div><span>WHOLE-SYSTEM TEST</span></div>
+        <p>Every team starts with approximately the <strong>same small baseline model</strong>. That makes the evidence easier to compare and keeps this mission from becoming a free-build competition.</p>
+
+        <div class="goal-chain"><span>TEST</span><b>→</b><span>IDENTIFY WEAKNESS</span><b>→</b><span>PROPOSE 2 ALTERNATIVES</span><b>→</b><span>MODIFY</span><b>→</b><span>RETEST</span><b>→</b><span>EXPLAIN</span></div>
+
+        <section class="test-card">
+          <div class="test-title"><b>A</b><div><small>STABILITY</small><h3>Change one factor at a time</h3></div></div>
+          <p>Your teacher will choose one repeatable comparison. Two good options are:</p>
+          <div class="option-grid"><article><strong>FOUNDATION / BASE</strong><p>Compare a narrower support with a wider support while keeping the rest of the model similar.</p></article><article><strong>MASS DISTRIBUTION</strong><p>Compare the same mass placed higher versus lower while keeping the model and disturbance similar.</p></article></div>
+          <p>Use the same safe disturbance each time: a controlled side pull, a controlled base tilt, or another teacher-approved repeatable test.</p>
+          <div class="record-strip"><span>CHANGE: __________</span><span>EVIDENCE: __________</span><span>EFFECT ON STABILITY: __________</span></div>
+        </section>
+
+        <section class="test-card">
+          <div class="test-title"><b>B</b><div><small>FIND A WEAKNESS</small><h3>Do not jump to the first fix</h3></div></div>
+          <p>Use the baseline evidence to identify one weakness. Then propose <strong>at least two</strong> possible improvements before choosing one.</p>
+          <div class="strategy-grid"><span>corrugation</span><span>lamination</span><span>change component shape</span><span>better fastening / bracing</span></div>
+          <div class="alternatives"><p>Possible improvement 1: ______________________________</p><p>Possible improvement 2: ______________________________</p><p>We chose: __________________ because __________________</p></div>
+        </section>
+
+        <section class="test-card">
+          <div class="test-title"><b>C</b><div><small>MODIFY + RETEST</small><h3>Run the same test again</h3></div></div>
+          <p>Change one main feature where practical, then rerun the same stability/performance test.</p>
+          <div class="before-after"><article><small>BEFORE</small><strong>Evidence</strong><p>______________________________</p></article><article><small>CHANGE</small><strong>Modification</strong><p>______________________________</p></article><article><small>AFTER</small><strong>Evidence</strong><p>______________________________</p></article></div>
+          <p class="troubleshoot"><strong>TROUBLESHOOT:</strong> Did the change solve the weakness? Did it create a new problem?</p>
+        </section>
+
+        <section class="competition-guard">
+          <strong>🚫 NO STRONGEST / TALLEST MODEL COMPETITION</strong>
+          <p>There is no prize for holding the most mass. Your teacher sets a maximum safe test load. If your model reaches that maximum, <b>stop testing</b>. The evidence and explanation matter more than destruction.</p>
+        </section>
+
+        <section class="fallback-data">
+          <div class="block-title"><div><small>NO-PURCHASE / DISRUPTION FALLBACK</small><h3>JCEC supplied stability evidence</h3></div><span>USE IF NEEDED</span></div>
+          <div class="fallback-table"><div class="head"><span>Setup</span><span>Result</span></div>{fallbackStability.map((row) => <div><span>{row.setup}</span><span>{row.result}</span></div>)}</div>
+          <div class="fallback-table second"><div class="head"><span>Stage</span><span>Repeated-test evidence</span></div>{fallbackImprove.map((row) => <div><span>{row.stage}</span><span>{row.evidence}</span></div>)}</div>
+          <p>These are <strong>model-training data</strong>, not Jabberwocky hazard measurements. Students may use them to practice the same reasoning if materials, attendance or timing prevent a physical retest.</p>
+        </section>
+
+        <section class="materials-panel"><strong>MATERIALS REALITY CHECK</strong><p>Index cards/cardstock, scrap cardboard, a small amount of tape, binder clips, coins/washers/small classroom masses and string if useful. No hot glue, knives, saws or large construction kits are required.</p></section>
+        <section class="safety-panel"><strong>SAFETY LIMITS</strong><ul><li>Desk-sized models only.</li><li>Small classroom loads only.</li><li>Teacher-set maximum test load.</li><li>No snapping materials or throwing/dropping loads.</li><li>No tall structures above desk height.</li></ul></section>
+        <button type="button" class="small-button" id="print-phase4-mission4">Print Stability Investigation + Safety Protocol</button>
+      </section>
+    </section>
+
+    <section class="simple-step" id="decide">
+      <div class="step-heading"><span>4</span><div><p>CLASS 4</p><h2>Make a Decision</h2></div></div>
+      <div class="continent-evidence">
+        <div class="block-title"><div><small>YOUR CONTINENT</small><h3>Three stability/site clues</h3></div><span id="evidence-continent">PHASE 4 POSTING</span></div>
+        <div id="stability-clues" class="clue-grid"><p>Confirm your Phase 4 posting to load the three clues.</p></div>
+        <p class="clue-note">The clues shape the problem. They do <strong>not</strong> prescribe one foundation, one base width or one final design.</p>
+      </div>
+
+      <div class="decision-card">
+        <p class="mini-label">ONE TEAM QUESTION</p>
+        <h3>What structural stability rule should JCEC require first on this site?</h3>
+        <div class="reasoning-frame"><div><strong>WEAKNESS</strong><span>We noticed ______.</span></div><div><strong>CHANGE</strong><span>We changed ______.</span></div><div><strong>RETEST</strong><span>The evidence changed from ______ to ______.</span></div><div><strong>SAFETY RULE</strong><span>JCEC should therefore require ______.</span></div></div>
+      </div>
+    </section>
+
+    <section class="simple-step" id="record">
+      <div class="step-heading"><span>5</span><div><p>CLASS 4</p><h2>Record It</h2></div></div>
+      <div class="handoff-strip"><span>👥 <strong>TEAM WORK</strong> test + improve</span><i>→</i><span>📝 <strong>TEAM RECORD</strong> one safety protocol</span><i>→</i><span>💭 <strong>MY REFLECTION</strong> everyone answers</span></div>
+
+      <div class="team-record">
+        <div class="record-heading"><div><p class="mini-label">TEAM RECORD</p><h3>New Horizon Safety Protocol</h3></div><span>FORMATIVE · WHOLE-SYSTEM EVIDENCE</span></div>
+        <div class="record-grid"><label>Main stability risk<textarea rows="2"></textarea></label><label>Foundation / mass-distribution rule<textarea rows="2"></textarea></label><label>One strengthening technique<textarea rows="2"></textarea></label><label>Environmental condition to consider<textarea rows="2"></textarea></label><label>Margin-of-safety rule<textarea rows="2"></textarea></label><label>One remaining uncertainty<textarea rows="2"></textarea></label></div>
+        <p class="record-note">Do not copy your Mission 3 material recommendation here. Mission 4 keeps only the new whole-system stability evidence.</p>
+      </div>
+
+      <div class="reflection-card"><p class="mini-label">MY REFLECTION</p><h3>Why should a safe structure be able to handle more than the exact load we expect on a normal day?</h3><p>Everyone answers individually.</p></div>
+
+      <div class="finished-box"><strong>Mission 4 is finished when:</strong><p>your team has one New Horizon Safety Protocol and you have completed your reflection.</p><span>Mission 5 — Authorize New Horizon remains locked.</span></div>
+    </section>
+
+    <section class="class-plan"><p class="mini-label">4 × 45-MINUTE CLASSES</p><div class="class-grid"><article><b>1</b><strong>What Makes a Structure Stable?</strong><p>Stability, mass distribution, foundation, centre of gravity as a support idea, margin of safety.</p></article><article><b>2</b><strong>Test the Whole System</strong><p>Standardized baseline model, stability test and evidence collection.</p></article><article><b>3</b><strong>Improve and Retest</strong><p>Find a weakness, propose two alternatives, choose one, modify, retest and troubleshoot.</p></article><article><b>4</b><strong>What Rule Should JCEC Require?</strong><p>Continent clues, one stability rule, Safety Protocol and individual reflection.</p></article></div></section>
+  </div>
+
+  <script is:inline define:vars={{ siteData: phase4StructuralSites, caseData: mission4Cases }}>
+    (() => {
+      const KEY='jabberwocky-phase4-posting';
+      const sites=Object.fromEntries(siteData.map((site)=>[site.id,site]));
+      const saved=localStorage.getItem(KEY);
+      const assignment=document.getElementById('assignment-result');
+      const missing=document.getElementById('missing-assignment');
+      const clueBox=document.getElementById('stability-clues');
+      const evidenceContinent=document.getElementById('evidence-continent');
+      const reminder=document.getElementById('continuity-reminder');
+      const show=(id)=>{
+        const site=sites[id]; const c=caseData[id];
+        if(!site||!c){assignment.hidden=true;missing.hidden=false;return;}
+        assignment.hidden=false;missing.hidden=true;
+        document.getElementById('assignment-icon').textContent=site.icon;
+        document.getElementById('assignment-name').textContent=site.name;
+        document.getElementById('assignment-subtitle').textContent=site.subtitle;
+        document.getElementById('assignment-challenge').textContent=site.structuralChallenge;
+        evidenceContinent.textContent=site.name.toUpperCase();
+        reminder.textContent=`${c.reminder} Use your Mission 2/3 records if they are handy, but do not recreate them.`;
+        clueBox.innerHTML=c.clues.map((clue,i)=>`<article><b>${i+1}</b><p>${clue}</p></article>`).join('');
+      };
+      show(saved);
+
+      document.getElementById('print-phase4-mission4')?.addEventListener('click',()=>window.print());
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+:global(body){background:#080b0f}:global(body:has(#phase4-mission4) .jcec-submission-dock),:global(body:has(#phase4-mission4) .jcec-device-tools){display:none!important}.mission-shell{max-width:1040px;margin:0 auto;padding:0 1rem 5rem;color:#edf2f5}.mission-shell :global(.breadcrumbs){color:#89949e}.eyebrow,.mini-label{margin:0;color:#f2b35d;font:850 .72rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}.mission-hero{display:grid;grid-template-columns:1fr 260px;gap:1rem;align-items:end;margin:1rem 0;padding:2rem;border:1px solid #4c5660;border-radius:22px;background:radial-gradient(circle at 85% 15%,rgba(242,179,93,.16),transparent 28%),linear-gradient(145deg,#10161c,#212b34)}.mission-hero h1{margin:.45rem 0 .3rem;color:#fff;font-size:clamp(2.8rem,7vw,5rem);line-height:.9;letter-spacing:-.05em}.mission-hero h1 span{display:block;color:#f2b35d}.question{margin:.8rem 0 0;color:#d0d7dc;font-size:1.18rem}.mission-hero aside{display:grid;gap:.2rem;padding:1rem;border:1px solid #56616b;border-radius:12px;background:#0d1318}.mission-hero aside span{color:#f2b35d;font-size:.68rem;font-weight:900}.mission-hero aside strong{color:#fff}.mission-hero aside small{color:#98a3ad}.mission-at-a-glance{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:1rem 0}.mission-at-a-glance div{padding:.85rem;border:1px solid #3f4a54;border-radius:11px;background:#12181e}.mission-at-a-glance small{display:block;color:#f2b35d;font-size:.63rem;font-weight:900}.mission-at-a-glance strong{display:block;margin-top:.25rem;color:#fff;font-size:.86rem}.step-nav{display:flex;gap:.35rem;flex-wrap:wrap;margin:1rem 0}.step-nav a{display:flex;gap:.45rem;align-items:center;padding:.55rem .7rem;border:1px solid #414b55;border-radius:9px;background:#11171c;color:#dce3e8;text-decoration:none;font-size:.76rem;font-weight:800}.step-nav b{display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:#f2b35d;color:#2b1905}.simple-step{margin:1.3rem 0;padding:1.25rem;border:1px solid #414c56;border-radius:18px;background:#11171c}.step-heading{display:flex;gap:.7rem;align-items:center;margin-bottom:1rem}.step-heading>span{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#f2b35d;color:#271704;font-weight:950}.step-heading p{margin:0;color:#8f9aa4;font-size:.66rem;font-weight:900}.step-heading h2{margin:.1rem 0;color:#fff}.briefing{padding:1rem;border-left:4px solid #f2b35d;border-radius:0 10px 10px 0;background:#1b232a}.briefing p{margin:0;color:#d1d8dd;line-height:1.6}.assignment-result{display:grid;grid-template-columns:48px 1fr 1fr;gap:.75rem;align-items:center;margin-top:.85rem;padding:.8rem;border:1px solid #4c5964;border-radius:12px;background:#0d1318}.assignment-result>span{font-size:1.8rem}.assignment-result small,.challenge-badge small{display:block;color:#f2b35d;font-size:.62rem;font-weight:900}.assignment-result strong{color:#fff}.assignment-result p{margin:.1rem 0;color:#95a0aa;font-size:.77rem}.challenge-badge{padding:.55rem;border-radius:8px;background:#1b232b}.challenge-badge b{display:block;color:#d7dee3;font-size:.76rem}.missing-assignment{margin-top:.8rem;padding:.9rem;border:1px dashed #6b5a3c;border-radius:11px;background:#1c1812}.missing-assignment strong{color:#ffd18c}.missing-assignment p{color:#b9b0a4}.missing-assignment a{color:#f2b35d;font-weight:900}.continuity-strip,.difference-note{display:flex;gap:.7rem;align-items:flex-start;margin-top:.7rem;padding:.75rem;border-radius:10px;background:#1c242b}.continuity-strip strong,.difference-note b{color:#fff;white-space:nowrap}.continuity-strip span,.difference-note span{color:#aeb8c0;font-size:.8rem}.science-grid{display:grid;gap:.6rem}.science-grid.four{grid-template-columns:repeat(4,1fr)}.science-grid article{padding:.85rem;border:1px solid #414d56;border-radius:11px;background:#0d1318}.science-grid article>span{font-size:1.35rem}.science-grid strong{display:block;margin:.35rem 0;color:#fff;font-size:.78rem}.science-grid p{margin:0;color:#9da8b1;font-size:.78rem;line-height:1.45}.centre-note,.margin-card,.competition-guard,.materials-panel,.safety-panel{margin-top:.8rem;padding:.9rem;border:1px solid #45515b;border-radius:11px;background:#151c22}.centre-note strong,.margin-card small,.competition-guard strong,.materials-panel strong,.safety-panel strong{color:#f2b35d;font-size:.72rem;font-weight:900}.centre-note p,.margin-card p,.competition-guard p,.materials-panel p,.safety-panel li{color:#b7c0c7;line-height:1.5}.margin-card h3{margin:.2rem 0;color:#fff}.margin-visual{display:flex;gap:.7rem;align-items:center;margin:.6rem 0}.margin-visual span{padding:.7rem;border-radius:9px;background:#0e1419;color:#cbd3d9;text-align:center}.margin-visual b{color:#fff}.learn-more{margin-top:.8rem;padding:.75rem;border:1px solid #3e4953;border-radius:10px;background:#0d1318}.learn-more summary{color:#f2b35d;font-weight:900;cursor:pointer}.learn-more p{color:#aab4bc}.investigation-block{display:grid;gap:.8rem}.block-title{display:flex;justify-content:space-between;gap:1rem;align-items:end}.block-title small{color:#f2b35d;font-size:.62rem;font-weight:900}.block-title h3{margin:.15rem 0;color:#fff}.block-title>span{padding:.3rem .5rem;border-radius:999px;background:#27313a;color:#c9d2d8;font-size:.62rem;font-weight:900}.goal-chain{display:flex;gap:.4rem;align-items:center;justify-content:center;flex-wrap:wrap;padding:.7rem;border-radius:10px;background:#0d1318}.goal-chain span{padding:.4rem .55rem;border-radius:7px;background:#222c34;color:#e3e8eb;font-size:.7rem;font-weight:900}.goal-chain b{color:#68737d}.test-card{padding:1rem;border:1px solid #45515b;border-radius:12px;background:#0c1217}.test-title{display:flex;gap:.7rem;align-items:center}.test-title>b{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#f2b35d;color:#271704}.test-title small{color:#f2b35d;font-size:.62rem;font-weight:900}.test-title h3{margin:.1rem 0;color:#fff}.test-card p,.test-card li{color:#aeb8c0;line-height:1.48}.option-grid,.before-after{display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem}.option-grid article,.before-after article{padding:.75rem;border-radius:9px;background:#182027}.option-grid strong,.before-after strong{color:#fff}.option-grid p,.before-after p{margin:.2rem 0;color:#9faab2;font-size:.76rem}.record-strip,.strategy-grid,.alternatives{display:grid;gap:.45rem;margin-top:.6rem}.record-strip{grid-template-columns:repeat(3,1fr)}.record-strip span,.strategy-grid span,.alternatives p{padding:.55rem;border-radius:8px;background:#182027;color:#b8c1c8;font-size:.75rem}.strategy-grid{grid-template-columns:repeat(4,1fr)}.troubleshoot{padding:.65rem;border-left:3px solid #f2b35d;background:#171f25}.competition-guard{border-color:#845d2e;background:#211a11}.fallback-data{padding:1rem;border:1px solid #45515b;border-radius:12px;background:#0d1318}.fallback-table{margin-top:.6rem;border:1px solid #3e4851;border-radius:9px;overflow:hidden}.fallback-table>div{display:grid;grid-template-columns:1fr 1.7fr}.fallback-table span{padding:.5rem;border-bottom:1px solid #343d45;color:#bdc6cc;font-size:.74rem}.fallback-table .head{background:#1c252c}.fallback-table .head span{color:#fff;font-weight:900}.fallback-table.second{margin-top:.6rem}.fallback-data p{color:#aab4bc;font-size:.78rem}.safety-panel ul{margin:.45rem 0}.small-button{width:max-content;padding:.7rem .85rem;border:0;border-radius:9px;background:#f2b35d;color:#291804;font-weight:900;cursor:pointer}.continent-evidence,.decision-card,.team-record,.reflection-card,.finished-box,.class-plan{margin-top:.85rem;padding:1rem;border:1px solid #45515b;border-radius:12px;background:#0d1318}.clue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}.clue-grid article{display:flex;gap:.5rem;padding:.75rem;border-radius:9px;background:#192128}.clue-grid b{display:grid;place-items:center;flex:0 0 24px;width:24px;height:24px;border-radius:50%;background:#f2b35d;color:#291804}.clue-grid p{margin:0;color:#aab5bd;font-size:.78rem;line-height:1.45}.clue-note{color:#9faab2;font-size:.76rem}.decision-card h3{color:#fff}.reasoning-frame{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}.reasoning-frame div{padding:.7rem;border-radius:9px;background:#182027}.reasoning-frame strong{display:block;color:#f2b35d;font-size:.67rem}.reasoning-frame span{display:block;margin-top:.3rem;color:#c4ccd2;font-size:.78rem}.handoff-strip{display:flex;gap:.5rem;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:.75rem}.handoff-strip span{padding:.45rem .55rem;border-radius:8px;background:#182027;color:#c8d0d6;font-size:.76rem}.handoff-strip i{color:#68737d}.record-heading{display:flex;justify-content:space-between;align-items:end;gap:1rem}.record-heading h3{margin:.15rem 0;color:#fff}.record-heading>span{color:#f2b35d;font-size:.62rem;font-weight:900}.record-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem;margin-top:.7rem}.record-grid label{display:grid;gap:.3rem;color:#bfc7cd;font-size:.74rem}.record-grid textarea{resize:vertical;min-height:54px;border:1px solid #48535c;border-radius:8px;background:#141b21;color:#fff;padding:.55rem}.record-note{color:#9ca7af;font-size:.77rem}.reflection-card h3{color:#fff}.reflection-card p{color:#aab4bc}.finished-box{border-color:#6d5735;background:#1b1711}.finished-box strong{color:#ffd08a}.finished-box p{color:#ddd1bf}.finished-box span{color:#a99b87;font-size:.78rem}.class-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem}.class-grid article{padding:.75rem;border-radius:9px;background:#182027}.class-grid b{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#f2b35d;color:#271704}.class-grid strong{display:block;margin:.5rem 0 .2rem;color:#fff;font-size:.78rem}.class-grid p{margin:0;color:#9faab2;font-size:.73rem;line-height:1.4}
+@media(max-width:850px){.mission-hero{grid-template-columns:1fr}.mission-at-a-glance,.science-grid.four,.clue-grid,.class-grid{grid-template-columns:repeat(2,1fr)}.reasoning-frame,.strategy-grid{grid-template-columns:repeat(2,1fr)}.assignment-result{grid-template-columns:42px 1fr}.challenge-badge{grid-column:2}.record-strip{grid-template-columns:1fr}}
+@media(max-width:560px){.mission-at-a-glance,.science-grid.four,.option-grid,.before-after,.clue-grid,.reasoning-frame,.record-grid,.class-grid,.strategy-grid{grid-template-columns:1fr}.continuity-strip,.difference-note,.record-heading,.block-title{flex-direction:column;align-items:flex-start}.small-button{width:100%}.fallback-table>div{grid-template-columns:1fr}.fallback-table span{border-bottom:1px solid #343d45}}
+@media print{.step-nav,.mission-shell :global(.breadcrumbs),.small-button,.phase4-progress,.mission-hero,.mission-at-a-glance,#your-mission,#learn,.class-plan{display:none!important}.simple-step{border:0;background:#fff;color:#000}.simple-step h2,.simple-step h3,.simple-step strong{color:#000!important}.test-card,.fallback-data,.team-record,.reflection-card,.finished-box{background:#fff!important;border:1px solid #aaa!important}.test-card p,.test-card li,.record-note,.reflection-card p{color:#222!important}}
+</style>
