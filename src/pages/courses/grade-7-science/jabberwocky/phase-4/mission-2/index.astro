@@ -1,0 +1,206 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+import JcecPhase4Progress from '../../../../../../components/JcecPhase4Progress.astro';
+import { phase4StructuralSites } from '../../../../../../data/jabberwockyPhase4';
+
+const base = import.meta.env.BASE_URL;
+
+const internalForces = [
+  { icon:'↔️', name:'TENSION', action:'PULL', detail:'A structural part is pulled from opposite directions.', example:'String, cable or a stretched member.' },
+  { icon:'↕️', name:'COMPRESSION', action:'SQUEEZE', detail:'A structural part is pushed inward or squeezed.', example:'A support carrying a downward load.' },
+  { icon:'⇆', name:'SHEARING', action:'SLIDE PAST', detail:'Nearby parts are pushed in opposite directions so they tend to slide past each other.', example:'A connection where two layers try to shift.' },
+  { icon:'⌒', name:'BENDING', action:'CURVE UNDER LOAD', detail:'A member curves. Different parts of the member experience different internal-force effects.', example:'A shelf, beam or card strip loaded between supports.' }
+];
+
+const fallbackLoadData = [
+  { object:'Object A', mass:'100 g', force:'1.0 N' },
+  { object:'Object B', mass:'250 g', force:'2.5 N' },
+  { object:'Object C', mass:'500 g', force:'4.9 N' }
+];
+---
+
+<BaseLayout title="Mission 2: Trace the Forces | Project New Horizon" description="Phase 4 Mission 2: distinguish mass and force, trace loads and internal forces, and prioritize one structural load problem." themeColor="#11161d">
+  <div class="mission-shell" id="phase4-mission2">
+    <Breadcrumbs items={[
+      { label:'Home', href:base },
+      { label:'Grade 7 Science', href:`${base}courses/grade-7-science/` },
+      { label:'Jabberwocky', href:`${base}courses/grade-7-science/jabberwocky/` },
+      { label:'Phase 4', href:`${base}courses/grade-7-science/jabberwocky/phase-4/` },
+      { label:'Mission 2' }
+    ]} />
+
+    <JcecPhase4Progress active={2} compact={true} />
+
+    <header class="mission-hero">
+      <div>
+        <p class="eyebrow">PHASE 4 // MISSION 2 OF 5</p>
+        <h1>TRACE THE <span>FORCES</span></h1>
+        <p class="question">What forces will our structure need to resist?</p>
+      </div>
+      <aside><span>YOU ARE LEARNING</span><strong>How external loads create internal-force patterns and possible structural failure</strong><small>3 classes × 45 minutes</small></aside>
+    </header>
+
+    <section class="mission-at-a-glance">
+      <div><small>WHERE AM I?</small><strong>Mission 2 of 5</strong></div>
+      <div><small>WHAT DO I HAND IN?</small><strong>1 Structural Force Map + 1 reflection</strong></div>
+      <div><small>WHY DOES IT MATTER?</small><strong>Requirements tell JCEC what the habitat must do. Forces explain what could make it deform or fail.</strong></div>
+    </section>
+
+    <nav class="step-nav" aria-label="Mission 2 steps">
+      <a href="#your-mission"><b>1</b><span>Your Mission</span></a><a href="#learn"><b>2</b><span>Learn</span></a><a href="#investigate"><b>3</b><span>Investigate</span></a><a href="#decide"><b>4</b><span>Decide</span></a><a href="#record"><b>5</b><span>Record It</span></a>
+    </nav>
+
+    <section class="simple-step" id="your-mission">
+      <div class="step-heading"><span>1</span><div><p>CLASS 1</p><h2>Your Mission</h2></div></div>
+      <div class="briefing"><p>Mission 1 told JCEC what a successful structure on your site must do. That is not enough to keep it standing. A structure can meet the right requirements and still deform or fail if its loads and internal forces are misunderstood. Your team must now trace the pushes and pulls acting on the habitat, identify the force patterns created inside its parts, and decide which load problem deserves JCEC's attention first.</p></div>
+
+      <div class="assignment-result" id="assignment-result" hidden>
+        <span id="assignment-icon"></span><div><small>YOUR PHASE 4 CONTINENT</small><strong id="assignment-name"></strong><p id="assignment-subtitle"></p></div><div class="challenge-badge"><small>STRUCTURAL CHALLENGE</small><b id="assignment-challenge"></b></div>
+      </div>
+      <div class="missing-assignment" id="missing-assignment" hidden><strong>Your Phase 4 posting is not saved on this device yet.</strong><p>Return to the Phase 4 Hub and confirm the continent your teacher assigned. Do not create a new posting for Mission 2.</p><a href={`${base}courses/grade-7-science/jabberwocky/phase-4/`}>Get Phase 4 posting →</a></div>
+
+      <div class="continuity-strip"><strong>FROM MISSION 1</strong><span>Your team already set three performance requirements. Keep them in mind, but you do not need to reopen Mission 1.</span></div>
+    </section>
+
+    <section class="simple-step" id="learn">
+      <div class="step-heading"><span>2</span><div><p>CLASS 1</p><h2>Learn the Science</h2></div></div>
+
+      <section class="mass-force-compare">
+        <div class="mass-card"><small>MASS</small><strong>How much matter an object contains</strong><span>Measured in <b>grams (g)</b> or <b>kilograms (kg)</b></span></div>
+        <div class="not-equal">≠</div>
+        <div class="force-card"><small>FORCE / LOAD</small><strong>A push or pull acting on a structure</strong><span>Measured in <b>newtons (N)</b></span></div>
+      </section>
+      <p class="misconception-note"><strong>Important:</strong> mass and force are related ideas, but they are <strong>not the same measurement</strong>. Mission 2 uses measured force readings in newtons; you do not need a gravity formula.</p>
+
+      <div class="science-grid two">
+        <article><span>⬇️</span><strong>EXTERNAL FORCE / LOAD</strong><p>A push or pull acting on the structure from outside—for example, the weight/load of objects it carries or an environmental push on an exposed surface.</p></article>
+        <article><span>🧱</span><strong>INTERNAL FORCE</strong><p>A force pattern that develops inside structural parts as they resist the outside load.</p></article>
+      </div>
+
+      <div class="cause-strip"><strong>LOAD / EXTERNAL FORCE</strong><b>→</b><strong>INTERNAL FORCE</strong><b>→</b><strong>POSSIBLE DEFORMATION / FAILURE</strong></div>
+
+      <section class="internal-forces-block">
+        <p class="mini-label">FOUR REQUIRED INTERNAL-FORCE PATTERNS</p>
+        <div class="force-grid">{internalForces.map((force) => <article><span>{force.icon}</span><small>{force.action}</small><h3>{force.name}</h3><p>{force.detail}</p><em>{force.example}</em></article>)}</div>
+      </section>
+
+      <section class="friction-card">
+        <div><span>✋</span><strong>FRICTION CAN HELP</strong></div>
+        <p>Friction resists sliding between surfaces. In some joints, fasteners and contact points, that resistance can help parts stay in place. This is a small structural application—not a separate friction unit.</p>
+      </section>
+
+      <details class="learn-more"><summary>Need Help? / Learn More</summary><div><h3>Why does bending feel more complicated?</h3><p>When a member bends, one region may be stretched while another is squeezed. At Grade 7, you only need to recognize bending as a structural-force pattern and know that different parts of a bent member can experience different effects.</p><h3>What about torsion?</h3><p><strong>Torsion means twisting.</strong> It can happen in real structures, but it is optional enrichment here. The four required Mission 2 patterns are tension, compression, shearing and bending.</p></div></details>
+    </section>
+
+    <section class="simple-step" id="investigate">
+      <div class="step-heading"><span>3</span><div><p>CLASSES 1–2</p><h2>Investigate</h2></div></div>
+      <section class="investigation-block">
+        <div class="block-title"><div><small>MAIN INVESTIGATION</small><h3>Force Pattern Stations</h3></div><span>SHARED STATIONS</span></div>
+        <p><strong>Use the same question every time:</strong></p>
+        <div class="repeat-question"><span>LOAD / ACTION</span><b>→</b><span>INTERNAL FORCE</span><b>→</b><span>EVIDENCE</span><b>→</b><span>POSSIBLE FAILURE</span></div>
+
+        <div class="station-grid">
+          <article>
+            <div class="station-title"><b>A</b><div><small>MEASURE A LOAD</small><h3>Mass is not force</h3></div></div>
+            <p>If your class has a spring scale / force meter, use one shared station. Record the object's mass in g or kg, then read the pulling/load force in N. <strong>One scale for the whole class is enough.</strong></p>
+            <div class="mini-record"><span>Object: ______</span><span>Mass: ______ g / kg</span><span>Force: ______ N</span></div>
+            <small class="safety">Use only small, teacher-approved objects. Do not suspend heavy loads.</small>
+          </article>
+
+          <article>
+            <div class="station-title"><b>B</b><div><small>MAKE INTERNAL FORCES VISIBLE</small><h3>Four simple models</h3></div></div>
+            <ul><li><b>Tension:</b> gently pull string or a paper strip.</li><li><b>Compression:</b> squeeze a sponge, folded card or paper structure.</li><li><b>Shearing:</b> slide stacked cards/papers past one another.</li><li><b>Bending:</b> gently load/bend a ruler, card or cardboard strip.</li></ul>
+            <small class="safety">Do not snap rulers or break materials. Stop before damage.</small>
+          </article>
+
+          <article>
+            <div class="station-title"><b>C</b><div><small>FRICTION HELPS</small><h3>Resist sliding</h3></div></div>
+            <p>Compare a contact point that slides easily with one that has more grip, pressure or a simple clip/fastener. Record how friction helps resist unwanted motion.</p>
+            <div class="mini-record"><span>Where is friction acting? __________________</span><span>How does it help? ________________________</span></div>
+          </article>
+        </div>
+
+        <section class="fallback-data">
+          <div class="block-title"><div><small>NO FORCE METER? USE THIS</small><h3>JCEC fallback load readings</h3></div><span>NO PURCHASE REQUIRED</span></div>
+          <p>These are supplied measurement readings for analysis. <strong>Do not calculate them with a formula.</strong> Notice that mass and force use different units.</p>
+          <div class="fallback-table"><div class="head"><span>Object</span><span>Mass</span><span>Measured load/force</span></div>{fallbackLoadData.map((row) => <div><span>{row.object}</span><span>{row.mass}</span><span>{row.force}</span></div>)}</div>
+          <p class="fallback-note"><strong>Complete no-purchase fallback:</strong> teacher force-measurement demonstration + these mass/force readings + the internal-force observation cards above. No spring-scale purchase is required.</p>
+        </section>
+
+        <button type="button" class="small-button" id="print-phase4-mission2">Print Force Stations + Structural Force Map</button>
+      </section>
+    </section>
+
+    <section class="simple-step" id="decide">
+      <div class="step-heading"><span>4</span><div><p>CLASS 3</p><h2>Make a Decision</h2></div></div>
+      <div class="continent-evidence">
+        <div class="block-title"><div><small>YOUR CONTINENT</small><h3>Three force/load clues</h3></div><span id="evidence-continent">PHASE 4 POSTING</span></div>
+        <div id="force-clues" class="clue-grid"><p>Confirm your Phase 4 posting to load the three clues.</p></div>
+        <p class="clue-note">Several forces may matter at the same time. JCEC wants your <strong>priority</strong>, not a claim that every other force disappears.</p>
+      </div>
+
+      <div class="decision-card">
+        <p class="mini-label">ONE TEAM QUESTION</p>
+        <h3>Which force/load problem should JCEC design for first on our continent?</h3>
+        <div class="reasoning-frame"><div><strong>LOAD</strong><span>The important load/force is ______.</span></div><div><strong>INTERNAL FORCE</strong><span>It may create ______ inside the structure.</span></div><div><strong>POSSIBLE FAILURE</strong><span>If the structure cannot resist it, ______ could happen.</span></div></div>
+        <p class="decision-note">Use Mission 1 requirements plus today's evidence. Do not choose materials or a final design yet—that comes later.</p>
+      </div>
+    </section>
+
+    <section class="simple-step" id="record">
+      <div class="step-heading"><span>5</span><div><p>CLASS 3</p><h2>Record It</h2></div></div>
+      <div class="handoff-strip"><span>👥 <strong>TEAM WORK</strong> trace</span><i>→</i><span>📝 <strong>TEAM RECORD</strong> one science map</span><i>→</i><span>💭 <strong>MY REFLECTION</strong> everyone answers</span></div>
+
+      <div class="team-record">
+        <div class="record-heading"><div><p class="mini-label">TEAM RECORD</p><h3>Structural Force Map</h3></div><span>SCIENCE DIAGRAM · NOT AN ART PROJECT</span></div>
+        <p class="record-intro">Use a simple habitat outline. Your arrows and labels matter more than how the drawing looks.</p>
+        <div class="map-box"><div class="simple-habitat"><div class="roof"></div><div class="house"><i></i><i></i></div><div class="ground"></div></div><div class="map-prompts"><p>External load arrows: __________________________</p><p>Internal-force labels: _________________________</p><p>Friction example if relevant: __________________</p><p>Circled priority load/force: ___________________</p><p>Likely failure if ignored: _____________________</p></div></div>
+      </div>
+
+      <div class="reflection-card"><p class="mini-label">MY REFLECTION</p><h3>Why can the same external load create different internal forces in different parts of a structure?</h3><p>Everyone answers individually. Use at least one of: tension, compression, shearing or bending.</p></div>
+
+      <div class="finished-box"><strong>Mission 2 is finished when:</strong><p>your team has one Structural Force Map and you have completed your reflection.</p><span>Mission 3 — Choose What Holds remains locked.</span></div>
+    </section>
+
+    <section class="class-plan">
+      <p class="mini-label">3 × 45-MINUTE CLASSES</p>
+      <div class="class-grid"><article><b>1</b><strong>What Pushes and Pulls a Structure?</strong><p>Mass vs force, newtons, loads, external/internal force and begin the force patterns.</p></article><article><b>2</b><strong>Forces Inside the Structure</strong><p>Force Pattern Stations, four required force patterns and the short friction application.</p></article><article><b>3</b><strong>What Must Our Structure Resist?</strong><p>Three continent clues, one priority, Structural Force Map and reflection.</p></article></div>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ siteData: phase4StructuralSites }}>
+    (() => {
+      const POSTING_KEY = 'jabberwocky-phase4-posting';
+      const saved = localStorage.getItem(POSTING_KEY);
+      const site = siteData.find((item) => item.id === saved);
+      const assignment = document.getElementById('assignment-result');
+      const missing = document.getElementById('missing-assignment');
+      const clues = document.getElementById('force-clues');
+      if (!site) {
+        missing.hidden = false;
+      } else {
+        assignment.hidden = false;
+        document.getElementById('assignment-icon').textContent = site.icon;
+        document.getElementById('assignment-name').textContent = site.name;
+        document.getElementById('assignment-subtitle').textContent = site.subtitle;
+        document.getElementById('assignment-challenge').textContent = site.structuralChallenge;
+        document.getElementById('evidence-continent').textContent = `${site.icon} ${site.name}`;
+        clues.innerHTML = '';
+        site.mission2Clues.forEach((clue, index) => {
+          const article = document.createElement('article');
+          article.innerHTML = `<b>${index + 1}</b><p>${clue}</p>`;
+          clues.appendChild(article);
+        });
+      }
+      document.getElementById('print-phase4-mission2')?.addEventListener('click', () => window.print());
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+:global(body){background:#080b0f}.mission-shell{max-width:1080px;margin:0 auto;padding:0 1rem 5rem;color:#eef2f5}.mission-shell :global(.breadcrumbs){color:#929ba5}.mission-shell :global(.breadcrumbs a){color:#e0e6eb}:global(body:has(#phase4-mission2) .jcec-submission-dock),:global(body:has(#phase4-mission2) .jcec-device-tools){display:none!important}.eyebrow,.mini-label{margin:0;color:#f2b35d;font:850 .73rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em}.mission-hero{display:grid;grid-template-columns:1fr 270px;gap:1rem;align-items:end;margin:1rem 0;padding:clamp(1.4rem,4vw,2.3rem);border:1px solid #4f5c68;border-radius:22px;background:radial-gradient(circle at 82% 16%,rgba(242,179,93,.15),transparent 28%),linear-gradient(145deg,#11171d,#202a33)}.mission-hero h1{margin:.45rem 0 .35rem;color:#fff;font-size:clamp(2.8rem,7vw,4.9rem);line-height:.93;letter-spacing:-.045em}.mission-hero h1 span{display:block;color:#f3b55f}.question{max-width:720px;margin:.7rem 0 0;color:#ced5db;font-size:1.12rem;line-height:1.5}.mission-hero aside{display:grid;gap:.2rem;padding:1rem;border:1px solid #596570;border-radius:13px;background:#10171d}.mission-hero aside span{color:#f2b35d;font-size:.67rem;font-weight:900;letter-spacing:.08em}.mission-hero aside strong{color:#fff;line-height:1.35}.mission-hero aside small{color:#96a1ab}.mission-at-a-glance{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:1rem 0}.mission-at-a-glance div{display:grid;gap:.22rem;padding:.8rem;border:1px solid #444f59;border-radius:10px;background:#12181e}.mission-at-a-glance small{color:#f2b35d;font-size:.62rem;font-weight:900}.mission-at-a-glance strong{color:#fff;font-size:.84rem;line-height:1.35}.step-nav{display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem;position:sticky;top:.3rem;z-index:4;margin:1rem 0;padding:.45rem;border:1px solid #424d57;border-radius:12px;background:rgba(8,11,15,.95);backdrop-filter:blur(8px)}.step-nav a{display:flex;gap:.4rem;align-items:center;padding:.55rem;border-radius:8px;color:#aab3bc;text-decoration:none;font-size:.76rem;font-weight:800}.step-nav a:hover{background:#202a32;color:#fff}.step-nav b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#2b3540;color:#ffd18d}.simple-step,.class-plan{margin:1.2rem 0;padding:1.15rem;border:1px solid #424d57;border-radius:17px;background:#12181e}.step-heading{display:flex;gap:.7rem;align-items:center;margin-bottom:.8rem}.step-heading>span{display:grid;place-items:center;width:39px;height:39px;border-radius:50%;background:#f3b55f;color:#291904;font-weight:950}.step-heading p{margin:0;color:#87929d;font-size:.64rem;font-weight:900}.step-heading h2{margin:.08rem 0;color:#fff;font-size:1.6rem}.briefing,.decision-card,.team-record,.reflection-card,.investigation-block,.continent-evidence{padding:1rem;border:1px solid #4a5661;border-radius:13px;background:#0e1419}.briefing p{margin:0;color:#c7cfd6;line-height:1.58}.assignment-result{display:grid;grid-template-columns:48px 1fr minmax(220px,.9fr);gap:.8rem;align-items:center;margin-top:.8rem;padding:.85rem;border:1px solid #596673;border-radius:12px;background:#182028}.assignment-result>span{font-size:2rem}.assignment-result div{display:grid;gap:.1rem}.assignment-result small{color:#f2b35d;font-size:.62rem;font-weight:900}.assignment-result strong{color:#fff}.assignment-result p{margin:0;color:#929da7;font-size:.78rem}.challenge-badge{padding:.65rem;border-left:1px solid #4b5661}.challenge-badge b{color:#dfe5ea;font-size:.78rem;line-height:1.4}.missing-assignment{display:grid;gap:.35rem;margin-top:.8rem;padding:.8rem;border:1px solid #784d40;border-radius:10px;background:#2b1b17;color:#ffe0d7}.missing-assignment p{margin:0;color:#d5b9b1}.missing-assignment a{width:max-content;color:#ffc47d;font-weight:900}.continuity-strip,.misconception-note,.fallback-note,.clue-note,.decision-note,.record-intro{margin:.75rem 0 0;padding:.7rem;border-radius:9px;background:#202a32;color:#bcc5cd;font-size:.8rem;line-height:1.5}.continuity-strip{display:flex;gap:.6rem}.continuity-strip strong{color:#f3b55f;white-space:nowrap}.mass-force-compare{display:grid;grid-template-columns:1fr 48px 1fr;gap:.6rem;align-items:center}.mass-card,.force-card{display:grid;gap:.35rem;padding:1rem;border:1px solid #4c5863;border-radius:12px;background:#0e1419}.mass-card small,.force-card small{color:#f2b35d;font-weight:900}.mass-card strong,.force-card strong{color:#fff}.mass-card span,.force-card span{color:#aeb8c0}.not-equal{color:#f3b55f;font-size:2rem;font-weight:950;text-align:center}.science-grid{display:grid;gap:.65rem;margin:.8rem 0}.science-grid.two{grid-template-columns:repeat(2,1fr)}.science-grid article{padding:.9rem;border:1px solid #444f59;border-radius:11px;background:#0d1318}.science-grid article>span{display:block;margin-bottom:.4rem;font-size:1.4rem}.science-grid strong{color:#fff}.science-grid p{margin:.3rem 0 0;color:#aeb8c0;font-size:.8rem;line-height:1.5}.cause-strip,.repeat-question{display:flex;justify-content:center;align-items:center;gap:.5rem;flex-wrap:wrap;padding:.75rem;border-radius:10px;background:#202a32}.cause-strip strong,.repeat-question span{color:#fff;font-size:.78rem}.cause-strip b,.repeat-question b{color:#f3b55f}.internal-forces-block{margin-top:1rem}.force-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-top:.6rem}.force-grid article{padding:.9rem;border:1px solid #47535e;border-radius:11px;background:#0e1419}.force-grid article>span{font-size:1.5rem}.force-grid small{display:block;margin-top:.35rem;color:#f3b55f;font-weight:900}.force-grid h3{margin:.2rem 0;color:#fff}.force-grid p{margin:.3rem 0;color:#b1bbc4;font-size:.78rem;line-height:1.45}.force-grid em{color:#7f8b95;font-size:.72rem}.friction-card{display:grid;grid-template-columns:180px 1fr;gap:.8rem;align-items:center;margin-top:.8rem;padding:.85rem;border-left:4px solid #f3b55f;border-radius:0 10px 10px 0;background:#1a2229}.friction-card div{display:flex;gap:.5rem;align-items:center}.friction-card strong{color:#fff}.friction-card p{margin:0;color:#b7c1c9;line-height:1.48}.learn-more{margin-top:.8rem;border:1px solid #444f59;border-radius:10px;background:#0d1318}.learn-more summary{padding:.75rem;color:#ffd18e;font-weight:900;cursor:pointer}.learn-more div{padding:0 .8rem .8rem}.learn-more h3{margin:.65rem 0 .2rem;color:#fff;font-size:.95rem}.learn-more p{margin:0;color:#aeb8c0;line-height:1.5}.block-title{display:flex;justify-content:space-between;gap:1rem;align-items:end;margin-bottom:.65rem}.block-title small{color:#f2b35d;font-size:.62rem;font-weight:900}.block-title h3{margin:.12rem 0;color:#fff}.block-title>span{padding:.3rem .5rem;border-radius:999px;background:#293642;color:#e4edf3;font-size:.67rem;font-weight:900}.station-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin:.8rem 0}.station-grid>article{padding:.85rem;border:1px solid #46525d;border-radius:11px;background:#121a21}.station-title{display:flex;gap:.55rem;align-items:center}.station-title>b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#f3b55f;color:#2b1904}.station-title small{color:#89949e;font-size:.6rem;font-weight:900}.station-title h3{margin:.1rem 0;color:#fff;font-size:1rem}.station-grid p,.station-grid li{color:#aeb8c0;font-size:.77rem;line-height:1.48}.station-grid ul{padding-left:1.1rem}.mini-record{display:grid;gap:.3rem;margin-top:.55rem;padding:.55rem;border-radius:8px;background:#202a32;color:#bdc6ce;font-size:.72rem}.safety{display:block;margin-top:.55rem;color:#f0b58a;font-size:.68rem;line-height:1.4}.fallback-data{margin-top:.8rem;padding:.85rem;border:1px solid #4c5964;border-radius:11px;background:#121a21}.fallback-data>p{color:#aeb8c0}.fallback-table{display:grid;gap:2px;margin:.6rem 0;background:#39434c}.fallback-table>div{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px}.fallback-table span{padding:.55rem;background:#0e1419;color:#c6ced5;font-size:.76rem}.fallback-table .head span{background:#25313b;color:#fff;font-weight:900}.small-button{margin-top:.75rem;padding:.65rem .8rem;border:0;border-radius:8px;background:#f3b55f;color:#281805;font-weight:900;cursor:pointer}.clue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}.clue-grid article{display:flex;gap:.55rem;padding:.75rem;border:1px solid #46525d;border-radius:9px;background:#121a21}.clue-grid article b{display:grid;place-items:center;flex:0 0 25px;width:25px;height:25px;border-radius:50%;background:#f3b55f;color:#2b1904}.clue-grid p{margin:0;color:#b7c1c9;font-size:.76rem;line-height:1.45}.decision-card{margin-top:.8rem}.decision-card h3{margin:.25rem 0;color:#fff;font-size:1.35rem}.reasoning-frame{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-top:.75rem}.reasoning-frame div{display:grid;gap:.2rem;padding:.7rem;border-radius:9px;background:#202a32}.reasoning-frame strong{color:#f3b55f;font-size:.64rem}.reasoning-frame span{color:#e2e7eb;font-size:.78rem}.handoff-strip{display:flex;justify-content:center;gap:.55rem;align-items:center;flex-wrap:wrap;margin-bottom:.8rem;padding:.65rem;border-radius:10px;background:#202a32;color:#b3bdc5;font-size:.76rem}.handoff-strip strong{color:#fff}.record-heading{display:flex;justify-content:space-between;gap:1rem;align-items:end}.record-heading h3{margin:.15rem 0;color:#fff}.record-heading>span{color:#f3b55f;font-size:.64rem;font-weight:900}.map-box{display:grid;grid-template-columns:260px 1fr;gap:1rem;margin-top:.8rem;align-items:center}.simple-habitat{position:relative;height:190px}.roof{position:absolute;left:38px;top:18px;width:145px;height:80px;border-left:4px solid #d7dce1;border-top:4px solid #d7dce1;transform:rotate(45deg)}.house{position:absolute;left:52px;top:78px;width:165px;height:90px;border:4px solid #d7dce1}.house i{position:absolute;bottom:0;width:4px;height:90px;background:#66717b}.house i:first-child{left:38%}.house i:last-child{right:25%}.ground{position:absolute;left:25px;right:15px;bottom:14px;height:4px;background:#f3b55f}.map-prompts{display:grid;gap:.45rem}.map-prompts p{margin:0;padding:.55rem;border-bottom:1px solid #39444e;color:#aeb8c0}.reflection-card{margin-top:.8rem}.reflection-card h3{margin:.25rem 0;color:#fff;line-height:1.4}.reflection-card p:last-child{color:#919ca6;font-size:.76rem}.finished-box{display:grid;gap:.25rem;margin-top:.8rem;padding:.85rem;border:1px solid #4f745e;border-radius:10px;background:#12271d}.finished-box strong{color:#dff4e5}.finished-box p{margin:0;color:#bbd4c3}.finished-box span{color:#f6c582;font-size:.72rem;font-weight:900}.class-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-top:.65rem}.class-grid article{padding:.8rem;border:1px solid #46525d;border-radius:10px;background:#0e1419}.class-grid b{display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#293642;color:#f3b55f}.class-grid strong{display:block;margin:.45rem 0 .25rem;color:#fff;font-size:.78rem}.class-grid p{margin:0;color:#929da7;font-size:.72rem;line-height:1.45}
+@media(max-width:900px){.mission-hero{grid-template-columns:1fr}.mission-hero aside{max-width:340px}.force-grid{grid-template-columns:repeat(2,1fr)}.station-grid,.clue-grid,.reasoning-frame{grid-template-columns:1fr}.map-box{grid-template-columns:1fr}.simple-habitat{max-width:290px}.friction-card{grid-template-columns:1fr}}
+@media(max-width:650px){.mission-at-a-glance,.science-grid.two,.class-grid{grid-template-columns:1fr}.step-nav{overflow-x:auto;grid-template-columns:repeat(5,115px)}.assignment-result{grid-template-columns:42px 1fr}.challenge-badge{grid-column:1/-1;border-left:0;border-top:1px solid #4b5661;padding-left:0}.mass-force-compare{grid-template-columns:1fr}.not-equal{font-size:1.3rem}.force-grid{grid-template-columns:1fr}.fallback-table>div{grid-template-columns:1fr}.fallback-table .head{display:none}.continuity-strip{display:grid}}
+@media print{.mission-shell{max-width:none;color:#111}.mission-hero,.step-nav,.mission-at-a-glance,.simple-step#your-mission,.simple-step#learn,.class-plan,.phase4-progress,.breadcrumbs{display:none!important}.simple-step{border:0;background:#fff;color:#111;padding:0}.simple-step#investigate,.simple-step#decide,.simple-step#record{display:block}.investigation-block,.continent-evidence,.decision-card,.team-record,.reflection-card,.fallback-data{background:#fff;color:#111;border:1px solid #bbb;break-inside:avoid}.station-grid>article,.fallback-table span,.reasoning-frame div{background:#fff;color:#111}.small-button{display:none}.map-prompts p,.station-grid p,.station-grid li,.clue-grid p,.record-intro{color:#111}}
+</style>
