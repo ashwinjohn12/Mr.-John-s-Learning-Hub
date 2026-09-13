@@ -146,7 +146,7 @@ The unit does not require:
 - stream table,
 - geology model kits,
 - rock saws,
-- or specialty geological equipment.
+- or specialty geology kits/equipment.
 
 ## Assessment timing
 
