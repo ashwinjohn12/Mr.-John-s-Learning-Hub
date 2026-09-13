@@ -9,6 +9,7 @@ import JcecSimplifiedMissionNavigation from '../components/JcecSimplifiedMission
 import JcecWholeYearReleaseState from '../components/JcecWholeYearReleaseState.astro';
 import JcecThermosPacketLink from '../components/JcecThermosPacketLink.astro';
 import JcecCityscapeIntegration from '../components/JcecCityscapeIntegration.astro';
+import JcecCityscapeRecordAlignment from '../components/JcecCityscapeRecordAlignment.astro';
 
 interface Props {
   title?: string;
@@ -49,6 +50,7 @@ const base = import.meta.env.BASE_URL;
     <main id="main">
       <JcecThermosPacketLink />
       <JcecCityscapeIntegration />
+      <JcecCityscapeRecordAlignment />
       <slot />
     </main>
     <footer>
