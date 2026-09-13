@@ -6,11 +6,11 @@ import { phase5GeologicalSites } from '../../../../../data/jabberwockyPhase5';
 
 const base = import.meta.env.BASE_URL;
 const missions = [
-  { number:1, title:'Read the Ground', question:'What can observations of rocks and minerals tell us about a site?', summary:'Learn how geologists gather evidence before making claims.', icon:'🔎', status:'COMPLETE', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-5/mission-1/`, linkText:'Review Mission 1 →' },
-  { number:2, title:'Follow the Rock Story', question:'How can rocks record the processes that formed and changed them?', summary:'Use formation evidence to reconstruct rock history.', icon:'🪨', status:'COMPLETE', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-5/mission-2/`, linkText:'Review Mission 2 →' },
-  { number:3, title:'Track the Changing Surface', question:'How can small surface processes reshape a landscape over long periods?', summary:'Investigate weathering, erosion, deposition and gradual change.', icon:'💧', status:'COMPLETE', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-5/mission-3/`, linkText:'Review Mission 3 →' },
-  { number:4, title:'Read the Deep Past', question:'How can layers, landforms and fossils reveal events we never observed?', summary:'Reconstruct past change using accumulated geological evidence.', icon:'🧭', status:'COMPLETE', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-5/mission-4/`, linkText:'Review Mission 4 →' },
-  { number:5, title:'Prepare the Final Evidence', question:'What geological evidence must JCEC carry into the final Mission 2190 decision?', summary:'Build the geological handoff without making the final settlement decision.', icon:'📁', status:'CURRENT', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-5/mission-5/`, linkText:'Start Mission 5 →' }
+  { number:1, title:'Read the Ground', question:'What can observations of rocks and minerals tell us about a site?', summary:'Learn how geologists gather evidence before making claims.', icon:'🔎', status:'START HERE', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-5/mission-1/`, linkText:'Start Mission 1 →' },
+  { number:2, title:'Follow the Rock Story', question:'How can rocks record the processes that formed and changed them?', summary:'Use formation evidence to reconstruct rock history.', icon:'🪨', status:'READY', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-5/mission-2/`, linkText:'Open Mission 2 →' },
+  { number:3, title:'Track the Changing Surface', question:'How can small surface processes reshape a landscape over long periods?', summary:'Investigate weathering, erosion, deposition and gradual change.', icon:'💧', status:'READY', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-5/mission-3/`, linkText:'Open Mission 3 →' },
+  { number:4, title:'Read the Deep Past', question:'How can layers, landforms and fossils reveal events we never observed?', summary:'Reconstruct past change using accumulated geological evidence.', icon:'🧭', status:'READY', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-5/mission-4/`, linkText:'Open Mission 4 →' },
+  { number:5, title:'Prepare the Final Evidence', question:'What geological evidence must JCEC carry into the final Mission 2190 decision?', summary:'Build the geological handoff without making the final settlement decision.', icon:'📁', status:'READY', ready:true, href:`${base}courses/grade-7-science/jabberwocky/phase-5/mission-5/`, linkText:'Open Mission 5 →' }
 ];
 ---
 
@@ -28,54 +28,54 @@ const missions = [
         <p class="eyebrow">MISSION 2190 // FINAL SCIENCE PHASE</p>
         <h1>THE <span>DEEP RECORD</span></h1>
         <p class="division">JCEC GEOLOGICAL SURVEY DIVISION</p>
-        <p class="lead">Missions 1–4 are complete. Your team has evidence about surface materials, a possible rock history, ongoing surface change and the deeper geological record. Mission 5 is now current: <strong>choose the strongest evidence, keep uncertainty visible, and prepare the geological handoff for the future JCEC Council.</strong></p>
+        <p class="lead">Your final science phase begins here. Your new Geological Survey team inherits a short site briefing from Project New Horizon, then starts with <strong>Mission 1 — Read the Ground</strong>: observe carefully, separate evidence from interpretation, and build the geological story one mission at a time.</p>
       </div>
-      <aside><span>YOUR ROLE</span><strong>Geological Survey Specialist</strong><small>Synthesize evidence. Protect what matters. Hand off uncertainty honestly.</small></aside>
+      <aside><span>YOUR ROLE</span><strong>Geological Survey Specialist</strong><small>Observe. Classify. Build explanations from evidence. Keep uncertainty visible.</small></aside>
     </header>
 
-    <section class="big-question"><span>THE FINAL SCIENCE QUESTION</span><h2>What does the geological evidence tell us about where and how humans could live on Jabberwocky—and what must remain protected?</h2><p>Phase 5 prepares geological evidence for the future JCEC Council. <b>Mission 5 is not the final human-settlement decision.</b></p></section>
+    <section class="big-question"><span>THE FINAL SCIENCE QUESTION</span><h2>What does the geological evidence tell us about where and how humans could live on Jabberwocky—and what must remain protected?</h2><p>Phase 5 prepares geological evidence for the JCEC Council. <b>Mission 5 is not the final human-settlement decision.</b></p></section>
 
-    <JcecPhase5Progress active={5} />
+    <JcecPhase5Progress active={1} />
 
     <section class="posting-panel">
-      <div><p class="eyebrow">YOUR PHASE 5 POSTING</p><h2>Keep the same Geological Survey continent.</h2><p>Mission 5 automatically uses the posting saved earlier in Phase 5. If this device has not saved it yet, choose only the continent your teacher assigned.</p></div>
+      <div><p class="eyebrow">YOUR PHASE 5 POSTING</p><h2>Confirm your new Geological Survey continent.</h2><p>Your teacher assigns one continent for this phase. Save that posting here and keep the same Phase 5 continent through Missions 1–5.</p></div>
       <div class="assignment-control"><label for="phase5-continent"><strong>Your Phase 5 continent</strong><span>Choose only your teacher-assigned Geological Survey posting.</span></label><select id="phase5-continent"><option value="">Choose your assigned continent…</option>{phase5GeologicalSites.map((site) => <option value={site.id}>{site.icon} {site.name} — {site.subtitle}</option>)}</select><p id="save-message" aria-live="polite"></p></div>
     </section>
 
     <section class="previous-team" id="previous-team" hidden>
-      <div class="briefing-heading"><div><p class="eyebrow">PHASE 5 CONTINUITY</p><h2>Keep the posting. Do not reopen Missions 1–4.</h2></div><strong id="briefing-continent"></strong></div>
-      <p class="briefing-intro">Mission 5 contains a Geological Evidence Locker that summarizes the four earlier evidence categories. Students may use stronger real classroom evidence, but they do not need to reopen old mission pages.</p>
+      <div class="briefing-heading"><div><p class="eyebrow">PHASE 4 → PHASE 5 HANDOFF</p><h2>Read the inherited site briefing before Mission 1.</h2></div><strong id="briefing-continent"></strong></div>
+      <p class="briefing-intro">The previous Project New Horizon team left four site notes for your Geological Survey. Treat them as starting context—not as finished geological conclusions. Phase 5 must test and interpret geological evidence for itself.</p>
       <div class="briefing-grid">
         <article><small>SURFACE / ENVIRONMENT</small><p id="briefing-surface"></p></article>
         <article><small>STRUCTURAL SITE NEED</small><p id="briefing-structure"></p></article>
         <article><small>GROUND-DISTURBANCE LIMIT</small><p id="briefing-ground"></p></article>
         <article><small>OPEN GEOLOGICAL QUESTION</small><p id="briefing-question"></p></article>
       </div>
-      <div class="continue-strip"><div><strong>The Geological Survey is ready to hand off its strongest evidence.</strong><span>Mission 5 asks what the final Council needs to know, what should be protected, and what remains uncertain.</span></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-5/mission-5/`}>Start Mission 5 →</a></div>
+      <div class="continue-strip"><div><strong>Briefing loaded. Now begin by reading the ground.</strong><span>Mission 1 teaches how to separate direct observations, properties, classifications and uncertainty before the team makes geological claims.</span></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-5/mission-1/`}>Start Mission 1 →</a></div>
     </section>
 
-    <section class="quick-start" id="assignment-needed"><div><p class="eyebrow">YOUR NEXT STEP</p><h2>Confirm your Geological Survey posting.</h2><p>Once your assigned continent is saved, Mission 5 can load the correct Evidence Locker and final geological review concern.</p></div><span>5</span></section>
+    <section class="quick-start" id="assignment-needed"><div><p class="eyebrow">YOUR NEXT STEP</p><h2>Confirm your Geological Survey posting.</h2><p>Once your assigned continent is saved, the inherited site briefing appears. Then begin Mission 1 — Read the Ground.</p></div><span>1</span></section>
 
     <section class="evidence-system">
       <div class="section-heading"><p class="eyebrow">ONE RULE FOR ALL OF PHASE 5</p><h2>Keep evidence, inference and uncertainty separate.</h2></div>
       <div class="evidence-grid">
-        <article class="earth"><small>EARTH REFERENCE EVIDENCE</small><h3>REAL EARTH · AUTHENTIC SOURCE</h3><p>Use real Earth examples to understand geological processes and evidence.</p></article>
-        <article class="jabber"><small>JABBERWOCKY SURVEY EVIDENCE</small><h3>MISSION 2190 SURVEY</h3><p>Use only JCEC survey evidence when preparing the geological handoff for your assigned continent.</p></article>
+        <article class="earth"><small>EARTH REFERENCE EVIDENCE</small><h3>REAL EARTH · AUTHENTIC SOURCE</h3><p>Use real Earth examples to understand geological processes and what different kinds of evidence can mean.</p></article>
+        <article class="jabber"><small>JABBERWOCKY SURVEY EVIDENCE</small><h3>MISSION 2190 SURVEY</h3><p>Use only JCEC survey evidence when making geological claims about your assigned Jabberwocky continent.</p></article>
       </div>
-      <div class="evidence-rule"><strong>Direct observation is not the same as interpretation.</strong><span>A supported inference is not the same as a confirmed fact.</span><b>If the evidence is incomplete, keep the uncertainty visible in the handoff.</b></div>
+      <div class="evidence-rule"><strong>Direct observation is not the same as interpretation.</strong><span>A supported inference is not the same as a confirmed fact.</span><b>If the evidence is incomplete, keep the uncertainty visible.</b></div>
     </section>
 
-    <section class="how-it-works"><div class="section-heading"><p class="eyebrow">SAME ROUTINE EVERY MISSION</p><h2>How The Deep Record works</h2></div><div class="work-grid"><article>👥 <div><strong>TEAM WORK</strong><p>Review one geological site and make one handoff decision.</p></div></article><article>📝 <div><strong>TEAM RECORD</strong><p>Prepare one Geological Evidence Packet for the future Council.</p></div></article><article>💭 <div><strong>MY REFLECTION</strong><p>Everyone answers one short science question.</p></div></article></div></section>
+    <section class="how-it-works"><div class="section-heading"><p class="eyebrow">SAME ROUTINE EVERY MISSION</p><h2>How The Deep Record works</h2></div><div class="work-grid"><article>👥 <div><strong>TEAM WORK</strong><p>Investigate one geological question and make one evidence-based decision.</p></div></article><article>📝 <div><strong>TEAM RECORD</strong><p>Complete one mission-specific evidence record. Mission 5 combines the strongest findings into the Geological Evidence Packet.</p></div></article><article>💭 <div><strong>MY REFLECTION</strong><p>Everyone answers one short science question.</p></div></article></div></section>
 
     <section class="mission-list">
       <div class="section-heading"><p class="eyebrow">PHASE 5 PATH</p><h2>Five missions. One geological handoff.</h2></div>
-      <div class="sequence-strip"><span class="done">Evidence ✓</span><b>→</b><span class="done">Rock History ✓</span><b>→</b><span class="done">Surface Change ✓</span><b>→</b><span class="done">Deep Past ✓</span><b>→</b><span class="current">Geological Handoff ●</span></div>
-      <div class="mission-cards">{missions.map((mission) => <article class:list={['mission-card',{complete:mission.number<5,current:mission.number===5,locked:!mission.ready}]}><div class="mission-icon">{mission.icon}</div><div class="mission-main"><div class="mission-topline"><span>MISSION {mission.number}</span><b>{mission.status}</b></div><h3>{mission.title}</h3><p class="mission-question">{mission.question}</p><p class="mission-summary">{mission.summary}</p></div>{mission.ready?<a class="mission-ready-link" href={mission.href}>{mission.linkText}</a>:<span class="mission-locked">🔒 Not released yet</span>}</article>)}</div>
+      <div class="sequence-strip"><span class="current">Evidence ●</span><b>→</b><span>Rock History</span><b>→</b><span>Surface Change</span><b>→</b><span>Deep Past</span><b>→</b><span>Geological Handoff</span></div>
+      <div class="mission-cards">{missions.map((mission) => <article class:list={['mission-card',{current:mission.number===1,locked:!mission.ready}]}><div class="mission-icon">{mission.icon}</div><div class="mission-main"><div class="mission-topline"><span>MISSION {mission.number}</span><b>{mission.status}</b></div><h3>{mission.title}</h3><p class="mission-question">{mission.question}</p><p class="mission-summary">{mission.summary}</p></div>{mission.ready?<a class="mission-ready-link" href={mission.href}>{mission.linkText}</a>:<span class="mission-locked">🔒 Not released yet</span>}</article>)}</div>
     </section>
 
-    <section class="phase4-link"><span>←</span><div><strong>Need earlier evidence?</strong><p>Mission 5 gives students the compact Evidence Locker they need. Reopen an earlier mission only if the teacher specifically wants students to check their original class evidence.</p></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-5/mission-4/`}>Review Mission 4</a></section>
+    <section class="phase4-link"><span>←</span><div><strong>You already have what Phase 5 needs from Project New Horizon.</strong><p>The inherited briefing above carries forward the site constraints. Reopen Phase 4 only if your teacher specifically asks your team to check the original structural handoff.</p></div><a href={`${base}courses/grade-7-science/jabberwocky/phase-4/mission-5/`}>Phase 4 handoff · optional</a></section>
 
-    <section class="council-stop"><strong>FINAL COUNCIL STATUS</strong><span>Not released. Phase 5 ends by preparing geological evidence; it does not create the final Mission 2190 settlement decision.</span></section>
+    <section class="council-stop"><strong>FINAL COUNCIL</strong><span>Later. Finish Missions 1–5 first. The end of Mission 5 provides the transition into the released Mission 2190 Council.</span></section>
   </div>
 
   <script is:inline define:vars={{ siteData: phase5GeologicalSites }}>
