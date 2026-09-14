@@ -1,5 +1,5 @@
 ---
-import Grade7Unit7LessonPage from'../../../../components/Grade7Unit7LessonPage.astro';import{findCourse}from'../../../../data/courses';import{findGrade7Unit7Lesson,grade7Unit7Lessons,grade7Unit7Topics}from'../../../../data/grade7Unit7';
+import Grade7Unit7LessonPage from'../../../../components/Grade7Unit7LessonPage.astro';import{findCourse}from'../../../../data/courses';import{findGrade7Unit7Lesson,grade7Unit7Lessons,grade7Unit7Topics}from'../../../../data/grade7Unit7Content';
 export function getStaticPaths(){return grade7Unit7Lessons.map(x=>({params:{lesson:x.slug}}));}const{lesson}=Astro.params;const course=findCourse('grade-7-math')!;const unit=course.units.find(x=>x.slug==='data-probability')!;const topic=grade7Unit7Topics.find(x=>x.slug===lesson)!;const spec=findGrade7Unit7Lesson(lesson!)!;
 ---
 <Grade7Unit7LessonPage {course} {unit} {topic} lesson={spec}/>
