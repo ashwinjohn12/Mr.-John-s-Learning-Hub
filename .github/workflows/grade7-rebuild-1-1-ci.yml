@@ -1,0 +1,53 @@
+name: Grade 7 Rebuild Lesson 1.1 CI
+
+on:
+  push:
+    branches:
+      - dev/grade7-rebuild-unit1-lesson1-1-cartesian-20260914
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-cartesian-prototype:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout verified branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install project dependencies
+        run: npm ci
+      - name: Complete project build
+        run: npm run build
+      - name: Static curriculum, route, balance, and protected-diff audit
+        run: node scripts/audit-grade7-rebuild-1-1.mjs
+      - name: Install browser audit dependency
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Start built-site preview
+        run: |
+          nohup npm run preview -- --host 127.0.0.1 --port 4321 > /tmp/g7-preview.log 2>&1 &
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4321/Mr.-John-s-Learning-Hub/courses/grade-7-math/coordinates-design/the-cartesian-plane/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/g7-preview.log
+          exit 1
+      - name: Responsive, keyboard, and rendered browser audit
+        run: node scripts/render-grade7-rebuild-1-1.mjs
+      - name: Upload rendered evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: grade7-cartesian-prototype-rendered-evidence
+          path: artifacts/*.png
+          if-no-files-found: warn
