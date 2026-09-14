@@ -188,7 +188,16 @@ export const courses: Course[] = [
         {slug:'interpreting-circle-graphs',number:'4.6',title:'Interpreting Circle Graphs',summary:'Interpret sectors as parts of a whole and translate percentages into quantities.',status:'ready'},
         {slug:'drawing-circle-graphs',number:'4.7',title:'Drawing Circle Graphs',summary:'Convert data to percents and central angles, then construct and check a labelled circle graph.',status:'ready'}
       ] },
-      { slug: 'operations-fractions', number: '05', title: 'Operations with Fractions', description: 'Add and subtract positive fractions and mixed numbers using models and symbols.', topics: [] },
+      { slug: 'operations-fractions', number: '05', title: 'Operations with Fractions', description: 'Add and subtract positive fractions and mixed numbers using models and symbols.', topics: [
+        {slug:'models-add-fractions',number:'5.1',title:'Using Models to Add Fractions',summary:'Use fraction strips and regions to add fractions with like and related denominators.',status:'ready'},
+        {slug:'other-models-add-fractions',number:'5.2',title:'Using Other Models to Add Fractions',summary:'Connect number-line, area, and set models for fraction addition.',status:'ready'},
+        {slug:'symbols-add-fractions',number:'5.3',title:'Using Symbols to Add Fractions',summary:'Use efficient common denominators to add fractions symbolically.',status:'ready'},
+        {slug:'models-subtract-fractions',number:'5.4',title:'Using Models to Subtract Fractions',summary:'Model take-away and comparison meanings of fraction subtraction.',status:'ready'},
+        {slug:'symbols-subtract-fractions',number:'5.5',title:'Using Symbols to Subtract Fractions',summary:'Subtract unlike fractions and verify positive differences.',status:'ready'},
+        {slug:'adding-mixed-numbers',number:'5.6',title:'Adding With Mixed Numbers',summary:'Add mixed numbers by composing wholes or using improper fractions.',status:'ready'},
+        {slug:'subtracting-mixed-numbers',number:'5.7',title:'Subtracting With Mixed Numbers',summary:'Subtract mixed numbers by regrouping one whole when needed.',status:'ready'},
+        {slug:'unit-review',number:'REVIEW',title:'Unit Review & Fraction Fair Planner',summary:'Review every fraction-operation model and complete a connected planning mission.',status:'ready'}
+      ] },
       { slug: 'equations', number: '06', title: 'Equations', description: 'Model, solve, verify, and compare strategies for one- and two-step equations.', topics: [] },
       { slug: 'data-probability', number: '07', title: 'Data Analysis and Probability', description: 'Analyze averages and outliers, then compare theoretical and experimental probability.', topics: [] },
       { slug: 'geometry-transformations', number: '08', title: 'Geometry and Transformations', description: 'Construct geometric relationships and transform figures across four coordinate quadrants.', topics: [] }

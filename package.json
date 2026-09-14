@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "audit:grade7-unit5": "node --experimental-strip-types scripts/audit-grade7-unit5.ts && node scripts/audit-grade7-unit5-links.mjs",
     "dev": "astro dev",
     "build": "node scripts/materialize-jcec-cityscape-pdfs.mjs && node scripts/audit-jabberwocky-phase1.mjs && node scripts/audit-jabberwocky-phase2.mjs && node scripts/audit-jabberwocky-phase3.mjs && node scripts/audit-jcec-thermos-packet.mjs && node scripts/audit-jabberwocky-phase4.mjs && node scripts/audit-jcec-cityscape.mjs && node scripts/apply-jcec-cityscape-field-file-classroom-fix.mjs && node scripts/audit-jcec-phase4-classroom-readiness.mjs && node scripts/audit-jabberwocky-phase5.mjs && node scripts/audit-jabberwocky-phase5-teacher.mjs && node scripts/audit-jabberwocky-council.mjs && node scripts/audit-jabberwocky-year.mjs && astro build",
     "audit:jabberwocky-phase1": "node scripts/audit-jabberwocky-phase1.mjs",
