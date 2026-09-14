@@ -1,0 +1,58 @@
+name: Grade 7 Unit 7 Final Gate
+
+on:
+  push:
+    branches: [dev/grade7-unit7-data-probability-20260913]
+
+permissions:
+  contents: read
+
+jobs:
+  final-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Complete build
+        run: npm run build
+      - name: Grade 7 Units 1-6 regressions
+        shell: bash
+        run: |
+          npm run audit:grade7-unit1
+          npm run audit:grade7-unit2
+          npm run audit:grade7-unit3
+          npm run audit:grade7-unit4
+          npm run audit:grade7-unit5
+          npm run audit:grade7-unit6
+      - name: Grade 7 Unit 7 comprehensive audit
+        run: node --experimental-strip-types scripts/audit-grade7-unit7.ts
+      - name: Grade 7 Unit 7 routes and anchors
+        run: node scripts/audit-grade7-unit7-links.mjs
+      - name: Protected-content diff gate
+        shell: bash
+        run: |
+          BASE=3b67f0a819bc094833f33b0dc41d95c0e3601a5e
+          git diff --name-only "$BASE" HEAD | tee /tmp/changed.txt
+          while IFS= read -r f; do
+            case "$f" in
+              docs/grade7-unit7-build-spec.md|src/data/grade7Unit7*.ts|src/components/Grade7Unit7*.astro|src/pages/courses/grade-7-math/data-probability/*|src/pages/courses/grade-7-math/data-probability/**/*|scripts/audit-grade7-unit7*|.github/workflows/grade7-unit7-ci.yml) ;;
+              *) echo "Protected/unrelated path changed: $f"; exit 1 ;;
+            esac
+          done < /tmp/changed.txt
+          if ! git diff --quiet; then
+            echo "Build/audit commands modified tracked source files in the working tree:";
+            git status --short;
+            exit 1;
+          fi
+      - name: Upload private-preview candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: grade7-unit7-private-preview-candidate
+          path: dist
+          retention-days: 7
