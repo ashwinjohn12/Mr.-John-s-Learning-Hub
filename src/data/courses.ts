@@ -198,7 +198,14 @@ export const courses: Course[] = [
         {slug:'subtracting-mixed-numbers',number:'5.7',title:'Subtracting With Mixed Numbers',summary:'Subtract mixed numbers by regrouping one whole when needed.',status:'ready'},
         {slug:'unit-review',number:'REVIEW',title:'Unit Review & Fraction Fair Planner',summary:'Review every fraction-operation model and complete a connected planning mission.',status:'ready'}
       ] },
-      { slug: 'equations', number: '06', title: 'Equations', description: 'Model, solve, verify, and compare strategies for one- and two-step equations.', topics: [] },
+      { slug: 'equations', number: '06', title: 'Equations', description: 'Model, solve, verify, and compare strategies for one- and two-step equations.', topics: [
+        {slug:'solving-equations',number:'6.1',title:'Solving Equations',summary:'Connect expressions, equations, systematic trial, inspection, solutions, and substitution checks.',status:'ready'},
+        {slug:'model-solving-equations',number:'6.2',title:'Using a Model to Solve Equations',summary:'Use balance and algebra-tile models while preserving equality on both sides.',status:'ready'},
+        {slug:'equations-involving-integers',number:'6.3',title:'Solving Equations Involving Integers',summary:'Use signed models, zero pairs, inverse operations, and substitution to solve equations.',status:'ready'},
+        {slug:'solving-equations-algebraically',number:'6.4',title:'Solving Equations Using Algebra',summary:'Record efficient equality-preserving algebra steps and verify each solution.',status:'ready'},
+        {slug:'different-methods-equations',number:'6.5',title:'Using Different Methods to Solve Equations',summary:'Select, compare, and justify trial, model, inspection, and algebra strategies.',status:'ready'},
+        {slug:'unit-review',number:'REVIEW',title:'Unit Review & Equation Rescue',summary:'Review all equation representations and complete a connected five-stage rescue mission.',status:'ready'}
+      ] },
       { slug: 'data-probability', number: '07', title: 'Data Analysis and Probability', description: 'Analyze averages and outliers, then compare theoretical and experimental probability.', topics: [] },
       { slug: 'geometry-transformations', number: '08', title: 'Geometry and Transformations', description: 'Construct geometric relationships and transform figures across four coordinate quadrants.', topics: [] }
     ]

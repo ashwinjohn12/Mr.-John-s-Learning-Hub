@@ -1,0 +1,5 @@
+---
+import Grade7Unit6LessonPage from'../../../../components/Grade7Unit6LessonPage.astro';import{findCourse}from'../../../../data/courses';import{findGrade7Unit6Lesson,grade7Unit6Lessons}from'../../../../data/grade7Unit6';
+export function getStaticPaths(){return grade7Unit6Lessons.map(x=>({params:{lesson:x.slug}}));}const{lesson}=Astro.params;const course=findCourse('grade-7-math')!;const unit=course.units.find(x=>x.slug==='equations')!;const topic=unit.topics.find(x=>x.slug===lesson)!;const spec=findGrade7Unit6Lesson(lesson!)!;
+---
+<Grade7Unit6LessonPage {course} {unit} {topic} lesson={spec}/>
