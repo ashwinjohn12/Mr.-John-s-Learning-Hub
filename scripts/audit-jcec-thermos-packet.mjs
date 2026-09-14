@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 
 const checks = [];
@@ -26,30 +27,62 @@ function requireText(source, needle, label) {
   if (!ok) failures.push(`${label} (missing: ${needle})`);
 }
 
+function requireCondition(ok, label, failure = label) {
+  checks.push(`${ok ? '✓' : '✗'} ${label}`);
+  if (!ok) failures.push(failure);
+}
+
 const packetPath = 'public/resources/jcec/JCEC_Thermos_Challenge_Printable_Packet.pdf';
+const sourceDir = 'resources-src/jcec/thermos';
+const materializerPath = 'scripts/materialize-jcec-thermos-packet.mjs';
 const componentPath = 'src/components/JcecThermosPacketLink.astro';
 const layoutPath = 'src/layouts/BaseLayout.astro';
 const missionPath = 'src/pages/courses/grade-7-science/jabberwocky/phase-3/mission-3/index.astro';
 const teacherPath = 'src/pages/courses/grade-7-science/jabberwocky/phase-3/teacher-launch-guide/index.astro';
+const packagePath = 'package.json';
+const expectedBytes = 18210;
+const expectedSha256 = '5d5c7be49bf19bb9bd5e3bb79e57cae5f5f3ef2f72e2daa698c5163ccd7549e5';
 
 requireFile(packetPath, '7-page JCEC Thermos Challenge PDF');
+requireFile(materializerPath, 'approved Thermos packet materializer');
 requireFile(componentPath, 'Thermos packet download component');
 requireFile(layoutPath, 'BaseLayout integration point');
 requireFile(missionPath, 'Phase 3 Mission 3');
 requireFile(teacherPath, 'Phase 3 Teacher Launch Guide');
+for (let i = 0; i < 5; i += 1) {
+  requireFile(`${sourceDir}/thermos.approved.part0${i}.b64`, `approved Thermos packet source part ${i}`);
+}
 
 if (fs.existsSync(`${root}/${packetPath}`)) {
   const pdf = fs.readFileSync(`${root}/${packetPath}`);
   const header = pdf.subarray(0, 5).toString('ascii');
-  const valid = header === '%PDF-' && pdf.length > 10000;
-  checks.push(`${valid ? '✓' : '✗'} thermos packet is a non-trivial PDF resource`);
-  if (!valid) failures.push('thermos packet PDF header/size check failed');
+  const sha256 = crypto.createHash('sha256').update(pdf).digest('hex');
+  const latin1 = pdf.toString('latin1');
+  const pageObjects = latin1.match(/\/Type\s*\/Page\b/g) || [];
+
+  requireCondition(header === '%PDF-', 'thermos packet has a valid PDF header');
+  requireCondition(pdf.length === expectedBytes, `thermos packet is exactly ${expectedBytes} approved bytes`, `thermos packet byte mismatch: expected ${expectedBytes}, got ${pdf.length}`);
+  requireCondition(sha256 === expectedSha256, 'thermos packet matches the exact approved SHA-256', `thermos packet SHA-256 mismatch: expected ${expectedSha256}, got ${sha256}`);
+  requireCondition(pdf.subarray(-6).equals(Buffer.from('%%EOF\n')), 'thermos packet has the approved final %%EOF newline');
+  requireCondition(latin1.includes('xref'), 'thermos packet contains a cross-reference table');
+  requireCondition(latin1.includes('trailer'), 'thermos packet contains a PDF trailer');
+  requireCondition(latin1.includes('startxref'), 'thermos packet contains startxref');
+  requireCondition(pageObjects.length === 7 && latin1.includes('/Count 7'), 'thermos packet page tree contains exactly seven pages');
 }
 
 const component = read(componentPath);
 const layout = read(layoutPath);
 const mission = read(missionPath);
 const teacher = read(teacherPath);
+const materializer = read(materializerPath);
+const pkg = read(packagePath);
+
+requireText(materializer, expectedSha256, 'materializer guards the approved Thermos packet SHA-256');
+requireText(materializer, 'expectedBytes = 18210', 'materializer guards the approved Thermos packet byte count');
+requireText(materializer, 'expectedPartLengths = [6000, 6000, 6000, 6000, 280]', 'materializer guards all approved Base64 part lengths');
+requireText(materializer, "Buffer.from('%%EOF\\n')", 'materializer guards the final PDF trailer newline');
+requireText(pkg, 'materialize-jcec-thermos-packet.mjs', 'package scripts materialize the approved Thermos packet');
+requireCondition(pkg.indexOf('materialize-jcec-thermos-packet.mjs') < pkg.indexOf('audit-jcec-thermos-packet.mjs'), 'production build materializes the Thermos packet before auditing it');
 
 requireText(layout, "import JcecThermosPacketLink", 'BaseLayout imports thermos packet resource component');
 requireText(layout, '<JcecThermosPacketLink />', 'BaseLayout renders thermos packet resource component');
@@ -97,4 +130,4 @@ if (failures.length) {
 }
 
 console.log(`\nJCEC Thermos Challenge packet integration audit: ${checks.length} checks passed.`);
-console.log('The permanent 7-page packet is linked from Mission 3 and the Phase 3 Teacher Launch Guide without changing the approved Mission 3 science or pacing.');
+console.log(`Approved 7-page packet validated at ${expectedBytes} bytes, sha256 ${expectedSha256}; Mission 3 and teacher guidance remain unchanged in science and pacing.`);
