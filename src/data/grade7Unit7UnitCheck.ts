@@ -1,4 +1,4 @@
-import type{Unit7Question}from'./grade7Unit7';
+import type{Unit7Question}from'./grade7Unit7.ts';
 const slugs=['mean-mode','median-range','effects-outliers-average','applications-averages','express-probability','tree-diagrams-two-event-experiments'];
 const concepts=[['Mean as fair share','Mode as most frequent','Compare measures','Interpret in context'],['Order before median','Odd and even medians','Range as spread','Choose a useful summary'],['Identify unusual values','Outliers move the mean','Median and mode may resist','Include or exclude with reason'],['Choose the statistic','Report with context','Audit misleading claims','Use evidence for a decision'],['Favourable over total','Ratio, fraction, percent','Impossible to certain','Match model and probability'],['Independent events','Build the sample space','Theoretical probability','Experimental versus theoretical']];
 const rot=<T,>(a:T[],n:number)=>{const k=n%a.length;return k?[...a.slice(-k),...a.slice(0,-k)]:a};
