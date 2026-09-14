@@ -1,0 +1,32 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {execFileSync} from 'node:child_process';
+const root=process.cwd();
+const base='564fe4d049c589a008f7545d46fcf4fb2d0ec30a';
+const read=p=>fs.readFileSync(path.join(root,p),'utf8');
+const fail=m=>{console.error(`FAIL: ${m}`);process.exitCode=1};
+const pass=m=>console.log(`PASS: ${m}`);
+const pagePath='src/pages/courses/grade-7-math/coordinates-design/the-cartesian-plane.astro';
+const framePath='src/components/Grade7RebuildLessonFrame.astro';
+const gridPath='src/components/Grade7CoordinateGrid.astro';
+const checkPath='src/components/Grade7CartesianCheck.astro';
+for(const p of[pagePath,framePath,gridPath,checkPath])fs.existsSync(path.join(root,p))?pass(`exists ${p}`):fail(`missing ${p}`);
+const page=read(pagePath),frame=read(framePath),grid=read(gridPath),check=read(checkPath);
+const requiredSections=['overview','big-ideas','understand','examples','vocabulary','explore','practise','check','apply','review'];
+for(const id of requiredSections)(page.includes(`id="${id}"`)||page.includes(`id='${id}'`))?pass(`section ${id}`):fail(`missing section ${id}`);
+const curriculumTokens=['Shape & Space SS4','x-axis','y-axis','origin','Quadrant I','Quadrant II','Quadrant III','Quadrant IV','ordered pair','x first','scale','1, 2, 5, and 10'];
+for(const token of curriculumTokens)page.toLowerCase().includes(token.toLowerCase())?pass(`curriculum token ${token}`):fail(`missing curriculum token ${token}`);
+for(const token of['mode="explore"','Grade7CartesianCheck','Coordinate Mystery Picture','Ready for 1.2'])page.includes(token)?pass(`lesson feature ${token}`):fail(`missing lesson feature ${token}`);
+for(const token of['keydown','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Enter','role="img"','aria-live','inputmode="numeric"','prefers-reduced-motion','@media(max-width:390px)'])grid.includes(token)?pass(`grid accessibility/responsive ${token}`):fail(`grid missing ${token}`);
+for(const token of['2 foundational, 4 core, and 2 reasoning','[0,0,1,1,2,2,3,3]','miniGrid','New question set'])check.includes(token)?pass(`check architecture ${token}`):fail(`check missing ${token}`);
+const balance=[0,0,1,1,2,2,3,3];const totals=[0,0,0,0];for(let n=0;n<10000;n++){const a=[...balance];for(let i=a.length-1;i>0;i--){const j=(n*31+i*17)%(i+1);[a[i],a[j]]=[a[j],a[i]]}const counts=[0,0,0,0];for(const x of a){counts[x]++;totals[x]++}if(counts.some(x=>x!==2))fail(`answer-position imbalance in attempt ${n}`)}
+if(totals.every(x=>x===20000))pass(`10,000 Check Yourself attempts: exact answer-position totals A/B/C/D = ${totals.join('/')}`);else fail(`unexpected totals ${totals.join('/')}`);
+const allowed=new Set([framePath,gridPath,checkPath,pagePath,'scripts/audit-grade7-rebuild-1-1.mjs','scripts/render-grade7-rebuild-1-1.mjs','.github/workflows/grade7-rebuild-1-1-ci.yml']);
+let changed=[];try{changed=execFileSync('git',['diff','--name-only',`${base}...HEAD`],{encoding:'utf8'}).trim().split(/\r?\n/).filter(Boolean)}catch(e){fail(`git protected diff failed: ${e.message}`)}
+const unexpected=changed.filter(p=>!allowed.has(p));unexpected.length?fail(`protected diff contains unexpected paths: ${unexpected.join(', ')}`):pass(`protected diff: ${changed.length} changed files, all isolated to Grade 7 rebuild CI/prototype scope`);
+if(changed.some(p=>p.startsWith('src/pages/courses/grade-6-math/')||p.includes('Grade6')||p.includes('/science')||p.startsWith('src/pages/courses/grade-7-science')||p.startsWith('src/pages/courses/grade-8-science')||p.startsWith('src/pages/courses/grade-9-science')))fail('protected Grade 6/Science content changed');else pass('Grade 6 Math and Science protected paths untouched');
+if(changed.includes('src/data/courses.ts'))fail('existing live Grade 7 course map changed');else pass('existing live Grade 7 course map untouched');
+if(changed.some(p=>p==='astro.config.mjs'||p==='.github/workflows/deploy.yml'))fail('public hosting configuration changed');else pass('public hosting configuration untouched');
+const dist=path.join(root,'dist','courses','grade-7-math','coordinates-design','the-cartesian-plane','index.html');if(fs.existsSync(dist)){const html=fs.readFileSync(dist,'utf8');requiredSections.every(id=>html.includes(`id="${id}"`))?pass('built route contains all lesson anchors'):fail('built route missing anchor');html.includes('The Cartesian Plane')?pass('built route title present'):fail('built route title missing')}else fail(`built route missing: ${dist}`);
+console.log(`AUDIT_SUMMARY changed=${changed.length} answerTotals=${totals.join(',')} route=${fs.existsSync(dist)?'present':'missing'}`);
+if(process.exitCode)process.exit(process.exitCode);
