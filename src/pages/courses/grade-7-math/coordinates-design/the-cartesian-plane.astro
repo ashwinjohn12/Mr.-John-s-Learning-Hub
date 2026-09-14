@@ -1,0 +1,103 @@
+---
+import Grade7RebuildLessonFrame from '../../../../components/Grade7RebuildLessonFrame.astro';
+import LearningSection from '../../../../components/LearningSection.astro';
+import VocabularyExplorer from '../../../../components/VocabularyExplorer.astro';
+import Grade7CoordinateGrid from '../../../../components/Grade7CoordinateGrid.astro';
+import Grade7CartesianCheck from '../../../../components/Grade7CartesianCheck.astro';
+const title='The Cartesian Plane';
+const summary='Build a four-quadrant coordinate plane, read exact point locations, and plot ordered pairs using the scale shown on each axis.';
+const vocabulary=[
+ {term:'Cartesian plane',definition:'A plane formed when a horizontal number line and a vertical number line cross.',example:'The x-axis and y-axis divide the plane into four quadrants.'},
+ {term:'x-axis',definition:'The horizontal number line on a Cartesian plane.',example:'The point (6, 0) lies on the x-axis.'},
+ {term:'y-axis',definition:'The vertical number line on a Cartesian plane.',example:'The point (0, −4) lies on the y-axis.'},
+ {term:'origin',definition:'The point where the x-axis and y-axis meet.',example:'The origin is (0, 0).'},
+ {term:'quadrant',definition:'One of the four regions made by the x-axis and y-axis.',example:'Quadrant II contains points with negative x and positive y.'},
+ {term:'ordered pair',definition:'Two coordinates written in the order (x, y) to locate a point.',example:'(−3, 5) means 3 units left, then 5 units up.'},
+ {term:'coordinates',definition:'The x-value and y-value in an ordered pair.',example:'In (4, −7), the coordinates are x = 4 and y = −7.'},
+ {term:'scale',definition:'The amount represented by each interval on an axis.',example:'On a scale of 5, three squares to the right represents x = 15.'}
+];
+const practice=[
+ {level:'A · Foundations',prompt:'Point M is at (−4, 3). Which direction do you move first from the origin?',choices:['4 units left','3 units up','4 units right','3 units down'],answer:0,feedback:'x comes first. A negative x-coordinate means move left.'},
+ {level:'B · Read a Point',prompt:'A point is 6 units right and 2 units down from the origin. What is its ordered pair?',choices:['(6, −2)','(−2, 6)','(−6, 2)','(2, −6)'],answer:0,feedback:'Right makes x positive. Down makes y negative.'},
+ {level:'C · Axes',prompt:'Where is the point (0, 7)?',choices:['On the y-axis','On the x-axis','Quadrant I','Quadrant II'],answer:0,feedback:'When x = 0, the point lies on the y-axis and is not in a quadrant.'},
+ {level:'D · Quadrants',prompt:'Which point is in Quadrant III?',choices:['(−5, −4)','(−5, 4)','(5, −4)','(5, 4)'],answer:0,feedback:'Quadrant III has negative x and negative y.'},
+ {level:'E · Scale',prompt:'Each grid square represents 5. A point is 3 squares left and 2 squares up. What is its ordered pair?',choices:['(−15, 10)','(−3, 2)','(15, −10)','(−10, 15)'],answer:0,feedback:'Multiply the square counts by the scale: x = −15 and y = 10.'},
+ {level:'F · Error Analysis',prompt:'A student plots (−3, 5) by moving 3 right and 5 up. What should they repair?',choices:['Move 3 left before moving 5 up.','Move 5 left and 3 up.','Change y to −5.','The plot is already correct.'],answer:0,feedback:'The negative x-coordinate means left. The positive y-coordinate means up.'}
+];
+const mystery=[['A',0,8],['B',4,2],['C',2,2],['D',2,-5],['E',0,-8],['F',-2,-5],['G',-2,2],['H',-4,2]];
+---
+<Grade7RebuildLessonFrame {title} {summary} lesson="1.1" unitTitle="Unit 1 · Coordinates and Design">
+  <LearningSection id="overview" eyebrow="GET READY" title="What you need & where you are going" icon="🎯" tone="idea">
+    <div class="two-grid"><article><p class="mini-label">BEFORE YOU START</p><ul><li>Recognize positive and negative integers.</li><li>Know horizontal versus vertical.</li><li>Read a number line in both directions.</li></ul></article><article><p class="mini-label">BY THE END, I CAN…</p><ul><li>Label the x-axis, y-axis, origin, and four quadrants.</li><li>Read and plot integral ordered pairs.</li><li>Explain points on the axes.</li><li>Use grid scales of 1, 2, 5, and 10.</li></ul></article></div>
+    <p class="curriculum"><strong>Alberta Grade 7 · Shape & Space SS4:</strong> identify and plot points in all four quadrants using integral ordered pairs.</p>
+    <div class="readiness"><strong>Quick start:</strong><span>If a number line point is at −5, which direction from 0 did you travel?</span><details><summary>Check</summary><p>Five units left. That same signed-number thinking will control the x- and y-directions today.</p></details></div>
+  </LearningSection>
+
+  <LearningSection id="big-ideas" eyebrow="START HERE" title="The big ideas" icon="🌎" tone="idea">
+    <p class="big-statement">A point on a Cartesian plane has an exact mathematical address: <strong>(x, y)</strong>.</p>
+    <div class="idea-grid"><article><h3>Two number lines make one plane</h3><p>The horizontal <strong>x-axis</strong> and vertical <strong>y-axis</strong> cross at the origin and divide the plane into four quadrants.</p></article><article><h3>Order matters</h3><p>Read <strong>x first</strong>, then <strong>y</strong>. The points (3, −2) and (−2, 3) are not the same location.</p></article><article><h3>Signs tell direction</h3><p>Positive x is right, negative x is left. Positive y is up, negative y is down.</p></article><article><h3>Read the scale</h3><p>A square is not always one unit. Axes may count by 1s, 2s, 5s, 10s, or another stated scale.</p></article></div>
+  </LearningSection>
+
+  <LearningSection id="understand" eyebrow="LEARN" title="Build your understanding" icon="📘" tone="learn">
+    <div class="understand-cards">
+      <details id="understand-1" open><summary>1. Build the Cartesian plane</summary><p>The <strong>x-axis</strong> runs horizontally and the <strong>y-axis</strong> runs vertically. Their intersection is the <strong>origin, (0, 0)</strong>. The axes are boundaries that divide the plane into four quadrants.</p><div class="memory"><strong>Memory cue:</strong> x is across; y is up/down.</div></details>
+      <details id="understand-2"><summary>2. Number the four quadrants</summary><p>Start in the upper-right and move counterclockwise: Quadrant I, II, III, IV.</p><div class="sign-table" role="table" aria-label="Quadrant sign patterns"><div role="row"><strong role="cell">I</strong><span role="cell">(+,+)</span></div><div role="row"><strong role="cell">II</strong><span role="cell">(−,+)</span></div><div role="row"><strong role="cell">III</strong><span role="cell">(−,−)</span></div><div role="row"><strong role="cell">IV</strong><span role="cell">(+,−)</span></div></div><p class="mistake"><strong>Common mix-up:</strong> Quadrants are not numbered left-to-right. They go counterclockwise beginning in the upper-right.</p></details>
+      <details id="understand-3"><summary>3. Read an ordered pair: x first, y second</summary><p>For <strong>(−3, 5)</strong>, begin at the origin. Move 3 units left because x = −3. Then move 5 units up because y = 5. Plot the point where you finish.</p><p class="mistake"><strong>Common mix-up:</strong> Swapping x and y changes the point. Always move horizontally first.</p></details>
+      <details id="understand-4"><summary>4. Points on axes are not in quadrants</summary><p>A point written <strong>(x, 0)</strong> lies on the x-axis. A point written <strong>(0, y)</strong> lies on the y-axis. The point <strong>(0, 0)</strong> is the origin. These points sit on quadrant boundaries, so they are not inside any quadrant.</p></details>
+      <details id="understand-5"><summary>5. Read the axis scale before counting</summary><p>First inspect the labels on the axis. If each grid interval represents 5, three squares right means x = 15, not x = 3. Grade 7 questions may use scales of 1, 2, 5, or 10.</p><p class="mistake"><strong>Common mix-up:</strong> Counting squares correctly but ignoring the scale still gives the wrong coordinate.</p></details>
+    </div>
+  </LearningSection>
+
+  <LearningSection id="examples" eyebrow="WATCH THE THINKING" title="Worked examples" icon="🧩" tone="learn">
+    <div class="example-grid">
+      <article><h3>Example 1 · Read a point</h3><Grade7CoordinateGrid mode="static" scale={1} points={[{x:-6,y:4,label:'A'}]} title="Example point A"/><ol><li>Start at the origin.</li><li>A is 6 units left, so x = −6.</li><li>A is 4 units up, so y = 4.</li><li><strong>A(−6, 4)</strong> is in Quadrant II.</li></ol></article>
+      <article><h3>Example 2 · Plot a point</h3><p>Plot <strong>B(5, −3)</strong>.</p><ol><li>Start at (0, 0).</li><li>x = 5 → move 5 units right.</li><li>y = −3 → move 3 units down.</li><li>Mark B in Quadrant IV.</li></ol><Grade7CoordinateGrid mode="static" scale={1} points={[{x:5,y:-3,label:'B'}]} title="Point B plotted at 5, negative 3"/></article>
+      <article><h3>Example 3 · A point on an axis</h3><p>For <strong>C(0, −7)</strong>, x = 0 means do not move left or right. Move 7 down. C lies on the <strong>y-axis</strong>, not in Quadrant III or IV.</p><Grade7CoordinateGrid mode="static" scale={1} points={[{x:0,y:-7,label:'C'}]} title="Point C on the y-axis"/></article>
+      <article><h3>Example 4 · Scale of 5</h3><p>Point D is 4 squares left and 3 squares up on a grid where each square represents 5.</p><ol><li>x = −4 × 5 = −20.</li><li>y = 3 × 5 = 15.</li><li>So <strong>D(−20, 15)</strong>.</li></ol><Grade7CoordinateGrid mode="static" scale={5} points={[{x:-20,y:15,label:'D'}]} title="Point D on a grid scaled by 5"/></article>
+    </div>
+  </LearningSection>
+
+  <LearningSection id="vocabulary" eyebrow="LEARN THE LANGUAGE" title="Key vocabulary" icon="🧠" tone="vocab"><VocabularyExplorer words={vocabulary}/></LearningSection>
+
+  <LearningSection id="explore" eyebrow="INVESTIGATE" title="Coordinate Explorer" icon="🔬" tone="explore">
+    <p>Use the explorer before memorizing sign patterns. Move a point into each quadrant and onto each axis. Say the ordered pair aloud as “x, then y.”</p>
+    <Grade7CoordinateGrid mode="explore" scale={1} initialX={3} initialY={4} title="Explore points, quadrants, axes, and scale"/>
+    <div class="discovery"><h3>Quadrant sign hunt</h3><ol><li>Put P in Quadrant I. Record the signs of x and y.</li><li>Repeat for Quadrants II, III, and IV.</li><li>Move P onto each axis. What changes when one coordinate becomes 0?</li><li>Change the scale from 1 to 2, 5, and 10. What must you check before reading a point?</li></ol></div>
+  </LearningSection>
+
+  <LearningSection id="practise" eyebrow="PRACTISE WITH SUPPORT" title="Build confidence step by step" icon="✏️" tone="practice">
+    <p>Work from foundations to reasoning. Check each card immediately; use the feedback to repair the exact idea.</p>
+    <div class="practice-stack" data-practice>
+      {practice.map((item,i)=><fieldset data-item data-answer={item.answer} data-feedback={item.feedback}><legend><span>{item.level}</span>{item.prompt}</legend><div class="practice-choices">{item.choices.map((c,j)=><label><input type="radio" name={`practice-${i}`} value={j}/>{c}</label>)}</div><button type="button" data-check>Check</button><p data-status role="status">Choose an answer.</p></fieldset>)}
+    </div>
+  </LearningSection>
+
+  <LearningSection id="check" eyebrow="CHECK YOURSELF" title="Can you do it independently?" icon="✅" tone="review">
+    <p>The bank mixes vocabulary, reading and plotting, axes, quadrants, scale, and error analysis. A fresh set keeps answer positions balanced.</p><Grade7CartesianCheck/>
+  </LearningSection>
+
+  <LearningSection id="apply" eyebrow="PLAY & APPLY" title="Coordinate Mystery Picture" icon="🎮" tone="play">
+    <div class="apply-intro"><div><h3>Your mission</h3><p>On grid paper or your own coordinate grid, plot the points in order and connect A → B → C → D → E → F → G → H → A.</p></div><strong>Do not reveal the answer until you have plotted every point.</strong></div>
+    <div class="mystery-list" aria-label="Mystery picture coordinates">{mystery.map(([label,x,y])=><span><b>{label}</b>({x}, {y})</span>)}</div>
+    <details class="mystery-reveal"><summary>Reveal and check my mystery picture</summary><Grade7CoordinateGrid mode="static" scale={1} points={mystery.map(([label,x,y])=>({label:String(label),x:Number(x),y:Number(y)}))} title="Mystery picture coordinate check"/><p>Your points form an arrow-like rocket shape. If yours is different, compare one vertex at a time and check that you read x before y.</p></details>
+    <div class="apply-extension"><h3>Reverse the task</h3><p>Create a simple 6–10 point mystery design. Write only its ordered pairs and connection order. Could a classmate reproduce it without seeing your picture?</p></div>
+  </LearningSection>
+
+  <LearningSection id="review" eyebrow="WRAP UP" title="Ready for 1.2?" icon="🏁" tone="review">
+    <div class="two-grid"><article><h3>I can retrieve…</h3><ul><li>x-axis, y-axis, origin, and quadrants I–IV</li><li>the sign pattern in each quadrant</li><li>the rule “x first, y second”</li><li>why points with a 0 coordinate lie on an axis</li></ul></article><article><h3>I can demonstrate…</h3><ul><li>read an integral ordered pair from a plotted point</li><li>plot an ordered pair in any quadrant</li><li>use scales of 1, 2, 5, and 10</li><li>explain and repair a coordinate mistake</li></ul></article></div>
+    <div class="exit-ticket" data-exit><h3>Three-question readiness check</h3>
+      <fieldset data-answer="2"><legend>1. Which point is in Quadrant II?</legend><label><input type="radio" name="exit1" value="0"/>(5, 4)</label><label><input type="radio" name="exit1" value="1"/>(5, −4)</label><label><input type="radio" name="exit1" value="2"/>(−5, 4)</label><label><input type="radio" name="exit1" value="3"/>(−5, −4)</label></fieldset>
+      <fieldset data-answer="1"><legend>2. Where is (0, −9)?</legend><label><input type="radio" name="exit2" value="0"/>Quadrant IV</label><label><input type="radio" name="exit2" value="1"/>On the y-axis</label><label><input type="radio" name="exit2" value="2"/>On the x-axis</label><label><input type="radio" name="exit2" value="3"/>At the origin</label></fieldset>
+      <fieldset data-answer="3"><legend>3. A grid counts by 10. A point is 3 squares right and 4 squares down. Which coordinate is correct?</legend><label><input type="radio" name="exit3" value="0"/>(3, −4)</label><label><input type="radio" name="exit3" value="1"/>(−30, 40)</label><label><input type="radio" name="exit3" value="2"/>(40, −30)</label><label><input type="radio" name="exit3" value="3"/>(30, −40)</label></fieldset>
+      <button type="button" data-submit>Check readiness</button><p data-result role="status" tabindex="-1">Answer all three when ready.</p>
+    </div>
+    <div class="next-card"><div><p class="mini-label">NEXT LESSON</p><strong>1.2 Create Designs</strong><span>Use coordinates as instructions for vertices and complete designs.</span></div><span class="planned">Opens after prototype approval</span></div>
+  </LearningSection>
+</Grade7RebuildLessonFrame>
+<script>
+document.querySelectorAll<HTMLElement>('[data-practice] [data-item]').forEach(card=>{card.querySelector('[data-check]')?.addEventListener('click',()=>{const chosen=card.querySelector<HTMLInputElement>('input:checked'),out=card.querySelector<HTMLElement>('[data-status]')!;if(!chosen){out.textContent='Choose an answer first.';card.querySelector<HTMLInputElement>('input')?.focus();return}const ok=Number(chosen.value)===Number(card.dataset.answer);out.textContent=`${ok?'Correct.':'Repair this one.'} ${card.dataset.feedback}`})});
+const exit=document.querySelector<HTMLElement>('[data-exit]');exit?.querySelector('[data-submit]')?.addEventListener('click',()=>{const sets=[...exit.querySelectorAll<HTMLFieldSetElement>('fieldset')],missing=sets.find(x=>!x.querySelector('input:checked')),out=exit.querySelector<HTMLElement>('[data-result]')!;if(missing){out.textContent='Answer all three first.';missing.querySelector<HTMLInputElement>('input')?.focus();return}let score=0;sets.forEach(x=>{if(Number(x.querySelector<HTMLInputElement>('input:checked')?.value)===Number(x.dataset.answer))score++});out.textContent=`${score}/3. ${score===3?'Ready for 1.2 Create Designs.':score===2?'Almost ready. Repair the missed idea, then retry.':'Return to the Coordinate Explorer and examples before retrying.'}`;out.focus()});
+</script>
+<style>
+.two-grid,.idea-grid,.example-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.two-grid article,.idea-grid article,.example-grid article,.readiness,.discovery,.apply-intro,.apply-extension,.exit-ticket,.next-card{padding:1rem;border:1px solid #dce5ed;border-radius:14px;background:#fff}.mini-label{margin:0;font-size:.75rem;font-weight:900;letter-spacing:.08em;color:#5a6a80}.curriculum{padding:.8rem 1rem;border-left:4px solid #2457c5;background:#eef6ff}.readiness{display:grid;gap:.35rem}.readiness details summary{cursor:pointer;font-weight:800}.big-statement{font-size:1.15rem}.understand-cards{display:grid;gap:.7rem}.understand-cards details{padding:1rem;border:1px solid #dce5ed;border-radius:13px;background:#fff}.understand-cards summary{font-weight:850;cursor:pointer}.memory,.mistake{padding:.65rem .75rem;border-radius:10px;background:#eef6ff}.mistake{background:#fff6df}.sign-table{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem;margin:.8rem 0}.sign-table>div{display:flex;justify-content:space-between;padding:.65rem .8rem;border-radius:9px;background:#f4f7fb}.example-grid article{min-width:0}.example-grid ol{padding-left:1.25rem}.discovery{margin-top:1rem}.practice-stack{display:grid;gap:.75rem}.practice-stack fieldset{min-width:0;padding:1rem;border:1px solid #d7e1ee;border-radius:13px;background:#fff}.practice-stack legend{font-weight:850;line-height:1.45}.practice-stack legend span{display:block;color:#2457c5;font-size:.8rem;letter-spacing:.04em}.practice-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem;margin:.7rem 0}.practice-choices label,.exit-ticket label{display:flex;gap:.5rem;align-items:center;min-height:44px;padding:.5rem;border:1px solid #dce5ed;border-radius:9px}.practice-stack button,.exit-ticket button{min-height:44px;border:0;border-radius:9px;background:#2457c5;color:#fff;padding:.65rem .85rem;font-weight:850}.practice-stack [data-status]{padding:.55rem;border-radius:9px;background:#f5f7fa}.apply-intro{display:grid;grid-template-columns:1fr minmax(180px,.45fr);gap:1rem;align-items:center}.apply-intro>strong{padding:.8rem;border-radius:10px;background:#fff6df}.mystery-list{display:flex;gap:.45rem;flex-wrap:wrap;margin:1rem 0}.mystery-list span{padding:.55rem .65rem;border-radius:9px;background:#eef6ff}.mystery-list b{margin-right:.25rem}.mystery-reveal{padding:1rem;border:1px solid #dce5ed;border-radius:14px;background:#fff}.mystery-reveal summary{font-weight:850;cursor:pointer}.apply-extension{margin-top:1rem}.exit-ticket{display:grid;gap:.7rem;margin-top:1rem}.exit-ticket fieldset{display:grid;gap:.35rem;border:0;padding:0}.exit-ticket legend{font-weight:850;margin-bottom:.3rem}.next-card{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;margin-top:1rem}.next-card>div{display:grid;gap:.2rem}.next-card span{color:#526174}.planned{padding:.55rem .65rem;border-radius:999px;background:#eef3f8;font-weight:800;font-size:.82rem}@media(max-width:760px){.two-grid,.idea-grid,.example-grid,.apply-intro,.next-card{grid-template-columns:1fr}.practice-choices{grid-template-columns:1fr}.planned{justify-self:start}}@media(max-width:390px){.two-grid article,.idea-grid article,.example-grid article,.readiness,.discovery,.apply-intro,.apply-extension,.exit-ticket,.next-card,.practice-stack fieldset{padding:.75rem}.sign-table{grid-template-columns:1fr}.mystery-list{gap:.3rem}.mystery-list span{font-size:.9rem}}
+</style>
