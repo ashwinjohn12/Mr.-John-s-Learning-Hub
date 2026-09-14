@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+interface Props { title:string; summary:string; lesson:string; unitTitle:string; }
+const {title,summary,lesson,unitTitle}=Astro.props;
+const base=import.meta.env.BASE_URL;
+const links=[['overview','🎯','Overview'],['big-ideas','🌎','Big Ideas'],['understand','📘','Understand'],['examples','🧩','Examples'],['vocabulary','🧠','Vocabulary'],['explore','🔬','Explore'],['practise','✏️','Practise'],['check','✅','Check Yourself'],['apply','🎮','Apply'],['review','🏁','Review']];
+---
+<BaseLayout title={`${title} | Grade 7 Math`} description={summary} themeColor="#2457c5">
+  <div class="topic-shell" style="--course:#2457c5;--course-soft:#dbeafe">
+    <aside class="topic-sidebar">
+      <a class="back-course" href={`${base}courses/grade-7-math/`}>← Grade 7 Math</a>
+      <p class="eyebrow">ON THIS PAGE</p>
+      <p class="scroll-cue">Swipe sections →</p>
+      <nav aria-label="Lesson sections">{links.map(([id,icon,label])=><a href={`#${id}`}><span aria-hidden="true">{icon}</span>{label}</a>)}</nav>
+    </aside>
+    <article class="topic-content">
+      <Breadcrumbs items={[{label:'Home',href:base},{label:'Grade 7 Math',href:`${base}courses/grade-7-math/`},{label:unitTitle},{label:title}]}/>
+      <header class="topic-hero rebuild-hero">
+        <p class="eyebrow">LESSON {lesson} · GRADE 7 MATH · REBUILD PROTOTYPE</p>
+        <h1>{title}</h1>
+        <p>{summary}</p>
+        <div class="lesson-hook"><div><strong>Across first. Then up or down.</strong><span>Every ordered pair is an exact address on the plane.</span></div><code>(x, y)</code></div>
+      </header>
+      <slot />
+    </article>
+  </div>
+</BaseLayout>
+<style>
+.lesson-hook{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;margin-top:1.2rem;padding:1rem 1.1rem;border-radius:16px;background:var(--course-soft)}.lesson-hook>div{display:grid;gap:.22rem}.lesson-hook span{color:#526174;font-weight:650}.lesson-hook code{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;color:#174ea6;background:#fff;border:1px solid #c9daf7;border-radius:12px;padding:.55rem .75rem}.scroll-cue{display:none}@media(max-width:760px){.lesson-hook{grid-template-columns:1fr}.lesson-hook code{justify-self:start}.scroll-cue{display:block;color:#64748b;font-size:.78rem}.topic-sidebar nav{scrollbar-width:thin}.rebuild-hero{padding-top:2rem;padding-bottom:3rem}}@media(max-width:390px){.lesson-hook{overflow-wrap:anywhere;padding:.85rem}.rebuild-hero h1{font-size:clamp(2.15rem,11vw,3.1rem);line-height:1.04}}
+</style>
