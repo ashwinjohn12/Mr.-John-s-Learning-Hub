@@ -27,5 +27,11 @@ const links=[['overview','🎯','Overview'],['big-ideas','🌎','Big Ideas'],['u
   </div>
 </BaseLayout>
 <style>
-.lesson-hook{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;margin-top:1.2rem;padding:1rem 1.1rem;border-radius:16px;background:var(--course-soft)}.lesson-hook>div{display:grid;gap:.22rem}.lesson-hook span{color:#526174;font-weight:650}.lesson-hook code{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;color:#174ea6;background:#fff;border:1px solid #c9daf7;border-radius:12px;padding:.55rem .75rem}.scroll-cue{display:none}@media(max-width:760px){.lesson-hook{grid-template-columns:1fr}.lesson-hook code{justify-self:start}.scroll-cue{display:block;color:#64748b;font-size:.78rem}.topic-sidebar nav{scrollbar-width:thin}.rebuild-hero{padding-top:2rem;padding-bottom:3rem}}@media(max-width:390px){.lesson-hook{overflow-wrap:anywhere;padding:.85rem}.rebuild-hero h1{font-size:clamp(2.15rem,11vw,3.1rem);line-height:1.04}}
+.lesson-hook{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;margin-top:1.2rem;padding:1rem 1.1rem;border-radius:16px;background:var(--course-soft)}.lesson-hook>div{display:grid;gap:.22rem}.lesson-hook span{color:#526174;font-weight:650}.lesson-hook code{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;color:#174ea6;background:#fff;border:1px solid #c9daf7;border-radius:12px;padding:.55rem .75rem}.scroll-cue{display:none}
+:global(.cartesian-check),:global(.cartesian-check .check-items),:global(.cartesian-check fieldset),:global(.cartesian-check .choices),:global(.cartesian-check .choices label),:global(.cartesian-check .choices label span){min-width:0;max-width:100%}
+:global(.cartesian-check fieldset){width:100%;min-inline-size:0}
+:global(.cartesian-check legend){display:grid!important;grid-template-columns:28px minmax(0,1fr);gap:.55rem;width:100%;max-width:100%;white-space:normal;overflow-wrap:anywhere;word-break:break-word}
+:global(.cartesian-check .choices label span),:global(.cartesian-check [data-feedback]){overflow-wrap:anywhere;word-break:break-word}
+@media(max-width:900px){.topic-sidebar{min-width:0;max-width:100%}.topic-sidebar nav{max-width:100%}}
+@media(max-width:760px){.lesson-hook{grid-template-columns:1fr}.lesson-hook code{justify-self:start}.scroll-cue{display:block;color:#64748b;font-size:.78rem}.topic-sidebar nav{scrollbar-width:thin}.rebuild-hero{padding-top:2rem;padding-bottom:3rem}}@media(max-width:390px){.lesson-hook{overflow-wrap:anywhere;padding:.85rem}.rebuild-hero h1{font-size:clamp(2.15rem,11vw,3.1rem);line-height:1.04}}
 </style>
