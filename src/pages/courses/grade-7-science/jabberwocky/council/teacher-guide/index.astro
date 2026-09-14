@@ -8,11 +8,11 @@ const coreDays = [
   {
     day:1,
     title:'Open the Evidence Vault',
-    before:'Confirm each team keeps its Phase 5 team and continent. Open the Council page and verify the saved Phase 5 posting loads the correct five-card Evidence Vault. Decide whether students will work on paper, Chromebook or both.',
-    materials:'Mission 2190 Evidence Vault, Five-Lens Council Review, pencils and/or Chromebooks. No old Team Records.',
-    students:'Read exactly five evidence cards → sort what each lens supports, limits, protects and leaves uncertain → complete the Five-Lens Council Review → identify two plausible Council outcomes.',
+    before:'Confirm each team keeps its Phase 5 team and continent. Open the Council page and verify the saved Phase 5 posting loads the correct five-card Evidence Vault. Set the recording method before students begin: use the website to read evidence and mark temporary candidates, then record written thinking on the printed Council Review or ordinary paper.',
+    materials:'Mission 2190 Evidence Vault on screen or print, Five-Lens Council Review recording sheet or ordinary paper, pencils. Chromebooks/projector are optional for viewing and candidate selection.',
+    students:'Read exactly five evidence cards → sort what each lens supports, limits, protects and leaves uncertain → record the Five-Lens Council Review on paper → identify two plausible Council outcomes.',
     science:'Cross-unit transfer: ecosystems, plant resources, thermal survival, structures/forces and geology all constrain one decision. Evidence is not the same as a recommendation.',
-    emphasis:'Do not let students choose an outcome first and then hunt for supporting evidence. Every team must consider all five lenses. No continent has a predetermined correct answer.',
+    emphasis:'Do not let students choose an outcome first and then hunt for supporting evidence. Every team must consider all five lenses. No continent has a predetermined correct answer. The website is a reference/selection surface; it does not save written Council responses.',
     collect:'Completed Five-Lens Council Review and two plausible candidate outcomes — capstone evidence in progress.',
     cut:'If time is short, complete one strong SUPPORTS/LIMITS/PROTECTS/UNCERTAIN entry per lens and identify two candidate outcomes. Do not reopen archives.'
   },
@@ -20,21 +20,21 @@ const coreDays = [
     day:2,
     title:'The Council Deliberates',
     before:'Prepare the five outcome cards and the two-option comparison board. Review which safeguards are already established canon for each continent.',
-    materials:'Five-Lens Council Review, outcome cards, two-option comparison board, pencils/Chromebooks.',
-    students:'Compare at least two plausible outcomes → identify strongest supporting evidence, biggest limit, required safeguard and important uncertainty for each → discuss mixed directives where appropriate → choose a draft directive.',
+    materials:'Five-Lens Council Review, website outcome cards, two-option comparison board on paper or ordinary paper, pencils. Chromebook/projector is optional for viewing and temporary candidate buttons.',
+    students:'Compare at least two plausible outcomes → identify strongest supporting evidence, biggest limit, required safeguard and important uncertainty for each → discuss mixed directives where appropriate → record a draft directive.',
     science:'Scientific decision making weighs multiple forms of evidence, trade-offs, protection needs and uncertainty. A responsible recommendation can remain conditional.',
-    emphasis:'A directive is not a popularity vote. Environmental safeguards matter as much as human convenience. “Delay and collect more evidence” is a legitimate outcome when a critical uncertainty remains.',
+    emphasis:'A directive is not a popularity vote. Environmental safeguards matter as much as human convenience. “Delay and collect more evidence” is a legitimate outcome when a critical uncertainty remains. Candidate buttons are temporary and may reset after a refresh; the written comparison is the official record.',
     collect:'Two-option comparison and draft directive — year-long transfer reasoning.',
     cut:'Compare exactly two outcomes and require one explicit trade-off, one safeguard and one uncertainty before choosing.'
   },
   {
     day:3,
     title:'Issue the Mission 2190 Directive',
-    before:'Prepare one Mission 2190 Council Directive per team and one reflection prompt per student. Decide whether to use optional 60-second Council Statements or a quiet gallery after core work is complete.',
-    materials:'Council Directive, five evidence cards, completed review board, pencils/Chromebooks.',
+    before:'Prepare one Mission 2190 Council Directive per team and one reflection prompt per student. The Council page Print / Save Directive button provides the blank final sheet with the saved continent filled in; ordinary paper is also acceptable. Decide whether to use optional 60-second Council Statements or a quiet gallery after core work is complete.',
+    materials:'Council Directive or ordinary paper, five evidence cards, completed review board, pencils. Chromebook/projector is optional as a reference surface.',
     students:'Finalize level of human presence + where/scale + protection requirements → cite all five science lenses → select three non-negotiable safeguards → name one uncertainty and next investigation → write 4–6 sentence Council message → complete individual reflection.',
     science:'A final scientific recommendation should be evidence-based, revisable and explicit about uncertainty, safeguards and next questions.',
-    emphasis:'Assess evidence integration and reasoning, not presentation polish or memorized vocabulary. One directive per team; one reflection per student.',
+    emphasis:'Assess evidence integration and reasoning, not presentation polish or memorized vocabulary. One directive per team; one reflection per student. Written work belongs on the printed sheet, ordinary paper or another teacher-approved document—not in the website itself.',
     collect:'Mission 2190 Council Directive + individual reflection — final year-long transfer task.',
     cut:'Protect the directive, three safeguards, one uncertainty, five evidence lenses and individual reflection. Cut gallery/presentation first.'
   }
@@ -97,12 +97,13 @@ const coreDays = [
       <div class="section-heading"><p class="eyebrow">LOW-MATERIAL IMPLEMENTATION</p><h2>The final Council should require no new purchases.</h2></div>
       <div class="materials-grid">
         <article><small>PREFERRED</small><strong>Printed or digital Evidence Vault</strong><span>Exactly five cards per team.</span></article>
-        <article><small>PREFERRED</small><strong>Five-Lens Council Review</strong><span>Paper or website prompts.</span></article>
-        <article><small>PREFERRED</small><strong>Mission 2190 Council Directive</strong><span>One per team.</span></article>
-        <article><small>OPTIONAL</small><strong>Chromebooks / projector</strong><span>Useful but not required if cards are printed.</span></article>
-        <article><small>ESSENTIAL</small><strong>Pencils</strong><span>No laboratory materials or physical model needed.</span></article>
+        <article><small>PREFERRED</small><strong>Five-Lens Council Review</strong><span>Record on the printed sheet or ordinary paper; the website supplies the prompts.</span></article>
+        <article><small>PREFERRED</small><strong>Mission 2190 Council Directive</strong><span>One paper/teacher-approved written record per team.</span></article>
+        <article><small>OPTIONAL</small><strong>Chromebooks / projector</strong><span>Use for evidence, prompts and temporary candidate selection—not for storing written responses.</span></article>
+        <article><small>ESSENTIAL</small><strong>Pencils + recording paper</strong><span>No laboratory materials or physical model needed.</span></article>
         <article><small>NO-PURCHASE FALLBACK</small><strong>Project the Evidence Vault</strong><span>Teams complete the review and directive on ordinary paper.</span></article>
       </div>
+      <p class="note"><strong>Recording mode:</strong> the Council website is the shared evidence, prompt and candidate-selection surface. It does not save written responses. Candidate buttons are temporary and reset after a page refresh, so students should keep their official Five-Lens Review, two-option comparison, Directive and reflection on paper or another teacher-approved document.</p>
     </section>
 
     <section class="evidence-system">
@@ -148,7 +149,7 @@ const coreDays = [
         <article><strong>Students think “delay” means failure</strong><span>Reframe it as a scientific decision when a critical uncertainty remains.</span></article>
         <article><strong>Teams disagree</strong><span>Ask which claim is better supported by the Evidence Vault; allow a mixed directive if the evidence supports it.</span></article>
         <article><strong>A class is lost</strong><span>Switch to the approved two-class compressed pathway.</span></article>
-        <article><strong>Printing/device failure</strong><span>Project the five evidence cards and use ordinary lined paper for the review/directive. No special template is required.</span></article>
+        <article><strong>Printing/device failure</strong><span>Project the five evidence cards and use ordinary lined paper for the review/directive/reflection. No special template is required.</span></article>
       </div>
     </section>
 
@@ -170,6 +171,7 @@ const coreDays = [
         <span>✓ Is there only one final Team Record?</span>
         <span>✓ Is the individual reflection clear?</span>
         <span>✓ Can I switch to the two-class fallback?</span>
+        <span>✓ Do I know where written responses are recorded and what happens after a page refresh?</span>
         <span>✓ Does Mission 2190 clearly end here?</span>
       </div>
       <a href={council}>Open the student Mission 2190 Council →</a>

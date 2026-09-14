@@ -1,0 +1,284 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<script is:inline define:vars={{ base }}>
+  (() => {
+    const path = window.location.pathname;
+    if (!path.includes('/courses/grade-7-science/jabberwocky/')) return;
+
+    const root = `${base}courses/grade-7-science/jabberwocky/`;
+    const phaseHref = (number) => `${root}phase-${number}/`;
+    const missionHref = (phase, mission) => `${phaseHref(phase)}mission-${mission}/`;
+
+    const resetProgress = (scope, selector, stepClass) => {
+      const steps = [...scope.querySelectorAll(selector)];
+      steps.forEach((step, index) => {
+        step.classList.remove('done', 'current', 'future');
+        step.removeAttribute('aria-current');
+        step.classList.add(index === 0 ? 'current' : 'future');
+        if (index === 0) step.setAttribute('aria-current', 'step');
+        const number = step.querySelector('.mission-number');
+        if (number && stepClass === 'phase3') number.textContent = String(index + 1);
+      });
+    };
+
+    const setMissionCards = (scope, selector, linkSelector = 'a') => {
+      const cards = [...scope.querySelectorAll(selector)];
+      cards.forEach((card, index) => {
+        const number = index + 1;
+        card.classList.remove('complete', 'current', 'locked');
+        if (index === 0) card.classList.add('current');
+        const status = card.querySelector('.mission-topline b, small');
+        if (status) {
+          if (status.matches('small') && /MISSION\s+\d/i.test(status.textContent || '')) {
+            status.textContent = `MISSION ${number} · ${index === 0 ? 'START HERE' : 'READY'}`;
+          } else {
+            status.textContent = index === 0 ? 'START HERE' : 'READY';
+          }
+        }
+        const link = card.querySelector(linkSelector);
+        if (link) link.textContent = index === 0 ? 'Start Mission 1 →' : `Open Mission ${number} →`;
+      });
+    };
+
+    const addPhaseTeamNote = (scope, targetSelector, phase, division) => {
+      const target = scope.querySelector(targetSelector);
+      if (!target || target.querySelector('.whole-year-team-note')) return;
+      const note = document.createElement('p');
+      note.className = 'whole-year-team-note';
+      note.innerHTML = `<strong>New phase = new team.</strong> Use only the Phase ${phase} ${division} team and continent your teacher assigns. Keep that team and continent through Missions 1–5.`;
+      target.appendChild(note);
+    };
+
+    const launchPage = /\/jabberwocky\/?$/.test(path) || /\/jabberwocky\/index\.html$/.test(path);
+    if (launchPage) {
+      const status = document.querySelector('.mission-readout > strong');
+      if (status) status.textContent = 'READY TO BEGIN';
+      document.querySelectorAll('.mission-readout dl div').forEach((row) => {
+        const label = row.querySelector('dt')?.textContent?.trim();
+        const value = row.querySelector('dd');
+        if (label === 'Survey completion' && value) value.textContent = 'BEGIN WITH PHASE 1';
+        if (label === 'Safe settlement regions' && value) value.textContent = 'TO BE DECIDED BY COUNCIL';
+      });
+
+      const intro = document.querySelector('#mission-phases .section-title-row > p');
+      if (intro) intro.textContent = 'The full year is available, but availability is not progress. Begin with Phase 1 unless your teacher directs you elsewhere.';
+
+      const cards = [...document.querySelectorAll('#mission-phases .released-phase')];
+      const statuses = ['START HERE', 'READY', 'READY', 'READY', 'READY', 'FINAL CAPSTONE · LATER'];
+      const actionCopy = [
+        'Begin the year with Interactions & Ecosystems.',
+        'Open when your teacher launches Phase 2.',
+        'Open when your teacher launches Phase 3.',
+        'Open when your teacher launches Phase 4.',
+        'Open when your teacher launches Phase 5.',
+        'Use evidence from all five science phases after Phase 5.'
+      ];
+      cards.forEach((card, index) => {
+        const phaseStatus = card.querySelector('.phase-status');
+        if (phaseStatus) phaseStatus.textContent = statuses[index] || 'READY';
+        const copy = card.querySelector('.released-actions span');
+        if (copy) copy.textContent = actionCopy[index] || copy.textContent;
+        const link = card.querySelector('.released-actions a');
+        if (link) {
+          if (index === 0) link.textContent = 'Begin Phase 1 →';
+          else if (index === 5) link.textContent = 'Open only when teacher directs →';
+          else link.textContent = `Open Phase ${index + 1} →`;
+        }
+      });
+
+      const archive = document.querySelector('.archive-file ul');
+      if (archive) {
+        archive.innerHTML = `
+          <li class="current"><span>●</span> Phase 1 · First Contact — START HERE</li>
+          <li><span>○</span> Phase 2 · The Living Resource</li>
+          <li><span>○</span> Phase 3 · Surviving Jabberwocky</li>
+          <li><span>○</span> Phase 4 · Project New Horizon</li>
+          <li><span>○</span> Phase 5 · The Deep Record</li>
+          <li><span>○</span> Mission 2190 Council — FINAL CAPSTONE</li>`;
+      }
+
+      const console = document.querySelector('.final-console');
+      if (console) {
+        const lines = console.querySelectorAll('p');
+        if (lines[0]) lines[0].innerHTML = 'PATHFINDER STATUS: <strong>CONFIRMED</strong>';
+        if (lines[1]) lines[1].innerHTML = 'YOUR FIRST TASK: <strong>PHASE 1 · FIRST CONTACT</strong>';
+        if (lines[2]) lines[2].innerHTML = 'YEAR PATH: <strong>FIVE SCIENCE PHASES → FINAL COUNCIL</strong>';
+        const button = console.querySelector('.mission-button');
+        if (button) {
+          button.href = phaseHref(1);
+          button.textContent = '▶ Begin Phase 1';
+        }
+      }
+    }
+
+    const phase1 = document.querySelector('#simplified-phase1-hub');
+    if (phase1) {
+      const lead = phase1.querySelector('.simple-hero .lead');
+      if (lead) lead.textContent = 'You are one of the first scientists studying life on Jabberwocky. Start with Mission 1, then build your ecology evidence one mission at a time before making the Phase 1 recommendation.';
+      const heroStatus = phase1.querySelector('.simple-hero aside strong');
+      if (heroStatus) heroStatus.textContent = 'Mission 1 ready';
+      const heroNote = phase1.querySelector('.simple-hero aside small');
+      if (heroNote) heroNote.textContent = 'Begin with Explore Your Environment.';
+      resetProgress(phase1, '.simple-mission-progress .mission-progress-step', 'phase1');
+
+      const quick = phase1.querySelector('.quick-start');
+      if (quick) {
+        const eyebrow = quick.querySelector('.eyebrow');
+        const heading = quick.querySelector('h2');
+        const copy = [...quick.querySelectorAll('p')].find((p) => !p.classList.contains('eyebrow'));
+        const link = quick.querySelector('a');
+        if (eyebrow) eyebrow.textContent = 'YOUR NEXT STEP';
+        if (heading) heading.textContent = 'Begin Mission 1 — Explore Your Environment.';
+        if (copy) copy.textContent = 'Open Mission 1, save only the continent your teacher assigns, and start the Environmental Survey.';
+        if (link) { link.href = missionHref(1, 1); link.textContent = 'Start Mission 1 →'; }
+      }
+      const workHeading = phase1.querySelector('#work-heading');
+      if (workHeading) workHeading.textContent = 'How mission work works';
+      const missionHeading = phase1.querySelector('.mission-list .section-heading h2');
+      if (missionHeading) missionHeading.textContent = 'Five missions. One ecology investigation.';
+      setMissionCards(phase1, '.mission-card', 'a');
+    }
+
+    const phase2 = document.querySelector('#phase2-hub');
+    if (phase2) {
+      phase2.querySelector('.whole-year-release-handoff')?.remove();
+      const lead = phase2.querySelector('.phase2-hero .lead');
+      if (lead) lead.textContent = 'Human exploration is expanding. Supplies from Earth cannot support a permanent settlement forever. JCEC has identified native plants that may provide food, fibre and useful materials—but using them could damage the ecosystems already discovered.';
+      resetProgress(phase2, '.phase2-progress .phase2-step', 'phase2');
+      setMissionCards(phase2, '.mission-card', '.mission-ready-link');
+
+      const strip = phase2.querySelector('.previous-team .continue-strip');
+      if (strip) {
+        const strong = strip.querySelector('strong');
+        const span = strip.querySelector('span');
+        const link = strip.querySelector('a');
+        if (strong) strong.textContent = 'Mission 1 starts with the living resource.';
+        if (span) span.textContent = 'Use the inherited ecology findings as context, then investigate the native resource plant for yourself.';
+        if (link) { link.href = missionHref(2, 1); link.textContent = 'Start Mission 1 →'; }
+      }
+      const needed = phase2.querySelector('#assignment-needed');
+      if (needed) {
+        const copy = [...needed.querySelectorAll('p')].find((p) => !p.classList.contains('eyebrow'));
+        if (copy) copy.textContent = 'Once you choose the continent your teacher assigned, your inherited findings appear. Then begin Mission 1 — Find the Living Resource.';
+      }
+      const oldPhase = phase2.querySelector('.phase1-link p');
+      if (oldPhase) oldPhase.textContent = 'The inherited briefing above carries forward the ecology findings you need. Reopen Phase 1 only if your teacher asks you to check the original evidence.';
+    }
+
+    const phase3 = document.querySelector('#phase3-hub');
+    if (phase3) {
+      phase3.querySelector('.whole-year-release-handoff')?.remove();
+      const lead = phase3.querySelector('.hero .lead');
+      if (lead) lead.textContent = 'Start by measuring the thermal problem, then trace how energy moves, test a thermal design, control the habitat and decide how to survive without wasting energy.';
+      resetProgress(phase3, '.phase3-progress .phase3-step', 'phase3');
+      const sequence = [...phase3.querySelectorAll('.sequence span')];
+      const labels = ['Temperature ●', 'Heat Transfer', 'Thermal Design', 'Habitat Control', 'Sustainable Survival'];
+      sequence.forEach((item, index) => {
+        item.classList.remove('done', 'current');
+        item.textContent = labels[index] || item.textContent.replace(/[✓●]/g, '').trim();
+        if (index === 0) item.classList.add('current');
+      });
+      setMissionCards(phase3, '.mission-cards article', 'a');
+      addPhaseTeamNote(phase3, '.posting-panel > div:first-child', 3, 'Thermal Survival');
+    }
+
+    const phase4 = document.querySelector('#phase4-hub');
+    if (phase4) addPhaseTeamNote(phase4, '.posting-panel > div:first-child, .posting-panel', 4, 'Structural Systems');
+
+    const phase5 = document.querySelector('#phase5-hub');
+    if (phase5) {
+      phase5.querySelector('.whole-year-release-handoff')?.remove();
+      const lead = phase5.querySelector('.phase5-hero .lead');
+      if (lead) lead.innerHTML = 'Your final science phase begins here. Your new Geological Survey team inherits a short site briefing from Project New Horizon, then starts with <strong>Mission 1 — Read the Ground</strong>: observe carefully, separate evidence from interpretation, and build the geological story one mission at a time.';
+      resetProgress(phase5, '.phase5-progress .phase5-step', 'phase5');
+
+      const sequence = [...phase5.querySelectorAll('.sequence-strip span')];
+      const labels = ['Evidence ●', 'Rock History', 'Surface Change', 'Deep Past', 'Geological Handoff'];
+      sequence.forEach((item, index) => {
+        item.classList.remove('done', 'current');
+        item.textContent = labels[index] || item.textContent.replace(/[✓●]/g, '').trim();
+        if (index === 0) item.classList.add('current');
+      });
+      setMissionCards(phase5, '.mission-card', '.mission-ready-link');
+
+      const strip = phase5.querySelector('.previous-team .continue-strip');
+      if (strip) {
+        const strong = strip.querySelector('strong');
+        const span = strip.querySelector('span');
+        const link = strip.querySelector('a');
+        if (strong) strong.textContent = 'Briefing loaded. Now begin by reading the ground.';
+        if (span) span.textContent = 'Mission 1 teaches how to separate direct observations, properties, classifications and uncertainty before the team makes geological claims.';
+        if (link) { link.href = missionHref(5, 1); link.textContent = 'Start Mission 1 →'; }
+      }
+      const councilStop = phase5.querySelector('.council-stop');
+      if (councilStop) {
+        councilStop.innerHTML = '<strong>FINAL COUNCIL</strong><span>Later. Finish Missions 1–5 first. The end of Mission 5 provides the transition into the released Mission 2190 Council.</span>';
+      }
+      addPhaseTeamNote(phase5, '.posting-panel > div:first-child', 5, 'Geological Survey');
+    }
+
+    const phase1Final = document.querySelector('#simplified-mission-5 .finished-box');
+    if (phase1Final) {
+      const note = phase1Final.querySelector('p');
+      const link = phase1Final.querySelector('.whole-year-next-phase');
+      if (note) note.textContent = 'Phase 1 is complete. Stop here. Your teacher will regroup you into a new Phase 2 team and assign a new Phase 2 continent before you continue.';
+      if (link) link.textContent = 'After regrouping → Phase 2';
+    }
+
+    const phase2Final = document.querySelector('#phase2-mission5 .finished-box');
+    if (phase2Final) {
+      const primary = phase2Final.querySelector('.phase2-next-mission-link');
+      phase2Final.querySelector('.whole-year-next-phase')?.remove();
+      const note = phase2Final.querySelector('p');
+      if (note) note.textContent = 'Phase 2 is complete. Stop here. Your teacher will regroup you into a new Phase 3 team and assign a new Phase 3 continent before you continue.';
+      if (primary) primary.textContent = 'After regrouping → Phase 3';
+    }
+
+    const phase3Final = document.querySelector('#phase3-mission5 .finished-box');
+    if (phase3Final) {
+      const note = phase3Final.querySelector('p');
+      const stop = phase3Final.querySelector('span');
+      const link = phase3Final.querySelector('.phase3-next-mission-link');
+      if (note) note.textContent = 'Phase 3 is complete. Stop here. Your teacher will regroup you into a new Phase 4 Structural Systems team and assign a new Phase 4 continent.';
+      if (stop) stop.textContent = 'NEXT PHASE = NEW TEAM + NEW POSTING';
+      if (link) link.textContent = 'After regrouping → Phase 4';
+    }
+
+    const phase4Final = document.querySelector('#phase4-mission5 .finished-box');
+    if (phase4Final) {
+      const note = phase4Final.querySelector('span');
+      const link = phase4Final.querySelector('.phase4-next-mission-link');
+      if (note) note.textContent = 'Phase 4 is complete. Stop here. Your teacher will regroup you into a new Phase 5 Geological Survey team and assign a new Phase 5 continent.';
+      if (link) link.textContent = 'After regrouping → Phase 5';
+    }
+
+    const phase5Final = document.querySelector('#phase5-mission5 .finished-box');
+    if (phase5Final) {
+      const note = phase5Final.querySelector('span');
+      if (note) note.innerHTML = 'Phase 5 is complete. <b>Keep this same Phase 5 team and continent.</b> Your Geological Evidence Packet now joins the four earlier science divisions in the final Mission 2190 Council.';
+    }
+
+    const dashboard = document.querySelector('#jcec-teacher-master-dashboard');
+    if (dashboard && !dashboard.querySelector('.whole-year-team-rule')) {
+      const rule = document.createElement('section');
+      rule.className = 'whole-year-team-rule';
+      rule.innerHTML = '<strong>TEAM CONTINUITY RULE</strong><span>Regroup students and assign a new phase continent at the start of Phases 2, 3, 4 and 5. The Mission 2190 Council is the exception: keep the Phase 5 team and continent.</span>';
+      dashboard.querySelector('.quick-links')?.insertAdjacentElement('afterend', rule);
+    }
+
+    const operations = document.querySelector('#jcec-before-students-arrive');
+    if (operations && !operations.querySelector('.whole-year-team-rule')) {
+      const phasePanel = operations.querySelector('#phases');
+      const rule = document.createElement('div');
+      rule.className = 'whole-year-team-rule';
+      rule.innerHTML = '<strong>BEFORE EACH NEW PHASE</strong><span>Prepare the new student → team → continent roster before students open the next phase hub. Phases 2–5 use new teams/new postings; the final Council keeps the Phase 5 team and continent.</span>';
+      phasePanel?.querySelector('h2')?.insertAdjacentElement('afterend', rule);
+    }
+  })();
+</script>
+
+<style is:global>
+  .whole-year-team-note{margin:.65rem 0 0!important;padding:.65rem .75rem;border-left:3px solid #79ddc4;border-radius:0 8px 8px 0;background:rgba(24,72,63,.28);color:#cce9df!important;font-size:.82rem;line-height:1.45}.whole-year-team-note strong{color:#fff}.whole-year-team-rule{display:flex;gap:.75rem;align-items:flex-start;margin:1rem 0;padding:.85rem 1rem;border:1px solid #3f756c;border-radius:12px;background:#0b2928}.whole-year-team-rule strong{flex:0 0 auto;color:#8ff0d5;font-size:.72rem;letter-spacing:.07em}.whole-year-team-rule span{color:#c7ddd8;font-size:.84rem;line-height:1.45}.archive-file li.current{color:#eafff8}.archive-file li.current span{color:#6ef2cf}@media(max-width:650px){.whole-year-team-rule{display:grid}}
+</style>
