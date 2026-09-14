@@ -117,6 +117,9 @@ check(has(teacher, 'NO NEW JABBERWOCKY CANON'), 'Teacher guide prevents unsuppor
 check(has(teacher, 'five Evidence Vault cards'), 'Teacher guide matches the five-card student evidence system');
 check(has(teacher, 'one Mission 2190 Council Directive') || has(teacher, '1 Mission 2190 Council Directive'), 'Teacher guide matches the one-Team-Record design');
 check(has(teacher, 'one reflection') || has(teacher, '1 short reflection'), 'Teacher guide matches the individual reflection');
+check(has(teacher, 'does not save written responses') && has(teacherDoc, 'does not save written Council responses'), 'Teacher system makes website-versus-written-record boundary explicit');
+check(has(teacher, 'reset after a page refresh') && has(teacherDoc, 'reset after a page refresh'), 'Teacher system explains candidate-button refresh behavior');
+check(has(teacher, 'ordinary paper') && has(teacherDoc, 'ordinary paper'), 'Teacher system preserves a no-template written-record fallback');
 
 // Essentially no-purchase implementation.
 for (const token of ['Evidence Vault','Council Review','Council Directive','pencils','Chromebooks']) check(has(teacher, token), `Teacher materials include ${token}`);
