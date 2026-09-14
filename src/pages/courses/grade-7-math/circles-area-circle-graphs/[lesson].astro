@@ -1,0 +1,5 @@
+---
+import Grade7Unit4LessonPage from'../../../../components/Grade7Unit4LessonPage.astro';import{findCourse}from'../../../../data/courses';import{findGrade7Unit4Lesson,grade7Unit4Lessons}from'../../../../data/grade7Unit4';
+export function getStaticPaths(){return grade7Unit4Lessons.map(x=>({params:{lesson:x.slug}}));}const{lesson}=Astro.params;const course=findCourse('grade-7-math')!;const unit=course.units.find(x=>x.slug==='circles-area-circle-graphs')!;const topic=unit.topics.find(x=>x.slug===lesson)!;const spec=findGrade7Unit4Lesson(lesson!)!;
+---
+<Grade7Unit4LessonPage {course} {unit} {topic} lesson={spec}/>

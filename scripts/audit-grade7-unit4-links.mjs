@@ -1,0 +1,5 @@
+import{readFileSync,existsSync}from'node:fs';
+const root='dist/courses/grade-7-math/circles-area-circle-graphs',lessons=['investigating-circles','circumference-circle','area-parallelogram','area-triangle','area-circle','interpreting-circle-graphs','drawing-circle-graphs'],anchors=['overview','big-ideas','understand','examples','vocabulary','explore','practise','check','apply','review'];let checks=0;
+for(const page of ['index.html',...lessons.map(x=>`${x}/index.html`),'unit-review/index.html']){const path=`${root}/${page}`;if(!existsSync(path))throw Error(`missing ${path}`);checks++;if(page.includes('/')&&!page.startsWith('unit-review')){const html=readFileSync(path,'utf8');for(const id of anchors){if(!html.includes(`id="${id}"`))throw Error(`${page} missing #${id}`);checks++;}}}
+const landing=readFileSync(`${root}/index.html`,'utf8');for(const slug of lessons){if(!landing.includes(`${slug}/`))throw Error(`landing missing ${slug}`);checks++;}if(!landing.includes('unit-review/'))throw Error('landing missing Unit 4 review');checks++;
+console.log(`Grade 7 Unit 4 route and anchor audit: ${checks} checks passed.`);

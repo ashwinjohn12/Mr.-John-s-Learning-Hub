@@ -32,6 +32,8 @@ const reviewInfo = course.slug === 'grade-6-math' && unit.slug === 'positive-neg
                       ? { title:'Unit 2 Review & Math Arcade', summary:'Repair integer misconceptions, take a balanced Unit Check, and complete Temperature Rescue.' }
                       : course.slug === 'grade-7-math' && unit.slug === 'fractions-decimals-percents'
                         ? { title:'Unit 3 Review & Math Arcade', summary:'Connect fractions, decimal operations, and percents, then complete Market Day Mission.' }
+                        : course.slug === 'grade-7-math' && unit.slug === 'circles-area-circle-graphs'
+                          ? { title:'Unit 4 Review & Math Arcade', summary:'Connect circle measures, area models, and circle graphs, then complete Water Park Designer.' }
                         : null;
 ---
 <BaseLayout title={`${unit.title} | ${course.grade} ${course.shortSubject}`} description={unit.description} themeColor={course.color}>

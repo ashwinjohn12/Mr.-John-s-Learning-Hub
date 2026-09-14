@@ -179,7 +179,15 @@ export const courses: Course[] = [
         {slug:'relating-fractions-decimals-percents',number:'3.7',title:'Relating Fractions, Decimals, and Percents',summary:'Represent the same positive amount as a fraction, decimal, and percent.',status:'ready'},
         {slug:'solving-percent-problems',number:'3.8',title:'Solving Percent Problems',summary:'Solve percent problems from 1% to 100% using benchmarks, models, and proportional reasoning.',status:'ready'}
       ] },
-      { slug: 'circles-area-circle-graphs', number: '04', title: 'Circles, Area, and Circle Graphs', description: 'Investigate circle relationships, develop area formulas, and represent data with circle graphs.', topics: [] },
+      { slug: 'circles-area-circle-graphs', number: '04', title: 'Circles, Area, and Circle Graphs', description: 'Investigate circle relationships, develop area formulas, and represent data with circle graphs.', topics: [
+        {slug:'investigating-circles',number:'4.1',title:'Investigating Circles',summary:'Identify circle parts, connect radius and diameter, construct circles, and reason about central angles.',status:'ready'},
+        {slug:'circumference-circle',number:'4.2',title:'Circumference of a Circle',summary:'Discover π as the circumference-to-diameter ratio and solve circumference problems.',status:'ready'},
+        {slug:'area-parallelogram',number:'4.3',title:'Area of a Parallelogram',summary:'Rearrange parallelograms to develop and apply A = bh with perpendicular height.',status:'ready'},
+        {slug:'area-triangle',number:'4.4',title:'Area of a Triangle',summary:'Connect triangles to related parallelograms and develop A = bh ÷ 2.',status:'ready'},
+        {slug:'area-circle',number:'4.5',title:'Area of a Circle',summary:'Estimate circle area, rearrange sectors, and apply A = πr².',status:'ready'},
+        {slug:'interpreting-circle-graphs',number:'4.6',title:'Interpreting Circle Graphs',summary:'Interpret sectors as parts of a whole and translate percentages into quantities.',status:'ready'},
+        {slug:'drawing-circle-graphs',number:'4.7',title:'Drawing Circle Graphs',summary:'Convert data to percents and central angles, then construct and check a labelled circle graph.',status:'ready'}
+      ] },
       { slug: 'operations-fractions', number: '05', title: 'Operations with Fractions', description: 'Add and subtract positive fractions and mixed numbers using models and symbols.', topics: [] },
       { slug: 'equations', number: '06', title: 'Equations', description: 'Model, solve, verify, and compare strategies for one- and two-step equations.', topics: [] },
       { slug: 'data-probability', number: '07', title: 'Data Analysis and Probability', description: 'Analyze averages and outliers, then compare theoretical and experimental probability.', topics: [] },
