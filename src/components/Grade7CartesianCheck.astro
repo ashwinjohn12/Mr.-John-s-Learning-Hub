@@ -27,7 +27,7 @@ corePoints.forEach((p,i)=>{const [x,y,scale]=p;const loc=x===0?'on the y-axis':y
  [10,4,-6,'(40, −60)','4 squares right gives 40 and 6 squares down gives −60.'],
  [2,-5,-4,'(−10, −8)','5 squares left gives −10 and 4 squares down gives −8.'],
  [5,6,0,'(30, 0)','Six squares right is 30; staying on the x-axis makes y = 0.']
-].forEach((x,i)=>q.push({id:`r-scale-${i}`,level:3,prompt:`A grid uses ${x[0]} per square. From the origin, move ${Math.abs(Number(x[1]))} squares ${Number(x[1])>=0?'right':'left'} and ${Math.abs(Number(x[2]))} squares ${Number(x[2])>=0?'up':'down'}. What is the coordinate?`,correct:x[3] as string,distractors:[`(${x[1]}, ${x[2]})`,`(${Number(x[1])*Number(x[0])}, ${x[2]})`,`(${x[2]}, ${x[1]})`],feedback:x[4] as string}));
+].forEach((x,i)=>{const scale=Number(x[0]),dx=Number(x[1]),dy=Number(x[2]),correct=x[3] as string;const candidates=[`(${dx}, ${dy})`,`(${dx*scale}, ${dy})`,`(${dy}, ${dx})`,`(${dy*scale}, ${dx*scale})`,`(${-dx*scale}, ${dy*scale})`,`(${dx*scale}, ${-dy*scale})`];const distractors=[...new Set(candidates)].filter(a=>a!==correct).slice(0,3);q.push({id:`r-scale-${i}`,level:3,prompt:`A grid uses ${scale} per square. From the origin, move ${Math.abs(dx)} squares ${dx>=0?'right':'left'} and ${Math.abs(dy)} squares ${dy>=0?'up':'down'}. What is the coordinate?`,correct,distractors,feedback:x[4] as string})});
 [
  ['Sam plotted (−3, 5) by moving 3 right and 5 up.','Sam used the wrong direction for x. Move 3 left, then 5 up.'],
  ['Maya says (0, −6) is in Quadrant IV.','A point with x = 0 is on the y-axis, not in a quadrant.'],
