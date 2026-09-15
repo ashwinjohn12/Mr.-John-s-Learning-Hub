@@ -32,6 +32,7 @@ const level1 = readFileSync(files.level1, 'utf8');
 for (const text of ['Make It Happen','Make It Think','Build a Game','Robot Rookie','Sense → Think → Act','Design It. Print It.','Choose Your Path','Creator Certification']) ok(level1.includes(text), `Level 1 contains ${text}`);
 ok(level1.includes('Missions 1–2 are open now'), 'Level 1 clearly names open missions');
 ok(level1.includes('COMING NEXT · PREVIEW'), 'planned missions clearly marked preview');
+ok(level1.includes('simple loop'), 'Level 1 Mission 2 summary includes loop prerequisite');
 ok(!level1.includes('mission-3-build-a-game/'), 'planned Mission 3 is not linked');
 
 for (const [name, file] of [['mission1',files.mission1],['mission2',files.mission2]]) {
@@ -51,5 +52,9 @@ const mission2 = readFileSync(files.mission2, 'utf8');
 ok(mission2.includes('https://makecode.microbit.org/'), 'Mission 2 links directly to MakeCode');
 ok(mission2.includes('SET replaces. CHANGE adjusts.'), 'Mission 2 preserves set/change support');
 ok(mission2.includes('TRUE') && mission2.includes('FALSE'), 'Mission 2 preserves IF true/false support');
+ok(mission2.includes('repeat 3 times'), 'Mission 2 explicitly teaches a simple repeat loop');
+ok(mission2.includes('The special result uses one repeat loop'), 'Mission 2 Build It requires loop application');
+ok(mission2.includes('Explain the Decision + Loop'), 'Mission 2 checkpoint assesses loop understanding');
+ok(mission2.includes('I can use a simple repeat loop'), 'Mission 2 Skill Passport records loop mastery');
 
 console.log(`FutureTech Lab student usability audit passed: ${checks.length} checks.`);
