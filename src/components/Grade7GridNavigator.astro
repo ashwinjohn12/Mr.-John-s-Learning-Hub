@@ -1,0 +1,70 @@
+---
+interface Props { title?:string; }
+const {title='Grid Navigator'}=Astro.props;
+const lines=Array.from({length:21},(_,i)=>40+i*22);
+const ticks=[-10,-5,0,5,10];
+---
+<section class="navigator" data-grid-navigator aria-labelledby="grid-nav-title">
+  <div class="head"><div><p class="mini-label">EXPLORE · GRID NAVIGATOR</p><h4 id="grid-nav-title">{title}</h4></div><span class="badge">Track A → A′ → A″</span></div>
+  <p>Choose a mission and one valid transformation route. Run the route, inspect every coordinate, then report the <strong>net horizontal and vertical movement</strong> from the start to the final point. Compare routes to see why the final location can match even when total distance travelled does not.</p>
+  <div class="layout">
+    <div class="plane-wrap">
+      <svg class="plane" data-plane viewBox="0 0 520 520" role="img" aria-label="Cartesian grid showing the selected Grid Navigator route.">
+        <rect x="40" y="40" width="440" height="440" rx="12" fill="#f8fbff" stroke="#b9c8da" stroke-width="2"/>
+        <g aria-hidden="true">{lines.map(p=><><line x1={p} y1="40" x2={p} y2="480" stroke="#dce6f2" stroke-width="1"/><line x1="40" y1={p} x2="480" y2={p} stroke="#dce6f2" stroke-width="1"/></>)}</g>
+        <g aria-hidden="true"><line x1="40" y1="260" x2="480" y2="260" stroke="#1d3557" stroke-width="3"/><line x1="260" y1="40" x2="260" y2="480" stroke="#1d3557" stroke-width="3"/></g>
+        <g aria-hidden="true">{ticks.map(i=><text x={260+i*22} y="280" text-anchor="middle" fill="#465a73" font-size="13" font-weight="700">{i}</text>)}{ticks.filter(i=>i!==0).map(i=><text x="250" y={264-i*22} text-anchor="end" fill="#465a73" font-size="13" font-weight="700">{i}</text>)}<text x="486" y="252" fill="#465a73" font-weight="800">x</text><text x="270" y="34" fill="#465a73" font-weight="800">y</text></g>
+        <polyline data-route points="" fill="none" stroke="#b76e00" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <g data-points></g>
+      </svg>
+      <div class="legend"><span><i class="start-key"></i>Start</span><span><i class="path-key"></i>Route</span><span><i class="finish-key"></i>Finish</span></div>
+    </div>
+    <div class="controls">
+      <label>Mission<select data-mission><option value="m1">Mission 1 · Cross-quadrant delivery</option><option value="m2">Mission 2 · Two routes, same finish</option><option value="m3">Mission 3 · Backtracking comparison</option></select></label>
+      <label>Route<select data-route-choice></select></label>
+      <button type="button" class="primary" data-run>Run this route</button>
+      <p class="status" data-status role="status">Choose a mission and route, then run it.</p>
+      <div class="route-summary" data-summary hidden>
+        <strong>Route evidence</strong>
+        <p data-route-name></p>
+        <div class="metric-grid"><div><span>Net horizontal movement</span><b data-net-x></b></div><div><span>Net vertical movement</span><b data-net-y></b></div><div><span>Horizontal distance travelled</span><b data-dist-x></b></div><div><span>Vertical distance travelled</span><b data-dist-y></b></div></div>
+      </div>
+      <div class="report" data-report hidden>
+        <h5>Report the positional change</h5>
+        <div class="report-grid"><label>Horizontal amount<input data-h-amount type="number" min="0" max="20" inputmode="numeric"/></label><label>Horizontal direction<select data-h-dir><option value="right">right</option><option value="left">left</option><option value="none">no horizontal movement</option></select></label><label>Vertical amount<input data-v-amount type="number" min="0" max="20" inputmode="numeric"/></label><label>Vertical direction<select data-v-dir><option value="up">up</option><option value="down">down</option><option value="none">no vertical movement</option></select></label></div>
+        <button type="button" class="secondary" data-check>Check my report</button><p data-report-status role="status">Use start and finish coordinates, not the length of the route.</p>
+      </div>
+      <div class="coord-table" data-table hidden><table><caption>Successive positions</caption><thead><tr><th>Position</th><th>Coordinate</th><th>Step movement</th></tr></thead><tbody data-rows></tbody></table></div>
+    </div>
+  </div>
+  <div class="compare" data-compare hidden><h5>Compare the two routes</h5><p data-compare-text></p></div>
+</section>
+<script>
+type P={x:number;y:number}; type Step={label:string;name:string;point:P}; type Route={name:string;steps:Step[]}; type Mission={start:P;finish:P;routes:Route[]};
+const missions:Record<string,Mission>={
+ m1:{start:{x:-5,y:4},finish:{x:4,y:-3},routes:[
+  {name:'Route A · Translate, then translate',steps:[{label:'A′',name:'6 right, 2 down',point:{x:1,y:2}},{label:'A″',name:'3 right, 5 down',point:{x:4,y:-3}}]},
+  {name:'Route B · Reflect in y-axis, then translate',steps:[{label:'A′',name:'reflect in y-axis',point:{x:5,y:4}},{label:'A″',name:'1 left, 7 down',point:{x:4,y:-3}}]}
+ ]},
+ m2:{start:{x:6,y:2},finish:{x:-2,y:5},routes:[
+  {name:'Route A · Reflect, then translate',steps:[{label:'A′',name:'reflect in y-axis',point:{x:-6,y:2}},{label:'A″',name:'4 right, 3 up',point:{x:-2,y:5}}]},
+  {name:'Route B · Rotate 180° about origin, then translate',steps:[{label:'A′',name:'rotate 180° about (0, 0)',point:{x:-6,y:-2}},{label:'A″',name:'4 right, 7 up',point:{x:-2,y:5}}]}
+ ]},
+ m3:{start:{x:-4,y:-3},finish:{x:3,y:4},routes:[
+  {name:'Route A · Direct translation',steps:[{label:'A′',name:'7 right, 7 up',point:{x:3,y:4}}]},
+  {name:'Route B · Detour with backtracking',steps:[{label:'A′',name:'10 right, 2 up',point:{x:6,y:-1}},{label:'A″',name:'3 left, 5 up',point:{x:3,y:4}}]}
+ ]}
+};
+const fmt=(p:P)=>`(${p.x}, ${p.y})`.replaceAll('-','−');const move=(a:number,b:number,pos:string,neg:string)=>b===a?'0 units':`${Math.abs(b-a)} ${Math.abs(b-a)===1?'unit':'units'} ${b>a?pos:neg}`;
+document.querySelectorAll<HTMLElement>('[data-grid-navigator]').forEach(root=>{const missionSel=root.querySelector<HTMLSelectElement>('[data-mission]')!,routeSel=root.querySelector<HTMLSelectElement>('[data-route-choice]')!,routeLine=root.querySelector<SVGPolylineElement>('[data-route]')!,pointLayer=root.querySelector<SVGGElement>('[data-points]')!,status=root.querySelector<HTMLElement>('[data-status]')!,summary=root.querySelector<HTMLElement>('[data-summary]')!,report=root.querySelector<HTMLElement>('[data-report]')!,table=root.querySelector<HTMLElement>('[data-table]')!,rows=root.querySelector<HTMLTableSectionElement>('[data-rows]')!,compare=root.querySelector<HTMLElement>('[data-compare]')!,compareText=root.querySelector<HTMLElement>('[data-compare-text]')!;let current:Mission=missions.m1,currentRoute=current.routes[0];
+ const px=(n:number)=>260+n*22,py=(n:number)=>260-n*22;
+ const populateRoutes=()=>{current=missions[missionSel.value];routeSel.innerHTML=current.routes.map((r,i)=>`<option value="${i}">${r.name}</option>`).join('');currentRoute=current.routes[0];clear()};
+ const clear=()=>{routeLine.setAttribute('points','');pointLayer.innerHTML='';summary.hidden=true;report.hidden=true;table.hidden=true;compare.hidden=true;status.textContent='Route changed. Run it to inspect the coordinates.'};
+ const routeStats=(r:Route)=>{const pts=[current.start,...r.steps.map(s=>s.point)];let dx=0,dy=0;for(let i=1;i<pts.length;i++){dx+=Math.abs(pts[i].x-pts[i-1].x);dy+=Math.abs(pts[i].y-pts[i-1].y)}return{dx,dy}};
+ const render=()=>{currentRoute=current.routes[Number(routeSel.value)];const pts=[current.start,...currentRoute.steps.map(s=>s.point)],labels=['A',...currentRoute.steps.map(s=>s.label)];routeLine.setAttribute('points',pts.map(p=>`${px(p.x)},${py(p.y)}`).join(' '));pointLayer.innerHTML=pts.map((p,i)=>`<g transform="translate(${px(p.x)} ${py(p.y)})"><circle r="9" fill="${i===0?'#dbeafe':i===pts.length-1?'#ffedb0':'#fff'}" stroke="${i===0?'#2457c5':i===pts.length-1?'#b76e00':'#6d28d9'}" stroke-width="4"/><text x="13" y="-12" fill="#16365f" font-size="16" font-weight="900" font-family="system-ui, sans-serif">${labels[i]}</text></g>`).join('');rows.innerHTML=pts.map((p,i)=>`<tr><th>${labels[i]}</th><td>${fmt(p)}</td><td>${i===0?'Start':`${move(pts[i-1].x,p.x,'right','left')}; ${move(pts[i-1].y,p.y,'up','down')}`}</td></tr>`).join('');const netX=current.finish.x-current.start.x,netY=current.finish.y-current.start.y,stats=routeStats(currentRoute);root.querySelector<HTMLElement>('[data-route-name]')!.textContent=currentRoute.name;root.querySelector<HTMLElement>('[data-net-x]')!.textContent=move(current.start.x,current.finish.x,'right','left');root.querySelector<HTMLElement>('[data-net-y]')!.textContent=move(current.start.y,current.finish.y,'up','down');root.querySelector<HTMLElement>('[data-dist-x]')!.textContent=`${stats.dx} ${stats.dx===1?'unit':'units'}`;root.querySelector<HTMLElement>('[data-dist-y]')!.textContent=`${stats.dy} ${stats.dy===1?'unit':'units'}`;summary.hidden=false;report.hidden=false;table.hidden=false;compare.hidden=false;const other=current.routes[Number(routeSel.value)===0?1:0],otherStats=routeStats(other);compareText.textContent=`Both routes start at ${fmt(current.start)} and finish at ${fmt(current.finish)}, so both have the same net positional change. This route travels ${stats.dx} units horizontally and ${stats.dy} vertically; the other route travels ${otherStats.dx} horizontally and ${otherStats.dy} vertically. Same finish does not guarantee the same total distance travelled.`;status.textContent=`Route complete: ${labels.join(' → ')}. Now report the net movement from A to ${labels.at(-1)}.`;root.querySelector<HTMLInputElement>('[data-h-amount]')!.value='';root.querySelector<HTMLInputElement>('[data-v-amount]')!.value='';root.querySelector<HTMLElement>('[data-report-status]')!.textContent='Use start and finish coordinates, not the length of the route.'};
+ missionSel.addEventListener('change',populateRoutes);routeSel.addEventListener('change',clear);root.querySelector('[data-run]')?.addEventListener('click',render);root.querySelector('[data-check]')?.addEventListener('click',()=>{const ha=Number(root.querySelector<HTMLInputElement>('[data-h-amount]')!.value),va=Number(root.querySelector<HTMLInputElement>('[data-v-amount]')!.value),hd=root.querySelector<HTMLSelectElement>('[data-h-dir]')!.value,vd=root.querySelector<HTMLSelectElement>('[data-v-dir]')!.value,dx=current.finish.x-current.start.x,dy=current.finish.y-current.start.y,needHd=dx===0?'none':dx>0?'right':'left',needVd=dy===0?'none':dy>0?'up':'down',out=root.querySelector<HTMLElement>('[data-report-status]')!;if(ha===Math.abs(dx)&&va===Math.abs(dy)&&hd===needHd&&vd===needVd)out.textContent=`Correct. Net movement is ${move(current.start.x,current.finish.x,'right','left')} and ${move(current.start.y,current.finish.y,'up','down')}.`;else out.textContent=`Repair: compare only the start ${fmt(current.start)} and finish ${fmt(current.finish)}. Horizontal change uses x-coordinates; vertical change uses y-coordinates.`});populateRoutes();
+});
+</script>
+<style>
+.navigator{border:1px solid #d7e1ee;border-radius:18px;padding:1rem;background:#fff;box-shadow:0 12px 28px rgba(24,78,166,.08)}.head{display:flex;justify-content:space-between;gap:1rem;align-items:start}.head h4{margin:.15rem 0;font-size:1.18rem}.mini-label{margin:0;font-size:.75rem;font-weight:900;letter-spacing:.08em;color:#5a6a80}.badge{padding:.4rem .65rem;border-radius:999px;background:#eef6ff;color:#425a78;font-weight:800;white-space:nowrap}.layout{display:grid;grid-template-columns:minmax(300px,1.18fr) minmax(280px,.82fr);gap:1rem;align-items:start}.plane{display:block;width:100%;max-width:640px;aspect-ratio:1;border-radius:14px}.legend{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;color:#526174;font-size:.88rem}.legend span{display:flex;gap:.35rem;align-items:center}.legend i{width:16px;height:16px;border-radius:4px;display:inline-block}.start-key{background:#dbeafe;border:2px solid #2457c5}.path-key{background:#fff;border:3px solid #6d28d9}.finish-key{background:#ffedb0;border:2px solid #b76e00}.controls{display:grid;gap:.75rem}.controls>label,.report label{display:grid;gap:.22rem;font-weight:800}.controls select,.controls input{min-width:0;min-height:44px;border:1px solid #aebed2;border-radius:9px;padding:.55rem;font:inherit;background:#fff}.primary,.secondary{min-height:44px;border-radius:9px;padding:.65rem .85rem;font-weight:850;cursor:pointer}.primary{border:0;background:#2457c5;color:#fff}.secondary{border:1px solid #2457c5;background:#fff;color:#2457c5}.primary:focus-visible,.secondary:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #ffbf47;outline-offset:2px}.status,.route-summary,.report,.compare{padding:.8rem;border-radius:12px;background:#f5f7fa}.status{margin:0}.route-summary{background:#eef6ff}.route-summary p{margin:.25rem 0 .65rem}.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}.metric-grid div{display:grid;gap:.2rem;padding:.55rem;border-radius:10px;background:#fff}.metric-grid span{font-size:.78rem;color:#526174;font-weight:750}.report h5,.compare h5{margin:0 0 .55rem;font-size:1rem}.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}.report [data-report-status]{margin:.6rem 0 0;color:#425a78;font-weight:700}.coord-table{overflow-x:auto}.coord-table table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}.coord-table caption{text-align:left;font-weight:900;padding:.3rem 0}.coord-table th,.coord-table td{border-bottom:1px solid #dde5ef;padding:.45rem;text-align:left}.compare{margin-top:1rem;background:#fff7d6}.compare p{margin:0}@media(max-width:760px){.layout{grid-template-columns:1fr}.plane{max-width:none}.head{display:grid}.badge{justify-self:start}}@media(max-width:390px){.navigator{padding:.72rem}.report-grid,.metric-grid{grid-template-columns:1fr}.coord-table th,.coord-table td{padding:.35rem;font-size:.9rem}}@media(prefers-reduced-motion:reduce){.navigator *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
