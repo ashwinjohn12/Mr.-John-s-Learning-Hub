@@ -1,0 +1,101 @@
+---
+interface Props {
+  mode?: 'investigate' | 'create';
+  title?: string;
+}
+const {mode='investigate',title=mode==='investigate'?'Reproduce a coordinate design':'Create your own coordinate design'}=Astro.props;
+const recipe=mode==='investigate'?
+  [{x:-6,y:4},{x:-1,y:8},{x:5,y:4},{x:3,y:-3},{x:-3,y:-6},{x:-7,y:-1}]:[];
+const uid=`g7-design-${mode}-${Math.random().toString(36).slice(2,8)}`;
+const lines=Array.from({length:21},(_,i)=>40+i*22);
+const ticks=[-10,-5,0,5,10];
+---
+<section class="design-studio" data-design-studio data-mode={mode} aria-labelledby={`${uid}-title`}>
+  <div class="studio-head">
+    <div><p class="mini-label">{mode==='investigate'?'DESIGN STUDIO · REPRODUCE':'DESIGN STUDIO · CREATE'}</p><h4 id={`${uid}-title`}>{title}</h4></div>
+    <span class="vertex-count"><strong data-count>0</strong>/10 vertices</span>
+  </div>
+  {mode==='investigate' ? <>
+    <p>Plot the six vertices in order. The studio checks each coordinate before adding it. When the design is complete, compare what happens when the <strong>same vertices</strong> are connected in a different order.</p>
+    <div class="recipe" aria-label="Coordinate recipe">
+      {recipe.map((p,i)=><span><b>{String.fromCharCode(65+i)}</b>({p.x}, {p.y})</span>)}
+    </div>
+  </> : <p>Create a design with 6–10 integral-coordinate vertices. Add them in the exact order another student should connect them, then close the design and copy the generated instructions.</p>}
+  <div class="studio-layout">
+    <div class="plane-wrap">
+      <svg class="design-plane" data-plane viewBox="0 0 520 520" role="img" tabindex="0" aria-label={`${title}. Interactive Cartesian plane from negative 10 to 10 on each axis.`}>
+        <rect x="40" y="40" width="440" height="440" rx="12" class="plot-bg"/>
+        <g class="grid-lines" aria-hidden="true">{lines.map(p=><><line x1={p} y1="40" x2={p} y2="480"/><line x1="40" y1={p} x2="480" y2={p}/></>)}</g>
+        <g class="axes" aria-hidden="true"><line x1="40" y1="260" x2="480" y2="260"/><line x1="260" y1="40" x2="260" y2="480"/></g>
+        <g class="ticks" aria-hidden="true">{ticks.map(i=><text x={260+i*22} y="280" text-anchor="middle">{i}</text>)}{ticks.filter(i=>i!==0).map(i=><text x="250" y={264-i*22} text-anchor="end">{i}</text>)}</g>
+        <g class="axis-names" aria-hidden="true"><text x="486" y="252">x</text><text x="270" y="34">y</text></g>
+        <polyline data-connection class="connection" points="" aria-hidden="true"/>
+        <g data-points></g>
+        <g data-cursor class="cursor" transform="translate(260 260)" aria-hidden="true"><circle r="10"/><path d="M-15 0H15M0-15V15"/></g>
+      </svg>
+      <p class="keyboard-tip">Keyboard: focus the grid, use arrow keys to move the cursor, then press <kbd>Enter</kbd> to add the vertex.</p>
+    </div>
+    <div class="studio-controls">
+      <div class="readout" aria-live="polite"><span>Cursor</span><strong data-pair>(0, 0)</strong><small data-next>{mode==='investigate'?'Next: A(−6, 4)':'Choose your first vertex.'}</small></div>
+      <div class="entry-row"><label>x-coordinate<input data-x type="number" min="-10" max="10" step="1" value="0" inputmode="numeric"/></label><label>y-coordinate<input data-y type="number" min="-10" max="10" step="1" value="0" inputmode="numeric"/></label></div>
+      <button type="button" class="primary" data-add>Add this vertex</button>
+      <div class="button-row"><button type="button" class="secondary" data-undo disabled>Undo last</button><button type="button" class="secondary" data-clear disabled>Clear</button></div>
+      {mode==='create'&&<button type="button" class="close-button" data-close disabled>Close the design</button>}
+      {mode==='investigate'&&<button type="button" class="close-button" data-compare disabled>Compare a different connection order</button>}
+      <p class="feedback" data-status role="status">{mode==='investigate'?'Start with vertex A at (−6, 4).':'Add a vertex to begin.'}</p>
+      <div class="instructions"><strong>{mode==='investigate'?'Vertices plotted':'Instructions for a classmate'}</strong><ol data-list></ol><p data-connection-text>{mode==='create'?'Add at least 6 vertices, then close your design.':'Connection order: A → B → C → D → E → F → A.'}</p></div>
+    </div>
+  </div>
+  <script type="application/json" data-recipe set:html={JSON.stringify(recipe)}></script>
+</section>
+<script>
+type DesignPoint={x:number;y:number};
+const letter=(i:number)=>String.fromCharCode(65+i);
+const minus=(n:number)=>String(n).replace('-', '−');
+document.querySelectorAll<HTMLElement>('[data-design-studio]').forEach(root=>{
+  const mode=root.dataset.mode||'investigate';
+  const recipe=JSON.parse(root.querySelector<HTMLScriptElement>('[data-recipe]')?.textContent||'[]') as DesignPoint[];
+  const svg=root.querySelector<SVGSVGElement>('[data-plane]')!, cursor=root.querySelector<SVGGElement>('[data-cursor]')!, pointLayer=root.querySelector<SVGGElement>('[data-points]')!, connection=root.querySelector<SVGPolylineElement>('[data-connection]')!;
+  const xInput=root.querySelector<HTMLInputElement>('[data-x]')!, yInput=root.querySelector<HTMLInputElement>('[data-y]')!, status=root.querySelector<HTMLElement>('[data-status]')!, pair=root.querySelector<HTMLElement>('[data-pair]')!, next=root.querySelector<HTMLElement>('[data-next]')!, list=root.querySelector<HTMLOListElement>('[data-list]')!, connectionText=root.querySelector<HTMLElement>('[data-connection-text]')!, count=root.querySelector<HTMLElement>('[data-count]')!;
+  const add=root.querySelector<HTMLButtonElement>('[data-add]')!, undo=root.querySelector<HTMLButtonElement>('[data-undo]')!, clear=root.querySelector<HTMLButtonElement>('[data-clear]')!, close=root.querySelector<HTMLButtonElement>('[data-close]'), compare=root.querySelector<HTMLButtonElement>('[data-compare]');
+  let x=0,y=0,closed=false,comparison=false;let points:DesignPoint[]=[];
+  const clamp=(v:number)=>Math.max(-10,Math.min(10,Math.round(Number.isFinite(v)?v:0)));
+  const px=(v:number)=>260+v*22,py=(v:number)=>260-v*22;
+  const setCursor=(nx:number,ny:number)=>{x=clamp(nx);y=clamp(ny);xInput.value=String(x);yInput.value=String(y);pair.textContent=`(${minus(x)}, ${minus(y)})`;cursor.setAttribute('transform',`translate(${px(x)} ${py(y)})`)};
+  const draw=()=>{
+    pointLayer.innerHTML=points.map((p,i)=>`<g class="vertex" transform="translate(${px(p.x)} ${py(p.y)})"><circle r="8"/><text x="12" y="-12">${letter(i)}</text></g>`).join('');
+    const order=comparison&&points.length===recipe.length?[points[0],points[2],points[1],...points.slice(3)]:points;
+    const renderPoints=(closed||comparison)&&order.length>2?[...order,order[0]]:order;
+    connection.setAttribute('points',renderPoints.map(p=>`${px(p.x)},${py(p.y)}`).join(' '));
+    list.innerHTML=points.map((p,i)=>`<li><b>${letter(i)}</b>(${minus(p.x)}, ${minus(p.y)})</li>`).join('');count.textContent=String(points.length);
+    undo.disabled=points.length===0;clear.disabled=points.length===0;add.disabled=points.length>=10||(mode==='investigate'&&points.length>=recipe.length);
+    if(close)close.disabled=points.length<3;
+    if(compare)compare.disabled=points.length!==recipe.length;
+    if(mode==='investigate')next.textContent=points.length<recipe.length?`Next: ${letter(points.length)}(${minus(recipe[points.length].x)}, ${minus(recipe[points.length].y)})`:'All six vertices are plotted.';
+    else next.textContent=points.length?`${points.length} ${points.length===1?'vertex':'vertices'} recorded in connection order.`:'Choose your first vertex.';
+    if(mode==='create')connectionText.textContent=closed?`Connect ${points.map((_,i)=>letter(i)).join(' → ')} → A.`:points.length?`Current order: ${points.map((_,i)=>letter(i)).join(' → ')}. Close the design when ready.`:'Add at least 6 vertices, then close your design.';
+  };
+  const addPoint=()=>{
+    setCursor(Number(xInput.value),Number(yInput.value));
+    if(points.some(p=>p.x===x&&p.y===y)){status.textContent='That coordinate is already a vertex. Choose a different grid intersection.';return}
+    if(mode==='investigate'){
+      const expected=recipe[points.length];if(!expected)return;
+      if(x!==expected.x||y!==expected.y){status.textContent=`Not yet. ${letter(points.length)} must be (${minus(expected.x)}, ${minus(expected.y)}). Check x first, then y.`;return}
+    }
+    if(points.length>=10)return;points.push({x,y});closed=false;comparison=false;
+    status.textContent=mode==='investigate'?(points.length===recipe.length?'All six coordinates are correct. The vertices are connected in order and closed. Now compare a different connection order.':`${letter(points.length-1)} is correct. Continue to the next ordered pair.`):`${letter(points.length-1)} added at (${minus(x)}, ${minus(y)}).`;
+    if(mode==='investigate'&&points.length===recipe.length)closed=true;draw();
+  };
+  svg.addEventListener('pointerdown',event=>{const r=svg.getBoundingClientRect(),vx=(event.clientX-r.left)/r.width*520,vy=(event.clientY-r.top)/r.height*520;setCursor((vx-260)/22,(260-vy)/22)});
+  svg.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Enter',' '].includes(event.key))return;event.preventDefault();if(event.key==='ArrowLeft')setCursor(x-1,y);if(event.key==='ArrowRight')setCursor(x+1,y);if(event.key==='ArrowUp')setCursor(x,y+1);if(event.key==='ArrowDown')setCursor(x,y-1);if(event.key==='Enter'||event.key===' ')addPoint()});
+  xInput.addEventListener('change',()=>setCursor(Number(xInput.value),y));yInput.addEventListener('change',()=>setCursor(x,Number(yInput.value)));add.addEventListener('click',addPoint);
+  undo.addEventListener('click',()=>{points.pop();closed=false;comparison=false;status.textContent='Last vertex removed.';draw()});
+  clear.addEventListener('click',()=>{points=[];closed=false;comparison=false;status.textContent=mode==='investigate'?'Design cleared. Start again with A.':'Design cleared. Choose a new first vertex.';draw()});
+  close?.addEventListener('click',()=>{closed=!closed;close.textContent=closed?'Open the design':'Close the design';status.textContent=closed?'Design closed by connecting the final vertex back to A.':'Design opened; the last vertex is no longer connected back to A.';draw()});
+  compare?.addEventListener('click',()=>{comparison=!comparison;compare.textContent=comparison?'Restore correct connection order':'Compare a different connection order';status.textContent=comparison?'Same coordinates, different order: B and C are connected in a different sequence, so the design changes.':'Correct A → B → C → D → E → F → A order restored.';draw()});
+  draw();setCursor(0,0);
+});
+</script>
+<style>
+.design-studio{border:1px solid #d7e1ee;border-radius:18px;padding:1rem;background:#fff;box-shadow:0 12px 28px rgba(24,78,166,.08)}.studio-head{display:flex;justify-content:space-between;gap:1rem;align-items:start}.studio-head h4{margin:.15rem 0;font-size:1.18rem}.mini-label{margin:0;font-size:.75rem;font-weight:900;letter-spacing:.08em;color:#5a6a80}.vertex-count{padding:.4rem .65rem;border-radius:999px;background:#eef6ff;color:#425a78;white-space:nowrap}.recipe{display:flex;gap:.45rem;flex-wrap:wrap;margin:.8rem 0}.recipe span{padding:.35rem .5rem;border:1px solid #cad7e7;border-radius:9px;background:#f8fbff;font-variant-numeric:tabular-nums}.recipe b{color:#2457c5;margin-right:.2rem}.studio-layout{display:grid;grid-template-columns:minmax(280px,1.35fr) minmax(240px,.65fr);gap:1rem;align-items:start}.plane-wrap{min-width:0}.design-plane{display:block;width:100%;max-width:620px;aspect-ratio:1;border-radius:14px;touch-action:none;cursor:crosshair}.design-plane:focus-visible{outline:4px solid #ffbf47;outline-offset:3px}.plot-bg{fill:#f8fbff;stroke:#cbd8e8;stroke-width:2}.grid-lines line{stroke:#dce6f2;stroke-width:1}.axes line{stroke:#1d3557;stroke-width:3}.ticks,.axis-names{font:700 13px system-ui;fill:#465a73}.connection{fill:none;stroke:#2457c5;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}.vertex circle{fill:#ffb703;stroke:#714500;stroke-width:3}.vertex text{font:900 17px system-ui;fill:#16365f}.cursor circle{fill:#fff7d6;stroke:#a86100;stroke-width:3}.cursor path{stroke:#a86100;stroke-width:2}.keyboard-tip{margin:.5rem auto 0;text-align:center;color:#526174;font-size:.86rem}.keyboard-tip kbd{padding:.08rem .3rem;border:1px solid #c6d2df;border-bottom-width:2px;border-radius:4px;background:#fff}.studio-controls{display:grid;gap:.75rem}.readout{display:grid;gap:.12rem;padding:.9rem;border-radius:14px;background:#eef6ff}.readout strong{font-size:1.7rem;color:#174ea6}.readout small{color:#425a78;font-weight:750}.entry-row{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}.entry-row label{display:grid;gap:.2rem;font-weight:800}.entry-row input{min-width:0;min-height:44px;border:1px solid #aebed2;border-radius:9px;padding:.55rem;font:inherit}.primary,.secondary,.close-button{min-height:44px;border-radius:9px;padding:.65rem .8rem;font-weight:850;cursor:pointer}.primary{border:0;background:#2457c5;color:#fff}.secondary,.close-button{border:1px solid #2457c5;background:#fff;color:#2457c5}.close-button{border-color:#087f5b;color:#087f5b}.button-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}button:disabled{opacity:.45;cursor:not-allowed}.feedback{margin:0;padding:.75rem;border-radius:10px;background:#fff7d6;color:#563e00;font-weight:700}.instructions{padding:.8rem;border:1px solid #d8e1ec;border-radius:12px;background:#f8fafc}.instructions ol{margin:.55rem 0;padding-left:1.7rem;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.25rem}.instructions p{margin:.55rem 0 0;color:#526174;font-weight:700}@media(max-width:760px){.studio-layout{grid-template-columns:1fr}.design-plane{max-width:none}.studio-controls{max-width:620px}}@media(max-width:390px){.design-studio{padding:.72rem}.studio-head{display:grid}.vertex-count{justify-self:start}.entry-row,.button-row{grid-template-columns:1fr}.instructions ol{grid-template-columns:1fr}.ticks{font-size:11px}}@media(prefers-reduced-motion:reduce){.design-studio *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
