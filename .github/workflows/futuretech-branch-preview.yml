@@ -55,6 +55,7 @@ jobs:
               text = text.replace(f'href="{base}"', f'href="{base}index.html"')
               text = re.sub(r'href="(' + re.escape(base) + r'[^"#?]+/)"', r'href="\1index.html"', text)
               text = re.sub(r'href="((?:\.\.?/)[^"#?]+/)"', r'href="\1index.html"', text)
+              text = re.sub(r'href="((?!https?:|mailto:|tel:|#|/)[^"#?]+/)"', r'href="\1index.html"', text)
               path.write_text(text, encoding='utf-8')
           PY
       - name: Verify FutureTech preview navigation targets
