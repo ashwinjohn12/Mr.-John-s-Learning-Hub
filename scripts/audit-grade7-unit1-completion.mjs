@@ -5,12 +5,18 @@ for(const p of Object.values(files))fs.existsSync(path.join(root,p))?pass(`exist
 const data=read(files.data),reviewComp=read(files.reviewComp),checkComp=read(files.checkComp),arcadeComp=read(files.arcadeComp),review=read(files.review),check=read(files.check),arcade=read(files.arcade),completion=[data,reviewComp,checkComp,arcadeComp,review,check,arcade].join('\n');
 for(const t of['1.1','The Cartesian Plane','1.2','Create Designs','1.3','Transformations','1.4','Horizontal and Vertical Distances'])data.includes(t)?pass(`Unit 1 coverage ${t}`):fail(`missing Unit 1 coverage ${t}`);
 for(const t of['Unit Review','Four lesson stations','representative worked examples','Mixed supported review','independent Unit Check'])review.includes(t)?pass(`Review feature ${t}`):fail(`Review missing ${t}`);
-for(const t of['12 questions per attempt','3 / 6 / 3 difficulty','Balanced answer positions','Delayed feedback','question bank'])check.includes(t)?pass(`Unit Check architecture ${t}`):fail(`Unit Check page missing ${t}`);
+for(const t of['12 questions per attempt','3 / 6 / 3 difficulty','Balanced answer positions','Delayed feedback'])check.includes(t)?pass(`Unit Check page architecture ${t}`):fail(`Unit Check page missing ${t}`);
+check.includes('grade7Unit1CompletionCheckBank')&&checkComp.includes('question bank')&&checkComp.includes('bank.length')?pass('Unit Check page uses independent bank and component exposes bank size'):fail('Unit Check independent bank presentation/integration incomplete');
 for(const t of['Festival Grid','Coordinate Rescue','not another multiple-choice check','Locate','Design','Transform','Compare movement'])arcade.includes(t)?pass(`Math Arcade transfer feature ${t}`):fail(`Math Arcade page missing ${t}`);
 for(const t of['data-unit1-completion-check','[0,0,0,1,1,1,2,2,2,3,3,3]','Complete all 12 questions before submitting','Lesson evidence','Repair routes'])checkComp.includes(t)?pass(`Unit Check engine ${t}`):fail(`Unit Check engine missing ${t}`);
 for(const t of['data-unit1-arcade','Apply translation','Reflect in x-axis','Reflect in y-axis','90° clockwise','90° counterclockwise','180°','A → A′','A′ → A″','Certify an efficient route','Replay the full arcade'])arcadeComp.includes(t)?pass(`Arcade mechanic ${t}`):fail(`Arcade missing ${t}`);
-for(const p of[review,check,arcade])for(const t of['unit-review','unit-check','math-arcade'])p.includes(t)?pass(`completion navigation includes ${t}`):fail(`completion navigation missing ${t}`);
-if(review.includes('../horizontal-vertical-distances/')&&check.includes('../unit-review/')&&arcade.includes('../unit-check/'))pass('Completion sequence links logically from verified Lesson 1.4 through Review → Check → Arcade');else fail('Completion sequence navigation incomplete');
+const navChecks=[
+ ['Review',review,['../horizontal-vertical-distances/','Unit Review','../unit-check/','../math-arcade/']],
+ ['Check',check,['../horizontal-vertical-distances/','../unit-review/','Unit Check','../math-arcade/']],
+ ['Arcade',arcade,['../horizontal-vertical-distances/','../unit-review/','../unit-check/','Math Arcade']]
+];
+for(const[label,source,tokens]of navChecks){const missing=tokens.filter(t=>!source.includes(t));missing.length?fail(`${label} completion navigation missing ${missing.join(', ')}`):pass(`${label} completion navigation contains Lesson 1.4 → Review → Check → Arcade sequence`)}
+review.includes('../unit-check/')&&check.includes('../math-arcade/')&&arcade.includes('../unit-check/')?pass('Completion resource handoff Review → Check → Arcade is linked without altering verified Lesson 1.4'):fail('Completion resource handoff incomplete');
 
 // Parse every independent-check bank row without importing TypeScript.
 const rows=data.split(/\r?\n/).filter(l=>l.startsWith('add('));rows.length===48?pass('Independent Unit Check bank contains exactly 48 questions'):fail(`Unit Check bank row count ${rows.length}`);
