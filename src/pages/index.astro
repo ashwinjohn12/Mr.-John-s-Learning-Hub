@@ -8,7 +8,7 @@ const base = import.meta.env.BASE_URL;
     <div>
       <p class="eyebrow">WELCOME TO YOUR LEARNING HUB</p>
       <h1>Choose a course.<br /><span>Start making sense of it.</span></h1>
-      <p class="lead">Clear explanations, interactive tools, purposeful practice, projects, and review—organized for the whole year.</p>
+      <p class="lead">Clear explanations, interactive tools, purposeful practice, and review—organized for the whole year.</p>
     </div>
     <aside class="today-card" aria-label="How learning works here">
       <p class="eyebrow">THE LEARNING LOOP</p>
@@ -16,7 +16,7 @@ const base = import.meta.env.BASE_URL;
         <li><span>01</span>Understand the big idea</li>
         <li><span>02</span>Explore and make connections</li>
         <li><span>03</span>Practise with feedback</li>
-        <li><span>04</span>Apply, build, and review</li>
+        <li><span>04</span>Review what needs attention</li>
       </ol>
     </aside>
   </section>
@@ -44,13 +44,16 @@ const base = import.meta.env.BASE_URL;
   </section>
 
   <section class="how-section" id="how-to-use">
-    <div><p class="eyebrow">HOW TO USE EACH COURSE</p><h2>One rhythm, every time.</h2></div>
+    <div><p class="eyebrow">HOW TO USE EACH TOPIC</p><h2>One rhythm, every time.</h2></div>
     <div class="rhythm-grid">
       <span>🌎<b>Big Ideas</b><small>See the purpose</small></span><span>📘<b>Understand</b><small>Learn the concepts</small></span><span>🧠<b>Vocabulary</b><small>Build the language</small></span><span>🔬<b>Explore</b><small>Investigate</small></span><span>✏️<b>Practise</b><small>Get feedback</small></span><span>🎮<b>Apply</b><small>Use what you know</small></span><span>✅<b>Review</b><small>Check readiness</small></span>
     </div>
   </section>
 </BaseLayout>
 <style>
-.futuretech-card{position:relative;overflow:hidden;background:radial-gradient(circle at 92% 10%,rgba(34,211,238,.17),transparent 34%),linear-gradient(150deg,#fff,#f5f3ff)}
-.futuretech-card:after{content:"";position:absolute;right:-18px;bottom:-22px;width:110px;height:110px;border:1px solid rgba(91,33,182,.13);border-radius:24px;transform:rotate(20deg);pointer-events:none}
+.futuretech-card{grid-column:1/-1;min-height:230px;position:relative;overflow:hidden;background:radial-gradient(circle at 92% 10%,rgba(34,211,238,.17),transparent 34%),linear-gradient(150deg,#fff,#f5f3ff)}
+.futuretech-card h3{font-size:clamp(1.8rem,3vw,2.35rem)}
+.futuretech-card p{max-width:760px}
+.futuretech-card:after{content:"";position:absolute;right:-18px;bottom:-22px;width:150px;height:150px;border:1px solid rgba(91,33,182,.13);border-radius:28px;transform:rotate(20deg);pointer-events:none}
+@media(max-width:700px){.futuretech-card{grid-column:1/-1;min-height:280px}}
 </style>
