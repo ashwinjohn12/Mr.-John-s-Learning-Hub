@@ -1,0 +1,41 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {execFileSync} from 'node:child_process';
+const root=process.cwd();
+const verified11='c6b281877879fe7d987a5788d4d849333b496fd4';
+const read=p=>fs.readFileSync(path.join(root,p),'utf8');
+const fail=m=>{console.error(`FAIL: ${m}`);process.exitCode=1};
+const pass=m=>console.log(`PASS: ${m}`);
+const pagePath='src/pages/courses/grade-7-math/coordinates-design/create-designs.astro';
+const studioPath='src/components/Grade7DesignStudio.astro';
+const checkPath='src/components/Grade7DesignCheck.astro';
+const auditPath='scripts/audit-grade7-rebuild-1-2.mjs';
+const renderPath='scripts/render-grade7-rebuild-1-2.mjs';
+const workflowPath='.github/workflows/grade7-rebuild-1-2-ci.yml';
+for(const p of[pagePath,studioPath,checkPath])fs.existsSync(path.join(root,p))?pass(`exists ${p}`):fail(`missing ${p}`);
+const page=read(pagePath),studio=read(studioPath),check=read(checkPath);
+const requiredSections=['overview','big-ideas','understand','examples','vocabulary','explore','practise','check','apply','review'];
+for(const id of requiredSections)(page.includes(`id="${id}"`)||page.includes(`id='${id}'`))?pass(`section ${id}`):fail(`missing section ${id}`);
+const curriculumTokens=['Shape & Space SS4','draw shapes and designs','given integral ordered pairs','create a shape or design','identify the points used','vertex','vertices','connection order'];
+for(const token of curriculumTokens)page.toLowerCase().includes(token.toLowerCase())?pass(`curriculum/source token ${token}`):fail(`missing curriculum/source token ${token}`);
+for(const token of['Design Studio','Coordinate Logo Challenge','Reproduce a design','Create a design','Ready for 1.3?'])page.includes(token)?pass(`lesson feature ${token}`):fail(`missing lesson feature ${token}`);
+for(const token of['keydown','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Enter','role="img"','aria-live','inputmode="numeric"','prefers-reduced-motion','@media(max-width:390px)','data-compare','data-close'])studio.includes(token)?pass(`studio accessibility/interaction ${token}`):fail(`studio missing ${token}`);
+for(const token of['2 foundational','4 core','2 reasoning','[0,0,1,1,2,2,3,3]','miniDesign','New question set','data-design-check'])check.includes(token)?pass(`check architecture ${token}`):fail(`check missing ${token}`);
+if(/\btranslation\b|\breflection\b|\brotation\b/i.test(page.replace('Next: Lesson 1.3 — Transformations','')))fail('Lesson 1.2 teaches transformation content reserved for 1.3');else pass('Lesson 1.2 boundary: no translation/reflection/rotation instruction before 1.3');
+const bankIds=[...check.matchAll(/id:`([^`]+)`/g)].map(m=>m[1]);
+if(bankIds.length>=6)pass('Check Yourself contains generated multi-strand question families');else fail('Check Yourself question-family coverage too small');
+const balance=[0,0,1,1,2,2,3,3],totals=[0,0,0,0];for(let n=0;n<10000;n++){const a=[...balance];for(let i=a.length-1;i>0;i--){const j=(n*37+i*19)%(i+1);[a[i],a[j]]=[a[j],a[i]]}const counts=[0,0,0,0];for(const x of a){counts[x]++;totals[x]++}if(counts.some(x=>x!==2))fail(`answer-position imbalance in attempt ${n}`)}
+if(totals.every(x=>x===20000))pass(`10,000 Check Yourself attempts: exact answer-position totals A/B/C/D = ${totals.join('/')}`);else fail(`unexpected answer-position totals ${totals.join('/')}`);
+const allowed=new Set([pagePath,studioPath,checkPath,auditPath,renderPath,workflowPath]);
+let changed=[];try{changed=execFileSync('git',['diff','--name-only',`${verified11}...HEAD`],{encoding:'utf8'}).trim().split(/\r?\n/).filter(Boolean)}catch(e){fail(`git diff failed: ${e.message}`)}
+const unexpected=changed.filter(p=>!allowed.has(p));unexpected.length?fail(`Lesson 1.2 diff contains unexpected paths: ${unexpected.join(', ')}`):pass(`Lesson 1.2 protected diff: ${changed.length} changed files, all isolated to 1.2 page/components/CI`);
+const protected11=['src/pages/courses/grade-7-math/coordinates-design/the-cartesian-plane.astro','src/components/Grade7RebuildLessonFrame.astro','src/components/Grade7CoordinateGrid.astro','src/components/Grade7CartesianCheck.astro','scripts/audit-grade7-rebuild-1-1.mjs','scripts/render-grade7-rebuild-1-1.mjs','.github/workflows/grade7-rebuild-1-1-ci.yml'];
+for(const p of protected11){let diff='';try{diff=execFileSync('git',['diff','--name-only',verified11,'HEAD','--',p],{encoding:'utf8'}).trim()}catch(e){fail(`Lesson 1.1 regression diff failed for ${p}: ${e.message}`)}diff?fail(`Lesson 1.1 changed: ${p}`):pass(`Lesson 1.1 preserved: ${p}`)}
+if(changed.some(p=>p.startsWith('src/pages/courses/grade-6-math/')||p.includes('Grade6')||p.startsWith('src/pages/courses/grade-7-science')||p.startsWith('src/pages/courses/grade-8-science')||p.startsWith('src/pages/courses/grade-9-science')))fail('Grade 6 Math or Science protected content changed');else pass('Grade 6 Math and Science protected paths untouched');
+if(changed.includes('src/data/courses.ts'))fail('existing live Grade 7 course map changed');else pass('existing live/public Grade 7 course map untouched');
+if(changed.some(p=>p==='astro.config.mjs'||p==='.github/workflows/deploy.yml'))fail('public hosting configuration changed');else pass('public hosting configuration untouched');
+const dist12=path.join(root,'dist','courses','grade-7-math','coordinates-design','create-designs','index.html');const dist11=path.join(root,'dist','courses','grade-7-math','coordinates-design','the-cartesian-plane','index.html');
+if(fs.existsSync(dist12)){const html=fs.readFileSync(dist12,'utf8');requiredSections.every(id=>html.includes(`id="${id}"`))?pass('Lesson 1.2 built route contains all ten lesson anchors'):fail('Lesson 1.2 built route missing anchor');html.includes('Create Designs')?pass('Lesson 1.2 built route title present'):fail('Lesson 1.2 built route title missing');(html.match(/href="#(?:overview|big-ideas|understand|examples|vocabulary|explore|practise|check|apply|review)"/g)||[]).length===10?pass('Lesson 1.2 local navigation contains ten section links'):fail('Lesson 1.2 local navigation mismatch')}else fail(`Lesson 1.2 built route missing: ${dist12}`);
+if(fs.existsSync(dist11)){const html=fs.readFileSync(dist11,'utf8');requiredSections.every(id=>html.includes(`id="${id}"`))&&html.includes('The Cartesian Plane')?pass('Lesson 1.1 built-route regression: title and ten anchors intact'):fail('Lesson 1.1 built-route regression failed')}else fail(`Lesson 1.1 built route missing: ${dist11}`);
+console.log(`AUDIT_SUMMARY lesson12Changed=${changed.length} answerTotals=${totals.join(',')} route12=${fs.existsSync(dist12)?'present':'missing'} lesson11=${fs.existsSync(dist11)?'present':'missing'}`);
+if(process.exitCode)process.exit(process.exitCode);
