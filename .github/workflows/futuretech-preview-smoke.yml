@@ -1,0 +1,57 @@
+name: FutureTech Preview Smoke
+
+on:
+  push:
+    branches:
+      - 'dev/futuretech-lab-framework-20260915-v2'
+    paths:
+      - 'src/pages/index.astro'
+      - 'src/pages/courses/futuretech-lab/**'
+      - 'src/components/FutureTechMissionFrame.astro'
+      - 'src/styles/**'
+      - 'scripts/capture-futuretech-preview.mjs'
+      - '.github/workflows/futuretech-preview-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rendered-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm install --no-save playwright@1.55.0 serve@14.2.4
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - name: Prepare isolated preview root
+        run: |
+          mkdir -p preview-root/Mr.-John-s-Learning-Hub
+          cp -R dist/. preview-root/Mr.-John-s-Learning-Hub/
+      - name: Start isolated local preview server
+        run: |
+          npx serve preview-root -l 4173 --no-clipboard > /tmp/futuretech-serve.log 2>&1 &
+          echo $! > /tmp/futuretech-serve.pid
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173/Mr.-John-s-Learning-Hub/courses/futuretech-lab/ >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/futuretech-serve.log
+          exit 1
+      - name: Capture and smoke-test FutureTech pages
+        run: node scripts/capture-futuretech-preview.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: futuretech-rendered-preview
+          path: artifacts/futuretech-preview
+          if-no-files-found: error
+          retention-days: 7
