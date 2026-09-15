@@ -1,0 +1,59 @@
+name: Grade 7 Unit 1 Completion CI
+
+on:
+  push:
+    branches:
+      - dev/grade7-rebuild-unit1-review-check-arcade-20260915
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-unit1-completion:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Unit 1 completion branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Complete project build
+        run: npm run build
+
+      - name: Unit 1 completion curriculum, bank, arcade, regression, and protected-diff audit
+        run: node scripts/audit-grade7-unit1-completion.mjs
+
+      - name: Install browser audit dependency
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Start built-site preview
+        run: |
+          nohup npm run preview -- --host 127.0.0.1 --port 4321 > /tmp/g7-unit1-preview.log 2>&1 &
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4321/Mr.-John-s-Learning-Hub/courses/grade-7-math/coordinates-design/unit-review/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/g7-unit1-preview.log
+          exit 1
+
+      - name: Responsive, interaction, accessibility, appearance, and lesson regression browser audit
+        run: node scripts/render-grade7-unit1-completion.mjs
+
+      - name: Upload Unit 1 completion rendered evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: grade7-unit1-completion-rendered-evidence
+          path: artifacts/*.png
+          if-no-files-found: error
