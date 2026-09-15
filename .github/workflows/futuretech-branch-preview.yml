@@ -1,0 +1,55 @@
+name: FutureTech Branch Preview
+
+on:
+  push:
+    branches:
+      - futuretech-preview-20260915
+    paths:
+      - 'astro.preview.config.mjs'
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/futuretech-branch-preview.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: futuretech-preview-20260915
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build isolated static preview
+        run: npx astro build --config astro.preview.config.mjs
+      - name: Keep only preview pages and required assets
+        run: |
+          rm -rf preview-site
+          mkdir -p preview-site/courses/futuretech-lab
+          cp dist/index.html preview-site/index.html
+          cp -R dist/courses/futuretech-lab/. preview-site/courses/futuretech-lab/
+          if [ -d dist/_astro ]; then cp -R dist/_astro preview-site/_astro; fi
+          for f in favicon.svg favicon.ico robots.txt; do
+            if [ -f "dist/$f" ]; then cp "dist/$f" "preview-site/$f"; fi
+          done
+      - name: Commit preview snapshot to preview branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f preview-site
+          if git diff --cached --quiet; then
+            echo "Preview snapshot already current."
+          else
+            git commit -m "Build isolated FutureTech browser preview"
+            git push origin HEAD:futuretech-preview-20260915
+          fi
