@@ -4,6 +4,12 @@ type Pt={x:number;y:number;label:string};
 type Visual={points:Pt[];target:string};
 type Q={id:string;level:Level;prompt:string;correct:string;distractors:string[];feedback:string;visual?:Visual};
 const q:Q[]=[];
+const fmt=(x:number,y:number)=>`(${x}, ${y})`.replaceAll('-', '−');
+const coordinateDistractors=(x:number,y:number)=>{
+  const correct=fmt(x,y);
+  const pool=[fmt(y,x),fmt(-x,y),fmt(x,-y),fmt(-x,-y),fmt(y,-x),fmt(-y,x),fmt(x+1,y),fmt(x,y+1)];
+  return [...new Set(pool)].filter(v=>v!==correct).slice(0,3);
+};
 [
  ['vertex','a point where two sides of a figure meet','a line that divides the plane','the scale on an axis','the centre of a grid'],
  ['vertices','more than one vertex','the two coordinate axes','points only on the origin','all points in Quadrant I'],
@@ -16,9 +22,7 @@ const q:Q[]=[];
  ['Why should vertices be labelled A, B, C, …?','labels make the connection sequence clear','labels change the coordinates','labels determine the quadrant','labels make every shape a polygon'],
  ['What should you do before copying a coordinate design?','check the axes, scale, ordered pairs, and connection order','connect random points first','read y before x','ignore points on an axis']
 ].forEach((x,i)=>q.push({id:`f-process-${i}`,level:1,prompt:x[0],correct:x[1],distractors:x.slice(2),feedback:x[1][0].toUpperCase()+x[1].slice(1)+'.'}));
-[
- [-4,6,'(−4, 6)'],[5,-3,'(5, −3)'],[-7,-2,'(−7, −2)'],[0,8,'(0, 8)']
-].forEach((x,i)=>q.push({id:`f-pair-${i}`,level:1,prompt:`A design vertex is ${Math.abs(Number(x[0]))} units ${Number(x[0])<0?'left':Number(x[0])>0?'right':'horizontally from'} the y-axis and ${Math.abs(Number(x[1]))} units ${Number(x[1])<0?'down':'up'} from the x-axis. Which ordered pair locates it?`,correct:x[2] as string,distractors:[`(${x[1]}, ${x[0]})`,`(${-Number(x[0])}, ${x[1]})`,`(${x[0]}, ${-Number(x[1])})`].map(s=>s.replaceAll('-', '−')).filter(s=>s!==x[2]),feedback:'Read the horizontal x-coordinate first, then the vertical y-coordinate.'}));
+[[-4,6],[5,-3],[-7,-2],[2,8]].forEach(([x,y],i)=>q.push({id:`f-pair-${i}`,level:1,prompt:`A design vertex is ${Math.abs(x)} units ${x<0?'left':'right'} of the y-axis and ${Math.abs(y)} units ${y<0?'down':'up'} from the x-axis. Which ordered pair locates it?`,correct:fmt(x,y),distractors:coordinateDistractors(x,y),feedback:'Read the horizontal x-coordinate first, then the vertical y-coordinate.'}));
 const visuals:[Pt[],string][]=[
  [[{x:-6,y:4,label:'A'},{x:-1,y:7,label:'B'},{x:4,y:3,label:'C'},{x:2,y:-3,label:'D'}],'B'],
  [[{x:-5,y:-2,label:'A'},{x:0,y:5,label:'B'},{x:6,y:1,label:'C'},{x:3,y:-6,label:'D'}],'C'],
@@ -31,7 +35,7 @@ const visuals:[Pt[],string][]=[
  [[{x:-5,y:3,label:'A'},{x:0,y:8,label:'B'},{x:5,y:3,label:'C'},{x:0,y:-6,label:'D'}],'A'],
  [[{x:-8,y:4,label:'A'},{x:-2,y:8,label:'B'},{x:5,y:6,label:'C'},{x:7,y:-1,label:'D'},{x:-1,y:-6,label:'E'}],'E']
 ];
-visuals.forEach((v,i)=>{const [points,target]=v;const p=points.find(x=>x.label===target)!;const correct=`(${p.x}, ${p.y})`.replaceAll('-', '−');const candidates=[`(${p.y}, ${p.x})`,`(${-p.x}, ${p.y})`,`(${p.x}, ${-p.y})`,`(${-p.x}, ${-p.y})`].map(s=>s.replaceAll('-', '−'));q.push({id:`c-vertex-${i}`,level:2,prompt:`What are the coordinates of vertex ${target}?`,correct,distractors:[...new Set(candidates)].filter(x=>x!==correct).slice(0,3),feedback:`Vertex ${target} is at ${correct}. Read x first, then y.`,visual:{points,target}})});
+visuals.forEach((v,i)=>{const [points,target]=v;const p=points.find(x=>x.label===target)!;q.push({id:`c-vertex-${i}`,level:2,prompt:`What are the coordinates of vertex ${target}?`,correct:fmt(p.x,p.y),distractors:coordinateDistractors(p.x,p.y),feedback:`Vertex ${target} is at ${fmt(p.x,p.y)}. Read x first, then y.`,visual:{points,target}})});
 [
  ['A → B → C → D → A','After plotting A, B, C, and D, which instruction closes the design?','connect D to A',['connect A to C','connect B to D','move A to D']],
  ['A → B → C → D → E → A','Which vertex is connected immediately after D?','E',['A','B','C']],
