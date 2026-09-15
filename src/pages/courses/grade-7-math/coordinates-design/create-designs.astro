@@ -1,0 +1,111 @@
+---
+import Grade7RebuildLessonFrame from '../../../../components/Grade7RebuildLessonFrame.astro';
+import LearningSection from '../../../../components/LearningSection.astro';
+import VocabularyExplorer from '../../../../components/VocabularyExplorer.astro';
+import Grade7CoordinateGrid from '../../../../components/Grade7CoordinateGrid.astro';
+import Grade7DesignStudio from '../../../../components/Grade7DesignStudio.astro';
+import Grade7DesignCheck from '../../../../components/Grade7DesignCheck.astro';
+const title='Create Designs';
+const summary='Use integral ordered pairs as design instructions: identify vertices, reproduce connected designs, and create coordinate instructions another student could follow.';
+const vocabulary=[
+ {term:'vertex',definition:'A point where two sides of a figure meet.',example:'Vertex B at (4, −2) tells you exactly where two sides meet.'},
+ {term:'vertices',definition:'More than one vertex.',example:'A quadrilateral has four vertices.'},
+ {term:'ordered pair',definition:'An exact point address written (x, y).',example:'A(−5, 3) means x = −5 and y = 3.'},
+ {term:'coordinates',definition:'The x-value and y-value used to locate a point.',example:'The coordinates of C are (2, 6).'},
+ {term:'connection order',definition:'The sequence used to join plotted vertices.',example:'A → B → C → D → A can make a different design than A → C → B → D → A.'},
+ {term:'closed design',definition:'A connected design whose final vertex joins back to its first vertex.',example:'Connecting D back to A closes quadrilateral ABCD.'}
+];
+const practice=[
+ {level:'A · Vocabulary',prompt:'Which point of a polygon is called a vertex?',choices:['A point where two sides meet','The centre of the grid','Any point on the x-axis','The scale label'],answer:0,feedback:'A vertex is a corner point where two sides of a figure meet.'},
+ {level:'B · Read a Vertex',prompt:'Vertex P is 5 units left and 3 units up from the origin. What are its coordinates?',choices:['(3, −5)','(−5, 3)','(5, −3)','(−3, 5)'],answer:1,feedback:'Read x first: 5 left is −5. Then y: 3 up is +3.'},
+ {level:'C · Connection Order',prompt:'The instructions say A → B → C → D → A. Which segment closes the design?',choices:['A to C','B to D','D to A','C to A'],answer:2,feedback:'The last instruction connects the final vertex D back to the starting vertex A.'},
+ {level:'D · Reproduce',prompt:'A classmate gives A(−4, 4), B(2, 6), C(5, −2), D(−3, −5). What should you do before connecting any sides?',choices:['Colour the design','Plot and label all four vertices accurately','Change all negative signs','Connect A directly to C'],answer:1,feedback:'First plot and label the given vertices. Then follow the stated connection order.'},
+ {level:'E · Error Repair',prompt:'A student plots C(4, −6) at (−6, 4). What happened?',choices:['The grid scale is too large','The coordinates were read in reverse order','The shape was not closed','The quadrant labels are wrong'],answer:1,feedback:'The student used y as x and x as y. Ordered pairs are always read x first, then y.'},
+ {level:'F · Communicate',prompt:'Which extra detail makes a coordinate list reproducible?',choices:['The pencil colour','The connection order and whether to close the design','The student’s name','The page number'],answer:1,feedback:'Exact coordinates locate vertices; connection order tells which line segments to draw.'},
+ {level:'G · Reason',prompt:'Two students plot exactly the same four vertices but get different connected figures. What should they compare?',choices:['Their connection order','Their handwriting','Their ruler colour','The number of quadrants on the plane'],answer:0,feedback:'The coordinates can stay fixed while a different connection order draws different segments.'},
+ {level:'H · Create',prompt:'What is the strongest way to test instructions for your own design?',choices:['Look at your original picture while redrawing','Ask whether the design looks colourful','Rebuild it using only the written coordinates and connection order','Rename every vertex'],answer:2,feedback:'A good instruction set should reproduce the design without needing the original picture.'}
+];
+const exampleShape=[{x:-6,y:4,label:'A'},{x:1,y:7,label:'B'},{x:6,y:1,label:'C'},{x:2,y:-5,label:'D'},{x:-5,y:-3,label:'E'}];
+const orderA=[{x:-5,y:5,label:'A'},{x:5,y:5,label:'B'},{x:5,y:-5,label:'C'},{x:-5,y:-5,label:'D'}];
+const orderB=[orderA[0],orderA[2],orderA[1],orderA[3]];
+---
+<Grade7RebuildLessonFrame {title} {summary} lesson="1.2" unitTitle="Unit 1 · Coordinates and Design">
+  <LearningSection id="overview" eyebrow="GET READY" title="Turn coordinates into design instructions" icon="🎯" tone="idea">
+    <div class="two-grid"><article><p class="mini-label">BRING FORWARD FROM 1.1</p><ul><li>Read an ordered pair <strong>x first, then y</strong>.</li><li>Plot integral coordinates in all four quadrants.</li><li>Recognize points on the axes.</li><li>Check the scale before counting intervals.</li></ul></article><article><p class="mini-label">BY THE END, I CAN…</p><ul><li>identify the coordinates of design vertices;</li><li>draw a design from given integral ordered pairs;</li><li>create a coordinate design in any quadrant;</li><li>identify and communicate the points used to make my design.</li></ul></article></div>
+    <p class="curriculum"><strong>Alberta Grade 7 · Shape & Space SS4:</strong> Lesson 1.2 develops the design-focused achievement indicators: draw shapes and designs from given integral ordered pairs, then create a shape or design and identify the points used to produce it.</p>
+    <div class="readiness"><strong>Quick start:</strong><span>A point is 4 units left and 3 units up. What ordered pair locates it?</span><details><summary>Check</summary><p><strong>(−4, 3).</strong> Those exact point addresses become the building instructions for today’s designs.</p></details></div>
+  </LearningSection>
+
+  <LearningSection id="big-ideas" eyebrow="START HERE" title="Four ideas make a design reproducible" icon="🌎" tone="idea">
+    <p class="big-statement">A coordinate design is more than a picture. It is a set of <strong>exact vertex locations plus instructions for how to connect them</strong>.</p>
+    <div class="idea-grid">
+      <article><h3>Vertices are exact addresses</h3><p>Each corner can be labelled with a capital letter and an integral ordered pair, such as A(−4, 6).</p></article>
+      <article><h3>Connection order matters</h3><p>The same points can make a different figure when they are connected in a different sequence.</p></article>
+      <article><h3>Closing is an instruction</h3><p>To make a closed figure, connect the final vertex back to the first. Do not assume a design closes unless the instructions say so.</p></article>
+      <article><h3>A good recipe can be tested</h3><p>If another person can rebuild your design using only its coordinates and connection order, your mathematical communication is precise.</p></article>
+    </div>
+  </LearningSection>
+
+  <LearningSection id="understand" eyebrow="LEARN" title="Build your design routine" icon="📘" tone="learn">
+    <div class="understand-cards">
+      <details id="understand-1" open><summary>1. Find and label the vertices</summary><p>A <strong>vertex</strong> is a point where two sides meet; more than one are <strong>vertices</strong>. Label them A, B, C, … so each point has an unambiguous name.</p><p class="mistake"><strong>Common mix-up:</strong> A point along the middle of a straight side is not automatically a vertex. Look for places where sides begin, end, or change direction.</p></details>
+      <details id="understand-2"><summary>2. Record every vertex as (x, y)</summary><p>Read horizontally first to find x, then vertically to find y. Write the label with the ordered pair: <strong>C(5, −3)</strong>. Points on an axis still work: (0, 6) or (−7, 0).</p><div class="memory"><strong>Quality check:</strong> Point to the plotted location, say “x, then y,” and verify both signs.</div></details>
+      <details id="understand-3"><summary>3. Reproduce a design from instructions</summary><ol><li>Read the axes and scale.</li><li>Plot and label every ordered pair.</li><li>Follow the stated connection order exactly.</li><li>Connect the final vertex back to the first only when instructed.</li><li>Compare the completed design with the coordinate list, not with a guess about what it “should” look like.</li></ol></details>
+      <details id="understand-4"><summary>4. Create a design that someone else can rebuild</summary><p>Choose integral-coordinate grid intersections for your vertices. Record each coordinate as you create it, in the same order you intend the segments to be drawn. Keep labels unique.</p><p class="mistake"><strong>Common mix-up:</strong> Writing coordinates after drawing from memory can change the order. Record the mathematical recipe while you build.</p></details>
+      <details id="understand-5"><summary>5. Test the communication, not just the picture</summary><p>Hide the original design and rebuild it using only your written instructions. If the new copy differs, diagnose whether the problem is a coordinate, a sign, a vertex label, the connection order, or a missing closing segment.</p></details>
+    </div>
+  </LearningSection>
+
+  <LearningSection id="examples" eyebrow="WATCH THE THINKING" title="Worked examples" icon="🧩" tone="learn">
+    <div class="example-grid">
+      <article><h3>Example 1 · Identify the vertices</h3><Grade7CoordinateGrid mode="static" scale={1} points={exampleShape} title="Five-vertex design for reading coordinates"/><p>Read each labelled point from the grid: <strong>A(−6, 4), B(1, 7), C(6, 1), D(2, −5), E(−5, −3)</strong>. Each ordered pair identifies one vertex exactly.</p></article>
+      <article><h3>Example 2 · Reproduce a design</h3><p>Given A(−7, −2), B(−2, 6), C(4, 7), D(7, 0), E(2, −6), connect <strong>A → B → C → D → E → A</strong>.</p><Grade7CoordinateGrid mode="static" scale={1} points={[{x:-7,y:-2,label:'A'},{x:-2,y:6,label:'B'},{x:4,y:7,label:'C'},{x:7,y:0,label:'D'},{x:2,y:-6,label:'E'}]} title="Design reproduced from five ordered pairs"/><ol><li>Plot all five vertices.</li><li>Verify each sign and label.</li><li>Connect in the given order.</li><li>Finish E → A to close it.</li></ol></article>
+      <article><h3>Example 3 · Same points, different order</h3><p>Both grids use the same four locations. Only the connection sequence changes.</p><div class="mini-example"><div><strong>A → B → C → D → A</strong><Grade7CoordinateGrid mode="static" scale={1} points={orderA} title="Square connection order"/></div><div><strong>A → C → B → D → A</strong><Grade7CoordinateGrid mode="static" scale={1} points={orderB} title="Crossed connection order"/></div></div><p><strong>Conclusion:</strong> coordinates determine the vertices; connection order determines which segments join them.</p></article>
+      <article><h3>Example 4 · Write reproducible instructions</h3><p>A design uses P(−4, 1), Q(0, 6), R(5, 2), S(3, −5), T(−3, −4).</p><div class="recipe-card"><strong>Complete recipe</strong><p>Scale 1. Plot and label P, Q, R, S, T. Connect <strong>P → Q → R → S → T → P</strong>.</p></div><p>A classmate does not need to see the picture. The point addresses and connection order are enough to rebuild it.</p></article>
+    </div>
+  </LearningSection>
+
+  <LearningSection id="vocabulary" eyebrow="LEARN THE LANGUAGE" title="Key vocabulary" icon="🧠" tone="vocab"><VocabularyExplorer words={vocabulary}/></LearningSection>
+
+  <LearningSection id="explore" eyebrow="INVESTIGATE" title="Design Studio: reproduce, then test the order" icon="🔬" tone="explore">
+    <p>Reproduce the coordinate recipe one vertex at a time. When all six points are correct, use the comparison button to see why connection order is part of the mathematics.</p>
+    <Grade7DesignStudio mode="investigate" title="Reproduce a six-vertex signal design"/>
+    <div class="discovery"><h3>After you reproduce it</h3><ol><li>Which vertices lie in different quadrants?</li><li>Which segment crosses an axis?</li><li>Compare the alternate connection order. Which coordinates changed?</li><li>If no coordinates changed, why did the design change?</li></ol><p><strong>Key conclusion:</strong> changing the order changes the segments, not the vertex coordinates.</p></div>
+  </LearningSection>
+
+  <LearningSection id="practise" eyebrow="PRACTISE WITH SUPPORT" title="Build confidence step by step" icon="✏️" tone="practice">
+    <p>These supported questions teach the repair while you practise. They are separate from the independent Check Yourself bank.</p>
+    <div class="practice-stack" data-design-practice>
+      {practice.map((item,i)=><fieldset data-item data-answer={item.answer} data-feedback={item.feedback}><legend><span>{item.level}</span>{item.prompt}</legend><div class="practice-choices">{item.choices.map((c,j)=><label><input type="radio" name={`design-practice-${i}`} value={j}/>{c}</label>)}</div><button type="button" data-check>Check</button><p data-status role="status">Choose an answer.</p></fieldset>)}
+    </div>
+  </LearningSection>
+
+  <LearningSection id="check" eyebrow="CHECK YOURSELF" title="Can you reproduce and communicate a design independently?" icon="✅" tone="review">
+    <p>The bank mixes vertex reading, plotting logic, connection order, quadrant reasoning, error analysis, and precise design communication. Each new attempt contains 2 foundational, 4 core, and 2 reasoning questions.</p>
+    <Grade7DesignCheck/>
+  </LearningSection>
+
+  <LearningSection id="apply" eyebrow="PLAY & APPLY" title="Coordinate Logo Challenge" icon="🎮" tone="play">
+    <div class="apply-intro"><div><h3>Your design brief</h3><p>Create an original straight-line logo with <strong>6–10 vertices</strong>. Use integral ordered pairs, place vertices in at least three quadrants, and make the instructions precise enough for another student to reproduce without seeing the logo.</p></div><strong>The mathematics is the coordinate recipe—not artistic complexity.</strong></div>
+    <Grade7DesignStudio mode="create" title="Build your coordinate logo"/>
+    <div class="logo-checklist"><h3>Release checklist</h3><label><input type="checkbox"/> I used 6–10 different integral-coordinate vertices.</label><label><input type="checkbox"/> My vertices reach at least three quadrants.</label><label><input type="checkbox"/> Every vertex has a unique capital-letter label.</label><label><input type="checkbox"/> My written ordered pairs match the plotted points.</label><label><input type="checkbox"/> My connection order states exactly how to reproduce the logo.</label><label><input type="checkbox"/> I tested the recipe without relying on the original picture.</label></div>
+  </LearningSection>
+
+  <LearningSection id="review" eyebrow="WRAP UP" title="Ready for 1.3?" icon="🏁" tone="review">
+    <div class="two-grid"><article><h3>I can retrieve…</h3><ul><li>vertex and vertices</li><li>ordered pairs as exact point addresses</li><li>why x is read before y</li><li>why connection order can change a design</li></ul></article><article><h3>I can demonstrate…</h3><ul><li>identify coordinates of labelled vertices</li><li>reproduce a design from integral ordered pairs</li><li>create a coordinate design</li><li>write enough information for someone else to reproduce it</li></ul></article></div>
+    <div class="exit-ticket" data-design-exit><h3>Three-question readiness check</h3>
+      <fieldset data-answer="1"><legend>1. Vertex K is 6 units left and 2 units down. Which ordered pair is correct?</legend><label><input type="radio" name="design-exit-1" value="0"/>(2, −6)</label><label><input type="radio" name="design-exit-1" value="1"/>(−6, −2)</label><label><input type="radio" name="design-exit-1" value="2"/>(6, 2)</label></fieldset>
+      <fieldset data-answer="2"><legend>2. Which instruction closes A → B → C → D?</legend><label><input type="radio" name="design-exit-2" value="0"/>Connect A to C</label><label><input type="radio" name="design-exit-2" value="1"/>Connect B to D</label><label><input type="radio" name="design-exit-2" value="2"/>Connect D to A</label></fieldset>
+      <fieldset data-answer="0"><legend>3. Two copies use the same vertices but look different. What should you compare first?</legend><label><input type="radio" name="design-exit-3" value="0"/>Connection order</label><label><input type="radio" name="design-exit-3" value="1"/>Pencil colour</label><label><input type="radio" name="design-exit-3" value="2"/>Page margins</label></fieldset>
+      <button type="button" data-submit>Check readiness</button><p data-status role="status">Answer all three questions.</p>
+    </div>
+    <div class="next-lesson"><strong>Next: Lesson 1.3 — Transformations</strong><span>You are ready to move from creating a fixed coordinate design to describing how an entire shape changes position.</span></div>
+  </LearningSection>
+</Grade7RebuildLessonFrame>
+<script>
+document.querySelectorAll<HTMLElement>('[data-design-practice] [data-item]').forEach(item=>{item.querySelector<HTMLButtonElement>('[data-check]')?.addEventListener('click',()=>{const chosen=item.querySelector<HTMLInputElement>('input:checked'),status=item.querySelector<HTMLElement>('[data-status]')!;if(!chosen){status.textContent='Choose an answer first.';return}const ok=Number(chosen.value)===Number(item.dataset.answer);status.textContent=ok?`Correct. ${item.dataset.feedback}`:`Repair: ${item.dataset.feedback}`})});
+document.querySelectorAll<HTMLElement>('[data-design-exit]').forEach(root=>{root.querySelector('[data-submit]')?.addEventListener('click',()=>{const items=[...root.querySelectorAll<HTMLElement>('fieldset')],status=root.querySelector<HTMLElement>('[data-status]')!;if(items.some(i=>!i.querySelector('input:checked'))){status.textContent='Answer all three questions before checking.';return}const score=items.reduce((n,item)=>n+(Number(item.querySelector<HTMLInputElement>('input:checked')!.value)===Number(item.dataset.answer)?1:0),0);status.textContent=score===3?'3/3. Ready for Lesson 1.3.':score===2?'2/3. Revisit the matching Understand card, then try again.':'Return to Design Studio and Practise before moving on.';status.focus()})});
+</script>
+<style>
+.two-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.two-grid article,.idea-grid article,.example-grid>article{border:1px solid #dce4ee;border-radius:14px;padding:1rem;background:#fff}.mini-label{margin:0;font-size:.75rem;font-weight:900;letter-spacing:.08em;color:#5a6a80}.curriculum{padding:1rem;border-left:5px solid #2457c5;background:#eef6ff;border-radius:0 12px 12px 0}.readiness{display:grid;gap:.45rem;margin-top:1rem;padding:1rem;border:1px solid #e3cf8b;border-radius:12px;background:#fff9dc}.readiness details summary{cursor:pointer;font-weight:800}.idea-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.idea-grid h3{margin:.2rem 0}.understand-cards{display:grid;gap:.7rem}.understand-cards details{border:1px solid #d9e2ec;border-radius:12px;padding:.9rem 1rem;background:#fff}.understand-cards summary{cursor:pointer;font-weight:850}.understand-cards ol{padding-left:1.25rem}.memory,.mistake,.recipe-card{margin-top:.75rem;padding:.75rem;border-radius:10px;background:#eef6ff}.mistake{background:#fff7d6}.example-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.example-grid>article{min-width:0}.example-grid h3{margin:.1rem 0 .75rem}.mini-example{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.mini-example>div{min-width:0}.discovery{margin-top:1rem;padding:1rem;border-radius:14px;background:#eaf8f2}.discovery h3{margin:.1rem 0}.practice-stack{display:grid;gap:.8rem}.practice-stack fieldset{min-width:0;margin:0;border:1px solid #d9e2ec;border-radius:12px;padding:1rem}.practice-stack legend{display:grid;gap:.2rem;font-weight:850}.practice-stack legend span{font-size:.78rem;color:#b44d12}.practice-choices{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin:.7rem 0}.practice-choices label{display:flex;gap:.5rem;align-items:flex-start;min-height:44px;padding:.55rem;border:1px solid #e0e6ed;border-radius:9px}.practice-stack button,.exit-ticket button{min-height:44px;border:0;border-radius:9px;padding:.65rem .85rem;background:#2457c5;color:#fff;font-weight:850;cursor:pointer}.practice-stack [data-status],.exit-ticket [data-status]{padding:.65rem;border-radius:9px;background:#f5f7fa;font-weight:700}.apply-intro{display:grid;grid-template-columns:1fr minmax(180px,.35fr);gap:1rem;align-items:start;margin-bottom:1rem;padding:1rem;border-radius:14px;background:#fff0f5}.apply-intro h3{margin:.1rem 0}.logo-checklist{display:grid;gap:.45rem;margin-top:1rem;padding:1rem;border:1px solid #e1d2da;border-radius:14px;background:#fff}.logo-checklist h3{margin:.1rem 0}.logo-checklist label{display:flex;gap:.55rem;align-items:flex-start;min-height:44px}.logo-checklist input{width:20px;height:20px;margin-top:.2rem}.exit-ticket{display:grid;gap:.7rem;margin-top:1rem;padding:1rem;border:1px solid #d9e2ec;border-radius:14px}.exit-ticket h3{margin:.1rem 0}.exit-ticket fieldset{display:grid;gap:.4rem;border:0;border-top:1px solid #e2e8f0;padding:.8rem 0 0}.exit-ticket label{display:flex;gap:.5rem;min-height:40px;align-items:center}.exit-ticket [data-status]{outline:none}.next-lesson{display:grid;gap:.2rem;margin-top:1rem;padding:1rem;border-radius:12px;background:#edf9f0}.next-lesson span{color:#526174}@media(max-width:760px){.two-grid,.idea-grid,.example-grid,.apply-intro{grid-template-columns:1fr}.mini-example{grid-template-columns:1fr}.practice-choices{grid-template-columns:1fr}}@media(max-width:390px){.two-grid article,.idea-grid article,.example-grid>article,.practice-stack fieldset{padding:.8rem}.curriculum{overflow-wrap:anywhere}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
