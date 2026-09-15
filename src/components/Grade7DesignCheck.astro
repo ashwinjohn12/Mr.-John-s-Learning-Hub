@@ -1,0 +1,82 @@
+---
+type Level=1|2|3;
+type Pt={x:number;y:number;label:string};
+type Visual={points:Pt[];target:string};
+type Q={id:string;level:Level;prompt:string;correct:string;distractors:string[];feedback:string;visual?:Visual};
+const q:Q[]=[];
+[
+ ['vertex','a point where two sides of a figure meet','a line that divides the plane','the scale on an axis','the centre of a grid'],
+ ['vertices','more than one vertex','the two coordinate axes','points only on the origin','all points in Quadrant I'],
+ ['connection order','the sequence used to join plotted vertices','the size of each grid square','the order of the quadrants','the sign of only the x-coordinate'],
+ ['ordered pair','an exact point address written (x, y)','a list of side lengths','the name of a polygon','two points joined by a line']
+].forEach((x,i)=>q.push({id:`f-vocab-${i}`,level:1,prompt:`Which description best matches “${x[0]}”?`,correct:x[1],distractors:x.slice(2),feedback:`${x[0]}: ${x[1]}.`}));
+[
+ ['To reproduce a design accurately, what must a coordinate list include?','the vertices in the intended connection order','only the quadrant names','only the number of vertices','only the first and last points'],
+ ['When should the final vertex be connected back to the first?','when the instructions say to close the design','after every second vertex','only in Quadrant I','never on a Cartesian plane'],
+ ['Why should vertices be labelled A, B, C, …?','labels make the connection sequence clear','labels change the coordinates','labels determine the quadrant','labels make every shape a polygon'],
+ ['What should you do before copying a coordinate design?','check the axes, scale, ordered pairs, and connection order','connect random points first','read y before x','ignore points on an axis']
+].forEach((x,i)=>q.push({id:`f-process-${i}`,level:1,prompt:x[0],correct:x[1],distractors:x.slice(2),feedback:x[1][0].toUpperCase()+x[1].slice(1)+'.'}));
+[
+ [-4,6,'(−4, 6)'],[5,-3,'(5, −3)'],[-7,-2,'(−7, −2)'],[0,8,'(0, 8)']
+].forEach((x,i)=>q.push({id:`f-pair-${i}`,level:1,prompt:`A design vertex is ${Math.abs(Number(x[0]))} units ${Number(x[0])<0?'left':Number(x[0])>0?'right':'horizontally from'} the y-axis and ${Math.abs(Number(x[1]))} units ${Number(x[1])<0?'down':'up'} from the x-axis. Which ordered pair locates it?`,correct:x[2] as string,distractors:[`(${x[1]}, ${x[0]})`,`(${-Number(x[0])}, ${x[1]})`,`(${x[0]}, ${-Number(x[1])})`].map(s=>s.replaceAll('-', '−')).filter(s=>s!==x[2]),feedback:'Read the horizontal x-coordinate first, then the vertical y-coordinate.'}));
+const visuals:[Pt[],string][]=[
+ [[{x:-6,y:4,label:'A'},{x:-1,y:7,label:'B'},{x:4,y:3,label:'C'},{x:2,y:-3,label:'D'}],'B'],
+ [[{x:-5,y:-2,label:'A'},{x:0,y:5,label:'B'},{x:6,y:1,label:'C'},{x:3,y:-6,label:'D'}],'C'],
+ [[{x:-7,y:1,label:'A'},{x:-2,y:6,label:'B'},{x:5,y:5,label:'C'},{x:6,y:-2,label:'D'},{x:0,y:-6,label:'E'}],'A'],
+ [[{x:-4,y:7,label:'A'},{x:3,y:7,label:'B'},{x:6,y:0,label:'C'},{x:2,y:-5,label:'D'},{x:-5,y:-3,label:'E'}],'D'],
+ [[{x:-8,y:-1,label:'A'},{x:-3,y:5,label:'B'},{x:2,y:2,label:'C'},{x:7,y:-4,label:'D'}],'B'],
+ [[{x:-2,y:8,label:'A'},{x:5,y:4,label:'B'},{x:5,y:-4,label:'C'},{x:-2,y:-8,label:'D'},{x:-6,y:0,label:'E'}],'E'],
+ [[{x:-6,y:6,label:'A'},{x:0,y:2,label:'B'},{x:6,y:6,label:'C'},{x:4,y:-5,label:'D'},{x:-4,y:-5,label:'E'}],'C'],
+ [[{x:-7,y:-5,label:'A'},{x:-1,y:-1,label:'B'},{x:4,y:-6,label:'C'},{x:7,y:3,label:'D'},{x:1,y:7,label:'E'}],'D'],
+ [[{x:-5,y:3,label:'A'},{x:0,y:8,label:'B'},{x:5,y:3,label:'C'},{x:0,y:-6,label:'D'}],'A'],
+ [[{x:-8,y:4,label:'A'},{x:-2,y:8,label:'B'},{x:5,y:6,label:'C'},{x:7,y:-1,label:'D'},{x:-1,y:-6,label:'E'}],'E']
+];
+visuals.forEach((v,i)=>{const [points,target]=v;const p=points.find(x=>x.label===target)!;const correct=`(${p.x}, ${p.y})`.replaceAll('-', '−');const candidates=[`(${p.y}, ${p.x})`,`(${-p.x}, ${p.y})`,`(${p.x}, ${-p.y})`,`(${-p.x}, ${-p.y})`].map(s=>s.replaceAll('-', '−'));q.push({id:`c-vertex-${i}`,level:2,prompt:`What are the coordinates of vertex ${target}?`,correct,distractors:[...new Set(candidates)].filter(x=>x!==correct).slice(0,3),feedback:`Vertex ${target} is at ${correct}. Read x first, then y.`,visual:{points,target}})});
+[
+ ['A → B → C → D → A','After plotting A, B, C, and D, which instruction closes the design?','connect D to A',['connect A to C','connect B to D','move A to D']],
+ ['A → B → C → D → E → A','Which vertex is connected immediately after D?','E',['A','B','C']],
+ ['A → B → C → D → E → F → A','Which two vertices form the final closing segment?','F and A',['E and F','A and B','D and F']],
+ ['A → C → B → D → A','If the plotted coordinates stay the same but the order changes from A → B → C → D → A to this order, what can change?','the shape of the connected design',['the coordinates of every vertex','the location of the axes','the signs of the quadrants']]
+].forEach((x,i)=>q.push({id:`c-order-${i}`,level:2,prompt:x[1],correct:x[2],distractors:x[3] as string[],feedback:i===3?'Connection order controls which line segments are drawn between fixed points.':`Follow the stated connection order: ${x[0]}.`}));
+[
+ ['A(4, 5), B(7, 2), C(5, −3)','Which statement is true about this three-vertex design?','its vertices include Quadrants I and IV',['all vertices are in Quadrant I','all vertices are on axes','it includes Quadrants II and III']],
+ ['A(−6, 4), B(−2, 7), C(−3, −5)','Which statement is true about this design?','its vertices include Quadrants II and III',['all vertices have positive x','all vertices are in Quadrant IV','every vertex lies on an axis']],
+ ['A(0, 6), B(5, 2), C(0, −4), D(−5, 2)','Which statement is true?','two vertices lie on the y-axis',['all four vertices lie in quadrants','two vertices lie on the x-axis','the design uses only Quadrant I']],
+ ['A(−5, 5), B(5, 5), C(5, −5), D(−5, −5)','Where are the four vertices located?','one vertex in each quadrant',['all in Quadrant I','only Quadrants I and II','only on the axes']]
+].forEach((x,i)=>q.push({id:`c-location-${i}`,level:2,prompt:`${x[0]} ${x[1]}`,correct:x[2],distractors:x[3] as string[],feedback:'Use the signs of each ordered pair to locate every vertex before connecting them.'}));
+[
+ ['A student plotted A(−4, 6) at (4, 6).','The x-direction was reversed; A belongs 4 units left of the y-axis.'],
+ ['A student copied every vertex correctly but joined A → C → B → D instead of A → B → C → D.','The connection order is wrong; keep the plotted points and reconnect them in the stated sequence.'],
+ ['A closed design should end D → A, but the student stopped after connecting C → D.','The closing segment is missing; connect the final vertex D back to A.'],
+ ['The instructions say B(3, −5), but the student plotted B(−5, 3).','The coordinates were swapped; plot x = 3 first and y = −5 second.'],
+ ['A classmate receives only “A(−2,4), B(5,4), C(3,−3)” with no connection instruction.','Add the connection order and state whether the final vertex connects back to A.'],
+ ['A student labels two different vertices C.','Give every vertex a unique label so the connection instructions are unambiguous.'],
+ ['A design recipe uses integral ordered pairs, but one plotted vertex is halfway between grid intersections.','Move that vertex to the grid intersection specified by its integral ordered pair.'],
+ ['The coordinates are correct, but a student reads y first when recreating each vertex.','Read x first, then y; otherwise the reconstructed design can change.']
+].forEach((x,i)=>q.push({id:`r-error-${i}`,level:3,prompt:`Which feedback best repairs this design error? ${x[0]}`,correct:x[1],distractors:['Change every coordinate sign.','Start connecting points in any order.','Ignore the vertex labels because only the picture matters.'],feedback:x[1]}));
+[
+ ['Which instruction set is most reproducible for a classmate?','Scale 1; A(−4,3), B(2,6), C(5,−2), D(−3,−4); connect A → B → C → D → A.',['Plot four points and make a cool shape.','Use A, B, C, D somewhere in four quadrants.','Draw a four-sided design that looks like mine.']],
+ ['Two students use the same four coordinates but produce different designs. What should they compare first?','the order in which the vertices were connected',['the colour of their pencils','the names of the quadrants','the size of the page margins']],
+ ['You create a design and want to test whether your instructions are complete. What is the strongest check?','hide the picture and rebuild it using only your own coordinate and connection instructions',['count how many colours you used','rename all vertices after finishing','look at the picture without reading the coordinates']],
+ ['Why are ordered pairs useful for communicating a design?','they give exact vertex locations that another person can reproduce',['they automatically choose colours','they make connection order unnecessary','they guarantee every design is symmetrical']]
+].forEach((x,i)=>q.push({id:`r-communicate-${i}`,level:3,prompt:x[0],correct:x[1],distractors:x[2] as string[],feedback:x[1][0].toUpperCase()+x[1].slice(1)+'.'}));
+---
+<div class="design-check" data-design-check>
+  <div class="check-head"><div><p class="mini-label">8-QUESTION INDEPENDENT CHECK</p><h3>Fresh design reasoning every attempt</h3><p>Each set includes 2 foundational, 4 core, and 2 reasoning questions. Correct-answer positions are balanced across A–D.</p></div><div class="bank-badge"><strong>{q.length}</strong><span>question bank</span></div></div>
+  <div data-items class="check-items"></div>
+  <div class="check-actions"><button type="button" data-submit>Submit all 8</button><button type="button" class="secondary" data-new>New question set</button></div>
+  <p data-result role="status" tabindex="-1" class="result">A new set is ready.</p>
+  <script type="application/json" data-bank set:html={JSON.stringify(q)}></script>
+</div>
+<script>
+type CheckPoint={x:number;y:number;label:string};
+const shuffle=<T,>(a:T[])=>{const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b};
+const miniDesign=(points:CheckPoint[],target:string)=>{const px=(n:number)=>130+n*9,py=(n:number)=>130-n*9;let grid='';for(let i=0;i<=20;i++){const p=40+i*9;grid+=`<line x1="${p}" y1="40" x2="${p}" y2="220"/><line x1="40" y1="${p}" x2="220" y2="${p}"/>`}const joined=[...points,points[0]].map(p=>`${px(p.x)},${py(p.y)}`).join(' ');return`<svg class="mini-design" viewBox="0 0 260 260" role="img" aria-label="Connected coordinate design with labelled vertices. Identify vertex ${target}."><rect x="40" y="40" width="180" height="180" rx="8"/><g>${grid}</g><path d="M40 130H220M130 40V220"/><polyline points="${joined}"/>${points.map(p=>`<g transform="translate(${px(p.x)} ${py(p.y)})"><circle r="6"/><text x="9" y="-8">${p.label}</text></g>`).join('')}</svg>`};
+document.querySelectorAll<HTMLElement>('[data-design-check]').forEach(root=>{const bank=JSON.parse(root.querySelector<HTMLScriptElement>('[data-bank]')!.textContent||'[]');const box=root.querySelector<HTMLElement>('[data-items]')!,result=root.querySelector<HTMLElement>('[data-result]')!;let attempt:any[]=[];
+ const build=()=>{const l1=shuffle(bank.filter((x:any)=>x.level===1)).slice(0,2),l2=shuffle(bank.filter((x:any)=>x.level===2)).slice(0,4),l3=shuffle(bank.filter((x:any)=>x.level===3)).slice(0,2);const positions=shuffle([0,0,1,1,2,2,3,3]);attempt=shuffle([...l1,...l2,...l3]).map((item:any,i:number)=>{const pos=positions[i],wrongPool=[...new Set<string>(item.distractors.filter((x:string)=>x!==item.correct))];if(wrongPool.length<3)throw new Error(`Question ${item.id} needs three unique distractors.`);const wrong=shuffle(wrongPool).slice(0,3),choices=[...wrong];choices.splice(pos,0,item.correct);return{...item,choices,answer:pos}});box.innerHTML=attempt.map((item:any,i:number)=>`<fieldset data-item data-answer="${item.answer}"><legend><span>${i+1}</span><em>${item.prompt}</em></legend>${item.visual?miniDesign(item.visual.points,item.visual.target):''}<div class="choices">${item.choices.map((c:string,j:number)=>`<label><input type="radio" name="design-q-${i}" value="${j}"><b>${'ABCD'[j]}</b><span>${c}</span></label>`).join('')}</div><p data-feedback hidden></p></fieldset>`).join('');result.textContent='A new set is ready.';result.focus()};
+ root.querySelector('[data-submit]')?.addEventListener('click',()=>{const items=[...box.querySelectorAll<HTMLElement>('[data-item]')],missing=items.find(x=>!x.querySelector('input:checked'));if(missing){result.textContent='Answer all 8 questions before submitting.';missing.querySelector<HTMLInputElement>('input')?.focus();return}let score=0;items.forEach((item,i)=>{const chosen=Number(item.querySelector<HTMLInputElement>('input:checked')?.value),answer=Number(item.dataset.answer),ok=chosen===answer;if(ok)score++;item.querySelectorAll<HTMLInputElement>('input').forEach(x=>x.disabled=true);const p=item.querySelector<HTMLElement>('[data-feedback]')!;p.hidden=false;p.textContent=ok?`Correct. ${attempt[i].feedback}`:`Repair: ${attempt[i].feedback} Correct answer: ${attempt[i].choices[answer]}.`});result.textContent=`${score}/8. ${score>=7?'Ready for the lesson review.':score>=5?'Nearly there. Repair the missed ideas, then try a fresh set.':'Return to Understand and the Design Studio before retrying.'}`;result.focus()});
+ root.querySelector('[data-new]')?.addEventListener('click',build);build();});
+</script>
+<style>
+.design-check{display:grid;gap:1rem}.check-head{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start}.check-head h3{margin:.1rem 0}.mini-label{margin:0;font-size:.75rem;font-weight:900;letter-spacing:.08em;color:#5a6a80}.bank-badge{display:grid;place-items:center;min-width:88px;padding:.6rem;border-radius:14px;background:#eef6ff;color:#174ea6}.bank-badge strong{font-size:1.8rem}.bank-badge span{font-size:.75rem;font-weight:800}.check-items{display:grid;gap:.8rem;min-width:0}.check-items fieldset{min-width:0;margin:0;padding:1rem;border:1px solid #d7e1ee;border-radius:14px;background:#fff}.check-items legend{display:grid;grid-template-columns:28px minmax(0,1fr);gap:.55rem;align-items:start;width:100%;max-width:100%;font-weight:850;line-height:1.45}.check-items legend>span{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#2457c5;color:#fff}.check-items legend em{font-style:normal;min-width:0;overflow-wrap:anywhere}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;margin-top:.75rem}.choices label{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:.5rem;align-items:center;min-width:0;min-height:48px;padding:.55rem;border:1px solid #d9e2ec;border-radius:10px;cursor:pointer}.choices label:focus-within{outline:3px solid #ffbf47;outline-offset:2px}.choices b{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#eef3fb;color:#2457c5}.choices label span{min-width:0;overflow-wrap:anywhere}.mini-design{display:block;width:min(290px,100%);margin:.75rem auto;background:#f8fbff;border-radius:12px}.mini-design rect{fill:#f8fbff;stroke:#b9c8da}.mini-design g>line{stroke:#e1e8f0;stroke-width:1}.mini-design>path{stroke:#1d3557;stroke-width:2}.mini-design polyline{fill:none;stroke:#2457c5;stroke-width:3;stroke-linejoin:round}.mini-design circle{fill:#ffb703;stroke:#714500;stroke-width:2}.mini-design text{font:900 13px system-ui;fill:#16365f}.check-items [data-feedback]{padding:.65rem;border-radius:10px;background:#eef6ff;overflow-wrap:anywhere}.check-actions{display:flex;gap:.6rem;flex-wrap:wrap}.check-actions button{min-height:44px;border-radius:9px;padding:.65rem .85rem;font-weight:850;cursor:pointer}.check-actions button:first-child{border:0;background:#2457c5;color:#fff}.check-actions .secondary{border:1px solid #2457c5;background:#fff;color:#2457c5}.result{padding:.75rem;border-radius:10px;background:#f5f7fa;font-weight:750}@media(max-width:620px){.choices{grid-template-columns:1fr}.check-head{grid-template-columns:1fr}.bank-badge{justify-self:start;grid-auto-flow:column;gap:.5rem}.bank-badge strong{font-size:1.25rem}}@media(max-width:390px){.check-items fieldset{padding:.75rem}}@media(prefers-reduced-motion:reduce){.design-check *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
