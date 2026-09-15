@@ -28,11 +28,11 @@ if(!/mapping rule|\(x\s*[+-]\s*\d+\s*,\s*y\s*[+-]/i.test(page))pass('No unsuppor
 const allowed=new Set([pagePath,labPath,checkPath,auditPath,renderPath,workflowPath]);
 let changed=[];try{changed=execFileSync('git',['diff','--name-only',`${baseline}...HEAD`],{encoding:'utf8'}).trim().split(/\r?\n/).filter(Boolean)}catch(e){fail(`git diff failed: ${e.message}`)}
 const unexpected=changed.filter(p=>!allowed.has(p));unexpected.length?fail(`Unexpected paths in Lesson 1.3 diff: ${unexpected.join(', ')}`):pass(`Protected diff: ${changed.length} changed files, all isolated to Lesson 1.3 page/components/CI`);
-const protected=[
+const protectedFiles=[
  'src/pages/courses/grade-7-math/coordinates-design/the-cartesian-plane.astro','src/components/Grade7RebuildLessonFrame.astro','src/components/Grade7CoordinateGrid.astro','src/components/Grade7CartesianCheck.astro','scripts/audit-grade7-rebuild-1-1.mjs','scripts/render-grade7-rebuild-1-1.mjs','.github/workflows/grade7-rebuild-1-1-ci.yml',
  'src/pages/courses/grade-7-math/coordinates-design/create-designs.astro','src/components/Grade7DesignStudio.astro','src/components/Grade7DesignCheck.astro','scripts/audit-grade7-rebuild-1-2.mjs','scripts/render-grade7-rebuild-1-2.mjs','.github/workflows/grade7-rebuild-1-2-ci.yml'
 ];
-for(const p of protected){let diff='';try{diff=execFileSync('git',['diff','--name-only',baseline,'HEAD','--',p],{encoding:'utf8'}).trim()}catch(e){fail(`regression diff failed ${p}: ${e.message}`)}diff?fail(`verified 1.1/1.2 file changed: ${p}`):pass(`verified file preserved: ${p}`)}
+for(const p of protectedFiles){let diff='';try{diff=execFileSync('git',['diff','--name-only',baseline,'HEAD','--',p],{encoding:'utf8'}).trim()}catch(e){fail(`regression diff failed ${p}: ${e.message}`)}diff?fail(`verified 1.1/1.2 file changed: ${p}`):pass(`verified file preserved: ${p}`)}
 if(changed.some(p=>p.startsWith('src/pages/courses/grade-6-math/')||p.includes('Grade6')||p.startsWith('src/pages/courses/grade-7-science/')||p.startsWith('src/pages/courses/grade-8-science/')||p.startsWith('src/pages/courses/grade-9-science/')))fail('Grade 6 Math or Science protected content changed');else pass('Grade 6 Math and Science protected paths untouched');
 if(changed.includes('src/data/courses.ts'))fail('existing live/public Grade 7 map changed');else pass('existing live/public Grade 7 course map untouched');
 if(changed.some(p=>p==='astro.config.mjs'||p==='.github/workflows/deploy.yml'))fail('public hosting configuration changed');else pass('public hosting configuration untouched');
