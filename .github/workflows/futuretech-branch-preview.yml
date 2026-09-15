@@ -42,6 +42,27 @@ jobs:
           for f in favicon.svg favicon.ico robots.txt; do
             if [ -f "dist/$f" ]; then cp "dist/$f" "preview-site/$f"; fi
           done
+      - name: Rewrite preview-only links for branch hosting
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          base = '/ashwinjohn12/Mr.-John-s-Learning-Hub/futuretech-preview-20260915/preview-site/'
+          for path in Path('preview-site').rglob('*.html'):
+              text = path.read_text(encoding='utf-8')
+              text = text.replace(f'href="{base}#', f'href="{base}index.html#')
+              text = text.replace(f'href="{base}"', f'href="{base}index.html"')
+              text = re.sub(r'href="(' + re.escape(base) + r'[^"#?]+/)"', r'href="\1index.html"', text)
+              text = re.sub(r'href="((?:\.\.?/)[^"#?]+/)"', r'href="\1index.html"', text)
+              path.write_text(text, encoding='utf-8')
+          PY
+      - name: Verify FutureTech preview navigation targets
+        run: |
+          grep -q 'creator-foundations/index.html' preview-site/courses/futuretech-lab/index.html
+          grep -q 'mission-1-make-it-happen/index.html' preview-site/courses/futuretech-lab/creator-foundations/index.html
+          grep -q 'mission-2-make-it-think/index.html' preview-site/courses/futuretech-lab/creator-foundations/index.html
+          grep -q '../mission-2-make-it-think/index.html' preview-site/courses/futuretech-lab/creator-foundations/mission-1-make-it-happen/index.html
       - name: Commit preview snapshot to preview branch
         run: |
           git config user.name "github-actions[bot]"
