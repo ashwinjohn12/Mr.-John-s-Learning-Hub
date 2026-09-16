@@ -1,0 +1,210 @@
+<section class="mission5-spread-print" aria-label="Mission 5 reusable stowaway spread simulation mat">
+  <h1>Mission 5 — Stowaway Spread Simulation</h1>
+  <p class="mission5-print-note"><strong>Reusable team mat.</strong> Place counters in the labelled zones and move them along the pathway from Cargo to E.</p>
+  <div class="mission5-zone-path" aria-label="Cargo to Zone E pathway">
+    <div><strong>CARGO</strong><span>Start here</span></div>
+    <b>→</b>
+    <div><strong>A</strong><span>Zone A</span></div>
+    <b>→</b>
+    <div><strong>B</strong><span>Zone B</span></div>
+    <b>→</b>
+    <div><strong>C</strong><span>Zone C</span></div>
+    <b>→</b>
+    <div><strong>D</strong><span>Zone D</span></div>
+    <b>→</b>
+    <div><strong>E</strong><span>Zone E</span></div>
+  </div>
+  <div class="mission5-round-boxes">
+    <div><strong>ROUND A — NO CHECKPOINT</strong><span>How many zones received a stowaway?</span></div>
+    <div><strong>ROUND B — EARLY CHECKPOINT</strong><span>How many zones received a stowaway?</span></div>
+  </div>
+  <div class="mission5-quarantine"><strong>QUARANTINE</strong><span>Place visible stowaways here during Round B.</span></div>
+</section>
+
+<style is:global>
+  .mission5-spread-print { display: none; }
+
+  @media print {
+    @page { margin: 0.45in; }
+
+    body.print-mission5-board {
+      background: #fff !important;
+    }
+
+    body.print-mission5-board .site-header,
+    body.print-mission5-board footer,
+    body.print-mission5-board .skip-link,
+    body.print-mission5-board .jcec-submission-dock,
+    body.print-mission5-board .jcec-device-tools,
+    body.print-mission5-board .mission-shell > *:not(.print-packet) {
+      display: none !important;
+    }
+
+    body.print-mission5-board main,
+    body.print-mission5-board .mission-shell {
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: #fff !important;
+      color: #111 !important;
+    }
+
+    body.print-mission5-board .mission5-spread-print {
+      display: block !important;
+      width: 100% !important;
+      max-width: 7.5in;
+      min-height: 9.55in;
+      margin: 0 auto !important;
+      box-sizing: border-box;
+      break-after: page;
+      page-break-after: always;
+      color: #111 !important;
+      background: #fff !important;
+      font-family: Arial, Helvetica, sans-serif !important;
+      font-size: 11pt;
+    }
+
+    body.print-mission5-board .mission5-spread-print h1 {
+      margin: 0 0 8pt;
+      font-size: 20pt;
+      line-height: 1.1;
+    }
+
+    body.print-mission5-board .mission5-print-note {
+      margin: 0 0 14pt;
+      line-height: 1.3;
+    }
+
+    body.print-mission5-board .mission5-zone-path {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr auto 1fr auto 1fr;
+      gap: 6pt;
+      align-items: center;
+      margin: 0 0 18pt;
+    }
+
+    body.print-mission5-board .mission5-zone-path div {
+      display: grid;
+      place-items: center;
+      min-height: 1.18in;
+      padding: 6pt;
+      border: 2px solid #333;
+      text-align: center;
+    }
+
+    body.print-mission5-board .mission5-zone-path strong {
+      font-size: 14pt;
+    }
+
+    body.print-mission5-board .mission5-zone-path span {
+      margin-top: 3pt;
+      font-size: 9pt;
+    }
+
+    body.print-mission5-board .mission5-zone-path b {
+      font-size: 16pt;
+    }
+
+    body.print-mission5-board .mission5-round-boxes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12pt;
+      margin-bottom: 18pt;
+    }
+
+    body.print-mission5-board .mission5-round-boxes div {
+      display: grid;
+      align-content: start;
+      min-height: 1.15in;
+      padding: 10pt;
+      border: 1px solid #555;
+    }
+
+    body.print-mission5-board .mission5-round-boxes span {
+      margin-top: 8pt;
+      border-bottom: 1px solid #777;
+      padding-bottom: 20pt;
+    }
+
+    body.print-mission5-board .mission5-quarantine {
+      display: grid;
+      align-content: start;
+      min-height: 2.2in;
+      padding: 12pt;
+      border: 2px dashed #555;
+    }
+
+    body.print-mission5-board .mission5-quarantine span {
+      margin-top: 4pt;
+      font-size: 10pt;
+    }
+
+    body.print-mission5-board .print-packet {
+      display: block !important;
+      position: static !important;
+      width: 100% !important;
+      max-width: 7.5in;
+      margin: 0 auto !important;
+      color: #111 !important;
+      background: #fff !important;
+      font-family: Arial, Helvetica, sans-serif !important;
+    }
+
+    body.print-mission5-board .recommendation-board-print {
+      box-sizing: border-box;
+      min-height: 9.55in;
+      padding: 0 !important;
+      break-after: auto;
+      page-break-after: auto;
+      font-size: 10.5pt !important;
+      line-height: 1.22;
+    }
+
+    body.print-mission5-board .recommendation-board-print h1 {
+      margin: 0 0 7pt !important;
+      font-size: 19pt !important;
+      line-height: 1.08;
+    }
+
+    body.print-mission5-board .recommendation-board-print h2 {
+      margin: 9pt 0 5pt;
+      font-size: 12.5pt;
+    }
+
+    body.print-mission5-board .recommendation-board-print > p {
+      margin: 5pt 0;
+    }
+
+    body.print-mission5-board .recommendation-board-print .print-grid.two {
+      gap: 7pt;
+      margin: 7pt 0 !important;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    body.print-mission5-board .recommendation-board-print .print-grid > div {
+      min-height: 0.78in !important;
+      padding: 7pt;
+      box-sizing: border-box;
+    }
+
+    body.print-mission5-board .recommendation-board-print .evidence-print {
+      margin: 6pt 0 !important;
+      padding: 5pt 7pt;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    body.print-mission5-board .recommendation-board-print .evidence-print p {
+      margin: 7pt 0;
+      font-size: 10pt;
+    }
+
+    body.print-mission5-board .recommendation-board-print .writing-lines {
+      height: 0.9in !important;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+  }
+</style>
