@@ -2,691 +2,157 @@
 
 ## FIRST CONTACT — Interactions & Ecosystems
 
-This guide now matches the **five-mission student experience**. The old Operation 01–08 pages, datasets, teacher guides and simulations remain available as deeper reference resources, but they are no longer the main teaching sequence students follow.
+This is the current teacher implementation guide for the five-mission Phase 1 student experience and the deployed teacher data system.
 
 ## Planning target
 - **25 periods total**
 - **18 core mission classes**
 - **7 purposeful flex / review / assessment / interruption classes**
-- **45 minutes per class**
+- **about 45 minutes per class**
 
 Student sequence:
 
 **Mission 1 — Explore Your Environment → Mission 2 — Meet a Native Species → Mission 3 — Build the Ecosystem → Mission 4 — Watch the Ecosystem Change → Mission 5 — Humans Have Arrived**
 
+The teacher-owned Google Sheet is the central class record. Student-device `localStorage` remains the first safety copy. The normal workflow does **not** require students to repeatedly open a Google Form or a separate submission portal.
+
 ---
 
 # Before Day 1 — set the system once
 
-## Digital
-- Open the Phase 1 Mission Hub and confirm all five mission routes load.
-- Confirm Mission 1 can store the teacher-assigned continent on the device students will use.
-- Decide whether students will complete Team Records digitally, on printed mission packets, or both.
-- Keep Team IDs, archive metadata and JCEC submission details teacher-managed wherever possible.
-- Open the JCEC Submission Portal once on a school-managed account/device if you plan to use it.
-- Keep legacy Operation routes bookmarked only as teacher reference.
+## Digital and data workflow
+- Open the Phase 1 Mission Hub and confirm the student route loads on a school Chromebook.
+- Open the teacher workbook and confirm **Setup → Collection Status = Active**.
+- Keep **Team Directory**, **Mission Progress**, **Missing Records**, **Teacher Workflow**, and **25-Period Plan** easy to reach during class.
+- Do **not** pre-create Team IDs. A stable Team ID is generated when a team saves its Team Profile.
+- Plan the continent distribution, but assign a continent **after** the team appears in Team Directory.
+- Tell students the only saving rule they need: **click Save before leaving; the Chromebook saves locally first, then sends the teacher copy.**
+- Keep the Team Recovery page bookmarked for teacher-directed Chromebook changes.
 
-## Team setup
-- Assign one continent to each team.
-- Prepare a simple roster showing student names → continent → Team ID.
-- Students only need to know their continent and, when required, which person is the TEAM RECORD recorder.
+## Team setup sequence
+1. Students form teams of **3–5**.
+2. Students enter **first names only**, choose roles, team name/logo, and one-sentence mission statement.
+3. Students click **Save Team Profile**.
+4. Teacher checks **Team Directory** and **Mission Progress → Team Profile ✓**.
+5. Teacher assigns one Phase 1 continent to each registered team.
+6. Students save that continent on the same Chromebook. It remains their posting for Missions 1–5.
+7. Students continue Mission 1.
 
-## Low-material implementation rule
-Use **shared stations, printed mats/cards, reused classroom containers and ordinary classroom objects first**. Specialized equipment is optional unless it clearly improves the science. Do not duplicate a full lab kit for every team when teams can rotate through a shared station.
+If a team later changes Chromebooks, copy its **existing Team ID** from Team Directory and use the **Team Recovery** page. Never create a fresh Team ID for an existing team.
 
-## Printing plan
-Use the print controls already built into the mission pages where available.
+## Printing and material organization
+Keep five labelled mission bins/folders. Use shared stations and ordinary classroom materials rather than duplicating full lab kits.
 
-Recommended team set:
-- Mission 1 Environment Profile / field sheet
-- Mission 2 Survival Structures Lab + Native Species Card
-- Mission 3 String Food Web materials + Ecosystem Map
-- Mission 4 Sampling Grid + Ecosystem Change Record
-- Mission 5 Stowaway simulation record + JCEC Recommendation Board
+- **M1:** field sheets, clipboards, shared thermometer(s), string/markers; optional metre stick/light/moisture tools.
+- **M2:** shared spoons, tweezers, clothespins/tongs, chopsticks, counters/objects; reconstruction sheets; Native Species Cards.
+- **M3:** organism cards, yarn/string, arrow markers, Ecosystem Maps.
+- **M4:** 5×5 sampling grids, beans/paper markers/counters, Ecosystem Change Records, local source pack.
+- **M5:** six-zone Stowaway mats, neutral + contrasting markers, pollutant tokens/cards, Recommendation Boards.
+
+Print consumable records; reuse/laminate cards, mats and grids where practical.
 
 ## Local planning for Mission 4
-Choose the real local environmental case before Week 3. Prepare a short source pack rather than asking Grade 7 students to search independently.
-
-Calgary-area default sources already used in this project:
-- City of Calgary — Source Water Protection: https://www.calgary.ca/water/stormwater/source-water-protection.html
-- City of Calgary — Riparian Areas: https://www.calgary.ca/water/stormwater/riparian-areas.html
-- Tsuut'ina Nation — Niska Newsletter, June 2025: https://tsuutina.com/wp-content/uploads/2025/06/Niska.Newsletter.June10.2025.final_.pdf
-- Optional Tsuut'ina Lands newsletter, August 2022: https://tsuutina.com/wp-content/uploads/2023/10/Lands.Newsletter.FinalEditition.August2022.pdf
-
-**Authentic-source rule:** do not ask students to invent or generalize an Indigenous perspective. Use a specific source from the relevant Nation/community/organization and have students describe what that source actually contributes to understanding the issue.
+Choose the real local environmental case before Week 3. Prepare a short teacher-curated source pack rather than asking Grade 7 students to search independently. Use a specific authentic Indigenous/community source where appropriate and have students report what that source actually contributes; do not ask students to invent or generalize an Indigenous perspective.
 
 ---
 
-# 18 core classes — day-by-day implementation
-
-## Mission 1 — Explore Your Environment
-
-### Day 1 — Welcome to Jabberwocky
-**Before class**
-- Have continent assignments and Team IDs ready.
-- Open the Phase 1 hub and Mission 1.
-
-**Materials**
-- Devices
-- continent roster
-- notebook / Pathfinder Log if used
-
-**Students see/do**
-- story launch
-- select the teacher-assigned continent
-- view preliminary JCEC rating
-- make one short starting prediction
-- learn biotic, abiotic, habitat, environmental conditions
-
-**Key science**
-- environments contain living and non-living parts
-- organisms depend on environmental conditions
-
-**Teacher emphasis**
-- preliminary rating is not the answer
-- today is about noticing conditions, not deciding whether humans should settle
-
-**Collect**
-- no major submission; baseline prediction only
-
-**Cut first**
-- extended story discussion or continent sharing
-
-### Day 2 — Earth Environmental Survey
-**Before class**
-- choose three safe microhabitat sample areas or an indoor fallback
-- check weather
-- stage one or a few shared field kits
-
-**Materials**
-- shared thermometer(s)
-- string / markers
-- metre stick if available
-- clipboards + pencils
-- Mission 1 field sheet
-- optional light/moisture tools
-
-**Students see/do**
-- investigate three small sample areas
-- record temperature, light/moisture, evidence of life, surface/soil conditions and human impact
-
-**Key science**
-- biotic vs abiotic evidence
-- observation vs inference
-- habitat conditions vary over short distances
-
-**Teacher emphasis**
-- record what you actually observe before explaining it
-- rotate shared tools rather than requiring one set per team
-
-**Collect**
-- field sheet for formative feedback
-
-**Cut first**
-- optional instruments or extra sample sites
-
-### Day 3 — Explore Your Continent
-**Before class**
-- return field sheets
-- confirm devices still remember assigned continents
-
-**Materials**
-- device
-- Environment Profile sheet if using paper
-
-**Students see/do**
-- analyze the simplified continent environmental scan
-- answer one team question: which environmental condition matters most?
-- use: **I noticed… / I think this means…**
-- complete Environment Profile + short reflection
-
-**Key science**
-- environmental evidence supports ecological inference
-
-**Teacher emphasis**
-- one strong observation is better than several vague claims
-
-**Collect**
-- Environment Profile — formative
-
-**Cut first**
-- whole-class continent comparison
-
----
-
-## Mission 2 — Meet a Native Species
-
-### Day 4 — How Structures Help
-**Before class**
-- set up 2–3 shared resource stations before students enter
-- use desks, paper zones or reused shallow containers instead of dedicated trays
-
-**Materials**
-- shared spoons
-- tweezers
-- clothespins/tongs
-- chopsticks
-- one class timer
-- small classroom objects / counters
-- paper or desk resource zones
-- Mission 2 lab sheet
-
-**Students see/do**
-- learn structure, function, adaptation, needs
-- complete Survival Structures Lab
-
-**Key science**
-- the usefulness of a structure depends on the job and environment
-
-**Teacher emphasis**
-- same time, same resource amount, same rules; change the structure
-- teams can rotate; no team needs a full duplicate kit
-
-**Collect**
-- lab observations — formative
-
-**Cut first**
-- extended oral defence
-
-### Day 5 — First Contact
-**Before class**
-- confirm continent assignment is saved
-
-**Materials**
-- device
-- species reconstruction sheet
-- pencils
-
-**Students see/do**
-- examine four strong clues
-- infer possible structures/behaviours
-- begin reconstruction
-
-**Key science**
-- adaptation claims require evidence
-
-**Teacher emphasis**
-- **EVIDENCE FIRST — IMAGINATION SECOND**
-
-**Collect**
-- nothing major yet; check that teams are using clues
-
-**Cut first**
-- artistic detail
-
-### Day 6 — Reconstruct the Species
-**Before class**
-- return reconstruction work
-
-**Materials**
-- device
-- Native Species Card
-
-**Students see/do**
-- complete reconstruction
-- choose the most important adaptation
-- use **Feature → Evidence → How it helps**
-- complete Native Species Card + reflection
-
-**Key science**
-- structures/functions/behaviours can support survival in specific environments
-
-**Teacher emphasis**
-- reward evidence-supported reasoning, not drawing quality
-
-**Collect**
-- Native Species Card — formative
-
-**Cut first**
-- gallery walk / polished artwork / formal niche terminology
-
----
-
-## Mission 3 — Build the Ecosystem
-
-### Day 7 — How Food Webs Work
-**Before class**
-- prepare Earth ecosystem cards and yarn/string kits
-
-**Materials**
-- organism cards
-- short yarn/string pieces
-- arrow markers
-
-**Students see/do**
-- learn producer, consumer, decomposer, food web
-- build a physical string food web
-- remove/change one component
-
-**Key science**
-- arrows mean **food → eater**
-- energy moves through feeding relationships
-
-**Teacher emphasis**
-- model predicts possible effects; it does not prove exactly what nature will do
-
-**Collect**
-- quick formative check / exit explanation
-
-**Cut first**
-- extra pathways or symbiosis terminology
-
-### Day 8 — Build Your Continent Food Web
-**Before class**
-- prepare continent organism cards or confirm digital evidence loads
-
-**Materials**
-- device
-- continent organism cards
-- Ecosystem Map
-- pencil
-
-**Students see/do**
-- classify organisms
-- build 5–7 food-web arrows
-- include focal native species and decomposer
-
-**Key science**
-- organisms are connected through energy relationships
-
-**Teacher emphasis**
-- repeatedly check **food → eater** arrow direction
-
-**Collect**
-- Ecosystem Map in progress
-
-**Cut first**
-- extra organisms/links beyond the core network
-
-### Day 9 — What Happens When the Web Changes?
-**Before class**
-- choose / verify the continent-specific change prompt
-
-**Materials**
-- Ecosystem Map
-- device
-
-**Students see/do**
-- change/remove one ecosystem component
-- use: **If this changes, then ___ may change because ___**
-
-**Key science**
-- changes can spread through ecological connections
-
-**Teacher emphasis**
-- require one clear connection before discussing more distant effects
-
-**Collect**
-- brief reasoning check — formative
-
-**Cut first**
-- multiple hypothetical scenarios
-
-### Day 10 — Matter Moves Too
-**Before class**
-- prepare one simple teacher example for water and carbon
-
-**Materials**
-- Ecosystem Map
-- pencils / optional coloured pencils
-
-**Students see/do**
-- add one water path
-- add one carbon path
-- distinguish energy flow from matter cycling
-- complete Ecosystem Map + reflection
-
-**Key science**
-- energy moves through ecosystems
-- water and carbon can be reused and cycled
-
-**Teacher emphasis**
-- do not turn this into memorizing a detailed carbon-cycle diagram
-
-**Collect**
-- Ecosystem Map — formative
-
-**Cut first**
-- decorative diagramming or extra pathways
-
----
-
-## Mission 4 — Watch the Ecosystem Change
-
-### Day 11 — Population Sampling
-**Before class**
-- place one 5×5 grid and a set of simple markers at each team
-
-**Materials**
-- printed 5×5 sampling grid
-- roughly 30–50 beans, paper squares or existing classroom counters/team
-- device randomizer if used
-- calculator optional
-
-**Students see/do**
-- estimate a spread-out population from random samples
-- compare with true count
-- cluster the same population and sample again
-
-**Key science**
-- a sample can be useful, but distribution affects the estimate
-
-**Teacher emphasis**
-- same total population can produce different sample results
-
-**Collect**
-- sampling record — formative
-
-**Cut first**
-- repeated extra trials
-
-### Day 12 — Your Population Case
-**Before class**
-- verify the continent case displays two graphs + two field notes
-
-**Materials**
-- device
-- Ecosystem Change Record in progress
-
-**Students see/do**
-- interpret two graphs
-- read two short field notes
-- identify what changed and which evidence supports that interpretation
-
-**Key science**
-- population evidence must be interpreted with environmental evidence
-
-**Teacher emphasis**
-- lower detections do not always prove the whole population shrank
-
-**Collect**
-- quick team thought — formative
-
-**Cut first**
-- cross-continent comparison
-
-### Day 13 — Disturbance and Recovery
-**Before class**
-- preview each continent recovery timeline
-
-**Materials**
-- device
-- Ecosystem Change Record
-
-**Students see/do**
-- compare Day 1 / Day 30 / Day 55 with a nearby less-disturbed area
-- identify what is improving and what has not recovered yet
-
-**Key science**
-- succession is gradual
-- recovery does not always mean return to the original condition
-
-**Teacher emphasis**
-- compare trends, not just one snapshot
-
-**Collect**
-- recovery evidence for final Mission 4 claim
-
-**Cut first**
-- extra monitoring indicators
-
-### Day 14 — Earth Connection + Mission 4 Decision
-**Before class**
-- prepare a short local source pack with photos/maps/data
-- include a specific authentic Indigenous/community source where appropriate
-
-**Materials**
-- teacher-curated local source cards
-- photos/maps/data
-- device or printed excerpts
-- Ecosystem Change Record
-
-**Students see/do**
-- identify one sign of real local ecosystem change
-- identify one important condition/human action
-- read local + Indigenous/community source cards
-- discuss one useful action + one thing to keep monitoring
-- finish Mission 4 claim using population evidence + recovery evidence
-
-**Key science**
-- environmental decisions depend on monitored evidence
-- local environmental knowledge comes from multiple credible sources
-
-**Teacher emphasis**
-- students describe what the specific Indigenous/community source actually says; no invented/generalized perspective
-
-**Collect**
-- Ecosystem Change Record — formative or lightly graded checkpoint
-
-**Cut first**
-- formal presentation; keep source analysis + final Mission 4 reasoning
-
----
-
-## Mission 5 — Humans Have Arrived
-
-### Day 16 — The Incident
-**Before class**
-- print or draw one six-zone Stowaway Spread mat per team
-- no cups are required
-
-**Materials**
-- six-zone paper mat
-- neutral counters / beans / paper markers
-- 4 visibly different stowaway markers
-- spoon/scoop if useful
-- Mission 5 incident record / packet
-
-**Students see/do**
-- reveal that human activity introduced an Earth organism
-- compare spread without vs with an early checkpoint
-
-**Key science**
-- human movement can create pathways for biological spread
-- prevention can be easier than later control
-
-**Teacher emphasis**
-- introduced does not automatically mean invasive
-- move markers between printed zones rather than building a container setup
-
-**Collect**
-- simulation record — formative
-
-**Cut first**
-- repeated simulation rounds
-
-### Day 17 — What Happens Next?
-**Before class**
-- prepare teacher-guided pollutant token model
-
-**Materials**
-- 16 producer paper tokens/cards
-- 4 consumer cards
-- 1 predator card
-- continent incident evidence on device
-
-**Students see/do**
-- inspect spread + ecological-harm evidence
-- classify risk cautiously
-- run short pollutant/biomagnification token model
-- connect endangered / local extinction / global extinction to the incident
-
-**Key science**
-- invasive label requires evidence of spread + harm
-- persistent pollutants can become more concentrated higher in a food chain
-- local extinction ≠ global extinction
-
-**Teacher emphasis**
-- X-17 is fictional; the ecological pattern is the learning target
-- paper tokens work as well as purchased counters
-
-**Collect**
-- no separate major submission
-
-**Cut first**
-- extra incident clues or second pollutant scenario
-
-### Day 18 — What Should Humans Do?
-**Before class**
-- make Missions 1–4 artifacts accessible
-- print Recommendation Boards if using paper
-
-**Materials**
-- Environment Profile
-- Native Species Card
-- Ecosystem Map
-- Ecosystem Change Record
-- JCEC Recommendation Board
-
-**Students see/do**
-- identify why ecosystem matters
-- choose important native organism + ecosystem connection
-- identify biggest human-caused risk
-- choose three strong pieces of evidence from earlier missions
-- write one rule humans must follow
-- choose final recommendation
-
-**Key science**
-- environmental decisions require evidence and consideration of consequences
-
-**Teacher emphasis**
-- students do not need the same recommendation as the preliminary JCEC rating
-
-**Collect**
-- Recommendation Board in progress
-
-**Cut first**
-- artistic polish / extended peer critique
-
-### Day 19 — JCEC Recommendation
-**Before class**
-- prepare collection/submission method
-
-**Materials**
-- Recommendation Board
-- earlier evidence artifacts
-
-**Students see/do**
-- finish Board
-- use **Decision → Evidence → Possible consequence**
-- complete final individual reflection: what changed your thinking?
-
-**Key science**
-- evidence from environment, organisms, interactions, change and human impacts can support responsible decisions
-
-**Teacher emphasis**
-- three strong evidence items beat a long list of weak facts
-
-**Collect**
-- **JCEC Recommendation Board — major Phase 1 synthesis assessment**
-- final individual reflection
-
-**Cut first**
-- presentations; move them to Flex Day 24 if desired
-
----
-
-# Seven purposeful flex classes
-
-## Day 15 — Fieldwork / Mission 4 recovery buffer
-Use for weather-rescheduled outdoor work, Mission 4 absences, sampling/succession reteach or vocabulary review.
-
-## Day 20 — Recommendation Board completion / absence recovery
-Use first for students who missed a key Mission 5 class or need additional evidence support.
-
-## Day 21 — Whole-unit review
-Use retrieval, diagrams and evidence interpretation rather than another long worksheet.
-
-## Day 22 — Short individual science check
-Recommended only if you need a clean individual achievement mark beyond team products.
-
-## Day 23 — Reteach + targeted catch-up
-Group students by misconception: food-web arrows, energy vs matter, sampling, succession, introduced vs invasive, pollution/conservation.
-
-## Day 24 — Optional gallery walk / continent briefing
-Compare recommendations across continents. Keep optional.
-
-## Day 25 — Final buffer / transition
-Make-up, final feedback, school interruption recovery, or transition to Phase 2. No new required Phase 1 science.
-
----
-
-# Mission Materials Master List
-
-## Mission 1 — Explore Your Environment
-**Reusable:** shared thermometer(s); string/markers; metre stick if available; clipboards. Hand lenses/light/moisture tools are optional.
-
-**Print/digital:** continent roster; Earth Environmental Survey field sheet; Environment Profile.
-
-## Mission 2 — Meet a Native Species
-**Reusable:** a few shared spoons; tweezers; clothespins/tongs; chopsticks; classroom objects/counters; paper/desk resource zones; one class timer.
-
-**Print/digital:** Survival Structures Lab sheet; reconstruction sheet; Native Species Card.
-
-## Mission 3 — Build the Ecosystem
-**Reusable:** Earth ecosystem organism cards; yarn/string; arrow markers; continent organism cards if printed.
-
-**Print/digital:** Ecosystem Map.
-
-## Mission 4 — Watch the Ecosystem Change
-**Reusable:** printed/laminated 5×5 sampling grids; beans, paper markers or existing classroom counters.
-
-**Print/digital:** sampling record; Ecosystem Change Record; local source cards/photos/maps/data; teacher-selected authentic Indigenous/community source.
-
-## Mission 5 — Humans Have Arrived
-**Reusable/shared:** no cups required; use a printed six-zone mat, neutral markers, four contrasting stowaway markers, an optional scoop, and printed producer/consumer/predator/pollutant tokens.
-
-**Print/digital:** six-zone Stowaway mat or hand-drawn zones; incident record as needed; JCEC Recommendation Board; Missions 1–4 artifacts available for evidence review.
+# 25-period implementation
+
+| Day | Type / focus | Core task and checkpoint | Teacher data check | Cut/move first if time runs long |
+|---:|---|---|---|---|
+| 1 | **CORE — M1 Welcome + Team Setup** | Team Setup first; teacher confirms team, assigns continent, students save it, then begin Mission 1 story and biotic/abiotic/habitat/environmental conditions. Baseline prediction only. | Team Directory = one row/team; Team Profile ✓; continent appears after assignment. | Cut extended story/continent sharing. Protect Team Setup + continent save. |
+| 2 | **CORE — M1 Earth Environmental Survey** | Sample 3 microhabitats; record environmental conditions and human impact; observation vs inference. | No new mission ✓ expected. | Drop optional instruments/extra sites. |
+| 3 | **CORE — M1 Explore Your Continent** | Analyze continent evidence; complete **Environment Profile** and Save Team Record. | M1 ✓. | Cut whole-class comparison. |
+| 4 | **CORE — M2 How Structures Help** | Survival Structures Lab; compare structure/function fairly. | No new ✓ expected. | Cut extended oral defence. |
+| 5 | **CORE — M2 First Contact** | Use 4 clues to infer species structures/behaviours; begin reconstruction. | No new ✓ expected. | Cut artistic detail. |
+| 6 | **CORE — M2 Reconstruct the Species** | Finish reconstruction; Feature → Evidence → How it helps; complete **Native Species Card** and Save. | M2 ✓. | Move gallery walk/art polish/niche extension to flex. |
+| 7 | **CORE — M3 How Food Webs Work** | Physical food web; producer/consumer/decomposer; arrows food → eater; change one component. | No new ✓ expected. | Cut extra pathways/symbiosis terminology. |
+| 8 | **CORE — M3 Build Your Continent Food Web** | Build core 5–7-arrow network including focal species + decomposer. | No new ✓ expected. | Cut extra organisms/links. |
+| 9 | **CORE — M3 What Happens When the Web Changes?** | One defensible cause-effect chain using If… then… because…. | No new ✓ expected. | Cut multiple scenarios. |
+| 10 | **CORE — M3 Matter Moves Too** | Add water + carbon paths; distinguish energy flow vs matter cycling; finish Ecosystem Map; complete short **Teacher Report Copy** and Save. | M3 ✓. | Cut decorative diagramming/extra cycles. |
+| 11 | **CORE — M4 Population Sampling** | Compare samples from spread-out vs clustered populations. | No new ✓ expected. | Cut repeated trials. |
+| 12 | **CORE — M4 Your Population Case** | Interpret 2 graphs + 2 field notes; connect population and environmental evidence. | No new ✓ expected. | Cut cross-continent comparison. |
+| 13 | **CORE — M4 Disturbance and Recovery** | Compare recovery timeline; succession is gradual and may be incomplete. | No new ✓ expected. | Cut extra monitoring indicators. |
+| 14 | **CORE — M4 Earth Connection + Decision** | Use local + specific authentic community evidence; complete **Ecosystem Change Record** and Save. | M4 ✓. | Move unfinished record to Day 15; cut formal presentation. |
+| 15 | **FLEX — Fieldwork / M4 recovery** | Weather-rescheduled fieldwork, M4 absence recovery, sampling/succession reteach, then vocabulary if time. | Use Missing Records + Mission Progress. | Bank unused time as interruption buffer. |
+| 16 | **CORE — M5 The Incident** | Stowaway Spread simulation; compare spread without vs with early checkpoint; introduced ≠ automatically invasive. | No M5 ✓ yet. | Cut repeated rounds. |
+| 17 | **CORE — M5 What Happens Next?** | Use spread + harm evidence; biomagnification token model; local vs global extinction. | No M5 ✓ yet. | Cut extra clues/second pollutant scenario. |
+| 18 | **CORE — M5 What Should Humans Do?** | Use M1–M4 evidence to build Recommendation Board: importance, species, connection, risk, 3 evidence items, rule, recommendation. | No M5 ✓ yet. | Cut artistic polish/extended peer critique. |
+| 19 | **CORE — M5 JCEC Recommendation** | Finish **Recommendation Board**; Decision → Evidence → Possible consequence; individual reflection; complete digital Teacher Report Copy and Save. | M5 ✓; completed teams = **6/6 Complete**. | Move presentations to Day 24. |
+| 20 | **FLEX — Completion / absence recovery** | Finish essential M5 synthesis or recover missed essential work. | Missing Records; verify new ✓ and 6/6. | If complete, use for feedback rather than new required work. |
+| 21 | **FLEX — Whole-unit review** | Retrieval, diagrams, evidence interpretation and actual misconceptions. | Missing Records only if needed. | Prioritize misconceptions over every vocabulary term. |
+| 22 | **FLEX — Short individual science check** | Optional individual evidence-interpretation assessment when a clean individual mark is needed. | No team checkpoint expected. | Repurpose as review/catch-up if not needed. |
+| 23 | **FLEX — Reteach + targeted catch-up** | Regroup by misconception and missing checkpoint. | Missing Records should be close to empty. | Do not add extension until essential gaps are resolved. |
+| 24 | **FLEX — Optional gallery walk / continent briefing** | Compare recommendations and evidence across continents. | No new checkpoint; use Missing Records first. | Cut the whole activity before sacrificing core completion. |
+| 25 | **FLEX — Final buffer / transition** | Make-up, final feedback, interruption recovery; no new required Phase 1 science. | 6/6 for cleared teams; Missing Records resolved; Class Summary complete count matches roster. | Transition discussion is first to cut if recovery is needed. |
 
 ---
 
 # Assessment map
 
-- **Mission 1 Environment Profile:** formative observation + inference.
-- **Mission 2 Native Species Card:** formative adaptation/evidence reasoning.
-- **Mission 3 Ecosystem Map:** formative ecosystem connections + cycles.
-- **Mission 4 Ecosystem Change Record:** stronger checkpoint; formative or lightly graded.
-- **Mission 5 JCEC Recommendation Board:** major Phase 1 synthesis.
+- **Mission 1 — Environment Profile:** formative observation + inference.
+- **Mission 2 — Native Species Card:** formative adaptation/evidence reasoning.
+- **Mission 3 — Ecosystem Map + compact digital report:** formative ecosystem connections + matter cycling.
+- **Mission 4 — Ecosystem Change Record:** stronger checkpoint; formative or lightly graded.
+- **Mission 5 — JCEC Recommendation Board:** major Phase 1 synthesis.
+- **Day 22 individual science check:** optional when a clean individual mark is needed.
 
-Use selected reflections or the optional Day 22 science check when individual evidence is needed. Do not turn all five reflections into graded assignments.
-
-### Suggested formal weighting if percentages are required
-- **JCEC Recommendation Board — 55%**
-- **Short individual science check — 30%**
-- **Selected individual reasoning / field evidence — 15%**
-
-A lighter alternative is to grade only the Recommendation Board and individual science check.
+Do not grade every reflection. If a percentage structure is required, a practical option remains Recommendation Board 55%, short individual science check 30%, and selected individual reasoning/field evidence 15%.
 
 ---
 
-# Contingency rules
+# Spreadsheet monitoring routine
 
-## If a hands-on class runs long
-Stop at the protected scientific conclusion and move Team Record completion to the next opening or nearest flex period. Do not rush the debrief just to finish paperwork.
+- **Team Directory:** current team identity, first names/roles, Team ID, continent, latest update.
+- **Mission Progress:** main daily dashboard; Team Profile + Missions 1–5 = 6 required checkpoints.
+- **Missing Records:** catch-up groups, absence recovery and end-of-phase cleanup.
+- **Intake:** troubleshooting/event history, not the everyday grading view.
+- **Class Summary:** whole-class completion and continent distribution.
+- **Teacher Workflow:** troubleshooting and operational rules.
+- **25-Period Plan:** the daily runbook.
 
-## If a class is lost
-Use flex time in this order: Day 15 → Day 20 → Day 23 → Day 24 → Day 25.
-
-## If Mission 1 outdoor work is cancelled
-Use three contrasting indoor microhabitats and discuss the limitation.
-
-## If devices fail
-Use printed mission artifacts. The scientific sequence still works offline because the teacher can project/read the continent evidence.
-
-## If a student misses a lab
-Use team data plus a short individual interpretation. Do not require the student to recreate every physical investigation alone.
-
-## If materials are limited
-Use shared stations, printable zones/cards, reused classroom objects and teacher demonstrations before purchasing duplicate kits. Preserve the scientific comparison and reasoning target rather than the apparatus.
-
-## If students are overwhelmed
-Return to the mission's one essential question and one reasoning scaffold. Optional details can wait.
+At the end of each record-producing class (Days 3, 6, 10, 14 and 19), check Mission Progress before the next class begins.
 
 ---
 
-# Teacher launch-readiness checklist
-- **Do I know what to prepare tomorrow?** Each core day has a before-class and materials list.
-- **Do I know what students should finish each day?** Each mission has one protected scientific stopping point and one final Team Record.
-- **Do I know what I actually need to assess?** Missions 1–3 are primarily formative, Mission 4 is a checkpoint, Mission 5 is the major synthesis.
-- **Can I recover if a lab runs long or a class is lost?** Seven purposeful flex periods protect the core.
-- **Do the teacher guide and student website describe the same course?** Yes: both use the same five mission names, sequence and 18-core-class structure.
+# Absence, device and network recovery
+
+## Missed hands-on class
+Use team data plus a short individual interpretation instead of recreating the entire physical lab. Protect conceptual evidence rather than procedural repetition.
+
+## Offline / weak Wi-Fi
+Students still click Save. Local browser storage is the first copy. Do not clear browser/site data. When connection returns, reopen a Phase 1 page so the retry queue can send; if needed, click Save once more.
+
+## Different Chromebook
+Use **Team Directory → existing Team ID → Team Recovery page**. Re-enter the same team identity and assigned continent. Previously central-sent records remain safe; local-only work on the old Chromebook does not transfer automatically.
+
+## Record not appearing centrally
+1. Check Mission Progress.
+2. Search Intake by Team ID.
+3. Confirm student internet connection.
+4. Have the team reopen the locally saved work and click Save once.
+5. Recheck the teacher Sheet.
+
+Do not make students retype work unless the local record itself is missing.
+
+---
+
+# Flex-period rule
+Protect core science first. When time is lost, use the buffers in this order:
+
+**Day 15 → Day 20 → Day 23 → Day 24 → Day 25**
+
+Day 24 gallery walk is the first full activity to drop. Do not create new required work inside flex periods.
+
+---
+
+# End-of-Phase-1 transition gate
+Before clearing a team to transition:
+- Team Directory identity + continent are correct.
+- Mission Progress shows **6/6 — Complete**.
+- Missing Records contains no unresolved required checkpoint for that team.
+- Recommendation Board has been collected/assessed as intended.
+- Any optional individual science check or required feedback is resolved.
+- Class Summary complete count matches the number of teams being cleared.
+
+No Phase 2 work should be required to finish Phase 1.
