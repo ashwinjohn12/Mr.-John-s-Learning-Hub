@@ -5,11 +5,11 @@ import JcecMissionProgress from '../../../../../components/JcecMissionProgress.a
 const base = import.meta.env.BASE_URL;
 
 const missions = [
-  { number: 1, title: 'Explore Your Environment', question: 'What is this place like?', summary: 'Investigate an Earth environment, then explore the conditions on your assigned continent.', icon: '🌎', status: 'COMPLETE', href: `${base}courses/grade-7-science/jabberwocky/phase-1/mission-1/`, ready: true, linkText: 'Review Mission 1 →' },
-  { number: 2, title: 'Meet a Native Species', question: 'How does this organism survive here?', summary: 'Test how structures work, then use four clues to reconstruct your continent’s native species.', icon: '🔎', status: 'COMPLETE', href: `${base}courses/grade-7-science/jabberwocky/phase-1/mission-2/`, ready: true, linkText: 'Review Mission 2 →' },
-  { number: 3, title: 'Build the Ecosystem', question: 'How are living things connected?', summary: 'Build a food web, test what happens when it changes, and trace simple water and carbon paths.', icon: '🕸️', status: 'COMPLETE', href: `${base}courses/grade-7-science/jabberwocky/phase-1/mission-3/`, ready: true, linkText: 'Review Mission 3 →' },
-  { number: 4, title: 'Watch the Ecosystem Change', question: 'What happens when conditions change?', summary: 'Sample a population, read two simple datasets, and track how a disturbed habitat recovers.', icon: '🌱', status: 'COMPLETE', href: `${base}courses/grade-7-science/jabberwocky/phase-1/mission-4/`, ready: true, linkText: 'Review Mission 4 →' },
-  { number: 5, title: 'Humans Have Arrived', question: 'How can people explore without causing too much harm?', summary: 'Investigate human-caused ecological problems and make your final Phase 1 recommendation.', icon: '🚨', status: 'COMPLETE', href: `${base}courses/grade-7-science/jabberwocky/phase-1/mission-5/`, ready: true, linkText: 'Review Mission 5 →' }
+  { number: 1, title: 'Explore Your Environment', question: 'What is this place like?', summary: 'Investigate an Earth environment, then explore the conditions on your assigned continent.', icon: '🌎', status: 'START HERE', href: `${base}courses/grade-7-science/jabberwocky/phase-1/mission-1/`, ready: true, linkText: 'Start Mission 1 →' },
+  { number: 2, title: 'Meet a Native Species', question: 'How does this organism survive here?', summary: 'Test how structures work, then use four clues to reconstruct your continent’s native species.', icon: '🔎', status: 'AVAILABLE', href: `${base}courses/grade-7-science/jabberwocky/phase-1/mission-2/`, ready: true, linkText: 'Open Mission 2 →' },
+  { number: 3, title: 'Build the Ecosystem', question: 'How are living things connected?', summary: 'Build a food web, test what happens when it changes, and trace simple water and carbon paths.', icon: '🕸️', status: 'AVAILABLE', href: `${base}courses/grade-7-science/jabberwocky/phase-1/mission-3/`, ready: true, linkText: 'Open Mission 3 →' },
+  { number: 4, title: 'Watch the Ecosystem Change', question: 'What happens when conditions change?', summary: 'Sample a population, read two simple datasets, and track how a disturbed habitat recovers.', icon: '🌱', status: 'AVAILABLE', href: `${base}courses/grade-7-science/jabberwocky/phase-1/mission-4/`, ready: true, linkText: 'Open Mission 4 →' },
+  { number: 5, title: 'Humans Have Arrived', question: 'How can people explore without causing too much harm?', summary: 'Investigate human-caused ecological problems and make your final Phase 1 recommendation.', icon: '🚨', status: 'AVAILABLE', href: `${base}courses/grade-7-science/jabberwocky/phase-1/mission-5/`, ready: true, linkText: 'Open Mission 5 →' }
 ];
 ---
 
@@ -26,12 +26,12 @@ const missions = [
       <div>
         <p class="eyebrow">MISSION 2190 // PHASE 1</p>
         <h1>FIRST <span>CONTACT</span></h1>
-        <p class="lead">You are one of the first scientists studying life on Jabberwocky. Over five missions, your team learned how your continent works—and decided how humans should explore it.</p>
+        <p class="lead">You are one of the first scientists studying life on Jabberwocky. Over five missions, your team will learn how your continent works—and decide how humans should explore it.</p>
       </div>
       <aside>
         <span>PHASE STATUS</span>
-        <strong>Complete</strong>
-        <small>Your ecology evidence stays with the continent.</small>
+        <strong>Ready to begin</strong>
+        <small>Start with Mission 1 and keep your team evidence as you go.</small>
       </aside>
     </header>
 
@@ -40,21 +40,21 @@ const missions = [
       <h2 id="phase-question">How does life on Jabberwocky work—and what should humans do?</h2>
     </section>
 
-    <JcecMissionProgress active={6} />
+    <JcecMissionProgress active={1} />
 
-    <section class="quick-start phase2-next">
+    <section class="quick-start">
       <div>
-        <p class="eyebrow">NEXT PHASE</p>
-        <h2>Your evidence is about to change hands.</h2>
-        <p>Join a new Botanical Resources team, receive a new continent posting, and investigate whether Jabberwocky's plants can become useful resources without damaging the ecosystems you just studied.</p>
+        <p class="eyebrow">START HERE</p>
+        <h2>Begin with Mission 1: Explore Your Environment.</h2>
+        <p>Your teacher will give your team a continent posting. Save it in Mission 1—the same posting follows your team through all five missions.</p>
       </div>
-      <a class="primary-button" href={`${base}courses/grade-7-science/jabberwocky/phase-2/`}>Enter Phase 2 →</a>
+      <a class="primary-button" href={`${base}courses/grade-7-science/jabberwocky/phase-1/mission-1/`}>Start Mission 1 →</a>
     </section>
 
     <section class="how-it-works" aria-labelledby="work-heading">
       <div class="section-heading">
         <p class="eyebrow">SAME ROUTINE EVERY MISSION</p>
-        <h2 id="work-heading">How mission work happened</h2>
+        <h2 id="work-heading">How mission work works</h2>
       </div>
       <div class="work-grid">
         <article><span aria-hidden="true">👥</span><div><strong>TEAM WORK</strong><p>Work together on the investigation.</p></div></article>
@@ -66,7 +66,7 @@ const missions = [
     <section class="mission-list" aria-labelledby="missions-heading">
       <div class="section-heading">
         <p class="eyebrow">PHASE 1 PATH</p>
-        <h2 id="missions-heading">Five missions. One completed story.</h2>
+        <h2 id="missions-heading">Five missions. One connected story.</h2>
       </div>
       <div class="mission-cards">
         {missions.map((mission) => (
@@ -88,8 +88,17 @@ const missions = [
       <span aria-hidden="true">📁</span>
       <div>
         <strong>Your work follows the continent.</strong>
-        <p>The next science team will inherit only the most useful findings from Phase 1. You do not need to move, rewrite or submit your archive again.</p>
+        <p>Keep each Team Record. Later missions use evidence from earlier ones, so your team's investigation builds across the whole phase.</p>
       </div>
+    </section>
+
+    <section class="quick-start phase2-next">
+      <div>
+        <p class="eyebrow">AFTER MISSION 5</p>
+        <h2>Phase 2 begins with a new science team.</h2>
+        <p>Finish Mission 5 first. Then, when your teacher says your class is ready, move to Phase 2 and receive a new continent posting.</p>
+      </div>
+      <a class="primary-button" href={`${base}courses/grade-7-science/jabberwocky/phase-2/`}>Continue to Phase 2 →</a>
     </section>
 
     <div class="teacher-link"><a href={`${base}courses/grade-7-science/jabberwocky/phase-1/teacher-launch-guide/`}>Teacher planning guide →</a></div>
