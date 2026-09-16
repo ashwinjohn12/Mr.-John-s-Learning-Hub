@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../../../components/Breadcrumbs.astro';
+const base = import.meta.env.BASE_URL;
+const roles = ['Lead Scientist','Evidence Recorder','Materials Manager','Data Analyst','Communicator'];
+const continents = [
+  ['gyre','Gyre'],['brillig','Brillig'],['manxome','Manxome'],['slithy-toves','Slithy Toves'],
+  ['wabe','Wabe'],['bandersnatch','Bandersnatch'],['gimble','Gimble'],['mimsy','Mimsy']
+];
+---
+
+<BaseLayout title="Phase 1 Team Recovery | Jabberwocky 2190" description="Teacher-directed recovery page for a Phase 1 team moving to a different Chromebook." themeColor="#071b2e">
+  <main class="recovery-shell">
+    <Breadcrumbs items={[{label:'Home',href:base},{label:'Grade 7 Science',href:`${base}courses/grade-7-science/`},{label:'Jabberwocky',href:`${base}courses/grade-7-science/jabberwocky/`},{label:'Phase 1',href:`${base}courses/grade-7-science/jabberwocky/phase-1/`},{label:'Team Recovery'}]} />
+
+    <section class="hero">
+      <p class="eyebrow">TEACHER-DIRECTED TOOL</p>
+      <h1>Move a Phase 1 team to a different Chromebook</h1>
+      <p>Use this only when your teacher gives you the existing <strong>Team ID</strong> from the teacher spreadsheet. This reconnects the new Chromebook to the same central team record.</p>
+    </section>
+
+    <section class="warning">
+      <strong>Important</strong>
+      <p>This restores the team identity and assigned continent. It does <em>not</em> copy old local work from the previous Chromebook. Work already sent to the teacher spreadsheet remains safe.</p>
+    </section>
+
+    <form id="recovery-form" class="panel">
+      <label><span>Existing Team ID</span><input id="team-id" required maxlength="100" placeholder="Teacher pastes the Team ID here" /></label>
+      <label><span>Team name</span><input id="team-name" required maxlength="40" /></label>
+      <label><span>Mission statement</span><textarea id="mission-statement" required maxlength="180" rows="3"></textarea></label>
+      <label><span>Assigned continent</span><select id="continent" required><option value="">Choose…</option>{continents.map(([value,label]) => <option value={value}>{label}</option>)}</select></label>
+
+      <fieldset>
+        <legend>Team members and roles</legend>
+        <p class="hint">Use first names only. Enter 3–5 members. The names and roles should match the existing team.</p>
+        <div id="members"></div>
+        <button type="button" id="add-member" class="secondary">+ Add member</button>
+      </fieldset>
+
+      <div class="actions">
+        <button type="submit" class="primary">Reconnect this Chromebook</button>
+        <a class="secondary link" href={`${base}courses/grade-7-science/jabberwocky/phase-1/`}>Cancel</a>
+      </div>
+      <p id="status" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+
+  <script is:inline define:vars={{ roles, base }}>
+    (() => {
+      const TEAM_KEY = 'jabberwocky-phase1-team-profile';
+      const POSTING_KEY = 'jabberwocky-phase1-posting';
+      const form = document.getElementById('recovery-form');
+      const members = document.getElementById('members');
+      const addMember = document.getElementById('add-member');
+      const status = document.getElementById('status');
+      const validId = /^[A-Za-z0-9._:-]{8,100}$/;
+
+      const escapeHtml = (value) => String(value || '').replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+      const addRow = (member = {}) => {
+        if (members.children.length >= 5) return;
+        const row = document.createElement('div');
+        row.className = 'member-row';
+        row.innerHTML = `
+          <label><span>First name</span><input class="member-name" required maxlength="40" value="${escapeHtml(member.name)}" /></label>
+          <label><span>Main role</span><select class="member-role" required><option value="">Choose role…</option>${roles.map((role) => `<option value="${role}">${role}</option>`).join('')}</select></label>
+          <button type="button" class="remove" aria-label="Remove member">×</button>`;
+        row.querySelector('.remove').addEventListener('click', () => {
+          if (members.children.length <= 3) {
+            status.textContent = 'A team needs at least 3 members.';
+            return;
+          }
+          row.remove();
+        });
+        members.appendChild(row);
+      };
+
+      addRow(); addRow(); addRow();
+      addMember.addEventListener('click', () => {
+        if (members.children.length >= 5) status.textContent = 'Teams can have up to 5 members.';
+        else { addRow(); status.textContent = ''; }
+      });
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const teamId = document.getElementById('team-id').value.trim();
+        if (!validId.test(teamId)) {
+          status.textContent = 'That Team ID is not valid. Ask your teacher to copy it again from Team Directory.';
+          return;
+        }
+        const profile = {
+          teamId,
+          teamName: document.getElementById('team-name').value.trim(),
+          logo: '🧭',
+          missionStatement: document.getElementById('mission-statement').value.trim(),
+          members: [...members.querySelectorAll('.member-row')].map((row) => ({
+            name: row.querySelector('.member-name').value.trim().split(/\s+/)[0],
+            role: row.querySelector('.member-role').value
+          })),
+          updatedAt: new Date().toISOString()
+        };
+        if (profile.members.length < 3 || profile.members.length > 5 || profile.members.some((m) => !m.name || !m.role)) {
+          status.textContent = 'Complete all 3–5 member rows first.';
+          return;
+        }
+        const continent = document.getElementById('continent').value;
+        localStorage.setItem(TEAM_KEY, JSON.stringify(profile));
+        localStorage.setItem(POSTING_KEY, continent);
+        try {
+          if (window.JCECPhase1?.submitTeamProfile) await window.JCECPhase1.submitTeamProfile(profile);
+          if (window.JCECPhase1?.submitContinent) await window.JCECPhase1.submitContinent(continent);
+        } catch {}
+        status.innerHTML = `✓ Team reconnected on this Chromebook. <a href="${base}courses/grade-7-science/jabberwocky/phase-1/">Return to Phase 1</a>.`;
+      });
+    })();
+  </script>
+
+  <style>
+    .recovery-shell{max-width:900px;margin:0 auto;padding:1.2rem;color:#eaf5ff}.hero,.panel,.warning{margin:1rem 0;padding:1.2rem;border:1px solid #365f6a;border-radius:16px;background:#081d29}.hero h1{margin:.25rem 0 .5rem;font-size:clamp(1.7rem,4vw,2.5rem)}.eyebrow{margin:0;color:#75e1c2;font:850 .75rem/1.2 ui-monospace,monospace;letter-spacing:.1em}.warning{border-color:#8a6a34;background:#2a2110}.warning p{margin:.35rem 0 0}.panel{display:grid;gap:1rem}.panel label{display:grid;gap:.35rem}.panel span,.panel legend{font-weight:850;color:#d9edf2}.panel input,.panel textarea,.panel select{width:100%;box-sizing:border-box;padding:.75rem;border:1px solid #456570;border-radius:9px;background:#06141d;color:#fff;font:inherit}.panel fieldset{border:1px solid #35515b;border-radius:12px;padding:1rem}.hint{margin:.2rem 0 .7rem;color:#9fb7c0}.member-row{display:grid;grid-template-columns:1fr 1fr auto;gap:.6rem;align-items:end;margin:.55rem 0}.remove{width:42px;height:42px;border:1px solid #71474a;border-radius:8px;background:#2c151a;color:#ffc9cc;font-size:1.2rem}.actions{display:flex;flex-wrap:wrap;gap:.7rem}.primary,.secondary{padding:.72rem .9rem;border-radius:9px;font-weight:900;cursor:pointer}.primary{border:0;background:#b6e779;color:#17320d}.secondary{border:1px solid #456b70;background:#0a2029;color:#d7edf2}.link{text-decoration:none;display:inline-flex;align-items:center}.panel #status{min-height:1.4em;color:#9fd7c9}.panel #status a{color:#b6e779}@media(max-width:680px){.member-row{grid-template-columns:1fr}.remove{width:100%;height:auto;padding:.5rem}}
+  </style>
+</BaseLayout>
