@@ -1,0 +1,19 @@
+name: Phase 1 Data CI
+
+on:
+  push:
+    branches:
+      - feat/phase1-data-collection-20260916
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run audit:jabberwocky-phase1-data
+      - run: npm run build
