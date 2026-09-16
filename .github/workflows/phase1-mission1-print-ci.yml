@@ -1,0 +1,31 @@
+name: Temporary Mission 1 Print Verification
+
+on:
+  push:
+    branches:
+      - fix/phase1-mission1-field-sheet-print-20260916
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify print fix wiring
+        run: |
+          set -euo pipefail
+          grep -q "JcecMission1PrintFix" src/layouts/BaseLayout.astro
+          grep -q "body.print-mission1-field-sheet" src/components/JcecMission1PrintFix.astro
+          grep -q "display: block !important" src/components/JcecMission1PrintFix.astro
+          grep -q "table-layout: fixed" src/components/JcecMission1PrintFix.astro
+      - name: Phase 1 readiness audit
+        run: npm run audit:jabberwocky-phase1
+      - name: Phase 1 data audit
+        run: npm run audit:jabberwocky-phase1-data
+      - name: Full production build
+        run: npm run build
