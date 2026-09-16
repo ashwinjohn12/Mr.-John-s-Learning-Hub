@@ -2,6 +2,7 @@
 import BaseLayout from '../../../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../../../components/Breadcrumbs.astro';
 import JcecMissionProgress from '../../../../../components/JcecMissionProgress.astro';
+import JcecPhase1TeamSetup from '../../../../../components/JcecPhase1TeamSetup.astro';
 const base = import.meta.env.BASE_URL;
 
 const missions = [
@@ -31,7 +32,7 @@ const missions = [
       <aside>
         <span>PHASE STATUS</span>
         <strong>Ready to begin</strong>
-        <small>Start with Mission 1 and keep your team evidence as you go.</small>
+        <small>Build your team, then start Mission 1 and keep your evidence as you go.</small>
       </aside>
     </header>
 
@@ -40,13 +41,15 @@ const missions = [
       <h2 id="phase-question">How does life on Jabberwocky work—and what should humans do?</h2>
     </section>
 
+    <JcecPhase1TeamSetup />
+
     <JcecMissionProgress active={1} />
 
     <section class="quick-start">
       <div>
-        <p class="eyebrow">START HERE</p>
+        <p class="eyebrow">NEXT</p>
         <h2>Begin with Mission 1: Explore Your Environment.</h2>
-        <p>Your teacher will give your team a continent posting. Save it in Mission 1—the same posting follows your team through all five missions.</p>
+        <p>After your team profile is saved, your teacher will give your team a continent posting. Save it in Mission 1—the same posting follows your team through all five missions.</p>
       </div>
       <a class="primary-button" href={`${base}courses/grade-7-science/jabberwocky/phase-1/mission-1/`}>Start Mission 1 →</a>
     </section>
@@ -87,8 +90,8 @@ const missions = [
     <section class="story-note">
       <span aria-hidden="true">📁</span>
       <div>
-        <strong>Your work follows the continent.</strong>
-        <p>Keep each Team Record. Later missions use evidence from earlier ones, so your team's investigation builds across the whole phase.</p>
+        <strong>Your team identity and evidence stay connected.</strong>
+        <p>Your Team Profile is saved on this device. Keep each Team Record too—later missions use evidence from earlier ones, so your investigation builds across the whole phase.</p>
       </div>
     </section>
 
