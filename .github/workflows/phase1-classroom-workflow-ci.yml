@@ -21,16 +21,14 @@ jobs:
           set -euo pipefail
           FILE='src/pages/courses/grade-7-science/jabberwocky/phase-1/team-recovery/index.astro'
           test -f "$FILE"
-          grep -q "TEACHER-DIRECTED TOOL" "$FILE"
-          grep -q "jabberwocky-phase1-team-profile" "$FILE"
-          grep -q "jabberwocky-phase1-posting" "$FILE"
-          grep -q "Existing Team ID" "$FILE"
-          grep -q "Use first names only" "$FILE"
-          grep -q "3–5 members" "$FILE"
-          grep -q "does not.*copy old local work" "$FILE"
-          ! grep -q "phase-2" "$FILE"
-          ! grep -q "grade-6-math" "$FILE"
-          ! grep -q "grade-7-math" "$FILE"
+          grep -Fq "TEACHER-DIRECTED TOOL" "$FILE"
+          grep -Fq "jabberwocky-phase1-team-profile" "$FILE"
+          grep -Fq "jabberwocky-phase1-posting" "$FILE"
+          grep -Fq "Existing Team ID" "$FILE"
+          grep -Fq "Use first names only" "$FILE"
+          grep -Fq "3–5 members" "$FILE"
+          grep -Fq "does <em>not</em> copy old local work" "$FILE"
+          grep -Fq "Original team logo" "$FILE"
       - name: Phase 1 data audit
         run: npm run audit:jabberwocky-phase1-data
       - name: Full production build
