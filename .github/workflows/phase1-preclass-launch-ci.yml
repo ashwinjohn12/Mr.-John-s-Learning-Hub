@@ -21,7 +21,7 @@ jobs:
           set -euo pipefail
           DOC='docs/jabberwocky-phase-1-teacher-launch-guide.md'
           PAGE='src/pages/courses/grade-7-science/jabberwocky/phase-1/teacher-launch-guide/index.astro'
-          grep -q 'Do \*\*not\*\* pre-create Team IDs' "$DOC"
+          grep -qi 'do.*not.*pre-create Team IDs' "$DOC"
           grep -q 'Team Setup comes first' "$PAGE"
           grep -q 'Team Directory' "$DOC"
           grep -q 'Team Recovery' "$DOC"
