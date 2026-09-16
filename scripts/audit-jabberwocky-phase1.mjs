@@ -36,7 +36,9 @@ const requiredFiles = [
 for (const file of requiredFiles) check(fs.existsSync(rel(file)), `exists: ${file}`);
 
 const hub = read('src/pages/courses/grade-7-science/jabberwocky/phase-1/index.astro');
-check(hub.includes('JcecMissionProgress active={6}'), 'Phase 1 hub shows the five-mission path as complete');
+check(hub.includes('JcecMissionProgress active={1}'), 'Phase 1 hub starts the five-mission path at Mission 1');
+check(hub.includes("status: 'START HERE'") && hub.includes("status: 'AVAILABLE'"), 'Phase 1 hub uses student-ready start and availability states');
+check(hub.includes('AFTER MISSION 5'), 'Phase 1 hub labels the Phase 2 handoff as after Mission 5');
 check(hub.includes('phase-2/'), 'Phase 1 hub hands students forward to Phase 2');
 for (let i = 1; i <= 5; i += 1) check(hub.includes(`mission-${i}/`), `Phase 1 hub links to Mission ${i}`);
 for (const title of ['Explore Your Environment','Meet a Native Species','Build the Ecosystem','Watch the Ecosystem Change','Humans Have Arrived']) check(hub.includes(title), `Phase 1 hub includes mission: ${title}`);
