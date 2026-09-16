@@ -1,0 +1,37 @@
+name: Temporary Phase 1 Classroom Workflow Verification
+
+on:
+  push:
+    branches:
+      - audit/phase1-classroom-data-workflow-20260916-final2
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify recovery page scope and safeguards
+        run: |
+          set -euo pipefail
+          FILE='src/pages/courses/grade-7-science/jabberwocky/phase-1/team-recovery/index.astro'
+          test -f "$FILE"
+          grep -q "TEACHER-DIRECTED TOOL" "$FILE"
+          grep -q "jabberwocky-phase1-team-profile" "$FILE"
+          grep -q "jabberwocky-phase1-posting" "$FILE"
+          grep -q "Existing Team ID" "$FILE"
+          grep -q "Use first names only" "$FILE"
+          grep -q "3–5 members" "$FILE"
+          grep -q "Previous local-only work" "$FILE"
+          ! grep -q "phase-2" "$FILE"
+          ! grep -q "grade-6-math" "$FILE"
+          ! grep -q "grade-7-math" "$FILE"
+      - name: Phase 1 data audit
+        run: npm run audit:jabberwocky-phase1-data
+      - name: Full production build
+        run: npm run build
