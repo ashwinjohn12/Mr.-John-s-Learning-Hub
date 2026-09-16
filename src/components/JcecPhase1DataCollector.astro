@@ -1,0 +1,137 @@
+---
+// Central Phase 1 data collection client.
+// Set this to the deployed Apps Script /exec URL after teacher setup is complete.
+const endpoint = '';
+const sourceVersion = 'phase1-collector-v1';
+---
+
+<script is:inline define:vars={{ endpoint, sourceVersion }}>
+  (() => {
+    if (!window.location.pathname.includes('/courses/grade-7-science/jabberwocky/phase-1/')) return;
+
+    const TEAM_KEY = 'jabberwocky-phase1-team-profile';
+    const POSTING_KEY = 'jabberwocky-phase1-posting';
+    const QUEUE_KEY = 'jabberwocky-phase1-submit-queue';
+
+    const safeParse = (value, fallback = null) => {
+      try { return value ? JSON.parse(value) : fallback; } catch { return fallback; }
+    };
+
+    const uuid = () => {
+      if (globalThis.crypto?.randomUUID) return globalThis.crypto.randomUUID();
+      return `p1-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+    };
+
+    const ensureTeam = () => {
+      const profile = safeParse(localStorage.getItem(TEAM_KEY), {}) || {};
+      if (!profile.teamId) {
+        profile.teamId = uuid();
+        localStorage.setItem(TEAM_KEY, JSON.stringify(profile));
+      }
+      return profile;
+    };
+
+    const getQueue = () => safeParse(localStorage.getItem(QUEUE_KEY), []) || [];
+    const setQueue = (queue) => localStorage.setItem(QUEUE_KEY, JSON.stringify(queue.slice(-50)));
+
+    const queueEvent = (event) => {
+      const queue = getQueue();
+      if (!queue.some((item) => item.eventId === event.eventId)) queue.push(event);
+      setQueue(queue);
+    };
+
+    const removeQueued = (eventId) => setQueue(getQueue().filter((item) => item.eventId !== eventId));
+
+    const makeEnvelope = ({ eventType, mission = '', recordTitle = '', record = {} }) => {
+      const team = ensureTeam();
+      return {
+        eventId: uuid(),
+        phase: 1,
+        eventType,
+        mission,
+        recordTitle,
+        record,
+        team: {
+          teamId: team.teamId || '',
+          teamName: team.teamName || '',
+          logo: team.logo || '',
+          missionStatement: team.missionStatement || '',
+          members: Array.isArray(team.members)
+            ? team.members.slice(0, 5).map((member) => ({
+                name: String(member.name || '').trim(),
+                role: String(member.role || '').trim()
+              }))
+            : []
+        },
+        continent: localStorage.getItem(POSTING_KEY) || '',
+        clientUpdatedAt: new Date().toISOString(),
+        sourceVersion
+      };
+    };
+
+    const send = async (event) => {
+      queueEvent(event);
+      if (!endpoint || !/^https:\/\/script\.google\.com\/macros\/s\//.test(endpoint)) {
+        return { state: 'queued', reason: 'endpoint-not-configured' };
+      }
+      if (!navigator.onLine) return { state: 'queued', reason: 'offline' };
+
+      try {
+        await fetch(endpoint, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+          body: new URLSearchParams({ payload: JSON.stringify(event) }).toString(),
+          keepalive: true
+        });
+        removeQueued(event.eventId);
+        return { state: 'sent' };
+      } catch {
+        return { state: 'queued', reason: 'network-error' };
+      }
+    };
+
+    const submit = async (spec) => send(makeEnvelope(spec));
+
+    const drainQueue = async () => {
+      if (!endpoint || !navigator.onLine) return;
+      for (const event of [...getQueue()]) await send(event);
+    };
+
+    window.JCECPhase1 = {
+      submit,
+      submitTeamProfile: (profile) => {
+        const stored = ensureTeam();
+        const merged = { ...profile, teamId: stored.teamId };
+        localStorage.setItem(TEAM_KEY, JSON.stringify(merged));
+        return submit({ eventType: 'team_profile', recordTitle: 'Team Profile', record: merged });
+      },
+      submitContinent: (continent) => submit({
+        eventType: 'continent',
+        recordTitle: 'Assigned Continent',
+        record: { continent }
+      }),
+      submitMissionRecord: (mission, recordTitle, record) => submit({
+        eventType: 'mission_record',
+        mission,
+        recordTitle,
+        record
+      }),
+      pendingCount: () => getQueue().length,
+      drainQueue
+    };
+
+    window.addEventListener('jabberwocky-team-profile-saved', (event) => {
+      window.JCECPhase1.submitTeamProfile(event.detail || {});
+    });
+    window.addEventListener('jabberwocky-continent-saved', (event) => {
+      window.JCECPhase1.submitContinent(event.detail?.continent || localStorage.getItem(POSTING_KEY) || '');
+    });
+    window.addEventListener('jabberwocky-mission-record-saved', (event) => {
+      const detail = event.detail || {};
+      window.JCECPhase1.submitMissionRecord(detail.mission, detail.recordTitle, detail.record || {});
+    });
+    window.addEventListener('online', drainQueue);
+    setTimeout(drainQueue, 800);
+  })();
+</script>
