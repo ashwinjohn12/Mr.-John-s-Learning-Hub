@@ -1,0 +1,33 @@
+<style is:global>
+  @media print {
+    @page { margin: 0.45in; }
+    body.print-mission3-packet { background:#fff !important; }
+    body.print-mission3-packet .site-header,
+    body.print-mission3-packet footer,
+    body.print-mission3-packet .skip-link,
+    body.print-mission3-packet .jcec-submission-dock,
+    body.print-mission3-packet .jcec-device-tools,
+    body.print-mission3-packet .mission-shell > *:not(.print-packet) { display:none !important; }
+    body.print-mission3-packet main,
+    body.print-mission3-packet .mission-shell { width:100% !important; max-width:none !important; margin:0 !important; padding:0 !important; background:#fff !important; color:#111 !important; }
+    body.print-mission3-packet .print-packet { display:block !important; width:100% !important; max-width:7.6in; margin:0 auto !important; color:#111 !important; background:#fff !important; font-family:Arial,Helvetica,sans-serif !important; font-size:10.5pt; line-height:1.22; }
+    body.print-mission3-packet .print-page { box-sizing:border-box; min-height:10in; padding:0 !important; break-after:page; page-break-after:always; }
+    body.print-mission3-packet .print-page:last-child { break-after:auto; page-break-after:auto; }
+    body.print-mission3-packet .print-page h1 { margin:0 0 8pt; font-size:20pt; line-height:1.08; }
+    body.print-mission3-packet .print-page h2 { margin:11pt 0 6pt; font-size:13pt; line-height:1.1; }
+    body.print-mission3-packet .print-page p { margin:6pt 0; orphans:2; widows:2; }
+    body.print-mission3-packet .print-card-grid { display:grid !important; grid-template-columns:repeat(4,1fr) !important; gap:7pt !important; margin:10pt 0 12pt !important; break-inside:avoid; page-break-inside:avoid; }
+    body.print-mission3-packet .print-card-grid article { display:grid !important; place-items:center !important; min-height:1.05in !important; padding:7pt !important; box-sizing:border-box; border:1.5pt solid #222 !important; color:#111 !important; background:#fff !important; text-align:center; break-inside:avoid; page-break-inside:avoid; }
+    body.print-mission3-packet .print-card-grid strong { font-size:12pt !important; line-height:1.12; }
+    body.print-mission3-packet .print-card-grid span { margin-top:3pt; font-size:9pt !important; }
+    body.print-mission3-packet .print-lines { height:0.52in !important; border-bottom:1px solid #777 !important; break-inside:avoid; page-break-inside:avoid; }
+    body.print-mission3-packet .map-space { display:grid !important; place-items:center !important; align-content:start !important; min-height:5.25in !important; padding:10pt !important; box-sizing:border-box; border:1.5pt solid #333 !important; color:#111 !important; background:#fff !important; text-align:center; break-inside:avoid; page-break-inside:avoid; }
+    body.print-mission3-packet .map-space strong { font-size:12pt; }
+    body.print-mission3-packet .map-space span { max-width:5.8in; margin-top:4pt !important; font-size:9pt !important; line-height:1.18; }
+    body.print-mission3-packet .cycle-print-row { display:grid !important; grid-template-columns:1fr 1fr !important; gap:8pt !important; margin:9pt 0 !important; break-inside:avoid; page-break-inside:avoid; }
+    body.print-mission3-packet .cycle-print-row > div { min-height:0.78in !important; padding:7pt !important; box-sizing:border-box; border:1px solid #555 !important; color:#111 !important; background:#fff !important; }
+    body.print-mission3-packet .cycle-print-row strong { display:block; font-size:10pt; }
+    body.print-mission3-packet .cycle-print-row p { margin:5pt 0 0 !important; font-size:9pt; line-height:1.15; }
+    body.print-mission3-packet .ecosystem-map-sheet > p:last-of-type { margin-top:7pt; break-inside:avoid; page-break-inside:avoid; }
+  }
+</style>
