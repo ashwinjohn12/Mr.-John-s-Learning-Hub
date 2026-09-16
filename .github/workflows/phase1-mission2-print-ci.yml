@@ -1,0 +1,32 @@
+name: Temporary Mission 2 Print Verification
+
+on:
+  push:
+    branches:
+      - fix/phase1-mission2-printables-20260916
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify Mission 2 print wiring
+        run: |
+          set -euo pipefail
+          grep -q "JcecMission2PrintFix" src/layouts/BaseLayout.astro
+          grep -q "body.print-mission2-packet" src/components/JcecMission2PrintFix.astro
+          grep -q "height: 3.35in" src/components/JcecMission2PrintFix.astro
+          grep -q "height: 0.78in" src/components/JcecMission2PrintFix.astro
+          grep -q "break-after: page" src/components/JcecMission2PrintFix.astro
+      - name: Phase 1 readiness audit
+        run: npm run audit:jabberwocky-phase1
+      - name: Phase 1 data audit
+        run: npm run audit:jabberwocky-phase1-data
+      - name: Full production build
+        run: npm run build
