@@ -80,7 +80,7 @@ const continents = [
         else { addRow(); status.textContent = ''; }
       });
 
-      form.addEventListener('submit', async (event) => {
+      form.addEventListener('submit', (event) => {
         event.preventDefault();
         const teamId = document.getElementById('team-id').value.trim();
         if (!validId.test(teamId)) {
@@ -105,11 +105,7 @@ const continents = [
         const continent = document.getElementById('continent').value;
         localStorage.setItem(TEAM_KEY, JSON.stringify(profile));
         localStorage.setItem(POSTING_KEY, continent);
-        try {
-          if (window.JCECPhase1?.submitTeamProfile) await window.JCECPhase1.submitTeamProfile(profile);
-          if (window.JCECPhase1?.submitContinent) await window.JCECPhase1.submitContinent(continent);
-        } catch {}
-        status.innerHTML = `✓ Team reconnected on this Chromebook. <a href="${base}courses/grade-7-science/jabberwocky/phase-1/">Return to Phase 1</a>.`;
+        status.innerHTML = `✓ Team reconnected on this Chromebook. The local copy is saved and the teacher copy will send automatically. <a href="${base}courses/grade-7-science/jabberwocky/phase-1/">Return to Phase 1</a>.`;
       });
     })();
   </script>
