@@ -1,0 +1,84 @@
+<style is:global>
+  @media print {
+    @page {
+      margin: 0.45in;
+    }
+
+    body.print-mission1-field-sheet {
+      background: #fff !important;
+    }
+
+    body.print-mission1-field-sheet .site-header,
+    body.print-mission1-field-sheet footer,
+    body.print-mission1-field-sheet .skip-link,
+    body.print-mission1-field-sheet .jcec-submission-dock,
+    body.print-mission1-field-sheet .jcec-device-tools,
+    body.print-mission1-field-sheet .mission-shell > *:not(.print-field-sheet) {
+      display: none !important;
+    }
+
+    body.print-mission1-field-sheet main,
+    body.print-mission1-field-sheet .mission-shell {
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: #fff !important;
+      color: #111 !important;
+    }
+
+    body.print-mission1-field-sheet .print-field-sheet {
+      display: block !important;
+      width: 100% !important;
+      max-width: 7.5in;
+      margin: 0 auto !important;
+      box-sizing: border-box;
+      color: #111 !important;
+      background: #fff !important;
+      font-family: Arial, Helvetica, sans-serif !important;
+      font-size: 11pt;
+      line-height: 1.25;
+    }
+
+    body.print-mission1-field-sheet .print-field-sheet h1 {
+      margin: 0 0 12pt;
+      font-size: 20pt;
+      line-height: 1.1;
+    }
+
+    body.print-mission1-field-sheet .print-field-sheet p {
+      margin: 8pt 0;
+    }
+
+    body.print-mission1-field-sheet .print-field-sheet table {
+      width: 100%;
+      margin: 14pt 0;
+      border-collapse: collapse;
+      table-layout: fixed;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    body.print-mission1-field-sheet .print-field-sheet th,
+    body.print-mission1-field-sheet .print-field-sheet td {
+      height: 0.62in;
+      padding: 6pt;
+      box-sizing: border-box;
+      border: 1px solid #333;
+      color: #111 !important;
+      background: #fff !important;
+      text-align: left;
+      vertical-align: top;
+      overflow-wrap: break-word;
+    }
+
+    body.print-mission1-field-sheet .print-field-sheet th:first-child {
+      width: 25%;
+    }
+
+    body.print-mission1-field-sheet .print-field-sheet .print-lines {
+      height: 0.42in;
+      border-bottom: 1px solid #777;
+    }
+  }
+</style>
