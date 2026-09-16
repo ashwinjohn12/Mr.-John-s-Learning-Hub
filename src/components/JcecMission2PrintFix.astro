@@ -1,0 +1,150 @@
+<style is:global>
+  @media print {
+    @page {
+      margin: 0.45in;
+    }
+
+    body.print-mission2-packet {
+      background: #fff !important;
+    }
+
+    body.print-mission2-packet .site-header,
+    body.print-mission2-packet footer,
+    body.print-mission2-packet .skip-link,
+    body.print-mission2-packet .jcec-submission-dock,
+    body.print-mission2-packet .jcec-device-tools,
+    body.print-mission2-packet .mission-shell > *:not(.print-packet) {
+      display: none !important;
+    }
+
+    body.print-mission2-packet main,
+    body.print-mission2-packet .mission-shell {
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: #fff !important;
+      color: #111 !important;
+    }
+
+    body.print-mission2-packet .print-packet {
+      display: block !important;
+      width: 100% !important;
+      max-width: 7.5in;
+      margin: 0 auto !important;
+      box-sizing: border-box;
+      color: #111 !important;
+      background: #fff !important;
+      font-family: Arial, Helvetica, sans-serif !important;
+      font-size: 11pt;
+      line-height: 1.25;
+    }
+
+    body.print-mission2-packet .print-page {
+      width: 100%;
+      min-height: 0 !important;
+      box-sizing: border-box;
+      break-after: page;
+      page-break-after: always;
+    }
+
+    body.print-mission2-packet .print-page:last-child {
+      break-after: auto;
+      page-break-after: auto;
+    }
+
+    body.print-mission2-packet .print-page h1 {
+      margin: 0 0 10pt;
+      font-size: 20pt;
+      line-height: 1.1;
+    }
+
+    body.print-mission2-packet .print-page p {
+      margin: 7pt 0;
+      orphans: 2;
+      widows: 2;
+    }
+
+    body.print-mission2-packet .print-page table {
+      width: 100%;
+      margin: 12pt 0;
+      border-collapse: collapse;
+      table-layout: fixed;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    body.print-mission2-packet .print-page th,
+    body.print-mission2-packet .print-page td {
+      padding: 6pt;
+      box-sizing: border-box;
+      border: 1px solid #333;
+      color: #111 !important;
+      background: #fff !important;
+      text-align: left;
+      vertical-align: top;
+      overflow-wrap: break-word;
+    }
+
+    body.print-mission2-packet .print-page thead th {
+      height: 0.42in;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 10pt;
+      line-height: 1.15;
+    }
+
+    body.print-mission2-packet .print-page:first-child tbody th,
+    body.print-mission2-packet .print-page:first-child tbody td {
+      height: 0.7in;
+    }
+
+    body.print-mission2-packet .print-page:first-child tbody th {
+      width: 24%;
+      vertical-align: middle;
+      font-size: 10pt;
+      line-height: 1.18;
+    }
+
+    body.print-mission2-packet .print-page:nth-child(2) tbody td {
+      height: 0.78in;
+    }
+
+    body.print-mission2-packet .print-page:nth-child(2) thead th:first-child {
+      width: 30%;
+    }
+
+    body.print-mission2-packet .print-page:nth-child(2) thead th:nth-child(2) {
+      width: 28%;
+    }
+
+    body.print-mission2-packet .print-page:nth-child(2) thead th:nth-child(3) {
+      width: 42%;
+    }
+
+    body.print-mission2-packet .print-lines {
+      height: 0.55in;
+      border-bottom: 1px solid #777;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    body.print-mission2-packet .print-sketch {
+      display: grid;
+      align-content: start;
+      height: 3.35in;
+      margin: 12pt 0;
+      padding: 10pt;
+      box-sizing: border-box;
+      border: 2px solid #555;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    body.print-mission2-packet .print-sketch span {
+      margin-top: 4pt;
+      color: #555 !important;
+      font-size: 10pt;
+    }
+  }
+</style>
