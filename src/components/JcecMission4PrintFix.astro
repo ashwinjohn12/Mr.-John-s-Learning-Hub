@@ -1,0 +1,132 @@
+<style is:global>
+  @media print {
+    @page {
+      size: auto;
+      margin: 0.45in;
+    }
+
+    body.print-mission4-packet {
+      background: #fff !important;
+    }
+
+    body.print-mission4-packet .site-header,
+    body.print-mission4-packet footer,
+    body.print-mission4-packet .skip-link,
+    body.print-mission4-packet .jcec-submission-dock,
+    body.print-mission4-packet .jcec-device-tools,
+    body.print-mission4-packet .mission-shell > *:not(.print-packet) {
+      display: none !important;
+    }
+
+    body.print-mission4-packet main,
+    body.print-mission4-packet .mission-shell,
+    body.print-mission4-packet .print-packet {
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: #fff !important;
+      color: #111 !important;
+    }
+
+    body.print-mission4-packet .print-packet {
+      position: static !important;
+      display: block !important;
+      font-family: Arial, Helvetica, sans-serif !important;
+      font-size: 11pt;
+      line-height: 1.25;
+    }
+
+    body.print-mission4-packet .print-page {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 0 !important;
+      padding: 0 !important;
+      break-after: page;
+      page-break-after: always;
+    }
+
+    body.print-mission4-packet .print-page:last-child {
+      break-after: auto;
+      page-break-after: auto;
+    }
+
+    body.print-mission4-packet .print-page h1 {
+      margin: 0 0 8pt;
+      font: 700 20pt/1.1 Arial, Helvetica, sans-serif;
+    }
+
+    body.print-mission4-packet .print-page p {
+      margin: 6pt 0;
+      font: 11pt/1.25 Arial, Helvetica, sans-serif;
+    }
+
+    body.print-mission4-packet .print-habitat-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      width: 5.75in;
+      height: 5.75in;
+      margin: 8pt auto 10pt;
+      border: 2px solid #111;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    body.print-mission4-packet .print-habitat-grid div {
+      display: grid;
+      place-items: center;
+      border: 1px solid #777;
+      color: #111 !important;
+      background: #fff !important;
+      font: 700 10pt Arial, Helvetica, sans-serif;
+    }
+
+    body.print-mission4-packet .print-page table {
+      width: 100%;
+      margin: 8pt 0 8pt;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font: 10pt/1.15 Arial, Helvetica, sans-serif;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    body.print-mission4-packet .print-page th,
+    body.print-mission4-packet .print-page td {
+      height: 0.58in;
+      padding: 5pt;
+      border: 1px solid #555;
+      color: #111 !important;
+      background: #fff !important;
+      text-align: left;
+      vertical-align: top;
+      overflow-wrap: break-word;
+    }
+
+    body.print-mission4-packet .print-page thead th {
+      height: 0.42in;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 9.5pt;
+    }
+
+    body.print-mission4-packet .print-page thead th:nth-child(2) { width: 23%; }
+    body.print-mission4-packet .print-page thead th:nth-child(3) { width: 18%; }
+
+    body.print-mission4-packet .print-lines {
+      height: 0.58in;
+      border-bottom: 1px solid #777;
+      background: repeating-linear-gradient(to bottom, transparent 0, transparent 0.27in, #ddd 0.28in);
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    body.print-mission4-packet .print-lines.tall {
+      height: 1.45in;
+    }
+
+    body.print-mission4-packet .print-page:nth-child(2) p {
+      margin-top: 9pt;
+    }
+  }
+</style>
