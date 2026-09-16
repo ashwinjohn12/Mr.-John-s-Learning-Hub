@@ -27,7 +27,7 @@ jobs:
           grep -q "Existing Team ID" "$FILE"
           grep -q "Use first names only" "$FILE"
           grep -q "3–5 members" "$FILE"
-          grep -q "Previous local-only work" "$FILE"
+          grep -q "does not.*copy old local work" "$FILE"
           ! grep -q "phase-2" "$FILE"
           ! grep -q "grade-6-math" "$FILE"
           ! grep -q "grade-7-math" "$FILE"
