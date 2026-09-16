@@ -41,18 +41,20 @@
     }
 
     body.print-mission1-field-sheet .print-field-sheet h1 {
-      margin: 0 0 12pt;
+      margin: 0 0 10pt;
       font-size: 20pt;
       line-height: 1.1;
     }
 
     body.print-mission1-field-sheet .print-field-sheet p {
-      margin: 8pt 0;
+      margin: 7pt 0;
+      orphans: 2;
+      widows: 2;
     }
 
     body.print-mission1-field-sheet .print-field-sheet table {
       width: 100%;
-      margin: 14pt 0;
+      margin: 12pt 0;
       border-collapse: collapse;
       table-layout: fixed;
       break-inside: avoid;
@@ -61,7 +63,6 @@
 
     body.print-mission1-field-sheet .print-field-sheet th,
     body.print-mission1-field-sheet .print-field-sheet td {
-      height: 0.62in;
       padding: 6pt;
       box-sizing: border-box;
       border: 1px solid #333;
@@ -72,13 +73,31 @@
       overflow-wrap: break-word;
     }
 
-    body.print-mission1-field-sheet .print-field-sheet th:first-child {
+    body.print-mission1-field-sheet .print-field-sheet thead th {
+      height: 0.42in;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 10pt;
+      line-height: 1.15;
+    }
+
+    body.print-mission1-field-sheet .print-field-sheet tbody th,
+    body.print-mission1-field-sheet .print-field-sheet tbody td {
+      height: 0.72in;
+    }
+
+    body.print-mission1-field-sheet .print-field-sheet tbody th {
       width: 25%;
+      font-size: 10pt;
+      line-height: 1.18;
+      vertical-align: middle;
     }
 
     body.print-mission1-field-sheet .print-field-sheet .print-lines {
-      height: 0.42in;
+      height: 0.5in;
       border-bottom: 1px solid #777;
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
   }
 </style>
