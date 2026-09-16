@@ -1,0 +1,301 @@
+---
+// Central Phase 1 data collection client.
+// Deployed teacher-owned Apps Script endpoint.
+const endpoint = 'https://script.google.com/macros/s/AKfycbwPc510wfFhtm9IIEVWZloWC_C1QVBMfa1rksk7vLv-cbZlhVkCbE_-HUH4IQybqkfQLg/exec';
+const sourceVersion = 'phase1-collector-v1';
+---
+
+<script is:inline define:vars={{ endpoint, sourceVersion }}>
+  (() => {
+    if (!window.location.pathname.includes('/courses/grade-7-science/jabberwocky/phase-1/')) return;
+
+    const TEAM_KEY = 'jabberwocky-phase1-team-profile';
+    const POSTING_KEY = 'jabberwocky-phase1-posting';
+    const QUEUE_KEY = 'jabberwocky-phase1-submit-queue';
+    const RECORD_TITLES = {
+      1: 'Environment Profile',
+      2: 'Native Species Card',
+      3: 'Ecosystem Map',
+      4: 'Ecosystem Change Record',
+      5: 'JCEC Recommendation Board'
+    };
+
+    const safeParse = (value, fallback = null) => {
+      try { return value ? JSON.parse(value) : fallback; } catch { return fallback; }
+    };
+
+    const escapeHtml = (value) => String(value || '')
+      .replaceAll('&', '&amp;')
+      .replaceAll('"', '&quot;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;');
+
+    const uuid = () => {
+      if (globalThis.crypto?.randomUUID) return globalThis.crypto.randomUUID();
+      return `p1-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+    };
+
+    const nativeSetItem = Storage.prototype.setItem;
+    let internalWrite = false;
+    const rawSet = (key, value) => {
+      internalWrite = true;
+      try { nativeSetItem.call(localStorage, key, value); }
+      finally { internalWrite = false; }
+    };
+
+    const ensureTeam = () => {
+      const profile = safeParse(localStorage.getItem(TEAM_KEY), {}) || {};
+      if (!profile.teamId) {
+        profile.teamId = uuid();
+        rawSet(TEAM_KEY, JSON.stringify(profile));
+      }
+      return profile;
+    };
+
+    const getQueue = () => safeParse(localStorage.getItem(QUEUE_KEY), []) || [];
+    const setQueue = (queue) => rawSet(QUEUE_KEY, JSON.stringify(queue.slice(-50)));
+
+    const queueEvent = (event) => {
+      const queue = getQueue();
+      if (!queue.some((item) => item.eventId === event.eventId)) queue.push(event);
+      setQueue(queue);
+    };
+
+    const removeQueued = (eventId) => setQueue(getQueue().filter((item) => item.eventId !== eventId));
+
+    const makeEnvelope = ({ eventType, mission = '', recordTitle = '', record = {} }) => {
+      const team = ensureTeam();
+      return {
+        eventId: uuid(),
+        phase: 1,
+        eventType,
+        mission,
+        recordTitle,
+        record,
+        team: {
+          teamId: team.teamId || '',
+          teamName: team.teamName || '',
+          logo: team.logo || '',
+          missionStatement: team.missionStatement || '',
+          members: Array.isArray(team.members)
+            ? team.members.slice(0, 5).map((member) => ({
+                name: String(member.name || '').trim(),
+                role: String(member.role || '').trim()
+              }))
+            : []
+        },
+        continent: localStorage.getItem(POSTING_KEY) || '',
+        clientUpdatedAt: new Date().toISOString(),
+        sourceVersion
+      };
+    };
+
+    const send = async (event) => {
+      queueEvent(event);
+      if (!endpoint || !/^https:\/\/script\.google\.com\/macros\/s\//.test(endpoint)) {
+        return { state: 'queued', reason: 'endpoint-not-configured' };
+      }
+      if (!navigator.onLine) return { state: 'queued', reason: 'offline' };
+
+      try {
+        await fetch(endpoint, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+          body: new URLSearchParams({ payload: JSON.stringify(event) }).toString(),
+          keepalive: true
+        });
+        removeQueued(event.eventId);
+        return { state: 'sent' };
+      } catch {
+        return { state: 'queued', reason: 'network-error' };
+      }
+    };
+
+    const submit = async (spec) => send(makeEnvelope(spec));
+
+    const submitTeamProfile = (profile) => {
+      const stored = ensureTeam();
+      const merged = { ...profile, teamId: stored.teamId };
+      rawSet(TEAM_KEY, JSON.stringify(merged));
+      return submit({ eventType: 'team_profile', recordTitle: 'Team Profile', record: merged });
+    };
+
+    const submitContinent = (continent) => submit({
+      eventType: 'continent',
+      recordTitle: 'Assigned Continent',
+      record: { continent }
+    });
+
+    const submitMissionRecord = (mission, recordTitle, record) => submit({
+      eventType: 'mission_record',
+      mission,
+      recordTitle,
+      record
+    });
+
+    const drainQueue = async () => {
+      if (!endpoint || !navigator.onLine) return;
+      for (const event of [...getQueue()]) await send(event);
+    };
+
+    window.JCECPhase1 = {
+      submit,
+      submitTeamProfile,
+      submitContinent,
+      submitMissionRecord,
+      pendingCount: () => getQueue().length,
+      drainQueue
+    };
+
+    const missionForStorageKey = (key) => {
+      const standard = /^jabberwocky-mission([1235])-team-record$/.exec(key);
+      if (standard) return Number(standard[1]);
+      if (/^jabberwocky-mission4-record(?::.*)?$/.test(key)) return 4;
+      return null;
+    };
+
+    // Observe approved local saves. Local storage remains the first write, so a
+    // central-network failure never prevents students from keeping their work.
+    Storage.prototype.setItem = function(key, value) {
+      nativeSetItem.call(this, key, value);
+      if (internalWrite || this !== window.localStorage) return;
+
+      if (key === TEAM_KEY) {
+        const profile = safeParse(value, null);
+        if (profile?.teamName) setTimeout(() => submitTeamProfile(profile), 0);
+        return;
+      }
+
+      if (key === POSTING_KEY && value) {
+        setTimeout(() => submitContinent(value), 0);
+        return;
+      }
+
+      const mission = missionForStorageKey(key);
+      if (mission) {
+        const record = safeParse(value, {});
+        setTimeout(() => submitMissionRecord(mission, RECORD_TITLES[mission], record), 0);
+      }
+    };
+
+    // Mission 3's full Team Record is a physical Ecosystem Map. Collect only a
+    // compact teacher-report checkpoint, not a duplicate digital map.
+    const addMission3Checkpoint = () => {
+      const target = document.querySelector('#simplified-mission-3 .map-record');
+      if (!target || target.querySelector('#mission3-digital-checkpoint')) return;
+
+      const saved = safeParse(localStorage.getItem('jabberwocky-mission3-team-record'), {}) || {};
+      const panel = document.createElement('div');
+      panel.id = 'mission3-digital-checkpoint';
+      panel.innerHTML = `
+        <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid #315361">
+          <p class="mini-label">TEACHER REPORT COPY</p>
+          <p style="color:#adc3cd;line-height:1.5">Keep the full Ecosystem Map on paper. Save only the three ideas your teacher needs for the Phase 1 report.</p>
+          <label style="display:grid;gap:.3rem;margin:.65rem 0;color:#d5e6ec;font-weight:800">Connection to protect
+            <input id="m3-protected-connection" maxlength="140" value="${escapeHtml(saved.protectedConnection)}" style="width:100%;box-sizing:border-box;padding:.68rem;border:1px solid #315361;border-radius:8px;background:#0a202a;color:#fff;font:inherit" />
+          </label>
+          <label style="display:grid;gap:.3rem;margin:.65rem 0;color:#d5e6ec;font-weight:800">One piece of evidence
+            <textarea id="m3-evidence" rows="2" maxlength="260" style="width:100%;box-sizing:border-box;padding:.68rem;border:1px solid #315361;border-radius:8px;background:#0a202a;color:#fff;font:inherit">${escapeHtml(saved.evidence)}</textarea>
+          </label>
+          <label style="display:grid;gap:.3rem;margin:.65rem 0;color:#d5e6ec;font-weight:800">Likely effect if that connection is disrupted
+            <textarea id="m3-effect" rows="2" maxlength="260" style="width:100%;box-sizing:border-box;padding:.68rem;border:1px solid #315361;border-radius:8px;background:#0a202a;color:#fff;font:inherit">${escapeHtml(saved.likelyEffect)}</textarea>
+          </label>
+          <button type="button" id="save-mission3-checkpoint" class="small-button">Save Team Record</button>
+          <span id="mission3-checkpoint-status" class="save-status" role="status"></span>
+        </div>`;
+      target.appendChild(panel);
+
+      panel.querySelector('#save-mission3-checkpoint')?.addEventListener('click', () => {
+        const record = {
+          continent: localStorage.getItem(POSTING_KEY) || '',
+          protectedConnection: panel.querySelector('#m3-protected-connection')?.value?.trim() || '',
+          evidence: panel.querySelector('#m3-evidence')?.value?.trim() || '',
+          likelyEffect: panel.querySelector('#m3-effect')?.value?.trim() || ''
+        };
+        const status = panel.querySelector('#mission3-checkpoint-status');
+        if (!record.protectedConnection || !record.evidence || !record.likelyEffect) {
+          status.textContent = 'Complete all three checkpoint boxes first.';
+          return;
+        }
+        localStorage.setItem('jabberwocky-mission3-team-record', JSON.stringify(record));
+        status.textContent = '✓ Ecosystem Map checkpoint saved on this device.';
+      });
+    };
+
+    // Mission 5's approved Recommendation Board remains the full product. This
+    // copy captures its reportable conclusions without asking for a second report.
+    const addMission5Checkpoint = () => {
+      const target = document.querySelector('#simplified-mission-5 .recommendation-record');
+      if (!target || target.querySelector('#mission5-digital-checkpoint')) return;
+
+      const key = 'jabberwocky-mission5-team-record';
+      const saved = safeParse(localStorage.getItem(key), {}) || {};
+      const recommendations = ['Explore carefully','Explore with strong rules','Very limited exploration','Stop for now'];
+      const options = recommendations.map((choice) => `<option value="${choice}" ${saved.recommendation === choice ? 'selected' : ''}>${choice}</option>`).join('');
+      const panel = document.createElement('div');
+      panel.id = 'mission5-digital-checkpoint';
+      panel.innerHTML = `
+        <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid #43525d">
+          <p class="mini-label">TEACHER REPORT COPY</p>
+          <p style="color:#adc3cd;line-height:1.5">Copy the short conclusions from your Recommendation Board. Your paper board is still the full Phase 1 product.</p>
+          <label style="display:grid;gap:.3rem;margin:.6rem 0;color:#d5e6ec;font-weight:800">Why this ecosystem matters
+            <textarea id="m5-ecosystem" rows="2" maxlength="220" style="width:100%;box-sizing:border-box;padding:.68rem;border:1px solid #405562;border-radius:8px;background:#0a202a;color:#fff;font:inherit">${escapeHtml(saved.ecosystemMatters)}</textarea>
+          </label>
+          <label style="display:grid;gap:.3rem;margin:.6rem 0;color:#d5e6ec;font-weight:800">Important native species
+            <input id="m5-species" maxlength="120" value="${escapeHtml(saved.nativeSpecies)}" style="width:100%;box-sizing:border-box;padding:.68rem;border:1px solid #405562;border-radius:8px;background:#0a202a;color:#fff;font:inherit" />
+          </label>
+          <label style="display:grid;gap:.3rem;margin:.6rem 0;color:#d5e6ec;font-weight:800">Important ecosystem connection
+            <textarea id="m5-connection" rows="2" maxlength="220" style="width:100%;box-sizing:border-box;padding:.68rem;border:1px solid #405562;border-radius:8px;background:#0a202a;color:#fff;font:inherit">${escapeHtml(saved.ecosystemConnection)}</textarea>
+          </label>
+          <label style="display:grid;gap:.3rem;margin:.6rem 0;color:#d5e6ec;font-weight:800">Biggest human-caused risk
+            <textarea id="m5-risk" rows="2" maxlength="220" style="width:100%;box-sizing:border-box;padding:.68rem;border:1px solid #405562;border-radius:8px;background:#0a202a;color:#fff;font:inherit">${escapeHtml(saved.biggestRisk)}</textarea>
+          </label>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem">
+            ${[1,2,3].map((n) => `<label style="display:grid;gap:.3rem;color:#d5e6ec;font-weight:800">Evidence ${n}<textarea id="m5-evidence-${n}" rows="3" maxlength="260" style="width:100%;box-sizing:border-box;padding:.68rem;border:1px solid #405562;border-radius:8px;background:#0a202a;color:#fff;font:inherit">${escapeHtml(saved[`evidence${n}`])}</textarea></label>`).join('')}
+          </div>
+          <label style="display:grid;gap:.3rem;margin:.6rem 0;color:#d5e6ec;font-weight:800">One rule humans must follow
+            <textarea id="m5-rule" rows="2" maxlength="220" style="width:100%;box-sizing:border-box;padding:.68rem;border:1px solid #405562;border-radius:8px;background:#0a202a;color:#fff;font:inherit">${escapeHtml(saved.humanRule)}</textarea>
+          </label>
+          <label style="display:grid;gap:.3rem;margin:.6rem 0;color:#d5e6ec;font-weight:800">Final recommendation
+            <select id="m5-recommendation" style="width:100%;box-sizing:border-box;padding:.68rem;border:1px solid #405562;border-radius:8px;background:#0a202a;color:#fff;font:inherit"><option value="">Choose…</option>${options}</select>
+          </label>
+          <label style="display:grid;gap:.3rem;margin:.6rem 0;color:#d5e6ec;font-weight:800">Short explanation
+            <textarea id="m5-explanation" rows="3" maxlength="360" style="width:100%;box-sizing:border-box;padding:.68rem;border:1px solid #405562;border-radius:8px;background:#0a202a;color:#fff;font:inherit">${escapeHtml(saved.explanation)}</textarea>
+          </label>
+          <button type="button" id="save-mission5-checkpoint" class="small-button">Save Team Record</button>
+          <span id="mission5-checkpoint-status" class="save-status" role="status"></span>
+        </div>`;
+      target.appendChild(panel);
+
+      panel.querySelector('#save-mission5-checkpoint')?.addEventListener('click', () => {
+        const value = (selector) => panel.querySelector(selector)?.value?.trim() || '';
+        const record = {
+          continent: localStorage.getItem(POSTING_KEY) || '',
+          ecosystemMatters: value('#m5-ecosystem'),
+          nativeSpecies: value('#m5-species'),
+          ecosystemConnection: value('#m5-connection'),
+          biggestRisk: value('#m5-risk'),
+          evidence1: value('#m5-evidence-1'),
+          evidence2: value('#m5-evidence-2'),
+          evidence3: value('#m5-evidence-3'),
+          humanRule: value('#m5-rule'),
+          recommendation: value('#m5-recommendation'),
+          explanation: value('#m5-explanation')
+        };
+        const status = panel.querySelector('#mission5-checkpoint-status');
+        if (Object.values(record).some((entry) => !entry)) {
+          status.textContent = 'Complete the Recommendation Board copy first.';
+          return;
+        }
+        localStorage.setItem(key, JSON.stringify(record));
+        status.textContent = '✓ Recommendation Board saved on this device.';
+      });
+    };
+
+    addMission3Checkpoint();
+    addMission5Checkpoint();
+    window.addEventListener('online', drainQueue);
+    setTimeout(drainQueue, 800);
+  })();
+</script>
