@@ -1,0 +1,32 @@
+name: Temporary Mission 3 Print Verification
+
+on:
+  push:
+    branches:
+      - fix/phase1-mission3-printables-20260916
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify Mission 3 print wiring
+        run: |
+          set -euo pipefail
+          grep -q "JcecMission3PrintFix" src/layouts/BaseLayout.astro
+          grep -q "body.print-mission3-packet" src/components/JcecMission3PrintFix.astro
+          grep -q "min-height:5.25in" src/components/JcecMission3PrintFix.astro
+          grep -q "min-height:1.05in" src/components/JcecMission3PrintFix.astro
+          grep -q "break-after:page" src/components/JcecMission3PrintFix.astro
+      - name: Phase 1 readiness audit
+        run: npm run audit:jabberwocky-phase1
+      - name: Phase 1 data audit
+        run: npm run audit:jabberwocky-phase1-data
+      - name: Full production build
+        run: npm run build
