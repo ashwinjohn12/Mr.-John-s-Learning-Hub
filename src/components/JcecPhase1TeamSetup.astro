@@ -1,0 +1,215 @@
+---
+const logoChoices = ['🚀','🧭','🌎','🔬','🛰️','🌿','⚡','🧪','🛡️','⭐'];
+const roleChoices = ['Lead Scientist','Evidence Recorder','Materials Manager','Data Analyst','Communicator'];
+---
+
+<section class="team-setup" id="phase1-team-setup" aria-labelledby="team-setup-heading">
+  <div class="team-setup-heading">
+    <div>
+      <p class="team-eyebrow">BEFORE MISSION 1</p>
+      <h2 id="team-setup-heading">Create your expedition team</h2>
+      <p>Build your team identity once. It stays saved on this device for Phase 1.</p>
+    </div>
+    <div class="team-badge" aria-hidden="true"><span id="team-logo-preview">🚀</span><strong id="team-name-preview">Your Team</strong></div>
+  </div>
+
+  <form id="team-setup-form" class="team-form">
+    <div class="team-basics">
+      <label>
+        <span>Team name</span>
+        <input id="team-name" maxlength="40" required placeholder="Example: The Eco Explorers" />
+      </label>
+
+      <fieldset class="logo-picker">
+        <legend>Choose a team logo</legend>
+        <div class="logo-grid">
+          {logoChoices.map((logo, index) => (
+            <label class="logo-option">
+              <input type="radio" name="team-logo" value={logo} checked={index === 0} />
+              <span aria-hidden="true">{logo}</span>
+              <b class="sr-only">Logo {index + 1}</b>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <label class="mission-statement">
+        <span>Mission statement</span>
+        <textarea id="team-mission" rows="3" maxlength="180" required placeholder="We will work together to collect strong evidence, protect living things, and make careful decisions."></textarea>
+        <small>One sentence is enough. What will your team try to do well?</small>
+      </label>
+    </div>
+
+    <div class="members-section">
+      <div class="members-heading">
+        <div><strong>Team members and roles</strong><span>Groups must have 3–5 members.</span></div>
+        <button type="button" id="add-team-member" class="small-action">+ Add member</button>
+      </div>
+
+      <div id="team-members" class="member-list"></div>
+      <p class="role-note"><strong>Role tip:</strong> Pick different main roles when possible. In a 3-person team, share the two unused jobs when needed.</p>
+    </div>
+
+    <div class="team-actions">
+      <button type="submit" class="save-team">Save Team Profile</button>
+      <button type="button" id="copy-team-profile" class="copy-team">Copy Team Profile</button>
+      <span id="team-save-status" class="save-status" role="status" aria-live="polite"></span>
+    </div>
+  </form>
+
+  <div class="saved-team" id="saved-team" hidden>
+    <div class="saved-team-title"><span id="saved-logo" aria-hidden="true">🚀</span><div><small>PHASE 1 TEAM</small><strong id="saved-name"></strong></div></div>
+    <p id="saved-mission"></p>
+    <div id="saved-members" class="saved-members"></div>
+    <button type="button" id="edit-team-profile" class="small-action">Edit team profile</button>
+  </div>
+</section>
+
+<script is:inline define:vars={{ roleChoices }}>
+  (() => {
+    const STORAGE_KEY = 'jabberwocky-phase1-team-profile';
+    const form = document.getElementById('team-setup-form');
+    const memberList = document.getElementById('team-members');
+    const addButton = document.getElementById('add-team-member');
+    const copyButton = document.getElementById('copy-team-profile');
+    const editButton = document.getElementById('edit-team-profile');
+    const status = document.getElementById('team-save-status');
+    const savedPanel = document.getElementById('saved-team');
+    const teamName = document.getElementById('team-name');
+    const teamMission = document.getElementById('team-mission');
+    const namePreview = document.getElementById('team-name-preview');
+    const logoPreview = document.getElementById('team-logo-preview');
+
+    const safeParse = (value) => {
+      try { return value ? JSON.parse(value) : null; } catch { return null; }
+    };
+
+    const memberRow = (member = {}) => {
+      const row = document.createElement('div');
+      row.className = 'member-row';
+      row.innerHTML = `
+        <label><span>Member name</span><input class="member-name" maxlength="40" required placeholder="First name" value="${String(member.name || '').replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;')}" /></label>
+        <label><span>Main role</span><select class="member-role" required><option value="">Choose role…</option>${roleChoices.map((role) => `<option value="${role}" ${member.role === role ? 'selected' : ''}>${role}</option>`).join('')}</select></label>
+        <button type="button" class="remove-member" aria-label="Remove this team member">×</button>`;
+      row.querySelector('.remove-member')?.addEventListener('click', () => {
+        if (memberList.children.length <= 3) {
+          status.textContent = 'A team needs at least 3 members.';
+          return;
+        }
+        row.remove();
+      });
+      memberList.appendChild(row);
+    };
+
+    const getLogo = () => document.querySelector('input[name="team-logo"]:checked')?.value || '🚀';
+
+    const collect = () => ({
+      teamName: teamName.value.trim(),
+      logo: getLogo(),
+      missionStatement: teamMission.value.trim(),
+      members: [...memberList.querySelectorAll('.member-row')].map((row) => ({
+        name: row.querySelector('.member-name').value.trim(),
+        role: row.querySelector('.member-role').value
+      })),
+      updatedAt: new Date().toISOString()
+    });
+
+    const isValid = (profile) => profile.teamName && profile.missionStatement && profile.members.length >= 3 && profile.members.length <= 5 && profile.members.every((member) => member.name && member.role);
+
+    const renderSaved = (profile) => {
+      document.getElementById('saved-logo').textContent = profile.logo || '🚀';
+      document.getElementById('saved-name').textContent = profile.teamName;
+      document.getElementById('saved-mission').textContent = `“${profile.missionStatement}”`;
+      const target = document.getElementById('saved-members');
+      target.innerHTML = '';
+      profile.members.forEach((member) => {
+        const chip = document.createElement('div');
+        const name = document.createElement('strong');
+        const role = document.createElement('span');
+        name.textContent = member.name;
+        role.textContent = member.role;
+        chip.append(name, role);
+        target.appendChild(chip);
+      });
+      form.hidden = true;
+      savedPanel.hidden = false;
+      namePreview.textContent = profile.teamName;
+      logoPreview.textContent = profile.logo || '🚀';
+    };
+
+    const loadIntoForm = (profile) => {
+      teamName.value = profile?.teamName || '';
+      teamMission.value = profile?.missionStatement || '';
+      const desiredLogo = profile?.logo || '🚀';
+      const logoInput = document.querySelector(`input[name="team-logo"][value="${CSS.escape(desiredLogo)}"]`);
+      if (logoInput) logoInput.checked = true;
+      memberList.innerHTML = '';
+      const members = profile?.members?.length ? profile.members : [{},{},{}];
+      members.slice(0,5).forEach(memberRow);
+      namePreview.textContent = profile?.teamName || 'Your Team';
+      logoPreview.textContent = desiredLogo;
+    };
+
+    const existing = safeParse(localStorage.getItem(STORAGE_KEY));
+    loadIntoForm(existing);
+    if (existing && isValid(existing)) renderSaved(existing);
+
+    addButton?.addEventListener('click', () => {
+      if (memberList.children.length >= 5) {
+        status.textContent = 'Teams can have up to 5 members.';
+        return;
+      }
+      memberRow({});
+      status.textContent = '';
+    });
+
+    teamName?.addEventListener('input', () => namePreview.textContent = teamName.value.trim() || 'Your Team');
+    document.querySelectorAll('input[name="team-logo"]').forEach((input) => input.addEventListener('change', () => logoPreview.textContent = getLogo()));
+
+    form?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const profile = collect();
+      if (!isValid(profile)) {
+        status.textContent = 'Complete the team name, mission statement, and 3–5 member rows first.';
+        return;
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
+      renderSaved(profile);
+      status.textContent = 'Team Profile saved on this device.';
+      window.dispatchEvent(new CustomEvent('jabberwocky-team-profile-saved', { detail: profile }));
+    });
+
+    editButton?.addEventListener('click', () => {
+      const profile = safeParse(localStorage.getItem(STORAGE_KEY));
+      loadIntoForm(profile);
+      savedPanel.hidden = true;
+      form.hidden = false;
+      status.textContent = '';
+      teamName.focus();
+    });
+
+    copyButton?.addEventListener('click', async () => {
+      const profile = collect();
+      if (!isValid(profile)) {
+        status.textContent = 'Finish the Team Profile before copying it.';
+        return;
+      }
+      const text = [
+        `Team: ${profile.teamName} ${profile.logo}`,
+        `Mission statement: ${profile.missionStatement}`,
+        ...profile.members.map((member, i) => `${i + 1}. ${member.name} — ${member.role}`)
+      ].join('\n');
+      try {
+        await navigator.clipboard.writeText(text);
+        status.textContent = 'Team Profile copied.';
+      } catch {
+        status.textContent = 'Copy was blocked. You can still use the saved profile on this device.';
+      }
+    });
+  })();
+</script>
+
+<style>
+  .team-setup{margin:1.2rem 0;padding:1.25rem;border:1px solid #3b7168;border-radius:18px;background:linear-gradient(145deg,#092529,#0a1d2a);color:#eaf5ff}.team-setup-heading{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start}.team-eyebrow{margin:0;color:#76e8c9;font:850 .72rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em}.team-setup h2{margin:.25rem 0 .35rem;color:#fff;font-size:clamp(1.45rem,3vw,2rem)}.team-setup-heading p:last-child{margin:.2rem 0;color:#aac6ce;line-height:1.5}.team-badge{display:flex;gap:.55rem;align-items:center;max-width:260px;padding:.65rem .8rem;border:1px solid #426b67;border-radius:12px;background:#071c22}.team-badge span{font-size:1.5rem}.team-badge strong{color:#fff}.team-form{margin-top:1rem}.team-basics{display:grid;grid-template-columns:1fr 1.1fr;gap:.9rem}.team-form label,.logo-picker{display:grid;gap:.35rem}.team-form label>span,.logo-picker legend{color:#d9edf2;font-weight:850;font-size:.82rem}.team-form input,.team-form textarea,.team-form select{width:100%;padding:.72rem .78rem;border:1px solid #42616c;border-radius:9px;background:#06141d;color:#fff;font:inherit}.team-form textarea{resize:vertical}.mission-statement{grid-column:1/-1}.mission-statement small{color:#8fa9b4}.logo-picker{margin:0;padding:.7rem;border:1px solid #36545f;border-radius:11px}.logo-grid{display:flex;flex-wrap:wrap;gap:.35rem}.logo-option{display:block!important;position:relative}.logo-option input{position:absolute;opacity:0;pointer-events:none}.logo-option span{display:grid;place-items:center;width:42px;height:42px;border:1px solid #365963;border-radius:9px;background:#071923;font-size:1.25rem;cursor:pointer}.logo-option input:checked+span{outline:3px solid #78e7c9;outline-offset:1px;background:#123a34}.members-section{margin-top:1rem;padding:1rem;border:1px solid #294e58;border-radius:14px;background:#071a24}.members-heading{display:flex;justify-content:space-between;gap:.75rem;align-items:center}.members-heading>div{display:grid;gap:.15rem}.members-heading strong{color:#fff}.members-heading span{color:#94afba;font-size:.82rem}.member-list{display:grid;gap:.55rem;margin-top:.75rem}.member-row{display:grid;grid-template-columns:1fr 1fr auto;gap:.55rem;align-items:end}.remove-member{width:40px;height:40px;border:1px solid #71474a;border-radius:9px;background:#2c151a;color:#ffc9cc;font-size:1.3rem;cursor:pointer}.small-action{padding:.55rem .7rem;border:1px solid #47716b;border-radius:8px;background:#0b2a2b;color:#b9ebdc;font-weight:850;cursor:pointer}.role-note{margin:.7rem 0 0;color:#97b1ba;font-size:.82rem;line-height:1.45}.team-actions{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-top:1rem}.save-team,.copy-team{padding:.72rem .9rem;border-radius:9px;font-weight:900;cursor:pointer}.save-team{border:0;background:#b6e779;color:#17320d}.copy-team{border:1px solid #456b70;background:#0a2029;color:#d7edf2}.save-status{color:#9fd7c9;font-size:.84rem}.saved-team{margin-top:1rem;padding:1rem;border:1px solid #4d816e;border-radius:14px;background:#0b2a25}.saved-team-title{display:flex;gap:.7rem;align-items:center}.saved-team-title>span{font-size:2rem}.saved-team-title div{display:grid}.saved-team-title small{color:#78d9c0;font-size:.68rem;font-weight:900;letter-spacing:.08em}.saved-team-title strong{color:#fff;font-size:1.3rem}.saved-team>p{margin:.7rem 0;color:#c0d7d5;font-style:italic}.saved-members{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.45rem;margin:.75rem 0}.saved-members div{display:grid;gap:.12rem;padding:.55rem .65rem;border:1px solid #315a53;border-radius:9px;background:#071d1d}.saved-members strong{color:#fff}.saved-members span{color:#91bab2;font-size:.78rem}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  @media(max-width:700px){.team-setup-heading{display:grid}.team-badge{max-width:none}.team-basics{grid-template-columns:1fr}.mission-statement{grid-column:auto}.member-row{grid-template-columns:1fr}.remove-member{width:100%;height:auto;padding:.5rem}.members-heading{align-items:flex-start}}
+</style>
