@@ -39,8 +39,10 @@ jobs:
 
           post() {
             local payload="$1"
+            # Apps Script commonly answers POST with a redirect to a Google-hosted
+            # response page. Do not force POST across that redirect; allow curl's
+            # normal 302 handling so the test mirrors a browser submission.
             curl --fail --location --silent --show-error \
-              --request POST \
               --header 'Content-Type: application/x-www-form-urlencoded;charset=UTF-8' \
               --data-urlencode "payload=${payload}" \
               "$ENDPOINT"
