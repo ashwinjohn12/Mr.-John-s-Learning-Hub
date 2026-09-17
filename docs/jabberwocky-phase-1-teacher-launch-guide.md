@@ -19,14 +19,22 @@ Student sequence:
 
 ## MISSION MATERIALS MASTER LIST
 Use **shared stations, reused classroom materials and printed/printable records** before buying or duplicating specialized kits.
-- M1: shared thermometer(s), field sheets, clipboards, string/markers; optional metre stick/light/moisture tools.
-- M2: shared spoons, tweezers, clothespins/tongs, chopsticks, counters/objects; reconstruction sheet; Native Species Card.
-- M3: organism cards, yarn/string, arrow markers; Ecosystem Map.
-- M4: **5×5 grid**, beans/paper markers/counters; Ecosystem Change Record; local source pack.
-- M5: printable **six-zone** Stowaway mat — **no cups required**; neutral + contrasting markers; pollutant cards/tokens; **JCEC Recommendation Board**.
+- M1: shared thermometer(s), **one field sheet per team**, clipboards, string/markers; optional metre stick/light/moisture tools.
+- M2: shared spoons, tweezers, clothespins/tongs, chopsticks and counters; **one two-page Mission 2 packet per team (lab + Native Species Card)**. No separate reconstruction sheet is needed.
+- M3: **reusable laminated Earth organism-card sets**, yarn/string, arrow markers; **one consumable Ecosystem Map per team**.
+- M4: **reusable laminated/sleeved 5×5 sampling page**, counters, dry-erase marker; **one consumable Ecosystem Change Record per team**; shared/digital local source pack.
+- M5: **reusable laminated six-zone Stowaway mat**, neutral + contrasting markers; one teacher pollutant/biomagnification model set; **one consumable JCEC Recommendation Board per team**.
+
+### Final printing standard
+- There are **no required per-student Mission 1–5 packets**.
+- Initial setup is **9 sheets per team** across the whole phase, including three pages that should become reusable class-set materials.
+- Once the M3 cards, M4 sampling page and M5 spread mat are laminated/reused, the ongoing load is **6 consumable sheets per team across all of Phase 1**.
+- Do not print separate M2 reconstruction sheets, repeated M3 cards, repeated M4 grids, repeated M5 spread mats, a pollutant worksheet, an M5 evidence-summary worksheet, or full local-source packs for every student.
+- Day 22 is the only planned individual print, and only if a clean individual science check is actually needed.
+- Full details: `docs/jabberwocky-phase1-final-materials-plan.md`.
 
 ## Mission 4 local-source pack
-Use specific, teacher-curated evidence. Students **do not ask students to invent or generalize an Indigenous perspective**; they describe what the specific source actually contributes.
+Use specific, teacher-curated evidence. Students **do not invent or generalize an Indigenous perspective**; they describe what the specific source actually contributes.
 - City of Calgary — Source Water Protection: https://www.calgary.ca/water/stormwater/source-water-protection.html
 - City of Calgary — Riparian Areas: https://www.calgary.ca/water/stormwater/riparian-areas.html
 - Tsuut'ina Nation — Niska Newsletter, June 2025: https://tsuutina.com/wp-content/uploads/2025/06/Niska.Newsletter.June10.2025.final_.pdf
@@ -40,23 +48,23 @@ For each class, the live teacher page / 25-Period Plan gives: **BEFORE CLASS · 
 - **Day 2 — CORE:** M1 Earth Environmental Survey.
 - **Day 3 — CORE:** M1 Environment Profile — final M1 Team Record; M1 ✓.
 - **Day 4 — CORE:** M2 Survival Structures Lab.
-- **Day 5 — CORE:** M2 First Contact clue inference.
+- **Day 5 — CORE:** M2 First Contact clue inference using the Native Species Card; no separate reconstruction sheet.
 - **Day 6 — CORE:** M2 Native Species Card — final M2 Team Record; M2 ✓.
-- **Day 7 — CORE:** M3 How Food Webs Work.
-- **Day 8 — CORE:** M3 Build Your Continent Food Web.
-- **Day 9 — CORE:** M3 ecosystem-change reasoning.
-- **Day 10 — CORE:** M3 Matter Moves Too; Ecosystem Map + compact Teacher Report Copy; M3 ✓.
-- **Day 11 — CORE:** M4 Population Sampling.
-- **Day 12 — CORE:** M4 Your Population Case.
-- **Day 13 — CORE:** M4 Disturbance and Recovery.
-- **Day 14 — CORE:** M4 Earth Connection + Decision; Ecosystem Change Record; M4 ✓.
+- **Day 7 — CORE:** M3 How Food Webs Work with reusable Earth organism cards.
+- **Day 8 — CORE:** M3 Build Your Continent Food Web on one Ecosystem Map.
+- **Day 9 — CORE:** M3 ecosystem-change reasoning on the same map.
+- **Day 10 — CORE:** M3 Matter Moves Too; same Ecosystem Map + compact Teacher Report Copy; M3 ✓.
+- **Day 11 — CORE:** M4 Population Sampling using reusable sampling page.
+- **Day 12 — CORE:** M4 Your Population Case; begin/continue Ecosystem Change Record.
+- **Day 13 — CORE:** M4 Disturbance and Recovery; same Ecosystem Change Record.
+- **Day 14 — CORE:** M4 Earth Connection + Decision; finish Ecosystem Change Record; M4 ✓.
 - **Day 15 — FLEX:** fieldwork/M4 recovery buffer.
-- **Day 16 — CORE:** M5 The Incident / Stowaway Spread.
-- **Day 17 — CORE:** M5 spread + harm evidence, biomagnification and extinction concepts.
+- **Day 16 — CORE:** M5 The Incident / Stowaway Spread using reusable spread mat.
+- **Day 17 — CORE:** M5 spread + harm evidence, teacher biomagnification model and extinction concepts; no extra worksheet.
 - **Day 18 — CORE:** M5 build the Recommendation Board from Missions 1–4 evidence.
 - **Day 19 — CORE:** M5 JCEC Recommendation; major synthesis + digital Teacher Report Copy; M5 ✓; completed team = 6/6.
 - **Day 20 — FLEX:** recommendation completion / absence recovery.
-- **Day 21 — FLEX:** whole-unit science review.
+- **Day 21 — FLEX:** whole-unit science review, digital/whiteboard by default.
 - **Day 22 — FLEX:** optional short individual science check.
 - **Day 23 — FLEX:** reteach + targeted catch-up.
 - **Day 24 — FLEX:** optional gallery walk / continent briefing.
