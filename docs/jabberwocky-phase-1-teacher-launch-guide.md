@@ -34,7 +34,7 @@ Use **shared stations, reused classroom materials and printed/printable records*
 - Full details: `docs/jabberwocky-phase1-final-materials-plan.md`.
 
 ## Mission 4 local-source pack
-Use specific, teacher-curated evidence. **Do not ask students to invent or generalize an Indigenous perspective**; they describe what the specific source actually contributes.
+Use specific, teacher-curated evidence; **do not ask students to invent or generalize an Indigenous perspective**. They describe what the specific source actually contributes.
 - City of Calgary — Source Water Protection: https://www.calgary.ca/water/stormwater/source-water-protection.html
 - City of Calgary — Riparian Areas: https://www.calgary.ca/water/stormwater/riparian-areas.html
 - Tsuut'ina Nation — Niska Newsletter, June 2025: https://tsuutina.com/wp-content/uploads/2025/06/Niska.Newsletter.June10.2025.final_.pdf
