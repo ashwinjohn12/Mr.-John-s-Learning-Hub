@@ -487,22 +487,30 @@ Students who want more complexity use the four bounded Level It Up options or la
 
 ---
 
-## 13. Controller onboarding guardrail
+## 13. Locked controller mapping
 
-The exact physical controller model is not identified in the current FutureTech site source. That is **not a Mission 1–2 learning gap**, but it is an implementation dependency for the Mission 3 webpage.
+**Default Mission 3 hardware:** Kitronik :GAME Controller for BBC micro:bit, stock code 5644, with BBC micro:bit V2.
 
-Before the webpage is built, implementation must confirm the controller model and provide one tiny device-specific connection/mapping card containing only:
+This is the standard Mission 3 controller because it works in the normal micro:bit MakeCode editor, supports micro:bit V2, and provides a dedicated MakeCode extension with direct controller-button events.
 
-1. how to connect it safely;
-2. which control is used in the core game;
-3. which MakeCode input/event corresponds to that control;
-4. one “controller not responding” check.
+### Student-facing mapping card — keep this small
 
-The mission itself remains hardware-concept neutral:
+1. **Safe connection** — switch the :GAME Controller off. Insert the micro:bit firmly into the controller edge connector with the micro:bit LED display facing the same direction as the front of the controller. Power the controller with its two AA batteries. Do not force the micro:bit into the connector.
+2. **Core control** — use **Fire 1** as the single Target Game action button.
+3. **MakeCode event** — add the **Kitronik :GAME Controller** extension (`KitronikLtd/pxt-kitronik-game-controller`) and use the controller event **on button Fire 1 Down**. Put the same IF target rule inside this event that previously worked with micro:bit Button A.
+4. **Controller not responding check** — temporarily make **Fire 1 → show an icon**. If the icon does not appear, check that the controller is powered, the micro:bit is fully seated in the edge connector, and the project contains the Kitronik :GAME Controller extension before debugging the game rule.
 
-> **controller → input event → game action**
+The locked mental model remains:
 
-Do not turn Mission 3 into an electronics/wiring lesson.
+> **Fire 1 → controller event → IF target rule → score / game over**
+
+The familiar-input-first sequence remains mandatory: students first make the rule work with micro:bit Button A, then transfer only the input event to Fire 1.
+
+### Other available gaming hardware
+
+The ELECFREAKS micro:bit Retro Arcade is **not** the default Mission 3 controller. It is a colour-screen micro:bit V2 expansion designed around Microsoft MakeCode Arcade, so using it here would change the programming environment and add unnecessary cognitive load. Reserve it for a later dedicated MakeCode Arcade/game-design experience.
+
+Do not mix controller platforms within the core Mission 3 instructions. If classroom quantities require mixed hardware, use the Kitronik :GAME Controller pathway as the assessed standard and treat any ELECFREAKS pathway as teacher-prepared enrichment or a later mission.
 
 ---
 
@@ -571,7 +579,7 @@ If students reach Ready-for-Check earlier, rolling checkpoints may begin before 
 
 After the Mission 2 loop correction and this compliance pass, Missions 1–2 provide a sufficient beginner prerequisite base and the Mission 3 specification now conforms to the frozen Level 1 mission design standard.
 
-**Mission 3 is instructionally ready to build once the exact controller model/mapping is confirmed.**
+**Mission 3 is instructionally and hardware-mapping ready to build using the Kitronik :GAME Controller + micro:bit V2 pathway.**
 
 Its locked core remains:
 
