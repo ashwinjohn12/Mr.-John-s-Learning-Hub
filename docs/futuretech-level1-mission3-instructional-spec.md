@@ -1,127 +1,63 @@
 # FutureTech Lab — Level 1 Mission 3 Instructional Specification
 
 **Mission:** 3 — Build a Game  
-**Status:** PRE-BUILD COMPLIANT / webpage not built  
+**Status:** DUAL-CONTROLLER PRE-BUILD SPECIFICATION — webpage not built  
 **Audience:** Grade 8/9 beginners who have passed Missions 1 and 2  
 **Target length:** one 90-minute class  
 **Locked architecture:** Set Up → First Code → Make It React → Build It → Level It Up → Checkpoint → Skill Passport → Reset  
 **Governing standard:** `docs/futuretech-level1-mission-design-standard.md`
 
-## 1. Pre-build compliance audit result
+## 1. Locked implementation decision
 
-Mission 3 is a good instructional fit for the frozen FutureTech Level 1 standard. The core concept, pacing and six-stage architecture do not need redesign.
+Mission 3 supports two equivalent hardware pathways because classroom inventory includes approximately 2–3 of each controller type:
 
-The pre-build audit identified and corrected these specification-level gaps:
+- **Path A — Kitronik :GAME Controller + micro:bit V2**
+- **Path B — ELECFREAKS micro:bit Retro Arcade + micro:bit V2**
 
-1. **Visual scaffolding is now explicit.** Stage 2 and Stage 3 define where block-finder chips and mini MakeCode models are appropriate, while Stage 4 is protected from showing a complete finished solution.
-2. **Success indicators are now explicit at each major guided coding step.** Students will have observable results to compare against rather than relying on “code is correct.”
-3. **TRY 4 is explicitly preserved as the permanent troubleshooting routine.** Mission-specific warnings support it without replacing it.
-4. **Level It Up is reduced to four bounded choices.** The earlier 2D extension is removed from the standard Mission 3 page so the extension set stays focused and beginner-manageable.
-5. **Checkpoint result language is aligned to the course standard:** MISSION COMPLETE / RETRY ONE SKILL / SUPPORT ROUTE.
-6. **Skill Passport wording is tightened** so it records what the core mission actually teaches rather than implying full directional sprite control.
-7. **Responsive and accessibility requirements are now explicit** for implementation and release testing.
-8. **Stage 1 prerequisite review is simplified** to a compact on-page recap rather than relying on a teacher-provided code image.
+Students are assigned one pathway for the complete mission and **do not switch platforms mid-mission**.
 
-No change is required to Mission 1, Mission 2, the shared mission frame or the public site.
+The two paths do not use identical code or identical displays. They do use the same computational-thinking targets:
 
-One implementation dependency remains: the exact physical controller model/mapping must still be confirmed before the webpage is built.
+**moving object → repeated motion → one action input → IF target rule → score / end condition → playtest → improvement**
+
+The common checkpoint and Skill Passport assess those shared ideas rather than controller-specific syntax.
+
+Advanced MakeCode Arcade features are deliberately withheld from Path B. Mission 3 is not a full Arcade unit.
 
 ---
 
-## 2. Progression audit result
+## 2. Progression prerequisites
 
-Mission 1 establishes events, input/output, sequence, simulator-to-device transfer, basic modification/testing, TRY 4, partner roles, checkpoint, Passport and Reset.
+Students who have passed Missions 1–2 are expected to independently:
 
-Mission 2 establishes variables, SET versus CHANGE, randomness, IF true/false logic, one simple repeat loop, modification/testing and the same workflow routines.
-
-### Material prerequisite gap previously found and corrected
-
-The earlier Mission 2 design did not explicitly teach a loop even though Level 1 progression expects loops before game design. Mission 2 was corrected before this compliance audit: students now use one simple `repeat` loop inside the special-result logic, apply it in Build It, explain it at Checkpoint and record it in the Skill Passport.
-
-No further Mission 1–2 prerequisite correction is required before Mission 3.
-
----
-
-## 3. What a student should now be able to do independently
-
-A student who has passed Missions 1 and 2 may be expected to do the following without reteaching.
-
-### Coding prerequisites
-
-- create and name a MakeCode project;
-- recognize `on start` and input events;
-- use Button A, Button B and shake as inputs;
-- create visible LED outputs;
-- read a short sequence of blocks in order;
-- create a variable;
-- distinguish SET from CHANGE;
-- change a stored number up or down;
-- generate a random number;
-- read and explain one IF condition as a true/false question;
+- create/name a project;
+- use events and visible outputs;
+- read a sequence in order;
+- create/set/change a variable;
+- use a random value;
+- explain one IF condition;
 - use a simple repeat loop;
-- make a small requested code change and test it;
-- explain what should happen before running the program.
-
-### Hardware and file routines
-
-- identify the micro:bit, LED display, buttons and USB connection;
-- connect the micro:bit without forcing connectors;
-- test in the simulator first when useful;
-- download the newest code to the physical micro:bit;
-- recognize when the simulator works but the physical device needs a cable/download check;
-- save using the established mission naming routine;
-- return the numbered kit, cable and workspace correctly.
-
-### Troubleshooting prerequisites
-
-Students already know the permanent TRY 4 routine and should use it without reteaching:
-
-1. **CHECK** — inspect blocks, values, order and nesting; compare with a code model when one exists.
-2. **SIMULATE** — test the newest code on screen.
-3. **DOWNLOAD** — send the newest version to the device.
-4. **PARTNER** — explain what should happen and what actually happened.
-
-If they still need help, they should be able to state what they expected and what they already tried.
-
-### Collaboration prerequisites
-
-- Driver controls the computer/device;
-- Navigator reads, predicts and checks requirements;
-- partners switch at Stage 3;
-- both partners must understand the code;
-- the project may belong to a pair, but the checkpoint is individual.
-
-### Workflow prerequisites
-
-Students already know how to:
-
-- work through the six stages in order;
-- move to Level It Up only after Build It works;
-- add their name/pair to Ready-for-Check;
-- continue working while waiting;
+- predict, modify and test code;
+- use TRY 4;
+- work as Driver/Navigator and switch at Stage 3;
+- download/test on physical hardware;
+- join Ready-for-Check;
 - complete an individual checkpoint;
-- update their Skill Passport;
-- complete Reset before leaving.
+- update Skill Passport and Reset equipment.
 
-These routines should be referenced briefly, not retaught.
+These routines are referenced briefly, not retaught.
 
 ---
 
-## 4. Mission 3 purpose
+## 3. Mission purpose
 
 Mission 3 is the first **integration mission**.
 
-Missions 1 and 2 taught individual coding ideas. Mission 3 combines known ideas into a playable system with a goal, rules, score, failure state and another human player.
+The progression is:
 
-The conceptual progression is:
+**EVENTS + VARIABLES + IF + LOOPS → PLAYABLE GAME SYSTEM**
 
-**EVENTS → VARIABLES / IF / LOOPS → GAME SYSTEM**
-
-Mission 3 should feel like a noticeable step forward while introducing only a small number of genuinely new ideas.
-
----
-
-## 5. Mission question and success criteria
+Students combine previously learned programming ideas into a game another person can understand and play.
 
 ### Mission question
 
@@ -129,460 +65,521 @@ Mission 3 should feel like a noticeable step forward while introducing only a sm
 
 ### Student success statement
 
-> **I can create a playable micro:bit game, control it with a game controller, use a rule to change the score or end the game, and improve it after a playtest.**
+> **I can create a playable timing game, use a controller input to trigger a rule, change score or end the game, and improve the game after a playtest.**
 
 ---
 
-## 6. Required new learning
+## 4. Equivalent core game
 
-Mission 3 introduces only these new ideas.
+Both pathways build the same **type** of game rather than identical code.
 
-### New concept 1 — Game sprite
+### Common game rule
 
-A **sprite** is a controllable LED object on the micro:bit display.
+1. A visible object repeatedly moves past or toward a target.
+2. The player presses one action button at the correct moment.
+3. An IF rule decides whether the timing was successful.
+4. Success increases score.
+5. Failure ends the round/game.
+6. Another student can understand the game quickly.
+7. The creators make one evidence-based improvement after playtesting.
 
-Students need only:
+### Path A — LED Target Snap
 
-- create one sprite;
-- understand its left-to-right position (`x` from 0 to 4);
-- move it one LED at a time;
-- recognize the centre position as `x = 2` in the core model.
+- display: micro:bit 5×5 LED matrix;
+- moving object: one game sprite/dot moving horizontally;
+- target: centre position;
+- action control: **Fire 1** on the Kitronik :GAME Controller;
+- correct timing: score increases;
+- miss: game over/end condition.
 
-Do **not** require full x/y coordinate teaching, multiple sprites or direction-angle mathematics in the core mission.
+### Path B — Arcade Target Snap
 
-### New concept 2 — Forever as a game loop
+- display: ELECFREAKS Retro Arcade colour TFT;
+- moving object: one simple Arcade sprite moving horizontally;
+- target: one simple visible target zone/marker;
+- action control: **A button**;
+- correct timing: score increases;
+- miss: game over/end condition.
 
-Students already understand that a loop repeats instructions. Mission 3 applies that idea with `forever` so the game can keep moving while input events can still occur.
-
-This is an application of a known concept, not a new loop unit.
-
-### New concept 3 — Game state: score and game over
-
-Students already understand stored numbers through variables. Mission 3 introduces the MakeCode game score/game-over tools as a game-specific form of remembered state:
-
-- correct action → score increases;
-- incorrect action → game ends;
-- game over displays the final result/score.
-
-### New concept 4 — Controller mapping
-
-A game controller must be framed as **another source of input**, not as a separate coding system.
-
-The mental model is:
-
-**CONTROLLER INPUT → EVENT → GAME ACTION**
-
-Students first make the game rule work with a familiar micro:bit input, then map the same action to one controller control.
-
-### New process skill — Playtesting
-
-For the first time, another student must play the creation as a user.
-
-Students learn:
-
-> **BUILD → PLAYTEST → NOTICE → CHANGE → RETEST**
-
-One evidence-based improvement is required before Ready-for-Check.
+Path B must remain visually simple. Do not introduce scenes, tilemaps, collisions, enemies, lives, animation systems, multiple sprites, story elements, or full Arcade game design in the required pathway.
 
 ---
 
-## 7. Core game model
+## 5. New learning and equivalency
 
-The required core game is a **timing / target game**, not a multi-level arcade game.
+### Shared new ideas
 
-### Target Snap baseline
+Both pathways teach:
 
-- one LED sprite moves left and right across one row;
-- a loop keeps it moving and bouncing at the edges;
-- the target position is the centre (`x = 2`) in the guided baseline;
-- the player presses one control when the sprite reaches the target;
-- IF the sprite is on the target, score increases;
-- ELSE / otherwise, the game ends and displays the final result/score;
-- another student can immediately understand the goal: **score as many points as possible before a miss**.
+- a visible game object/sprite;
+- continuous/repeated game motion;
+- one controller action;
+- one IF-based timing rule;
+- score as game state;
+- one end/failure condition;
+- playtesting and evidence-based improvement.
 
-Randomness is **not required in the core game**. Mission 2 already established it, and forcing randomness into the first controller game would add complexity without improving the main learning goal. Randomness returns in Level It Up.
+### Platform-specific vocabulary
 
-The guided baseline may demonstrate the structure needed to learn the new game system. Stage 4 must still require meaningful student decisions and must not sit beside a complete copyable finished solution.
+**Path A**
+- micro:bit MakeCode game sprite;
+- sprite x-position;
+- `forever`;
+- Kitronik controller Fire 1 event.
 
----
+**Path B**
+- MakeCode Arcade sprite;
+- horizontal sprite movement/position;
+- Arcade update/repeating movement structure;
+- controller **A button** event;
+- Arcade score and game-over tools.
 
-## 8. Visual scaffolding plan
+Students do not need to master the other pathway's syntax.
 
-Mission 3 follows the frozen rule: **use a visual code model only when it prevents a realistic beginner structural error.**
+### Difficulty-equivalence rule
 
-### Stage 1 — no new code model
+Neither pathway may require extra assessed concepts merely because its hardware can do more.
 
-Use a compact prerequisite recap card only. Students identify familiar ideas such as event, IF and loop from a very small schematic or labelled reminder.
-
-Do not add a full Mission 1/2 review model.
-
-### Stage 2 — one mini model required
-
-Use one simplified mini MakeCode model for the **new movement structure**:
-
-- create one sprite;
-- `forever` owns the repeated movement;
-- move one step;
-- bounce at the edge;
-- pause.
-
-The model exists to show **ownership/order**, especially that movement belongs inside the repeating game loop.
-
-Pair it with block-finder chips for only the unfamiliar categories/blocks needed in this step. Exact chip labels must match the current MakeCode interface at implementation time.
-
-Do not show scoring, target logic or controller code in this model.
-
-### Stage 3 — one rule model + one tiny hardware mapping card
-
-Use one simplified code model for the **familiar-input game rule**:
-
-- Button A event;
-- IF sprite x-position equals the target;
-- true path changes score;
-- false path ends the game.
-
-The purpose is to make the decision structure visible, not to provide the final personalized game.
-
-Pair the model with only the block-finder chips needed for the new game-state/position tools.
-
-After the rule works, show a separate **device-specific controller mapping card** containing only:
-
-- the selected controller control;
-- the corresponding MakeCode event/input;
-- the statement that the game rule stays the same;
-- one controller-not-responding troubleshooting check.
-
-Do not create a second full code model merely to show the controller version if only the input event changes.
-
-### Stage 4 — no complete code model
-
-Build It may provide:
-
-- a requirements checklist;
-- Goal / Control / Rule planning prompts;
-- one or two idea examples;
-- success criteria;
-- TRY 4.
-
-It must **not** display the complete finished Target Game code beside the challenge.
+Path B's larger screen is used only to make the equivalent moving object and target visible. Richer Arcade capabilities are saved for later FutureTech levels.
 
 ---
 
-## 9. Six-stage instructional sequence
+## 6. Six-stage mission sequence
 
-### Stage 1 — Set Up
+## Stage 1 — Set Up — SHARED
 
-**Purpose:** reconnect to known workflow and introduce the controller physically without teaching controller code yet.
+**Purpose:** establish one mission, one goal and one hardware assignment.
 
-Students:
+All students:
 
-- collect computer, numbered micro:bit kit, USB data cable and game controller;
+- collect computer, numbered micro:bit V2 kit, USB cable and assigned controller;
 - confirm Driver/Navigator roles;
-- identify the controller control that will eventually be used;
-- connect only according to the device-specific connection card;
-- complete a 60-second prerequisite recap by identifying an event, IF and loop from a compact on-page reminder.
+- receive a **Path A** or **Path B** station marker;
+- remain on that same pathway for the complete mission;
+- complete a 60-second recap identifying an event, IF and loop;
+- read the common game rule: **move → press → decide → score/end**.
 
-**Do not** spend this stage teaching controller libraries, wiring theory or a full prerequisite lesson.
+### Hardware-station rule
 
-### Stage 2 — First Code
+A controller is assigned to a pair, not carried between pairs during the mission.
 
-**Purpose:** get a playable-looking object moving quickly using the micro:bit alone.
+If there are more pairs than controller stations, pairs begin the shared planning/simulator work while a controller is unavailable and receive hardware as a station opens. No pair changes from Path A to Path B simply because another controller becomes free.
 
-Students create a new project named using the established convention, e.g. `FirstName_L1_M3`.
+---
 
-Core steps:
+## Stage 2 — First Code — SHARED LEARNING PATHWAY
 
-1. create one game sprite in the centre;
-2. place sprite movement inside `forever`;
-3. move one LED at a time;
-4. bounce at the edge;
-5. add a short pause to make the speed playable;
-6. test in the simulator and on the micro:bit.
+**Purpose:** every pair gets a moving game object working before scoring or controller-specific logic.
 
-**Block-finder support:** include only the unfamiliar sprite/game tools plus the known loop/pause tools needed for this structure.
+Stage 2 is shared in **goal, sequence, pacing and success criterion**, but each platform uses a tiny implementation card because the editors differ.
 
-**Mini code model:** show only the movement structure described in Section 8.
+Common sequence:
 
-**Success looks like:** one dot repeatedly travels across the display without student input and visibly changes direction at the edge.
+1. create a new project using the established naming convention;
+2. create one visible game object;
+3. make it move horizontally;
+4. keep the movement repeating;
+5. keep the object within/playable across the visible game area;
+6. slow the motion enough for a player to react;
+7. test in the relevant simulator.
 
-**Likely bug prompt:** if the dot is too fast to follow, check for the pause; if it stops after one move, check whether movement is inside the repeating loop.
+### Path A implementation card — micro:bit MakeCode
 
-### Stage 3 — Make It React
+Use one mini code model showing:
 
-**Purpose:** turn moving code into an actual game rule, then transfer a familiar input to the controller.
+**create sprite → forever → move → bounce at edge → pause**
 
-**Switch partner roles at the start of Stage 3.**
+Block-finder chips include only the unfamiliar game/sprite blocks plus the known loop/pause tools.
 
-Part A — familiar input first:
+**Success looks like:** one LED dot repeatedly travels across the micro:bit display and changes direction at an edge.
 
-- use Button A as the temporary action input;
-- when A is pressed, check whether sprite x-position equals the target position;
-- TRUE → add one point;
-- FALSE → game over.
+### Path B implementation card — MakeCode Arcade
 
-Students predict what will happen for x = 2 and x ≠ 2 before testing.
+Use one mini code model showing the simplest equivalent structure:
 
-**Block-finder support:** include the unfamiliar game-position/score/end tools and the Logic blocks needed to read the rule.
+**create one sprite → give it simple horizontal motion → keep it on/reverse within the playable area**
 
-**Mini code model:** show the Button A decision structure described in Section 8. Do not combine it with the Stage 2 movement model into one giant finished-game diagram.
+The model must use the minimum current Arcade blocks needed to produce a repeated horizontal target motion. Do not introduce a full Arcade tutorial.
 
-**Success looks like:** pressing A at the target increases score; pressing A away from the target ends the round/game.
+**Success looks like:** one simple sprite repeatedly moves across the Retro Arcade screen at a speed a player can react to.
 
-Part B — controller transfer:
+### Shared Stage 2 success criterion
 
-- map one controller control to the same game action;
-- keep the rule unchanged;
-- test controller → event → score/game-over.
+> **A visible game object moves repeatedly without the player pressing the action button.**
 
-**Success looks like:** the selected physical controller input triggers the same result that Button A triggered.
+No score, target rule or controller action is added yet.
 
-Key message:
+---
 
-> **The controller changes the input device. It does not change the game rule.**
+## Stage 3 — Make It React — PATH SPLIT
 
-**Likely bug prompts:** if scoring never occurs, compare the checked x-position with the intended target; if the controller does not respond, use the single device-specific controller check before asking for help.
+**Switch Driver/Navigator roles now.**
 
-### Stage 4 — Build It
+Both pathways follow the same conceptual sequence:
 
-**Challenge title:** Build It — Target Game
+**ACTION INPUT → IF TARGET RULE → SCORE OR END**
 
-Students create a playable timing game for another person.
+### Path A — Kitronik :GAME Controller + micro:bit V2
 
-Required characteristics:
+#### First, familiar input
 
-- one visible moving sprite;
-- movement repeats continuously;
-- at least one controller input affects gameplay;
+Before using Fire 1, make the target rule work with micro:bit **Button A**:
+
+- if the moving dot/sprite is at the target position → add one point;
+- otherwise → end the game/round.
+
+Students predict the result for target vs non-target positions before testing.
+
+#### Then transfer to controller
+
+Use the Kitronik :GAME Controller **Fire 1** event for the same action.
+
+The IF rule does not change.
+
+**Success looks like:** Fire 1 causes exactly the scoring/end decision previously triggered by Button A.
+
+### Path B — ELECFREAKS Retro Arcade + micro:bit V2
+
+Path B is already in MakeCode Arcade, so the familiar-input bridge is conceptual rather than a second editor.
+
+Use the Arcade **A button** as the single action event:
+
+- if the moving sprite is in the target zone/position → increase score;
+- otherwise → end the game/round.
+
+Students predict the result for target vs non-target positions before testing.
+
+**Success looks like:** pressing A at the target scores; pressing A away from the target ends the round/game.
+
+### Common teaching message
+
+> **The button does not decide whether you win. The IF rule decides. The button only triggers the check.**
+
+---
+
+## 7. Minimal hardware/setup cards
+
+These are the only controller-specific setup instructions shown in the student mission.
+
+### Path A setup card — Kitronik :GAME Controller
+
+1. **Connect safely:** controller off; insert micro:bit V2 firmly into the edge connector with the LED display facing the front of the controller; do not force it.
+2. **Action control:** Fire 1.
+3. **MakeCode:** normal micro:bit MakeCode; add the Kitronik :GAME Controller extension and use the Fire 1 button event.
+4. **Not responding:** temporarily test **Fire 1 → show icon**. Check controller power, micro:bit seating and the extension before debugging the game rule.
+
+### Path B setup card — ELECFREAKS Retro Arcade
+
+1. **Connect safely:** insert the micro:bit V2 into the Retro Arcade as designed, connect/download through the micro:bit USB connection, and do not force the board into the connector.
+2. **Action control:** A button.
+3. **MakeCode:** use **Microsoft MakeCode Arcade**. The classroom devices should have the required micro:bit V2/Retro Arcade experimental hardware target prepared before the lesson whenever possible.
+4. **Not responding:** run a tiny A-button test in the Arcade simulator first. If the simulator works but the physical unit does not, check the selected Arcade hardware target, the download on the MICROBIT drive and the micro:bit seating before debugging the game rule.
+
+Do not place experimental-hardware configuration into the normal student learning sequence unless a device actually requires setup.
+
+---
+
+## Stage 4 — Build It — COMMON RUBRIC
+
+**Challenge:** Build It — Timing Target Game
+
+Students personalize the guided game while preserving the core computational structure.
+
+### Common non-negotiable requirements
+
+Every Path A and Path B project must have:
+
+- one visible moving game object;
+- repeated/continuous movement;
+- one physical controller action;
 - one clear target/success rule;
-- an IF decision checks the rule;
-- a correct action changes score;
-- an incorrect action can end the round/game;
-- the game runs on the physical micro:bit/controller setup;
-- instructions are simple enough that another student can start playing within about 20 seconds;
-- the pair changes at least one meaningful element from the guided baseline (speed, target position, controller control, scoring behaviour, theme or rule);
-- another student playtests it;
-- the creators make **one improvement based on the playtest** and retest.
+- an IF decision;
+- score increasing after a successful action;
+- a clear failure/end result;
+- working physical hardware;
+- simple player instructions that can be understood in about 20 seconds;
+- at least one meaningful change from the guided baseline;
+- one peer playtest;
+- one improvement based on that playtest;
+- a retest after the change.
 
-Use a tiny **Goal / Control / Rule** planning prompt rather than a written design worksheet.
+### Meaningful personalization may include
 
-**Build It success indicator:** another student can start the game from the creators' explanation, use the controller successfully, experience a score/end result, and the creators can name one change they made after the playtest.
+- speed;
+- target location/size;
+- action button choice where appropriate;
+- scoring value/behaviour;
+- visual theme;
+- failure message/result;
+- difficulty.
 
-**TRY 4 remains unchanged:** CHECK → SIMULATE → DOWNLOAD → PARTNER. Mission-specific warnings may point students back to sprite movement, target position or controller mapping but do not replace TRY 4.
+### Fairness rule
 
-### Stage 5 — Level It Up
+Path B students are **not** required to create more artwork or more complex screens simply because the Retro Arcade can display them.
 
-Only after the core Build It requirements work.
+Path A students are **not** assessed more leniently because the micro:bit display is smaller.
 
-Offer exactly four bounded choices on the standard Mission 3 page:
+### Build It success indicator
 
-**⭐ Speed Tuner**  
-Change pause/speed and decide which version is most playable.
+> **Another student can understand the goal, use the controller, experience both success and failure, and the creators can explain one improvement made after playtesting.**
 
-**⭐ Random Target**  
-Use Mission 2 randomness to choose a different target position between rounds.
+TRY 4 remains unchanged:
 
-**⭐⭐ Two Controls**  
-Use a second controller input for a second meaningful game action.
+**CHECK → SIMULATE → DOWNLOAD → PARTNER**
 
-**⭐⭐ Win Goal**  
-Add a score target or another clear ending rule.
+Platform-specific warning cards may support TRY 4 but never replace it.
 
-Students choose **one**, not every extension.
+---
 
-A 2D/multiple-sprite challenge is deliberately excluded from the standard Mission 3 Level It Up set. It may be reserved for a later level or teacher-selected enrichment after the mission rather than appearing as an ordinary beginner extension.
+## Stage 5 — Level It Up — EQUIVALENT EXTENSIONS
 
-### Stage 6 — Checkpoint
+Only after the required game works.
 
-The checkpoint remains short and individual.
+Offer four conceptually equivalent choices. The exact blocks may differ by platform.
 
-**Check 1 — Play / Identify**  
-Student demonstrates the controller input and earns or loses a point according to the game rule. Student identifies the controller event/input that caused the action.
+### Speed Tuner
+Change movement speed and decide which setting is most playable.
 
-**Check 2 — Explain the System**  
+### Random Target
+Use Mission 2 randomness to vary the target position/location between rounds.
+
+### Two Controls
+Add one second meaningful controller action.
+
+### Win Goal
+Add a score target or another simple end condition.
+
+Students choose **one**, not all four.
+
+Do not offer advanced Arcade-only features as standard Level It Up options in Mission 3.
+
+---
+
+## Stage 6 — Checkpoint — COMMON INDIVIDUAL ASSESSMENT
+
+The checkpoint is platform-neutral in concept and completed individually.
+
+### Check 1 — Play / Identify
+
+Student:
+
+- demonstrates the game;
+- identifies the physical action control;
+- identifies the event/input that responds to it.
+
+### Check 2 — Explain the System
+
 Student explains:
 
-- the loop that keeps the game active;
-- the IF rule;
-- what the score represents/remembers;
-- what causes game over or the end condition.
+- what keeps the object moving;
+- what the IF rule checks;
+- what success does to the score;
+- what causes the game/round to end.
 
-**Check 3 — Change It**  
-Teacher requests one small change, such as:
+### Check 3 — Change It
 
-- change the target position;
+Teacher selects one small change appropriate to either pathway:
+
+- change target position/location;
 - change movement speed;
-- change the controller control;
-- change scoring behaviour.
+- change scoring amount/behaviour;
+- change the action control to another available button.
 
-Student makes the change, predicts the effect and tests it independently.
+Student:
 
-Mission result language:
+1. predicts the effect;
+2. makes the change;
+3. tests it independently;
+4. explains whether the result matched the prediction.
 
-- **MISSION COMPLETE** — playable game + correct explanation + independent modification/test;
-- **RETRY ONE SKILL** — revisit one specific skill and retry only that skill;
-- **SUPPORT ROUTE** — use when the student needs more guided support before an independent retry.
+### Common outcomes
+
+- **MISSION COMPLETE** — playable game + correct explanation + independent change/test.
+- **RETRY ONE SKILL** — revisit one specific target and retry it.
+- **SUPPORT ROUTE** — student needs guided support before independent retry.
+
+No controller-specific feature may be required for mastery unless both pathways assess an equivalent concept.
 
 ---
 
-## 10. Mission 3 Skill Passport
+## 8. Skill Passport — COMMON
 
-Record only genuinely new/integrated mastery:
-
-- ☐ I can create and move a game sprite.
-- ☐ I can use a loop to keep a game running.
-- ☐ I can use a controller input to trigger a game action.
-- ☐ I can use an IF rule to change score or end the game.
+- ☐ I can create and move a game object.
+- ☐ I can use repeated code to keep a game active.
+- ☐ I can use a controller button to trigger a game action.
+- ☐ I can use an IF rule to change score or end a game.
 - ☐ I can playtest a game and make one useful improvement.
 - ☐ I can change, test and explain my game independently.
 
-Do not restamp every Mission 1–2 skill unless the student needs remediation.
-
-The Passport records mastery and must remain compact; it is not a second assignment.
+Do not add Path A- or Path B-only skills to the required Passport.
 
 ---
 
-## 11. Reset
+## 9. Reset — COMMON ROUTINE WITH HARDWARE RETURN
 
-Mission 3 uses the established hardware reset routine rather than inventing a new one.
+All students:
 
-Students finish by confirming:
+- save the project correctly;
+- return micro:bit V2 to the numbered kit;
+- return the matching USB cable;
+- return the assigned controller to its labelled station/container;
+- clear the workspace;
+- report controller/device faults;
+- update Passport/progress.
 
-- project saved correctly;
-- micro:bit returned to the numbered kit;
-- matching USB cable returned and loosely coiled;
-- controller returned to its assigned location/container according to the classroom equipment system;
-- kit/workspace complete and clear;
-- damage, missing equipment or controller faults reported;
-- Passport/progress updated when used.
-
-The Reset section should visually match Missions 1–2.
+Retro Arcade projects should be saved in a way that allows the same pair to reopen the same project later if required.
 
 ---
 
-## 12. Complexity ceiling — required guardrails
+## 10. Hardware-station and partner management
 
-Mission 3 is **not** a full game-programming unit.
+### Inventory assumption
 
-The required pathway must stay below this ceiling:
+Approximately:
 
-- one main moving sprite;
-- one main controller action in the core game;
-- one row / one-dimensional movement in the core game;
-- one main IF rule;
+- 2–3 Kitronik :GAME Controller stations;
+- 2–3 ELECFREAKS Retro Arcade stations.
+
+With pairs, 4–6 controller stations can support approximately 8–12 students at once.
+
+### Assignment procedure
+
+At the start of Mission 3:
+
+1. assign each pair **Path A** or **Path B**;
+2. record the controller/station number;
+3. that pair keeps the same pathway for the mission;
+4. Driver/Navigator roles still switch at Stage 3;
+5. both partners must complete the checkpoint individually.
+
+### If there are more pairs than controllers
+
+Do not make students switch controller type.
+
+Instead:
+
+- pairs without hardware begin Stage 1 and Stage 2 simulator/planning work;
+- use a visible controller-station queue;
+- when the assigned pathway hardware becomes available, that pair continues with physical testing;
+- Ready-for-Check remains separate from the hardware queue.
+
+If necessary, Stage 2 simulator time and playtesting can overlap across pairs so scarce controller time is concentrated in Stages 3–4.
+
+---
+
+## 11. Visual scaffolding rules
+
+### Shared visual
+
+Use one small common game-flow diagram:
+
+**MOVE → PRESS → CHECK → SCORE / END**
+
+### Path A models
+
+- Stage 2: movement model only;
+- Stage 3: Button A IF-rule model;
+- tiny Fire 1 mapping card.
+
+### Path B models
+
+- Stage 2: simplest Arcade movement model only;
+- Stage 3: A-button IF-rule model;
+- tiny Retro Arcade setup/download card.
+
+### Over-scaffolding guardrail
+
+Do not show a complete finished game for either pathway in Stage 4.
+
+Do not add extra Path B screenshots merely because Arcade is visually rich.
+
+Screenshots are justified only for a genuinely hard-to-find interface/hardware-setting step.
+
+---
+
+## 12. Complexity ceiling
+
+The required mission stays below this ceiling for **both** paths:
+
+- one main moving object;
+- one main action button;
+- one target rule;
+- one IF decision;
 - one score system;
-- one game-ending rule;
-- one loop application;
-- no required arrays/lists;
-- no required functions;
-- no required radio/multiplayer networking;
-- no required timers/countdowns;
-- no required lives system;
-- no required nested conditionals;
-- no required multiple levels/screens;
-- no required JavaScript/Python;
-- no required custom graphics beyond the LED sprite/game display;
-- no competition requirement between teams.
+- one failure/end rule;
+- one repeated-motion structure;
+- no required multiple levels;
+- no required lives;
+- no required enemies;
+- no required collisions beyond the simple target check;
+- no tilemaps;
+- no story/scenes;
+- no multiplayer/radio;
+- no functions/arrays;
+- no JavaScript/Python;
+- no advanced animation system;
+- no competition between teams.
 
-Students who want more complexity use the four bounded Level It Up options or later FutureTech levels.
-
----
-
-## 13. Locked controller mapping
-
-**Default Mission 3 hardware:** Kitronik :GAME Controller for BBC micro:bit, stock code 5644, with BBC micro:bit V2.
-
-This is the standard Mission 3 controller because it works in the normal micro:bit MakeCode editor, supports micro:bit V2, and provides a dedicated MakeCode extension with direct controller-button events.
-
-### Student-facing mapping card — keep this small
-
-1. **Safe connection** — switch the :GAME Controller off. Insert the micro:bit firmly into the controller edge connector with the micro:bit LED display facing the same direction as the front of the controller. Power the controller with its two AA batteries. Do not force the micro:bit into the connector.
-2. **Core control** — use **Fire 1** as the single Target Game action button.
-3. **MakeCode event** — add the **Kitronik :GAME Controller** extension (`KitronikLtd/pxt-kitronik-game-controller`) and use the controller event **on button Fire 1 Down**. Put the same IF target rule inside this event that previously worked with micro:bit Button A.
-4. **Controller not responding check** — temporarily make **Fire 1 → show an icon**. If the icon does not appear, check that the controller is powered, the micro:bit is fully seated in the edge connector, and the project contains the Kitronik :GAME Controller extension before debugging the game rule.
-
-The locked mental model remains:
-
-> **Fire 1 → controller event → IF target rule → score / game over**
-
-The familiar-input-first sequence remains mandatory: students first make the rule work with micro:bit Button A, then transfer only the input event to Fire 1.
-
-### Other available gaming hardware
-
-The ELECFREAKS micro:bit Retro Arcade is **not** the default Mission 3 controller. It is a colour-screen micro:bit V2 expansion designed around Microsoft MakeCode Arcade, so using it here would change the programming environment and add unnecessary cognitive load. Reserve it for a later dedicated MakeCode Arcade/game-design experience.
-
-Do not mix controller platforms within the core Mission 3 instructions. If classroom quantities require mixed hardware, use the Kitronik :GAME Controller pathway as the assessed standard and treat any ELECFREAKS pathway as teacher-prepared enrichment or a later mission.
+The Retro Arcade's richer screen must not raise the required difficulty.
 
 ---
 
-## 14. Responsive implementation requirements
+## 13. Responsive and accessibility requirements
 
-Mission 3 must inherit the responsive behaviour of the frozen FutureTech mission standard.
-
-Required release checks:
+The eventual webpage must preserve the frozen FutureTech standard and pass:
 
 - desktop;
 - Chromebook/tablet;
 - 390 px;
 - 375 px;
 - 320 px;
-- no horizontal page scrolling;
-- Stage navigation reflows without becoming unreadable;
-- task/check/extension grids collapse cleanly;
-- mini code models stack vertically on narrow screens;
-- nested logic remains visibly indented after stacking;
-- the controller mapping card remains readable without horizontal zoom;
-- buttons and next-step CTAs wrap safely and remain tappable;
-- no essential instruction depends on hover.
+- no horizontal overflow.
 
-The built mission must pass the existing FutureTech build/audit and rendered-preview smoke gates before release.
+Dual-path cards must:
 
----
-
-## 15. Accessibility requirements
-
-Implementation must preserve the Level 1 accessibility baseline:
-
-- semantic heading/section order;
-- meaningful link text;
-- visible keyboard focus;
-- `aria-label` on code-model/controller-mapping regions where useful;
-- sufficient text/background contrast;
-- do not rely on block colour alone to communicate meaning;
-- every code model has accompanying plain-language explanation;
-- controller instructions identify controls by name/position as well as any colour/icon;
-- reduced-width layouts remain usable without horizontal zoom;
-- success/warning meaning is expressed in text as well as colour.
-
-No decorative screenshot should be added unless it solves a real interface-location problem.
+- be clearly labelled **Path A** and **Path B** in text;
+- not rely on colour alone;
+- stack cleanly on narrow screens;
+- use meaningful headings;
+- keep code-model nesting readable;
+- keep controller setup steps tappable/readable without horizontal zoom;
+- provide keyboard-visible focus;
+- accompany visual code models with plain-language explanations.
 
 ---
 
-## 16. Pacing target
+## 14. Pacing target
 
 Approximate 90-minute pacing:
 
-- **0–10 min** — Set Up + prerequisite recap + controller identification
-- **10–27 min** — First Code: moving sprite
-- **27–45 min** — Make It React: scoring rule + controller transfer
-- **45–68 min** — Build It: personalized playable target game
-- **68–80 min** — Playtest, improve, Ready-for-Check / Level It Up
+- **0–10 min** — shared Set Up + pathway assignment + recap
+- **10–27 min** — shared Stage 2 goal with path-specific movement implementation
+- **27–45 min** — Stage 3 path-specific controller/rule work
+- **45–68 min** — common Build It requirements
+- **68–80 min** — playtest, improve, Ready-for-Check / Level It Up
 - **80–87 min** — rolling individual checkpoints
 - **87–90 min** — Passport + Reset
 
-The first visible game-like motion should occur by about minute 20.
-
-If students reach Ready-for-Check earlier, rolling checkpoints may begin before minute 80 while other students continue Build It or Level It Up.
+Hardware queues may shift physical testing without changing the instructional sequence.
 
 ---
 
-## 17. Final pre-build decision
+## 15. Final pre-build decision
 
-After the Mission 2 loop correction and this compliance pass, Missions 1–2 provide a sufficient beginner prerequisite base and the Mission 3 specification now conforms to the frozen Level 1 mission design standard.
+Mission 3 is now locked as a **dual-controller integration mission**.
 
-**Mission 3 is instructionally and hardware-mapping ready to build using the Kitronik :GAME Controller + micro:bit V2 pathway.**
+### Path A
+**Kitronik :GAME Controller + micro:bit V2 + normal micro:bit MakeCode + Fire 1**
 
-Its locked core remains:
+### Path B
+**ELECFREAKS micro:bit Retro Arcade + micro:bit V2 + MakeCode Arcade + A button**
 
-**one moving sprite + one controller input + one repeating game loop + one IF-based timing rule + score/game-over + one peer playtest + one evidence-based improvement.**
+Both pathways assess the same mastery:
 
-The Mission 3 webpage remains unbuilt by this specification task.
+**repeated motion + controller input + IF target rule + score/end condition + playtest + improvement + independent explanation/change**
+
+The two pathways are equivalent in difficulty expectations, not identical in code.
+
+Advanced MakeCode Arcade sprites, scenes, collisions and richer game design are reserved for later FutureTech levels.
+
+Mission 3 webpage implementation remains outside this specification revision.
