@@ -1,0 +1,144 @@
+---
+import FutureTechMissionFrame from '../../../../components/FutureTechMissionFrame.astro';
+---
+<FutureTechMissionFrame
+  missionNumber="3"
+  title="Build a Game"
+  tagline="Turn code into a game another person can play."
+  question="How can I combine controls, rules, score and testing to make a game another person can play?"
+  success="I can create a playable timing game, use a controller input to trigger a rule, change score or end the game, and improve the game after a playtest."
+>
+  <div class="game-flow" aria-label="Mission game flow"><span>MOVE</span><b>→</b><span>PRESS</span><b>→</b><span>CHECK</span><b>→</b><span>SCORE / END</span></div>
+  <p class="flow-note">Both controller paths use the same game idea. The hardware and blocks may look different.</p>
+
+  <section id="stage-1" class="stage">
+    <div class="stage-head"><span class="stage-number">01</span><div><p class="stage-kicker">GET READY</p><h2 class="stage-title">Set Up</h2></div></div>
+    <p class="intro">Grab your usual micro:bit kit, find your assigned controller station, and check your partner roles. You will stay on the same controller path for this whole mission.</p>
+    <div class="check-list"><span>☐ Computer</span><span>☐ micro:bit V2</span><span>☐ USB data cable</span><span>☐ Assigned controller</span><span>☐ Mission page open</span></div>
+    <p class="mini-label">If you are working with a partner</p>
+    <div class="partner-strip"><span><strong>DRIVER</strong><small>Controls the computer and device.</small></span><span><strong>NAVIGATOR</strong><small>Reads the next step, predicts results, and checks requirements.</small></span></div>
+    <p class="success"><b>Switch roles when you reach Stage 3.</b> Both partners must be able to explain the game.</p>
+
+    <p class="mini-label">Your controller path</p>
+    <div class="path-grid">
+      <article class="path-card path-a"><div class="path-top"><span class="path-badge">PATH A</span><span class="device-label">5×5 LED / :GAME</span></div><h3>Kitronik :GAME Controller</h3><dl><div><dt>Editor</dt><dd>micro:bit MakeCode</dd></div><div><dt>Action button</dt><dd>Fire 1</dd></div><div><dt>Display</dt><dd>micro:bit 5×5 LEDs</dd></div></dl><strong class="stay-label">STAY ON PATH A</strong></article>
+      <article class="path-card path-b"><div class="path-top"><span class="path-badge">PATH B</span><span class="device-label">SCREEN / RETRO</span></div><h3>ELECFREAKS Retro Arcade</h3><dl><div><dt>Editor</dt><dd>MakeCode Arcade</dd></div><div><dt>Action button</dt><dd>A</dd></div><div><dt>Display</dt><dd>Colour screen</dd></div></dl><strong class="stay-label">STAY ON PATH B</strong></article>
+    </div>
+    <p class="concept">Your teacher will assign a station such as <b>A1</b>, <b>A2</b>, <b>B1</b>, or <b>B2</b>. Do not switch controller type during this mission. Your checkpoint is based on the game ideas, not which controller you used.</p>
+    <div class="my-path" aria-label="Path memory aid"><strong>MY PATH</strong><span><b>A</b> · :GAME · micro:bit MakeCode · Fire 1</span><span><b>B</b> · RETRO · MakeCode Arcade · A button</span></div>
+
+    <p class="mini-label">Quick Reboot</p>
+    <div class="reboot"><span>EVENT</span><span>IF</span><span>LOOP</span></div>
+    <p class="success">✓ You are ready when you know your Path A/B assignment, your partner role, and the game rule: <b>move → press → decide → score/end</b>.</p>
+  </section>
+
+  <section id="stage-2" class="stage">
+    <div class="stage-head"><span class="stage-number">02</span><div><p class="stage-kicker">FIRST GAME MOTION</p><h2 class="stage-title">First Code</h2></div></div>
+    <p class="intro">First, make something move. Do not add score, target logic, or controller actions yet.</p>
+    <div class="step-grid"><article class="step-card"><strong>1 — Create</strong><p>Start <code>FirstName_L1_M3</code> and create one visible game object.</p></article><article class="step-card"><strong>2 — Move</strong><p>Make the object move horizontally and keep moving repeatedly.</p></article><article class="step-card"><strong>3 — Keep it playable</strong><p>Keep it in the visible game area and slow it enough for a player to react.</p></article><article class="step-card"><strong>4 — Simulate</strong><p>Test the moving object before you add scoring or controller rules.</p></article></div>
+    <div class="path-reminder"><strong>READ ONLY YOUR PATH</strong><span>A = :GAME / micro:bit MakeCode</span><span>B = Retro Arcade / MakeCode Arcade</span></div>
+
+    <div class="path-grid path-work">
+      <article class="path-card path-a">
+        <div class="path-top"><span class="path-badge">PATH A</span><span class="device-label">5×5 LED / :GAME</span></div><h3>LED Target Snap</h3><p><b>YOUR NEXT STEP:</b> Open <a class="external" href="https://makecode.microbit.org/" target="_blank" rel="noreferrer">micro:bit MakeCode ↗</a> and create <code>FirstName_L1_M3</code>.</p>
+        <div class="block-finder"><span><b>Game</b> → create sprite</span><span><b>Loops</b> → forever</span><span><b>Game</b> → move</span><span><b>Game</b> → if on edge, bounce</span><span><b>Basic</b> → pause</span></div>
+        <aside class="code-model" aria-label="Path A movement code model"><div class="code-model-head"><span>CODE MODEL 1 OF 4</span><strong>Make one LED dot move</strong></div><div class="code-stack"><div class="mk-block event">on start</div><div class="mk-block variables indent">set <span class="value">player</span> to create sprite at <span class="value">x 0, y 2</span></div><div class="mk-gap"></div><div class="mk-block loops">forever</div><div class="mk-block game indent">player move <span class="value">1</span></div><div class="mk-block game indent">player if on edge, bounce</div><div class="mk-block basic indent">pause <span class="value">300 ms</span></div></div><p class="code-model-note">The starting side and speed can change. The important idea is that <b>move + bounce + pause stay inside forever</b>.</p></aside>
+        <p class="success">✓ One LED dot moves back and forth without you pressing a button.</p><p class="warning">Dot only moves once? Check <b>forever</b>. Too fast? Increase the <b>pause</b>.</p>
+      </article>
+
+      <article class="path-card path-b">
+        <div class="path-top"><span class="path-badge">PATH B</span><span class="device-label">SCREEN / RETRO</span></div><h3>Arcade Target Snap</h3><p><b>YOUR NEXT STEP:</b> Open <a class="external" href="https://arcade.makecode.com/" target="_blank" rel="noreferrer">MakeCode Arcade ↗</a> and create <code>FirstName_L1_M3</code>.</p>
+        <div class="block-finder"><span><b>Sprites</b> → set mySprite to sprite of kind Player</span><span><b>Sprites</b> → set velocity vx / vy</span><span><b>Sprites</b> → set bounce on wall ON</span></div>
+        <aside class="code-model" aria-label="Path B movement code model"><div class="code-model-head"><span>CODE MODEL 2 OF 4</span><strong>Make one simple sprite move</strong></div><div class="code-stack"><div class="mk-block arcade">on start</div><div class="mk-block sprites indent">set <span class="value">player</span> to sprite of kind <span class="value">Player</span></div><div class="mk-block sprites indent">set player velocity to <span class="value">vx 40, vy 0</span></div><div class="mk-block sprites indent">set player bounce on wall <span class="value">ON</span></div></div><p class="code-model-note">Keep the sprite image simple. Mission 3 is about the game rule, not artwork.</p></aside>
+        <p class="success">✓ One sprite moves left and right across the screen without you pressing A.</p><p class="warning">Sprite disappears? Check <b>bounce on wall</b>. Too fast? Lower the horizontal velocity.</p>
+      </article>
+    </div>
+    <p class="success full-success"><b>Both paths are ready for Stage 3</b> when a game object moves repeatedly without the player pressing the action button.</p>
+  </section>
+
+  <section id="stage-3" class="stage">
+    <div class="stage-head"><span class="stage-number">03</span><div><p class="stage-kicker">INPUT → RULE → RESULT</p><h2 class="stage-title">Make It React</h2></div></div>
+    <p class="success"><b>WORKING WITH A PARTNER? SWITCH ROLES NOW.</b></p>
+    <div class="route"><span>PRESS</span><span>CHECK TARGET</span><span>TRUE: SCORE</span><span>FALSE: END</span></div>
+    <div class="path-reminder"><strong>STAY ON YOUR PATH</strong><span>A = :GAME / Fire 1</span><span>B = Retro Arcade / A button</span></div>
+
+    <div class="path-grid path-work">
+      <article class="path-card path-a">
+        <div class="path-top"><span class="path-badge">PATH A</span><span class="device-label">5×5 LED / :GAME</span></div><h3>PATH A STUDENTS — CONTINUE HERE</h3>
+        <p><b>First, familiar input:</b> make the target rule work with micro:bit <b>Button A</b>.</p>
+        <div class="block-finder"><span><b>Input</b> → on button A pressed</span><span><b>Game</b> → get x</span><span><b>Logic</b> → if / =</span><span><b>Game</b> → add score</span><span><b>Game</b> → game over</span></div>
+        <aside class="code-model" aria-label="Path A scoring rule code model"><div class="code-model-head"><span>CODE MODEL 3 OF 4</span><strong>Button A checks the centre</strong></div><div class="code-stack"><div class="mk-block input">on button <span class="value">A</span> pressed</div><div class="mk-block logic indent">if <span class="value">player x = 2</span> then</div><div class="mk-block game indent2">add score <span class="value">1</span></div><div class="mk-block logic indent">else</div><div class="mk-block game indent2">game over</div></div><p class="code-model-note"><b>x = 2</b> means the centre LED column. Later you can change the target.</p></aside>
+        <div class="predict-grid"><span><b>If player x = 2</b><small>Predict: what happens?</small></span><span><b>If player x ≠ 2</b><small>Predict: what happens?</small></span></div>
+        <p class="success">✓ Button A scores at the centre and ends the round when the dot is not at the centre.</p>
+
+        <div class="hardware-card"><strong>CONNECT YOUR :GAME CONTROLLER</strong><ol><li><b>Power off first.</b> Insert the micro:bit firmly into the edge connector. Do not force it.</li><li><b>Action button:</b> Fire 1.</li><li><b>MakeCode:</b> add the <b>Kitronik :GAME Controller</b> extension. Use <b>on button Fire 1 (P15) press down</b>.</li><li><b>Test first:</b> if needed, temporarily make Fire 1 show an icon.</li></ol><p><b>Replace the input event. Keep the IF rule the same.</b></p></div>
+        <p class="success">✓ Fire 1 now triggers the same score/end rule that Button A triggered.</p>
+      </article>
+
+      <article class="path-card path-b">
+        <div class="path-top"><span class="path-badge">PATH B</span><span class="device-label">SCREEN / RETRO</span></div><h3>PATH B STUDENTS — CONTINUE HERE</h3>
+        <div class="hardware-card"><strong>RETRO ARCADE SETUP</strong><ol><li>Insert the micro:bit V2 securely. Do not force it.</li><li>Open <b>Microsoft MakeCode Arcade</b>.</li><li>Use the prepared micro:bit V2 / Retro Arcade hardware target.</li><li><b>Action button:</b> A.</li></ol><p>If A works in the simulator but not on the physical unit, check the hardware target, newest download, and micro:bit seating.</p></div>
+        <p><b>Your target zone is the right side of the screen.</b> Press A when the moving sprite reaches that side.</p>
+        <div class="block-finder"><span><b>Controller</b> → on A button pressed</span><span><b>Sprites</b> → mySprite x</span><span><b>Logic</b> → if / &gt;</span><span><b>Info</b> → change score by</span><span><b>Game</b> → game over</span></div>
+        <aside class="code-model" aria-label="Path B scoring rule code model"><div class="code-model-head"><span>CODE MODEL 4 OF 4</span><strong>A checks the right-side target</strong></div><div class="code-stack"><div class="mk-block controller">on <span class="value">A</span> button pressed</div><div class="mk-block logic indent">if <span class="value">player x &gt; 120</span> then</div><div class="mk-block info indent2">change score by <span class="value">1</span></div><div class="mk-block logic indent">else</div><div class="mk-block arcade indent2">game over</div></div><p class="code-model-note">The sprite's <b>x</b> value is its horizontal position. <b>x &gt; 120</b> makes the far-right side of the screen the beginner target zone.</p></aside>
+        <div class="predict-grid"><span><b>If player x &gt; 120</b><small>Predict: what happens?</small></span><span><b>If player x ≤ 120</b><small>Predict: what happens?</small></span></div>
+        <p class="success">✓ Pressing A on the right side scores. Pressing A too early ends the round.</p>
+      </article>
+    </div>
+    <p class="concept">The button does not decide whether you win. <b>The IF rule decides.</b> The button only triggers the check.</p>
+    <p class="success full-success">✓ Your assigned controller can now trigger a working score/end decision.</p>
+  </section>
+
+  <section id="stage-4" class="stage">
+    <div class="stage-head"><span class="stage-number">04</span><div><p class="stage-kicker">YOUR GAME</p><h2 class="stage-title">Build It — Timing Target Game</h2></div></div>
+    <p class="intro">Turn the guided example into a game another student can play. Keep the core game simple, then make at least one meaningful choice of your own.</p>
+    <div class="gcr-grid"><article><strong>GOAL</strong><p>Press at the right moment to score.</p></article><article><strong>CONTROL</strong><p>Fire 1 or A — use your assigned path.</p></article><article><strong>RULE</strong><p>IF the moving object is at/in the target → score. Otherwise → end.</p></article></div>
+    <div class="check-list"><span>☐ One visible moving game object</span><span>☐ Movement repeats continuously</span><span>☐ One physical controller action</span><span>☐ One clear target/success rule</span><span>☐ One IF decision</span><span>☐ Success increases score</span><span>☐ Failure ends the round/game</span><span>☐ Game works on physical hardware</span><span>☐ Player can understand the game quickly</span><span>☐ At least one meaningful personalization</span><span>☐ Another student playtested it</span><span>☐ We improved one thing and retested</span></div>
+    <p class="mini-label">Make one meaningful choice</p>
+    <div class="step-grid"><article class="step-card"><strong>Speed</strong><p>Make the timing easier or harder.</p></article><article class="step-card"><strong>Target</strong><p>Change where or when success happens.</p></article><article class="step-card"><strong>Score</strong><p>Change how many points success earns.</p></article><article class="step-card"><strong>Theme</strong><p>Change the look or message without changing the core rule.</p></article></div>
+    <p class="success">✓ <b>Build It is ready when:</b> another student can understand the goal, use the controller, experience success and failure, and you can explain one improvement you made after testing.</p>
+
+    <p class="mini-label">Playtest and improve</p>
+    <div class="playtest-flow"><span><b>PLAY</b><small>Player tries once without creator help.</small></span><i>→</i><span><b>NOTICE</b><small>Was the goal clear? Was timing fair? Did score/failure work?</small></span><i>→</i><span><b>CHANGE</b><small>Improve one thing based on what happened.</small></span><i>→</i><span><b>RETEST</b><small>Try again and see if the change helped.</small></span></div>
+
+    <div class="try4"><strong>STUCK? TRY 4</strong><p>1. CHECK — blocks, values, order, and nesting. 2. SIMULATE the newest version. 3. DOWNLOAD the newest version. 4. PARTNER — explain expected vs actual. Still stuck? Ask for help and say what you already tried.</p></div>
+  </section>
+
+  <section id="stage-5" class="stage">
+    <div class="stage-head"><span class="stage-number">05</span><div><p class="stage-kicker">OPTIONAL CHALLENGE</p><h2 class="stage-title">Level It Up</h2></div></div>
+    <p class="intro">Only after every Build It requirement works. Choose <b>one</b> while you wait for your checkpoint.</p>
+    <div class="level-grid"><article class="level-card"><strong>Speed Tuner</strong><p>Change movement speed and decide which version is most playable.</p></article><article class="level-card"><strong>Random Target</strong><p>Use randomness to change the target position/location between rounds.</p></article><article class="level-card"><strong>Two Controls</strong><p>Add one second meaningful controller action.</p></article><article class="level-card"><strong>Win Goal</strong><p>Add a simple score target or another clear ending rule.</p></article></div>
+    <p class="warning"><b>Mission 3 limit:</b> do not add advanced Arcade scenes, enemies, tilemaps, or multiple levels yet.</p>
+    <p class="success">When every Build It box is checked and your improvement is retested, add your name or pair to the <b>Ready-for-Check</b> queue. Keep Leveling Up until you are called.</p>
+  </section>
+
+  <section id="stage-6" class="stage checkpoint">
+    <div class="stage-head"><span class="stage-number">06</span><div><p class="stage-kicker">SHOW WHAT YOU KNOW</p><h2 class="stage-title">Checkpoint</h2></div></div>
+    <p class="intro">Bring your controller and open your code when you are called. Each student completes the checkpoint individually, even if the game was built with a partner.</p>
+    <div class="step-grid"><article class="step-card"><strong>Check 1 — Play / Identify</strong><p>Demonstrate the game. Point to the physical action button and the code event that responds to it.</p></article><article class="step-card"><strong>Check 2 — Explain the System</strong><p>Explain what keeps the object moving, what the IF rule checks, what success does to the score, and what causes the game to end.</p></article><article class="step-card"><strong>Check 3 — Change It</strong><p>Change target position/location, movement speed, scoring amount/behaviour, or the action button. Predict first, then test.</p></article><article class="step-card"><strong>After Your Check</strong><p><b>MISSION COMPLETE</b> · <b>RETRY ONE SKILL</b> · <b>SUPPORT ROUTE</b></p></article></div>
+  </section>
+
+  <section class="stage passport">
+    <div class="stage-head"><span class="stage-number">✓</span><div><p class="stage-kicker">SKILL PASSPORT</p><h2 class="stage-title">Mission 3 Skills</h2></div></div>
+    <div class="check-list"><span>☐ I can create and move a game object.</span><span>☐ I can use repeated code to keep a game active.</span><span>☐ I can use a controller button to trigger a game action.</span><span>☐ I can use an IF rule to change score or end a game.</span><span>☐ I can playtest a game and make one useful improvement.</span><span>☐ I can change, test, and explain my game independently.</span></div>
+  </section>
+
+  <section class="stage reset">
+    <div class="stage-head"><span class="stage-number">↺</span><div><p class="stage-kicker">LEAVE IT READY</p><h2 class="stage-title">Reset</h2></div></div>
+    <div class="check-list"><span>☐ Project saved correctly</span><span>☐ micro:bit returned to numbered kit</span><span>☐ USB cable returned and loosely coiled</span><span>☐ Controller returned to its labelled station</span><span>☐ Workspace clear</span><span>☐ Faults or damage reported</span><span>☐ Passport/progress updated</span></div>
+    <p class="concept">Exit question: What made your game fair—or unfair—to the player?</p>
+  </section>
+</FutureTechMissionFrame>
+
+<style is:global>
+.game-flow{display:flex;align-items:center;justify-content:center;gap:.55rem;flex-wrap:wrap;padding:.7rem .8rem;border-radius:12px;background:#111827;color:#fff;font-weight:900;letter-spacing:.04em}.game-flow span{padding:.35rem .55rem;border-radius:999px;background:#312e81;color:#e0e7ff}.game-flow b{color:#67e8f9}.flow-note{margin:.45rem 0 1rem;text-align:center;color:#667085;font-size:.84rem;font-weight:700}
+.path-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;margin:.7rem 0}.path-card{min-width:0;padding:.9rem;border:2px solid #dbe3ef;border-radius:16px;background:#fff}.path-card.path-a{border-color:#c4b5fd;background:linear-gradient(145deg,#fff,#faf8ff)}.path-card.path-b{border-color:#a5f3fc;background:linear-gradient(145deg,#fff,#f0fdff)}.path-top{display:flex;justify-content:space-between;gap:.5rem;align-items:center;flex-wrap:wrap}.path-badge,.device-label{display:inline-flex;padding:.28rem .5rem;border-radius:999px;font-size:.67rem;font-weight:900;letter-spacing:.06em}.path-a .path-badge{background:#5b21b6;color:#fff}.path-b .path-badge{background:#0e7490;color:#fff}.device-label{background:#f1f5f9;color:#475569}.path-card h3{margin:.65rem 0 .4rem;color:#172033;font-size:1.08rem}.path-card p{color:#59677c;line-height:1.48;font-size:.9rem}.path-card dl{margin:.45rem 0;display:grid;gap:.28rem}.path-card dl div{display:grid;grid-template-columns:100px 1fr;gap:.5rem}.path-card dt{font-size:.72rem;font-weight:900;color:#64748b;text-transform:uppercase}.path-card dd{margin:0;color:#25324a;font-weight:750}.stay-label{display:inline-block;margin-top:.45rem;color:#5b21b6;font-size:.76rem;letter-spacing:.05em}.path-b .stay-label{color:#0e7490}
+.my-path,.path-reminder{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:.7rem 0;padding:.6rem .7rem;border:1px solid #dbe3ef;border-radius:11px;background:#f8fafc;color:#475569;font-size:.8rem}.my-path>strong,.path-reminder>strong{color:#172033}.my-path span,.path-reminder span{padding:.28rem .45rem;border-radius:999px;background:#fff;border:1px solid #e2e8f0}.reboot{display:flex;gap:.45rem;flex-wrap:wrap;margin:.3rem 0 .6rem}.reboot span{padding:.4rem .65rem;border-radius:999px;background:#ede9fe;color:#5b21b6;font-weight:900;font-size:.76rem}
+.block-finder{display:flex;gap:.38rem;flex-wrap:wrap;margin:.65rem 0}.block-finder span{padding:.34rem .5rem;border:1px solid #dbe3ef;border-radius:999px;background:#fff;color:#52617a;font-size:.7rem;font-weight:750}.block-finder b{color:#5b21b6}.path-b .block-finder b{color:#0e7490}
+.code-model{margin:.7rem 0;padding:.8rem;border:1px solid #c7d2fe;border-radius:14px;background:linear-gradient(135deg,#f8faff,#f5f3ff)}.path-b .code-model{border-color:#a5f3fc;background:linear-gradient(135deg,#f8fdff,#ecfeff)}.code-model-head{display:grid;gap:.15rem;margin-bottom:.55rem}.code-model-head span{color:#6d28d9;font:900 .64rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em}.path-b .code-model-head span{color:#0e7490}.code-model-head strong{color:#26324a;font-size:.86rem}.code-stack{display:grid;gap:.27rem;padding:.6rem;border-radius:11px;background:#111827;overflow:hidden}.mk-block{width:max-content;max-width:100%;box-sizing:border-box;padding:.46rem .58rem;border-radius:7px;color:#fff;font:800 .72rem/1.25 ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}.mk-block.event{background:#7c3aed}.mk-block.variables{background:#dc2626}.mk-block.loops{background:#15803d}.mk-block.game{background:#0891b2}.mk-block.basic{background:#2563eb}.mk-block.input{background:#c026d3}.mk-block.logic{background:#059669}.mk-block.arcade{background:#7c3aed}.mk-block.sprites{background:#0e7490}.mk-block.controller{background:#c026d3}.mk-block.info{background:#2563eb}.mk-block.indent{margin-left:.75rem}.mk-block.indent2{margin-left:1.5rem}.mk-block .value{display:inline-block;margin-left:.14rem;padding:.04rem .25rem;border-radius:4px;background:rgba(255,255,255,.2)}.mk-gap{height:.12rem}.code-model-note{margin:.55rem 0 0!important;color:#59677c!important;font-size:.8rem!important;line-height:1.42!important}.hardware-card{margin:.7rem 0;padding:.75rem;border-radius:12px;border:1px solid #dbe3ef;background:#fff}.hardware-card>strong{display:block;color:#172033;font-size:.78rem;letter-spacing:.04em}.hardware-card ol{margin:.45rem 0 .3rem;padding-left:1.2rem;color:#52617a;font-size:.84rem;line-height:1.45}.hardware-card p{margin:.35rem 0 0!important;font-size:.82rem!important}
+.predict-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin:.55rem 0}.predict-grid span{padding:.55rem;border-radius:9px;background:#f8fafc;border:1px solid #e2e8f0}.predict-grid b{display:block;color:#172033;font-size:.78rem}.predict-grid small{color:#64748b}.full-success{margin-top:.85rem!important}
+.gcr-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;margin:.65rem 0}.gcr-grid article{padding:.7rem;border-radius:11px;border:1px solid #ddd6fe;background:#f5f3ff}.gcr-grid strong{color:#5b21b6;font-size:.72rem;letter-spacing:.07em}.gcr-grid p{margin:.2rem 0 0;color:#52617a;font-size:.86rem;line-height:1.4}
+.playtest-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:.4rem;align-items:stretch;margin:.6rem 0 .75rem}.playtest-flow span{display:grid;gap:.2rem;padding:.7rem;border-radius:11px;border:1px solid #bfdbfe;background:#eff6ff}.playtest-flow b{color:#1d4ed8;font-size:.72rem;letter-spacing:.06em}.playtest-flow small{color:#52647d;line-height:1.35}.playtest-flow i{display:grid;place-items:center;color:#7c3aed;font-style:normal;font-weight:900}
+@media(max-width:760px){.path-grid{grid-template-columns:1fr}.gcr-grid{grid-template-columns:1fr}.playtest-flow{grid-template-columns:1fr}.playtest-flow i{transform:rotate(90deg);height:16px}.predict-grid{grid-template-columns:1fr}.path-card dl div{grid-template-columns:90px 1fr}}
+@media(max-width:430px){.path-card{padding:.72rem}.path-top{align-items:flex-start}.my-path,.path-reminder{display:grid}.my-path span,.path-reminder span{width:100%;box-sizing:border-box}.block-finder span{max-width:100%;overflow-wrap:anywhere}.mk-block{width:100%}.mk-block.indent{width:calc(100% - .55rem);margin-left:.55rem}.mk-block.indent2{width:calc(100% - 1rem);margin-left:1rem}.hardware-card{padding:.65rem}}
+</style>
