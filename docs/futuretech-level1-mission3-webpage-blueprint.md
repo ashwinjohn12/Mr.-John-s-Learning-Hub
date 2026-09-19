@@ -1,7 +1,7 @@
 # FutureTech Lab — Level 1 Mission 3 Student Webpage Blueprint
 
 **Mission:** 3 — Build a Game  
-**Status:** STUDENT-FACING PAGE BLUEPRINT ONLY — no Astro page implemented  
+**Status:** APPROVED / FROZEN STUDENT-FACING BLUEPRINT — implemented and audited  
 **Source specification:** `docs/futuretech-level1-mission3-instructional-spec.md`  
 **Governing design standard:** `docs/futuretech-level1-mission-design-standard.md`
 
@@ -130,7 +130,7 @@ No code model here. Use three compact vocabulary chips only.
 # Stage 2 — First Code
 
 ## Section goal
-Every pair creates one visible object that moves repeatedly before adding scoring or controller rules.
+Every student creates one visible object that moves repeatedly before adding scoring or controller rules.
 
 ### Stage header
 **02 — FIRST GAME MOTION**  
@@ -500,7 +500,7 @@ Use a horizontal process strip:
 **PLAY → NOTICE → CHANGE → RETEST**
 
 ### Player card
-> Play the game once without the creators helping.
+> Another student plays the game once without help from the student who built it.
 
 ### Creator card
 Ask only three questions:
@@ -759,7 +759,7 @@ At implementation time, confirm labels against the current editors before hard-c
 
 - Path A and Path B stack vertically;
 - keep **Path badge + hardware name** visible at the top of every path card;
-- repeat the compact **STAY ON YOUR PATH** reminder immediately before each stacked Path A/Path B pair;
+- repeat the compact **STAY ON YOUR PATH** reminder immediately before each stacked Path A/Path B card set;
 - the non-assigned path may remain visible, but its card must begin far enough below the assigned-path heading that students do not visually merge the two sets of instructions;
 - all block-finder chips wrap;
 - code models become one vertical stack;
@@ -834,7 +834,6 @@ The blueprint passes the multi-station test after these guardrails:
 
 - six-stage mission architecture;
 - TRY 4;
-- Driver/Navigator switch;
 - four code models total;
 - common Build It checklist;
 - common playtest requirement;
@@ -869,4 +868,4 @@ If any answer requires reading the other pathway's instructions, the page needs 
 
 ---
 
-**Implementation boundary:** This document is a blueprint only. It does not create the Mission 3 route, modify Missions 1–2, alter the shared FutureTech frame, or publish any site changes.
+**Freeze boundary:** This blueprint now documents the approved implemented Mission 3 experience. Future changes should preserve the visual-heavy, short-explanation approach and should be limited to evidence-based usability, accessibility, or hardware-support corrections.
