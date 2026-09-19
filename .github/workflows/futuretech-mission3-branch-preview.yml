@@ -42,7 +42,7 @@ jobs:
               else if (/\.(html|css|js|mjs|json|svg|xml|txt)$/i.test(entry.name)) {
                 let s = fs.readFileSync(p,'utf8');
                 s = s.replaceAll('/Mr.-John-s-Learning-Hub/', prefix);
-                s = s.replace(/href="([^"]*courses\/futuretech-lab\/[^"#?]*\/)"/g,(m,u)=>`href="${u}index.html"`);
+                s = s.replace(/href="((?!https?:|mailto:|#)[^"]*\/)"/g,(m,u)=>`href="${u}index.html"`);
                 fs.writeFileSync(p,s);
               }
             }
