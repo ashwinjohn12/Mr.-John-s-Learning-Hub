@@ -1,7 +1,7 @@
 # FutureTech Lab — Level 1 Mission 3 Instructional Specification
 
 **Mission:** 3 — Build a Game  
-**Status:** DUAL-CONTROLLER PRE-BUILD SPECIFICATION — webpage not built  
+**Status:** APPROVED / FROZEN LEVEL 1 MISSION 3 SPECIFICATION — implemented and audited  
 **Audience:** Grade 8/9 beginners who have passed Missions 1 and 2  
 **Target length:** one 90-minute class  
 **Locked architecture:** Set Up → First Code → Make It React → Build It → Level It Up → Checkpoint → Skill Passport → Reset  
@@ -80,7 +80,7 @@ Both pathways build the same **type** of game rather than identical code.
 4. Success increases score.
 5. Failure ends the round/game.
 6. Another student can understand the game quickly.
-7. The creators make one evidence-based improvement after playtesting.
+7. The student makes one evidence-based improvement after peer playtesting.
 
 ### Path A — LED Target Snap
 
@@ -152,7 +152,6 @@ Path B's larger screen is used only to make the equivalent moving object and tar
 All students:
 
 - collect computer, numbered micro:bit V2 kit, USB cable and assigned controller;
-- confirm Driver/Navigator roles;
 - receive a **Path A** or **Path B** station assignment;
 - work independently through the mission and remain on that same pathway for the complete mission;
 - complete a 60-second recap identifying an event, IF and loop;
@@ -168,7 +167,7 @@ If there are more students than controller stations, students begin the shared p
 
 ## Stage 2 — First Code — SHARED LEARNING PATHWAY
 
-**Purpose:** every pair gets a moving game object working before scoring or controller-specific logic.
+**Purpose:** every student gets a moving game object working before scoring or controller-specific logic.
 
 Stage 2 is shared in **goal, sequence, pacing and success criterion**, but each platform uses a tiny implementation card because the editors differ.
 
@@ -318,7 +317,7 @@ Path A students are **not** assessed more leniently because the micro:bit displa
 
 ### Build It success indicator
 
-> **Another student can understand the goal, use the controller, experience both success and failure, and the creators can explain one improvement made after playtesting.**
+> **Another student can understand the goal, use the controller, experience both success and failure, and the student can explain one improvement made after playtesting.**
 
 TRY 4 remains unchanged:
 
@@ -424,7 +423,7 @@ All students:
 - report controller/device faults;
 - update Passport/progress.
 
-Retro Arcade projects should be saved in a way that allows the same pair to reopen the same project later if required.
+Retro Arcade projects should be saved so the same student can reopen their own project later if required.
 
 ---
 
@@ -579,4 +578,4 @@ The two pathways are equivalent in difficulty expectations, not identical in cod
 
 Advanced MakeCode Arcade sprites, scenes, collisions and richer game design are reserved for later FutureTech levels.
 
-Mission 3 webpage implementation remains outside this specification revision.
+Mission 3 is now implemented and approved. Future changes should be limited to evidence-based usability or hardware-support corrections; do not redesign the mission architecture.
