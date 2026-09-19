@@ -43,8 +43,9 @@ for (const [name, file] of [['mission1',files.mission1],['mission2',files.missio
 }
 
 const mission1 = readFileSync(files.mission1, 'utf8');
-ok(mission1.includes('DRIVER') && mission1.includes('NAVIGATOR'), 'Mission 1 teaches partner roles');
-ok(mission1.includes('SWITCH ROLES NOW'), 'Mission 1 prompts Stage 3 role switch');
+ok(mission1.includes('Individual mission:'), 'Mission 1 is individual by default');
+ok(!mission1.includes('DRIVER') && !mission1.includes('NAVIGATOR') && !mission1.includes('SWITCH ROLES NOW'), 'Mission 1 removes default partner-role workflow');
+ok(mission1.includes('MISSION COMPLETE') && mission1.includes('RETRY ONE SKILL') && mission1.includes('SUPPORT ROUTE'), 'Mission 1 uses standard checkpoint outcomes');
 ok(mission1.includes('Checkpoint complete? Continue'), 'Mission 1 next-mission gate uses checkpoint language');
 ok(mission1.includes('mission-2-make-it-think/'), 'Mission 1 links to Mission 2');
 
@@ -56,6 +57,9 @@ ok(mission2.includes('repeat 3 times'), 'Mission 2 explicitly teaches a simple r
 ok(mission2.includes('The special result uses one repeat loop'), 'Mission 2 Build It requires loop application');
 ok(mission2.includes('Explain the Decision + Loop'), 'Mission 2 checkpoint assesses loop understanding');
 ok(mission2.includes('I can use a simple repeat loop'), 'Mission 2 Skill Passport records loop mastery');
+ok(mission2.includes('Individual mission:'), 'Mission 2 is individual by default');
+ok(!mission2.includes('DRIVER') && !mission2.includes('NAVIGATOR') && !mission2.includes('SWITCH ROLES NOW'), 'Mission 2 removes default partner-role workflow');
+ok(mission2.includes('MISSION COMPLETE') && mission2.includes('RETRY ONE SKILL') && mission2.includes('SUPPORT ROUTE'), 'Mission 2 uses standard checkpoint outcomes');
 
 console.log(`FutureTech Lab student usability audit passed: ${checks.length} checks.`);
 
