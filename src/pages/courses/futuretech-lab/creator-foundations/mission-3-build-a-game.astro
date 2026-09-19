@@ -13,23 +13,21 @@ import FutureTechMissionFrame from '../../../../components/FutureTechMissionFram
 
   <section id="stage-1" class="stage">
     <div class="stage-head"><span class="stage-number">01</span><div><p class="stage-kicker">GET READY</p><h2 class="stage-title">Set Up</h2></div></div>
-    <p class="intro">Grab your usual micro:bit kit, find your assigned controller station, and check your partner roles. You will stay on the same controller path for this whole mission.</p>
+    <p class="intro">Grab your usual micro:bit kit and find your assigned controller station. You will work through this mission independently and stay on the same controller path for the whole mission.</p>
     <div class="check-list"><span>☐ Computer</span><span>☐ micro:bit V2</span><span>☐ USB data cable</span><span>☐ Assigned controller</span><span>☐ Mission page open</span></div>
-    <p class="mini-label">If you are working with a partner</p>
-    <div class="partner-strip"><span><strong>DRIVER</strong><small>Controls the computer and device.</small></span><span><strong>NAVIGATOR</strong><small>Reads the next step, predicts results, and checks requirements.</small></span></div>
-    <p class="success"><b>Switch roles when you reach Stage 3.</b> Both partners must be able to explain the game.</p>
+    <p class="success"><b>Individual mission:</b> you are responsible for building, testing, and explaining your own game. You will work with another student only when a peer check or playtest is useful.</p>
 
     <p class="mini-label">Your controller path</p>
     <div class="path-grid">
       <article class="path-card path-a"><div class="path-top"><span class="path-badge">PATH A</span><span class="device-label">5×5 LED / :GAME</span></div><h3>Kitronik :GAME Controller</h3><dl><div><dt>Editor</dt><dd>micro:bit MakeCode</dd></div><div><dt>Action button</dt><dd>Fire 1</dd></div><div><dt>Display</dt><dd>micro:bit 5×5 LEDs</dd></div></dl><strong class="stay-label">STAY ON PATH A</strong></article>
       <article class="path-card path-b"><div class="path-top"><span class="path-badge">PATH B</span><span class="device-label">SCREEN / RETRO</span></div><h3>ELECFREAKS Retro Arcade</h3><dl><div><dt>Editor</dt><dd>MakeCode Arcade</dd></div><div><dt>Action button</dt><dd>A</dd></div><div><dt>Display</dt><dd>Colour screen</dd></div></dl><strong class="stay-label">STAY ON PATH B</strong></article>
     </div>
-    <p class="concept">Your teacher will assign a station such as <b>A1</b>, <b>A2</b>, <b>B1</b>, or <b>B2</b>. Do not switch controller type during this mission. Your checkpoint is based on the game ideas, not which controller you used.</p>
+    <p class="concept">Your teacher will assign a station such as <b>A1</b>, <b>A2</b>, <b>B1</b>, or <b>B2</b>. If controllers need to be shared, use your assigned station when it is available, but keep your own project and code. Do not switch controller type during this mission. Your checkpoint is based on the game ideas, not which controller you used.</p>
     <div class="my-path" aria-label="Path memory aid"><strong>MY PATH</strong><span><b>A</b> · :GAME · micro:bit MakeCode · Fire 1</span><span><b>B</b> · RETRO · MakeCode Arcade · A button</span></div>
 
     <p class="mini-label">Quick Reboot</p>
     <div class="reboot"><span>EVENT</span><span>IF</span><span>LOOP</span></div>
-    <p class="success">✓ You are ready when you know your Path A/B assignment, your partner role, and the game rule: <b>move → press → decide → score/end</b>.</p>
+    <p class="success">✓ You are ready when you know your Path A/B assignment and the game rule: <b>move → press → decide → score/end</b>.</p>
   </section>
 
   <section id="stage-2" class="stage">
@@ -58,7 +56,6 @@ import FutureTechMissionFrame from '../../../../components/FutureTechMissionFram
 
   <section id="stage-3" class="stage">
     <div class="stage-head"><span class="stage-number">03</span><div><p class="stage-kicker">INPUT → RULE → RESULT</p><h2 class="stage-title">Make It React</h2></div></div>
-    <p class="success"><b>WORKING WITH A PARTNER? SWITCH ROLES NOW.</b></p>
     <div class="route"><span>PRESS</span><span>CHECK TARGET</span><span>TRUE: SCORE</span><span>FALSE: END</span></div>
     <div class="path-reminder"><strong>STAY ON YOUR PATH</strong><span>A = :GAME / Fire 1</span><span>B = Retro Arcade / A button</span></div>
 
@@ -101,7 +98,7 @@ import FutureTechMissionFrame from '../../../../components/FutureTechMissionFram
     <p class="mini-label">Playtest and improve</p>
     <div class="playtest-flow"><span><b>PLAY</b><small>Player tries once without creator help.</small></span><i>→</i><span><b>NOTICE</b><small>Was the goal clear? Was timing fair? Did score/failure work?</small></span><i>→</i><span><b>CHANGE</b><small>Improve one thing based on what happened.</small></span><i>→</i><span><b>RETEST</b><small>Try again and see if the change helped.</small></span></div>
 
-    <div class="try4"><strong>STUCK? TRY 4</strong><p>1. CHECK — blocks, values, order, and nesting. 2. SIMULATE the newest version. 3. DOWNLOAD the newest version. 4. PARTNER — explain expected vs actual. Still stuck? Ask for help and say what you already tried.</p></div>
+    <div class="try4"><strong>STUCK? TRY 4</strong><p>1. CHECK — blocks, values, order, and nesting. 2. SIMULATE the newest version. 3. DOWNLOAD the newest version. 4. PARTNER — briefly explain expected vs actual to a nearby student. Still stuck? Ask for help and say what you already tried.</p></div>
   </section>
 
   <section id="stage-5" class="stage">
@@ -109,12 +106,12 @@ import FutureTechMissionFrame from '../../../../components/FutureTechMissionFram
     <p class="intro">Only after every Build It requirement works. Choose <b>one</b> while you wait for your checkpoint.</p>
     <div class="level-grid"><article class="level-card"><strong>Speed Tuner</strong><p>Change movement speed and decide which version is most playable.</p></article><article class="level-card"><strong>Random Target</strong><p>Use randomness to change the target position/location between rounds.</p></article><article class="level-card"><strong>Two Controls</strong><p>Add one second meaningful controller action.</p></article><article class="level-card"><strong>Win Goal</strong><p>Add a simple score target or another clear ending rule.</p></article></div>
     <p class="warning"><b>Mission 3 limit:</b> do not add advanced Arcade scenes, enemies, tilemaps, or multiple levels yet.</p>
-    <p class="success">When every Build It box is checked and your improvement is retested, add your name or pair to the <b>Ready-for-Check</b> queue. Keep Leveling Up until you are called.</p>
+    <p class="success">When every Build It box is checked and your improvement is retested, add your name to the <b>Ready-for-Check</b> queue. Keep Leveling Up until you are called.</p>
   </section>
 
   <section id="stage-6" class="stage checkpoint">
     <div class="stage-head"><span class="stage-number">06</span><div><p class="stage-kicker">SHOW WHAT YOU KNOW</p><h2 class="stage-title">Checkpoint</h2></div></div>
-    <p class="intro">Bring your controller and open your code when you are called. Each student completes the checkpoint individually, even if the game was built with a partner.</p>
+    <p class="intro">Bring your controller and open your code when you are called. The checkpoint is individual: you demonstrate, explain, change, and test your own game.</p>
     <div class="step-grid"><article class="step-card"><strong>Check 1 — Play / Identify</strong><p>Demonstrate the game. Point to the physical action button and the code event that responds to it.</p></article><article class="step-card"><strong>Check 2 — Explain the System</strong><p>Explain what keeps the object moving, what the IF rule checks, what success does to the score, and what causes the game to end.</p></article><article class="step-card"><strong>Check 3 — Change It</strong><p>Change target position/location, movement speed, scoring amount/behaviour, or the action button. Predict first, then test.</p></article><article class="step-card"><strong>After Your Check</strong><p><b>MISSION COMPLETE</b> · <b>RETRY ONE SKILL</b> · <b>SUPPORT ROUTE</b></p></article></div>
   </section>
 
