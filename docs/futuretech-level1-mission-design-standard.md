@@ -1,9 +1,9 @@
 # FutureTech Level 1 Mission Design Standard
 
 **Status:** APPROVED / FROZEN INTERNAL STANDARD  
-**Approved baseline:** Mission 1 — *Make It Happen* and Mission 2 — *Make It Think* at reviewed branch head `ccbf75f4db6b998cc02236048733094998a34ef1`  
+**Approved baseline:** Missions 1–3 — *Make It Happen*, *Make It Think*, and *Build a Game* — as the frozen opening Level 1 sequence  
 **Applies to:** future Level 1 FutureTech student missions  
-**Does not authorize:** changes to Missions 1–2, public-site publishing, or Mission 3 implementation.
+**Does not authorize:** redesign of frozen Missions 1–3, public-site publishing, or beginning Mission 4.
 
 ## 1. Core design rule
 
@@ -35,11 +35,11 @@ Required continuity:
 - mission hero, mission question, and student-facing readiness statement;
 - six-stage jump navigation;
 - persistent TRY 4 reminder near the top;
-- Stage 1 equipment/setup and partner-role reminder when relevant;
-- Driver/Navigator role switch at Stage 3 for partnered work;
+- Stage 1 equipment/setup and a clear statement that student work is individual by default;
+- collaboration only when it adds clear instructional value, such as brief TRY 4 troubleshooting, peer playtesting, or temporary hardware sharing;
 - Stage 4 as the student-owned creation task;
 - Stage 5 optional only after the required build works;
-- Stage 6 individual mastery check, even when the build was partnered;
+- Stage 6 individual mastery check;
 - Skill Passport written as student "I can..." statements;
 - Reset using the established numbered-kit routine.
 
@@ -199,7 +199,7 @@ Default checkpoint pattern:
 
 Keep checkpoints short enough to run during a multi-level maker class.
 
-Partnered students may present the project together, but they complete the mastery check individually. One student's retry does not invalidate the other student's result.
+All mastery checkpoints are individual. Students may briefly collaborate for troubleshooting, peer playtesting, or shared hardware access, but each student keeps ownership of their own project, explanation, and checkpoint result.
 
 Mission outcome language remains:
 
@@ -305,5 +305,6 @@ If the answer to one of these is unclear, prefer a **small visual refinement or 
 - `src/components/FutureTechMissionFrame.astro`
 - `src/pages/courses/futuretech-lab/creator-foundations/mission-1-make-it-happen.astro`
 - `src/pages/courses/futuretech-lab/creator-foundations/mission-2-make-it-think.astro`
+- `src/pages/courses/futuretech-lab/creator-foundations/mission-3-build-a-game.astro`
 
-Mission 3 remains outside this specification task and is not implemented by this document.
+Missions 1–3 are frozen together as the approved opening Level 1 sequence.
