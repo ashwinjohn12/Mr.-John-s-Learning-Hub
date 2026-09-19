@@ -9,7 +9,8 @@ const pages = [
   ['landing', '/courses/futuretech-lab/'],
   ['creator-foundations', '/courses/futuretech-lab/creator-foundations/'],
   ['mission-1', '/courses/futuretech-lab/creator-foundations/mission-1-make-it-happen/'],
-  ['mission-2', '/courses/futuretech-lab/creator-foundations/mission-2-make-it-think/']
+  ['mission-2', '/courses/futuretech-lab/creator-foundations/mission-2-make-it-think/'],
+  ['mission-3', '/courses/futuretech-lab/creator-foundations/mission-3-build-a-game/']
 ];
 
 const viewports = [
@@ -97,7 +98,7 @@ writeFileSync(`${outDir}/report.json`, JSON.stringify(report, null, 2));
 writeFileSync(`${outDir}/README.txt`, [
   'FutureTech Lab isolated rendered preview',
   `Base URL tested: ${baseUrl}`,
-  'Pages: landing, Creator Foundations, Mission 1, Mission 2',
+  'Pages: landing, Creator Foundations, Mission 1, Mission 2, Mission 3',
   'Viewports: 1440, 1024, 390, 375, 320 px',
   failed ? 'RESULT: FAIL — inspect report.json' : 'RESULT: PASS — no route/content/horizontal-overflow failures detected'
 ].join('\n'));
