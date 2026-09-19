@@ -81,6 +81,13 @@ Green success cue:
 
 Use two equal path cards side by side on wide screens.
 
+Each physical controller station should carry the same visible identifier used on the webpage:
+
+- **A1, A2, A3...** for Kitronik :GAME stations
+- **B1, B2, B3...** for Retro Arcade stations
+
+The teacher assigns a pair both a **path letter and station number**. Students record/remember the station code for the mission. The webpage itself does not need a form field; the physical label and teacher assignment are sufficient.
+
 ### Path A card
 **PATH A**  
 **Kitronik :GAME Controller**  
@@ -104,6 +111,13 @@ Status label:
 Below both cards:
 
 > **Do not switch controller type during this mission. Your checkpoint is based on the game ideas, not which controller you used.**
+
+Add one compact **MY PATH** strip immediately below the assignment panel:
+
+- **PATH A students:** remember **A · :GAME · micro:bit MakeCode · Fire 1**
+- **PATH B students:** remember **B · RETRO · MakeCode Arcade · A button**
+
+This strip is a visual memory aid, not an interactive selector. It should reappear in shortened form immediately before every later path split so students do not have to scroll back to Stage 1 to remember which instructions are theirs.
 
 ## 60-second recap card
 
@@ -149,6 +163,12 @@ Project-name reminder:
 
 These cards contain only the path-specific blocks. Avoid repeating the seven shared steps inside both cards.
 
+Immediately before the two cards, add a compact path reminder:
+
+> **READ ONLY YOUR PATH:** A = :GAME / micro:bit MakeCode · B = Retro Arcade / MakeCode Arcade
+
+Each path card begins with a bold **YOUR NEXT STEP** line so the first action is unmistakable. Do not use tabs or accordions that hide the other path.
+
 ---
 
 ## Path A implementation card — micro:bit MakeCode
@@ -158,6 +178,8 @@ Header:
 
 Subtext:
 > Build one moving LED dot on the micro:bit.
+
+**YOUR NEXT STEP:** Open **micro:bit MakeCode** and create `FirstName_L1_M3`.
 
 ### Block-finder chips
 Use exactly:
@@ -199,6 +221,8 @@ Header:
 
 Subtext:
 > Build one simple sprite moving across the Retro Arcade screen.
+
+**YOUR NEXT STEP:** Open **MakeCode Arcade** and create `FirstName_L1_M3`.
 
 ### Block-finder chips
 Use exactly:
@@ -259,11 +283,17 @@ Use a common route strip:
 
 **PRESS → CHECK TARGET → TRUE: SCORE → FALSE: END**
 
-Then split into Path A and Path B.
+Immediately below the route strip, repeat the shortened path reminder:
+
+> **STAY ON YOUR PATH:** A = :GAME / Fire 1 · B = Retro Arcade / A button
+
+Then split into Path A and Path B. Each path card should begin with **PATH A STUDENTS — CONTINUE HERE** or **PATH B STUDENTS — CONTINUE HERE**.
 
 ---
 
 ## Path A — Kitronik :GAME Controller
+
+**PATH A STUDENTS — CONTINUE HERE**
 
 ### Part A1 — Familiar input first
 
@@ -326,6 +356,8 @@ Transfer message:
 
 ## Path B — ELECFREAKS Retro Arcade
 
+**PATH B STUDENTS — CONTINUE HERE**
+
 ### Hardware/setup card first
 
 Header:
@@ -352,16 +384,18 @@ Use exactly:
 - **Game → game over**
 
 ### Mini rule model
-Use one dark pseudo-Arcade workspace:
+Use one dark pseudo-Arcade workspace with a **teacher-defined target x-value or very small target range already supplied on the page**:
 
 **on A button pressed**
-- **if** `player x is inside target zone`
+- **if** `player x matches the target check shown in the model`
   - **change score by 1**
 - **else**
   - **game over**
 
+The student should not have to invent the target comparison in Stage 3.
+
 Implementation note for eventual build:
-Use the simplest current block comparison that clearly tests horizontal position/target range. Do not introduce collision events solely to make the example more visually impressive.
+Before implementation, resolve the simplest current Arcade block pattern for the target check and hard-code that one beginner model. Prefer a single clear horizontal-position comparison. If the current editor requires a small range check, show that exact range without introducing collision events, extra sprites, functions, or nested conditions. The model must be fully understandable from the page rather than using the phrase “inside target zone” as an unexplained abstraction.
 
 ### Prediction card
 **If the sprite is in the target zone → ?**  
@@ -737,6 +771,8 @@ At implementation time, confirm labels against the current editors before hard-c
 
 - Path A and Path B stack vertically;
 - keep **Path badge + hardware name** visible at the top of every path card;
+- repeat the compact **STAY ON YOUR PATH** reminder immediately before each stacked Path A/Path B pair;
+- the non-assigned path may remain visible, but its card must begin far enough below the assigned-path heading that students do not visually merge the two sets of instructions;
 - all block-finder chips wrap;
 - code models become one vertical stack;
 - Goal / Control / Rule becomes one column;
@@ -776,6 +812,49 @@ Apply all 390 px rules plus:
 - external editor links must clearly identify destination:
   - **Open micro:bit MakeCode ↗**
   - **Open MakeCode Arcade ↗**
+
+---
+
+# Final pre-implementation audit decisions
+
+## Beginner-student perspective
+
+The blueprint passes the beginner test after these guardrails:
+
+- path identity is established in Stage 1 and refreshed before every later path split;
+- students are explicitly told **READ ONLY YOUR PATH** rather than being expected to infer this from colour;
+- every path card begins with a clear continuation label;
+- Stage 2 gives one immediate next action before any block list;
+- the four-code-model ceiling remains intact;
+- Stage 4 shows requirements and choices but no finished solution;
+- Path B's target rule must be shown as one concrete beginner comparison at implementation time, not left as an unexplained “target zone” phrase;
+- the checkpoint asks the same conceptual questions regardless of hardware.
+
+## Classroom-teacher perspective
+
+The blueprint passes the multi-station test after these guardrails:
+
+- physical stations use matching **A1/A2/A3** and **B1/B2/B3** identifiers;
+- pairs stay on one path and one station assignment for the mission;
+- scarce hardware is concentrated in later physical testing rather than required for every minute;
+- shared instructions are written once;
+- controller-specific troubleshooting remains inside the relevant path card;
+- Ready-for-Check stays separate from hardware availability;
+- no platform-specific visual feature changes the mastery standard.
+
+## What remains deliberately unchanged
+
+- six-stage mission architecture;
+- TRY 4;
+- Driver/Navigator switch;
+- four code models total;
+- common Build It checklist;
+- common playtest requirement;
+- four Level It Up options;
+- common individual checkpoint;
+- common Skill Passport;
+- common Reset;
+- no Mission 3 implementation in this task.
 
 ---
 
