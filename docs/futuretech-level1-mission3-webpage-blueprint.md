@@ -55,7 +55,7 @@ Students understand the common mission, receive one hardware pathway and know th
 **Set Up**
 
 ### Intro copy
-> Grab your usual micro:bit kit, find your assigned controller station, and check your partner roles. You will stay on the same controller path for this whole mission.
+> Grab your usual micro:bit kit and find your assigned controller station. You will work through this mission independently and stay on the same controller path for the whole mission.
 
 ### Equipment checklist
 - ☐ Computer
@@ -64,18 +64,10 @@ Students understand the common mission, receive one hardware pathway and know th
 - ☐ Assigned controller
 - ☐ Mission page open
 
-### Partner-role strip
-Reuse the existing Driver/Navigator treatment.
+### Individual-work cue
+Use one compact green success card:
 
-**DRIVER**  
-Controls the computer and device.
-
-**NAVIGATOR**  
-Reads the next step, predicts results and checks requirements.
-
-Green success cue:
-
-> **Switch roles when you reach Stage 3. Both partners must be able to explain the game.**
+> **This is an individual mission.** Build, test and explain your own game. Work with another student only when a peer check, troubleshooting conversation or playtest is useful.
 
 ## Hardware assignment panel
 
@@ -86,7 +78,7 @@ Each physical controller station should carry the same visible identifier used o
 - **A1, A2, A3...** for Kitronik :GAME stations
 - **B1, B2, B3...** for Retro Arcade stations
 
-The teacher assigns a pair both a **path letter and station number**. Students record/remember the station code for the mission. The webpage itself does not need a form field; the physical label and teacher assignment are sufficient.
+The teacher assigns each student a **path letter** and, when hardware is available, a **station number**. Students keep their own project and code even when controller hardware must be shared. The webpage itself does not need a form field; the physical label and teacher assignment are sufficient.
 
 ### Path A card
 **PATH A**  
@@ -131,7 +123,7 @@ Prompt:
 No code model here. Use three compact vocabulary chips only.
 
 ### Stage 1 success cue
-> ✓ **You are ready when:** you know your Path A/B assignment, your partner role, and the common game rule: **move → press → decide → score/end**.
+> ✓ **You are ready when:** you know your Path A/B assignment and the common game rule: **move → press → decide → score/end**.
 
 ---
 
@@ -274,10 +266,6 @@ Students connect one physical action button to the same conceptual rule:
 ### Stage header
 **03 — INPUT → RULE → RESULT**  
 **Make It React**
-
-Green role-switch banner:
-
-> **WORKING WITH A PARTNER? SWITCH ROLES NOW.**
 
 Use a common route strip:
 
@@ -465,7 +453,7 @@ Use the established two-column check-list treatment.
 - ☐ Player can understand the game quickly
 - ☐ At least one meaningful personalization
 - ☐ Another student playtested it
-- ☐ We improved one thing and retested
+- ☐ I improved one thing and retested
 
 ## Meaningful choice cards
 
@@ -496,7 +484,7 @@ Keep course-wide wording:
 1. **CHECK** — blocks, values, order and nesting.
 2. **SIMULATE** — test the newest version.
 3. **DOWNLOAD** — send the newest version.
-4. **PARTNER** — explain expected vs actual.
+4. **PARTNER** — briefly explain expected vs actual to a nearby student.
 
 Then:
 > Still stuck? Ask for help and say what you already tried.
@@ -563,7 +551,7 @@ Footer warning:
 > **Do not add advanced Arcade scenes, enemies, tilemaps or multiple levels in Mission 3.**
 
 Ready-for-Check cue:
-> When every Build It box is checked and your improvement is retested, add your name/pair to Ready-for-Check. Keep Leveling Up until you are called.
+> When every Build It box is checked and your improvement is retested, add your name to Ready-for-Check. Keep Leveling Up until you are called.
 
 ---
 
@@ -574,7 +562,7 @@ Ready-for-Check cue:
 **Checkpoint**
 
 Intro:
-> Bring your controller and open your code when you are called. Each student completes the checkpoint individually, even if the game was built with a partner.
+> Bring your controller and open your code when you are called. The checkpoint is individual: demonstrate, explain, change and test your own game.
 
 Use four compact cards.
 
@@ -835,8 +823,8 @@ The blueprint passes the beginner test after these guardrails:
 The blueprint passes the multi-station test after these guardrails:
 
 - physical stations use matching **A1/A2/A3** and **B1/B2/B3** identifiers;
-- pairs stay on one path and one station assignment for the mission;
-- scarce hardware is concentrated in later physical testing rather than required for every minute;
+- students stay on one path for the mission and keep their own project/code;
+- scarce hardware is shared by station only when needed for physical testing;
 - shared instructions are written once;
 - controller-specific troubleshooting remains inside the relevant path card;
 - Ready-for-Check stays separate from hardware availability;
@@ -854,6 +842,7 @@ The blueprint passes the multi-station test after these guardrails:
 - common individual checkpoint;
 - common Skill Passport;
 - common Reset;
+- individual work is the default; collaboration is limited to troubleshooting and peer playtesting;
 - no Mission 3 implementation in this task.
 
 ---
