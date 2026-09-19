@@ -39,7 +39,6 @@ Students who have passed Missions 1–2 are expected to independently:
 - use a simple repeat loop;
 - predict, modify and test code;
 - use TRY 4;
-- work as Driver/Navigator and switch at Stage 3;
 - download/test on physical hardware;
 - join Ready-for-Check;
 - complete an individual checkpoint;
@@ -154,16 +153,16 @@ All students:
 
 - collect computer, numbered micro:bit V2 kit, USB cable and assigned controller;
 - confirm Driver/Navigator roles;
-- receive a **Path A** or **Path B** station marker;
-- remain on that same pathway for the complete mission;
+- receive a **Path A** or **Path B** station assignment;
+- work independently through the mission and remain on that same pathway for the complete mission;
 - complete a 60-second recap identifying an event, IF and loop;
 - read the common game rule: **move → press → decide → score/end**.
 
 ### Hardware-station rule
 
-A controller is assigned to a pair, not carried between pairs during the mission.
+A controller station is assigned to a student when hardware is available. Students keep their own project and code even when controller hardware must be shared.
 
-If there are more pairs than controller stations, pairs begin the shared planning/simulator work while a controller is unavailable and receive hardware as a station opens. No pair changes from Path A to Path B simply because another controller becomes free.
+If there are more students than controller stations, students begin the shared planning/simulator work while a controller is unavailable and use their assigned pathway hardware when a station opens. No student changes from Path A to Path B simply because another controller becomes free.
 
 ---
 
@@ -212,8 +211,6 @@ No score, target rule or controller action is added yet.
 ---
 
 ## Stage 3 — Make It React — PATH SPLIT
-
-**Switch Driver/Navigator roles now.**
 
 Both pathways follow the same conceptual sequence:
 
@@ -431,7 +428,7 @@ Retro Arcade projects should be saved in a way that allows the same pair to reop
 
 ---
 
-## 10. Hardware-station and partner management
+## 10. Hardware-station and individual-work management
 
 ### Inventory assumption
 
@@ -440,30 +437,30 @@ Approximately:
 - 2–3 Kitronik :GAME Controller stations;
 - 2–3 ELECFREAKS Retro Arcade stations.
 
-With pairs, 4–6 controller stations can support approximately 8–12 students at once.
+With 4–6 controller stations, 4–6 students can physically test at once while other students continue simulator work, planning, code refinement, or peer playtesting.
 
 ### Assignment procedure
 
 At the start of Mission 3:
 
-1. assign each pair **Path A** or **Path B**;
-2. record the controller/station number;
-3. that pair keeps the same pathway for the mission;
-4. Driver/Navigator roles still switch at Stage 3;
-5. both partners must complete the checkpoint individually.
+1. assign each student **Path A** or **Path B**;
+2. record the controller/station number when hardware is assigned;
+3. that student keeps the same pathway for the mission;
+4. each student keeps their own project and code;
+5. every student completes the checkpoint individually.
 
-### If there are more pairs than controllers
+### If there are more students than controllers
 
 Do not make students switch controller type.
 
 Instead:
 
-- pairs without hardware begin Stage 1 and Stage 2 simulator/planning work;
+- students without hardware begin Stage 1 and Stage 2 simulator/planning work independently;
 - use a visible controller-station queue;
-- when the assigned pathway hardware becomes available, that pair continues with physical testing;
+- when the assigned pathway hardware becomes available, the student continues with physical testing;
 - Ready-for-Check remains separate from the hardware queue.
 
-If necessary, Stage 2 simulator time and playtesting can overlap across pairs so scarce controller time is concentrated in Stages 3–4.
+If necessary, Stage 2 simulator time and peer playtesting can overlap so scarce controller time is concentrated in Stages 3–4.
 
 ---
 
