@@ -101,6 +101,16 @@ Use one green success card:
 
 > **This is an individual mission.** Build, test, and explain your own robot outputs. Share a hardware station only if controller quantities require it.
 
+## Station identity cue
+
+Each Hummingbird station should have one visible station code such as **HB-01, HB-02, HB-03...**.
+
+Student-facing line:
+
+> **Stay with your assigned Hummingbird station while you are testing. Keep your own MakeCode project even if another student uses the hardware later.**
+
+The station code supports equipment tracking and fault reporting without turning the mission into partner work.
+
 ---
 
 # Stage 1 hardware visual
@@ -152,7 +162,12 @@ Small wire-order strip:
 
 **POWER**
 
-> Keep power OFF while you change robot connections.
+> **OFF while connecting or changing parts. ON only when you are ready to test.**
+
+Add a small two-state power cue beside the callout:
+
+**CONNECT / CHANGE → POWER OFF**  
+**TEST → POWER ON**
 
 ### Small status note
 
@@ -170,14 +185,19 @@ Header:
 
 **CONNECT WITH POWER OFF**
 
-Use six short numbered steps:
+Use seven short numbered steps:
 
 1. **Power OFF first.**
 2. Insert the micro:bit correctly. Do not force it.
 3. **LED Port 1:** colored wire → **+** · black wire → **–**.
 4. **Servo Port 1:** white → **S** · red → **+** · black → **–**.
-5. Connect Hummingbird power before testing the servo.
-6. Keep fingers and loose objects away from the servo horn while it moves.
+5. Compare both connections to the diagram **before** turning power on.
+6. Turn Hummingbird power ON only when you are ready to test.
+7. Before changing, removing, or reconnecting any robot part, **turn Hummingbird power OFF again**.
+
+Add one separate servo-motion warning directly below:
+
+> **SERVO MOVES:** keep fingers, hair, sleeves, wires, and loose materials away from the servo horn while power is on.
 
 Use orange warning treatment.
 
@@ -221,7 +241,7 @@ Do not turn this into a quiz form.
 
 ## Stage 1 success cue
 
-> ✓ **You are ready when:** the LED is in LED Port 1, the position servo is in Servo Port 1, power is OFF while you check the connections, and you can explain what a port does.
+> ✓ **You are ready when:** the LED is in LED Port 1, the position servo is in Servo Port 1, both wire orders match the diagram, power is OFF while you check the connections, and you can explain what a port does.
 
 ---
 
@@ -343,19 +363,26 @@ Students add a position servo, centre it safely at 90°, then use familiar micro
 
 ## Servo safety/setup card
 
-Place this before any servo code.
+Place this before the two-position servo model.
 
 Header:
 
 **CENTER THE SERVO FIRST**
 
-Use five numbered steps:
+Students need one tiny setup cue here before they are asked to use 90°.
 
-1. Connect Hummingbird power.
-2. Set **Servo Port 1 → 90°**.
-3. Download.
-4. Watch the servo move to the centre position.
-5. Only then attach or align the servo horn / moving piece.
+Show one **single-line centering cue**, not a third full code model:
+
+**Hummingbird → position servo → Servo 1 → 90°**
+
+Use six numbered steps:
+
+1. Confirm the servo is still connected to **Servo Port 1**.
+2. With power OFF, keep the horn / moving piece unattached or loose.
+3. Add one position-servo command set to **Servo 1 → 90°**.
+4. Turn Hummingbird power ON, download, and let the servo move to centre.
+5. Turn Hummingbird power OFF again.
+6. Only then attach or align the servo horn / moving piece at its centred position.
 
 Orange note:
 
@@ -377,7 +404,11 @@ Do not add a detailed protractor lesson.
 
 # Stage 3 block-finder chips
 
-Use exactly:
+For the centering cue, show first:
+
+- **Hummingbird → position servo**
+
+Then, for the two-button step, use:
 
 - **Input → on button A pressed**
 - **Input → on button B pressed**
@@ -547,7 +578,7 @@ Keep the standard orange TRY 4 card.
 
 ### 1 — CHECK
 
-> Check the code block, port number, wire order, power, and servo angle.
+> Check in this order: **power → wire order → port number → code block/value → servo angle**.
 
 ### 2 — SIMULATE
 
@@ -564,6 +595,10 @@ Keep the standard orange TRY 4 card.
 Footer:
 
 > Still stuck? Ask for help and say what you already tried.
+
+Small station-management line:
+
+> If a component, cable, controller, or power pack still appears faulty after TRY 4, report the **HB station number** instead of moving parts between stations.
 
 ## Hummingbird-specific warning
 
@@ -635,13 +670,14 @@ Intro:
 
 Use four compact cards.
 
-## Check 1 — Identify the Hardware
+## Check 1 — Trace the System
 
-> Demonstrate one robot state. Point to:
+> Demonstrate one robot state. Trace each output from **code → matching port → physical part**:
 >
-> - LED Port 1
-> - Servo Port 1
-> - the matching LED and servo blocks in your code
+> - LED command → LED Port 1 → LED
+> - servo command → Servo Port 1 → servo
+
+The student may point to the code while explaining, but the assessment is the **code/port/output relationship**, not memorizing where a block category is located.
 
 ## Check 2 — Explain the Outputs
 
@@ -650,6 +686,7 @@ Use four compact cards.
 > - what LED brightness controls;
 > - what servo angle controls;
 > - why the code port must match the physical port;
+> - why Hummingbird power is needed for physical output testing;
 > - which part is the input and which parts are outputs.
 
 ## Check 3 — Change It
@@ -801,7 +838,7 @@ Use these exact student-facing support phrases wherever the same idea appears.
 
 ## Power rule
 
-> **Power OFF before changing robot connections.**
+> **CONNECT / CHANGE → POWER OFF. TEST → POWER ON. Turn power OFF again before touching the robot connections.**
 
 ## Simulator rule
 
@@ -842,6 +879,7 @@ Use these exact student-facing support phrases wherever the same idea appears.
   3. Servo Port 1 callout
   4. power reminder;
 - wiring labels remain full text;
+- the **CONNECT / CHANGE → POWER OFF · TEST → POWER ON** cue remains visible as its own full-width strip;
 - code → port → output visual stacks into two separate vertical cards;
 - all block-finder chips wrap;
 - code models become a single vertical stack;
@@ -863,6 +901,8 @@ Apply all 390 px rules plus:
 - code blocks wrap safely;
 - nested code retains visible indentation with capped indent;
 - Stage 1 numbered safety steps use full width;
+- the servo-centering cue and 90° step remain above the two-position code model;
+- station code / fault-report text remains a short full-width line;
 - idea cards become one column if needed;
 - Ready-for-Check CTA becomes full width;
 - no text smaller than the established Mission 1–3 mobile baseline.
@@ -875,7 +915,7 @@ Apply all 390 px rules plus:
 - useful heading hierarchy;
 - hardware diagram gets a descriptive `aria-label`;
 - plain-text wiring instructions immediately follow the diagram;
-- do not identify wires only by color—also include signal/polarity letters where available;
+- do not identify wires only by color—always pair color with terminal letters/symbols (**+**, **–**, **S**) and connector position where visually possible;
 - code models get useful `aria-label` text;
 - green/orange/purple status meaning is written, not color-only;
 - keyboard-visible focus remains intact;
@@ -894,7 +934,8 @@ Before implementation is accepted, a beginner should be able to answer:
 - Which way do the LED wires go?
 - Where does the servo connect?
 - Which way do the servo wires go?
-- Why must power be off while I change connections?
+- When should Hummingbird power be OFF, and when can it be ON?
+- What should I do before touching wiring after a test?
 - What does Start Hummingbird do?
 - What does LED brightness control?
 - What does servo angle control?
@@ -902,10 +943,44 @@ Before implementation is accepted, a beginner should be able to answer:
 - Why do I centre the servo at 90° first?
 - What should I build myself?
 - What should I try when the robot hardware does not respond?
+- What station number should I report if hardware seems faulty?
 - What do I need to show at the checkpoint?
 - What must be powered off and returned at Reset?
 
 If any answer requires a long paragraph or teacher explanation, simplify the visual or support card before implementation.
+
+---
+
+# Final pre-implementation audit decisions
+
+## Grade 8/9 beginner perspective
+
+The blueprint passes after four guardrails:
+
+- wiring is shown twice: once visually and once as plain text;
+- power state is treated as a two-state routine: **connect/change = OFF, test = ON**;
+- servo centering now includes a one-line 90° setup cue before students are asked to use it;
+- checkpoint language emphasizes tracing **code → port → output** rather than locating block categories from memory.
+
+The page still contains only two full code models. The 90° centering cue is a setup instruction, not a third model.
+
+Stage 4 remains student-owned because students still choose the physical theme, two servo angles, LED behavior, and meaning of both robot states without being shown a complete Robot Signal solution.
+
+## Classroom-teacher perspective
+
+The blueprint now supports multiple stations by:
+
+- assigning visible **HB-01 / HB-02 / HB-03...** station codes;
+- keeping student MakeCode projects individual even when hardware rotates;
+- telling students to report the station number rather than swapping suspected faulty components between stations;
+- keeping hardware-access and Ready-for-Check workflows conceptually separate;
+- reducing teacher troubleshooting load with a fixed diagnostic order: **power → wire order → port → code/value → angle**.
+
+## Visual / mobile decision
+
+No extra major visuals are needed. The four-visual ceiling remains appropriate.
+
+At 390 px, 375 px and 320 px, safety information must remain more prominent than decorative layout. Port labels, terminal letters, power-state cues and the centering sequence must never be overlaid on a tiny controller image.
 
 ---
 
