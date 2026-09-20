@@ -1,7 +1,7 @@
 # FutureTech Lab — Level 1 Mission 4 Instructional Specification
 
 **Mission:** 4 — Robot Rookie  
-**Status:** PRE-BUILD INSTRUCTIONAL SPECIFICATION — webpage not built  
+**Status:** APPROVED / FROZEN LEVEL 1 MISSION 4 SPECIFICATION — implemented and browser-audited  
 **Audience:** Grade 8/9 beginners who have completed Missions 1–3  
 **Target length:** one 90-minute class  
 **Locked architecture:** Set Up → First Code → Make It React → Build It → Level It Up → Checkpoint → Skill Passport → Reset  
@@ -830,4 +830,4 @@ Locked core:
 
 This gives students a meaningful robotics experience without stealing the sensor/decision learning reserved for Mission 5.
 
-The Mission 4 webpage remains unbuilt by this specification task.
+Mission 4 is implemented and frozen. Future changes should be limited to evidence-based usability, accessibility, hardware-support, safety, or factual corrections.
