@@ -1,7 +1,7 @@
 # FutureTech Lab — Level 1 Mission 4 Student Webpage Blueprint
 
 **Mission:** 4 — Robot Rookie  
-**Status:** STUDENT-FACING PAGE BLUEPRINT ONLY — no Astro page implemented  
+**Status:** APPROVED / FROZEN STUDENT-FACING BLUEPRINT — implemented and browser-audited  
 **Source specification:** `docs/futuretech-level1-mission4-instructional-spec.md`  
 **Governing standard:** `docs/futuretech-level1-mission-design-standard.md`
 
@@ -984,4 +984,4 @@ At 390 px, 375 px and 320 px, safety information must remain more prominent than
 
 ---
 
-**Implementation boundary:** This document is a blueprint only. It does not create the Mission 4 route, modify Missions 1–3, alter the shared FutureTech frame, merge to main, or publish the public Learning Hub.
+**Freeze boundary:** This blueprint documents the approved implemented Mission 4 experience. Future changes should preserve the hardware-first visual structure, two-model ceiling, individual-first workflow, and safety sequence, and should be limited to evidence-based usability, accessibility, hardware-support, safety, or factual corrections.
