@@ -1,0 +1,81 @@
+name: FutureTech Missions 1-4 Preview
+
+on:
+  push:
+    branches:
+      - 'futuretech-preview-missions1-4-20260919'
+    paths-ignore:
+      - 'preview-site/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: futuretech-preview-missions1-4-20260919
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Create isolated preview snapshot
+        run: |
+          rm -rf preview-site
+          cp -R dist preview-site
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const root = 'preview-site';
+          const prefix = '/ashwinjohn12/Mr.-John-s-Learning-Hub/futuretech-preview-missions1-4-20260919/preview-site/';
+          function walk(dir){
+            for (const entry of fs.readdirSync(dir,{withFileTypes:true})) {
+              const p = path.join(dir,entry.name);
+              if (entry.isDirectory()) walk(p);
+              else if (/\.(html|css|js|mjs|json|svg|xml|txt)$/i.test(entry.name)) {
+                let s = fs.readFileSync(p,'utf8');
+                s = s.replaceAll('/Mr.-John-s-Learning-Hub/', prefix);
+                s = s.replace(/href="((?!https?:|mailto:|#)[^"]*\/)"/g,(m,u)=>`href="${u}index.html"`);
+                fs.writeFileSync(p,s);
+              }
+            }
+          }
+          walk(root);
+          const required = [
+            'preview-site/courses/futuretech-lab/index.html',
+            'preview-site/courses/futuretech-lab/creator-foundations/index.html',
+            'preview-site/courses/futuretech-lab/creator-foundations/mission-1-make-it-happen/index.html',
+            'preview-site/courses/futuretech-lab/creator-foundations/mission-2-make-it-think/index.html',
+            'preview-site/courses/futuretech-lab/creator-foundations/mission-3-build-a-game/index.html',
+            'preview-site/courses/futuretech-lab/creator-foundations/mission-4-robot-rookie/index.html'
+          ];
+          for (const p of required) if (!fs.existsSync(p)) throw new Error('Missing '+p);
+          const map = fs.readFileSync(required[1],'utf8');
+          for (const slug of ['mission-1-make-it-happen','mission-2-make-it-think','mission-3-build-a-game','mission-4-robot-rookie']) {
+            if (!map.includes(slug+'/index.html')) throw new Error('Missing open mission link '+slug);
+          }
+          if (!map.includes('Missions 1–4 are open now')) throw new Error('Open mission copy missing');
+          if ((map.match(/COMING NEXT · PREVIEW/g)||[]).length !== 4) throw new Error('Missions 5–8 lock markers missing');
+          const m4 = fs.readFileSync(required[5],'utf8');
+          for (const text of ['Hummingbird Bit Controller','LED PORT 1','SERVO PORT 1','CONNECT / CHANGE','POWER OFF','TEST','POWER ON','CODE MODEL 1 OF 2','CODE MODEL 2 OF 2','Build It — Robot Signal','Checkpoint','SKILL PASSPORT','Reset']) {
+            if (!m4.includes(text)) throw new Error('Mission 4 preview missing '+text);
+          }
+          NODE
+      - name: Commit preview snapshot
+        run: |
+          git config user.name "futuretech-preview-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add preview-site
+          if git diff --cached --quiet; then
+            echo "Preview snapshot unchanged"
+            exit 0
+          fi
+          git commit -m "Publish FutureTech Missions 1-4 preview"
+          git push origin HEAD:futuretech-preview-missions1-4-20260919
