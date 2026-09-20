@@ -60,6 +60,7 @@ ok(mission2.includes('I can use a simple repeat loop'), 'Mission 2 Skill Passpor
 ok(mission2.includes('Individual mission:'), 'Mission 2 is individual by default');
 ok(!mission2.includes('DRIVER') && !mission2.includes('NAVIGATOR') && !mission2.includes('SWITCH ROLES NOW'), 'Mission 2 removes default partner-role workflow');
 ok(mission2.includes('MISSION COMPLETE') && mission2.includes('RETRY ONE SKILL') && mission2.includes('SUPPORT ROUTE'), 'Mission 2 uses standard checkpoint outcomes');
+ok(mission2.includes('Checkpoint complete? Continue') && mission2.includes('mission-3-build-a-game/'), 'Mission 2 links to Mission 3 with checkpoint gate');
 
 console.log(`FutureTech Lab student usability audit passed: ${checks.length} checks.`);
 
