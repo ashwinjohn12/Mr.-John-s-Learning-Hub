@@ -1,0 +1,952 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="description" content="I can create a playable timing game, use a controller input to trigger a rule, change score or end the game, and improve the game after a playtest."><meta name="theme-color" content="#5b21b6"><title>Mission 3: Build a Game | FutureTech Lab</title><link rel="stylesheet" href="/ashwinjohn12/Mr.-John-s-Learning-Hub/futuretech-preview-missions1-4-20260919/preview-site/_astro/mission-3-build-a-game.HTovgofl.css">
+<link rel="stylesheet" href="/ashwinjohn12/Mr.-John-s-Learning-Hub/futuretech-preview-missions1-4-20260919/preview-site/_astro/mission-1-make-it-happen.BhXBSKw-.css">
+<link rel="stylesheet" href="/ashwinjohn12/Mr.-John-s-Learning-Hub/futuretech-preview-missions1-4-20260919/preview-site/_astro/mission-1-make-it-happen.BHoPnSmS.css"></head> <body> <a class="skip-link" href="#main">Skip to main content</a> <header class="site-header"> <a class="brand" href="/ashwinjohn12/Mr.-John-s-Learning-Hub/futuretech-preview-missions1-4-20260919/preview-site/index.html" aria-label="Mr. John’s Learning Hub home"> <span class="brand-mark" aria-hidden="true">MJ</span> <span><strong>Mr. John’s</strong><small>Learning Hub</small></span> </a> <nav aria-label="Main navigation"> <a href="/ashwinjohn12/Mr.-John-s-Learning-Hub/futuretech-preview-missions1-4-20260919/preview-site/index.html">Home</a> <a href="/ashwinjohn12/Mr.-John-s-Learning-Hub/futuretech-preview-missions1-4-20260919/preview-site/#courses">Courses</a> <a href="/ashwinjohn12/Mr.-John-s-Learning-Hub/futuretech-preview-missions1-4-20260919/preview-site/#how-to-use">How to use</a> </nav> </header> <main id="main">     <div class="ft-mission" data-astro-cid-kbzwt7g4> <nav class="breadcrumbs" aria-label="Breadcrumb"> <ol> <li> <a href="/ashwinjohn12/Mr.-John-s-Learning-Hub/futuretech-preview-missions1-4-20260919/preview-site/index.html">Home</a> <span aria-hidden="true">/</span> </li><li> <a href="/ashwinjohn12/Mr.-John-s-Learning-Hub/futuretech-preview-missions1-4-20260919/preview-site/courses/futuretech-lab/index.html">FutureTech Lab</a> <span aria-hidden="true">/</span> </li><li> <a href="/ashwinjohn12/Mr.-John-s-Learning-Hub/futuretech-preview-missions1-4-20260919/preview-site/courses/futuretech-lab/creator-foundations/index.html">Creator Foundations</a> <span aria-hidden="true">/</span> </li><li> <span aria-current="page">Mission 3</span>  </li> </ol> </nav> <header class="mission-hero" data-astro-cid-kbzwt7g4><div data-astro-cid-kbzwt7g4><p class="mission-code" data-astro-cid-kbzwt7g4>FUTURETECH // LEVEL 01 // MISSION 03</p><h1 data-astro-cid-kbzwt7g4><small data-astro-cid-kbzwt7g4>Mission 3</small>Build a Game</h1><p class="mission-tagline" data-astro-cid-kbzwt7g4>Turn code into a game another person can play.</p></div><div class="mission-status" data-astro-cid-kbzwt7g4><span data-astro-cid-kbzwt7g4>STATUS</span><strong data-astro-cid-kbzwt7g4>● ACTIVE</strong></div></header> <div class="mission-brief" data-astro-cid-kbzwt7g4><article data-astro-cid-kbzwt7g4><span data-astro-cid-kbzwt7g4>MISSION QUESTION</span><strong data-astro-cid-kbzwt7g4>How can I combine controls, rules, score and testing to make a game another person can play?</strong></article><article data-astro-cid-kbzwt7g4><span data-astro-cid-kbzwt7g4>YOU ARE READY WHEN...</span><strong data-astro-cid-kbzwt7g4>I can create a playable timing game, use a controller input to trigger a rule, change score or end the game, and improve the game after a playtest.</strong></article></div> <nav class="stage-nav" aria-label="Mission stages" data-astro-cid-kbzwt7g4><a href="#stage-1" data-astro-cid-kbzwt7g4><b data-astro-cid-kbzwt7g4>1</b><span data-astro-cid-kbzwt7g4>Set Up</span></a><a href="#stage-2" data-astro-cid-kbzwt7g4><b data-astro-cid-kbzwt7g4>2</b><span data-astro-cid-kbzwt7g4>First Code</span></a><a href="#stage-3" data-astro-cid-kbzwt7g4><b data-astro-cid-kbzwt7g4>3</b><span data-astro-cid-kbzwt7g4>Make It React</span></a><a href="#stage-4" data-astro-cid-kbzwt7g4><b data-astro-cid-kbzwt7g4>4</b><span data-astro-cid-kbzwt7g4>Build It</span></a><a href="#stage-5" data-astro-cid-kbzwt7g4><b data-astro-cid-kbzwt7g4>5</b><span data-astro-cid-kbzwt7g4>Level It Up</span></a><a href="#stage-6" data-astro-cid-kbzwt7g4><b data-astro-cid-kbzwt7g4>6</b><span data-astro-cid-kbzwt7g4>Checkpoint</span></a></nav> <aside class="mission-help" aria-label="What to do if you get stuck" data-astro-cid-kbzwt7g4><strong data-astro-cid-kbzwt7g4>Start at Stage 1 and work in order.</strong><span data-astro-cid-kbzwt7g4>Stuck anywhere? TRY 4: <b data-astro-cid-kbzwt7g4>Check → Simulate → Download → Partner.</b></span></aside> <main class="mission-body" data-astro-cid-kbzwt7g4> <div class="game-flow" aria-label="Mission game flow"><span>MOVE</span><b>→</b><span>PRESS</span><b>→</b><span>CHECK</span><b>→</b><span>SCORE / END</span></div> <p class="flow-note">Both controller paths use the same game idea. The hardware and blocks may look different.</p> <section id="stage-1" class="stage"> <div class="stage-head"><span class="stage-number">01</span><div><p class="stage-kicker">GET READY</p><h2 class="stage-title">Set Up</h2></div></div> <p class="intro">Grab your usual micro:bit kit and find your assigned controller station. You will work through this mission independently and stay on the same controller path for the whole mission.</p> <div class="check-list"><span>☐ Computer</span><span>☐ micro:bit V2</span><span>☐ USB data cable</span><span>☐ Assigned controller</span><span>☐ Mission page open</span></div> <p class="success"><b>Individual mission:</b> you are responsible for building, testing, and explaining your own game. You will work with another student only when a peer check or playtest is useful.</p> <p class="mini-label">Your controller path</p> <div class="path-grid"> <article class="path-card path-a"><div class="path-top"><span class="path-badge">PATH A</span><span class="device-label">5×5 LED / :GAME</span></div><h3>Kitronik :GAME Controller</h3><dl><div><dt>Editor</dt><dd>micro:bit MakeCode</dd></div><div><dt>Action button</dt><dd>Fire 1</dd></div><div><dt>Display</dt><dd>micro:bit 5×5 LEDs</dd></div></dl><strong class="stay-label">STAY ON PATH A</strong></article> <article class="path-card path-b"><div class="path-top"><span class="path-badge">PATH B</span><span class="device-label">SCREEN / RETRO</span></div><h3>ELECFREAKS Retro Arcade</h3><dl><div><dt>Editor</dt><dd>MakeCode Arcade</dd></div><div><dt>Action button</dt><dd>A</dd></div><div><dt>Display</dt><dd>Colour screen</dd></div></dl><strong class="stay-label">STAY ON PATH B</strong></article> </div> <p class="concept">Your teacher will assign a station such as <b>A1</b>, <b>A2</b>, <b>B1</b>, or <b>B2</b>. If controllers need to be shared, use your assigned station when it is available, but keep your own project and code. Do not switch controller type during this mission. Your checkpoint is based on the game ideas, not which controller you used.</p> <div class="my-path" aria-label="Path memory aid"><strong>MY PATH</strong><span><b>A</b> · :GAME · micro:bit MakeCode · Fire 1</span><span><b>B</b> · RETRO · MakeCode Arcade · A button</span></div> <p class="mini-label">Quick Reboot</p> <div class="reboot"><span>EVENT</span><span>IF</span><span>LOOP</span></div> <p class="success">✓ You are ready when you know your Path A/B assignment and the game rule: <b>move → press → decide → score/end</b>.</p> </section> <section id="stage-2" class="stage"> <div class="stage-head"><span class="stage-number">02</span><div><p class="stage-kicker">FIRST GAME MOTION</p><h2 class="stage-title">First Code</h2></div></div> <p class="intro">First, make something move. Do not add score, target logic, or controller actions yet.</p> <div class="step-grid"><article class="step-card"><strong>1 — Create</strong><p>Start <code>FirstName_L1_M3</code> and create one visible game object.</p></article><article class="step-card"><strong>2 — Move</strong><p>Make the object move horizontally and keep moving repeatedly.</p></article><article class="step-card"><strong>3 — Keep it playable</strong><p>Keep it in the visible game area and slow it enough for a player to react.</p></article><article class="step-card"><strong>4 — Simulate</strong><p>Test the moving object before you add scoring or controller rules.</p></article></div> <div class="path-reminder"><strong>READ ONLY YOUR PATH</strong><span>A = :GAME / micro:bit MakeCode</span><span>B = Retro Arcade / MakeCode Arcade</span></div> <div class="path-grid path-work"> <article class="path-card path-a"> <div class="path-top"><span class="path-badge">PATH A</span><span class="device-label">5×5 LED / :GAME</span></div><h3>LED Target Snap</h3><p><b>YOUR NEXT STEP:</b> Open <a class="external" href="https://makecode.microbit.org/" target="_blank" rel="noreferrer">micro:bit MakeCode ↗</a> and create <code>FirstName_L1_M3</code>.</p> <div class="block-finder"><span><b>Game</b> → create sprite</span><span><b>Loops</b> → forever</span><span><b>Game</b> → move</span><span><b>Game</b> → if on edge, bounce</span><span><b>Basic</b> → pause</span></div> <aside class="code-model" aria-label="Path A movement code model"><div class="code-model-head"><span>CODE MODEL 1 OF 4</span><strong>Make one LED dot move</strong></div><div class="code-stack"><div class="mk-block event">on start</div><div class="mk-block variables indent">set <span class="value">player</span> to create sprite at <span class="value">x 0, y 2</span></div><div class="mk-gap"></div><div class="mk-block loops">forever</div><div class="mk-block game indent">player move <span class="value">1</span></div><div class="mk-block game indent">player if on edge, bounce</div><div class="mk-block basic indent">pause <span class="value">300 ms</span></div></div><p class="code-model-note">The starting side and speed can change. The important idea is that <b>move + bounce + pause stay inside forever</b>.</p></aside> <p class="success">✓ One LED dot moves back and forth without you pressing a button.</p><p class="warning">Dot only moves once? Check <b>forever</b>. Too fast? Increase the <b>pause</b>.</p> </article> <article class="path-card path-b"> <div class="path-top"><span class="path-badge">PATH B</span><span class="device-label">SCREEN / RETRO</span></div><h3>Arcade Target Snap</h3><p><b>YOUR NEXT STEP:</b> Open <a class="external" href="https://arcade.makecode.com/" target="_blank" rel="noreferrer">MakeCode Arcade ↗</a> and create <code>FirstName_L1_M3</code>.</p> <div class="block-finder"><span><b>Sprites</b> → set mySprite to sprite of kind Player</span><span><b>Sprites</b> → set velocity vx / vy</span><span><b>Sprites</b> → set bounce on wall ON</span></div> <aside class="code-model" aria-label="Path B movement code model"><div class="code-model-head"><span>CODE MODEL 2 OF 4</span><strong>Make one simple sprite move</strong></div><div class="code-stack"><div class="mk-block arcade">on start</div><div class="mk-block sprites indent">set <span class="value">player</span> to sprite of kind <span class="value">Player</span></div><div class="mk-block sprites indent">set player velocity to <span class="value">vx 40, vy 0</span></div><div class="mk-block sprites indent">set player bounce on wall <span class="value">ON</span></div></div><p class="code-model-note">Keep the sprite image simple. Mission 3 is about the game rule, not artwork.</p></aside> <p class="success">✓ One sprite moves left and right across the screen without you pressing A.</p><p class="warning">Sprite disappears? Check <b>bounce on wall</b>. Too fast? Lower the horizontal velocity.</p> </article> </div> <p class="success full-success"><b>Both paths are ready for Stage 3</b> when a game object moves repeatedly without the player pressing the action button.</p> </section> <section id="stage-3" class="stage"> <div class="stage-head"><span class="stage-number">03</span><div><p class="stage-kicker">INPUT → RULE → RESULT</p><h2 class="stage-title">Make It React</h2></div></div> <div class="route"><span>PRESS</span><span>CHECK TARGET</span><span>TRUE: SCORE</span><span>FALSE: END</span></div> <div class="path-reminder"><strong>STAY ON YOUR PATH</strong><span>A = :GAME / Fire 1</span><span>B = Retro Arcade / A button</span></div> <div class="path-grid path-work"> <article class="path-card path-a"> <div class="path-top"><span class="path-badge">PATH A</span><span class="device-label">5×5 LED / :GAME</span></div><h3>PATH A STUDENTS — CONTINUE HERE</h3> <p><b>First, familiar input:</b> make the target rule work with micro:bit <b>Button A</b>.</p> <div class="block-finder"><span><b>Input</b> → on button A pressed</span><span><b>Game</b> → get x</span><span><b>Logic</b> → if / =</span><span><b>Game</b> → add score</span><span><b>Game</b> → game over</span></div> <aside class="code-model" aria-label="Path A scoring rule code model"><div class="code-model-head"><span>CODE MODEL 3 OF 4</span><strong>Button A checks the centre</strong></div><div class="code-stack"><div class="mk-block input">on button <span class="value">A</span> pressed</div><div class="mk-block logic indent">if <span class="value">player x = 2</span> then</div><div class="mk-block game indent2">add score <span class="value">1</span></div><div class="mk-block logic indent">else</div><div class="mk-block game indent2">game over</div></div><p class="code-model-note"><b>x = 2</b> means the centre LED column. Later you can change the target.</p></aside> <div class="predict-grid"><span><b>If player x = 2</b><small>Predict: what happens?</small></span><span><b>If player x ≠ 2</b><small>Predict: what happens?</small></span></div> <p class="success">✓ Button A scores at the centre and ends the round when the dot is not at the centre.</p> <div class="hardware-card"><strong>CONNECT YOUR :GAME CONTROLLER</strong><ol><li><b>Power off first.</b> Insert the micro:bit firmly into the edge connector. Do not force it.</li><li><b>Action button:</b> Fire 1.</li><li><b>MakeCode:</b> add the <b>Kitronik :GAME Controller</b> extension. Use <b>on button Fire 1 (P15) press down</b>.</li><li><b>Test first:</b> if needed, temporarily make Fire 1 show an icon.</li></ol><p><b>Replace the input event. Keep the IF rule the same.</b></p></div> <p class="success">✓ Fire 1 now triggers the same score/end rule that Button A triggered.</p> </article> <article class="path-card path-b"> <div class="path-top"><span class="path-badge">PATH B</span><span class="device-label">SCREEN / RETRO</span></div><h3>PATH B STUDENTS — CONTINUE HERE</h3> <div class="hardware-card"><strong>RETRO ARCADE SETUP</strong><ol><li>Insert the micro:bit V2 securely. Do not force it.</li><li>Open <b>Microsoft MakeCode Arcade</b>.</li><li>Use the prepared micro:bit V2 / Retro Arcade hardware target.</li><li><b>Action button:</b> A.</li></ol><p>If A works in the simulator but not on the physical unit, check the hardware target, newest download, and micro:bit seating.</p></div> <p><b>Your target zone is the right side of the screen.</b> Press A when the moving sprite reaches that side.</p> <div class="block-finder"><span><b>Controller</b> → on A button pressed</span><span><b>Sprites</b> → mySprite x</span><span><b>Logic</b> → if / &gt;</span><span><b>Info</b> → change score by</span><span><b>Game</b> → game over</span></div> <aside class="code-model" aria-label="Path B scoring rule code model"><div class="code-model-head"><span>CODE MODEL 4 OF 4</span><strong>A checks the right-side target</strong></div><div class="code-stack"><div class="mk-block controller">on <span class="value">A</span> button pressed</div><div class="mk-block logic indent">if <span class="value">player x &gt; 120</span> then</div><div class="mk-block info indent2">change score by <span class="value">1</span></div><div class="mk-block logic indent">else</div><div class="mk-block arcade indent2">game over</div></div><p class="code-model-note">The sprite's <b>x</b> value is its horizontal position. <b>x &gt; 120</b> makes the far-right side of the screen the beginner target zone.</p></aside> <div class="predict-grid"><span><b>If player x &gt; 120</b><small>Predict: what happens?</small></span><span><b>If player x ≤ 120</b><small>Predict: what happens?</small></span></div> <p class="success">✓ Pressing A on the right side scores. Pressing A too early ends the round.</p> </article> </div> <p class="concept">The button does not decide whether you win. <b>The IF rule decides.</b> The button only triggers the check.</p> <p class="success full-success">✓ Your assigned controller can now trigger a working score/end decision.</p> </section> <section id="stage-4" class="stage"> <div class="stage-head"><span class="stage-number">04</span><div><p class="stage-kicker">YOUR GAME</p><h2 class="stage-title">Build It — Timing Target Game</h2></div></div> <p class="intro">Turn the guided example into a game another student can play. Keep the core game simple, then make at least one meaningful choice of your own.</p> <div class="gcr-grid"><article><strong>GOAL</strong><p>Press at the right moment to score.</p></article><article><strong>CONTROL</strong><p>Fire 1 or A — use your assigned path.</p></article><article><strong>RULE</strong><p>IF the moving object is at/in the target → score. Otherwise → end.</p></article></div> <div class="check-list"><span>☐ One visible moving game object</span><span>☐ Movement repeats continuously</span><span>☐ One physical controller action</span><span>☐ One clear target/success rule</span><span>☐ One IF decision</span><span>☐ Success increases score</span><span>☐ Failure ends the round/game</span><span>☐ Game works on physical hardware</span><span>☐ Player can understand the game quickly</span><span>☐ At least one meaningful personalization</span><span>☐ Another student playtested it</span><span>☐ We improved one thing and retested</span></div> <p class="mini-label">Make one meaningful choice</p> <div class="step-grid"><article class="step-card"><strong>Speed</strong><p>Make the timing easier or harder.</p></article><article class="step-card"><strong>Target</strong><p>Change where or when success happens.</p></article><article class="step-card"><strong>Score</strong><p>Change how many points success earns.</p></article><article class="step-card"><strong>Theme</strong><p>Change the look or message without changing the core rule.</p></article></div> <p class="success">✓ <b>Build It is ready when:</b> another student can understand the goal, use the controller, experience success and failure, and you can explain one improvement you made after testing.</p> <p class="mini-label">Playtest and improve</p> <div class="playtest-flow"><span><b>PLAY</b><small>Player tries once without creator help.</small></span><i>→</i><span><b>NOTICE</b><small>Was the goal clear? Was timing fair? Did score/failure work?</small></span><i>→</i><span><b>CHANGE</b><small>Improve one thing based on what happened.</small></span><i>→</i><span><b>RETEST</b><small>Try again and see if the change helped.</small></span></div> <div class="try4"><strong>STUCK? TRY 4</strong><p>1. CHECK — blocks, values, order, and nesting. 2. SIMULATE the newest version. 3. DOWNLOAD the newest version. 4. PARTNER — briefly explain expected vs actual to a nearby student. Still stuck? Ask for help and say what you already tried.</p></div> </section> <section id="stage-5" class="stage"> <div class="stage-head"><span class="stage-number">05</span><div><p class="stage-kicker">OPTIONAL CHALLENGE</p><h2 class="stage-title">Level It Up</h2></div></div> <p class="intro">Only after every Build It requirement works. Choose <b>one</b> while you wait for your checkpoint.</p> <div class="level-grid"><article class="level-card"><strong>Speed Tuner</strong><p>Change movement speed and decide which version is most playable.</p></article><article class="level-card"><strong>Random Target</strong><p>Use randomness to change the target position/location between rounds.</p></article><article class="level-card"><strong>Two Controls</strong><p>Add one second meaningful controller action.</p></article><article class="level-card"><strong>Win Goal</strong><p>Add a simple score target or another clear ending rule.</p></article></div> <p class="warning"><b>Mission 3 limit:</b> do not add advanced Arcade scenes, enemies, tilemaps, or multiple levels yet.</p> <p class="success">When every Build It box is checked and your improvement is retested, add your name to the <b>Ready-for-Check</b> queue. Keep Leveling Up until you are called.</p> </section> <section id="stage-6" class="stage checkpoint"> <div class="stage-head"><span class="stage-number">06</span><div><p class="stage-kicker">SHOW WHAT YOU KNOW</p><h2 class="stage-title">Checkpoint</h2></div></div> <p class="intro">Bring your controller and open your code when you are called. The checkpoint is individual: you demonstrate, explain, change, and test your own game.</p> <div class="step-grid"><article class="step-card"><strong>Check 1 — Play / Identify</strong><p>Demonstrate the game. Point to the physical action button and the code event that responds to it.</p></article><article class="step-card"><strong>Check 2 — Explain the System</strong><p>Explain what keeps the object moving, what the IF rule checks, what success does to the score, and what causes the game to end.</p></article><article class="step-card"><strong>Check 3 — Change It</strong><p>Change target position/location, movement speed, scoring amount/behaviour, or the action button. Predict first, then test.</p></article><article class="step-card"><strong>After Your Check</strong><p><b>MISSION COMPLETE</b> · <b>RETRY ONE SKILL</b> · <b>SUPPORT ROUTE</b></p></article></div> </section> <section class="stage passport"> <div class="stage-head"><span class="stage-number">✓</span><div><p class="stage-kicker">SKILL PASSPORT</p><h2 class="stage-title">Mission 3 Skills</h2></div></div> <div class="check-list"><span>☐ I can create and move a game object.</span><span>☐ I can use repeated code to keep a game active.</span><span>☐ I can use a controller button to trigger a game action.</span><span>☐ I can use an IF rule to change score or end a game.</span><span>☐ I can playtest a game and make one useful improvement.</span><span>☐ I can change, test, and explain my game independently.</span></div> </section> <section class="stage reset"> <div class="stage-head"><span class="stage-number">↺</span><div><p class="stage-kicker">LEAVE IT READY</p><h2 class="stage-title">Reset</h2></div></div> <div class="check-list"><span>☐ Project saved correctly</span><span>☐ micro:bit returned to numbered kit</span><span>☐ USB cable returned and loosely coiled</span><span>☐ Controller returned to its labelled station</span><span>☐ Workspace clear</span><span>☐ Faults or damage reported</span><span>☐ Passport/progress updated</span></div> <p class="concept">Exit question: What made your game fair—or unfair—to the player?</p> </section> </main>  </div>  </main> <footer> <p><strong>Mr. John’s Learning Hub</strong></p> <p>Learn it. Try it. Explain it.</p> </footer> <div class="jcec-submission-dock" id="jcec-submission-dock" hidden data-astro-cid-na37sqah> <span aria-hidden="true" data-astro-cid-na37sqah>📡</span> <div data-astro-cid-na37sqah> <strong data-astro-cid-na37sqah>JCEC Submission Portal</strong> <small data-astro-cid-na37sqah>Teacher-visible responses</small> </div> <a href="https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZDtZrNtCG3WB78ttvZdtEmq29kapujg/viewform" target="_blank" rel="noopener noreferrer" data-astro-cid-na37sqah>Open ↗</a> </div>  <script>(function(){const portalUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdziTI_SBqRzQbIWU3ZDtZrNtCG3WB78ttvZdtEmq29kapujg/viewform";
+
+  (() => {
+    const path = window.location.pathname;
+    if (!path.includes('/courses/grade-7-science/jabberwocky')) return;
+
+    const dock = document.getElementById('jcec-submission-dock');
+    if (dock) dock.hidden = false;
+
+    const isOperation02 = /\/jabberwocky\/phase-1\/operation-02\/?$/.test(path);
+    if (isOperation02) {
+      const nextOperation = document.querySelector('.next-operation');
+      const lock = nextOperation?.querySelector('.locked');
+      const status = nextOperation?.querySelector('.system-label');
+      if (status) status.textContent = 'MATERIALS READY';
+      if (lock) {
+        lock.className = 'jcec-next-ready';
+        lock.innerHTML = '<span aria-hidden="true">🔎</span><div><strong>Operation 03: First Contact is ready.</strong><small>Begin only when your teacher activates the next investigation.</small></div><a href="../operation-03/index.html">Open First Contact →</a>';
+      }
+    }
+
+    const isOperation03 = /\/jabberwocky\/phase-1\/operation-03\/?$/.test(path);
+    if (isOperation03) {
+      const nextOperation = document.querySelector('.next-operation');
+      const lock = nextOperation?.querySelector('.locked');
+      const status = nextOperation?.querySelector('.system-label');
+      if (status) status.textContent = 'MATERIALS READY';
+      if (lock) {
+        lock.className = 'jcec-next-ready';
+        lock.innerHTML = '<span aria-hidden="true">🕸️</span><div><strong>Operation 04: Ecosystem Network is ready.</strong><small>Begin only when your teacher activates the next investigation.</small></div><a href="../operation-04/index.html">Open Ecosystem Network →</a>';
+      }
+    }
+
+    const isOperation04 = /\/jabberwocky\/phase-1\/operation-04\/?$/.test(path);
+    if (isOperation04) {
+      const nextOperation = document.querySelector('.next-operation');
+      const lock = nextOperation?.querySelector('.locked');
+      const status = nextOperation?.querySelector('.system-label');
+      if (status) status.textContent = 'MATERIALS READY';
+      if (lock) {
+        lock.className = 'jcec-next-ready';
+        lock.innerHTML = '<span aria-hidden="true">📈</span><div><strong>Operation 05: Population Investigation is ready.</strong><small>Begin only when your teacher activates the next data investigation.</small></div><a href="../operation-05/index.html">Open Population Investigation →</a>';
+      }
+    }
+
+    const isOperation05 = /\/jabberwocky\/phase-1\/operation-05\/?$/.test(path);
+    if (isOperation05) {
+      const nextOperation = document.querySelector('.next-operation');
+      const lock = nextOperation?.querySelector('.locked');
+      const status = nextOperation?.querySelector('.system-label');
+      if (status) status.textContent = 'MATERIALS READY';
+      if (lock) {
+        lock.className = 'jcec-next-ready';
+        lock.innerHTML = '<span aria-hidden="true">🌱</span><div><strong>Operation 06: Environmental Change is ready.</strong><small>Begin only when your teacher activates the recovery investigation.</small></div><a href="../operation-06/index.html">Open Environmental Change →</a>';
+      }
+    }
+
+    const isOperation06 = /\/jabberwocky\/phase-1\/operation-06\/?$/.test(path);
+    if (isOperation06) {
+      const nextOperation = document.querySelector('.next-operation');
+      const lock = nextOperation?.querySelector('.locked');
+      const status = nextOperation?.querySelector('.system-label');
+      if (status) status.textContent = 'CLASSIFIED FILE READY';
+      if (lock) {
+        lock.className = 'jcec-next-ready';
+        lock.innerHTML = '<span aria-hidden="true">🚨</span><div><strong>Operation 07: Classified Incident is ready.</strong><small>Open only when your teacher authorizes the planetary-protection alert.</small></div><a href="../operation-07/index.html">Open Classified Incident →</a>';
+      }
+    }
+
+    const isOperation07 = /\/jabberwocky\/phase-1\/operation-07\/?$/.test(path);
+    if (isOperation07) {
+      const nextOperation = document.querySelector('.next-operation');
+      const lock = nextOperation?.querySelector('.locked');
+      const status = nextOperation?.querySelector('.system-label');
+      if (status) status.textContent = 'FINAL REPORT READY';
+      if (lock) {
+        lock.className = 'jcec-next-ready';
+        lock.innerHTML = '<span aria-hidden="true">📑</span><div><strong>Operation 08: JCEC Ecological Report is ready.</strong><small>Begin when your teacher activates the Phase 1 final report.</small></div><a href="../operation-08/index.html">Open Ecological Report →</a>';
+      }
+    }
+
+    const isPhase1Hub = /\/jabberwocky\/phase-1\/?$/.test(path);
+    if (!isPhase1Hub) return;
+
+    const continentGrid = document.querySelector('.continent-grid');
+    continentGrid?.removeAttribute('role');
+    document.querySelectorAll('.continent-card[role="listitem"]').forEach((card) => card.removeAttribute('role'));
+
+    const missionQuestion = document.querySelector('.mission-question');
+    if (missionQuestion && !document.getElementById('jcec-collaboration-protocol')) {
+      const protocol = document.createElement('section');
+      protocol.id = 'jcec-collaboration-protocol';
+      protocol.className = 'jcec-collaboration-protocol';
+      protocol.innerHTML = `
+        <div class="jcec-protocol-heading">
+          <div>
+            <p>JCEC TEAM PROTOCOL</p>
+            <h2>How mission work happens</h2>
+          </div>
+          <span>EXPLORE → DISCUSS → DECIDE → RECORD → REFLECT</span>
+        </div>
+        <div class="jcec-protocol-grid">
+          <div class="jcec-mode-card mode-individual"><span aria-hidden="true">👤</span><div><strong>Individual Pathfinder</strong><small>Your own prediction, reasoning, or reflection. Submit your own response when directed.</small></div></div>
+          <div class="jcec-mode-card mode-team"><span aria-hidden="true">👥</span><div><strong>Team Investigation</strong><small>Explore evidence together and make sure everyone can explain the team's conclusion.</small></div></div>
+          <div class="jcec-mode-card mode-archive"><span aria-hidden="true">🗂️</span><div><strong>Continental Archive</strong><small>One official team record. Future teams will inherit this evidence.</small></div></div>
+        </div>`;
+      missionQuestion.insertAdjacentElement('afterend', protocol);
+    }
+
+    const instructionCards = document.querySelectorAll('.assignment-instructions > div');
+    if (instructionCards[2]) {
+      instructionCards[2].innerHTML = '<span>3</span><p><strong>Save your draft</strong>, then submit your first prediction to JCEC when directed.</p>';
+    }
+
+    const assessment = document.getElementById('initial-assessment');
+    if (assessment && !document.getElementById('jcec-op1-work-mode')) {
+      const workMode = document.createElement('div');
+      workMode.id = 'jcec-op1-work-mode';
+      workMode.className = 'jcec-op1-work-mode';
+      workMode.innerHTML = `
+        <span class="jcec-op1-icon" aria-hidden="true">👤</span>
+        <div>
+          <span class="jcec-op1-label">INDIVIDUAL PATHFINDER</span>
+          <strong>This first prediction is yours.</strong>
+          <p>Your team shares a continent, but each Pathfinder records an individual starting hypothesis. Later evidence may change your thinking.</p>
+        </div>`;
+      assessment.prepend(workMode);
+    }
+
+    const deviceNote = assessment?.querySelector('.device-note');
+    if (deviceNote) {
+      deviceNote.innerHTML = '<strong>Two-step response.</strong> Save a draft on this Chromebook first. That device copy is private. Then use <strong>Submit to JCEC</strong> to send the response to your teacher.';
+    }
+
+    const form = document.getElementById('assessment-form');
+    const formActions = form?.querySelector('.form-actions');
+    const saveButton = formActions?.querySelector('button[type="submit"]');
+    if (saveButton) saveButton.textContent = '1. Save Draft on This Device';
+
+    let submitLink = document.getElementById('jcec-op1-submit');
+    if (formActions && !submitLink) {
+      submitLink = document.createElement('a');
+      submitLink.id = 'jcec-op1-submit';
+      submitLink.className = 'jcec-submit-button';
+      submitLink.href = portalUrl;
+      submitLink.target = '_blank';
+      submitLink.rel = 'noopener noreferrer';
+      submitLink.textContent = '2. Submit to JCEC ↗';
+      formActions.append(submitLink);
+    }
+
+    let guide = document.getElementById('jcec-op1-submit-guide');
+    if (formActions && !guide) {
+      guide = document.createElement('div');
+      guide.id = 'jcec-op1-submit-guide';
+      guide.className = 'jcec-submit-guide';
+      guide.innerHTML = `
+        <div class="jcec-submit-guide-heading"><span aria-hidden="true">📡</span><div><strong>When you open the portal</strong><small>Your verified school Google account identifies you automatically.</small></div></div>
+        <dl>
+          <div><dt>Submission Type</dt><dd>Individual Pathfinder</dd></div>
+          <div><dt>Mission Phase</dt><dd>01 First Contact</dd></div>
+          <div><dt>Operation / Task</dt><dd>Mission Assignment — Initial Assessment</dd></div>
+          <div><dt>Continent</dt><dd id="jcec-guide-continent">Your assigned continent</dd></div>
+        </dl>
+        <p><strong>Claim / Decision:</strong> enter the assessment you chose. <strong>Evidence:</strong> enter your evidence-based reason. You can leave Team ID and Team Members blank because this is an individual response.</p>
+        <button type="button" class="jcec-copy-draft" id="jcec-copy-draft">Copy my draft summary</button>
+        <span class="jcec-copy-status" id="jcec-copy-status" role="status"></span>`;
+      formActions.insertAdjacentElement('afterend', guide);
+    }
+
+    const operationLock = document.getElementById('operation-lock');
+    if (operationLock && !document.getElementById('jcec-op2-launch')) {
+      operationLock.className = 'jcec-op2-ready';
+      operationLock.innerHTML = `
+        <span aria-hidden="true">🌎</span>
+        <div><strong>Operation 02 materials are ready.</strong><small>Begin only when your teacher directs your team to start the field investigation.</small></div>
+        <a id="jcec-op2-launch" href="./operation-02/index.html">Open Environmental Survey →</a>`;
+    }
+
+    const progressSteps = [...document.querySelectorAll('.progress-list .step')];
+    const op2Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'Environmental Survey');
+    const op3Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'First Contact');
+    const op4Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'Ecosystem Network');
+    const op5Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'Population Investigation');
+    const op6Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'Environmental Change');
+    const op7Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.includes('Classified Incident'));
+    const op8Step = progressSteps.find((step) => step.querySelector('strong')?.textContent?.trim() === 'JCEC Ecological Report');
+    if (op2Step) {
+      op2Step.classList.remove('pending');
+      op2Step.classList.add('ready');
+      const small = op2Step.querySelector('small');
+      if (small) small.textContent = 'READY — hands-on environmental survey';
+    }
+    if (op3Step && !op3Step.querySelector('.jcec-progress-launch')) {
+      op3Step.classList.remove('pending');
+      op3Step.classList.add('ready');
+      const small = op3Step.querySelector('small');
+      if (small) small.textContent = 'READY — begin after Operation 02';
+      const link = document.createElement('a');
+      link.className = 'jcec-progress-launch';
+      link.href = './operation-03/';
+      link.textContent = 'Open →';
+      op3Step.append(link);
+    }
+    if (op4Step && !op4Step.querySelector('.jcec-progress-launch')) {
+      op4Step.classList.remove('pending');
+      op4Step.classList.add('ready');
+      const small = op4Step.querySelector('small');
+      if (small) small.textContent = 'READY — begin after Operation 03';
+      const link = document.createElement('a');
+      link.className = 'jcec-progress-launch';
+      link.href = './operation-04/';
+      link.textContent = 'Open →';
+      op4Step.append(link);
+    }
+    if (op5Step && !op5Step.querySelector('.jcec-progress-launch')) {
+      op5Step.classList.remove('pending');
+      op5Step.classList.add('ready');
+      const small = op5Step.querySelector('small');
+      if (small) small.textContent = 'READY — begin after Operation 04';
+      const link = document.createElement('a');
+      link.className = 'jcec-progress-launch';
+      link.href = './operation-05/';
+      link.textContent = 'Open →';
+      op5Step.append(link);
+    }
+    if (op6Step && !op6Step.querySelector('.jcec-progress-launch')) {
+      op6Step.classList.remove('pending');
+      op6Step.classList.add('ready');
+      const small = op6Step.querySelector('small');
+      if (small) small.textContent = 'READY — begin after Operation 05';
+      const link = document.createElement('a');
+      link.className = 'jcec-progress-launch';
+      link.href = './operation-06/';
+      link.textContent = 'Open →';
+      op6Step.append(link);
+    }
+    if (op7Step && !op7Step.querySelector('.jcec-progress-launch')) {
+      op7Step.classList.remove('classified', 'pending');
+      op7Step.classList.add('ready');
+      const strong = op7Step.querySelector('strong');
+      if (strong) strong.textContent = 'Classified Incident';
+      const small = op7Step.querySelector('small');
+      if (small) small.textContent = 'READY — begin after Operation 06';
+      const link = document.createElement('a');
+      link.className = 'jcec-progress-launch';
+      link.href = './operation-07/';
+      link.textContent = 'Open →';
+      op7Step.append(link);
+    }
+    if (op8Step && !op8Step.querySelector('.jcec-progress-launch')) {
+      op8Step.classList.remove('pending');
+      op8Step.classList.add('ready');
+      const small = op8Step.querySelector('small');
+      if (small) small.textContent = 'READY — Phase 1 final report';
+      const link = document.createElement('a');
+      link.className = 'jcec-progress-launch';
+      link.href = './operation-08/';
+      link.textContent = 'Open →';
+      op8Step.append(link);
+    }
+
+    const STORAGE_POSTING = 'jabberwocky-phase1-posting';
+    const STORAGE_ASSESSMENT = 'jabberwocky-phase1-assessment';
+    const STORAGE_REASON = 'jabberwocky-phase1-assessment-reason';
+
+    const progressText = document.getElementById('assignment-progress-text');
+    const nowStep = document.getElementById('now-step');
+    const assignmentChip = document.getElementById('assignment-chip');
+    const message = document.getElementById('assessment-message');
+    const copyButton = document.getElementById('jcec-copy-draft');
+    const copyStatus = document.getElementById('jcec-copy-status');
+
+    const continentName = () => {
+      const id = localStorage.getItem(STORAGE_POSTING);
+      if (!id) return 'Your assigned continent';
+      const selected = document.querySelector(`[data-continent="${id}"] strong`);
+      return selected?.textContent?.trim() || id;
+    };
+
+    const updateGuide = () => {
+      const continent = continentName();
+      const target = document.getElementById('jcec-guide-continent');
+      if (target) target.textContent = continent;
+    };
+
+    const showReadyToSubmit = () => {
+      const savedAssessment = localStorage.getItem(STORAGE_ASSESSMENT);
+      if (!savedAssessment) return;
+      if (progressText) progressText.textContent = 'READY TO SUBMIT — send your individual starting hypothesis to JCEC';
+      if (nowStep) nowStep.textContent = '● NOW: Submit Initial Assessment to JCEC';
+      if (assignmentChip) assignmentChip.textContent = '● READY TO SUBMIT';
+      if (message) message.textContent = '✓ Draft saved on this device. It is not teacher-visible until you submit it through the JCEC portal.';
+      updateGuide();
+    };
+
+    document.querySelectorAll('[data-continent]').forEach((button) => {
+      button.addEventListener('click', () => window.setTimeout(updateGuide, 0));
+    });
+
+    form?.addEventListener('submit', () => window.setTimeout(showReadyToSubmit, 0));
+
+    copyButton?.addEventListener('click', async () => {
+      const assessmentValue = localStorage.getItem(STORAGE_ASSESSMENT) || form?.querySelector('input[name="assessment"]:checked')?.value || '';
+      const reasonValue = localStorage.getItem(STORAGE_REASON) || document.getElementById('assessment-reason')?.value?.trim() || '';
+      if (!assessmentValue || !reasonValue) {
+        if (copyStatus) copyStatus.textContent = 'Save your assessment first.';
+        return;
+      }
+      const text = `JCEC Mission 2190\nSubmission Type: Individual Pathfinder\nMission Phase: 01 First Contact\nOperation / Task: Mission Assignment — Initial Assessment\nContinent: ${continentName()}\nClaim / Decision: ${assessmentValue}\nEvidence: ${reasonValue}`;
+      try {
+        await navigator.clipboard.writeText(text);
+        if (copyStatus) copyStatus.textContent = '✓ Draft summary copied.';
+      } catch {
+        if (copyStatus) copyStatus.textContent = 'Copy was blocked by this browser. Your saved draft is still here.';
+      }
+    });
+
+    updateGuide();
+    showReadyToSubmit();
+  })();
+})();</script>  <script>
+  (() => {
+    const path = window.location.pathname;
+    if (!path.includes('/courses/grade-7-science/jabberwocky/phase-1/operation-03')) return;
+
+    const labPanel = document.getElementById('hands-on-lab');
+    const contactPanel = document.getElementById('contact-dossier');
+    if (!labPanel || !contactPanel) return;
+
+    // Make the fair-test procedure clearer for Grade 7 students.
+    const teamNote = labPanel.querySelector('.lab-grid article:nth-child(2) .equipment-note');
+    if (teamNote) {
+      teamNote.innerHTML = '<strong>Fair-test role rule:</strong> one Tester should use all four structures within the same resource zone. Rotate the Tester only when your team moves to the next zone. That makes the four results inside each zone easier to compare fairly.';
+    }
+
+    const zoneCards = [...labPanel.querySelectorAll('.resource-zones article p')];
+    if (zoneCards[0]) zoneCards[0].textContent = 'Use the teacher-set number of large objects spread across an open tray.';
+    if (zoneCards[1]) zoneCards[1].textContent = 'Use the teacher-set number of small objects placed in cups, cells, or shallow crevices.';
+    if (zoneCards[2]) zoneCards[2].textContent = 'Use the teacher-set number of looped or irregular objects arranged around simple barriers.';
+
+    const procedure = labPanel.querySelector('.procedure');
+    if (procedure && !document.getElementById('op3-fair-test-rule')) {
+      const rule = document.createElement('div');
+      rule.id = 'op3-fair-test-rule';
+      rule.className = 'op3-fair-test-rule';
+      rule.innerHTML = '<strong>FAIR TEST CHECK</strong><span>Keep the trial time, starting number of resources, collection cup, start position, and rules the same. Reset the zone before every structure.</span>';
+      procedure.insertAdjacentElement('beforebegin', rule);
+
+      const list = procedure.querySelector('ol');
+      if (list) {
+        list.innerHTML = `
+          <li><strong>Check the setup.</strong> Your teacher will tell you the trial time and starting number of resources. Use the same setup for every structure in that zone.</li>
+          <li><strong>Do one short practice pickup</strong> with each structure before recording data so everyone understands how the tools work. Do not count practice results.</li>
+          <li><strong>Keep one Tester for all four structures in Zone A.</strong> Move one resource at a time into the collection cup. Do not use fingers to help.</li>
+          <li><strong>Record the score immediately</strong>, then reset the resource zone to the same starting condition before testing the next structure.</li>
+          <li><strong>Rotate the Tester when you move to Zone B</strong>, then again when you move to Zone C. Within each zone, the same Tester compares all four structures.</li>
+          <li><strong>Compare within each zone first.</strong> Identify which structure performed best in that condition. Then decide which structure was most versatile across the three conditions.</li>
+          <li><strong>Look for trade-offs.</strong> Was any structure best everywhere? Use your data—not your preference—to support your answer.</li>`;
+      }
+    }
+
+    // Improve the printable lab/reconstruction packet so evidence is easier to cite later.
+    const firstPrintPage = labPanel.querySelector('.print-page');
+    const firstTable = firstPrintPage?.querySelector('table');
+    if (firstTable && !firstPrintPage.querySelector('.op3-print-testers')) {
+      const testers = document.createElement('p');
+      testers.className = 'op3-print-testers';
+      testers.innerHTML = '<strong>Tester:</strong> Zone A ____________ &nbsp; Zone B ____________ &nbsp; Zone C ____________ &nbsp;&nbsp; <strong>Trial time:</strong> ______ s';
+      firstTable.insertAdjacentElement('beforebegin', testers);
+    }
+
+    const reconstructionTable = labPanel.querySelector('.reconstruction-table');
+    if (reconstructionTable) {
+      reconstructionTable.innerHTML = `
+        <p><strong>Structural adaptation 1:</strong> __________________________ <strong>Clue # / source:</strong> __________________________</p>
+        <p><strong>How the evidence supports it:</strong> _________________________________________________________________________</p>
+        <p><strong>Structural adaptation 2:</strong> __________________________ <strong>Clue # / source:</strong> __________________________</p>
+        <p><strong>How the evidence supports it:</strong> _________________________________________________________________________</p>
+        <p><strong>Structural adaptation 3:</strong> __________________________ <strong>Clue # / source:</strong> __________________________</p>
+        <p><strong>How the evidence supports it:</strong> _________________________________________________________________________</p>
+        <p><strong>Behavioural adaptation:</strong> ___________________________ <strong>Clue # / source:</strong> __________________________</p>
+        <p><strong>Likely habitat / contact zone:</strong> ________________________________________________________________________</p>
+        <p><strong>Likely resource use / feeding role:</strong> ____________________________________________________________________</p>
+        <p><strong>One important uncertainty:</strong> _____________________________________________________________________________</p>`;
+    }
+
+    // Add an explicit transition so students know how the hands-on model connects to First Contact.
+    const debrief = document.querySelector('.debrief');
+    if (debrief && !document.getElementById('op3-contact-checkpoint')) {
+      const checkpoint = document.createElement('section');
+      checkpoint.id = 'op3-contact-checkpoint';
+      checkpoint.className = 'op3-contact-checkpoint';
+      checkpoint.innerHTML = `
+        <div class="op3-checkpoint-label">MISSION CHECKPOINT // LAB → FIRST CONTACT</div>
+        <h2>Now use the idea—not the tools.</h2>
+        <p>The model lab showed that structure affects function. Put the lab equipment aside. Bring your data sheet and Native Organism Reconstruction sheet to the First Contact file.</p>
+        <div class="op3-checkpoint-steps">
+          <div><span>1</span><p><strong>Read all six clues</strong> before drawing anything.</p></div>
+          <div><span>2</span><p><strong>Record clue numbers or sources</strong> beside the features they support.</p></div>
+          <div><span>3</span><p><strong>Separate evidence from inference.</strong> If you are not sure, mark it with a ?.</p></div>
+          <div><span>4</span><p><strong>Do not reveal the field name</strong> until your reconstruction is complete.</p></div>
+        </div>`;
+      debrief.insertAdjacentElement('afterend', checkpoint);
+    }
+
+    const contactIntro = contactPanel.querySelector('.intro');
+    if (contactIntro && !document.getElementById('op3-evidence-direction')) {
+      const direction = document.createElement('div');
+      direction.id = 'op3-evidence-direction';
+      direction.className = 'op3-evidence-direction';
+      direction.innerHTML = '<strong>Start here:</strong> read all six observations first. Then mark at least three as key evidence. On your reconstruction sheet, identify evidence by <strong>clue number or source</strong> (for example, “03 — FOOT IMAGE”).';
+      contactIntro.insertAdjacentElement('afterend', direction);
+    }
+
+    document.querySelectorAll('.contact-file').forEach((contactFile) => {
+      const evidenceButtons = [...contactFile.querySelectorAll('.evidence-use')];
+      const counter = contactFile.querySelector('[data-evidence-counter]');
+      const revealArea = contactFile.querySelector('.field-name-reveal');
+      const revealButton = contactFile.querySelector('[data-reveal-button]');
+      const revealedName = contactFile.querySelector('[data-revealed-name]');
+      if (!revealArea || !revealButton) return;
+
+      revealButton.disabled = true;
+      revealButton.setAttribute('aria-disabled', 'true');
+
+      const originalPrompt = revealArea.querySelector(':scope > p');
+      if (originalPrompt) originalPrompt.textContent = 'The field name is a working label, not an answer key. Unlock it only after your team has finished the reconstruction.';
+
+      let confirmation = revealArea.querySelector('[data-reconstruction-confirm]');
+      if (!confirmation) {
+        confirmation = document.createElement('label');
+        confirmation.className = 'op3-reveal-confirm';
+        confirmation.innerHTML = '<input type="checkbox" data-reconstruction-confirm /> <span>Our team has completed the sketch, 3 structural adaptations, 1 behavioural adaptation, provisional niche, and at least 1 uncertainty.</span>';
+        revealButton.insertAdjacentElement('beforebegin', confirmation);
+      }
+
+      let status = revealArea.querySelector('[data-reveal-status]');
+      if (!status) {
+        status = document.createElement('small');
+        status.className = 'op3-reveal-status';
+        status.setAttribute('data-reveal-status', '');
+        status.setAttribute('role', 'status');
+        confirmation.insertAdjacentElement('afterend', status);
+      }
+
+      const checkbox = confirmation.querySelector('input');
+      const updateRevealState = () => {
+        const selected = evidenceButtons.filter((button) => button.getAttribute('aria-pressed') === 'true').length;
+        const reconstructionDone = Boolean(checkbox?.checked);
+        const ready = selected >= 3 && reconstructionDone;
+        revealButton.disabled = !ready;
+        revealButton.setAttribute('aria-disabled', ready ? 'false' : 'true');
+        if (status) {
+          if (selected < 3) status.textContent = `Field name locked: select at least 3 key evidence clues first (${selected}/3).`;
+          else if (!reconstructionDone) status.textContent = 'Field name locked: finish the reconstruction and check the confirmation box.';
+          else status.textContent = '✓ Field name unlocked. You may reveal it now.';
+        }
+      };
+
+      evidenceButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          window.setTimeout(() => {
+            const selected = evidenceButtons.filter((item) => item.getAttribute('aria-pressed') === 'true').length;
+            if (counter) {
+              counter.textContent = selected >= 3
+                ? `✓ ${selected} key clues selected. Write their clue numbers/sources on your reconstruction sheet.`
+                : `${selected} selected. Read all six clues, then choose at least three that strongly support your reconstruction.`;
+            }
+            updateRevealState();
+          }, 0);
+        });
+      });
+
+      checkbox?.addEventListener('change', updateRevealState);
+
+      if (revealedName) {
+        const note = revealedName.querySelector('small');
+        if (note) note.textContent = 'Working field name only—not an answer key. Do not redraw your organism just to match the name. Keep the reconstruction your evidence supports.';
+      }
+
+      updateRevealState();
+    });
+
+    const archiveEvidence = document.querySelector('.archive-checklist article:nth-child(2) p');
+    if (archiveEvidence) archiveEvidence.innerHTML = 'Include at least three specific First Contact observations. Identify each by <strong>clue number or source</strong> so another Pathfinder team can trace your reasoning.';
+  })();
+</script>  <script>
+  (() => {
+    const path = window.location.pathname;
+    if (!path.includes('/courses/grade-7-science/jabberwocky/phase-1')) return;
+
+    // The simplified five-mission pages contain their own current pacing.
+    // Legacy Operation 02–08 routes remain available only as teacher/reference resources.
+    const operationMatch = path.match(/\/phase-1\/operation-(\d{2})\/?$/);
+    if (!operationMatch || document.getElementById('jcec-legacy-operation-note')) return;
+
+    const map = {
+      '02': { mission: 1, title: 'Explore Your Environment', href: '../mission-1/' },
+      '03': { mission: 2, title: 'Meet a Native Species', href: '../mission-2/' },
+      '04': { mission: 3, title: 'Build the Ecosystem', href: '../mission-3/' },
+      '05': { mission: 4, title: 'Watch the Ecosystem Change', href: '../mission-4/' },
+      '06': { mission: 4, title: 'Watch the Ecosystem Change', href: '../mission-4/' },
+      '07': { mission: 5, title: 'Humans Have Arrived', href: '../mission-5/' },
+      '08': { mission: 5, title: 'Humans Have Arrived', href: '../mission-5/' }
+    };
+
+    const current = map[operationMatch[1]];
+    if (!current) return;
+
+    const anchor = document.querySelector('.mission-question') || document.querySelector('header');
+    if (!anchor) return;
+
+    const note = document.createElement('section');
+    note.id = 'jcec-legacy-operation-note';
+    note.className = 'jcec-legacy-operation-note';
+    note.innerHTML = `
+      <div>
+        <p>ARCHIVED REFERENCE ROUTE</p>
+        <strong>Operation ${operationMatch[1]} is preserved for teacher reference.</strong>
+        <span>The current student pathway uses Mission ${current.mission} — ${current.title}. This page may contain deeper or older versions of activities, evidence and teacher supports.</span>
+      </div>
+      <a href="${current.href}">Open current Mission ${current.mission} →</a>`;
+    anchor.insertAdjacentElement('afterend', note);
+  })();
+</script>  <script>
+  (() => {
+    const path = window.location.pathname;
+    if (!/\/courses\/grade-7-science\/jabberwocky\/phase-1\/?$/.test(path)) return;
+    const plan = document.getElementById('jcec-five-week-plan');
+    if (!plan || document.getElementById('jcec-teacher-launch-link')) return;
+    const link = document.createElement('a');
+    link.id = 'jcec-teacher-launch-link';
+    link.className = 'jcec-teacher-launch-link';
+    link.href = './teacher-launch-guide/';
+    link.innerHTML = '<span aria-hidden="true">🧭</span><div><strong>Teacher Planning</strong><small>Open the day-by-day Phase 1 Launch Guide</small></div><b>Open →</b>';
+    plan.append(link);
+  })();
+</script>  <script>
+  (() => {
+    const path = window.location.pathname;
+
+    if (/\/courses\/grade-7-science\/jabberwocky\/phase-1\/mission-1\/?$/.test(path)) {
+      const finished = document.querySelector('#simplified-mission-1 .finished-box');
+      if (!finished || finished.querySelector('.next-simple-mission')) return;
+      const note = finished.querySelector('p');
+      if (note) note.textContent = 'When your teacher is ready, continue to the next mission.';
+      const link = document.createElement('a');
+      link.className = 'next-simple-mission';
+      link.href = '../mission-2/';
+      link.textContent = 'Next Mission → Meet a Native Species';
+      finished.append(link);
+      return;
+    }
+
+    if (/\/courses\/grade-7-science\/jabberwocky\/phase-1\/mission-2\/?$/.test(path)) {
+      const finished = document.querySelector('#simplified-mission-2 .finished-box');
+      if (finished && !finished.querySelector('.next-simple-mission')) {
+        const note = finished.querySelector('p');
+        if (note) note.textContent = 'When your teacher is ready, continue to the next mission.';
+        const link = document.createElement('a');
+        link.className = 'next-simple-mission';
+        link.href = '../mission-3/';
+        link.textContent = 'Next Mission → Build the Ecosystem';
+        finished.append(link);
+      }
+
+      const assignmentSpecies = document.getElementById('assignment-species');
+      const recordSpecies = document.getElementById('record-species');
+      const visibleSpeciesFile = [...document.querySelectorAll('#species-files [data-species]')].find((file) => !file.hidden);
+      const speciesHeading = visibleSpeciesFile?.querySelector('header h3');
+      const reconstructBox = visibleSpeciesFile?.querySelector('.reconstruct-box');
+      const actualName = recordSpecies?.value?.trim() || assignmentSpecies?.textContent?.trim() || speciesHeading?.textContent?.trim();
+
+      if (!actualName || !reconstructBox || reconstructBox.querySelector('.reveal-species-name')) return;
+      if (assignmentSpecies) assignmentSpecies.textContent = 'Evidence pending';
+      if (speciesHeading) speciesHeading.textContent = 'Unidentified Native Species';
+      if (recordSpecies) {
+        recordSpecies.dataset.speciesName = actualName;
+        recordSpecies.value = '';
+        recordSpecies.placeholder = 'Reveal the JCEC field name after studying the clues';
+      }
+
+      const revealWrap = document.createElement('div');
+      revealWrap.className = 'species-reveal-wrap';
+      revealWrap.innerHTML = '<span>Read and discuss all four clues first.</span><button type="button" class="reveal-species-name">Reveal JCEC field name</button>';
+      reconstructBox.append(revealWrap);
+      revealWrap.querySelector('.reveal-species-name')?.addEventListener('click', (event) => {
+        if (assignmentSpecies) assignmentSpecies.textContent = actualName;
+        if (speciesHeading) speciesHeading.textContent = actualName;
+        if (recordSpecies) recordSpecies.value = actualName;
+        const button = event.currentTarget;
+        button.textContent = `Field name: ${actualName}`;
+        button.disabled = true;
+        revealWrap.querySelector('span').textContent = 'Now use the name only as a label. Your adaptations still need evidence.';
+      });
+      return;
+    }
+
+    if (/\/courses\/grade-7-science\/jabberwocky\/phase-1\/mission-3\/?$/.test(path)) {
+      const finished = document.querySelector('#simplified-mission-3 .finished-box');
+      if (!finished || finished.querySelector('.next-simple-mission')) return;
+      const note = finished.querySelector('p');
+      if (note) note.textContent = 'When your teacher is ready, continue to the next mission.';
+      const link = document.createElement('a');
+      link.className = 'next-simple-mission';
+      link.href = '../mission-4/';
+      link.textContent = 'Next Mission → Watch the Ecosystem Change';
+      finished.append(link);
+      return;
+    }
+
+    if (/\/courses\/grade-7-science\/jabberwocky\/phase-1\/mission-4\/?$/.test(path)) {
+      const finished = document.querySelector('#simplified-mission-4 .finished-box');
+      if (!finished || finished.querySelector('.next-simple-mission')) return;
+      const note = finished.querySelector('p');
+      if (note) note.textContent = 'When your teacher is ready, continue to the final mission.';
+      const link = document.createElement('a');
+      link.className = 'next-simple-mission';
+      link.href = '../mission-5/';
+      link.textContent = 'Next Mission → Humans Have Arrived';
+      finished.append(link);
+    }
+  })();
+</script>  <script>(function(){const base = "/ashwinjohn12/Mr.-John-s-Learning-Hub/futuretech-preview-missions1-4-20260919/preview-site/";
+
+  (() => {
+    const path = window.location.pathname;
+    if (!path.includes('/courses/grade-7-science/jabberwocky/')) return;
+
+    const root = `${base}courses/grade-7-science/jabberwocky/`;
+    const dashboardHref = `${root}teacher-dashboard/`;
+    const phaseHref = (number) => `${root}phase-${number}/`;
+    const councilHref = `${root}council/`;
+
+    const makeLink = (href, text, className = 'jcec-release-link') => {
+      const link = document.createElement('a');
+      link.href = href;
+      link.textContent = text;
+      link.className = className;
+      return link;
+    };
+
+    const addTeacherDashboardShortcut = () => {
+      const teacherPage = path.includes('/teacher-launch-guide/') || path.includes('/council/teacher-guide/');
+      const launchPage = /\/jabberwocky\/?$/.test(path) || /\/jabberwocky\/index\.html$/.test(path);
+      if (!teacherPage && !launchPage) return;
+      if (document.querySelector('.jcec-master-dashboard-shortcut')) return;
+      const shortcut = makeLink(dashboardHref, 'Teacher Master Dashboard', 'jcec-master-dashboard-shortcut');
+      shortcut.setAttribute('aria-label', 'Open Jabberwocky Teacher Master Launch Dashboard');
+      document.body.append(shortcut);
+    };
+
+    const releaseLaunchPage = () => {
+      const launchPage = /\/jabberwocky\/?$/.test(path) || /\/jabberwocky\/index\.html$/.test(path);
+      if (!launchPage) return;
+
+      const returning = document.querySelector('.hero-actions .mission-button.current');
+      if (returning) {
+        returning.href = '#mission-phases';
+        returning.textContent = 'Returning Pathfinder? Open Mission Roadmap';
+      }
+
+      const readoutStatus = document.querySelector('.mission-readout > strong');
+      if (readoutStatus) readoutStatus.textContent = 'FULL YEAR RELEASED';
+      document.querySelectorAll('.mission-readout dl div').forEach((row) => {
+        const label = row.querySelector('dt')?.textContent?.trim();
+        const value = row.querySelector('dd');
+        if (label === 'Survey completion' && value) value.textContent = '5 PHASES + COUNCIL AVAILABLE';
+        if (label === 'Safe settlement regions' && value) value.textContent = 'TO BE DECIDED BY COUNCIL';
+      });
+
+      const navCurrent = document.querySelector('.mission-nav a.active');
+      if (navCurrent) {
+        navCurrent.href = '#mission-phases';
+        navCurrent.textContent = 'Mission Roadmap';
+      }
+
+      document.querySelectorAll('.classified').forEach((item) => {
+        item.textContent = 'ADDITIONAL EVIDENCE IS GATHERED DURING THE MISSIONS';
+        item.classList.add('released-note');
+      });
+
+      const phaseSection = document.querySelector('#mission-phases');
+      const stack = phaseSection?.querySelector('.phase-stack');
+      const phaseIntro = phaseSection?.querySelector('.section-title-row > p');
+      if (phaseIntro) phaseIntro.textContent = 'All five science phases and the final Council are available. Your teacher controls when the class moves forward.';
+      if (stack) {
+        const phases = [
+          ['01','FIRST CONTACT','Ecological Survey Division','Interactions & Ecosystems',phaseHref(1)],
+          ['02','THE LIVING RESOURCE','Botanical Resources Division','Plants for Food & Fibre',phaseHref(2)],
+          ['03','SURVIVING JABBERWOCKY','Thermal Survival Division','Heat & Temperature',phaseHref(3)],
+          ['04','PROJECT NEW HORIZON','Structural Systems Division','Structures & Forces',phaseHref(4)],
+          ['05','THE DEEP RECORD','Geological Survey Division','Planet Earth',phaseHref(5)],
+          ['★','MISSION 2190 COUNCIL','JCEC Council Delegations','Year-long evidence transfer task',councilHref]
+        ];
+        stack.innerHTML = phases.map(([number,title,division,unit,href], index) => `
+          <article class="phase-card released-phase">
+            <div class="phase-summary">
+              <span class="phase-number">${number}</span>
+              <span class="phase-title"><small>${division}</small><strong>${title}</strong><em>${unit}</em></span>
+              <span class="phase-status">${index === 5 ? 'FINAL CAPSTONE' : 'RELEASED'}</span>
+            </div>
+            <div class="released-actions"><span>${index === 5 ? 'Use evidence from all five science phases.' : 'Open this phase for current work or review.'}</span><a href="${href}">${index === 5 ? 'Enter Final Council →' : `Open Phase ${number} →`}</a></div>
+          </article>`).join('');
+      }
+
+      const archive = document.querySelector('.archive-file ul');
+      if (archive) {
+        archive.innerHTML = `
+          <li class="done"><span>✓</span> Arrival Data</li>
+          <li class="done"><span>✓</span> Ecological Survey</li>
+          <li class="done"><span>✓</span> Botanical Survey</li>
+          <li class="done"><span>✓</span> Thermal Systems Report</li>
+          <li class="done"><span>✓</span> Structural Systems Report</li>
+          <li class="done"><span>✓</span> Geological Report</li>
+          <li class="done"><span>✓</span> Mission 2190 Council Directive</li>`;
+      }
+
+      const console = document.querySelector('.final-console');
+      if (console) {
+        const lines = console.querySelectorAll('p');
+        if (lines[0]) lines[0].innerHTML = 'PATHFINDER STATUS: <strong>CONFIRMED</strong>';
+        if (lines[1]) lines[1].innerHTML = 'MISSION ROADMAP: <strong>FULL YEAR AVAILABLE</strong>';
+        if (lines[2]) lines[2].innerHTML = 'FINAL CAPSTONE: <strong>MISSION 2190 COUNCIL RELEASED</strong>';
+        const button = console.querySelector('.mission-button');
+        if (button) {
+          button.href = '#mission-phases';
+          button.textContent = '▶ Open Mission Roadmap';
+        }
+        if (!console.querySelector('.dashboard-inline')) {
+          console.append(makeLink(dashboardHref, 'Teacher planning → Master Launch Dashboard', 'dashboard-inline'));
+        }
+      }
+    };
+
+    const releaseEarlyPhaseFinalMissions = () => {
+      const handoffs = [
+        {
+          match:'/phase-1/mission-5/',
+          root:'#simplified-mission-5',
+          href:phaseHref(2),
+          label:'Continue to Phase 2 → The Living Resource',
+          note:'Phase 1 is complete. Continue to The Living Resource when your teacher is ready.'
+        },
+        {
+          match:'/phase-2/mission-5/',
+          root:'#phase2-mission5',
+          href:phaseHref(3),
+          label:'Continue to Phase 3 → Surviving Jabberwocky',
+          note:'Phase 2 is complete. Continue to the Thermal Survival Division when your teacher is ready.'
+        }
+      ];
+      const handoff = handoffs.find((item) => path.includes(item.match));
+      if (!handoff) return;
+      const finished = document.querySelector(`${handoff.root} .finished-box`);
+      if (!finished || finished.querySelector('.whole-year-next-phase')) return;
+      const note = finished.querySelector('p');
+      if (note) note.textContent = handoff.note;
+      finished.append(makeLink(handoff.href, handoff.label, 'whole-year-next-phase jcec-release-link'));
+    };
+
+    const completePhaseHub = ({ rootSelector, progressSelector, nextHref, nextLabel, lead, sequenceSelector = '.sequence-strip .current' }) => {
+      const hub = document.querySelector(rootSelector);
+      if (!hub) return;
+
+      const progress = hub.querySelector(`${progressSelector} .current`);
+      if (progress) {
+        progress.classList.remove('current');
+        progress.classList.add('done');
+        progress.removeAttribute('aria-current');
+      }
+
+      const currentCard = hub.querySelector('.mission-card.current');
+      if (currentCard) {
+        currentCard.classList.remove('current');
+        currentCard.classList.add('complete');
+        const status = currentCard.querySelector('.mission-topline b');
+        if (status) status.textContent = 'COMPLETE';
+        const link = currentCard.querySelector('.mission-ready-link');
+        if (link) link.textContent = 'Review Mission 5 →';
+      }
+
+      const sequence = hub.querySelector(sequenceSelector);
+      if (sequence) {
+        sequence.classList.remove('current');
+        sequence.classList.add('done');
+        sequence.textContent = sequence.textContent.replace('●','✓');
+      }
+
+      const heroLead = hub.querySelector('header .lead');
+      if (heroLead && lead) heroLead.innerHTML = lead;
+
+      const continueStrip = hub.querySelector('.previous-team .continue-strip');
+      if (continueStrip) {
+        const strong = continueStrip.querySelector('strong');
+        const span = continueStrip.querySelector('span');
+        const link = continueStrip.querySelector('a');
+        if (strong) strong.textContent = 'This phase is complete.';
+        if (span) span.textContent = 'Use Mission 5 for review, or continue forward when your teacher is ready.';
+        if (link) { link.href = nextHref; link.textContent = nextLabel; }
+      }
+
+      if (!hub.querySelector('.whole-year-release-handoff')) {
+        const progressNav = hub.querySelector(progressSelector);
+        const panel = document.createElement('section');
+        panel.className = 'whole-year-release-handoff';
+        panel.innerHTML = `<div><small>WHOLE-YEAR RELEASE STATUS</small><strong>Phase complete · available for review</strong><span>Earlier missions stay open so you can check evidence without confusing them with new work.</span></div><a href="${nextHref}">${nextLabel}</a>`;
+        progressNav?.insertAdjacentElement('afterend', panel);
+      }
+    };
+
+    releaseLaunchPage();
+    releaseEarlyPhaseFinalMissions();
+
+    completePhaseHub({
+      rootSelector:'#phase2-hub',
+      progressSelector:'.phase2-progress',
+      nextHref:phaseHref(3),
+      nextLabel:'Continue to Phase 3 →',
+      lead:'Phase 2 is complete. Your Botanical Resources team identified a living resource, tested what it needs, planned how it could be grown, considered variety and finished a <strong>JCEC Living Resource Plan</strong>.'
+    });
+
+    completePhaseHub({
+      rootSelector:'#phase3-hub',
+      progressSelector:'.phase3-progress',
+      nextHref:phaseHref(4),
+      nextLabel:'Continue to Phase 4 →',
+      lead:'Phase 3 is complete. Your Thermal Survival team measured the problem, followed heat transfer, tested thermal barriers, controlled a habitat and finished a <strong>JCEC Thermal Survival Plan</strong>.'
+    });
+
+    completePhaseHub({
+      rootSelector:'#phase4-hub',
+      progressSelector:'.phase4-progress',
+      nextHref:phaseHref(5),
+      nextLabel:'Continue to Phase 5 →',
+      lead:'Phase 4 is complete. Your Structural Systems team defined requirements, traced forces, tested materials and joints, improved stability and finished the <strong>JCEC New Horizon Structural Authorization</strong>.'
+    });
+
+    completePhaseHub({
+      rootSelector:'#phase5-hub',
+      progressSelector:'.phase5-progress',
+      nextHref:councilHref,
+      nextLabel:'Enter Mission 2190 Council →',
+      lead:'Phase 5 is complete. Your Geological Survey team gathered ground evidence, reconstructed rock history, tracked surface change, read the deep record and prepared the <strong>JCEC Geological Evidence Packet</strong> for the final Council.'
+    });
+
+    const councilStop = document.querySelector('#phase5-hub .council-stop');
+    if (councilStop) {
+      councilStop.innerHTML = `<strong>FINAL COUNCIL STATUS</strong><span>Released. Keep this same Phase 5 team and continent; your group now becomes a JCEC Council Delegation.</span><a class="jcec-release-link" href="${councilHref}">Enter Mission 2190 Council →</a>`;
+    }
+
+    addTeacherDashboardShortcut();
+  })();
+})();</script>  <script>(function(){const base = "/ashwinjohn12/Mr.-John-s-Learning-Hub/futuretech-preview-missions1-4-20260919/preview-site/";
+
+  (() => {
+    const hub = document.querySelector('#phase4-hub');
+    if (!hub) return;
+
+    // The whole-year release system makes every phase available for review, but
+    // availability is not student progress. Phase 4 must still open as a fresh
+    // classroom sequence with Mission 1 as the clear starting point.
+    hub.querySelector('.whole-year-release-handoff')?.remove();
+
+    const heroLead = hub.querySelector('.phase4-hero .lead');
+    if (heroLead) {
+      heroLead.textContent = 'Project New Horizon begins by defining what a safe structure must do on your assigned continent. Start with Mission 1, then use evidence from forces, materials and stability to reach the final structural authorization.';
+    }
+
+    const steps = [...hub.querySelectorAll('.phase4-progress .phase4-step')];
+    steps.forEach((step, index) => {
+      step.classList.remove('done', 'current', 'future');
+      step.removeAttribute('aria-current');
+      if (index === 0) {
+        step.classList.add('current');
+        step.setAttribute('aria-current', 'step');
+      } else {
+        step.classList.add('future');
+      }
+    });
+
+    const sequence = [...hub.querySelectorAll('.sequence-strip span')];
+    const sequenceLabels = ['Requirements ●', 'Forces', 'Materials', 'Stability', 'Authorization'];
+    sequence.forEach((item, index) => {
+      item.classList.remove('done', 'current');
+      item.textContent = sequenceLabels[index] || item.textContent.replace(/[✓●]/g, '').trim();
+      if (index === 0) item.classList.add('current');
+    });
+
+    const cards = [...hub.querySelectorAll('.mission-card')];
+    cards.forEach((card, index) => {
+      const missionNumber = index + 1;
+      card.classList.remove('complete', 'current', 'locked');
+      if (index === 0) card.classList.add('current');
+      const status = card.querySelector('.mission-topline b');
+      if (status) status.textContent = index === 0 ? 'START HERE' : 'READY';
+      const link = card.querySelector('.mission-ready-link');
+      if (link) link.textContent = index === 0 ? 'Start Mission 1 →' : `Open Mission ${missionNumber} →`;
+    });
+
+    const continueStrip = hub.querySelector('.previous-team .continue-strip');
+    if (continueStrip) {
+      const strong = continueStrip.querySelector('strong');
+      const span = continueStrip.querySelector('span');
+      const link = continueStrip.querySelector('a');
+      if (strong) strong.textContent = 'Mission 1 starts with the requirements.';
+      if (span) span.textContent = 'Use the inherited site limits to decide what your structure must do before choosing a final design.';
+      if (link) {
+        link.href = `${base}courses/grade-7-science/jabberwocky/phase-4/mission-1/`;
+        link.textContent = 'Start Mission 1 →';
+      }
+    }
+
+    const quickStart = hub.querySelector('.quick-start');
+    if (quickStart) {
+      const heading = quickStart.querySelector('h2');
+      const copy = quickStart.querySelector('p:not(.eyebrow)');
+      const badge = quickStart.querySelector(':scope > span');
+      if (heading) heading.textContent = 'Confirm your Phase 4 posting.';
+      if (copy) copy.textContent = 'Once the teacher-assigned continent is saved, begin Mission 1: Read the Building Site.';
+      if (badge) badge.textContent = '1';
+    }
+  })();
+})();</script> <aside class="jcec-device-tools" id="jcec-device-tools" hidden aria-label="Jabberwocky mission settings" data-astro-cid-fn6grdrp> <details data-astro-cid-fn6grdrp> <summary data-astro-cid-fn6grdrp>⚙ Mission Settings</summary> <div class="tool-panel" data-astro-cid-fn6grdrp> <strong data-astro-cid-fn6grdrp>Pathfinder device controls</strong> <p data-astro-cid-fn6grdrp>Use this only if you selected the wrong posting, changed teams, or need to restart Jabberwocky on this Chromebook.</p> <button id="reset-jabberwocky-device" type="button" data-astro-cid-fn6grdrp>Reset Pathfinder Progress on This Device</button> <small data-astro-cid-fn6grdrp>This clears only Jabberwocky choices and progress saved in this browser. It does not affect the class mission, Continental Archives, or other students.</small> </div> </details> </aside> <script>
+  (() => {
+    const tools = document.getElementById('jcec-device-tools');
+    const resetButton = document.getElementById('reset-jabberwocky-device');
+    const isJabberwocky = window.location.pathname.includes('/courses/grade-7-science/jabberwocky');
+    if (!tools || !isJabberwocky) return;
+
+    tools.hidden = false;
+
+    resetButton?.addEventListener('click', () => {
+      const confirmed = window.confirm(
+        'Reset Pathfinder progress on this device?\n\nThis will clear your Jabberwocky choices and saved mission progress in this browser. It will not affect other students or the class mission.'
+      );
+      if (!confirmed) return;
+
+      const prefixes = ['jcec-', 'jabberwocky-'];
+      const keysToRemove = [];
+      for (let i = 0; i < localStorage.length; i += 1) {
+        const key = localStorage.key(i);
+        if (key && prefixes.some((prefix) => key.startsWith(prefix))) keysToRemove.push(key);
+      }
+      keysToRemove.forEach((key) => localStorage.removeItem(key));
+      window.location.reload();
+    });
+  })();
+</script>  </body></html>  
