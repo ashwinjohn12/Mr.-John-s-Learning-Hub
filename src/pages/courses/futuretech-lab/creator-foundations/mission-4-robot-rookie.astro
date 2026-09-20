@@ -51,8 +51,8 @@ import FutureTechMissionFrame from '../../../../components/FutureTechMissionFram
 
     <p class="mini-label">Code → Port → Output</p>
     <div class="port-map" aria-label="Code to port to output mapping">
-      <article><span>MAKECODE</span><strong>Set LED · port 1</strong><b>→</b><span>HARDWARE</span><strong>LED PORT 1</strong><b>→</b><span>OUTPUT</span><strong>LIGHT</strong></article>
-      <article><span>MAKECODE</span><strong>Position Servo · port 1</strong><b>→</b><span>HARDWARE</span><strong>SERVO PORT 1</strong><b>→</b><span>OUTPUT</span><strong>MOTION</strong></article>
+      <article><span>MAKECODE</span><strong>Hummingbird LED · port 1</strong><b>→</b><span>HARDWARE</span><strong>LED PORT 1</strong><b>→</b><span>OUTPUT</span><strong>LIGHT</strong></article>
+      <article><span>MAKECODE</span><strong>Hummingbird Position Servo · port 1</strong><b>→</b><span>HARDWARE</span><strong>SERVO PORT 1</strong><b>→</b><span>OUTPUT</span><strong>MOTION</strong></article>
     </div>
     <p class="concept">The number in your code must match the number on the controller.</p>
 
@@ -68,10 +68,10 @@ import FutureTechMissionFrame from '../../../../components/FutureTechMissionFram
       <article class="step-card"><strong>1 — Open MakeCode</strong><p>Open <a class="external" href="https://makecode.microbit.org/" target="_blank" rel="noreferrer">MakeCode for micro:bit ↗</a>. Create <code>FirstName_L1_M4</code>.</p></article>
       <article class="step-card"><strong>2 — Add Hummingbird</strong><p>Add the Hummingbird extension so the <b>Hummingbird</b> category appears in the toolbox.</p></article>
       <article class="step-card"><strong>3 — Start Hummingbird</strong><p>Put <code>Start Hummingbird</code> inside <code>on start</code>.</p></article>
-      <article class="step-card"><strong>4 — Blink LED 1</strong><p>Use the Hummingbird <code>Set LED</code> block for port 1, then download to the real hardware.</p></article>
+      <article class="step-card"><strong>4 — Blink LED 1</strong><p>Use the Hummingbird <code>Hummingbird LED</code> block for port 1, then download to the real hardware.</p></article>
     </div>
 
-    <div class="block-finder"><span><b>Hummingbird</b> → Start Hummingbird</span><span><b>Hummingbird</b> → Set LED</span><span><b>Basic</b> → pause</span></div>
+    <div class="block-finder"><span><b>Hummingbird</b> → Start Hummingbird</span><span><b>Hummingbird</b> → Hummingbird LED</span><span><b>Basic</b> → pause</span></div>
 
     <aside class="code-model" aria-label="Code model 1 of 2 showing Start Hummingbird in on start and LED port 1 blinking in forever">
       <div class="code-model-head"><span>CODE MODEL 1 OF 2</span><strong>Start Hummingbird + blink LED 1</strong></div>
@@ -80,9 +80,9 @@ import FutureTechMissionFrame from '../../../../components/FutureTechMissionFram
         <div class="mk-block humming indent">Start Hummingbird</div>
         <div class="mk-gap"></div>
         <div class="mk-block loops">forever</div>
-        <div class="mk-block humming indent">Set LED <span class="value emphasis">1</span> brightness <span class="value">100%</span></div>
+        <div class="mk-block humming indent">Hummingbird LED <span class="value emphasis">1</span> <span class="value">100%</span></div>
         <div class="mk-block basic indent">pause <span class="value">500 ms</span></div>
-        <div class="mk-block humming indent">Set LED <span class="value emphasis">1</span> brightness <span class="value">0%</span></div>
+        <div class="mk-block humming indent">Hummingbird LED <span class="value emphasis">1</span> <span class="value">0%</span></div>
         <div class="mk-block basic indent">pause <span class="value">500 ms</span></div>
       </div>
       <div class="model-map"><b>LED 1 in code</b><span>→</span><b>LED Port 1 on board</b></div>
@@ -101,17 +101,17 @@ import FutureTechMissionFrame from '../../../../components/FutureTechMissionFram
     <div class="stage-head"><span class="stage-number">03</span><div><p class="stage-kicker">CODE → MOTION</p><h2 class="stage-title">Make It React</h2></div></div>
     <p class="intro">Now add controlled motion. Centre the position servo safely before you attach or align anything to it.</p>
 
-    <div class="warning centering-card"><strong>CENTER THE SERVO FIRST</strong><div class="centering-cue"><span>Hummingbird</span><b>→</b><span>Position Servo</span><b>→</b><span>Servo 1</span><b>→</b><span>90°</span></div><ol><li>Confirm the servo is still connected to <b>Servo Port 1</b>.</li><li>With power OFF, keep the horn / moving piece unattached or loose.</li><li>Add one Position Servo command set to <b>Servo 1 → 90°</b>.</li><li>Turn power ON, download, and let the servo move to centre.</li><li>Turn power OFF again.</li><li>Only then attach or align the servo horn / moving piece at its centred position.</li></ol></div>
+    <div class="warning centering-card"><strong>CENTER THE SERVO FIRST</strong><div class="centering-cue"><span>Hummingbird</span><b>→</b><span>Hummingbird Position Servo</span><b>→</b><span>Servo 1</span><b>→</b><span>90°</span></div><ol><li>Confirm the servo is still connected to <b>Servo Port 1</b>.</li><li>With power OFF, keep the horn / moving piece unattached or loose.</li><li>Add one <b>Hummingbird Position Servo</b> command set to <b>Servo 1 → 90°</b>.</li><li>Turn power ON, download, and let the servo move to centre.</li><li>Turn power OFF again.</li><li>Only then attach or align the servo horn / moving piece at its centred position.</li></ol></div>
 
     <div class="angle-cue" aria-label="Servo angle guide"><span><b>30°</b><small>one side</small></span><i>←</i><span class="center"><b>90°</b><small>centre</small></span><i>→</i><span><b>150°</b><small>other side</small></span></div>
 
-    <div class="block-finder"><span><b>Hummingbird</b> → Position Servo</span><span><b>Input</b> → on button A pressed</span><span><b>Input</b> → on button B pressed</span><span><b>Hummingbird</b> → Set LED</span></div>
+    <div class="block-finder"><span><b>Hummingbird</b> → Hummingbird Position Servo</span><span><b>Input</b> → on button A pressed</span><span><b>Input</b> → on button B pressed</span><span><b>Hummingbird</b> → Hummingbird LED</span></div>
 
     <aside class="code-model" aria-label="Code model 2 of 2 showing Button A and Button B controlling position servo 1 at two angles">
       <div class="code-model-head"><span>CODE MODEL 2 OF 2</span><strong>Buttons control servo positions</strong></div>
       <div class="code-columns">
-        <div class="code-stack"><div class="mk-block input">on button <span class="value">A</span> pressed</div><div class="mk-block humming indent">Position Servo <span class="value emphasis">1</span> → <span class="value">30°</span></div></div>
-        <div class="code-stack"><div class="mk-block input">on button <span class="value">B</span> pressed</div><div class="mk-block humming indent">Position Servo <span class="value emphasis">1</span> → <span class="value">150°</span></div></div>
+        <div class="code-stack"><div class="mk-block input">on button <span class="value">A</span> pressed</div><div class="mk-block humming indent">Hummingbird Position Servo <span class="value emphasis">1</span> <span class="value">30°</span></div></div>
+        <div class="code-stack"><div class="mk-block input">on button <span class="value">B</span> pressed</div><div class="mk-block humming indent">Hummingbird Position Servo <span class="value emphasis">1</span> <span class="value">150°</span></div></div>
       </div>
       <div class="model-map"><b>Servo 1 in code</b><span>→</span><b>Servo Port 1 on board</b></div>
       <p class="code-model-note">A position servo moves to the angle you choose and stays there until another command changes it.</p>
