@@ -83,5 +83,6 @@ ok(mission4.includes('Start Hummingbird'), 'Mission 4 uses verified Start Hummin
 ok(mission4.includes('Set LED'), 'Mission 4 uses verified Set LED block label');
 ok(mission4.includes('Position Servo'), 'Mission 4 uses verified Position Servo block label');
 ok(mission4.includes('HB-01') && mission4.includes('HB station number'), 'Mission 4 includes station identification and fault reporting');
-for (const banned of ['distance sensor','light sensor','rotation servo','radio']) ok(!mission4.toLowerCase().includes(banned), `Mission 4 core page excludes ${banned}`);
+ok(!mission4.includes('Hummingbird</b> → Sensor') && !mission4.includes('Hummingbird</b> → Rotation Servo'), 'Mission 4 block-finder inventory excludes sensors and rotation servo');
+ok(!mission4.includes('CODE MODEL 3'), 'Mission 4 does not add a third code model');
 ok(!level1.includes('mission-5-'), 'Mission 5 remains unlinked');
