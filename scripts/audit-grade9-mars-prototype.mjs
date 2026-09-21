@@ -56,7 +56,7 @@ for (const token of [
   'Mars Telecommunications Network',
   'Blue Origin',
   'Terrain',
-  '50 / 68',
+  '50 of 68',
   'SOL 137',
   'Canadian Space Agency',
   'APXS',
