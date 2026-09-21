@@ -5,6 +5,7 @@ const origin = process.env.MARS_BASE_URL || 'http://127.0.0.1:4321/Mr.-John-s-Le
 const hubUrl = origin + 'courses/grade-9-science/space-exploration/mars-readiness/';
 const understandUrl = hubUrl + 'understand/';
 const travelUrl = hubUrl + 'travel/';
+const surviveUrl = hubUrl + 'survive/';
 const outDir = 'artifacts/mars-prototype';
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -51,14 +52,14 @@ for (const viewport of viewports) {
   });
 
   await page.goto(hubUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
-  await page.waitForTimeout(350);
-
+  await page.waitForTimeout(300);
   const hubMetrics = await page.evaluate(() => ({
     systemCards: document.querySelectorAll('.readiness-system-card').length,
     h1: document.querySelector('h1')?.textContent?.trim() || '',
     heroImageAlt: document.querySelector('.mars-hero img')?.getAttribute('alt') || '',
     bodyFont: parseFloat(getComputedStyle(document.body).fontSize),
-    travelLinks: document.querySelectorAll('a[href$="/mars-readiness/travel/"]').length
+    travelLinks: document.querySelectorAll('a[href$="/mars-readiness/travel/"]').length,
+    surviveLinks: document.querySelectorAll('a[href$="/mars-readiness/survive/"]').length
   }));
   hubMetrics.horizontalOverflow = await horizontalOverflow(page);
 
@@ -67,15 +68,14 @@ for (const viewport of viewports) {
   if (!hubMetrics.h1.includes('MISSION')) failures.push(viewport.name + ': hub H1 missing');
   if (!hubMetrics.heroImageAlt) failures.push(viewport.name + ': real Mars hero image missing alt text');
   if (hubMetrics.bodyFont < 16) failures.push(viewport.name + ': body font below 16px');
-  if (hubMetrics.travelLinks < 1) failures.push(viewport.name + ': TRAVEL is not reachable from the Hub');
+  if (hubMetrics.travelLinks < 1 || hubMetrics.surviveLinks < 1) failures.push(viewport.name + ': completed phases are not reachable from Hub');
 
   const hubTargets = await undersizedTargets(page, '.mars-action, .mars-phase-nav a, .phase-index a, .readiness-system-card');
   if (hubTargets.length) failures.push(viewport.name + ': undersized Hub touch targets: ' + JSON.stringify(hubTargets));
   await page.screenshot({ path: outDir + '/' + viewport.name + '-hub.png', fullPage: true });
 
   await page.goto(understandUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
-  await page.waitForTimeout(250);
-
+  await page.waitForTimeout(200);
   const understandMetrics = await page.evaluate(() => ({
     operations: document.querySelectorAll('.mars-operation').length,
     readinessCalls: document.querySelectorAll('[data-readiness-call]').length,
@@ -83,17 +83,17 @@ for (const viewport of viewports) {
     phaseLinks: document.querySelectorAll('#understand-operations a').length,
     compactDashboardButtons: document.querySelectorAll('.mars-readiness-dashboard.compact button.readiness-system-card').length,
     travelNavLinks: document.querySelectorAll('.mars-phase-nav a[href$="/travel/"]').length,
+    surviveNavLinks: document.querySelectorAll('.mars-phase-nav a[href$="/survive/"]').length,
     h1: document.querySelector('.phase-intro h1')?.textContent?.trim() || ''
   }));
   understandMetrics.horizontalOverflow = await horizontalOverflow(page);
 
   if (understandMetrics.horizontalOverflow > 2) failures.push(viewport.name + ': UNDERSTAND horizontal overflow ' + understandMetrics.horizontalOverflow + 'px');
-  if (understandMetrics.operations !== 4) failures.push(viewport.name + ': UNDERSTAND should still render exactly 4 Operations');
-  if (understandMetrics.readinessCalls !== 4) failures.push(viewport.name + ': UNDERSTAND should still render 4 readiness calls');
-  if (understandMetrics.matcherCases !== 4) failures.push(viewport.name + ': Evidence Matcher regression: expected 4 cases');
-  if (understandMetrics.phaseLinks !== 4) failures.push(viewport.name + ': UNDERSTAND phase index should still have 4 links');
+  if (understandMetrics.operations !== 4 || understandMetrics.readinessCalls !== 4 || understandMetrics.matcherCases !== 4 || understandMetrics.phaseLinks !== 4) {
+    failures.push(viewport.name + ': locked UNDERSTAND structure regressed');
+  }
   if (understandMetrics.compactDashboardButtons !== 0) failures.push(viewport.name + ': UNDERSTAND compact dashboard exposed fake controls');
-  if (understandMetrics.travelNavLinks !== 1) failures.push(viewport.name + ': intentional shared nav update should expose exactly one TRAVEL link');
+  if (understandMetrics.travelNavLinks !== 1 || understandMetrics.surviveNavLinks !== 1) failures.push(viewport.name + ': shared navigation should expose TRAVEL and SURVIVE');
   if (understandMetrics.h1 !== 'What do we know—and how do we know it?') failures.push(viewport.name + ': UNDERSTAND heading changed unexpectedly');
 
   const underTargets = await undersizedTargets(page, '.mars-action, #understand-operations a, .mars-phase-nav a');
@@ -101,8 +101,7 @@ for (const viewport of viewports) {
   await page.screenshot({ path: outDir + '/' + viewport.name + '-understand.png', fullPage: true });
 
   await page.goto(travelUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
-  await page.waitForTimeout(300);
-
+  await page.waitForTimeout(250);
   const travelMetrics = await page.evaluate(() => ({
     operations: document.querySelectorAll('.mars-operation').length,
     readinessCalls: document.querySelectorAll('[data-readiness-call]').length,
@@ -110,62 +109,101 @@ for (const viewport of viewports) {
     orbitModels: document.querySelectorAll('[data-orbit-model]').length,
     positionLabs: document.querySelectorAll('[data-position-lab]').length,
     transportTools: document.querySelectorAll('[data-transport-tradeoff]').length,
+    surviveNavLinks: document.querySelectorAll('.mars-phase-nav a[href$="/survive/"]').length,
     compactDashboardButtons: document.querySelectorAll('.mars-readiness-dashboard.compact button.readiness-system-card').length,
     h1: document.querySelector('.phase-intro h1')?.textContent?.trim() || '',
-    screensDown: document.body.textContent.includes('SCREENS DOWN // BUILD + TEST'),
-    digitalLandingSimulator: /landing simulator|digital lander|drag-and-drop lander/i.test(document.body.textContent)
+    screensDown: document.body.textContent.includes('SCREENS DOWN // BUILD + TEST')
   }));
   travelMetrics.horizontalOverflow = await horizontalOverflow(page);
 
   if (travelMetrics.horizontalOverflow > 2) failures.push(viewport.name + ': TRAVEL horizontal overflow ' + travelMetrics.horizontalOverflow + 'px');
-  if (travelMetrics.operations !== 4) failures.push(viewport.name + ': TRAVEL should render exactly 4 Operations');
-  if (travelMetrics.readinessCalls !== 4) failures.push(viewport.name + ': TRAVEL should render exactly 4 readiness calls');
-  if (travelMetrics.phaseLinks !== 4) failures.push(viewport.name + ': TRAVEL phase index should have 4 links');
-  if (travelMetrics.orbitModels !== 1 || travelMetrics.positionLabs !== 1 || travelMetrics.transportTools !== 1) {
-    failures.push(viewport.name + ': TRAVEL should contain exactly the 3 approved digital interactions');
-  }
+  if (travelMetrics.operations !== 4 || travelMetrics.readinessCalls !== 4 || travelMetrics.phaseLinks !== 4) failures.push(viewport.name + ': locked TRAVEL structure regressed');
+  if (travelMetrics.orbitModels !== 1 || travelMetrics.positionLabs !== 1 || travelMetrics.transportTools !== 1) failures.push(viewport.name + ': locked TRAVEL widgets regressed');
+  if (travelMetrics.surviveNavLinks !== 1) failures.push(viewport.name + ': intentional navigation update should expose SURVIVE from TRAVEL');
   if (travelMetrics.compactDashboardButtons !== 0) failures.push(viewport.name + ': TRAVEL compact dashboard exposed fake controls');
-  if (travelMetrics.h1 !== 'Can we actually get there?') failures.push(viewport.name + ': TRAVEL phase heading missing');
-  if (!travelMetrics.screensDown) failures.push(viewport.name + ': Operation 08 physical-build handoff missing');
-  if (travelMetrics.digitalLandingSimulator) failures.push(viewport.name + ': Operation 08 contains prohibited digital landing simulator language');
+  if (travelMetrics.h1 !== 'Can we actually get there?') failures.push(viewport.name + ': TRAVEL heading changed');
+  if (!travelMetrics.screensDown) failures.push(viewport.name + ': locked landing physical handoff missing');
 
   const travelTargets = await undersizedTargets(page,
     '.mars-action, #travel-operations a, .mars-phase-nav a, .transport-priorities select, .transport-choice label, .tradeoff-prompts input'
   );
   if (travelTargets.length) failures.push(viewport.name + ': undersized TRAVEL touch targets: ' + JSON.stringify(travelTargets));
+  await page.screenshot({ path: outDir + '/' + viewport.name + '-travel.png', fullPage: true });
+
+  await page.goto(surviveUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+  await page.waitForTimeout(300);
+  const surviveMetrics = await page.evaluate(() => ({
+    operations: document.querySelectorAll('.mars-operation').length,
+    readinessCalls: document.querySelectorAll('[data-readiness-call]').length,
+    phaseLinks: document.querySelectorAll('#survive-operations a').length,
+    hazardTools: document.querySelectorAll('[data-hazard-analyzer]').length,
+    lifeSupportTools: document.querySelectorAll('[data-life-support-flow]').length,
+    resourceTools: document.querySelectorAll('[data-resource-tradeoff]').length,
+    waterSimulators: document.querySelectorAll('[data-water-simulator]').length,
+    compactDashboardButtons: document.querySelectorAll('.mars-readiness-dashboard.compact button.readiness-system-card').length,
+    h1: document.querySelector('.phase-intro h1')?.textContent?.trim() || '',
+    screensDown: document.body.textContent.includes('SCREENS DOWN // TEST THE SYSTEM'),
+    clearWaterWarning: document.body.textContent.includes('CLEAR WATER IS NOT NECESSARILY SAFE WATER.'),
+    recoveryFormula: document.body.textContent.includes('RECOVERY %')
+  }));
+  surviveMetrics.horizontalOverflow = await horizontalOverflow(page);
+
+  if (surviveMetrics.horizontalOverflow > 2) failures.push(viewport.name + ': SURVIVE horizontal overflow ' + surviveMetrics.horizontalOverflow + 'px');
+  if (surviveMetrics.operations !== 4 || surviveMetrics.readinessCalls !== 4 || surviveMetrics.phaseLinks !== 4) failures.push(viewport.name + ': SURVIVE must render exactly Operations 09–12 with four readiness calls');
+  if (surviveMetrics.hazardTools !== 1 || surviveMetrics.lifeSupportTools !== 1 || surviveMetrics.resourceTools !== 1) {
+    failures.push(viewport.name + ': SURVIVE should contain exactly the approved hazard, life-support, and ISRU interactions');
+  }
+  if (surviveMetrics.waterSimulators !== 0) failures.push(viewport.name + ': Operation 12 must not include a digital water simulator');
+  if (surviveMetrics.compactDashboardButtons !== 0) failures.push(viewport.name + ': SURVIVE compact dashboard exposed fake controls');
+  if (surviveMetrics.h1 !== 'Can humans stay alive?') failures.push(viewport.name + ': SURVIVE heading missing');
+  if (!surviveMetrics.screensDown || !surviveMetrics.clearWaterWarning || !surviveMetrics.recoveryFormula) failures.push(viewport.name + ': physical water challenge or safety/recovery teaching is incomplete');
+
+  const surviveTargets = await undersizedTargets(page,
+    '.mars-action, #survive-operations a, .mars-phase-nav a, .hazard-card select, .system-toggle, .failure-chain select, .resource-strategy-grid label, .tradeoff-prompts input'
+  );
+  if (surviveTargets.length) failures.push(viewport.name + ': undersized SURVIVE touch targets: ' + JSON.stringify(surviveTargets));
 
   await page.keyboard.press('Tab');
   const hasKeyboardFocus = await page.evaluate(() => document.activeElement && document.activeElement !== document.body);
-  if (!hasKeyboardFocus) failures.push(viewport.name + ': keyboard focus did not enter a TRAVEL control');
+  if (!hasKeyboardFocus) failures.push(viewport.name + ': keyboard focus did not enter a SURVIVE control');
 
   if (viewport.name === 'desktop-1440') {
-    const orbit = page.locator('[data-orbit-model]');
-    await orbit.locator('[data-mission-day]').fill('180');
-    await orbit.locator('[data-prediction-angle]').fill('150');
-    await orbit.locator('[data-check-orbit]').click();
-    if (!(await orbit.locator('[data-mars-future-marker]').isVisible())) failures.push('Orbit model did not reveal future Mars position.');
-    const orbitFeedback = (await orbit.locator('[data-orbit-feedback]').textContent()) || '';
-    if (!/model position|Mars moved/i.test(orbitFeedback)) failures.push('Orbit model feedback did not explain moving-target reasoning.');
+    const hazards = page.locator('[data-hazard-analyzer]');
+    const hazardSelects = hazards.locator('[data-hazard-select]');
+    for (let i = 0; i < await hazardSelects.count(); i++) {
+      await hazardSelects.nth(i).selectOption(i % 2 === 0 ? 'Serious' : 'Manageable with established approaches');
+    }
+    await hazards.locator('[data-reveal-hazards]').click();
+    const visibleEvidence = await hazards.locator('[data-hazard-evidence]:visible').count();
+    if (visibleEvidence !== 6) failures.push('Hazard Analyzer should reveal evidence for all six hazards.');
+    await hazardSelects.nth(5).selectOption('Critical');
+    await hazards.locator('[data-hazard-reflection]').fill('Radiation moved to Critical because a long Mars mission has far less natural shielding than life on Earth.');
+    await hazards.locator('[data-save-hazards]').click();
+    const hazardFeedback = (await hazards.locator('[data-hazard-feedback]').textContent()) || '';
+    if (!/saved on this device/i.test(hazardFeedback)) failures.push('Hazard Analyzer did not save revised reasoning.');
 
-    const position = page.locator('[data-position-lab]');
-    await position.locator('[data-view="B"]').click();
-    await position.locator('[data-parallax-distance]').fill('3');
-    await position.locator('[data-azimuth]').fill('120');
-    await position.locator('[data-altitude]').fill('35');
-    await position.locator('[data-check-position]').click();
-    const positionFeedback = (await position.locator('[data-position-feedback]').textContent()) || '';
-    if (!positionFeedback.includes('Position acquired')) failures.push('Angular-position activity did not accept the correct coordinates.');
+    const life = page.locator('[data-life-support-flow]');
+    await life.locator('[data-toggle-system="water"]').click();
+    const waterConsequences = (await life.locator('[data-system-consequences]').textContent()) || '';
+    if (!/Stored-water demand rises/i.test(waterConsequences)) failures.push('Life-support flow did not show water-recovery consequence.');
+    await life.locator('[data-failure-choice]').selectOption('water');
+    await life.locator('[data-failure-reasoning]').fill('Without water recovery, stored water is used faster and dependence on supplies from Earth increases.');
+    await life.locator('[data-save-life-support]').click();
+    const lifeFeedback = (await life.locator('[data-life-support-feedback]').textContent()) || '';
+    if (!/saved on this device/i.test(lifeFeedback)) failures.push('Life-support flow analysis did not save.');
 
-    const transport = page.locator('[data-transport-tradeoff]');
-    await transport.locator('[data-priority="Crew safety"]').selectOption('Critical');
-    await transport.locator('input[name="transport-choice"][value="All-chemical"]').check();
-    await transport.locator('[data-strength]').fill('High thrust and extensive chemical propulsion mission heritage.');
-    await transport.locator('[data-concern]').fill('A human-scale Mars architecture still requires major propellant and system decisions.');
-    await transport.locator('[data-save-transport]').click();
-    const transportFeedback = (await transport.locator('[data-transport-feedback]').textContent()) || '';
-    if (!/saved on this device/i.test(transportFeedback)) failures.push('Transport trade-off review did not save.');
-    const transportText = (await transport.textContent()) || '';
-    if (/best option is|winner is|recommended option is|you should choose/i.test(transportText)) failures.push('Transport tool declared an automatic winner.');
+    const resource = page.locator('[data-resource-tradeoff]');
+    await resource.locator('input[name="resource-oxygen"][value="make"]').check();
+    await resource.locator('input[name="resource-water"][value="make"]').check();
+    await resource.locator('input[name="resource-propellant"][value="hybrid"]').check();
+    await resource.locator('input[name="resource-materials"][value="bring"]').check();
+    await resource.locator('[data-resource-choice]').fill('Oxygen, because MOXIE demonstrated that oxygen can be produced from Martian carbon dioxide.');
+    await resource.locator('[data-resource-risk]').fill('The crew would depend on processing equipment, power, and maintenance working reliably.');
+    await resource.locator('[data-save-resources]').click();
+    const resourceFeedback = (await resource.locator('[data-resource-feedback]').textContent()) || '';
+    if (!/saved on this device/i.test(resourceFeedback)) failures.push('ISRU trade-off review did not save.');
+    const resourceText = (await resource.textContent()) || '';
+    if (/best option is|winner is|recommended option is|you should choose/i.test(resourceText)) failures.push('ISRU tool declared an automatic winner.');
 
     const saveReadiness = async (operation, system, status, evidence) => {
       const call = page.locator('[data-readiness-call][data-operation="' + operation + '"]');
@@ -175,27 +213,40 @@ for (const viewport of viewports) {
       await call.locator('button[type="submit"]').click();
     };
 
-    await saveReadiness('05','navigation','developing','Mars moves during the trip, so mission planners must predict its future position.');
-    await saveReadiness('06','navigation','demonstrated','Angular position, parallax, Doppler, ranging, and tracking provide different navigation evidence.');
-    await saveReadiness('07','transportation','developing','NASA is still comparing propulsion approaches with different speed, resource, and maturity trade-offs.');
-    await saveReadiness('08','landing','challenge','Robotic precision landing is demonstrated, but human-scale Mars landing remains an open engineering challenge.');
+    await saveReadiness('09','survival','developing','Mars hazards require pressure, breathable air, thermal control, water, radiation protection, and reduced-gravity planning.');
+    await saveReadiness('10','survival','demonstrated','Human life-support systems can recycle air and water, but a long Mars mission must make the system more independent and robust.');
+    await saveReadiness('11','presence','developing','MOXIE demonstrated local oxygen production, but crew-scale ISRU would require much larger reliable systems.');
+    await saveReadiness('12','survival','demonstrated','ISS systems have demonstrated very high water recovery, while safe potable water still requires treatment and testing.');
 
     const savedState = await page.evaluate(() => JSON.parse(localStorage.getItem('mrjohn-mars-readiness-v1') || '{}'));
-    for (const op of ['05','06','07','08']) {
+    for (const op of ['09','10','11','12']) {
       if (!savedState.operations?.[op]) failures.push('Readiness persistence missing Operation ' + op);
     }
 
     await page.goto(hubUrl, { waitUntil: 'domcontentloaded' });
-    const navStatus = ((await page.locator('[data-system-status="navigation"]').textContent()) || '').trim();
-    const transportStatus = ((await page.locator('[data-system-status="transportation"]').textContent()) || '').trim();
-    const landingStatus = ((await page.locator('[data-system-status="landing"]').textContent()) || '').trim();
-    if (!navStatus.toLowerCase().includes('demonstrated')) failures.push('Latest Navigation readiness status did not persist to Hub.');
-    if (!transportStatus.toLowerCase().includes('developing')) failures.push('Transportation readiness status did not persist to Hub.');
-    if (!landingStatus.toLowerCase().includes('major challenge')) failures.push('Landing readiness status did not persist to Hub.');
+    const survivalStatus = ((await page.locator('[data-system-status="survival"]').textContent()) || '').trim();
+    const presenceStatus = ((await page.locator('[data-system-status="presence"]').textContent()) || '').trim();
+    if (!survivalStatus.toLowerCase().includes('demonstrated')) failures.push('Latest Survival readiness status did not persist to Hub.');
+    if (!presenceStatus.toLowerCase().includes('developing')) failures.push('Long-Term Presence readiness status did not persist to Hub.');
 
-    await page.locator('.readiness-system-card[data-system="navigation"]').click();
-    const navigationEvidenceCount = await page.locator('#mars-system-detail .evidence-history li').count();
-    if (navigationEvidenceCount !== 2) failures.push('Navigation dashboard should accumulate evidence from Operations 05 and 06; found ' + navigationEvidenceCount);
+    await page.locator('.readiness-system-card[data-system="survival"]').click();
+    const survivalEvidenceCount = await page.locator('#mars-system-detail .evidence-history li').count();
+    if (survivalEvidenceCount !== 3) failures.push('Survival dashboard should accumulate Operations 09, 10, and 12; found ' + survivalEvidenceCount);
+
+    await page.goto(travelUrl, { waitUntil: 'domcontentloaded' });
+    const transport = page.locator('[data-transport-tradeoff]');
+    await transport.locator('[data-priority="Crew safety"]').selectOption('Critical');
+    await transport.locator('input[name="transport-choice"][value="All-chemical"]').check();
+    await transport.locator('[data-strength]').fill('High thrust and extensive chemical propulsion mission heritage.');
+    await transport.locator('[data-concern]').fill('A human Mars architecture still has major propellant and system trade-offs.');
+    await transport.locator('[data-save-transport]').click();
+    if (!/saved on this device/i.test((await transport.locator('[data-transport-feedback]').textContent()) || '')) failures.push('Locked TRAVEL transport interaction regressed.');
+
+    const orbit = page.locator('[data-orbit-model]');
+    await orbit.locator('[data-mission-day]').fill('180');
+    await orbit.locator('[data-prediction-angle]').fill('150');
+    await orbit.locator('[data-check-orbit]').click();
+    if (!(await orbit.locator('[data-mars-future-marker]').isVisible())) failures.push('Locked TRAVEL orbit model regressed.');
 
     await page.goto(understandUrl, { waitUntil: 'domcontentloaded' });
     const matcher = page.locator('[data-evidence-matcher]');
@@ -206,7 +257,7 @@ for (const viewport of viewports) {
     await selects.nth(3).selectOption('motion');
     await matcher.locator('[data-check-matcher]').click();
     const score = ((await matcher.locator('.matcher-score').textContent()) || '').trim();
-    if (score !== '4 / 4 supported') failures.push('UNDERSTAND Evidence Matcher regression: expected 4 / 4 supported, got ' + score);
+    if (score !== '4 / 4 supported') failures.push('Locked UNDERSTAND Evidence Matcher regressed.');
 
     await page.evaluate(() => {
       for (const key of [
@@ -214,22 +265,25 @@ for (const viewport of viewports) {
         'mrjohn-mars-evidence-matcher-v1',
         'mrjohn-mars-orbit-model-v1',
         'mrjohn-mars-position-lab-v1',
-        'mrjohn-mars-transport-tradeoff-v1'
+        'mrjohn-mars-transport-tradeoff-v1',
+        'mrjohn-mars-hazard-analyzer-v1',
+        'mrjohn-mars-life-support-flow-v1',
+        'mrjohn-mars-resource-tradeoff-v1'
       ]) localStorage.removeItem(key);
     });
   }
 
-  await page.goto(travelUrl, { waitUntil: 'domcontentloaded' });
+  await page.goto(surviveUrl, { waitUntil: 'domcontentloaded' });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   const reduced = await page.evaluate(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
   if (!reduced) failures.push(viewport.name + ': reduced-motion emulation not recognized');
 
-  await page.screenshot({ path: outDir + '/' + viewport.name + '-travel.png', fullPage: true });
+  await page.screenshot({ path: outDir + '/' + viewport.name + '-survive.png', fullPage: true });
 
   const errors = meaningfulConsoleErrors(consoleErrors);
   if (errors.length) failures.push(viewport.name + ': console errors detected: ' + JSON.stringify(errors.slice(0, 5)));
 
-  report.push({ viewport, hubMetrics, understandMetrics, travelMetrics, consoleErrors: errors, hubTargets, underTargets, travelTargets });
+  report.push({ viewport, hubMetrics, understandMetrics, travelMetrics, surviveMetrics, consoleErrors: errors, hubTargets, underTargets, travelTargets, surviveTargets });
   await context.close();
 }
 
@@ -243,4 +297,4 @@ if (failures.length) {
 }
 
 console.log('Mars rendered browser audit passed at desktop, tablet, 390px, 375px, and 320px.');
-console.log('Verified Hub + locked UNDERSTAND + TRAVEL: no horizontal overflow, 7-system dashboard, 8 total Operations across two phases, exactly 3 TRAVEL widgets, physical landing handoff, local evidence accumulation, keyboard entry, touch target sizing, reduced motion, and no console errors.');
+console.log('Verified Hub + locked UNDERSTAND + locked TRAVEL + SURVIVE: no horizontal overflow, 12 total Operations across three phases, exactly the approved SURVIVE interactions, physical water handoff, local evidence accumulation, locked interaction regressions, keyboard entry, touch target sizing, reduced motion, and no console errors.');
