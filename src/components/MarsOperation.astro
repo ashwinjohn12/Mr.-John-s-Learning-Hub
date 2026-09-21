@@ -11,6 +11,8 @@ interface Props {
   intelSource: string;
   intelHref: string;
   systems: string[];
+  returnAnchor?: string;
+  returnLabel?: string;
 }
 const {
   number,
@@ -22,7 +24,9 @@ const {
   intelStatus,
   intelSource,
   intelHref,
-  systems
+  systems,
+  returnAnchor = 'understand-operations',
+  returnLabel = 'UNDERSTAND'
 } = Astro.props;
 ---
 
@@ -73,5 +77,5 @@ const {
 
   <MarsReadinessCall operationNumber={number} operationTitle={'Operation ' + number + ' — ' + title} systems={systems} />
 
-  <a class="back-to-operations" href="#understand-operations">↑ Back to UNDERSTAND operations</a>
+  <a class="back-to-operations" href={"#" + returnAnchor}>↑ Back to {returnLabel} operations</a>
 </article>
