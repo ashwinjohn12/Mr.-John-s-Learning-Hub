@@ -3,6 +3,7 @@ import MarsProjectShell from '../../../../../../components/MarsProjectShell.astr
 import MarsReadinessDashboard from '../../../../../../components/MarsReadinessDashboard.astro';
 import MarsOperation from '../../../../../../components/MarsOperation.astro';
 import MarsEvidenceMatcher from '../../../../../../components/MarsEvidenceMatcher.astro';
+import MarsIntelLegend from '../../../../../../components/MarsIntelLegend.astro';
 import { understandOperations } from '../../../../../../data/marsReadiness';
 ---
 
@@ -18,6 +19,8 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
       <p>Before a human mission can be judged, the review team needs reliable evidence. These four Operations build the astronomy and observation tools needed for every later Mars decision.</p>
     </div>
   </section>
+
+  <MarsIntelLegend />
 
   <MarsReadinessDashboard compact={true} heading="Current systems picture" />
 
@@ -51,24 +54,23 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
 
     <Fragment slot="know-title">Start with the structure, not the scale numbers.</Fragment>
     <Fragment slot="know">
-      <div class="cosmic-address" aria-label="Cosmic address from Mars outward">
+      <div class="cosmic-address cosmic-address-four" aria-label="Cosmic address from Mars outward">
         <div><small>DESTINATION</small><strong>Mars</strong></div>
-        <div><small>PLANETARY SYSTEM</small><strong>Solar System</strong></div>
-        <div><small>STAR SYSTEM</small><strong>The Sun + orbiting bodies</strong></div>
+        <div><small>OUR STAR SYSTEM</small><strong>Solar System</strong></div>
         <div><small>GALAXY</small><strong>Milky Way</strong></div>
         <div><small>LARGEST FRAME</small><strong>Universe</strong></div>
       </div>
       <div class="mars-fact-grid">
-        <div class="fact-card"><strong>Planet</strong><p>A large body orbiting a star. Mars is a rocky planet.</p></div>
-        <div class="fact-card"><strong>Star</strong><p>A massive, luminous ball of plasma. Our star is the Sun.</p></div>
-        <div class="fact-card"><strong>Galaxy</strong><p>A huge gravitationally bound system of stars, gas, dust, and other matter.</p></div>
-        <div class="fact-card"><strong>Nebula</strong><p>A cloud of gas and dust in space. Nebulae are structures within galaxies, not another step outside them.</p></div>
+        <div class="fact-card"><strong>Star system</strong><p>One or more stars and the objects held with them by gravity. The Solar System is our star system.</p></div>
+        <div class="fact-card"><strong>Galaxy</strong><p>A huge gravitationally bound system containing stars and star systems, gas, dust, and other matter.</p></div>
+        <div class="fact-card"><strong>Nebula</strong><p>A cloud of gas and dust in space. Nebulae are usually structures within galaxies, not another level outside them.</p></div>
+        <div class="fact-card"><strong>Universe</strong><p>All space, matter, and energy. Galaxies and the structures inside them are part of the universe.</p></div>
       </div>
     </Fragment>
 
     <Fragment slot="intel">
       <p>NASA's current Moon to Mars planning treats human exploration as a <strong>system of systems</strong>. Transportation, habitation, power, robotics, communication/navigation, mobility, and resource use all have to work together.</p>
-      <p><strong>Why it matters:</strong> this project will judge connected systems, not design one fantasy spacecraft.</p>
+      <p><strong>Why it matters:</strong> we are looking at how the systems work together, not drawing a fantasy spacecraft.</p>
     </Fragment>
 
     <Fragment slot="analysis-title">Cosmic address check</Fragment>
@@ -77,7 +79,7 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
       <div class="model-grid">
         <details class="model-card">
           <summary><strong>“Mars is part of the Milky Way, so the Milky Way must be inside our Solar System.”</strong></summary>
-          <p><strong>Check:</strong> Reverse the relationship. The Solar System is one planetary system inside the Milky Way galaxy.</p>
+          <p><strong>Check:</strong> Reverse the relationship. The Solar System is our star system, and it is inside the Milky Way galaxy.</p>
         </details>
         <details class="model-card">
           <summary><strong>“A nebula can be found inside a galaxy.”</strong></summary>
@@ -118,12 +120,12 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
           <p>Places the Sun at the centre of our planetary system. It provides a stronger model for explaining and predicting planetary motion.</p>
         </div>
       </div>
-      <p>For this course, the important idea is not “old people were wrong.” The important idea is that <strong>models are judged by evidence, explanatory power, and prediction</strong>.</p>
+      <p>The point is not to sort the past into “right” and “wrong.” The important idea is that <strong>scientific models are judged by evidence, explanatory power, and prediction</strong>.</p>
       <p class="source-note"><strong>Indigenous sky knowledge:</strong> the University of Calgary's Rothney Astrophysical Observatory describes Blackfoot, Cree, and Métis sky knowledge in which long-term observations supported orientation, seasonal understanding, stories, and relationships with land. The Canadian Space Agency also recognizes multiple Indigenous ways of knowing about the sky. <a href="https://science.ucalgary.ca/rothney-observatory/community/indigenous-skies" target="_blank" rel="noreferrer">UCalgary Indigenous Skies ↗</a> · <a href="https://www.asc-csa.gc.ca/eng/youth-educators/indigenous-ways-of-knowing.asp" target="_blank" rel="noreferrer">CSA resource ↗</a></p>
     </Fragment>
 
     <Fragment slot="intel">
-      <p>Curiosity is still working on Mars. Canada's APXS instrument has analyzed well over a thousand Martian samples, and a cracked rock revealed pure sulfur crystals—something that had not been seen on Mars before.</p>
+      <p>Curiosity is still working on Mars. As of February 1, 2026, Canada's APXS instrument had analyzed 1,761 Martian samples. In 2024, APXS confirmed elemental sulfur crystals inside a rock Curiosity cracked open—the first discovery of pure sulfur in this form on Mars.</p>
       <p><strong>Why it matters:</strong> even a mature Mars mission can produce evidence that forces scientists to revise what they think happened there.</p>
     </Fragment>
 
@@ -148,12 +150,12 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
     id="read-light"
     title="Read the Light"
     question="How can scientists learn about something they cannot touch?"
-    intelAgency="CANADIAN SPACE AGENCY + NASA"
+    intelAgency="CANADIAN SPACE AGENCY"
     intelTitle="APXS identifies elements in Martian rocks"
     intelStatus="ACTIVE"
     intelSource="Canadian Space Agency — APXS instrument"
     intelHref="https://www.asc-csa.gc.ca/eng/astronomy/mars/apxs.asp"
-    systems={['science', 'navigation']}
+    systems={['science']}
   >
     <Fragment slot="problem-title">Most objects in space cannot be sampled directly.</Fragment>
     <Fragment slot="problem">
@@ -199,20 +201,30 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
       <p>A human mission would face conditions that robotic explorers can tolerate more easily. Before judging travel or survival systems, the review team needs a concise evidence profile of the planet itself.</p>
     </Fragment>
 
-    <Fragment slot="know-title">Turn planetary facts into mission constraints.</Fragment>
+    <Fragment slot="know-title">First place Mars among the other bodies in our Solar System.</Fragment>
     <Fragment slot="know">
+      <div class="solar-system-snapshot" aria-label="Solar System body groups">
+        <div><strong>Sun</strong><p>Our star: hot plasma and the dominant source of light and energy in the Solar System.</p></div>
+        <div><strong>Rocky planets</strong><p>Mercury, Venus, Earth, and Mars have solid surfaces made largely of rock and metal.</p></div>
+        <div><strong>Giant planets</strong><p>Jupiter and Saturn are gas giants; Uranus and Neptune are ice giants. Their composition and structure differ greatly from Earth's.</p></div>
+        <div><strong>Moons</strong><p>Natural satellites orbit planets or dwarf planets and can be rocky, icy, or a mixture of both.</p></div>
+        <div><strong>Small bodies</strong><p>Asteroids are mainly rocky or metallic; comets contain large amounts of ice and dust; dwarf planets also orbit the Sun.</p></div>
+      </div>
+      <p class="source-note"><strong>Where does the evidence come from?</strong> Telescopes, spectral analysis, spacecraft flybys, orbiters, landers, rovers, and physical samples such as meteorites all add different evidence about Solar System bodies.</p>
+
+      <h4 class="subsection-heading">Now zoom in on Mars.</h4>
       <div class="mars-comparison-grid">
         <div class="comparison-card"><strong>Atmosphere</strong><p>Mars has a very thin atmosphere made mostly of carbon dioxide. Humans cannot breathe it, and the low pressure changes how a habitat must be designed.</p></div>
         <div class="comparison-card"><strong>Temperature</strong><p>Mars is a cold world with large temperature swings. Thermal control is a continuous systems problem.</p></div>
         <div class="comparison-card"><strong>Gravity</strong><p>Mars surface gravity is about 38% of Earth's. That changes movement and raises long-duration human-health questions.</p></div>
-        <div class="comparison-card"><strong>Water</strong><p>Evidence shows a wetter ancient Mars. Water still exists mainly as ice or in the subsurface, but accessible liquid surface water is not available like it is on Earth.</p></div>
+        <div class="comparison-card"><strong>Water</strong><p>Evidence shows a wetter ancient Mars. Water exists today mainly as ice at or below the surface; accessible liquid surface water is not available the way it is on Earth.</p></div>
       </div>
-      <p class="source-note">Source for the planetary profile: <a href="https://science.nasa.gov/mars/facts/" target="_blank" rel="noreferrer">NASA Mars Facts ↗</a>. The goal is not memorizing every number; it is explaining why the data create engineering constraints.</p>
+      <p class="source-note">Planetary profile source: <a href="https://science.nasa.gov/mars/facts/" target="_blank" rel="noreferrer">NASA Mars Facts ↗</a>. The goal is not memorizing every number; it is explaining how evidence about a body creates mission constraints.</p>
+      <p class="source-note maturity-note"><strong>TECH STATUS // IN DEVELOPMENT / PLANNED:</strong> ESA's Rosalind Franklin rover is planned for a late-2028 launch and is designed to drill as deep as two metres below the Martian surface while searching for signs of past life. <a href="https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/Exploration/ExoMars/FAQ_The_rebirth_of_ESA_s_ExoMars_Rosalind_Franklin_mission" target="_blank" rel="noreferrer">ESA mission update ↗</a></p>
     </Fragment>
 
     <Fragment slot="intel">
-      <p><strong>ACTIVE:</strong> Perseverance and Curiosity are operating on Mars, while Canada's APXS continues collecting chemistry data with Curiosity.</p>
-      <p><strong>IN DEVELOPMENT / PLANNED:</strong> ESA's Rosalind Franklin rover is scheduled for a late-2028 launch and is designed to drill as deep as two metres below the surface in its search for biosignatures.</p>
+      <p>Perseverance and Curiosity are operating on Mars, while Canada's APXS continues collecting chemistry data with Curiosity.</p>
       <p><strong>Why it matters:</strong> future human decisions should build from what robotic missions actually measure—not from artist concepts of Mars cities.</p>
     </Fragment>
 
@@ -233,9 +245,9 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
 
   <section class="phase-intro">
     <div>
-      <p class="mars-kicker">END OF PROTOTYPE SLICE</p>
+      <p class="mars-kicker">PHASE 01 COMPLETE</p>
       <h2>UNDERSTAND review complete</h2>
-      <p>Do not continue into TRAVEL yet. The prototype stops here so the visual system, navigation, evidence workflow, classroom timing, and Grade 9 difficulty can be audited before Operations 05–16 are built.</p>
+      <p>Check that your Readiness Record is up to date. Then wait for your teacher before moving on to TRAVEL.</p>
     </div>
   </section>
 </MarsProjectShell>
