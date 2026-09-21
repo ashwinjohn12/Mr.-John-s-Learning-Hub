@@ -101,3 +101,10 @@ export const surviveOperations = [
   { number: '11', id: 'use-mars-resources', title: 'Use What Mars Provides', question: 'Should we bring everything from Earth?' },
   { number: '12', id: 'recover-water', title: 'Recover the Water', question: 'How much of a limited resource can we recover?' }
 ] as const;
+
+export const operateOperations = [
+  { number: '13', id: 'send-robots', title: 'Send the Robots', question: 'Which explorer should do which job?' },
+  { number: '14', id: 'build-network', title: 'Build the Network', question: 'How does a Mars mission stay connected and know where things are?' },
+  { number: '15', id: 'respond-crisis', title: 'Respond to the Crisis', question: 'What do you protect when you cannot protect everything?' },
+  { number: '16', id: 'make-call', title: 'Make the Call', question: 'After all the evidence, how ready are we actually?' }
+] as const;
