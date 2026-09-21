@@ -55,6 +55,7 @@ for (const viewport of viewports) {
     readinessCalls: document.querySelectorAll('[data-readiness-call]').length,
     matcherCases: document.querySelectorAll('[data-evidence-matcher] [data-case]').length,
     phaseLinks: document.querySelectorAll('#understand-operations a').length,
+    compactDashboardButtons: document.querySelectorAll('.mars-readiness-dashboard.compact button.readiness-system-card').length,
     reducedMotionQuery: matchMedia('(prefers-reduced-motion: reduce)').media.includes('prefers-reduced-motion')
   }));
 
@@ -63,6 +64,7 @@ for (const viewport of viewports) {
   if (phaseMetrics.readinessCalls !== 4) failures.push(viewport.name + ': each operation needs one readiness call');
   if (phaseMetrics.matcherCases !== 4) failures.push(viewport.name + ': Evidence Matcher should render 4 evidence cases');
   if (phaseMetrics.phaseLinks !== 4) failures.push(viewport.name + ': phase index should have 4 operation links');
+  if (phaseMetrics.compactDashboardButtons !== 0) failures.push(viewport.name + ': compact dashboard must not expose controls that do nothing');
 
   const majorTargets = await page.locator('.mars-action, #understand-operations a, .readiness-system-card').evaluateAll((nodes) =>
     nodes.filter((node) => {
@@ -92,15 +94,27 @@ for (const viewport of viewports) {
     const score = (await matcher.locator('.matcher-score').textContent())?.trim();
     if (score !== '4 / 4 supported') failures.push('Evidence Matcher expected 4 / 4 supported, got: ' + score);
 
-    const call = page.locator('[data-readiness-call][data-operation="01"]');
-    await call.locator('select[name="system"]').selectOption('science');
-    await call.locator('input[name="status"][value="developing"]').check();
-    await call.locator('textarea[name="evidence"]').fill('Mars is one planet in the Solar System, which sits within the Milky Way galaxy.');
-    await call.locator('button[type="submit"]').click();
+    const call1 = page.locator('[data-readiness-call][data-operation="01"]');
+    await call1.locator('select[name="system"]').selectOption('science');
+    await call1.locator('input[name="status"][value="developing"]').check();
+    await call1.locator('textarea[name="evidence"]').fill('The Solar System is our star system inside the Milky Way galaxy.');
+    await call1.locator('button[type="submit"]').click();
+
+    const call2 = page.locator('[data-readiness-call][data-operation="02"]');
+    await call2.locator('select[name="system"]').selectOption('science');
+    await call2.locator('input[name="status"][value="demonstrated"]').check();
+    await call2.locator('textarea[name="evidence"]').fill('Scientific models become stronger when they explain observations and make successful predictions.');
+    await call2.locator('button[type="submit"]').click();
+
     await page.waitForTimeout(100);
     await page.goto(hubUrl, { waitUntil: 'domcontentloaded' });
     const scienceStatus = (await page.locator('[data-system-status="science"]').textContent())?.trim() || '';
-    if (!scienceStatus.toLowerCase().includes('developing')) failures.push('Readiness persistence failed between UNDERSTAND and Hub.');
+    if (!scienceStatus.toLowerCase().includes('demonstrated')) failures.push('Latest readiness status did not persist between UNDERSTAND and Hub.');
+
+    await page.locator('.readiness-system-card[data-system="science"]').click();
+    const evidenceHistoryCount = await page.locator('#mars-system-detail .evidence-history li').count();
+    if (evidenceHistoryCount !== 2) failures.push('Dashboard should accumulate evidence from multiple Operations; found ' + evidenceHistoryCount + ' entries.');
+
     await page.evaluate(() => {
       localStorage.removeItem('mrjohn-mars-readiness-v1');
       localStorage.removeItem('mrjohn-mars-evidence-matcher-v1');
@@ -136,4 +150,4 @@ if (failures.length) {
 }
 
 console.log('Mars rendered browser audit passed at desktop, tablet, 390px, 375px, and 320px.');
-console.log('Verified: no horizontal overflow, 7-system dashboard, 4 Operations, 4 readiness calls, Evidence Matcher, local persistence, keyboard entry, touch target sizing, and reduced-motion support.');
+console.log('Verified: no horizontal overflow, 7-system dashboard, noninteractive compact summary, 4 Operations, 4 readiness calls, Evidence Matcher, accumulated local evidence, keyboard entry, touch target sizing, and reduced-motion support.');
