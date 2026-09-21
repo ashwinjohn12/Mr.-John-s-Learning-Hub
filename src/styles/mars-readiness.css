@@ -936,9 +936,6 @@
   gap: .55rem;
 }
 .tradeoff-prompts input {
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
   min-height: 44px;
   padding: 0 .6rem;
   border: 1px solid #aab1b5;
@@ -1270,4 +1267,11 @@
   .system-toggle,
   .hazard-card select,
   .failure-chain select { width: 100%; }
+}
+
+
+.resource-tradeoff .tradeoff-prompts input {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
 }
