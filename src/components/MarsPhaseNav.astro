@@ -19,7 +19,7 @@ const availableIndex = order.indexOf(availableThrough);
 <nav class="mars-phase-nav" aria-label="Mars Readiness Program phases">
   {marsPhases.map((phase) => {
     const isActive = phase.id === activePhase;
-    const isAvailable = order.indexOf(phase.id) <= availableIndex;
+    const isAvailable = availableIndex >= order.indexOf(phase.id);
     return (
       <div class:list={['mars-phase-step', { active: isActive, available: isAvailable, planned: !isAvailable }]}>
         {isAvailable ? (
