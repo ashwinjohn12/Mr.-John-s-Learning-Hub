@@ -10,14 +10,16 @@ interface Props {
   activePhase?: 'hub' | 'understand' | 'travel' | 'survive' | 'operate';
   availableThrough?: 'understand' | 'travel' | 'survive' | 'operate';
 }
-const { title, description, activePhase = 'hub', availableThrough = 'survive' } = Astro.props;
-const phaseLabel = activePhase === 'survive'
-  ? 'PHASE 03 // OPEN'
-  : activePhase === 'travel'
-    ? 'PHASE 02 // OPEN'
-    : activePhase === 'understand'
-      ? 'PHASE 01 // OPEN'
-      : 'PHASES 01–03 // OPEN';
+const { title, description, activePhase = 'hub', availableThrough = 'operate' } = Astro.props;
+const phaseLabel = activePhase === 'operate'
+  ? 'PHASE 04 // OPEN'
+  : activePhase === 'survive'
+    ? 'PHASE 03 // OPEN'
+    : activePhase === 'travel'
+      ? 'PHASE 02 // OPEN'
+      : activePhase === 'understand'
+        ? 'PHASE 01 // OPEN'
+        : 'PHASES 01–04 // OPEN';
 const base = import.meta.env.BASE_URL;
 ---
 
