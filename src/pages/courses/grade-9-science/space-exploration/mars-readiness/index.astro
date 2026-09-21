@@ -1,15 +1,16 @@
 ---
 import MarsProjectShell from '../../../../../components/MarsProjectShell.astro';
 import MarsReadinessDashboard from '../../../../../components/MarsReadinessDashboard.astro';
+import MarsIntelLegend from '../../../../../components/MarsIntelLegend.astro';
 const base = import.meta.env.BASE_URL;
 const understandHref = base + 'courses/grade-9-science/space-exploration/mars-readiness/understand/';
 const heroImage = 'https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA26378.jpg';
 
 const phaseCards = [
   { number: '01', title: 'UNDERSTAND', question: 'What do we know—and how do we know it?', status: 'AVAILABLE', href: understandHref },
-  { number: '02', title: 'TRAVEL', question: 'Can we actually get there?', status: 'NOT IN PROTOTYPE' },
-  { number: '03', title: 'SURVIVE', question: 'Can humans stay alive?', status: 'NOT IN PROTOTYPE' },
-  { number: '04', title: 'OPERATE & DECIDE', question: 'Could the mission work—and what should happen next?', status: 'NOT IN PROTOTYPE' }
+  { number: '02', title: 'TRAVEL', question: 'Can we actually get there?', status: 'UPCOMING' },
+  { number: '03', title: 'SURVIVE', question: 'Can humans stay alive?', status: 'UPCOMING' },
+  { number: '04', title: 'OPERATE & DECIDE', question: 'Could the mission work—and what should happen next?', status: 'UPCOMING' }
 ];
 ---
 
@@ -43,11 +44,13 @@ const phaseCards = [
 
   <MarsReadinessDashboard />
 
+  <MarsIntelLegend />
+
   <section class="phase-intro" aria-labelledby="program-path">
     <div>
       <p class="mars-kicker">FOUR-WEEK PROGRAM</p>
       <h2 id="program-path">One question. Four reviews.</h2>
-      <p>Each phase adds evidence to the same seven-system readiness picture. The prototype intentionally opens only UNDERSTAND so the experience can be tested before the rest of the unit is built.</p>
+      <p>Each phase adds evidence to the same seven-system readiness picture. Your class will move through one phase at a time, so focus on the evidence available now.</p>
     </div>
   </section>
 
