@@ -4,7 +4,9 @@
   </div>
 
   <div class="matcher-grid">
-    <section class="evidence-case" data-case data-correct="surface">
+    <section class="evidence-case" data-case data-correct="surface"
+      data-correct-feedback="Visible-light images can reveal surface features and patterns."
+      data-help="An optical image can show visible features, but it cannot identify exact chemical composition or Doppler motion by itself.">
       <div class="evidence-visual optical-visual" aria-hidden="true">
         <span class="planet-disc"></span><span class="surface-line one"></span><span class="surface-line two"></span>
       </div>
@@ -12,7 +14,7 @@
         <p class="case-label">EVIDENCE A // OPTICAL IMAGE</p>
         <h4>Bright and dark surface features are visible.</h4>
         <label>Best conclusion
-          <select>
+          <select aria-label="Evidence A best conclusion">
             <option value="">Choose…</option>
             <option value="surface">Surface structure and visible features</option>
             <option value="composition">Exact chemical composition</option>
@@ -23,15 +25,17 @@
       </div>
     </section>
 
-    <section class="evidence-case" data-case data-correct="composition">
-      <div class="evidence-visual spectrum-visual" aria-label="A simplified spectrum with dark absorption lines">
+    <section class="evidence-case" data-case data-correct="composition"
+      data-correct-feedback="Patterns of spectral lines can identify elements or substances."
+      data-help="A spectrum provides composition evidence from its line pattern; it does not show surface shape or give an exact distance by itself.">
+      <div class="evidence-visual spectrum-visual" role="img" aria-label="A simplified continuous spectrum crossed by dark absorption lines">
         <span></span><span></span><span></span><span></span><span></span>
       </div>
       <div>
         <p class="case-label">EVIDENCE B // SPECTRUM</p>
         <h4>Specific dark lines appear in the spectrum.</h4>
         <label>Best conclusion
-          <select>
+          <select aria-label="Evidence B best conclusion">
             <option value="">Choose…</option>
             <option value="surface">Surface shape only</option>
             <option value="composition">Which elements or substances may be present</option>
@@ -42,7 +46,9 @@
       </div>
     </section>
 
-    <section class="evidence-case" data-case data-correct="radio">
+    <section class="evidence-case" data-case data-correct="radio"
+      data-correct-feedback="Radio observations reveal radiation that human eyes cannot see."
+      data-help="Strong radio emission gives us information outside visible light. It does not automatically tell us visible colour or physical size.">
       <div class="evidence-visual radio-visual" aria-hidden="true">
         <span></span><span></span><span></span>
       </div>
@@ -50,7 +56,7 @@
         <p class="case-label">EVIDENCE C // RADIO OBSERVATION</p>
         <h4>A source is strong at radio wavelengths but faint in visible light.</h4>
         <label>Best conclusion
-          <select>
+          <select aria-label="Evidence C best conclusion">
             <option value="">Choose…</option>
             <option value="radio">It is giving us information our eyes cannot detect</option>
             <option value="colour">It must look red to a human observer</option>
@@ -61,15 +67,17 @@
       </div>
     </section>
 
-    <section class="evidence-case" data-case data-correct="motion">
-      <div class="evidence-visual doppler-visual" aria-label="A reference spectral line and a shifted spectral line">
+    <section class="evidence-case" data-case data-correct="motion"
+      data-correct-feedback="A Doppler shift in spectral lines is evidence of motion toward or away from the observer."
+      data-help="The shifted line positions are motion evidence. They do not directly map mountains or give an exact surface temperature.">
+      <div class="evidence-visual doppler-visual" role="img" aria-label="A reference spectral line beside a second line shifted toward the red end of a simplified spectrum">
         <span class="reference"></span><span class="shifted"></span>
       </div>
       <div>
         <p class="case-label">EVIDENCE D // DOPPLER SHIFT</p>
         <h4>Spectral lines have shifted compared with their laboratory positions.</h4>
         <label>Best conclusion
-          <select>
+          <select aria-label="Evidence D best conclusion">
             <option value="">Choose…</option>
             <option value="temperature">Its exact surface temperature</option>
             <option value="motion">Its motion toward or away from the observer</option>
@@ -116,10 +124,10 @@
           feedback.dataset.state = 'empty';
         } else if (value === item.dataset.correct) {
           score += 1;
-          feedback.textContent = 'Supported by the evidence.';
+          feedback.textContent = item.dataset.correctFeedback;
           feedback.dataset.state = 'correct';
         } else {
-          feedback.textContent = 'Not the strongest conclusion. Look at what this tool actually measures.';
+          feedback.textContent = item.dataset.help;
           feedback.dataset.state = 'try';
         }
       });
