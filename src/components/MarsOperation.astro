@@ -13,6 +13,7 @@ interface Props {
   systems: string[];
   returnAnchor?: string;
   returnLabel?: string;
+  showReadinessCall?: boolean;
 }
 const {
   number,
@@ -26,7 +27,8 @@ const {
   intelHref,
   systems,
   returnAnchor = 'understand-operations',
-  returnLabel = 'UNDERSTAND'
+  returnLabel = 'UNDERSTAND',
+  showReadinessCall = true
 } = Astro.props;
 ---
 
@@ -75,7 +77,9 @@ const {
     </div>
   </section>
 
-  <MarsReadinessCall operationNumber={number} operationTitle={'Operation ' + number + ' — ' + title} systems={systems} />
+  {showReadinessCall && (
+    <MarsReadinessCall operationNumber={number} operationTitle={'Operation ' + number + ' — ' + title} systems={systems} />
+  )}
 
   <a class="back-to-operations" href={"#" + returnAnchor}>↑ Back to {returnLabel} operations</a>
 </article>
