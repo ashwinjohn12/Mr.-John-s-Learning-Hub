@@ -94,3 +94,10 @@ export const travelOperations = [
   { number: '07', id: 'choose-transport', title: 'Choose the Transport', question: 'Is there one best way to travel to Mars?' },
   { number: '08', id: 'land-payload', title: 'Land the Payload', question: 'Can we reach the surface without destroying the mission?' }
 ] as const;
+
+export const surviveOperations = [
+  { number: '09', id: 'identify-hazards', title: 'Identify the Hazards', question: 'What could actually threaten a human on the journey to Mars or on its surface?' },
+  { number: '10', id: 'close-loop', title: 'Close the Loop', question: 'What has to keep happening inside a spacecraft every minute?' },
+  { number: '11', id: 'use-mars-resources', title: 'Use What Mars Provides', question: 'Should we bring everything from Earth?' },
+  { number: '12', id: 'recover-water', title: 'Recover the Water', question: 'How much of a limited resource can we recover?' }
+] as const;
