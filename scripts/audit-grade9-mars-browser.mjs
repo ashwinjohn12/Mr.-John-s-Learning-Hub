@@ -169,7 +169,8 @@ for (const viewport of viewports) {
     fullDashboards: document.querySelectorAll('#final-readiness-dashboard .mars-readiness-dashboard:not(.compact)').length,
     h1: document.querySelector('.phase-intro h1')?.textContent?.trim() || '',
     crisisText: document.body.textContent.includes('50 of 68 Mission Power Units'),
-    automaticVerdict: /readiness percentage|mission approved|mission rejected|success probability/i.test(document.body.textContent)
+    automaticVerdict: /readiness percentage|mission approved|mission rejected|success probability/i.test(document.body.textContent),
+    satelliteDevelopmentSteps: document.querySelectorAll('.satellite-development > div').length
   }));
   operateMetrics.horizontalOverflow = await horizontalOverflow(page);
 
@@ -181,6 +182,7 @@ for (const viewport of viewports) {
   if (operateMetrics.h1 !== 'Could the mission work—and what should happen next?') failures.push(viewport.name + ': final phase heading missing');
   if (!operateMetrics.crisisText) failures.push(viewport.name + ': SOL 137 locked 50-of-68 scenario missing');
   if (operateMetrics.automaticVerdict) failures.push(viewport.name + ': prohibited automated final verdict text detected');
+  if (operateMetrics.satelliteDevelopmentSteps !== 4) failures.push(viewport.name + ': Operation 14 should show four concise artificial-satellite development stages');
 
   const operateTargets = await undersizedTargets(page,
     '.mars-action, #operate-operations a, .mars-phase-nav a, .task-match-grid select, .connection-controls select, .position-candidates label, .crisis-systems button, .readiness-system-card'
@@ -255,6 +257,31 @@ for (const viewport of viewports) {
     await fullDashboard.locator('.readiness-system-card[data-system="operations"]').click();
     const opEvidenceCount = await fullDashboard.locator('.evidence-history li').count();
     if (opEvidenceCount !== 3) failures.push('Final dashboard should accumulate Operations 13–15 under Operations; found ' + opEvidenceCount);
+
+    // Whole-unit persistence check: when Operations 01–15 are represented as completed evidence,
+    // the Hub should direct the student to Operation 16 instead of remaining hard-coded at Operation 01.
+    await page.evaluate(() => {
+      const key = 'mrjohn-mars-readiness-v1';
+      const state = JSON.parse(localStorage.getItem(key) || '{}');
+      state.operations = state.operations || {};
+      for (let i = 1; i <= 15; i++) {
+        const op = String(i).padStart(2,'0');
+        if (!state.operations[op]) {
+          state.operations[op] = {
+            system: i <= 4 ? 'science' : i <= 6 ? 'navigation' : i === 7 ? 'transportation' : i === 8 ? 'landing' : i <= 12 ? 'survival' : 'operations',
+            status: 'developing',
+            evidence: 'Whole-unit audit placeholder evidence for progress routing.',
+            operationTitle: 'Operation ' + op
+          };
+        }
+      }
+      localStorage.setItem(key, JSON.stringify(state));
+    });
+    await gotoStable(page, hubUrl);
+    const currentTitle = ((await page.locator('[data-current-review-title]').textContent()) || '').trim();
+    const currentHref = await page.locator('[data-current-review-link]').getAttribute('href');
+    if (!currentTitle.startsWith('Operation 16')) failures.push('Hub current review should advance to Operation 16 when Operations 01–15 are saved; got ' + currentTitle);
+    if (!currentHref?.includes('/operate/#operation-16')) failures.push('Hub current review link should point to Operation 16 after Operations 01–15 are saved.');
 
     await gotoStable(page, travelUrl);
     const transport = page.locator('[data-transport-tradeoff]');
