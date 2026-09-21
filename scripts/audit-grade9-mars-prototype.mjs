@@ -8,6 +8,7 @@ const required = [
   'src/components/MarsReadinessCall.astro',
   'src/components/MarsOperation.astro',
   'src/components/MarsEvidenceMatcher.astro',
+  'src/components/MarsIntelLegend.astro',
   'src/styles/mars-readiness.css',
   'src/pages/courses/grade-9-science/space-exploration/mars-readiness/index.astro',
   'src/pages/courses/grade-9-science/space-exploration/mars-readiness/understand/index.astro'
@@ -53,7 +54,13 @@ const requiredTokens = [
   'Doppler',
   'radio telescope',
   'spectrum',
-  'nebula'
+  'nebula',
+  'Rocky planets',
+  'Giant planets',
+  'Moons',
+  'Small bodies',
+  'ACTIVE',
+  'ASPIRATIONAL'
 ];
 
 for (const token of requiredTokens) {
@@ -73,6 +80,17 @@ const forbiddenIdentity = [
 
 for (const token of forbiddenIdentity) {
   if (marsCombined.includes(token)) failures.push('Jabberwocky identity leaked into Mars prototype: ' + token);
+}
+
+
+const studentFacing = [
+  'src/pages/courses/grade-9-science/space-exploration/mars-readiness/index.astro',
+  'src/pages/courses/grade-9-science/space-exploration/mars-readiness/understand/index.astro',
+  'src/components/MarsProjectShell.astro'
+].filter((path) => fs.existsSync(path)).map(read).join('\n').toLowerCase();
+
+for (const token of ['not in prototype', 'end of prototype slice', 'prototype // understand']) {
+  if (studentFacing.includes(token)) failures.push('Developer-facing prototype language leaked into student experience: ' + token);
 }
 
 const understandPath = 'src/pages/courses/grade-9-science/space-exploration/mars-readiness/understand/index.astro';
