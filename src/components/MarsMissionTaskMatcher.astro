@@ -1,0 +1,118 @@
+<div class="operate-widget task-matcher" data-mission-task-matcher>
+  <div class="operate-widget-heading">
+    <div>
+      <p class="mars-kicker">METHOD MATCHER</p>
+      <h4>Choose the platform that best fits each investigation.</h4>
+    </div>
+    <span class="model-disclaimer">METHOD ≠ UNIVERSAL WINNER</span>
+  </div>
+  <p class="widget-instruction">Different platforms collect different evidence. Choose the strongest match, check the reasoning, and revise if needed.</p>
+
+  <div class="task-match-grid">
+    <section data-task data-correct="orbiter" data-ok="An orbiter can repeatedly cover a very large region from above." data-help="Think about which platform can revisit hundreds of kilometres without driving across the surface.">
+      <p class="case-label">TASK A</p><h5>Map a 500 km-wide region repeatedly.</h5>
+      <label>Best platform
+        <select><option value="">Choose…</option><option value="orbiter">Orbiter</option><option value="lander">Stationary lander</option><option value="rover">Rover</option><option value="human">Human explorer</option></select>
+      </label><p class="case-feedback" aria-live="polite"></p>
+    </section>
+    <section data-task data-correct="lander" data-ok="A stationary lander is well suited to long-term measurements at one fixed site." data-help="This job values continuous measurements at one location more than mobility.">
+      <p class="case-label">TASK B</p><h5>Monitor weather at one landing site for months.</h5>
+      <label>Best platform
+        <select><option value="">Choose…</option><option value="orbiter">Orbiter</option><option value="lander">Stationary lander</option><option value="rover">Rover</option><option value="human">Human explorer</option></select>
+      </label><p class="case-feedback" aria-live="polite"></p>
+    </section>
+    <section data-task data-correct="rover" data-ok="A rover combines mobility with close-up instruments for comparing several sites." data-help="This investigation needs direct measurements at more than one surface location.">
+      <p class="case-label">TASK C</p><h5>Compare rock chemistry at several sites kilometres apart.</h5>
+      <label>Best platform
+        <select><option value="">Choose…</option><option value="orbiter">Orbiter</option><option value="lander">Stationary lander</option><option value="rover">Rover</option><option value="human">Human explorer</option></select>
+      </label><p class="case-feedback" aria-live="polite"></p>
+    </section>
+    <section data-task data-correct="rover" data-ok="A rover with drilling equipment can move to selected sites and collect subsurface evidence." data-help="The platform needs both mobility and a way to investigate below the surface.">
+      <p class="case-label">TASK D</p><h5>Search below the surface at selected locations.</h5>
+      <label>Best platform
+        <select><option value="">Choose…</option><option value="orbiter">Orbiter</option><option value="lander">Stationary lander</option><option value="rover">Rover</option><option value="human">Human explorer</option></select>
+      </label><p class="case-feedback" aria-live="polite"></p>
+    </section>
+    <section data-task data-correct="orbiter" data-ok="An orbiter can act as a relay between surface missions and Earth." data-help="This job is about moving information between the surface and interplanetary communications systems.">
+      <p class="case-label">TASK E</p><h5>Relay high-volume data between Mars surface assets and Earth.</h5>
+      <label>Best platform
+        <select><option value="">Choose…</option><option value="orbiter">Orbiter</option><option value="lander">Stationary lander</option><option value="rover">Rover</option><option value="human">Human explorer</option></select>
+      </label><p class="case-feedback" aria-live="polite"></p>
+    </section>
+    <section data-task data-correct="human" data-ok="Humans can respond flexibly to unexpected mechanical problems and use many tools, but require much more support and risk." data-help="This task depends on flexible judgement and complex tool use, not only collecting routine data.">
+      <p class="case-label">TASK F</p><h5>Respond to an unexpected equipment problem requiring flexible tool use.</h5>
+      <label>Best platform
+        <select><option value="">Choose…</option><option value="orbiter">Orbiter</option><option value="lander">Stationary lander</option><option value="rover">Rover</option><option value="human">Human explorer</option></select>
+      </label><p class="case-feedback" aria-live="polite"></p>
+    </section>
+  </div>
+
+  <div class="widget-actions">
+    <button type="button" class="mars-action" data-check-tasks>Check methods</button>
+    <button type="button" class="mars-action secondary" data-reset-tasks>Reset</button>
+    <strong class="matcher-score" aria-live="polite" data-task-score>Not checked yet</strong>
+  </div>
+
+  <label class="operate-reflection">Choose one task. Why would one alternative platform be weaker?
+    <textarea rows="3" maxlength="220" data-method-reflection placeholder="Compare the evidence-gathering strengths and limitations."></textarea>
+  </label>
+  <button type="button" class="mars-action" data-save-task-review>Save method review</button>
+  <p class="widget-feedback" data-task-save-feedback aria-live="polite"></p>
+</div>
+
+<script>
+  const TASK_KEY = 'mrjohn-mars-task-matcher-v1';
+  document.querySelectorAll('[data-mission-task-matcher]').forEach((root) => {
+    const tasks = Array.from(root.querySelectorAll('[data-task]'));
+    const score = root.querySelector('[data-task-score]');
+    const reflection = root.querySelector('[data-method-reflection]');
+    const saveFeedback = root.querySelector('[data-task-save-feedback]');
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(TASK_KEY) || '{}');
+      if (saved.answers) tasks.forEach((task, i) => { if (saved.answers[i]) task.querySelector('select').value = saved.answers[i]; });
+      if (saved.reflection) reflection.value = saved.reflection;
+    } catch {}
+
+    root.querySelector('[data-check-tasks]').addEventListener('click', () => {
+      let correct = 0;
+      tasks.forEach((task) => {
+        const select = task.querySelector('select');
+        const feedback = task.querySelector('.case-feedback');
+        if (!select.value) {
+          feedback.textContent = 'Choose a platform first.';
+          feedback.dataset.state = 'empty';
+        } else if (select.value === task.dataset.correct) {
+          correct += 1;
+          feedback.textContent = task.dataset.ok;
+          feedback.dataset.state = 'correct';
+        } else {
+          feedback.textContent = task.dataset.help;
+          feedback.dataset.state = 'try';
+        }
+      });
+      score.textContent = correct + ' / ' + tasks.length + ' supported';
+    });
+
+    root.querySelector('[data-reset-tasks]').addEventListener('click', () => {
+      tasks.forEach((task) => {
+        task.querySelector('select').value = '';
+        task.querySelector('.case-feedback').textContent = '';
+      });
+      reflection.value = '';
+      localStorage.removeItem(TASK_KEY);
+      score.textContent = 'Not checked yet';
+      saveFeedback.textContent = '';
+    });
+
+    root.querySelector('[data-save-task-review]').addEventListener('click', () => {
+      const answers = tasks.map((task) => task.querySelector('select').value);
+      if (answers.some((value) => !value) || !reflection.value.trim()) {
+        saveFeedback.textContent = 'Complete all six matches and your comparison before saving.';
+        return;
+      }
+      localStorage.setItem(TASK_KEY, JSON.stringify({ answers, reflection: reflection.value.trim() }));
+      saveFeedback.textContent = 'Method review saved on this device.';
+    });
+  });
+</script>
