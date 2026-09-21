@@ -1,0 +1,162 @@
+<div class="travel-widget position-lab" data-position-lab>
+  <div class="travel-widget-heading">
+    <div>
+      <p class="mars-kicker">POSITION LAB</p>
+      <h4>Use different evidence for different navigation questions</h4>
+    </div>
+  </div>
+
+  <div class="position-modes">
+    <section class="position-mode" aria-labelledby="parallax-mode-heading">
+      <div class="mode-heading">
+        <span>MODE A</span>
+        <h5 id="parallax-mode-heading">Parallax</h5>
+      </div>
+      <p>Switch viewpoints and compare the target with the same distant background.</p>
+
+      <div class="parallax-stage" role="img" aria-live="polite" data-parallax-description>
+        <div class="background-stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="parallax-target" data-parallax-target aria-hidden="true">●</div>
+        <span class="parallax-label">TARGET</span>
+      </div>
+
+      <div class="segmented-controls" role="group" aria-label="Parallax observer position">
+        <button type="button" class="mars-action secondary selected" data-view="A" aria-pressed="true">Viewpoint A</button>
+        <button type="button" class="mars-action secondary" data-view="B" aria-pressed="false">Viewpoint B</button>
+      </div>
+
+      <label class="compact-range">
+        Target distance
+        <input type="range" min="1" max="3" step="1" value="1" data-parallax-distance />
+        <output data-distance-output>Near</output>
+      </label>
+
+      <p class="widget-feedback">A nearby target shows a larger apparent shift between viewpoints than a distant one.</p>
+    </section>
+
+    <section class="position-mode" aria-labelledby="angle-mode-heading">
+      <div class="mode-heading">
+        <span>MODE B</span>
+        <h5 id="angle-mode-heading">Angular position</h5>
+      </div>
+      <p>Set the telescope to the requested sky position: <strong>azimuth 120°</strong>, <strong>altitude 35°</strong>.</p>
+
+      <div class="sky-position-display" role="img" data-sky-description aria-label="Sky position target display">
+        <div class="horizon-line"></div>
+        <div class="sky-reticle" data-sky-reticle aria-hidden="true">+</div>
+        <span class="horizon-label north">N 0°</span>
+        <span class="horizon-label east">E 90°</span>
+        <span class="horizon-label south">S 180°</span>
+        <span class="horizon-label west">W 270°</span>
+      </div>
+
+      <div class="angle-controls">
+        <label>
+          Azimuth
+          <input type="range" min="0" max="350" step="10" value="90" data-azimuth />
+          <output data-azimuth-output>90°</output>
+        </label>
+        <label>
+          Altitude
+          <input type="range" min="0" max="90" step="5" value="25" data-altitude />
+          <output data-altitude-output>25°</output>
+        </label>
+      </div>
+
+      <div class="widget-actions">
+        <button type="button" class="mars-action" data-check-position>Check position</button>
+        <p class="widget-feedback" data-position-feedback aria-live="polite">Use both coordinates. Azimuth gives direction around the horizon; altitude gives angle above it.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="evidence-key">
+    <div><strong>WHERE?</strong><span>Angular coordinates</span></div>
+    <div><strong>HOW FAR?</strong><span>Parallax evidence</span></div>
+    <div><strong>HOW MOVING?</strong><span>Doppler evidence</span></div>
+  </div>
+</div>
+
+<script>
+  const POSITION_KEY = 'mrjohn-mars-position-lab-v1';
+
+  document.querySelectorAll('[data-position-lab]').forEach((root) => {
+    const target = root.querySelector('[data-parallax-target]');
+    const description = root.querySelector('[data-parallax-description]');
+    const distanceInput = root.querySelector('[data-parallax-distance]');
+    const distanceOutput = root.querySelector('[data-distance-output]');
+    let view = 'A';
+
+    const distanceLabels = { 1: 'Near', 2: 'Middle', 3: 'Far' };
+    const shiftByDistance = { 1: 48, 2: 28, 3: 14 };
+
+    const renderParallax = () => {
+      const distance = Number(distanceInput.value);
+      const shift = shiftByDistance[distance] * (view === 'A' ? -1 : 1);
+      target.style.transform = 'translateX(' + shift + 'px)';
+      distanceOutput.textContent = distanceLabels[distance];
+      description.setAttribute('aria-label',
+        distanceLabels[distance] + ' target viewed from position ' + view +
+        '. Switching viewpoints changes its apparent position against the background stars.'
+      );
+    };
+
+    root.querySelectorAll('[data-view]').forEach((button) => {
+      button.addEventListener('click', () => {
+        view = button.dataset.view;
+        root.querySelectorAll('[data-view]').forEach((other) => {
+          const selected = other === button;
+          other.classList.toggle('selected', selected);
+          other.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        });
+        renderParallax();
+      });
+    });
+
+    distanceInput.addEventListener('input', renderParallax);
+
+    const azimuth = root.querySelector('[data-azimuth]');
+    const altitude = root.querySelector('[data-altitude]');
+    const azOut = root.querySelector('[data-azimuth-output]');
+    const altOut = root.querySelector('[data-altitude-output]');
+    const reticle = root.querySelector('[data-sky-reticle]');
+    const skyDescription = root.querySelector('[data-sky-description]');
+    const positionFeedback = root.querySelector('[data-position-feedback]');
+
+    const renderAngles = () => {
+      const az = Number(azimuth.value);
+      const alt = Number(altitude.value);
+      azOut.textContent = az + '°';
+      altOut.textContent = alt + '°';
+      const x = 8 + (az / 350) * 84;
+      const y = 86 - (alt / 90) * 72;
+      reticle.style.left = x + '%';
+      reticle.style.top = y + '%';
+      skyDescription.setAttribute('aria-label', 'Telescope position: azimuth ' + az + ' degrees, altitude ' + alt + ' degrees.');
+    };
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(POSITION_KEY) || '{}');
+      if (saved.azimuth !== undefined) azimuth.value = saved.azimuth;
+      if (saved.altitude !== undefined) altitude.value = saved.altitude;
+      if (saved.distance !== undefined) distanceInput.value = saved.distance;
+    } catch {}
+
+    azimuth.addEventListener('input', renderAngles);
+    altitude.addEventListener('input', renderAngles);
+
+    root.querySelector('[data-check-position]').addEventListener('click', () => {
+      const az = Number(azimuth.value);
+      const alt = Number(altitude.value);
+      const azError = Math.abs(az - 120);
+      const altError = Math.abs(alt - 35);
+      localStorage.setItem(POSITION_KEY, JSON.stringify({ azimuth: az, altitude: alt, distance: Number(distanceInput.value) }));
+      positionFeedback.textContent = azError <= 10 && altError <= 5
+        ? 'Position acquired. You used two angles to describe one direction in the sky.'
+        : 'Adjust both values. The target is at azimuth 120° and altitude 35°.';
+    });
+
+    renderParallax();
+    renderAngles();
+  });
+</script>
