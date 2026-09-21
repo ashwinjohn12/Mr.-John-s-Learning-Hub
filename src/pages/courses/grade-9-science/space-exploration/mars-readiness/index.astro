@@ -1,0 +1,91 @@
+---
+import MarsProjectShell from '../../../../../components/MarsProjectShell.astro';
+import MarsReadinessDashboard from '../../../../../components/MarsReadinessDashboard.astro';
+const base = import.meta.env.BASE_URL;
+const understandHref = base + 'courses/grade-9-science/space-exploration/mars-readiness/understand/';
+const heroImage = 'https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA26378.jpg';
+
+const phaseCards = [
+  { number: '01', title: 'UNDERSTAND', question: 'What do we know—and how do we know it?', status: 'AVAILABLE', href: understandHref },
+  { number: '02', title: 'TRAVEL', question: 'Can we actually get there?', status: 'NOT IN PROTOTYPE' },
+  { number: '03', title: 'SURVIVE', question: 'Can humans stay alive?', status: 'NOT IN PROTOTYPE' },
+  { number: '04', title: 'OPERATE & DECIDE', question: 'Could the mission work—and what should happen next?', status: 'NOT IN PROTOTYPE' }
+];
+---
+
+<MarsProjectShell
+  title="MISSION: MARS — Are We Ready? | Grade 9 Science"
+  description="A Grade 9 Science Mars Readiness Program using real evidence to judge what humanity can do now and what still needs to be solved."
+  activePhase="hub"
+>
+  <section class="mars-hero" aria-labelledby="mars-title">
+    <div class="mars-hero-copy">
+      <p class="mars-kicker">GRADE 9 SCIENCE // SPACE EXPLORATION</p>
+      <h1 id="mars-title">MISSION: <span>MARS</span></h1>
+      <p class="hero-question"><strong>Are we ready?</strong> Use real science, test real problems, and decide what humanity still needs to solve before people can safely travel to and live on Mars.</p>
+      <ul class="mars-hero-list">
+        <li>Robots are exploring Mars now.</li>
+        <li>Some future-Mars technologies have been demonstrated only at small scale.</li>
+        <li>Human Mars travel and permanent settlement remain future goals, not accomplished missions.</li>
+      </ul>
+      <div style="margin-top:1.2rem">
+        <a class="mars-action" href={understandHref}>Begin systems review →</a>
+      </div>
+    </div>
+    <figure>
+      <img src={heroImage} alt="Wide Perseverance rover view across the rocky floor and rim of Jezero Crater on Mars" loading="eager" />
+      <figcaption>
+        Perseverance Mastcam-Z mosaic, Jezero Crater. Credit: NASA/JPL-Caltech/ASU/MSSS.
+        <a href="https://www.jpl.nasa.gov/images/pia26378-perseverances-mid-climb-view-of-jezero-crater/" target="_blank" rel="noreferrer">View source ↗</a>
+      </figcaption>
+    </figure>
+  </section>
+
+  <MarsReadinessDashboard />
+
+  <section class="phase-intro" aria-labelledby="program-path">
+    <div>
+      <p class="mars-kicker">FOUR-WEEK PROGRAM</p>
+      <h2 id="program-path">One question. Four reviews.</h2>
+      <p>Each phase adds evidence to the same seven-system readiness picture. The prototype intentionally opens only UNDERSTAND so the experience can be tested before the rest of the unit is built.</p>
+    </div>
+  </section>
+
+  <section class="phase-index" aria-label="Mars Readiness Program phase overview">
+    {phaseCards.map((phase) => (
+      phase.href ? (
+        <a href={phase.href}>
+          <span>{phase.number} // {phase.status}</span>
+          <strong>{phase.title}</strong>
+          <small>{phase.question}</small>
+        </a>
+      ) : (
+        <div class="phase-preview-card" aria-disabled="true">
+          <span>{phase.number} // {phase.status}</span>
+          <strong>{phase.title}</strong>
+          <small>{phase.question}</small>
+        </div>
+      )
+    ))}
+  </section>
+
+  <section class="current-review-panel">
+    <div>
+      <p class="mars-kicker">YOUR CURRENT REVIEW</p>
+      <h2>Operation 01 — Locate Mars</h2>
+      <p>Start by placing Mars in the larger structure of the universe, then build the evidence skills needed for the rest of the mission.</p>
+    </div>
+    <a class="mars-action" href={understandHref + '#operation-01'}>Continue to Operation 01 →</a>
+  </section>
+</MarsProjectShell>
+
+<style>
+  .phase-preview-card{min-height:112px;padding:.8rem;border:1px dashed #b9bdc0;border-radius:10px;background:rgba(255,255,255,.45);opacity:.62}
+  .phase-preview-card span{color:#6f7579;font:800 .66rem 'IBM Plex Mono',monospace}
+  .phase-preview-card strong{display:block;margin-top:.3rem}
+  .phase-preview-card small{display:block;margin-top:.25rem;color:#62686d;line-height:1.35}
+  .current-review-panel{display:flex;justify-content:space-between;gap:1.2rem;align-items:center;margin:1.4rem 0;padding:1.2rem 1.3rem;border:1px solid #b9c7d0;border-radius:12px;background:#edf5f9}
+  .current-review-panel h2{margin:.25rem 0}
+  .current-review-panel p:last-child{max-width:720px;margin:.3rem 0;color:#4c5b65}
+  @media(max-width:680px){.current-review-panel{display:grid}.current-review-panel .mars-action{width:100%}}
+</style>
