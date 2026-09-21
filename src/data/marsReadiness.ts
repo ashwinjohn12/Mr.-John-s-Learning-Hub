@@ -87,3 +87,10 @@ export const understandOperations = [
   { number: '03', id: 'read-light', title: 'Read the Light', question: 'How can scientists learn about something they cannot touch?' },
   { number: '04', id: 'profile-mars', title: 'Profile Mars', question: 'What have robots taught us before humans arrive?' }
 ] as const;
+
+export const travelOperations = [
+  { number: '05', id: 'predict-target', title: 'Predict the Target', question: 'Why can\'t we just aim at Mars?' },
+  { number: '06', id: 'find-position', title: 'Find Your Position', question: 'How do we know where something is in space?' },
+  { number: '07', id: 'choose-transport', title: 'Choose the Transport', question: 'Is there one best way to travel to Mars?' },
+  { number: '08', id: 'land-payload', title: 'Land the Payload', question: 'Can we reach the surface without destroying the mission?' }
+] as const;
