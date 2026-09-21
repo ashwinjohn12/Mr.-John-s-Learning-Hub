@@ -1181,7 +1181,7 @@
 .resource-strategy-grid legend { padding: 0 .25rem; font-weight: 800; }
 .resource-strategy-grid label {
   display: flex;
-  min-height: 40px;
+  min-height: 44px;
   align-items: center;
   gap: .4rem;
   color: #475159;
