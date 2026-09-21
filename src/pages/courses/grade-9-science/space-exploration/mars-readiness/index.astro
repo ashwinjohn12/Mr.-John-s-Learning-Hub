@@ -6,13 +6,14 @@ const base = import.meta.env.BASE_URL;
 const understandHref = base + 'courses/grade-9-science/space-exploration/mars-readiness/understand/';
 const travelHref = base + 'courses/grade-9-science/space-exploration/mars-readiness/travel/';
 const surviveHref = base + 'courses/grade-9-science/space-exploration/mars-readiness/survive/';
+const operateHref = base + 'courses/grade-9-science/space-exploration/mars-readiness/operate/';
 const heroImage = 'https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA26378.jpg';
 
 const phaseCards = [
   { number: '01', title: 'UNDERSTAND', question: 'What do we know—and how do we know it?', status: 'AVAILABLE', href: understandHref },
   { number: '02', title: 'TRAVEL', question: 'Can we actually get there?', status: 'AVAILABLE', href: travelHref },
   { number: '03', title: 'SURVIVE', question: 'Can humans stay alive?', status: 'AVAILABLE', href: surviveHref },
-  { number: '04', title: 'OPERATE & DECIDE', question: 'Could the mission work—and what should happen next?', status: 'UPCOMING' }
+  { number: '04', title: 'OPERATE & DECIDE', question: 'Could the mission work—and what should happen next?', status: 'AVAILABLE', href: operateHref }
 ];
 ---
 
