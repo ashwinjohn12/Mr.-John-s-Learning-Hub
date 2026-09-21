@@ -1,0 +1,77 @@
+---
+import MarsReadinessCall from './MarsReadinessCall.astro';
+interface Props {
+  number: string;
+  id: string;
+  title: string;
+  question: string;
+  intelAgency: string;
+  intelTitle: string;
+  intelStatus: 'ACTIVE' | 'DEMONSTRATED' | 'IN DEVELOPMENT / PLANNED' | 'ASPIRATIONAL';
+  intelSource: string;
+  intelHref: string;
+  systems: string[];
+}
+const {
+  number,
+  id,
+  title,
+  question,
+  intelAgency,
+  intelTitle,
+  intelStatus,
+  intelSource,
+  intelHref,
+  systems
+} = Astro.props;
+---
+
+<article class="mars-operation" id={'operation-' + number} data-operation={number}>
+  <header class="operation-header">
+    <div class="operation-number" aria-hidden="true">{number}</div>
+    <div>
+      <p class="mars-kicker">OPERATION {number}</p>
+      <h2>{title}</h2>
+      <p class="operation-question">{question}</p>
+    </div>
+  </header>
+
+  <section class="operation-block problem-block" aria-labelledby={id + '-problem'}>
+    <div class="block-label"><span>01</span> THE PROBLEM</div>
+    <div class="block-content">
+      <h3 id={id + '-problem'}><slot name="problem-title" /></h3>
+      <slot name="problem" />
+    </div>
+  </section>
+
+  <section class="operation-block" aria-labelledby={id + '-know'}>
+    <div class="block-label"><span>02</span> WHAT WE KNOW</div>
+    <div class="block-content">
+      <h3 id={id + '-know'}><slot name="know-title" /></h3>
+      <slot name="know" />
+    </div>
+  </section>
+
+  <aside class="mission-intel" aria-label={'Real Mission Intel: ' + intelTitle}>
+    <div class="intel-topline">
+      <span class="intel-mark">REAL MISSION INTEL</span>
+      <span class:list={['intel-status', 'intel-' + intelStatus.toLowerCase().replaceAll(' ', '-').replaceAll('/', '-')]}>{intelStatus}</span>
+    </div>
+    <p class="intel-agency">{intelAgency}</p>
+    <h3>{intelTitle}</h3>
+    <slot name="intel" />
+    <p class="intel-source"><a href={intelHref} target="_blank" rel="noreferrer">Source: {intelSource} ↗</a></p>
+  </aside>
+
+  <section class="operation-block analysis-block" aria-labelledby={id + '-analysis'}>
+    <div class="block-label"><span>03</span> YOUR ANALYSIS</div>
+    <div class="block-content">
+      <h3 id={id + '-analysis'}><slot name="analysis-title" /></h3>
+      <slot name="analysis" />
+    </div>
+  </section>
+
+  <MarsReadinessCall operationNumber={number} operationTitle={'Operation ' + number + ' — ' + title} systems={systems} />
+
+  <a class="back-to-operations" href="#understand-operations">↑ Back to UNDERSTAND operations</a>
+</article>
