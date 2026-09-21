@@ -66,6 +66,12 @@ for (const token of [
   'planetary protection',
   'Artemis Accords',
   'showReadinessCall',
+  'EARLY SATELLITES',
+  'SPECIALIZED SATELLITES',
+  'NAVIGATION CONSTELLATIONS',
+  'PLANETARY ORBITERS',
+  'data-current-review',
+  'operationProgress',
   'localStorage',
   'prefers-reduced-motion'
 ]) {
@@ -194,7 +200,8 @@ if (fs.existsSync(stylePath)) {
     '.task-match-grid',
     '.network-layout',
     '.crisis-systems',
-    '.final-review-instructions'
+    '.final-review-instructions',
+    '.satellite-development'
   ]) {
     if (!css.toLowerCase().includes(token.toLowerCase())) failures.push('Phase 04 visual/accessibility system missing: ' + token);
   }
