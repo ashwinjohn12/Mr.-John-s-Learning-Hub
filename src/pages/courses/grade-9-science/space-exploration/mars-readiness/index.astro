@@ -15,6 +15,25 @@ const phaseCards = [
   { number: '03', title: 'SURVIVE', question: 'Can humans stay alive?', status: 'AVAILABLE', href: surviveHref },
   { number: '04', title: 'OPERATE & DECIDE', question: 'Could the mission work—and what should happen next?', status: 'AVAILABLE', href: operateHref }
 ];
+
+const operationProgress = [
+  { number: '01', title: 'Locate Mars', copy: 'Place Mars in the larger structure of the universe and build the evidence skills needed for the rest of the mission.', href: understandHref + '#operation-01' },
+  { number: '02', title: 'Trust the Evidence', copy: 'Use observations to test how scientific models of space become stronger or change.', href: understandHref + '#operation-02' },
+  { number: '03', title: 'Read the Light', copy: 'Use different kinds of electromagnetic evidence to infer properties of objects in space.', href: understandHref + '#operation-03' },
+  { number: '04', title: 'Profile Mars', copy: 'Turn evidence about Mars and other Solar System bodies into mission constraints.', href: understandHref + '#operation-04' },
+  { number: '05', title: 'Predict the Target', copy: 'Model a moving Mars and predict where the destination will be when a spacecraft arrives.', href: travelHref + '#operation-05' },
+  { number: '06', title: 'Find Your Position', copy: 'Connect angular coordinates, parallax, and Doppler evidence to position, distance, and motion.', href: travelHref + '#operation-06' },
+  { number: '07', title: 'Choose the Transport', copy: 'Compare transportation approaches using mission trade-offs rather than a single automatic winner.', href: travelHref + '#operation-07' },
+  { number: '08', title: 'Land the Payload', copy: 'Plan, test, and improve a physical landing system while recognizing the limits of the model.', href: travelHref + '#operation-08' },
+  { number: '09', title: 'Identify the Hazards', copy: 'Connect Mars and deep-space hazards to the human needs and systems they threaten.', href: surviveHref + '#operation-09' },
+  { number: '10', title: 'Close the Loop', copy: 'Trace how life-support subsystems keep air and water moving through a closed environment.', href: surviveHref + '#operation-10' },
+  { number: '11', title: 'Use What Mars Provides', copy: 'Compare what should be brought from Earth with what could be produced or extracted on Mars.', href: surviveHref + '#operation-11' },
+  { number: '12', title: 'Recover the Water', copy: 'Test a physical water-recovery model and distinguish recovery, clarity, and potability.', href: surviveHref + '#operation-12' },
+  { number: '13', title: 'Send the Robots', copy: 'Choose the investigation platform that best matches the evidence a mission needs.', href: operateHref + '#operation-13' },
+  { number: '14', title: 'Build the Network', copy: 'Build a simplified Mars communications and positioning network.', href: operateHref + '#operation-14' },
+  { number: '15', title: 'Respond to the Crisis', copy: 'Allocate limited mission power and justify the consequences your team accepts.', href: operateHref + '#operation-15' },
+  { number: '16', title: 'Make the Call', copy: 'Review the full seven-system evidence record and make your final individual Mars readiness judgement.', href: operateHref + '#operation-16' }
+];
 ---
 
 <MarsProjectShell
@@ -33,7 +52,7 @@ const phaseCards = [
         <li>Human Mars travel and permanent settlement remain future goals, not accomplished missions.</li>
       </ul>
       <div style="margin-top:1.2rem">
-        <a class="mars-action" href={understandHref}>Begin systems review →</a>
+        <a class="mars-action" href={understandHref} data-hub-primary-action>Begin systems review →</a>
       </div>
     </div>
     <figure>
@@ -75,15 +94,50 @@ const phaseCards = [
     ))}
   </section>
 
-  <section class="current-review-panel">
+  <section class="current-review-panel" data-current-review>
     <div>
       <p class="mars-kicker">YOUR CURRENT REVIEW</p>
-      <h2>Operation 01 — Locate Mars</h2>
-      <p>Start by placing Mars in the larger structure of the universe, then build the evidence skills needed for the rest of the mission.</p>
+      <h2 data-current-review-title>Operation 01 — Locate Mars</h2>
+      <p data-current-review-copy>Place Mars in the larger structure of the universe and build the evidence skills needed for the rest of the mission.</p>
     </div>
-    <a class="mars-action" href={understandHref + '#operation-01'}>Continue to Operation 01 →</a>
+    <a class="mars-action" href={understandHref + '#operation-01'} data-current-review-link>Continue to Operation 01 →</a>
   </section>
 </MarsProjectShell>
+
+<script define:vars={{ operationProgress }}>
+  const STORAGE_KEY = 'mrjohn-mars-readiness-v1';
+
+  function readCompletedOperations() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      return new Set(Object.keys(saved.operations || {}));
+    } catch {
+      return new Set();
+    }
+  }
+
+  const completed = readCompletedOperations();
+  const nextOperation =
+    operationProgress.find((operation) => operation.number === '16' || !completed.has(operation.number))
+    || operationProgress[operationProgress.length - 1];
+
+  const title = document.querySelector('[data-current-review-title]');
+  const copy = document.querySelector('[data-current-review-copy]');
+  const link = document.querySelector('[data-current-review-link]');
+  const primary = document.querySelector('[data-hub-primary-action]');
+
+  if (title && copy && link) {
+    title.textContent = 'Operation ' + nextOperation.number + ' — ' + nextOperation.title;
+    copy.textContent = nextOperation.copy;
+    link.href = nextOperation.href;
+    link.textContent = 'Continue to Operation ' + nextOperation.number + ' →';
+  }
+
+  if (primary && completed.size > 0) {
+    primary.href = nextOperation.href;
+    primary.textContent = 'Continue systems review →';
+  }
+</script>
 
 <style>
   .phase-preview-card{min-height:112px;padding:.8rem;border:1px dashed #b9bdc0;border-radius:10px;background:rgba(255,255,255,.45);opacity:.62}
