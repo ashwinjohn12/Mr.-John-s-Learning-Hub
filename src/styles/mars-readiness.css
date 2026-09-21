@@ -1017,3 +1017,246 @@
   .parallax-stage,
   .sky-position-display { height: 160px; }
 }
+
+
+/* Phase 03 — SURVIVE reusable interactions */
+.survive-widget {
+  margin-top: .75rem;
+  padding: .9rem;
+  border: 1px solid var(--mars-steel);
+  border-radius: 12px;
+  background: #faf9f6;
+}
+.survive-widget-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: .8rem;
+  align-items: start;
+  margin-bottom: .55rem;
+}
+.survive-widget-heading h4 { margin: .18rem 0 0; font-size: 1.15rem; }
+
+.hazard-list {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: .55rem;
+}
+.hazard-card {
+  padding: .7rem;
+  border: 1px solid #c4c9cc;
+  border-radius: 9px;
+  background: #fff;
+}
+.hazard-card-main {
+  display: grid;
+  grid-template-columns: 1fr minmax(190px,.75fr);
+  gap: .65rem;
+  align-items: end;
+}
+.hazard-card h5 { margin: .18rem 0 0; font-size: .96rem; line-height: 1.35; }
+.hazard-card label,
+.failure-chain label,
+.survive-reflection {
+  display: grid;
+  gap: .3rem;
+  color: #465158;
+  font-size: .78rem;
+  font-weight: 750;
+}
+.hazard-card select,
+.failure-chain select,
+.failure-chain textarea,
+.survive-reflection textarea,
+.resource-strategy-grid input,
+.tradeoff-prompts input {
+  font: 500 .92rem 'Inter', sans-serif;
+}
+.hazard-card select,
+.failure-chain select {
+  min-height: 44px;
+  padding: 0 .55rem;
+  border: 1px solid #aab1b5;
+  border-radius: .4rem;
+  background: #fff;
+  color: var(--mars-carbon);
+}
+.hazard-evidence {
+  margin-top: .65rem;
+  padding: .65rem .7rem;
+  border-left: 4px solid var(--mars-blue);
+  background: var(--mars-blue-soft);
+}
+.hazard-evidence strong {
+  display: block;
+  color: #285d80;
+  font: 800 .64rem 'IBM Plex Mono', monospace;
+}
+.hazard-evidence p { margin: .12rem 0 .45rem; font-size: .8rem; line-height: 1.42; }
+.survive-reflection { margin: .8rem 0 .55rem; }
+.survive-reflection textarea,
+.failure-chain textarea {
+  min-height: 86px;
+  padding: .6rem;
+  border: 1px solid #aab1b5;
+  border-radius: .4rem;
+  background: #fff;
+  resize: vertical;
+}
+
+.life-support-map {
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: .5rem;
+}
+.system-node {
+  min-height: 112px;
+  padding: .65rem;
+  border: 1px solid #bec5c8;
+  border-radius: 9px;
+  background: #fff;
+}
+.system-node strong { display: block; margin: .2rem 0; }
+.system-node span { display: block; color: #526068; font-size: .76rem; line-height: 1.35; }
+.system-node.offline {
+  border-style: dashed;
+  background: #f3ece8;
+}
+.system-node.offline span { color: #7d4b39; }
+.crew-node { border-color: #9eb9cb; background: #eef5f9; }
+.system-control-grid {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: .45rem;
+  margin-top: .7rem;
+}
+.system-toggle {
+  min-height: 64px;
+  padding: .6rem;
+  border: 1px solid #7ea487;
+  border-radius: 8px;
+  background: #edf6ef;
+  color: #294232;
+  text-align: left;
+  cursor: pointer;
+}
+.system-toggle strong,
+.system-toggle span { display: block; }
+.system-toggle span { margin-top: .18rem; font: 800 .62rem 'IBM Plex Mono', monospace; }
+.system-toggle.offline {
+  border-color: #b88a78;
+  background: #f6ebe6;
+  color: #6f3d2c;
+}
+.system-toggle:focus-visible { outline: 3px solid rgba(50,109,149,.18); outline-offset: 2px; }
+.system-consequence-panel {
+  margin-top: .7rem;
+  padding: .75rem;
+  border-left: 4px solid var(--mars-rust);
+  background: #fff4ee;
+}
+.system-consequence-panel ul { margin: .4rem 0 0; padding-left: 1.15rem; }
+.system-consequence-panel li { margin: .3rem 0; font-size: .82rem; line-height: 1.45; }
+.failure-chain {
+  display: grid;
+  grid-template-columns: minmax(180px,.55fr) 1fr;
+  gap: .55rem;
+  margin-top: .75rem;
+  align-items: end;
+}
+.failure-chain .mars-action,
+.failure-chain .widget-feedback { grid-column: 1 / -1; }
+
+.resource-strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: .55rem;
+}
+.resource-strategy-grid fieldset {
+  margin: 0;
+  padding: .7rem;
+  border: 1px solid #c4c9cc;
+  border-radius: 8px;
+  background: #fff;
+}
+.resource-strategy-grid legend { padding: 0 .25rem; font-weight: 800; }
+.resource-strategy-grid label {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  gap: .4rem;
+  color: #475159;
+  font-size: .82rem;
+}
+.resource-strategy-grid input { width: 19px; height: 19px; accent-color: var(--mars-rust); }
+.resource-indicators {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: .45rem;
+  margin-top: .7rem;
+}
+.resource-indicators div {
+  display: grid;
+  gap: .2rem;
+  padding: .65rem;
+  border: 1px solid #c3c9cc;
+  border-radius: 7px;
+  background: #fff;
+}
+.resource-indicators span { color: #59656c; font-size: .74rem; }
+.resource-indicators strong { color: var(--mars-blue); font: 800 .8rem 'IBM Plex Mono', monospace; }
+
+.water-safety-callout {
+  margin: .65rem 0;
+  padding: .8rem;
+  border: 2px solid var(--mars-rust);
+  border-radius: 8px;
+  background: #fff5ef;
+}
+.water-safety-callout strong {
+  color: var(--mars-rust);
+  font: 800 .78rem 'IBM Plex Mono', monospace;
+}
+.water-safety-callout p { margin: .3rem 0 0; }
+.recovery-formula {
+  display: flex;
+  justify-content: space-between;
+  gap: .8rem;
+  align-items: center;
+  margin: .65rem 0;
+  padding: .75rem;
+  border: 1px solid #aebcc5;
+  border-radius: 8px;
+  background: #edf5f9;
+}
+.recovery-formula span { color: var(--mars-blue); font: 800 .68rem 'IBM Plex Mono', monospace; }
+.recovery-formula strong { font-size: 1rem; }
+.water-warning { border-color: #8f3f2c; background: #fff0e8; }
+.water-brief { margin-top: .2rem; }
+
+@media (max-width: 980px) {
+  .life-support-map { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .system-control-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+
+@media (max-width: 680px) {
+  .survive-widget-heading,
+  .hazard-list,
+  .hazard-card-main,
+  .life-support-map,
+  .system-control-grid,
+  .failure-chain,
+  .resource-strategy-grid,
+  .resource-indicators { grid-template-columns: 1fr; }
+  .survive-widget-heading { display: grid; }
+  .hazard-card-main { align-items: stretch; }
+  .failure-chain .mars-action,
+  .failure-chain .widget-feedback { grid-column: auto; }
+  .recovery-formula { display: grid; }
+}
+
+@media (max-width: 390px) {
+  .survive-widget { padding: .7rem; }
+  .system-toggle,
+  .hazard-card select,
+  .failure-chain select { width: 100%; }
+}
