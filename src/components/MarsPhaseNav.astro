@@ -2,20 +2,28 @@
 import { marsPhases } from '../data/marsReadiness';
 interface Props {
   activePhase?: 'hub' | 'understand' | 'travel' | 'survive' | 'operate';
+  availableThrough?: 'understand' | 'travel' | 'survive' | 'operate';
 }
-const { activePhase = 'hub' } = Astro.props;
+const { activePhase = 'hub', availableThrough = 'travel' } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const understandHref = base + 'courses/grade-9-science/space-exploration/mars-readiness/understand/';
+const hrefs = {
+  understand: base + 'courses/grade-9-science/space-exploration/mars-readiness/understand/',
+  travel: base + 'courses/grade-9-science/space-exploration/mars-readiness/travel/',
+  survive: base + 'courses/grade-9-science/space-exploration/mars-readiness/survive/',
+  operate: base + 'courses/grade-9-science/space-exploration/mars-readiness/operate/'
+};
+const order = ['understand', 'travel', 'survive', 'operate'];
+const availableIndex = order.indexOf(availableThrough);
 ---
 
 <nav class="mars-phase-nav" aria-label="Mars Readiness Program phases">
   {marsPhases.map((phase) => {
     const isActive = phase.id === activePhase;
-    const isAvailable = phase.id === 'understand';
+    const isAvailable = order.indexOf(phase.id) <= availableIndex;
     return (
       <div class:list={['mars-phase-step', { active: isActive, available: isAvailable, planned: !isAvailable }]}>
         {isAvailable ? (
-          <a href={understandHref} aria-current={isActive ? 'step' : undefined}>
+          <a href={hrefs[phase.id]} aria-current={isActive ? 'step' : undefined}>
             <span class="phase-number">{phase.number}</span>
             <span class="phase-copy">
               <strong>{phase.title}</strong>
