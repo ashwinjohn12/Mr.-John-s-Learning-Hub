@@ -109,7 +109,7 @@ if (fs.existsSync(travelPath)) {
   for (const op of ['09','10','11','12','13','14','15','16']) {
     if (travel.includes('number="' + op + '"')) failures.push('TRAVEL scope exceeded: found Operation ' + op);
   }
-  if (/escape velocity|tsiolkovsky|specific impulse equation|hohmann transfer equation/i.test(travel)) {
+  if (/tsiolkovsky|specific impulse equation|hohmann transfer equation|escape velocity equation|delta-v equation|orbital mechanics calculation/i.test(travel)) {
     failures.push('TRAVEL includes advanced orbital/rocket mathematics outside the locked Grade 9 scope.');
   }
   if (/landing simulator|digital lander|drag-and-drop lander/i.test(travel)) {
@@ -157,7 +157,7 @@ if (fs.existsSync(stylePath)) {
   } catch (error) {
     failures.push('Could not compare locked Mars CSS: ' + error.message);
   }
-  for (const token of ['@media (max-width: 390px)','@media (max-width: 330px)','prefers-reduced-motion','.orbit-model','.position-lab','.transport-tradeoff']) {
+  for (const token of ['@media (max-width: 390px)','@media (max-width: 330px)','prefers-reduced-motion','.orbit-stage','.position-modes','.transport-priorities']) {
     if (!css.toLowerCase().includes(token.toLowerCase())) failures.push('Visual/accessibility system missing: ' + token);
   }
 }
