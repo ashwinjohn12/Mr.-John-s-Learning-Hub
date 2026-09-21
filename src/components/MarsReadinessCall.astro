@@ -14,6 +14,7 @@ const availableSystems = marsSystems.filter((system) => systems.includes(system.
     <div>
       <p class="mars-kicker">READINESS CALL</p>
       <h3>What did today's evidence change?</h3>
+      <p class="readiness-guidance">Your status can stay the same. What matters is whether your evidence can defend it.</p>
     </div>
     <span class="save-state" aria-live="polite">Not saved yet</span>
   </div>
@@ -26,7 +27,7 @@ const availableSystems = marsSystems.filter((system) => systems.includes(system.
   </label>
 
   <fieldset>
-    <legend>Choose the status your evidence supports right now.</legend>
+    <legend>Choose the system readiness status your evidence supports right now.</legend>
     <div class="status-choice-grid">
       {marsStatuses.map((status) => (
         <label class:list={['status-choice', 'status-' + status.id]}>
@@ -45,7 +46,7 @@ const availableSystems = marsSystems.filter((system) => systems.includes(system.
   </label>
 
   <div class="readiness-actions">
-    <button class="mars-action" type="submit">Save readiness call</button>
+    <button class="mars-action" type="submit">Save evidence + status</button>
     <button class="mars-action secondary" type="button" data-clear-readiness>Clear</button>
   </div>
 </form>
