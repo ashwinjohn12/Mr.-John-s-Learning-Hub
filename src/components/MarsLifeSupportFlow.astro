@@ -1,0 +1,159 @@
+<div class="survive-widget life-support-flow" data-life-support-flow>
+  <div class="survive-widget-heading">
+    <div>
+      <p class="mars-kicker">SYSTEMS FLOW MODEL</p>
+      <h4>Turn off one subsystem and watch the consequences spread.</h4>
+    </div>
+    <span class="model-disclaimer">SIMPLIFIED SYSTEM MODEL</span>
+  </div>
+
+  <p class="widget-instruction">A real spacecraft has many more components. This model focuses on the relationships Grade 9 students need to see: air, oxygen, water, waste, and power depend on one another.</p>
+
+  <div class="life-support-map" aria-label="Simplified life support system">
+    <article class="system-node crew-node">
+      <p class="case-label">CREW</p>
+      <strong>Humans</strong>
+      <span>use O₂ + water</span>
+      <span>produce CO₂ + wastewater + heat</span>
+    </article>
+
+    <article class="system-node" data-system-node="co2">
+      <p class="case-label">AIR LOOP</p>
+      <strong>CO₂ Removal</strong>
+      <span data-system-state="co2">ONLINE</span>
+    </article>
+
+    <article class="system-node" data-system-node="oxygen">
+      <p class="case-label">AIR LOOP</p>
+      <strong>Oxygen Generation</strong>
+      <span data-system-state="oxygen">ONLINE</span>
+    </article>
+
+    <article class="system-node" data-system-node="water">
+      <p class="case-label">WATER LOOP</p>
+      <strong>Water Recovery</strong>
+      <span data-system-state="water">ONLINE</span>
+    </article>
+
+    <article class="system-node" data-system-node="power">
+      <p class="case-label">SUPPORT</p>
+      <strong>Power</strong>
+      <span data-system-state="power">ONLINE</span>
+    </article>
+  </div>
+
+  <div class="system-control-grid" role="group" aria-label="Life support subsystem controls">
+    <button type="button" class="system-toggle" data-toggle-system="co2" aria-pressed="true">
+      <strong>CO₂ Removal</strong><span>ONLINE</span>
+    </button>
+    <button type="button" class="system-toggle" data-toggle-system="oxygen" aria-pressed="true">
+      <strong>Oxygen Generation</strong><span>ONLINE</span>
+    </button>
+    <button type="button" class="system-toggle" data-toggle-system="water" aria-pressed="true">
+      <strong>Water Recovery</strong><span>ONLINE</span>
+    </button>
+    <button type="button" class="system-toggle" data-toggle-system="power" aria-pressed="true">
+      <strong>Power</strong><span>ONLINE</span>
+    </button>
+  </div>
+
+  <section class="system-consequence-panel" aria-live="polite">
+    <p class="mars-kicker">CURRENT CONSEQUENCES</p>
+    <ul data-system-consequences>
+      <li>Cabin air is being refreshed.</li>
+      <li>Oxygen is being replenished.</li>
+      <li>Wastewater is being recovered.</li>
+      <li>Powered life-support equipment can operate.</li>
+    </ul>
+  </section>
+
+  <div class="failure-chain">
+    <label>
+      Choose one failure to explain
+      <select data-failure-choice>
+        <option value="">Choose…</option>
+        <option value="co2">CO₂ removal shuts down</option>
+        <option value="oxygen">Oxygen generation shuts down</option>
+        <option value="water">Water recovery drops out</option>
+        <option value="power">Power is lost</option>
+      </select>
+    </label>
+    <label>
+      What other part of the system is affected next—and why?
+      <textarea rows="3" maxlength="220" data-failure-reasoning placeholder="Trace one cause-and-effect connection."></textarea>
+    </label>
+    <button type="button" class="mars-action" data-save-life-support>Save system analysis</button>
+    <p class="widget-feedback" data-life-support-feedback aria-live="polite">Test more than one failure before saving your explanation.</p>
+  </div>
+</div>
+
+<script>
+  const LIFE_SUPPORT_KEY = 'mrjohn-mars-life-support-flow-v1';
+
+  document.querySelectorAll('[data-life-support-flow]').forEach((root) => {
+    const state = { co2: true, oxygen: true, water: true, power: true };
+    const consequences = root.querySelector('[data-system-consequences]');
+    const feedback = root.querySelector('[data-life-support-feedback]');
+    const choice = root.querySelector('[data-failure-choice]');
+    const reasoning = root.querySelector('[data-failure-reasoning]');
+
+    const render = () => {
+      root.querySelectorAll('[data-toggle-system]').forEach((button) => {
+        const id = button.dataset.toggleSystem;
+        const effectiveOnline = id === 'power' ? state.power : state[id] && state.power;
+        button.setAttribute('aria-pressed', effectiveOnline ? 'true' : 'false');
+        button.classList.toggle('offline', !effectiveOnline);
+        button.querySelector('span').textContent = effectiveOnline ? 'ONLINE' : 'OFFLINE';
+
+        const node = root.querySelector('[data-system-node="' + id + '"]');
+        node.classList.toggle('offline', !effectiveOnline);
+        node.querySelector('[data-system-state="' + id + '"]').textContent = effectiveOnline ? 'ONLINE' : 'OFFLINE';
+      });
+
+      const items = [];
+      if (!state.power) {
+        items.push('Power loss stops the active CO₂-removal, oxygen-generation, and water-recovery equipment in this simplified model.');
+        items.push('Stored air and water reserves become more important immediately.');
+      } else {
+        items.push(state.co2
+          ? 'CO₂ is being removed from cabin air.'
+          : 'CO₂ begins building up in the cabin.');
+        items.push(state.oxygen
+          ? 'Oxygen is being replenished.'
+          : 'Oxygen reserves begin decreasing.');
+        items.push(state.water
+          ? 'Wastewater is being recovered for reuse.'
+          : 'Stored-water demand rises and dependence on resupply increases.');
+      }
+      consequences.innerHTML = items.map((item) => '<li>' + item + '</li>').join('');
+    };
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(LIFE_SUPPORT_KEY) || '{}');
+      if (saved.choice) choice.value = saved.choice;
+      if (saved.reasoning) reasoning.value = saved.reasoning;
+    } catch {}
+
+    root.querySelectorAll('[data-toggle-system]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const id = button.dataset.toggleSystem;
+        state[id] = !state[id];
+        render();
+      });
+    });
+
+    root.querySelector('[data-save-life-support]').addEventListener('click', () => {
+      if (!choice.value || !reasoning.value.trim()) {
+        feedback.textContent = 'Choose one failure and explain a cause-and-effect connection before saving.';
+        return;
+      }
+      localStorage.setItem(LIFE_SUPPORT_KEY, JSON.stringify({
+        choice: choice.value,
+        reasoning: reasoning.value.trim()
+      }));
+      feedback.textContent = 'Life-support system analysis saved on this device.';
+    });
+
+    render();
+  });
+</script>
