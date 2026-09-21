@@ -1,0 +1,156 @@
+<div class="operate-widget network-builder" data-network-builder>
+  <div class="operate-widget-heading">
+    <div>
+      <p class="mars-kicker">NETWORK BUILDER</p>
+      <h4>Connect Mars surface assets to each other and to Earth.</h4>
+    </div>
+    <span class="model-disclaimer">SIMPLIFIED NETWORK</span>
+  </div>
+
+  <div class="network-layout" aria-label="Mars communication network diagram">
+    <div class="network-node earth">EARTH<br><small>Deep-space network</small></div>
+    <div class="network-node relay">MARS RELAY ORBITER</div>
+    <div class="network-node habitat">HABITAT</div>
+    <div class="network-node rover">ROVER</div>
+    <div class="network-node station">SCIENCE STATION</div>
+  </div>
+
+  <div class="connection-controls">
+    <label>From
+      <select data-connection-from>
+        <option value="Earth">Earth</option><option value="Relay Orbiter">Relay Orbiter</option><option value="Habitat">Habitat</option><option value="Rover">Rover</option><option value="Science Station">Science Station</option>
+      </select>
+    </label>
+    <label>To
+      <select data-connection-to>
+        <option value="Relay Orbiter">Relay Orbiter</option><option value="Earth">Earth</option><option value="Habitat">Habitat</option><option value="Rover">Rover</option><option value="Science Station">Science Station</option>
+      </select>
+    </label>
+    <button type="button" class="mars-action" data-add-connection>Add connection</button>
+  </div>
+
+  <div class="network-status">
+    <div><strong>Connections</strong><ul data-connection-list><li>No connections yet.</li></ul></div>
+    <div><strong>Network consequences</strong><ul data-network-consequences><li>Build a network to see what it supports.</li></ul></div>
+  </div>
+
+  <div class="widget-actions">
+    <button type="button" class="mars-action secondary" data-clear-network>Clear network</button>
+    <button type="button" class="mars-action" data-check-network>Check network</button>
+    <p class="widget-feedback" data-network-feedback aria-live="polite">A useful network needs a relay path to Earth and links for the surface assets.</p>
+  </div>
+
+  <section class="position-check">
+    <p class="mars-kicker">POSITION CHECK</p>
+    <h5>Which rover location matches all three reference distances?</h5>
+    <p class="widget-instruction">This is a simplified three-reference geometric positioning model. No calculation is required.</p>
+    <div class="position-candidates">
+      <label><input type="radio" name="mars-position-candidate" value="A" /> <strong>A</strong> — close to Beacon 1, far from Beacons 2 and 3</label>
+      <label><input type="radio" name="mars-position-candidate" value="B" /> <strong>B</strong> — medium distance from Beacon 1, close to Beacon 2, medium distance from Beacon 3</label>
+      <label><input type="radio" name="mars-position-candidate" value="C" /> <strong>C</strong> — far from Beacon 1, medium distance from Beacon 2, close to Beacon 3</label>
+    </div>
+    <div class="position-clues">
+      <span>Beacon 1: medium distance</span><span>Beacon 2: close</span><span>Beacon 3: medium distance</span>
+    </div>
+    <button type="button" class="mars-action" data-check-position-network>Check position</button>
+    <p class="widget-feedback" data-network-position-feedback aria-live="polite"></p>
+  </section>
+
+  <label class="operate-reflection">Why can't Mars simply use Earth's GPS satellites?
+    <textarea rows="3" maxlength="220" data-network-reflection placeholder="Explain using location and infrastructure."></textarea>
+  </label>
+  <button type="button" class="mars-action" data-save-network>Save network review</button>
+  <p class="widget-feedback" data-network-save-feedback aria-live="polite"></p>
+</div>
+
+<script>
+  const NETWORK_KEY = 'mrjohn-mars-network-builder-v1';
+
+  document.querySelectorAll('[data-network-builder]').forEach((root) => {
+    const from = root.querySelector('[data-connection-from]');
+    const to = root.querySelector('[data-connection-to]');
+    const list = root.querySelector('[data-connection-list]');
+    const consequences = root.querySelector('[data-network-consequences]');
+    const feedback = root.querySelector('[data-network-feedback]');
+    const reflection = root.querySelector('[data-network-reflection]');
+    const saveFeedback = root.querySelector('[data-network-save-feedback]');
+    let connections = [];
+
+    const normalize = (a,b) => [a,b].sort().join(' ↔ ');
+
+    const render = () => {
+      list.innerHTML = connections.length ? connections.map((item) => '<li>' + item + '</li>').join('') : '<li>No connections yet.</li>';
+      const has = (a,b) => connections.includes(normalize(a,b));
+      const items = [];
+      if (!has('Earth','Relay Orbiter')) items.push('Earth has no relay path to the Mars network.');
+      else items.push('Relay Orbiter can exchange mission data with Earth.');
+      for (const asset of ['Habitat','Rover','Science Station']) {
+        if (!has(asset,'Relay Orbiter')) items.push(asset + ' lacks the main relay link.');
+      }
+      if (has('Habitat','Rover') || has('Habitat','Science Station')) items.push('At least one local surface-to-surface coordination link is available.');
+      consequences.innerHTML = items.map((item) => '<li>' + item + '</li>').join('');
+    };
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(NETWORK_KEY) || '{}');
+      if (Array.isArray(saved.connections)) connections = saved.connections;
+      if (saved.reflection) reflection.value = saved.reflection;
+      if (saved.position) {
+        const input = root.querySelector('input[name="mars-position-candidate"][value="' + saved.position + '"]');
+        if (input) input.checked = true;
+      }
+    } catch {}
+
+    root.querySelector('[data-add-connection]').addEventListener('click', () => {
+      if (from.value === to.value) {
+        feedback.textContent = 'Choose two different network nodes.';
+        return;
+      }
+      const connection = normalize(from.value,to.value);
+      if (!connections.includes(connection)) connections.push(connection);
+      feedback.textContent = 'Connection added. Check the consequences and keep building.';
+      render();
+    });
+
+    root.querySelector('[data-clear-network]').addEventListener('click', () => {
+      connections = [];
+      render();
+      feedback.textContent = 'Network cleared.';
+    });
+
+    root.querySelector('[data-check-network]').addEventListener('click', () => {
+      const required = [
+        normalize('Earth','Relay Orbiter'),
+        normalize('Relay Orbiter','Habitat'),
+        normalize('Relay Orbiter','Rover'),
+        normalize('Relay Orbiter','Science Station')
+      ];
+      const missing = required.filter((item) => !connections.includes(item));
+      feedback.textContent = missing.length
+        ? 'Your network still has ' + missing.length + ' major relay gap' + (missing.length === 1 ? '' : 's') + '. Read the consequence list and revise.'
+        : 'Your network provides a main relay path from all three surface assets to Earth. Local backup links may still improve resilience.';
+    });
+
+    root.querySelector('[data-check-position-network]').addEventListener('click', () => {
+      const selected = root.querySelector('input[name="mars-position-candidate"]:checked')?.value || '';
+      root.querySelector('[data-network-position-feedback]').textContent =
+        selected === 'B'
+          ? 'Position B matches all three reference clues.'
+          : selected
+            ? 'Compare all three clues. One location must fit every reference distance.'
+            : 'Choose a candidate location first.';
+    });
+
+    root.querySelector('[data-save-network]').addEventListener('click', () => {
+      const position = root.querySelector('input[name="mars-position-candidate"]:checked')?.value || '';
+      if (!connections.length || !position || !reflection.value.trim()) {
+        saveFeedback.textContent = 'Build the network, complete the position check, and explain the GPS limitation before saving.';
+        return;
+      }
+      localStorage.setItem(NETWORK_KEY, JSON.stringify({ connections, position, reflection: reflection.value.trim() }));
+      saveFeedback.textContent = 'Network review saved on this device.';
+    });
+
+    render();
+  });
+</script>
