@@ -18,25 +18,25 @@ export const marsStatuses = [
     id: 'demonstrated',
     label: 'Demonstrated',
     icon: '◆',
-    short: 'Strong evidence shows the capability works.'
+    short: 'Strong evidence shows this part of Mars readiness is well established.'
   },
   {
     id: 'developing',
     label: 'Developing',
     icon: '◒',
-    short: 'Important parts exist, but major work remains.'
+    short: 'Evidence is promising, but important gaps remain.'
   },
   {
     id: 'challenge',
     label: 'Major Challenge',
     icon: '▲',
-    short: 'A critical capability is not yet demonstrated at the needed scale.'
+    short: 'Evidence shows a major gap that must still be solved.'
   },
   {
     id: 'insufficient',
     label: 'Insufficient Evidence',
     icon: '○',
-    short: 'We do not yet have enough unit evidence to make a defensible call.'
+    short: 'We do not yet have enough evidence to make a defensible call.'
   }
 ] as const;
 
