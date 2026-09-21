@@ -1,0 +1,156 @@
+<div class="travel-widget orbit-model" data-orbit-model>
+  <div class="travel-widget-heading">
+    <div>
+      <p class="mars-kicker">CONCEPTUAL MODEL</p>
+      <h4>Predict Mars's future position</h4>
+    </div>
+    <span class="model-disclaimer">NOT TO SCALE</span>
+  </div>
+  <p class="widget-instruction">Move time forward. Then set the rust-coloured prediction marker where you think Mars will be before you reveal the model position.</p>
+
+  <div class="orbit-stage">
+    <svg viewBox="0 0 520 360" role="img" aria-labelledby="orbit-title orbit-desc">
+      <title id="orbit-title">Simplified top-down model of Earth and Mars orbiting the Sun</title>
+      <desc id="orbit-desc">Circular orbit paths are used to show that Earth and Mars move around the Sun at different rates. The model is conceptual and not to scale.</desc>
+      <circle class="orbit-path earth-path" cx="260" cy="180" r="92"></circle>
+      <circle class="orbit-path mars-path" cx="260" cy="180" r="142"></circle>
+      <circle class="sun-dot" cx="260" cy="180" r="18"></circle>
+      <text class="orbit-label sun-label" x="260" y="184" text-anchor="middle">SUN</text>
+      <g data-earth-marker>
+        <circle class="earth-dot" r="10"></circle>
+        <text class="orbit-label" x="14" y="-13">EARTH</text>
+      </g>
+      <g data-mars-now-marker>
+        <circle class="mars-dot" r="10"></circle>
+        <text class="orbit-label" x="14" y="-13">MARS // DAY 0</text>
+      </g>
+      <g data-prediction-marker>
+        <circle class="prediction-ring" r="13"></circle>
+        <text class="orbit-label prediction-label" x="16" y="19">YOUR PREDICTION</text>
+      </g>
+      <g data-mars-future-marker hidden>
+        <circle class="mars-future-dot" r="8"></circle>
+        <text class="orbit-label future-label" x="13" y="-11">MODEL POSITION</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="orbit-controls">
+    <label>
+      Mission day
+      <input type="range" min="60" max="300" step="30" value="180" data-mission-day />
+      <output data-day-output>Day 180</output>
+    </label>
+
+    <label>
+      Your predicted Mars angle
+      <input type="range" min="0" max="330" step="30" value="120" data-prediction-angle />
+      <output data-angle-output>120°</output>
+    </label>
+  </div>
+
+  <div class="widget-actions">
+    <button class="mars-action" type="button" data-check-orbit>Reveal model position</button>
+    <button class="mars-action secondary" type="button" data-reset-orbit>Try another day</button>
+    <p class="widget-feedback" data-orbit-feedback aria-live="polite">Predict first. Then reveal the model position.</p>
+  </div>
+
+  <div class="transfer-check">
+    <strong>Transfer the idea</strong>
+    <p>To predict an eclipse or possible collision, scientists need evidence about an object's <b>position</b>, <b>motion/direction</b>, and <b>time</b>.</p>
+  </div>
+</div>
+
+<script>
+  const ORBIT_KEY = 'mrjohn-mars-orbit-model-v1';
+
+  document.querySelectorAll('[data-orbit-model]').forEach((root) => {
+    const dayInput = root.querySelector('[data-mission-day]');
+    const predictionInput = root.querySelector('[data-prediction-angle]');
+    const dayOutput = root.querySelector('[data-day-output]');
+    const angleOutput = root.querySelector('[data-angle-output]');
+    const earthMarker = root.querySelector('[data-earth-marker]');
+    const marsNowMarker = root.querySelector('[data-mars-now-marker]');
+    const predictionMarker = root.querySelector('[data-prediction-marker]');
+    const futureMarker = root.querySelector('[data-mars-future-marker]');
+    const feedback = root.querySelector('[data-orbit-feedback]');
+
+    const cx = 260;
+    const cy = 180;
+    const earthR = 92;
+    const marsR = 142;
+    const startMars = 45;
+
+    const point = (radius, degrees) => {
+      const radians = (degrees - 90) * Math.PI / 180;
+      return { x: cx + Math.cos(radians) * radius, y: cy + Math.sin(radians) * radius };
+    };
+
+    const setMarker = (node, radius, degrees) => {
+      const p = point(radius, degrees);
+      node.setAttribute('transform', 'translate(' + p.x.toFixed(2) + ' ' + p.y.toFixed(2) + ')');
+    };
+
+    const futureMarsAngle = (day) => (startMars + (day / 687) * 360) % 360;
+    const earthAngle = (day) => (day / 365) * 360 % 360;
+
+    const hideFuture = () => {
+      futureMarker.hidden = true;
+      feedback.textContent = 'Predict first. Then reveal the model position.';
+    };
+
+    const render = () => {
+      const day = Number(dayInput.value);
+      const prediction = Number(predictionInput.value);
+      dayOutput.textContent = 'Day ' + day;
+      angleOutput.textContent = prediction + '°';
+      setMarker(earthMarker, earthR, earthAngle(day));
+      setMarker(marsNowMarker, marsR, startMars);
+      setMarker(predictionMarker, marsR, prediction);
+      setMarker(futureMarker, marsR, futureMarsAngle(day));
+    };
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(ORBIT_KEY) || '{}');
+      if (saved.day) dayInput.value = saved.day;
+      if (saved.prediction !== undefined) predictionInput.value = saved.prediction;
+    } catch {}
+
+    dayInput.addEventListener('input', () => {
+      hideFuture();
+      render();
+    });
+
+    predictionInput.addEventListener('input', () => {
+      hideFuture();
+      render();
+    });
+
+    root.querySelector('[data-check-orbit]').addEventListener('click', () => {
+      const day = Number(dayInput.value);
+      const prediction = Number(predictionInput.value);
+      const actual = futureMarsAngle(day);
+      let difference = Math.abs(prediction - actual);
+      difference = Math.min(difference, 360 - difference);
+      futureMarker.hidden = false;
+      localStorage.setItem(ORBIT_KEY, JSON.stringify({ day, prediction }));
+
+      if (difference <= 30) {
+        feedback.textContent = 'Your prediction is close to the model position. The important idea is that Mars moved while the mission was travelling.';
+      } else {
+        feedback.textContent = 'Compare your marker with the model position. Mars keeps moving during the trip, so aiming at its launch-day position would miss the target.';
+      }
+    });
+
+    root.querySelector('[data-reset-orbit]').addEventListener('click', () => {
+      const days = [120, 180, 240, 300];
+      const current = Number(dayInput.value);
+      dayInput.value = String(days[(days.indexOf(current) + 1) % days.length] || 180);
+      predictionInput.value = '120';
+      hideFuture();
+      render();
+    });
+
+    render();
+  });
+</script>
