@@ -1618,3 +1618,34 @@
   .crisis-meter { grid-template-columns: 1fr; }
   .crisis-meter strong { justify-self: start; }
 }
+
+
+/* Whole-unit release correction: artificial-satellite development sequence */
+.satellite-development {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: .45rem;
+  margin-top: .65rem;
+}
+.satellite-development > div {
+  min-width: 0;
+  padding: .6rem;
+  border: 1px solid #c3c9cc;
+  border-radius: 7px;
+  background: #faf9f6;
+}
+.satellite-development span {
+  display: block;
+  color: var(--mars-blue);
+  font: 800 .6rem 'IBM Plex Mono', monospace;
+}
+.satellite-development strong {
+  display: block;
+  margin-top: .25rem;
+  color: #38444b;
+  font-size: .78rem;
+  line-height: 1.35;
+}
+@media (max-width: 680px) {
+  .satellite-development { grid-template-columns: 1fr; }
+}
