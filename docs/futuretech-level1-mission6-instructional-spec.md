@@ -1130,13 +1130,15 @@ The Mission 6 production fleet is:
 
 - **E3-01** — original Creality Ender-3; normal Level 1 PLA production;
 - **E3-02** — original Creality Ender-3; normal Level 1 PLA production;
-- **ART-01** — Snapmaker Artisan 3-in-1 with enclosure; overflow, batch, teacher-priority and future advanced-fabrication capacity.
+- **ART-01** — Snapmaker Artisan 3-in-1 with enclosure; **advanced fabrication platform**, normally reserved from routine Level 1 beginner printing.
 
 Manufacturer-verified capacity comfortably exceeds the frozen Mission 6 Maker Tag envelope on all three machines. The Ender-3 platform is 220 × 220 × 250 mm, while the Artisan provides a substantially larger 3D-printing work area.
 
 Therefore the existing **60 × 40 × 8 mm** Maker Tag limit remains a classroom queue / beginner-printability limit rather than a machine-capacity limit.
 
 Use **PLA** as the default Mission 6 material.
+
+Route routine beginner Mission 6 prints to **E3-01 / E3-02**. Do not automatically move Level 1 jobs to ART-01 when the Ender-3 queue is busy.
 
 Do not encourage larger Level 1 designs because ART-01 has more capacity.
 
