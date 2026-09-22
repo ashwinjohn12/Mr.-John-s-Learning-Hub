@@ -10,10 +10,10 @@ interface Props {
   nextTitle?:string;
   nextHref?:string;
   try4Text?:string;
+  stages?:string[];
 }
-const {missionNumber,title,tagline,question,success,nextTitle,nextHref,try4Text='Check → Simulate → Download → Partner'}=Astro.props;
+const {missionNumber,title,tagline,question,success,nextTitle,nextHref,try4Text='Check → Simulate → Download → Partner',stages=['Set Up','First Code','Make It React','Build It','Level It Up','Checkpoint']}=Astro.props;
 const base=import.meta.env.BASE_URL;
-const stages=['Set Up','First Code','Make It React','Build It','Level It Up','Checkpoint'];
 ---
 <BaseLayout title={`Mission ${missionNumber}: ${title} | FutureTech Lab`} description={success} themeColor="#5b21b6">
   <div class="ft-mission">
