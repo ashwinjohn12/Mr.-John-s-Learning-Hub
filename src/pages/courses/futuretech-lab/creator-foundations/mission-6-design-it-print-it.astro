@@ -1,0 +1,210 @@
+---
+import FutureTechMissionFrame from '../../../../components/FutureTechMissionFrame.astro';
+---
+<FutureTechMissionFrame
+  missionNumber="6"
+  title="Design It. Print It."
+  tagline="Turn simple shapes into a real object you could manufacture."
+  question="How can I turn simple 3D shapes into a useful design that is ready for a 3D printer?"
+  success="I can build a small 3D design with exact dimensions, align and group shapes, cut a hole, check basic printability, and prepare the file for the class print queue."
+  try4Text="Check → View → Undo / Retry → Partner"
+>
+  <div class="cad-flow" aria-label="CAD mission workflow">
+    <span>SHAPES</span><b>→</b><span>SIZE</span><b>→</b><span>ALIGN</span><b>→</b><span>COMBINE / CUT</span><b>→</b><span>CHECK</span><b>→</b><span>EXPORT</span>
+  </div>
+  <p class="flow-note"><b>Same FutureTech workflow. New tool.</b> You are still designing, testing, improving and explaining.</p>
+  <div class="fab-flow" aria-label="CAD to fabrication flow"><span>CAD MODEL</span><b>→</b><span>STL FILE</span><b>→</b><span>PRINT QUEUE</span><b>→</b><span>3D PRINTER</span></div>
+  <p class="flow-note">Your checkpoint proves the design skill. Printing happens later when printer time is available.</p>
+
+  <section id="stage-1" class="stage">
+    <div class="stage-head"><span class="stage-number">01</span><div><p class="stage-kicker">NEW WORKSPACE</p><h2 class="stage-title">Set Up</h2></div></div>
+    <p class="intro">Tinkercad is a new tool, but you do not need to learn every button. Start with the few parts of the workspace you will use today.</p>
+    <div class="check-list"><span>☐ Computer</span><span>☐ Mouse if available</span><span>☐ Tinkercad 3D Design access</span><span>☐ Mission page</span><span>☐ Teacher-provided print-queue location</span></div>
+    <p class="mini-note">No micro:bit or Hummingbird hardware is needed for this mission.</p>
+    <p class="success"><b>Individual mission:</b> build, check, and explain your own CAD model. A nearby student may help you locate a tool during TRY 4, but your design and checkpoint are your own.</p>
+
+    <div class="name-card"><strong>NAME YOUR DESIGN FIRST</strong><p>Start with <code>FirstName_L1_M6</code>. When you begin the final Maker Tag, rename it <code>FirstName_L1_M6_MakerTag</code>.</p></div>
+
+    <p class="mini-label">Tinkercad 3D Design workspace map</p>
+    <div class="workspace-map" role="img" aria-label="Simplified Tinkercad workspace showing Workplane, Basic Shapes, selected shape and dimensions, view controls, Undo, and later landmarks Align, Group, height handle, and Export.">
+      <div class="toolbar"><span class="tool undo">↶ <b>UNDO</b></span><span class="tool later">ALIGN</span><span class="tool later">GROUP</span><span class="tool later export">EXPORT</span></div>
+      <div class="work-area">
+        <div class="view-cube">VIEW<br/>CUBE</div>
+        <div class="selected-shape"><span class="height-handle later">↥</span><div class="cad-box"></div><span class="dim dim-w">WIDTH</span><span class="dim dim-l">LENGTH</span><span class="dim dim-h">HEIGHT</span></div>
+        <span class="workplane-label">WORKPLANE</span>
+      </div>
+      <aside class="shape-panel"><strong>BASIC SHAPES</strong><span>Box</span><span>Cylinder</span><span>...</span></aside>
+    </div>
+
+    <div class="find-grid"><article class="find-now"><strong>FIND NOW</strong><p>Workplane · Basic Shapes · selected shape · size handles / dimensions · view cube / view controls · Undo</p></article><article class="find-later"><strong>FIND LATER</strong><p>Height handle · Align · Group · Export</p></article></div>
+    <p class="concept">You only need the <b>FIND NOW</b> tools in Stage 1. The other labels are landmarks for later.</p>
+
+    <div class="tool-finder"><span><b>Basic Shapes</b> → Box</span><span><b>Workplane</b></span><span><b>Orbit</b></span><span><b>Zoom</b></span><span><b>Undo</b></span></div>
+
+    <div class="step-grid">
+      <article class="step-card"><strong>1 — PLACE</strong><p>Drag one <b>Box</b> onto the Workplane.</p></article>
+      <article class="step-card"><strong>2 — ORBIT</strong><p>Rotate the view until you can see the top and two sides.</p></article>
+      <article class="step-card"><strong>3 — ZOOM</strong><p>Move closer without changing the Box.</p></article>
+      <article class="step-card"><strong>4 — SELECT</strong><p>Click the Box.</p></article>
+      <article class="step-card"><strong>5 — MOVE</strong><p>Move the Box a short distance.</p></article>
+      <article class="step-card"><strong>6 — UNDO</strong><p>Undo the move.</p></article>
+    </div>
+    <p class="warning"><b>VIEW ≠ EDIT:</b> if the shape changes size while you are trying to look around it, Undo and try the view control again.</p>
+    <p class="success">✓ <b>You are ready when:</b> you can find the Workplane, place a Box, orbit around it, select it, move it, and Undo the move.</p>
+  </section>
+
+  <section id="stage-2" class="stage">
+    <div class="stage-head"><span class="stage-number">02</span><div><p class="stage-kicker">FIRST 3D BUILD</p><h2 class="stage-title">First Code — Build to an Exact Size</h2></div></div>
+    <p class="concept"><b>No coding in this mission.</b> In CAD, your first “instructions” are shapes and dimensions.</p>
+    <p class="intro">A model that only looks right may still print at the wrong size. CAD lets you design with exact measurements.</p>
+
+    <div class="tool-finder"><span><b>Basic Shapes</b> → Box</span><span><b>Select shape</b> → dimension values</span><span><b>Ruler</b> → optional helper</span><span><b>Undo</b></span></div>
+
+    <div class="dimension-visual" aria-label="Exact dimensions model showing a box with width 40 millimetres, length 20 millimetres and height 4 millimetres">
+      <div class="iso-box"></div>
+      <span class="axis axis-w"><b>WIDTH · 40 mm</b><small>side to side</small></span>
+      <span class="axis axis-l"><b>LENGTH · 20 mm</b><small>front to back</small></span>
+      <span class="axis axis-h"><b>HEIGHT · 4 mm</b><small>up and down</small></span>
+    </div>
+    <p class="concept"><b>Orbit changes your view, not the object's dimensions.</b> Width, length and height stay the same even when the model looks rotated on screen.</p>
+    <div class="exact-strip"><span><b>DRAG A HANDLE</b><small>≈ approximate</small></span><span><b>TYPE A NUMBER</b><small>= exact</small></span></div>
+    <p class="mini-note"><b>Dimensions</b> are the measurements of your object. In this mission we use millimetres (mm).</p>
+
+    <div class="step-grid">
+      <article class="step-card"><strong>Set the Box</strong><p>Width <b>40 mm</b> · Length <b>20 mm</b> · Height <b>4 mm</b>.</p></article>
+      <article class="step-card"><strong>Change one thing</strong><p>Change either width or length on purpose. Observe the result, then return to <b>40 × 20 × 4 mm</b>.</p></article>
+    </div>
+    <p class="warning"><b>MODEL LOOKS RIGHT BUT SIZE IS WRONG?</b> Select the Box and read the actual dimension values. Do not judge size only by how large it looks on screen.</p>
+    <p class="success">✓ Your Box measures <b>40 mm × 20 mm × 4 mm</b> and sits flat on the Workplane.</p>
+  </section>
+
+  <section id="stage-3" class="stage">
+    <div class="stage-head"><span class="stage-number">03</span><div><p class="stage-kicker">COMBINE + CUT</p><h2 class="stage-title">Make It React — Align, Group & Hole</h2></div></div>
+    <p class="intro">In CAD, shapes “react” to each other when you line them up, combine them, or subtract one from another.</p>
+
+    <div class="relationship-routes">
+      <article><strong>JOIN SOLIDS</strong><p>OVERLAP → ALIGN → SELECT BOTH → GROUP</p></article>
+      <article><strong>CUT MATERIAL</strong><p>SET SHAPE TO HOLE → OVERLAP → SELECT BOTH → GROUP → CUT</p></article>
+    </div>
+    <div class="concept-pairs"><span><b>ALIGN</b> line shapes up accurately</span><span><b>GROUP</b> applies the relationship between selected shapes</span><span><b>SOLID + SOLID</b> Group joins</span><span><b>SOLID + HOLE</b> Group cuts</span></div>
+    <p class="concept"><b>Group does different things depending on what you selected:</b> Solid + Solid joins; Solid + Hole cuts.</p>
+
+    <div class="tool-finder"><span><b>Basic Shapes</b> → Box</span><span><b>Basic Shapes</b> → Cylinder</span><span><b>Shape panel</b> → Solid / Hole</span><span><b>Select 2+ shapes</b> → Align</span><span><b>Select 2+ shapes</b> → Group</span><span><b>Ungroup</b> → repair</span><span><b>Undo</b> → repair</span></div>
+
+    <div class="step-grid">
+      <article class="step-card"><strong>A — Align + Group</strong><p>Add a second solid. Overlap it with the Box. Select both. Use <b>Align</b>. Confirm the solids overlap, then <b>Group</b> and orbit around the combined part.</p></article>
+      <article class="step-card"><strong>B — Cut a Hole</strong><p>Add a Cylinder. Change it to <b>Hole</b>. Make it pass completely through the practice solid. Select both, <b>Group</b>, then inspect from underneath.</p></article>
+    </div>
+
+    <div class="cad-operation" aria-label="Align Group and Hole visual model">
+      <section><strong>ALIGN + GROUP</strong><div class="op-row"><span class="shape-block mis">TWO SOLIDS<br/>MISALIGNED</span><b>→ ALIGN →</b><span class="shape-block">LINED UP</span><b>→ GROUP →</b><span class="shape-block good">ONE PART</span></div></section>
+      <section><strong>CUT WITH A HOLE</strong><div class="op-row"><span class="shape-block">SOLID + HOLE<br/>OVERLAP</span><b>→ SELECT BOTH + GROUP →</b><span class="shape-block cut">MATERIAL REMOVED</span></div></section>
+    </div>
+    <div class="rule-pair"><span><b>Solid + Solid + Group</b><small>= one combined part</small></span><span><b>Solid + Hole + Group</b><small>= material removed where they overlap</small></span></div>
+
+    <div class="bug-strip"><span><b>ONE SHAPE SELECTED?</b> Group needs both.</span><span><b>HOLE TOO SHORT?</b> Make it pass through.</span><span><b>JUST TOUCHING?</b> Solids should overlap.</span><span><b>MODEL FLOATING?</b> Return the base to the Workplane.</span><span><b>WRONG EDIT?</b> Undo, inspect, retry.</span></div>
+    <p class="success">✓ You can align two shapes, group solids, cut a real through-hole, and inspect the result from more than one angle.</p>
+  </section>
+
+  <section id="stage-4" class="stage">
+    <div class="stage-head"><span class="stage-number">04</span><div><p class="stage-kicker">YOUR 3D DESIGN</p><h2 class="stage-title">Build It — Maker Tag</h2></div></div>
+    <p class="intro">Design a small personalized tag that could be attached to a backpack, key ring, zipper, equipment bin, or classroom tool.</p>
+    <p class="boundary-note">Your goal is a <b>simple, accurate, printable object</b> — not the most complicated object you can make.</p>
+
+    <div class="limits-card"><strong>LEVEL 1 PRINT-QUEUE LIMITS</strong><div><span><b>MAX FOOTPRINT</b><small>60 mm × 40 mm</small></span><span><b>MAX HEIGHT</b><small>8 mm</small></span><span><b>BASE THICKNESS</b><small>at least 3 mm</small></span><span><b>THROUGH-HOLE</b><small>target 5 mm or larger</small></span></div><p><b>Before Ready-for-Check:</b> select the finished tag and verify its overall size against all four limits.</p><small>These are classroom Mission 6 limits to keep designs sturdy and the print queue manageable. They are not universal 3D-printing rules.</small></div>
+
+    <div class="planning-grid"><article><strong>PURPOSE</strong><p>What will your tag be used for?</p></article><article><strong>SIZE</strong><p>What dimensions will keep it useful and inside the limits?</p></article><article><strong>PERSONALIZE</strong><p>What initials, text, symbol or pattern will make it yours?</p></article><article><strong>HOLE / ATTACHMENT</strong><p>Where should the through-hole go so the tag can actually be attached?</p></article></div>
+
+    <p class="mini-label">Need a theme?</p>
+    <div class="idea-grid"><span>🎒 <b>Backpack Tag</b></span><span>🔑 <b>Key Tag</b></span><span>🧰 <b>Equipment Tag</b></span><span>🚪 <b>Locker Tag</b></span><span>◆ <b>Team Symbol</b></span><span>⚙ <b>Maker Badge</b></span></div>
+
+    <div class="check-list"><span>☐ One flat printable base</span><span>☐ Footprint ≤ <b>60 × 40 mm</b></span><span>☐ Height ≤ <b>8 mm</b></span><span>☐ Base thickness ≥ <b>3 mm</b></span><span>☐ At least two solid shapes used intentionally</span><span>☐ At least one <b>Align</b></span><span>☐ At least one <b>Group</b></span><span>☐ One real through-hole made with a Hole shape</span><span>☐ Hole target ≥ <b>5 mm</b></span><span>☐ One personalized feature</span><span>☐ No required floating parts</span><span>☐ One broad flat face on the Workplane</span><span>☐ Model inspected from more than one angle</span><span>☐ I can explain why my design should be printable</span></div>
+
+    <div class="printability" aria-label="Beginner printability comparison">
+      <article class="printable"><strong>PRINTABLE</strong><span><b>FLAT</b><small>broad base on Workplane</small></span><span><b>CONNECTED</b><small>solid pieces overlap</small></span><span><b>THICK ENOUGH</b><small>base ≥ 3 mm</small></span><span><b>HOLE CLEAR</b><small>passes completely through</small></span></article>
+      <article class="check-again"><strong>CHECK AGAIN</strong><span><b>FLOATING PART</b></span><span><b>PAPER-THIN FEATURE</b></span><span><b>BLIND / INCOMPLETE HOLE</b></span><span><b>UNSUPPORTED SHELF / EXTREME OVERHANG</b></span></article>
+    </div>
+    <div class="print-check"><span>FLAT?</span><b>→</b><span>CONNECTED?</span><b>→</b><span>THICK?</span><b>→</b><span>HOLE CLEAR?</span><b>→</b><span>SIZE OK?</span><b>→</b><span>NO FLOATERS?</span></div>
+    <p class="concept"><b>Your tag should not look like the practice pieces.</b> You choose the base shape, dimensions, hole location, personalization, and arrangement.</p>
+    <p class="success">✓ <b>Build It is ready when:</b> your tag fits the size rules, contains a real through-hole, has no floating required parts, includes your own design choices, and you can explain why it should be printable.</p>
+
+    <div class="try4"><strong>STUCK? TRY 4</strong><p><b>1 CHECK</b> — check what is selected before clicking another tool, then check dimensions, Solid vs Hole, overlap, and Workplane contact. <b>2 VIEW</b> — orbit, zoom, and inspect top, side, and underside. <b>3 UNDO / RETRY</b> — undo the last incorrect change and retry deliberately. <b>4 PARTNER</b> — explain what you wanted the model to do and what happened instead.</p><p>Still stuck? Ask for help and say what you <b>checked, viewed, and retried</b>.</p></div>
+    <p class="warning"><b>Do not export a broken design and hope the printer fixes it.</b></p>
+
+    <div class="bug-grid"><article><strong>HOLE DISAPPEARED?</strong><p>Check that the cutting shape was set to <b>Hole</b> before Group.</p></article><article><strong>HOLE DID NOT CUT THROUGH?</strong><p>Inspect from the side and make the Hole taller than the base.</p></article><article><strong>GROUP DID NOTHING?</strong><p>Confirm both shapes are selected.</p></article><article><strong>PART LOOKS CONNECTED BUT ISN'T?</strong><p>Orbit around it and confirm the solids overlap.</p></article><article><strong>OBJECT IS FLOATING?</strong><p>Return the required base to the Workplane.</p></article></div>
+  </section>
+
+  <section id="stage-5" class="stage">
+    <div class="stage-head"><span class="stage-number">05</span><div><p class="stage-kicker">OPTIONAL CHALLENGE</p><h2 class="stage-title">Level It Up</h2></div></div>
+    <p class="intro">Only after your Maker Tag passes the required checklist. Choose <b>one</b> while you wait for your checkpoint.</p>
+    <div class="level-grid">
+      <article class="level-card"><strong>⭐ Raised Name / Initials</strong><p>Add short raised text or initials. Keep the lettering thick and readable. If Text is unavailable or slow, use a simple raised symbol or primitive-shape pattern instead.</p></article>
+      <article class="level-card"><strong>⭐ Recessed Detail</strong><p>Use Text or a simple shape as a Hole to create a recessed feature without cutting through the whole base.</p></article>
+      <article class="level-card"><strong>⭐⭐ Border / Pattern</strong><p>Use Duplicate and Align to create a small repeated geometric pattern. Keep it simple.</p></article>
+      <article class="level-card"><strong>⭐⭐ Shape Remix</strong><p>Replace the simple rectangular base with a custom outline made from 2–4 overlapping primitive shapes while staying inside the same size limits.</p></article>
+    </div>
+    <p class="warning"><b>MISSION 6 LIMIT:</b> no articulated models, gears, threads, complex hinges, downloaded meshes, giant prints, or multi-part assemblies.</p>
+    <p class="success">When every Maker Tag requirement is complete and your printability check passes, add your name to <b>Ready-for-Check</b>.</p>
+  </section>
+
+  <section id="stage-6" class="stage checkpoint">
+    <div class="stage-head"><span class="stage-number">06</span><div><p class="stage-kicker">SHOW WHAT YOU KNOW</p><h2 class="stage-title">Checkpoint</h2></div></div>
+    <p class="intro">Bring your <b>digital Tinkercad model</b> when you are called. You do not need a finished physical print. The checkpoint is individual.</p>
+    <div class="step-grid">
+      <article class="step-card"><strong>Check 1 — Inspect the Model</strong><p>Orbit around it, show the base, show the through-hole, show exact dimensions, and confirm the model sits on the Workplane.</p></article>
+      <article class="step-card"><strong>Check 2 — Explain the Design</strong><p>Explain which primitive shapes you used, why Align was useful, what Group did with two solids, what Group did with Solid + Hole, why the model should be printable, and one personal design choice.</p></article>
+      <article class="step-card"><strong>Check 3 — Change It</strong><p>Make one teacher-chosen edit. Then <b>PREDICT → CHANGE → ORBIT / CHECK → EXPLAIN</b>. Restore a valid print-ready state before export.</p></article>
+      <article class="step-card"><strong>After Your Check</strong><p><b>MISSION COMPLETE</b> · <b>RETRY ONE SKILL</b> · <b>SUPPORT ROUTE</b></p></article>
+    </div>
+    <p class="success"><b>A printer being busy does not affect your checkpoint result.</b> Mission 6 mastery is about your CAD design.</p>
+  </section>
+
+  <section class="stage passport">
+    <div class="stage-head"><span class="stage-number">✓</span><div><p class="stage-kicker">SKILL PASSPORT</p><h2 class="stage-title">Mission 6 Skills</h2></div></div>
+    <div class="check-list"><span>☐ I can navigate a 3D workspace.</span><span>☐ I can create and resize primitive shapes.</span><span>☐ I can use exact dimensions in millimetres.</span><span>☐ I can move and align shapes accurately.</span><span>☐ I can group shapes into one part.</span><span>☐ I can use a Hole shape to remove material.</span><span>☐ I can check basic printability.</span><span>☐ I can prepare and submit a 3D model for the class print queue.</span><span>☐ I can change, inspect and explain my CAD design independently.</span></div>
+  </section>
+
+  <section class="stage export-stage">
+    <div class="stage-head"><span class="stage-number">⇩</span><div><p class="stage-kicker">CHECKPOINT COMPLETE?</p><h2 class="stage-title">Prepare Your Print File</h2></div></div>
+    <div class="export-flow"><span>BUILD</span><b>→</b><span>PRINTABILITY CHECK</span><b>→</b><span>READY-FOR-CHECK</span><b>→</b><span>CHECKPOINT</span><b>→</b><span>EXPORT</span><b>→</b><span>SUBMIT</span></div>
+    <p class="warning"><b>Only export the approved final model.</b></p>
+
+    <div class="export-check"><strong>EXPORT CHECK</strong><span>☐ Only the intended Maker Tag remains in the design area</span><span>☐ No abandoned practice Box / Cylinder is sitting off to the side</span><span>☐ Tag still meets size and printability checks</span><span>☐ Through-hole is still open</span><span>☐ Design name is <code>FirstName_L1_M6_MakerTag</code></span></div>
+    <p class="concept">The STL should contain the approved object, not leftover practice shapes.</p>
+
+    <div class="step-grid">
+      <article class="step-card"><strong>1 — Export</strong><p>Choose <b>Export</b>, then choose <b>STL / .STL</b> for the approved final model.</p></article>
+      <article class="step-card"><strong>2 — File name</strong><p>Target file: <code>FirstName_L1_M6_MakerTag.stl</code>. Rename it before submission when practical if your browser gives it a different name.</p></article>
+      <article class="step-card"><strong>3 — Submit</strong><p>Upload the approved STL to the class location your teacher gives you.</p></article>
+      <article class="step-card"><strong>4 — Wait for manufacturing</strong><p>Submitting the STL does not mean it prints immediately.</p></article>
+    </div>
+
+    <p class="queue-separation"><b>READY-FOR-CHECK</b> is the student mastery queue. <b>PRINT QUEUE</b> is the teacher manufacturing queue. They are not the same list.</p>
+    <div class="queue-flow"><span><b>DESIGNING</b><small>still working</small></span><span><b>READY FOR CHECK</b><small>waiting for checkpoint</small></span><span><b>APPROVED FOR EXPORT</b><small>checkpoint passed</small></span><span><b>SUBMITTED</b><small>STL uploaded</small></span><span><b>QUEUED</b><small>accepted for printer time</small></span><span><b>PRINTED</b><small>object manufactured</small></span><span><b>NEEDS REVISION</b><small>design issue found</small></span></div>
+    <p class="success"><b>One Mission 6 print candidate per student.</b> A physical print is not required to finish Mission 6.</p>
+    <p class="mini-note">Your teacher handles slicing, printer assignment, orientation changes, supports, layer height, infill, and material settings in Mission 6.</p>
+  </section>
+
+  <section class="stage reset">
+    <div class="stage-head"><span class="stage-number">↺</span><div><p class="stage-kicker">LEAVE IT READY</p><h2 class="stage-title">Reset</h2></div></div>
+    <div class="check-list"><span>☐ Tinkercad design named correctly</span><span>☐ Latest design saved in Tinkercad</span><span>☐ STL exported only after approval</span><span>☐ STL submitted if approved</span><span>☐ Duplicate downloads cleaned up if your teacher asks</span><span>☐ Mouse / computer area left ready</span><span>☐ Shared measurement / reference tools returned</span><span>☐ Print-queue status updated if used</span><span>☐ Passport / progress updated</span></div>
+    <p class="concept">Exit question: What design choice made your object more printable, accurate, or useful?</p>
+  </section>
+</FutureTechMissionFrame>
+
+<style is:global>
+.mission-body{grid-template-columns:minmax(0,1fr)}
+.cad-flow,.fab-flow,.export-flow,.print-check{display:flex;justify-content:center;gap:.42rem;align-items:center;flex-wrap:wrap;padding:.6rem;border-radius:11px;background:#f5f3ff;border:1px solid #ddd6fe}.cad-flow span,.fab-flow span,.export-flow span,.print-check span{padding:.31rem .48rem;border-radius:999px;background:#fff;color:#5b21b6;font-size:.7rem;font-weight:900}.cad-flow b,.fab-flow b,.export-flow b,.print-check b{color:#7c3aed}.flow-note{text-align:center;margin:.35rem 0 .75rem;color:#667085;font-size:.84rem;font-weight:700}
+.name-card{display:grid;gap:.25rem;margin:.65rem 0;padding:.72rem .8rem;border-radius:12px;background:#eff6ff;border:1px solid #bfdbfe}.name-card strong{color:#1d4ed8;font-size:.75rem;letter-spacing:.06em}.name-card p{margin:0;color:#52647d}.name-card code,.export-check code{font-weight:850;color:#5b21b6;background:#ede9fe;padding:.08rem .28rem;border-radius:5px;overflow-wrap:anywhere}
+.workspace-map{display:grid;grid-template-columns:1fr 190px;grid-template-rows:auto 260px;gap:.45rem;margin:.7rem 0;padding:.6rem;border-radius:16px;background:#eef2ff;border:1px solid #c7d2fe}.toolbar{grid-column:1/-1;display:flex;gap:.35rem;align-items:center;padding:.45rem;border-radius:10px;background:#111827}.tool{padding:.34rem .48rem;border-radius:7px;background:#f8fafc;color:#172033;font-size:.68rem;font-weight:900}.tool.later{opacity:.68}.tool.export{margin-left:auto}.work-area{position:relative;overflow:hidden;border-radius:12px;background:linear-gradient(135deg,#dbeafe,#f8fafc);border:1px solid #cbd5e1}.work-area:before{content:"";position:absolute;inset:48% -10% -30% -10%;background:repeating-linear-gradient(0deg,rgba(71,85,105,.13) 0 1px,transparent 1px 20px),repeating-linear-gradient(90deg,rgba(71,85,105,.13) 0 1px,transparent 1px 20px);transform:perspective(500px) rotateX(58deg);transform-origin:top}.view-cube{position:absolute;top:.65rem;left:.65rem;padding:.45rem;border-radius:8px;background:#fff;color:#475569;border:1px solid #cbd5e1;font-size:.65rem;font-weight:900;text-align:center}.selected-shape{position:absolute;left:50%;top:52%;width:130px;height:86px;transform:translate(-50%,-50%)}.cad-box{position:absolute;inset:18px 14px 12px 14px;border-radius:4px;background:linear-gradient(145deg,#7dd3fc,#0ea5e9);border:2px solid #0369a1;box-shadow:12px 10px 0 #0284c7}.height-handle{position:absolute;top:-6px;left:50%;font-weight:900;color:#5b21b6}.dim{position:absolute;padding:.14rem .28rem;border-radius:5px;background:#fff;color:#334155;font-size:.58rem;font-weight:900}.dim-w{bottom:-8px;left:10px}.dim-l{right:-26px;bottom:18px}.dim-h{right:-20px;top:8px}.workplane-label{position:absolute;left:.65rem;bottom:.55rem;color:#475569;font-size:.65rem;font-weight:900}.shape-panel{display:grid;align-content:start;gap:.4rem;padding:.6rem;border-radius:12px;background:#fff;border:1px solid #cbd5e1}.shape-panel strong{color:#172033;font-size:.72rem}.shape-panel span{padding:.55rem;border-radius:8px;background:#f8fafc;border:1px solid #e2e8f0;color:#475569;font-size:.76rem}.find-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:.5rem}.find-grid article{padding:.65rem;border-radius:11px;border:1px solid}.find-grid strong{font-size:.72rem;letter-spacing:.06em}.find-grid p{margin:.2rem 0 0;font-size:.83rem;line-height:1.45}.find-now{background:#f0fdf4;border-color:#bbf7d0!important}.find-now strong{color:#166534}.find-later{background:#f8fafc;border-color:#e2e8f0!important}.find-later strong{color:#64748b}
+.tool-finder{display:flex;gap:.38rem;flex-wrap:wrap;margin:.65rem 0}.tool-finder span{padding:.34rem .5rem;border:1px solid #dbe3ef;border-radius:999px;background:#fff;color:#52617a;font-size:.7rem;font-weight:750}.tool-finder b{color:#5b21b6}
+.dimension-visual{position:relative;min-height:210px;margin:.65rem 0;border-radius:14px;background:linear-gradient(135deg,#f8fafc,#eef2ff);border:1px solid #dbe3ef}.iso-box{position:absolute;left:50%;top:51%;width:150px;height:80px;transform:translate(-50%,-50%) skewY(-8deg);border-radius:5px;background:#7dd3fc;border:2px solid #0369a1;box-shadow:20px -12px 0 #bae6fd,20px -12px 0 2px #0369a1}.axis{position:absolute;display:grid;gap:.1rem;padding:.42rem .5rem;border-radius:9px;background:#fff;border:1px solid #cbd5e1}.axis b{font-size:.73rem;color:#172033}.axis small{color:#64748b}.axis-w{left:6%;bottom:14%}.axis-l{right:5%;bottom:14%}.axis-h{right:7%;top:12%}.exact-strip{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.55rem 0}.exact-strip span{display:grid;justify-items:center;padding:.6rem;border-radius:10px;background:#f5f3ff;border:1px solid #ddd6fe}.exact-strip b{color:#5b21b6;font-size:.72rem}.exact-strip small{color:#64748b}
+.relationship-routes{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.6rem 0}.relationship-routes article{padding:.7rem;border-radius:11px;background:#f8fafc;border:1px solid #dbe3ef}.relationship-routes strong{color:#5b21b6;font-size:.72rem}.relationship-routes p{margin:.25rem 0 0;color:#475569;font-size:.8rem;font-weight:850;line-height:1.4}.concept-pairs{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}.concept-pairs span{padding:.55rem;border-radius:10px;background:#f5f3ff;border:1px solid #ddd6fe;color:#52617a;font-size:.8rem}.concept-pairs b{color:#5b21b6}
+.cad-operation{display:grid;gap:.6rem;margin:.7rem 0}.cad-operation section{padding:.7rem;border-radius:12px;background:#f8fafc;border:1px solid #dbe3ef}.cad-operation section>strong{color:#5b21b6;font-size:.72rem}.op-row{display:flex;gap:.45rem;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:.5rem}.op-row>b{color:#7c3aed;font-size:.74rem}.shape-block{padding:.65rem .75rem;border-radius:10px;background:#e0f2fe;border:2px solid #38bdf8;color:#0c4a6e;text-align:center;font-size:.72rem;font-weight:900}.shape-block.mis{transform:rotate(-3deg)}.shape-block.good{background:#dcfce7;border-color:#4ade80;color:#166534}.shape-block.cut{background:#fef3c7;border-color:#fbbf24;color:#92400e}.rule-pair{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}.rule-pair span{display:grid;justify-items:center;padding:.65rem;border-radius:10px;background:#ede9fe;color:#5b21b6}.rule-pair small{color:#64748b}.bug-strip{display:flex;gap:.35rem;flex-wrap:wrap;margin:.6rem 0}.bug-strip span{padding:.38rem .5rem;border-radius:999px;background:#fff7ed;border:1px solid #fed7aa;color:#7c2d12;font-size:.72rem}.bug-strip b{color:#9a3412}
+.boundary-note{margin:.4rem 0 .7rem;padding:.55rem .65rem;border-radius:9px;background:#eff6ff;color:#1e3a8a;font-size:.82rem;font-weight:750}.limits-card{margin:.7rem 0;padding:.8rem;border-radius:14px;background:#111827;color:#fff}.limits-card>strong{display:block;color:#67e8f9;font-size:.75rem;letter-spacing:.07em}.limits-card>div{display:grid;grid-template-columns:repeat(4,1fr);gap:.45rem;margin:.55rem 0}.limits-card span{display:grid;gap:.12rem;padding:.55rem;border-radius:9px;background:#1f2937}.limits-card b{font-size:.67rem;color:#c4b5fd}.limits-card small{color:#e5e7eb}.limits-card p{margin:.5rem 0;color:#f8fafc;font-size:.82rem}.limits-card>small{color:#cbd5e1;line-height:1.4}.planning-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin:.65rem 0}.planning-grid article{padding:.7rem;border-radius:11px;background:#f5f3ff;border:1px solid #ddd6fe}.planning-grid strong{color:#5b21b6;font-size:.72rem}.planning-grid p{margin:.2rem 0 0;color:#52617a;font-size:.84rem}.idea-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;margin:.5rem 0}.idea-grid span{padding:.6rem;border-radius:10px;background:#f8fafc;border:1px solid #e2e8f0;color:#475569;font-size:.82rem}
+.printability{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin:.7rem 0}.printability article{padding:.75rem;border-radius:12px;border:1px solid}.printability article>strong{display:block;margin-bottom:.45rem;font-size:.75rem;letter-spacing:.07em}.printability span{display:grid;gap:.12rem;padding:.43rem 0;border-top:1px solid rgba(100,116,139,.16)}.printability span:first-of-type{border-top:0}.printability b{font-size:.72rem}.printability small{color:#64748b}.printable{background:#f0fdf4;border-color:#bbf7d0!important}.printable>strong,.printable b{color:#166534}.check-again{background:#fff7ed;border-color:#fed7aa!important}.check-again>strong,.check-again b{color:#9a3412}
+.bug-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.45rem;margin:.6rem 0}.bug-grid article{padding:.6rem;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa}.bug-grid strong{color:#9a3412;font-size:.72rem}.bug-grid p{margin:.2rem 0 0;color:#7c2d12;font-size:.8rem}
+.export-stage{background:linear-gradient(135deg,#eff6ff,#fff)!important;border-color:#bfdbfe!important}.export-check{display:grid;gap:.4rem;margin:.6rem 0;padding:.75rem;border-radius:12px;background:#f8fafc;border:1px dashed #94a3b8}.export-check strong{color:#1d4ed8;font-size:.75rem}.export-check span{font-size:.84rem;color:#475569}.queue-separation{margin:.7rem 0;padding:.65rem .75rem;border-radius:10px;background:#fef3c7;border:1px solid #fbbf24;color:#78350f;font-weight:800}.queue-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:.45rem}.queue-flow span{display:grid;gap:.12rem;padding:.55rem;border-radius:9px;background:#f8fafc;border:1px solid #dbe3ef}.queue-flow b{color:#5b21b6;font-size:.68rem}.queue-flow small{color:#64748b;line-height:1.3}
+@media(max-width:760px){.workspace-map{grid-template-columns:1fr;grid-template-rows:auto 230px auto}.shape-panel{grid-row:3}.find-grid,.exact-strip,.relationship-routes,.concept-pairs,.rule-pair,.limits-card>div,.planning-grid,.printability{grid-template-columns:1fr}.axis-w{left:5%;bottom:8%}.axis-l{right:5%;bottom:8%}.axis-h{right:5%;top:8%}.op-row{display:grid}.op-row>b{text-align:center}.idea-grid{grid-template-columns:repeat(2,1fr)}.queue-flow{grid-template-columns:repeat(2,1fr)}} 
+@media(max-width:430px){.toolbar{display:grid;grid-template-columns:repeat(2,1fr)}.tool.export{margin-left:0}.workspace-map{grid-template-rows:auto 215px auto}.selected-shape{width:110px}.dimension-visual{min-height:250px}.iso-box{top:42%;width:125px;height:68px}.axis{position:static;margin:.35rem .55rem}.axis-w{margin-top:145px}.idea-grid,.bug-grid,.queue-flow{grid-template-columns:1fr}.tool-finder{display:grid}.limits-card>div{grid-template-columns:1fr}.print-check{display:grid}.print-check b{transform:rotate(90deg);justify-self:center}.cad-flow,.fab-flow,.export-flow{display:grid}.cad-flow b,.fab-flow b,.export-flow b{transform:rotate(90deg);justify-self:center}.queue-separation{font-size:.8rem}.export-check code{overflow-wrap:anywhere}.limits-card small{font-size:.78rem}}
+</style>
