@@ -14,10 +14,11 @@ const files = {
   mission2: 'dist/courses/futuretech-lab/creator-foundations/mission-2-make-it-think/index.html',
   mission3: 'dist/courses/futuretech-lab/creator-foundations/mission-3-build-a-game/index.html',
   mission4: 'dist/courses/futuretech-lab/creator-foundations/mission-4-robot-rookie/index.html',
-  mission5: 'dist/courses/futuretech-lab/creator-foundations/mission-5-sense-think-act/index.html'
+  mission5: 'dist/courses/futuretech-lab/creator-foundations/mission-5-sense-think-act/index.html',
+  mission6: 'dist/courses/futuretech-lab/creator-foundations/mission-6-design-it-print-it/index.html'
 };
 
-for (const name of ['home','lab','level1','mission1','mission2','mission3','mission4','mission5']) ok(existsSync(files[name]), `${name} route exists`);
+for (const name of ['home','lab','level1','mission1','mission2','mission3','mission4','mission5','mission6']) ok(existsSync(files[name]), `${name} route exists`);
 
 const home = readFileSync(files.home, 'utf8');
 ok(home.includes('FutureTech Lab'), 'homepage names FutureTech Lab');
@@ -31,13 +32,14 @@ ok(lab.includes('Returning students continue from where they left off'), 'lab ex
 
 const level1 = readFileSync(files.level1, 'utf8');
 for (const text of ['Make It Happen','Make It Think','Build a Game','Robot Rookie','Sense → Think → Act','Design It. Print It.','Choose Your Path','Creator Certification']) ok(level1.includes(text), `Level 1 contains ${text}`);
-ok(level1.includes('Missions 1–5 are open now'), 'Level 1 clearly names open missions');
+ok(level1.includes('Missions 1–6 are open now'), 'Level 1 clearly names open missions');
 ok(level1.includes('COMING NEXT · PREVIEW'), 'planned missions clearly marked preview');
 ok(level1.includes('simple loop'), 'Level 1 Mission 2 summary includes loop prerequisite');
 ok(level1.includes('mission-3-build-a-game/'), 'Mission 3 is linked from Level 1');
 ok(level1.includes('mission-4-robot-rookie/'), 'Mission 4 is linked from Level 1');
 ok(level1.includes('mission-5-sense-think-act/'), 'Mission 5 is linked from Level 1');
-ok(level1.includes('Design It. Print It.') && level1.includes('COMING NEXT · PREVIEW'), 'Missions 6–8 remain locked previews');
+ok(level1.includes('mission-6-design-it-print-it/'), 'Mission 6 is linked from Level 1');
+ok(level1.includes('Choose Your Path') && level1.includes('COMING NEXT · PREVIEW'), 'Missions 7–8 remain locked previews');
 ok(level1.includes('Work independently by default'), 'Level 1 mission map reflects individual-first workflow');
 
 for (const [name, file] of [['mission1',files.mission1],['mission2',files.mission2],['mission3',files.mission3],['mission4',files.mission4],['mission5',files.mission5]]) {
@@ -100,4 +102,14 @@ ok(mission5.includes('LED NEVER CHANGES? DO NOT GUESS FIRST.'), 'Mission 5 uses 
 ok(!mission5.includes('Distance Sensor') && !mission5.includes('Sound Sensor') && !mission5.includes('Dial Sensor'), 'Mission 5 core pathway excludes second sensor types');
 ok(mission5.includes('Servo Reaction') && mission5.includes('optional'), 'Mission 5 keeps servo optional in Level It Up');
 ok(!mission5.includes('CODE MODEL 3'), 'Mission 5 does not add a third code model');
-ok(!level1.includes('mission-6-'), 'Mission 6 remains unlinked');
+const mission6 = readFileSync(files.mission6, 'utf8');
+for (let i=1;i<=6;i++) ok(mission6.includes(`id="stage-${i}"`), `mission6 stage-${i}`);
+for (const text of ['TRY 4','Ready-for-Check','Checkpoint','SKILL PASSPORT','Reset','Start at Stage 1 and work in order']) ok(mission6.includes(text), `mission6 contains ${text}`);
+ok(mission6.includes('Check → View → Undo / Retry → Partner'), 'Mission 6 uses CAD-specific persistent TRY 4 route');
+for (const text of ['Tinkercad','FIND NOW','FIND LATER','WORKPLANE','BASIC SHAPES','WIDTH · 40 mm','LENGTH · 20 mm','HEIGHT · 4 mm','JOIN SOLIDS','CUT MATERIAL','Solid + Solid + Group','Solid + Hole + Group','Build It — Maker Tag','LEVEL 1 PRINT-QUEUE LIMITS','PRINTABLE','CHECK AGAIN','EXPORT CHECK','READY-FOR-CHECK','PRINT QUEUE','STL / .STL','MISSION COMPLETE','RETRY ONE SKILL','SUPPORT ROUTE']) ok(mission6.includes(text), `Mission 6 contains ${text}`);
+ok(mission6.includes('60 mm × 40 mm') && mission6.includes('8 mm') && mission6.includes('3 mm') && mission6.includes('5 mm'), 'Mission 6 includes Level 1 classroom print limits');
+ok(mission6.includes('One Mission 6 print candidate per student'), 'Mission 6 limits print queue submissions');
+ok(mission6.includes('A physical print is not required to finish Mission 6'), 'Mission 6 separates printing from mastery');
+ok(mission6.includes('Solid + Solid + Group') && mission6.includes('Solid + Hole + Group'), 'Mission 6 distinguishes join versus cut grouping');
+ok(!mission6.includes('Circuits') && !mission6.includes('Codeblocks') && !mission6.includes('Sim Lab'), 'Mission 6 required pathway excludes unrelated Tinkercad domains');
+ok(!level1.includes('mission-7-'), 'Mission 7 remains unlinked');
