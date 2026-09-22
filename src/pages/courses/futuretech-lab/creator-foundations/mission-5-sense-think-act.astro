@@ -1,0 +1,200 @@
+---
+import FutureTechMissionFrame from '../../../../components/FutureTechMissionFrame.astro';
+---
+<FutureTechMissionFrame
+  missionNumber="5"
+  title="Sense → Think → Act"
+  tagline="Make your robot notice something and react on its own."
+  question="How can a robot sense its environment, make a decision, and react automatically?"
+  success="I can read a Hummingbird light sensor, compare its value to a threshold, use IF/ELSE to choose an LED response, and explain the Sense → Think → Act cycle."
+>
+  <div class="sta-flow" aria-label="Sense Think Act mission flow">
+    <span><b>SENSE</b><small>Light Sensor</small></span><i>→</i>
+    <span><b>THINK</b><small>Value + threshold</small></span><i>→</i>
+    <span><b>ACT</b><small>LED response</small></span>
+  </div>
+  <div class="react-route" aria-label="Reactive system route"><span>LIGHT SENSOR</span><b>→</b><span>VALUE</span><b>→</b><span>IF / ELSE</span><b>→</b><span>LED</span></div>
+  <p class="flow-note">The sensor gives the value. The code decides. The LED acts.</p>
+
+  <section id="stage-1" class="stage">
+    <div class="stage-head"><span class="stage-number">01</span><div><p class="stage-kicker">SENSOR + OUTPUT</p><h2 class="stage-title">Set Up</h2></div></div>
+    <p class="intro">Today your robot will notice changes in light and react automatically. Connect one sensor and one LED before you turn on Hummingbird power.</p>
+
+    <div class="check-list"><span>☐ Computer</span><span>☐ micro:bit V2</span><span>☐ USB data cable</span><span>☐ Hummingbird Bit Controller</span><span>☐ Hummingbird power</span><span>☐ Hummingbird Light Sensor</span><span>☐ Single-color LED</span><span>☐ Terminal tool if your station uses one</span></div>
+
+    <p class="success"><b>Individual mission:</b> build, test, and explain your own reactive system. Share a hardware station only if controller quantities require it.</p>
+
+    <div class="station-card"><strong>YOUR HUMMINGBIRD STATION</strong><span>HB-01 · HB-02 · HB-03...</span><p>Stay with your assigned station while testing. Keep your own MakeCode project even if another student uses the hardware later.</p></div>
+
+    <p class="mini-label">Hummingbird Bit — one sensor + one output</p>
+    <div class="hardware-diagram" role="img" aria-label="Simplified Hummingbird Bit diagram showing Sensor Port 1 with a three-wire light sensor and LED Port 1 with a two-wire LED, plus power and status areas.">
+      <div class="callout sensor-callout"><span>SENSE · INPUT</span><strong>SENSOR PORT 1</strong><em>3 WIRES · S / + / –</em><p>yellow → <b>S</b><br/>red → <b>+</b><br/>black → <b>–</b></p></div>
+      <div class="hb-board">
+        <div class="microbit-slot"><small>MICRO:BIT</small><strong>V2</strong></div>
+        <div class="board-label">HUMMINGBIRD BIT</div>
+        <div class="board-ports"><span class="port sensor-port"><b>SENSOR 1</b><small>S &nbsp; + &nbsp; –</small></span><span class="port led-port"><b>LED 1</b><small>+ &nbsp; –</small></span></div>
+        <div class="board-bottom"><span>● STATUS</span><span>POWER ⏻</span></div>
+      </div>
+      <div class="callout led-callout"><span>ACT · OUTPUT</span><strong>LED PORT 1</strong><em>2 WIRES · + / –</em><p>colored wire → <b>+</b><br/>black wire → <b>–</b></p></div>
+    </div>
+
+    <p class="warning swap-warning"><b>DO NOT SWAP THE PORTS:</b> the <b>3-wire</b> Light Sensor goes to <b>Sensor Port 1</b>. The <b>2-wire</b> LED goes to <b>LED Port 1</b>.</p>
+
+    <div class="warning safety-card"><strong>CONNECT WITH POWER OFF</strong><ol><li><b>Power OFF first.</b></li><li>Insert/check the micro:bit. Never force it.</li><li><b>Light Sensor → Sensor Port 1:</b> yellow → S · red → + · black → –.</li><li><b>LED → LED Port 1:</b> colored wire → + · black wire → –.</li><li>Do a <b>3-wire / 2-wire check</b> before powering on.</li><li>Turn Hummingbird power ON only when you are ready to test.</li><li>Turn power OFF again before removing or reconnecting any part.</li></ol></div>
+
+    <div class="power-cue"><span><b>CONNECT / CHANGE</b><small>POWER OFF</small></span><i>↔</i><span><b>TEST</b><small>POWER ON</small></span></div>
+
+    <div class="io-grid"><article><strong>INPUT · LIGHT SENSOR</strong><p>Measures light and gives your program a number.</p></article><article><strong>OUTPUT · LED</strong><p>Changes brightness when your code tells it to.</p></article></div>
+
+    <div class="sense-visual" aria-label="Sense Think Act explanation">
+      <article><b>SENSE</b><strong>Light Sensor 1 → number</strong><p>The sensor reports what it measures.</p></article>
+      <i>→</i>
+      <article><b>THINK</b><strong>Compare number to threshold</strong><p>IF/ELSE chooses one of two responses.</p></article>
+      <i>→</i>
+      <article><b>ACT</b><strong>LED 1 → brightness</strong><p>The output changes automatically.</p></article>
+    </div>
+    <p class="concept"><b>Measure → compare → choose → respond → check again.</b></p>
+    <p class="success">✓ <b>You are ready when:</b> the Light Sensor is in Sensor Port 1, the LED is in LED Port 1, both wire orders match the diagram, and you can identify which part senses and which part acts.</p>
+  </section>
+
+  <section id="stage-2" class="stage">
+    <div class="stage-head"><span class="stage-number">02</span><div><p class="stage-kicker">READ THE WORLD</p><h2 class="stage-title">First Code</h2></div></div>
+    <p class="intro">Before your robot can decide, you need to know what the light sensor is actually reading.</p>
+
+    <div class="step-grid">
+      <article class="step-card"><strong>1 — Open MakeCode</strong><p>Open <a class="external" href="https://makecode.microbit.org/" target="_blank" rel="noreferrer">MakeCode for micro:bit ↗</a>. Create <code>FirstName_L1_M5</code>.</p></article>
+      <article class="step-card"><strong>2 — Start Hummingbird</strong><p>Add the Hummingbird extension if needed. Put <code>Start Hummingbird</code> inside <code>on start</code>.</p></article>
+      <article class="step-card"><strong>3 — Create light</strong><p>Create a variable named <code>light</code>.</p></article>
+      <article class="step-card"><strong>4 — Read Sensor 1</strong><p>Use Button A to store the light value, then show the number.</p></article>
+    </div>
+
+    <div class="block-finder"><span><b>Hummingbird</b> → Start Hummingbird</span><span><b>Hummingbird</b> → Hummingbird Light · port 1</span><span><b>Variables</b> → set</span><span><b>Input</b> → on button A pressed</span><span><b>Basic</b> → show number</span></div>
+
+    <aside class="code-model" aria-label="Code model 1 of 2 showing Start Hummingbird and Button A reading Light Sensor 1 into a variable and displaying the value">
+      <div class="code-model-head"><span>CODE MODEL 1 OF 2</span><strong>Read Light Sensor 1</strong></div>
+      <div class="code-columns">
+        <div class="code-stack"><div class="mk-block event">on start</div><div class="mk-block humming indent">Start Hummingbird</div></div>
+        <div class="code-stack"><div class="mk-block input">on button <span class="value">A</span> pressed</div><div class="mk-block variables indent">set <span class="value">light</span> to <span class="value emphasis">Hummingbird Light 1</span></div><div class="mk-block basic indent">show number <span class="value">light</span></div></div>
+      </div>
+      <div class="model-map"><b>Light 1 in code</b><span>→</span><b>Sensor Port 1 on board</b></div>
+      <p class="code-model-note">The sensor does not decide what the robot should do. It only reports a value.</p>
+    </aside>
+
+    <p class="concept"><b>A sensor value is a number your robot can use to make a decision.</b></p>
+
+    <div class="sensor-tests"><article><strong>ROOM LIGHT</strong><p>Press A. Remember the value.</p></article><article><strong>COVERED</strong><p>Cover the sensor. Press A. Remember the value.</p></article><article><strong>BRIGHTER</strong><p>Uncover it or move toward a brighter area. Press A again.</p></article></div>
+
+    <div class="reading-memory"><span><b>MY COVERED VALUE</b><strong>____</strong></span><span><b>MY UNCOVERED VALUE</b><strong>____</strong></span></div>
+    <p class="success">✓ Covering and uncovering the Light Sensor gives noticeably different numbers.</p>
+  </section>
+
+  <section id="stage-3" class="stage">
+    <div class="stage-head"><span class="stage-number">03</span><div><p class="stage-kicker">VALUE → DECISION → RESPONSE</p><h2 class="stage-title">Make It React</h2></div></div>
+
+    <div class="concept threshold-card"><strong>WHAT IS A THRESHOLD?</strong><p>A threshold is the value where your robot changes what it does.</p><div class="threshold-expression"><code>light &lt; 40</code><span>means</span><b>Is the light value less than 40?</b></div><small><b>40 is only an example.</b> Your room may need a different threshold. Test and tune at the same HB station when possible.</small></div>
+
+    <p class="mini-label">Choose your threshold from real readings</p>
+    <div class="threshold-picker">
+      <article><span>LOWER READING</span><strong>25</strong><small>example covered value</small></article>
+      <i>←</i>
+      <article class="threshold-middle"><span>THRESHOLD</span><strong>40</strong><small>pick a number between</small></article>
+      <i>→</i>
+      <article><span>HIGHER READING</span><strong>62</strong><small>example uncovered value</small></article>
+    </div>
+    <div class="threshold-rule"><strong>YOUR RULE</strong><span>1. Find the lower reading.</span><span>2. Find the higher reading.</span><span>3. Pick a number <b>between them</b>.</span></div>
+    <p class="success"><b>Predict first:</b> if the sensor reads 25, which branch should run? If it reads 62, which branch should run?</p>
+
+    <div class="block-finder"><span><b>Loops</b> → forever</span><span><b>Variables</b> → set</span><span><b>Hummingbird</b> → Hummingbird Light · port 1</span><span><b>Logic</b> → if / else</span><span><b>Logic</b> → &lt;</span><span><b>Hummingbird</b> → Hummingbird LED · port 1</span><span><b>Basic</b> → pause</span></div>
+
+    <aside class="code-model" aria-label="Code model 2 of 2 showing a forever loop that reads Light Sensor 1, compares the value to a threshold with IF ELSE, and changes LED 1 brightness">
+      <div class="code-model-head"><span>CODE MODEL 2 OF 2</span><strong>Sense → Think → Act</strong></div>
+      <div class="sta-labels"><span>SENSE</span><span>THINK</span><span>ACT</span></div>
+      <div class="code-stack">
+        <div class="mk-block loops">forever</div>
+        <div class="mk-block variables indent">set <span class="value">light</span> to <span class="value">Hummingbird Light 1</span></div>
+        <div class="mk-block logic indent">if <span class="value">light &lt; 40</span> then</div>
+        <div class="mk-block humming indent2">Hummingbird LED <span class="value emphasis">1</span> <span class="value">100%</span></div>
+        <div class="mk-block logic indent">else</div>
+        <div class="mk-block humming indent2">Hummingbird LED <span class="value emphasis">1</span> <span class="value">0%</span></div>
+        <div class="mk-block basic indent">pause <span class="value">100 ms</span></div>
+      </div>
+      <p class="code-model-note"><b>The threshold 40 is an example.</b> Your best threshold may be different.</p>
+    </aside>
+
+    <p class="concept"><b>The sensor gives the value. The IF/ELSE decides. The LED acts.</b></p>
+    <div class="repeat-cue"><span>SENSE</span><b>→</b><span>THINK</span><b>→</b><span>ACT</span><b>↺</b></div>
+    <p class="mini-note"><code>forever</code> makes the robot sense, decide, and react again and again.</p>
+    <p class="success">✓ Covering and uncovering the sensor changes the LED automatically in both directions without pressing a button.</p>
+  </section>
+
+  <section id="stage-4" class="stage">
+    <div class="stage-head"><span class="stage-number">04</span><div><p class="stage-kicker">YOUR REACTIVE DEVICE</p><h2 class="stage-title">Build It — Reactive Signal</h2></div></div>
+    <p class="intro">Build a simple device that senses changing light and automatically communicates two different states using one LED.</p>
+    <p class="boundary-note">This is a reactive device, not a rover or driving robot.</p>
+
+    <div class="planning-grid"><article><strong>SENSE</strong><p>What change in light should your device notice?</p></article><article><strong>THRESHOLD</strong><p>What number will separate the two states?</p></article><article><strong>STATE 1</strong><p>What should the LED do when the condition is true?</p></article><article><strong>STATE 2</strong><p>What should the LED do otherwise?</p></article></div>
+
+    <p class="mini-label">Need a theme?</p>
+    <div class="idea-grid"><span>🌙 <b>Night Light</b></span><span>⚠ <b>Warning Light</b></span><span>🔐 <b>Secret Signal</b></span><span>☀ <b>Brightness Guard</b></span><span>👀 <b>Creature Eyes</b></span><span>💡 <b>Light Detector</b></span></div>
+
+    <div class="check-list"><span>☐ Light Sensor uses <b>Sensor Port 1</b></span><span>☐ LED uses <b>LED Port 1</b></span><span>☐ <b>Start Hummingbird</b> is present</span><span>☐ A variable stores the current light value</span><span>☐ The system senses repeatedly</span><span>☐ One threshold is chosen from real sensor readings</span><span>☐ IF/ELSE creates two different responses</span><span>☐ The LED reacts automatically</span><span>☐ The threshold works for this station/classroom</span><span>☐ I changed at least one meaningful design choice</span><span>☐ The system works after a fresh download</span><span>☐ I can explain <b>Sense → Think → Act</b></span></div>
+
+    <p class="concept">You decide the threshold, LED brightness for State 1, LED brightness for State 2, theme, and what both states mean.</p>
+    <p class="success">✓ <b>Build It is ready when:</b> your device senses changing light, chooses between two LED responses automatically, and you can explain why your threshold works.</p>
+
+    <div class="try4"><strong>STUCK? TRY 4</strong><p><b>1 CHECK</b> — power → 3-wire sensor / 2-wire LED → port numbers → read current value → compare to threshold → IF/ELSE → newest code. <b>2 SIMULATE</b> — inspect the logic structure. <b>3 DOWNLOAD</b> — send the newest program. <b>4 PARTNER</b> — explain current value, threshold, expected result, and actual result to a nearby student.</p><p>Still stuck? Ask for help and say what you already tried.</p></div>
+
+    <div class="warning reactive-debug"><strong>LED NEVER CHANGES? DO NOT GUESS FIRST.</strong><ol><li>Read the current sensor value.</li><li>Compare it to your threshold.</li><li>Cover/uncover the sensor and check whether the value crosses the threshold.</li><li>If the value crosses but the LED does not change, inspect the IF/ELSE and LED block.</li></ol></div>
+    <p class="station-fault">If hardware still appears faulty after TRY 4, report the <b>HB station number</b> instead of moving components between stations.</p>
+  </section>
+
+  <section id="stage-5" class="stage">
+    <div class="stage-head"><span class="stage-number">05</span><div><p class="stage-kicker">OPTIONAL CHALLENGE</p><h2 class="stage-title">Level It Up</h2></div></div>
+    <p class="intro">Only after Reactive Signal works. Choose <b>one</b> while you wait for your checkpoint.</p>
+    <div class="level-grid">
+      <article class="level-card"><strong>⭐ Tune the Threshold</strong><p>Change the threshold deliberately. Decide whether the reaction becomes more reliable. <b>TEST → OBSERVE → ADJUST</b></p></article>
+      <article class="level-card"><strong>⭐ Two Brightness Levels</strong><p>Use two different non-zero LED brightness values instead of only ON and OFF.</p></article>
+      <article class="level-card"><strong>⭐⭐ Servo Reaction</strong><p>Reuse the Mission 4 position servo as a second output: dark → one angle · bright → another angle. This is optional and not part of the checkpoint.</p></article>
+      <article class="level-card"><strong>⭐⭐ Three Light Zones</strong><p>Use two thresholds to create three LED response zones. This may require another IF structure.</p></article>
+    </div>
+    <p class="warning"><b>MISSION 5 LIMIT:</b> no second sensor, obstacle navigation, wheels, radio, multiple motors, or autonomous roaming.</p>
+    <p class="success">When every Build It box is checked, add your name to <b>Ready-for-Check</b>. Keep Leveling Up until you are called.</p>
+  </section>
+
+  <section id="stage-6" class="stage checkpoint">
+    <div class="stage-head"><span class="stage-number">06</span><div><p class="stage-kicker">SHOW WHAT YOU KNOW</p><h2 class="stage-title">Checkpoint</h2></div></div>
+    <p class="intro">Bring your reactive system and open your code when you are called. The checkpoint is individual.</p>
+    <div class="step-grid">
+      <article class="step-card"><strong>Check 1 — Trace Sense → Think → Act</strong><p>Trace <b>Light Sensor → sensor value → threshold decision → LED response</b>. Identify Sensor Port 1, LED Port 1, the current value, your threshold, and why that threshold makes sense.</p></article>
+      <article class="step-card"><strong>Check 2 — Explain the Decision</strong><p>Explain what the sensor measures, what the value and threshold mean, when IF is true, what ELSE does, and why the system keeps checking repeatedly.</p></article>
+      <article class="step-card"><strong>Check 3 — Change It</strong><p>Change the threshold, reverse the LED responses, change one brightness, or change the comparison direction. Then <b>predict → change → download → test → explain</b>.</p></article>
+      <article class="step-card"><strong>After Your Check</strong><p><b>MISSION COMPLETE</b> · <b>RETRY ONE SKILL</b> · <b>SUPPORT ROUTE</b></p></article>
+    </div>
+  </section>
+
+  <section class="stage passport">
+    <div class="stage-head"><span class="stage-number">✓</span><div><p class="stage-kicker">SKILL PASSPORT</p><h2 class="stage-title">Mission 5 Skills</h2></div></div>
+    <div class="check-list"><span>☐ I can safely connect a Hummingbird sensor.</span><span>☐ I can read a sensor value in MakeCode.</span><span>☐ I can explain what a threshold does.</span><span>☐ I can use IF/ELSE to choose between two responses.</span><span>☐ I can make a Hummingbird output react automatically to a sensor.</span><span>☐ I can explain the <b>Sense → Think → Act</b> cycle.</span><span>☐ I can change, download, test, and explain my reactive system independently.</span></div>
+  </section>
+
+  <section class="stage reset">
+    <div class="stage-head"><span class="stage-number">↺</span><div><p class="stage-kicker">LEAVE IT READY</p><h2 class="stage-title">Reset</h2></div></div>
+    <div class="check-list"><span>☐ Project saved correctly</span><span>☐ Hummingbird power OFF</span><span>☐ micro:bit returned to numbered kit</span><span>☐ USB cable loosely coiled</span><span>☐ Light Sensor returned</span><span>☐ Single-color LED returned</span><span>☐ Battery pack / power lead returned</span><span>☐ Terminal tool returned if used</span><span>☐ Hummingbird controller returned to assigned HB station</span><span>☐ Loose build materials cleared</span><span>☐ Faults / bent pins / loose wires reported with HB station number</span><span>☐ Passport/progress updated</span></div>
+    <p class="concept">Exit question: What part of your system sensed, what part thought, and what part acted?</p>
+  </section>
+</FutureTechMissionFrame>
+
+<style is:global>
+.sta-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.45rem;align-items:stretch;margin:.2rem 0 .55rem}.sta-flow span{display:grid;gap:.15rem;justify-items:center;padding:.7rem;border-radius:12px;background:#111827;color:#fff}.sta-flow b{color:#67e8f9;font-size:.78rem;letter-spacing:.08em}.sta-flow small{color:#dbeafe}.sta-flow i{display:grid;place-items:center;color:#7c3aed;font-style:normal;font-weight:900}.react-route{display:flex;justify-content:center;gap:.45rem;align-items:center;flex-wrap:wrap;padding:.55rem;border-radius:11px;background:#f5f3ff;border:1px solid #ddd6fe}.react-route span{padding:.3rem .45rem;border-radius:999px;background:#fff;color:#5b21b6;font-size:.72rem;font-weight:900}.react-route b{color:#7c3aed}.flow-note{text-align:center;margin:.4rem 0 1rem;color:#667085;font-size:.84rem;font-weight:700}
+.station-card{display:grid;grid-template-columns:auto 1fr;gap:.25rem .65rem;align-items:center;margin:.65rem 0;padding:.7rem .8rem;border-radius:12px;background:#eff6ff;border:1px solid #bfdbfe}.station-card strong{color:#1d4ed8;font-size:.75rem;letter-spacing:.06em}.station-card span{font-weight:900;color:#172033}.station-card p{grid-column:1/-1;margin:.1rem 0 0;color:#52647d;font-size:.84rem}
+.hardware-diagram{display:grid;grid-template-columns:minmax(185px,.75fr) minmax(300px,1.1fr) minmax(185px,.75fr);gap:.7rem;align-items:center;margin:.75rem 0}.callout{padding:.8rem;border-radius:14px;border:2px solid #dbe3ef;background:#fff}.callout>span{font-size:.65rem;font-weight:900;letter-spacing:.08em;color:#64748b}.callout strong{display:block;margin:.2rem 0;color:#172033}.callout em{display:inline-block;margin:.15rem 0;padding:.22rem .4rem;border-radius:999px;background:#111827;color:#fff;font-style:normal;font-size:.66rem;font-weight:900;letter-spacing:.05em}.callout p{margin:.25rem 0 0;color:#52617a;line-height:1.5}.sensor-callout{border-color:#c4b5fd;background:#faf8ff}.led-callout{border-color:#fde68a;background:#fffbeb}.hb-board{min-height:230px;padding:.8rem;border-radius:22px;background:linear-gradient(145deg,#334155,#111827);color:#fff;border:5px solid #475569;box-shadow:inset 0 0 0 2px #0f172a}.microbit-slot{display:flex;justify-content:space-between;align-items:center;padding:.6rem;border-radius:12px;background:#111827;border:1px dashed #94a3b8}.microbit-slot small{color:#cbd5e1;font-weight:900;letter-spacing:.08em}.microbit-slot strong{color:#67e8f9}.board-label{text-align:center;margin:1.1rem 0 .75rem;font:900 .78rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;color:#e2e8f0}.board-ports{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}.port{display:grid;gap:.25rem;padding:.65rem;border-radius:10px;background:#f8fafc;color:#172033;text-align:center}.port small{font-weight:900;color:#475569}.sensor-port{border:2px solid #a78bfa}.led-port{border:2px solid #facc15}.board-bottom{display:flex;justify-content:space-between;gap:.5rem;margin-top:.9rem;color:#cbd5e1;font-size:.7rem;font-weight:850}.swap-warning{margin-top:.55rem!important}.safety-card ol,.reactive-debug ol{margin:.45rem 0 0;padding-left:1.2rem;line-height:1.55}
+.power-cue{display:grid;grid-template-columns:1fr auto 1fr;gap:.5rem;align-items:center;margin:.65rem 0}.power-cue span{display:grid;justify-items:center;padding:.65rem;border-radius:11px;border:1px solid #fed7aa;background:#fff7ed}.power-cue b{color:#9a3412;font-size:.76rem}.power-cue small{font-weight:900;color:#7c2d12}.power-cue i{font-style:normal;font-weight:900;color:#7c3aed}.io-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.65rem 0}.io-grid article{padding:.7rem;border-radius:11px;background:#f8fafc;border:1px solid #e2e8f0}.io-grid strong{color:#475569;font-size:.74rem}.io-grid p{margin:.25rem 0 0;color:#667085;font-size:.86rem}
+.sense-visual{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.5rem;align-items:stretch;margin:.7rem 0}.sense-visual article{padding:.7rem;border-radius:12px;background:#f5f3ff;border:1px solid #ddd6fe}.sense-visual article>b{display:block;color:#5b21b6;font-size:.7rem;letter-spacing:.08em}.sense-visual article>strong{display:block;margin:.25rem 0;color:#172033;font-size:.86rem}.sense-visual article>p{margin:0;color:#667085;font-size:.82rem;line-height:1.4}.sense-visual>i{display:grid;place-items:center;color:#7c3aed;font-style:normal;font-weight:900}
+.block-finder{display:flex;gap:.38rem;flex-wrap:wrap;margin:.7rem 0}.block-finder span{padding:.34rem .5rem;border:1px solid #dbe3ef;border-radius:999px;background:#fff;color:#52617a;font-size:.7rem;font-weight:750}.block-finder b{color:#5b21b6}.code-model{margin:.7rem 0;padding:.8rem;border:1px solid #c7d2fe;border-radius:14px;background:linear-gradient(135deg,#f8faff,#f5f3ff)}.code-model-head{display:grid;gap:.15rem;margin-bottom:.55rem}.code-model-head span{color:#6d28d9;font:900 .64rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em}.code-model-head strong{color:#26324a;font-size:.86rem}.code-stack{display:grid;gap:.27rem;padding:.6rem;border-radius:11px;background:#111827;overflow:hidden}.code-columns{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}.mk-block{width:max-content;max-width:100%;box-sizing:border-box;padding:.46rem .58rem;border-radius:7px;color:#fff;font:800 .72rem/1.25 ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}.mk-block.event{background:#7c3aed}.mk-block.humming{background:#0f766e}.mk-block.variables{background:#dc2626}.mk-block.input{background:#c026d3}.mk-block.basic{background:#2563eb}.mk-block.loops{background:#15803d}.mk-block.logic{background:#059669}.mk-block.indent{margin-left:.75rem}.mk-block.indent2{margin-left:1.5rem}.mk-block .value{display:inline-block;margin-left:.14rem;padding:.04rem .25rem;border-radius:4px;background:rgba(255,255,255,.2)}.mk-block .emphasis{outline:2px solid #fde68a}.code-model-note{margin:.55rem 0 0;color:#59677c;font-size:.8rem;line-height:1.42}.model-map{display:flex;justify-content:center;gap:.5rem;align-items:center;flex-wrap:wrap;margin:.55rem 0 0;padding:.45rem;border-radius:9px;background:#ede9fe;color:#5b21b6;font-size:.75rem}
+.sensor-tests{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin:.6rem 0}.sensor-tests article{padding:.65rem;border-radius:11px;background:#eff6ff;border:1px solid #bfdbfe}.sensor-tests strong{color:#1d4ed8;font-size:.72rem}.sensor-tests p{margin:.2rem 0 0;color:#52647d;font-size:.84rem}.reading-memory{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.55rem 0}.reading-memory span{display:flex;justify-content:space-between;align-items:center;padding:.65rem;border-radius:11px;background:#f8fafc;border:1px dashed #94a3b8}.reading-memory b{font-size:.72rem;color:#475569}.reading-memory strong{font-size:1.1rem;color:#172033}
+.threshold-card strong{display:block;margin-bottom:.25rem}.threshold-card p{margin:.15rem 0}.threshold-card small{display:block;margin-top:.4rem}.threshold-expression{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:.45rem 0;padding:.55rem;border-radius:9px;background:#fff}.threshold-expression code{padding:.2rem .4rem;border-radius:6px;background:#111827;color:#fff;font-weight:900}.threshold-expression span{color:#64748b}.threshold-expression b{color:#37205f}.threshold-picker{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.45rem;align-items:center;margin:.6rem 0}.threshold-picker article{display:grid;justify-items:center;padding:.65rem;border-radius:11px;background:#f8fafc;border:1px solid #dbe3ef}.threshold-picker .threshold-middle{background:#f5f3ff;border-color:#c4b5fd}.threshold-picker span{font-size:.65rem;font-weight:900;color:#64748b;letter-spacing:.06em}.threshold-picker strong{font-size:1.35rem;color:#172033}.threshold-picker small{color:#64748b;text-align:center}.threshold-picker i{color:#7c3aed;font-style:normal;font-weight:900}.threshold-rule{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;margin:.55rem 0}.threshold-rule strong{color:#5b21b6;font-size:.72rem}.threshold-rule span{padding:.35rem .45rem;border-radius:999px;background:#f5f3ff;border:1px solid #ddd6fe;color:#52617a;font-size:.77rem}
+.sta-labels{display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem;margin-bottom:.4rem}.sta-labels span{padding:.3rem;border-radius:8px;background:#ede9fe;color:#5b21b6;text-align:center;font-size:.66rem;font-weight:900;letter-spacing:.07em}.repeat-cue{display:flex;justify-content:center;gap:.45rem;align-items:center;flex-wrap:wrap;margin:.5rem 0}.repeat-cue span{padding:.35rem .5rem;border-radius:999px;background:#ede9fe;color:#5b21b6;font-weight:900;font-size:.74rem}.repeat-cue b{color:#7c3aed}.mini-note{text-align:center;margin:.25rem 0;color:#64748b;font-size:.8rem;font-weight:700}
+.boundary-note{margin:.4rem 0 .7rem;padding:.55rem .65rem;border-radius:9px;background:#eff6ff;color:#1e3a8a;font-size:.82rem;font-weight:750}.planning-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin:.65rem 0}.planning-grid article{padding:.7rem;border-radius:11px;background:#f5f3ff;border:1px solid #ddd6fe}.planning-grid strong{color:#5b21b6;font-size:.72rem}.planning-grid p{margin:.2rem 0 0;color:#52617a;font-size:.84rem}.idea-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;margin:.5rem 0}.idea-grid span{padding:.6rem;border-radius:10px;background:#f8fafc;border:1px solid #e2e8f0;color:#475569;font-size:.82rem}.station-fault{margin:.55rem 0;padding:.6rem .7rem;border-radius:10px;background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;font-size:.83rem}
+@media(max-width:760px){.sta-flow,.sense-visual,.hardware-diagram{grid-template-columns:1fr}.sta-flow i,.sense-visual>i{transform:rotate(90deg);height:16px}.hb-board{order:1}.sensor-callout{order:2}.led-callout{order:3}.io-grid,.reading-memory,.code-columns{grid-template-columns:1fr}.sensor-tests{grid-template-columns:1fr}.threshold-picker{grid-template-columns:1fr}.threshold-picker i{transform:rotate(90deg);justify-self:center}.planning-grid{grid-template-columns:1fr 1fr}.idea-grid{grid-template-columns:repeat(2,1fr)}} 
+@media(max-width:430px){.power-cue{grid-template-columns:1fr}.power-cue i{transform:rotate(90deg);justify-self:center}.station-card{grid-template-columns:1fr}.planning-grid,.idea-grid{grid-template-columns:1fr}.threshold-rule{display:grid}.sta-labels{grid-template-columns:1fr}.mk-block{width:100%}.mk-block.indent{width:calc(100% - .55rem);margin-left:.55rem}.mk-block.indent2{width:calc(100% - 1rem);margin-left:1rem}.hb-board{min-height:0}.callout,.safety-card{width:100%;box-sizing:border-box}.threshold-expression{display:grid}.reading-memory span{width:100%;box-sizing:border-box}}
+</style>
