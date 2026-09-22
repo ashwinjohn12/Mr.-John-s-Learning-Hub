@@ -1,7 +1,7 @@
 # FutureTech Lab — Level 1 Mission 5 Instructional Specification
 
 **Mission:** 5 — Sense → Think → Act  
-**Status:** PRE-BUILD INSTRUCTIONAL SPECIFICATION — webpage not built  
+**Status:** APPROVED / FROZEN LEVEL 1 MISSION 5 SPECIFICATION — implemented and browser-audited  
 **Audience:** Grade 8/9 beginners who have completed Missions 1–4  
 **Target length:** one 90-minute class  
 **Locked architecture:** Set Up → First Code → Make It React → Build It → Level It Up → Checkpoint → Skill Passport → Reset  
@@ -941,4 +941,4 @@ Locked core:
 
 The position servo is deliberately deferred to an optional Level It Up feature so the required learning stays focused on sensing and decision-making.
 
-The Mission 5 webpage remains unbuilt by this specification task.
+Mission 5 is implemented and frozen. Future changes should be limited to evidence-based usability, accessibility, hardware-support, safety, or factual corrections.
