@@ -15,10 +15,11 @@ const files = {
   mission3: 'dist/courses/futuretech-lab/creator-foundations/mission-3-build-a-game/index.html',
   mission4: 'dist/courses/futuretech-lab/creator-foundations/mission-4-robot-rookie/index.html',
   mission5: 'dist/courses/futuretech-lab/creator-foundations/mission-5-sense-think-act/index.html',
-  mission6: 'dist/courses/futuretech-lab/creator-foundations/mission-6-design-it-print-it/index.html'
+  mission6: 'dist/courses/futuretech-lab/creator-foundations/mission-6-design-it-print-it/index.html',
+  mission7: 'dist/courses/futuretech-lab/creator-foundations/mission-7-choose-your-path/index.html'
 };
 
-for (const name of ['home','lab','level1','mission1','mission2','mission3','mission4','mission5','mission6']) ok(existsSync(files[name]), `${name} route exists`);
+for (const name of ['home','lab','level1','mission1','mission2','mission3','mission4','mission5','mission6','mission7']) ok(existsSync(files[name]), `${name} route exists`);
 
 const home = readFileSync(files.home, 'utf8');
 ok(home.includes('FutureTech Lab'), 'homepage names FutureTech Lab');
@@ -69,7 +70,6 @@ ok(!mission2.includes('DRIVER') && !mission2.includes('NAVIGATOR') && !mission2.
 ok(mission2.includes('MISSION COMPLETE') && mission2.includes('RETRY ONE SKILL') && mission2.includes('SUPPORT ROUTE'), 'Mission 2 uses standard checkpoint outcomes');
 ok(mission2.includes('Checkpoint complete? Continue') && mission2.includes('mission-3-build-a-game/'), 'Mission 2 links to Mission 3 with checkpoint gate');
 
-console.log(`FutureTech Lab student usability audit passed: ${checks.length} checks.`);
 
 const mission3 = readFileSync(files.mission3, 'utf8');
 for (const text of ['PATH A','PATH B','Kitronik :GAME Controller','ELECFREAKS Retro Arcade','Fire 1','MakeCode Arcade','READ ONLY YOUR PATH','STAY ON YOUR PATH','PLAY','NOTICE','CHANGE','RETEST','MISSION COMPLETE','RETRY ONE SKILL','SUPPORT ROUTE']) ok(mission3.includes(text), `Mission 3 contains ${text}`);
@@ -115,3 +115,29 @@ ok(mission6.includes('A physical print is not required to finish Mission 6'), 'M
 ok(mission6.includes('Solid + Solid + Group') && mission6.includes('Solid + Hole + Group'), 'Mission 6 distinguishes join versus cut grouping');
 ok(!mission6.includes('Circuits') && !mission6.includes('Codeblocks') && !mission6.includes('Sim Lab'), 'Mission 6 required pathway excludes unrelated Tinkercad domains');
 ok(!level1.includes('mission-7-'), 'Mission 7 remains unlinked');
+
+const mission7 = readFileSync(files.mission7, 'utf8');
+for (let i=1;i<=6;i++) ok(mission7.includes(`id="stage-${i}"`), `mission7 stage-${i}`);
+for (const text of ['Set Up','Plan It','Prototype It','Build It','Level It Up','Checkpoint']) ok(mission7.includes(text), `Mission 7 contains stage label ${text}`);
+for (const text of ['PATH A','PATH B','PATH C','SOFTWARE CREATOR','SYSTEMS BUILDER','PRODUCT DESIGNER']) ok(mission7.includes(text), `Mission 7 contains ${text}`);
+ok(mission7.includes('https://makecode.microbit.org/'), 'Mission 7 links to MakeCode for micro:bit');
+ok(mission7.includes('https://arcade.makecode.com/'), 'Mission 7 links to MakeCode Arcade');
+ok(mission7.includes('https://www.tinkercad.com/3d-design/'), 'Mission 7 links to Tinkercad 3D Design');
+for (const text of ['MY PATH','MY CREATION','WHAT IT WILL DO','LEVEL 1 SKILLS','TOOLS &amp; MATERIALS','SUCCESS + CHALLENGE']) ok(mission7.includes(text), `Mission 7 Creator Plan contains ${text}`);
+for (const text of ['GO','SHRINK IT','REPLAN','WAITING FOR A GO CHECK?']) ok(mission7.includes(text), `Mission 7 approval flow contains ${text}`);
+for (const text of ['CODING — YOUR FIRST TARGET','ROBOTICS — YOUR FIRST TARGET','3D DESIGN — YOUR FIRST TARGET','DOES THE CORE IDEA WORK?']) ok(mission7.includes(text), `Mission 7 prototype flow contains ${text}`);
+for (const text of ['One meaningful input','One variable or changing value','One IF or IF/ELSE decision','One repeating behaviour or loop']) ok(mission7.includes(text), `Mission 7 Coding minimum contains ${text}`);
+for (const text of ['At least one physical output','One coded behaviour','One meaningful input, trigger or decision','Correct hardware ports']) ok(mission7.includes(text), `Mission 7 Robotics minimum contains ${text}`);
+for (const text of ['Intentional dimensions','At least three intentionally placed shapes','At least one grouped construction','At least one purposeful cut, hole, slot or recess','A printability check']) ok(mission7.includes(text), `Mission 7 3D minimum contains ${text}`);
+for (const text of ['STUCK? TRY 4','CHECK','TRACE','CHANGE ONE THING','TEST AGAIN','I expected','I checked','I changed']) ok(mission7.includes(text), `Mission 7 TRY 4 contains ${text}`);
+for (const text of ['Test It Like a Creator','I TESTED','I EXPECTED','WHAT HAPPENED','Change Something for a Reason','AFTER THE CHANGE']) ok(mission7.includes(text), `Mission 7 test/revision evidence contains ${text}`);
+for (const text of ['READY-FOR-CHECK','SHOW IT','EXPLAIN IT','TELL ME WHAT CHANGED','MISSION COMPLETE','RETRY ONE SKILL','SUPPORT ROUTE']) ok(mission7.includes(text), `Mission 7 checkpoint contains ${text}`);
+for (const text of ['SKILL PASSPORT','Creator Independence','I can plan a project that fits the tools and time available.','I can troubleshoot one part of a system at a time.','I can explain an important technical decision I made.']) ok(mission7.includes(text), `Mission 7 Skill Passport contains ${text}`);
+for (const text of ['Build Your Own. Help Each Other.','Save, Reset &amp; Return','MISSION 8 — CREATOR CERTIFICATION','COMING NEXT · PREVIEW']) ok(mission7.includes(text), `Mission 7 closeout contains ${text}`);
+ok(!mission7.includes('href="mission-8-') && !mission7.includes('href="../mission-8-') && !mission7.includes('/mission-8-'), 'Mission 8 remains unlinked from Mission 7');
+ok(!level1.includes('mission-7-'), 'Mission 7 prototype remains unlinked from public Level 1');
+ok(!lab.includes('courses/futuretech-lab/builder/'), 'Level 2 remains unlinked');
+ok(!mission7.includes('courses/futuretech-lab/builder/') && !mission7.includes('LEVEL 02'), 'Mission 7 does not expose Level 2');
+
+console.log(`FutureTech Lab student usability audit passed: ${checks.length} checks.`);
+
