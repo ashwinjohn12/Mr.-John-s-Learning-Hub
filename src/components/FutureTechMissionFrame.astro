@@ -9,8 +9,9 @@ interface Props {
   success:string;
   nextTitle?:string;
   nextHref?:string;
+  try4Text?:string;
 }
-const {missionNumber,title,tagline,question,success,nextTitle,nextHref}=Astro.props;
+const {missionNumber,title,tagline,question,success,nextTitle,nextHref,try4Text='Check → Simulate → Download → Partner'}=Astro.props;
 const base=import.meta.env.BASE_URL;
 const stages=['Set Up','First Code','Make It React','Build It','Level It Up','Checkpoint'];
 ---
@@ -20,7 +21,7 @@ const stages=['Set Up','First Code','Make It React','Build It','Level It Up','Ch
     <header class="mission-hero"><div><p class="mission-code">FUTURETECH // LEVEL 01 // MISSION {missionNumber.padStart(2,'0')}</p><h1><small>Mission {missionNumber}</small>{title}</h1><p class="mission-tagline">{tagline}</p></div><div class="mission-status"><span>STATUS</span><strong>● ACTIVE</strong></div></header>
     <div class="mission-brief"><article><span>MISSION QUESTION</span><strong>{question}</strong></article><article><span>YOU ARE READY WHEN...</span><strong>{success}</strong></article></div>
     <nav class="stage-nav" aria-label="Mission stages">{stages.map((stage,i)=><a href={`#stage-${i+1}`}><b>{i+1}</b><span>{stage}</span></a>)}</nav>
-    <aside class="mission-help" aria-label="What to do if you get stuck"><strong>Start at Stage 1 and work in order.</strong><span>Stuck anywhere? TRY 4: <b>Check → Simulate → Download → Partner.</b></span></aside>
+    <aside class="mission-help" aria-label="What to do if you get stuck"><strong>Start at Stage 1 and work in order.</strong><span>Stuck anywhere? TRY 4: <b>{try4Text}.</b></span></aside>
     <main class="mission-body"><slot /></main>
     {nextTitle && nextHref && <aside class="next-mission"><div><span>NEXT MISSION</span><strong>{nextTitle}</strong></div><a href={nextHref}>Checkpoint complete? Continue →</a></aside>}
   </div>
