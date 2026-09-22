@@ -76,6 +76,7 @@ ok((mission3.match(/CODE MODEL [1-4] OF 4/g) || []).length === 4, 'Mission 3 con
 ok(mission3.includes('on button Fire 1 (P15) press down'), 'Mission 3 uses verified Kitronik Fire 1 event wording');
 ok(mission3.includes('player x &gt; 120') || mission3.includes('player x > 120'), 'Mission 3 uses simple Path B horizontal target comparison');
 ok(mission3.includes('Ready-for-Check'), 'Mission 3 preserves Ready-for-Check workflow');
+ok(mission3.includes('Checkpoint complete? Continue') && mission3.includes('mission-4-robot-rookie/'), 'Mission 3 links to Mission 4 with checkpoint gate');
 
 
 const mission4 = readFileSync(files.mission4, 'utf8');
@@ -87,6 +88,7 @@ ok(mission4.includes('Hummingbird Position Servo'), 'Mission 4 uses verified Hum
 ok(mission4.includes('HB-01') && mission4.includes('HB station number'), 'Mission 4 includes station identification and fault reporting');
 ok(!mission4.includes('Hummingbird</b> → Sensor') && !mission4.includes('Hummingbird</b> → Rotation Servo'), 'Mission 4 block-finder inventory excludes sensors and rotation servo');
 ok(!mission4.includes('CODE MODEL 3'), 'Mission 4 does not add a third code model');
+ok(mission4.includes('Checkpoint complete? Continue') && mission4.includes('mission-5-sense-think-act/'), 'Mission 4 links to Mission 5 with checkpoint gate');
 const mission5 = readFileSync(files.mission5, 'utf8');
 for (const text of ['Hummingbird Light Sensor','Sensor Port 1','LED Port 1','3 WIRES','2 WIRES','SENSE','THINK','ACT','MY COVERED VALUE','MY UNCOVERED VALUE','WHAT IS A THRESHOLD?','CODE MODEL 1 OF 2','CODE MODEL 2 OF 2','Build It — Reactive Signal','Ready-for-Check','MISSION COMPLETE','RETRY ONE SKILL','SUPPORT ROUTE','SKILL PASSPORT','Reset']) ok(mission5.includes(text), `Mission 5 contains ${text}`);
 ok((mission5.match(/CODE MODEL [12] OF 2/g) || []).length === 2, 'Mission 5 contains exactly two code models');
