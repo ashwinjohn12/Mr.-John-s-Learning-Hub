@@ -33,7 +33,7 @@ ok(lab.includes('Returning students continue from where they left off'), 'lab ex
 
 const level1 = readFileSync(files.level1, 'utf8');
 for (const text of ['Make It Happen','Make It Think','Build a Game','Robot Rookie','Sense → Think → Act','Design It. Print It.','Choose Your Path','Creator Certification']) ok(level1.includes(text), `Level 1 contains ${text}`);
-ok(level1.includes('Missions 1–6 are open now'), 'Level 1 clearly names open missions');
+ok(level1.includes('Missions 1–7 are open now'), 'Level 1 clearly names open missions');
 ok(level1.includes('COMING NEXT · PREVIEW'), 'planned missions clearly marked preview');
 ok(level1.includes('simple loop'), 'Level 1 Mission 2 summary includes loop prerequisite');
 ok(level1.includes('mission-3-build-a-game/'), 'Mission 3 is linked from Level 1');
