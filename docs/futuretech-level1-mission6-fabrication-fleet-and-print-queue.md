@@ -38,9 +38,9 @@ Manufacturer-verified baseline:
 ### ART-01 — Snapmaker Artisan 3-in-1 with enclosure
 
 Role in Mission 6:
-- overflow printer when E3-01 and E3-02 are occupied;
-- batch printing where the slicer layout makes that efficient;
-- reserve capacity for unusually time-sensitive or teacher-priority jobs;
+- **advanced fabrication printer, not the default Level 1 production printer**;
+- normally reserved from routine beginner Mission 6 printing;
+- may be used only when the teacher intentionally approves an exception, such as a demonstration, teacher-priority job, or controlled advanced/batch use;
 - do **not** use its larger work area as a reason to permit larger Level 1 Maker Tags.
 
 Manufacturer-verified 3D-printing baseline:
@@ -54,8 +54,9 @@ Manufacturer-verified 3D-printing baseline:
 - platform also supports laser engraving/cutting and CNC carving/cutting.
 
 Future-course role:
-- advanced digital-fabrication platform for later levels;
-- possible future dual-material, laser and CNC pathways;
+- the primary **advanced digital-fabrication platform** for later FutureTech levels;
+- appropriate for students who have already demonstrated Level 1 fabrication habits and are working on more advanced design/manufacturing tasks;
+- possible future dual-material, larger-format, laser and CNC pathways;
 - those capabilities are outside Mission 6 mastery and should not be introduced as Level 1 requirements.
 
 ---
@@ -100,13 +101,16 @@ If a later course level introduces PETG, TPU, ABS/ASA, nylon or reinforced mater
 
 ### Normal routing
 
-Use this default order:
+Use this default Level 1 routing:
 
 1. **E3-01**
 2. **E3-02**
-3. **ART-01** as overflow / batch / teacher-priority capacity
 
-Do not interpret this as a strict chronological rule. Assign the next job to the machine that gives the simplest safe classroom workflow.
+For routine Mission 6 beginner prints, **stop there**.
+
+**ART-01 is not the normal third printer in the Level 1 queue.** It is reserved for advanced fabrication and teacher-approved exceptions.
+
+Do not interpret E3-01 then E3-02 as a strict chronological rule. Assign standard Level 1 jobs between the two Ender-3 printers based on availability and print time.
 
 ### Prefer E3-01 / E3-02 when
 
@@ -116,12 +120,14 @@ Do not interpret this as a strict chronological rule. Assign the next job to the
 - both Ender-3 printers are functioning normally;
 - no special Artisan capability is needed.
 
-### Prefer ART-01 when
+### Use ART-01 only when
 
-- both Ender-3 printers are occupied;
-- several small approved Maker Tags can be efficiently arranged as one batch;
-- a teacher-priority job needs available capacity;
-- a future advanced project genuinely needs Artisan-specific capability.
+- the teacher intentionally approves an advanced or demonstration print;
+- a later-level project genuinely needs Artisan-specific capability;
+- a controlled batch or teacher-priority job is pedagogically useful;
+- students using it have demonstrated the prerequisite fabrication habits required for the advanced task.
+
+Do **not** automatically move beginner Mission 6 jobs to ART-01 just because E3-01 and E3-02 are busy.
 
 ### Do not route based on student preference
 
@@ -191,33 +197,32 @@ A student can complete Mission 6 before the object is printed.
 
 ## 7. Queue triage rules
 
-When several approved files are waiting, use these priorities:
+When several approved Level 1 files are waiting, use these priorities on **E3-01 and E3-02**:
 
 1. files that have already passed the Mission 6 checkpoint;
-2. small jobs that keep the fleet moving efficiently;
-3. jobs that can be batched without increasing risk;
-4. student work that has not yet received one successful Mission 6 print;
-5. reprints only after the design or machine cause of failure is understood.
+2. small jobs that keep the beginner production queue moving efficiently;
+3. student work that has not yet received one successful Mission 6 print;
+4. reprints only after the design or machine cause of failure is understood.
 
-Avoid a pure first-in/first-out rule if it leaves a printer idle while a shorter compatible job could run safely.
+Avoid a pure first-in/first-out rule if it leaves an Ender-3 idle while a shorter compatible job could run safely.
 
-Do not let students bypass the queue because ART-01 appears available.
+Do not let students bypass the beginner queue because ART-01 appears available.
 
 ---
 
 ## 8. Batch-print guidance
 
-Batching may be useful on ART-01 because of its larger 3D-printing work area.
+For routine Mission 6 beginner work, prefer single-object or simple small-batch jobs on **E3-01 / E3-02**.
 
-Use batch printing only when:
+ART-01 batch printing should be treated as an advanced/teacher-managed exception rather than normal Level 1 production.
+
+If ART-01 is used for a batch:
 
 - every included STL has already passed checkpoint approval;
 - all parts use the same material/profile;
-- the batch does not create an unreasonable failure risk;
+- the batch does not create unreasonable failure risk;
 - parts are spaced appropriately in the slicer;
 - one failed object would not jeopardize too many students' work unnecessarily.
-
-For first-time Mission 6 prints, single-object jobs on E3-01 / E3-02 may be easier to diagnose and manage.
 
 ---
 
@@ -296,9 +301,9 @@ If a machine is unavailable, keep its ID in the system and mark it unavailable r
 
 ## 12. Internal fleet rule
 
-For Mission 6:
+For Mission 6 and the wider FutureTech progression:
 
-> **E3-01 and E3-02 are the normal Level 1 production printers. ART-01 is overflow, batch and future advanced-fabrication capacity.**
+> **E3-01 and E3-02 are the beginner production printers. ART-01 is the advanced fabrication printer and is not part of the routine Level 1 queue.**
 
 This routing rule is internal only.
 
