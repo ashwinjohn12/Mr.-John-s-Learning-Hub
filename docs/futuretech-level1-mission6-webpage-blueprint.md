@@ -1,7 +1,7 @@
 # FutureTech Lab — Level 1 Mission 6 Student Webpage Blueprint
 
 **Mission:** 6 — Design It. Print It.  
-**Status:** STUDENT-FACING PAGE BLUEPRINT ONLY — no Astro page implemented  
+**Status:** APPROVED / FROZEN STUDENT-FACING BLUEPRINT — implemented and browser-audited  
 **Source specification:** `docs/futuretech-level1-mission6-instructional-spec.md`  
 **Governing standard:** `docs/futuretech-level1-mission-design-standard.md`  
 **Primary tool:** Autodesk Tinkercad 3D Design
@@ -1359,4 +1359,4 @@ No additional major visual is required.
 
 ---
 
-**Implementation boundary:** This document is a blueprint only. It does not create the Mission 6 route, modify Missions 1–5, alter the shared FutureTech frame, merge to main, or publish the public Learning Hub.
+**Freeze boundary:** This blueprint documents the approved implemented Mission 6 experience. Future changes should preserve the beginner CAD scope, FIND NOW / FIND LATER workspace hierarchy, exact-dimensions model, separate JOIN SOLIDS / CUT MATERIAL logic, Maker Tag ownership, checkpoint-gated STL export, Ready-for-Check / Print Queue separation, and CAD-specific TRY 4, and should be limited to evidence-based usability, accessibility, CAD-tool support, printability/queue workflow, safety, or factual corrections.
