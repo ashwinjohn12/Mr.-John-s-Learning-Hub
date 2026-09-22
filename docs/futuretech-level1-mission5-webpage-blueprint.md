@@ -1,7 +1,7 @@
 # FutureTech Lab — Level 1 Mission 5 Student Webpage Blueprint
 
 **Mission:** 5 — Sense → Think → Act  
-**Status:** STUDENT-FACING PAGE BLUEPRINT ONLY — no Astro page implemented  
+**Status:** APPROVED / FROZEN STUDENT-FACING BLUEPRINT — implemented and browser-audited  
 **Source specification:** `docs/futuretech-level1-mission5-instructional-spec.md`  
 **Governing standard:** `docs/futuretech-level1-mission-design-standard.md`
 
@@ -1050,4 +1050,4 @@ At 390 px, 375 px and 320 px, the following must remain visually unambiguous:
 
 ---
 
-**Implementation boundary:** This document is a blueprint only. It does not create the Mission 5 route, modify Missions 1–4, alter the shared FutureTech frame, merge to main, or publish the public Learning Hub.
+**Freeze boundary:** This blueprint documents the approved implemented Mission 5 experience. Future changes should preserve the single-sensor/single-output core, Sense → Think → Act visual structure, two-model ceiling, individual-first workflow, threshold-from-real-readings routine, and evidence-based troubleshooting, and should be limited to evidence-based usability, accessibility, hardware-support, safety, or factual corrections.
