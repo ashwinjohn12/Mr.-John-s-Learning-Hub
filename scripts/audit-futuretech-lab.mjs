@@ -101,7 +101,7 @@ ok(mission5.includes('40 is only an example'), 'Mission 5 guards against hard-co
 ok(mission5.includes('LED NEVER CHANGES? DO NOT GUESS FIRST.'), 'Mission 5 uses evidence-based reactive troubleshooting');
 ok(!mission5.includes('Distance Sensor') && !mission5.includes('Sound Sensor') && !mission5.includes('Dial Sensor'), 'Mission 5 core pathway excludes second sensor types');
 ok(mission5.includes('Servo Reaction') && mission5.includes('optional'), 'Mission 5 keeps servo optional in Level It Up');
-ok(!mission5.includes('CODE MODEL 3'), 'Mission 5 does not add a third code model');
+ok(!mission5.includes('CODE MODEL 3'), 'Mission 5 does not add a third code model');\nok(mission5.includes('Checkpoint complete? Continue') && mission5.includes('mission-6-design-it-print-it/'), 'Mission 5 links to Mission 6 with checkpoint gate');
 const mission6 = readFileSync(files.mission6, 'utf8');
 for (let i=1;i<=6;i++) ok(mission6.includes(`id="stage-${i}"`), `mission6 stage-${i}`);
 for (const text of ['TRY 4','Ready-for-Check','Checkpoint','SKILL PASSPORT','Reset','Start at Stage 1 and work in order']) ok(mission6.includes(text), `mission6 contains ${text}`);
