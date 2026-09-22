@@ -116,7 +116,7 @@ ok(mission6.includes('A physical print is not required to finish Mission 6'), 'M
 ok(mission6.includes('Solid + Solid + Group') && mission6.includes('Solid + Hole + Group'), 'Mission 6 distinguishes join versus cut grouping');
 ok(!mission6.includes('Circuits') && !mission6.includes('Codeblocks') && !mission6.includes('Sim Lab'), 'Mission 6 required pathway excludes unrelated Tinkercad domains');
 ok(level1.includes('mission-7-choose-your-path/'), 'Mission 7 is linked from Level 1 release candidate');
-ok(level1.includes('Missions 1–7 are open now'), 'Level 1 release copy names Missions 1–7 as open');
+ok(level1.includes('All 8 Level 1 missions are open now'), 'Level 1 release copy confirms all Level 1 missions are open');
 ok(level1.includes('mission-8-creator-certification/'), 'Mission 8 is linked from Level 1 release candidate');
 ok(level1.includes('Creator Certification') && level1.includes('COMING NEXT · PREVIEW'), 'Mission 8 remains a locked preview');
 ok(mission6.includes('Checkpoint complete? Continue') && mission6.includes('mission-7-choose-your-path/'), 'Mission 6 links to Mission 7 with checkpoint gate');
