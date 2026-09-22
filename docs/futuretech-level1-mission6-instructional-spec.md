@@ -1,7 +1,7 @@
 # FutureTech Lab — Level 1 Mission 6 Instructional Specification
 
 **Mission:** 6 — Design It. Print It.  
-**Status:** PRE-BUILD INSTRUCTIONAL SPECIFICATION — webpage not built  
+**Status:** APPROVED / FROZEN LEVEL 1 MISSION 6 SPECIFICATION — implemented and browser-audited  
 **Audience:** Grade 8/9 beginners who have completed Missions 1–5  
 **Target length:** one 90-minute class  
 **Primary CAD tool:** Autodesk Tinkercad 3D Design  
@@ -1156,4 +1156,4 @@ Locked core:
 
 Physical printing is an optional later manufacturing event and is not required for Mission 6 completion.
 
-The Mission 6 webpage remains unbuilt by this specification task.
+Mission 6 is implemented and frozen. Future changes should be limited to evidence-based usability, accessibility, CAD-tool support, printability/queue workflow, safety, or factual corrections.
