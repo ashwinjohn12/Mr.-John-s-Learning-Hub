@@ -132,18 +132,27 @@ Use one **simplified current-interface workspace map** rather than a decorative 
 
 The visual should resemble the spatial layout of Tinkercad without copying the whole interface pixel-for-pixel.
 
-Label only:
+Use two levels of emphasis so a first-time user is not asked to learn the whole interface at once.
+
+### FIND NOW — visually prominent
 
 - **WORKPLANE**
 - **BASIC SHAPES / SHAPES PANEL**
 - **SELECTED SHAPE**
 - **SIZE HANDLES / DIMENSIONS**
-- **HEIGHT HANDLE**
 - **VIEW CUBE / VIEW CONTROLS**
 - **UNDO**
+
+### FIND LATER — visible but visually secondary
+
+- **HEIGHT HANDLE**
 - **ALIGN**
 - **GROUP**
 - **EXPORT**
+
+Add one caption:
+
+> **You only need the FIND NOW tools in Stage 1. The other labels are landmarks for later.**
 
 Do not label Circuits, Codeblocks, Sim Lab, advanced shape generators, Import or Send To.
 
@@ -273,6 +282,16 @@ Label:
 
 Use arrows that clearly point to different axes.
 
+Add one beginner orientation key directly beside the model:
+
+**WIDTH** — side to side  
+**LENGTH** — front to back  
+**HEIGHT** — up and down
+
+Add one clarification:
+
+> **Orbit changes your view, not the object's dimensions. Width, length and height stay the same even when the model looks rotated on screen.**
+
 Add a small comparison strip:
 
 **DRAG A HANDLE ≈ approximate**  
@@ -319,15 +338,28 @@ Clarification:
 
 ## Purpose strip
 
-Use:
+Do **not** show a single linear **ALIGN → GROUP → HOLE** sequence because that can imply that Hole comes after Group.
 
-**ALIGN → GROUP → HOLE**
+Instead use two parallel mini-routes:
 
-with one-line meanings:
+### JOIN SOLIDS
+
+**OVERLAP → ALIGN → SELECT BOTH → GROUP**
+
+### CUT MATERIAL
+
+**SET SHAPE TO HOLE → OVERLAP → SELECT BOTH → GROUP → CUT**
+
+Then give the one-line meanings:
 
 **ALIGN** — line shapes up accurately  
-**GROUP** — combine selected shapes into one part  
-**HOLE** — subtract material when grouped with a solid
+**GROUP** — applies the relationship between the selected shapes  
+**SOLID + SOLID** — Group combines them into one part  
+**SOLID + HOLE** — Group subtracts the overlapping Hole area
+
+Student wording:
+
+> **Group does different things depending on what you selected: Solid + Solid joins; Solid + Hole cuts.**
 
 ## Tool-finder chips — Stage 3
 
@@ -352,8 +384,9 @@ Use short student instructions:
 3. Select both shapes.
 4. Choose **Align**.
 5. Click an alignment point that lines them up intentionally.
-6. Choose **Group**.
-7. Orbit around the new combined part.
+6. Before Group, confirm the two solids **overlap**, not just touch edge-to-edge.
+7. Choose **Group**.
+8. Orbit around the new combined part.
 
 Success cue:
 
@@ -418,9 +451,11 @@ Panel 2:
 
 **MATERIAL REMOVED**
 
-Add one highlighted rule:
+Add two highlighted rules:
 
-> **A Hole only cuts where it overlaps a solid.**
+> **Solid + Solid + Group = one combined part.**
+
+> **Solid + Hole + Group = material removed where they overlap.**
 
 Do not show a completed Maker Tag.
 
@@ -476,6 +511,10 @@ at least 3 mm
 
 **THROUGH-HOLE**  
 target 5 mm diameter or larger
+
+Add one quick student check directly under the numbers:
+
+> **Before Ready-for-Check:** select the finished tag and verify its overall size against all four limits.
 
 Small note:
 
@@ -601,7 +640,7 @@ Header:
 
 ## 1 — CHECK
 
-> Check what is selected, the current dimensions, Solid vs Hole, whether shapes overlap, and whether the base sits on the Workplane.
+> Check what is selected **before clicking another tool**, then check the current dimensions, Solid vs Hole, whether shapes overlap, and whether the base sits on the Workplane.
 
 ## 2 — VIEW
 
@@ -661,6 +700,8 @@ Use exactly four cards.
 
 > Add short raised text or initials. Keep the lettering thick and readable.
 
+If Text is unavailable or slow to load in the classroom account, use a simple raised symbol or primitive-shape pattern instead.
+
 ## ⭐ Recessed Detail
 
 > Use Text or a simple shape as a Hole to create a recessed feature without cutting through the whole base.
@@ -715,11 +756,14 @@ Student demonstrates:
 Student explains:
 
 - which primitive shapes were used;
-- where Align was used;
-- what Group did;
+- **why** Align was useful in this design;
+- what Group did with two solids;
+- what Group did with a Solid + Hole;
 - how the Hole removed material;
 - why the design should be printable;
 - one intentional personal design choice.
+
+The student may point to tools while explaining, but the checkpoint is about **what the operations do**, not memorizing where the icons are.
 
 ## Check 3 — Change It
 
@@ -790,6 +834,18 @@ Add:
 
 > **Only export the approved final model.**
 
+Before Export, require one final **EXPORT CHECK**:
+
+- ☐ only the intended Maker Tag remains in the design area;
+- ☐ no abandoned practice Box / Cylinder is sitting off to the side;
+- ☐ the tag still meets the size and printability checks;
+- ☐ the through-hole is still open;
+- ☐ the design name is correct.
+
+Purpose:
+
+> **The STL should contain the approved object, not leftover practice shapes.**
+
 ## Project-name reminder
 
 Tinkercad design name:
@@ -833,6 +889,10 @@ Do not hard-code LMS, Google Drive, Forms or another platform until the actual c
 # Print queue status strip
 
 This is a compact process/status strip, not a fifth major instructional visual.
+
+Place one explicit separation banner above it:
+
+> **READY-FOR-CHECK is the student mastery queue. PRINT QUEUE is the teacher manufacturing queue. They are not the same list.**
 
 Use:
 
@@ -1104,6 +1164,7 @@ Use these phrases consistently.
 - tool-finder chips wrap;
 - exact-dimensions visual stacks labels below the object if necessary;
 - 40 / 20 / 4 values must remain attached to the correct dimension names;
+- WIDTH / LENGTH / HEIGHT keep the plain-language cues **side to side / front to back / up and down**;
 - Align / Group / Hole becomes a vertical step sequence;
 - printability becomes:
   1. PRINTABLE card;
@@ -1129,6 +1190,9 @@ Apply all 390 px rules plus:
   - WIDTH · 40 mm
   - LENGTH · 20 mm
   - HEIGHT · 4 mm
+- the two Stage 3 routes remain separate:
+  - **JOIN SOLIDS**
+  - **CUT MATERIAL**
 - Solid / Hole sequence uses full-width panels;
 - Group / Align arrows remain readable without tiny text;
 - the 60 × 40 × 8 mm classroom limits do not wrap into ambiguous numbers;
@@ -1199,9 +1263,10 @@ Before implementation, a Grade 8/9 beginner should be able to answer:
 - Where do I find a Box?
 - How do I orbit without resizing my object?
 - How do I tell how large my object really is?
-- What are width, length and height?
+- What are width, length and height, and how do I tell them apart after I orbit the view?
 - What does Align do?
-- What does Group do?
+- What happens when I Group Solid + Solid?
+- What happens when I Group Solid + Hole?
 - How does a Hole remove material?
 - How can I tell whether my hole really passes through?
 - What makes a model printable enough for this mission?
@@ -1210,11 +1275,87 @@ Before implementation, a Grade 8/9 beginner should be able to answer:
 - What should I inspect if something goes wrong?
 - Do I need a physical print to pass?
 - When am I allowed to export?
+- How do I make sure leftover practice shapes are not included in the STL?
 - What file format do I submit?
 - What happens after I submit to the print queue?
 - What must I do before leaving the computer?
 
 If an answer requires a long teacher explanation, improve the visual or support card before implementation rather than adding a paragraph.
+
+---
+
+# Final pre-implementation audit decisions
+
+## Grade 8/9 beginner perspective
+
+The blueprint passes after four targeted corrections:
+
+1. **Workspace map load reduced.** Stage 1 now visually separates **FIND NOW** tools from **FIND LATER** landmarks so students are not asked to learn Align, Group and Export before they need them.
+2. **Dimensions made orientation-proof.** Width, length and height now include plain-language directions — side to side, front to back, up and down — plus the reminder that orbit changes the view, not the dimensions.
+3. **Group / Hole logic corrected.** The page no longer implies a misleading **Align → Group → Hole** sequence. Students see two different relationships:
+   - Solid + Solid + Group = join;
+   - Solid + Hole + Group = cut.
+4. **Export made safer.** A final export check removes abandoned practice shapes and confirms the approved object is the only intended STL content.
+
+The four-major-visual ceiling remains intact. These changes refine labels and support cards rather than adding tutorial clutter.
+
+## Classroom-teacher / three-printer perspective
+
+The blueprint is realistic for one 90-minute class **if Tinkercad access is ready before class**, as required by the instructional specification.
+
+The print queue is manageable because:
+
+- the Maker Tag has strict size limits;
+- each student submits one Mission 6 print candidate;
+- physical printing is not required for mastery;
+- checkpoint approval happens before export;
+- the final Export Check reduces broken / cluttered STL submissions;
+- Ready-for-Check and Print Queue are now explicitly labelled as two separate systems;
+- slicing and printer settings remain teacher-controlled.
+
+No slicer-level content should be added to the student pathway.
+
+## Maker Tag limits
+
+The Mission 6 limits remain appropriate as **classroom queue guardrails**, not universal print rules:
+
+- max footprint 60 × 40 mm;
+- max height 8 mm;
+- base at least 3 mm;
+- through-hole target 5 mm or larger.
+
+They must still be confirmed against the actual classroom printers, nozzle/material setup and typical print times before implementation.
+
+## 90-minute pacing
+
+No scope reduction is required.
+
+The pacing remains plausible because:
+
+- Stage 1 is a focused orientation, not a full interface tour;
+- Stage 2 uses one Box only;
+- Stage 3 uses two short relationship tasks;
+- Stage 4 is one small single-part Maker Tag;
+- Level It Up is optional;
+- checkpoints roll as students finish;
+- printing occurs later.
+
+If Text is unavailable or causes classroom delays, personalization may use a simple primitive-shape symbol/pattern without changing mission mastery.
+
+## Mobile / responsive decision
+
+At 390 px, 375 px and 320 px, implementation must preserve:
+
+- FIND NOW vs FIND LATER workspace labels;
+- WIDTH / LENGTH / HEIGHT with plain-language direction cues;
+- separate **JOIN SOLIDS** and **CUT MATERIAL** routes;
+- Solid + Solid vs Solid + Hole Group outcomes;
+- printability comparison;
+- classroom size limits;
+- Ready-for-Check vs Print Queue separation;
+- export filename and Export Check without horizontal overflow.
+
+No additional major visual is required.
 
 ---
 
