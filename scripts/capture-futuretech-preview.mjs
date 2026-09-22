@@ -41,6 +41,7 @@ try {
       const metrics = await page.evaluate(() => {
         const clientWidth = document.documentElement.clientWidth;
         const overflowElements = [...document.querySelectorAll('body *')]
+          .reverse()
           .map((el) => {
             const r = el.getBoundingClientRect();
             return {
