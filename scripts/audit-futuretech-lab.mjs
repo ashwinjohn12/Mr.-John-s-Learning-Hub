@@ -13,10 +13,11 @@ const files = {
   mission1: 'dist/courses/futuretech-lab/creator-foundations/mission-1-make-it-happen/index.html',
   mission2: 'dist/courses/futuretech-lab/creator-foundations/mission-2-make-it-think/index.html',
   mission3: 'dist/courses/futuretech-lab/creator-foundations/mission-3-build-a-game/index.html',
-  mission4: 'dist/courses/futuretech-lab/creator-foundations/mission-4-robot-rookie/index.html'
+  mission4: 'dist/courses/futuretech-lab/creator-foundations/mission-4-robot-rookie/index.html',
+  mission5: 'dist/courses/futuretech-lab/creator-foundations/mission-5-sense-think-act/index.html'
 };
 
-for (const name of ['home','lab','level1','mission1','mission2','mission3','mission4']) ok(existsSync(files[name]), `${name} route exists`);
+for (const name of ['home','lab','level1','mission1','mission2','mission3','mission4','mission5']) ok(existsSync(files[name]), `${name} route exists`);
 
 const home = readFileSync(files.home, 'utf8');
 ok(home.includes('FutureTech Lab'), 'homepage names FutureTech Lab');
@@ -30,15 +31,16 @@ ok(lab.includes('Returning students continue from where they left off'), 'lab ex
 
 const level1 = readFileSync(files.level1, 'utf8');
 for (const text of ['Make It Happen','Make It Think','Build a Game','Robot Rookie','Sense → Think → Act','Design It. Print It.','Choose Your Path','Creator Certification']) ok(level1.includes(text), `Level 1 contains ${text}`);
-ok(level1.includes('Missions 1–4 are open now'), 'Level 1 clearly names open missions');
+ok(level1.includes('Missions 1–5 are open now'), 'Level 1 clearly names open missions');
 ok(level1.includes('COMING NEXT · PREVIEW'), 'planned missions clearly marked preview');
 ok(level1.includes('simple loop'), 'Level 1 Mission 2 summary includes loop prerequisite');
 ok(level1.includes('mission-3-build-a-game/'), 'Mission 3 is linked from Level 1');
 ok(level1.includes('mission-4-robot-rookie/'), 'Mission 4 is linked from Level 1');
-ok(level1.includes('Sense → Think → Act') && level1.includes('COMING NEXT · PREVIEW'), 'Missions 5–8 remain locked previews');
+ok(level1.includes('mission-5-sense-think-act/'), 'Mission 5 is linked from Level 1');
+ok(level1.includes('Design It. Print It.') && level1.includes('COMING NEXT · PREVIEW'), 'Missions 6–8 remain locked previews');
 ok(level1.includes('Work independently by default'), 'Level 1 mission map reflects individual-first workflow');
 
-for (const [name, file] of [['mission1',files.mission1],['mission2',files.mission2],['mission3',files.mission3],['mission4',files.mission4]]) {
+for (const [name, file] of [['mission1',files.mission1],['mission2',files.mission2],['mission3',files.mission3],['mission4',files.mission4],['mission5',files.mission5]]) {
   const html = readFileSync(file, 'utf8');
   for (let i=1;i<=6;i++) ok(html.includes(`id="stage-${i}"`), `${name} stage-${i}`);
   for (const text of ['TRY 4','Ready-for-Check','Checkpoint','SKILL PASSPORT','Reset','Start at Stage 1 and work in order']) ok(html.includes(text), `${name} contains ${text}`);
@@ -85,4 +87,15 @@ ok(mission4.includes('Hummingbird Position Servo'), 'Mission 4 uses verified Hum
 ok(mission4.includes('HB-01') && mission4.includes('HB station number'), 'Mission 4 includes station identification and fault reporting');
 ok(!mission4.includes('Hummingbird</b> → Sensor') && !mission4.includes('Hummingbird</b> → Rotation Servo'), 'Mission 4 block-finder inventory excludes sensors and rotation servo');
 ok(!mission4.includes('CODE MODEL 3'), 'Mission 4 does not add a third code model');
-ok(!level1.includes('mission-5-'), 'Mission 5 remains unlinked');
+const mission5 = readFileSync(files.mission5, 'utf8');
+for (const text of ['Hummingbird Light Sensor','Sensor Port 1','LED Port 1','3 WIRES','2 WIRES','SENSE','THINK','ACT','MY COVERED VALUE','MY UNCOVERED VALUE','WHAT IS A THRESHOLD?','CODE MODEL 1 OF 2','CODE MODEL 2 OF 2','Build It — Reactive Signal','Ready-for-Check','MISSION COMPLETE','RETRY ONE SKILL','SUPPORT ROUTE','SKILL PASSPORT','Reset']) ok(mission5.includes(text), `Mission 5 contains ${text}`);
+ok((mission5.match(/CODE MODEL [12] OF 2/g) || []).length === 2, 'Mission 5 contains exactly two code models');
+ok(mission5.includes('Start Hummingbird'), 'Mission 5 uses verified Start Hummingbird label');
+ok(mission5.includes('Hummingbird Light 1'), 'Mission 5 uses Hummingbird Light sensor block wording');
+ok(mission5.includes('Hummingbird LED'), 'Mission 5 uses verified Hummingbird LED label');
+ok(mission5.includes('40 is only an example'), 'Mission 5 guards against hard-coded threshold thinking');
+ok(mission5.includes('LED NEVER CHANGES? DO NOT GUESS FIRST.'), 'Mission 5 uses evidence-based reactive troubleshooting');
+ok(!mission5.includes('Distance Sensor') && !mission5.includes('Sound Sensor') && !mission5.includes('Dial Sensor'), 'Mission 5 core pathway excludes second sensor types');
+ok(mission5.includes('Servo Reaction') && mission5.includes('optional'), 'Mission 5 keeps servo optional in Level It Up');
+ok(!mission5.includes('CODE MODEL 3'), 'Mission 5 does not add a third code model');
+ok(!level1.includes('mission-6-'), 'Mission 6 remains unlinked');
