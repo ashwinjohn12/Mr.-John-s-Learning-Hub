@@ -114,7 +114,11 @@ ok(mission6.includes('One Mission 6 print candidate per student'), 'Mission 6 li
 ok(mission6.includes('A physical print is not required to finish Mission 6'), 'Mission 6 separates printing from mastery');
 ok(mission6.includes('Solid + Solid + Group') && mission6.includes('Solid + Hole + Group'), 'Mission 6 distinguishes join versus cut grouping');
 ok(!mission6.includes('Circuits') && !mission6.includes('Codeblocks') && !mission6.includes('Sim Lab'), 'Mission 6 required pathway excludes unrelated Tinkercad domains');
-ok(!level1.includes('mission-7-'), 'Mission 7 remains unlinked');
+ok(level1.includes('mission-7-choose-your-path/'), 'Mission 7 is linked from Level 1 release candidate');
+ok(level1.includes('Missions 1–7 are open now'), 'Level 1 release copy names Missions 1–7 as open');
+ok(!level1.includes('mission-8-'), 'Mission 8 remains unlinked from Level 1');
+ok(level1.includes('Creator Certification') && level1.includes('COMING NEXT · PREVIEW'), 'Mission 8 remains a locked preview');
+ok(mission6.includes('Checkpoint complete? Continue') && mission6.includes('mission-7-choose-your-path/'), 'Mission 6 links to Mission 7 with checkpoint gate');
 
 const mission7 = readFileSync(files.mission7, 'utf8');
 for (let i=1;i<=6;i++) ok(mission7.includes(`id="stage-${i}"`), `mission7 stage-${i}`);
@@ -133,11 +137,15 @@ for (const text of ['Intentional dimensions','At least three intentionally place
 for (const text of ['STUCK? TRY 4','CHECK','TRACE','CHANGE ONE THING','TEST AGAIN','I expected','I checked','I changed']) ok(mission7.includes(text), `Mission 7 TRY 4 contains ${text}`);
 for (const text of ['Test It Like a Creator','I TESTED','I EXPECTED','WHAT HAPPENED','Change Something for a Reason','AFTER THE CHANGE']) ok(mission7.includes(text), `Mission 7 test/revision evidence contains ${text}`);
 for (const text of ['READY-FOR-CHECK','SHOW IT','EXPLAIN IT','TELL ME WHAT CHANGED','MISSION COMPLETE','RETRY ONE SKILL','SUPPORT ROUTE']) ok(mission7.includes(text), `Mission 7 checkpoint contains ${text}`);
+ok(mission7.includes('ADD YOUR NAME TO THE CLASS READY-FOR-CHECK SYSTEM'), 'Mission 7 Ready-for-Check gives a real classroom action');
 for (const text of ['SKILL PASSPORT','Creator Independence','I can plan a project that fits the tools and time available.','I can troubleshoot one part of a system at a time.','I can explain an important technical decision I made.']) ok(mission7.includes(text), `Mission 7 Skill Passport contains ${text}`);
 for (const text of ['Build Your Own. Help Each Other.','MISSION 8 — CREATOR CERTIFICATION','COMING NEXT · PREVIEW']) ok(mission7.includes(text), `Mission 7 closeout contains ${text}`);
 ok(mission7.includes('Save, Reset') && mission7.includes('Return'), 'Mission 7 contains save/reset/return closeout');
+ok((mission7.match(/Open only your path\./g) || []).length >= 2, 'Mission 7 repeatedly helps students ignore unused pathways');
+ok(mission7.includes('10–15 minutes'), 'Mission 7 keeps Creator Plan time-bounded');
+ok(mission7.includes('Make it work before you make it bigger, prettier or more complicated.'), 'Mission 7 prioritizes core prototype before expansion');
 ok(!mission7.includes('href="mission-8-') && !mission7.includes('href="../mission-8-') && !mission7.includes('/mission-8-'), 'Mission 8 remains unlinked from Mission 7');
-ok(!level1.includes('mission-7-'), 'Mission 7 prototype remains unlinked from public Level 1');
+ok(level1.includes('mission-7-choose-your-path/'), 'Mission 7 release candidate is active on Level 1');
 ok(!lab.includes('courses/futuretech-lab/builder/'), 'Level 2 remains unlinked');
 ok(!mission7.includes('courses/futuretech-lab/builder/') && !mission7.includes('LEVEL 02'), 'Mission 7 does not expose Level 2');
 
