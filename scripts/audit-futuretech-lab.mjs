@@ -106,6 +106,7 @@ const mission6 = readFileSync(files.mission6, 'utf8');
 for (let i=1;i<=6;i++) ok(mission6.includes(`id="stage-${i}"`), `mission6 stage-${i}`);
 for (const text of ['TRY 4','Ready-for-Check','Checkpoint','SKILL PASSPORT','Reset','Start at Stage 1 and work in order']) ok(mission6.includes(text), `mission6 contains ${text}`);
 ok(mission6.includes('Check → View → Undo / Retry → Partner'), 'Mission 6 uses CAD-specific persistent TRY 4 route');
+ok(mission6.includes('https://www.tinkercad.com/3d-design/'), 'Mission 6 links directly to Tinkercad 3D Design');
 for (const text of ['Tinkercad','FIND NOW','FIND LATER','WORKPLANE','BASIC SHAPES','WIDTH · 40 mm','LENGTH · 20 mm','HEIGHT · 4 mm','JOIN SOLIDS','CUT MATERIAL','Solid + Solid + Group','Solid + Hole + Group','Build It — Maker Tag','LEVEL 1 PRINT-QUEUE LIMITS','PRINTABLE','CHECK AGAIN','EXPORT CHECK','READY-FOR-CHECK','PRINT QUEUE','STL / .STL','MISSION COMPLETE','RETRY ONE SKILL','SUPPORT ROUTE']) ok(mission6.includes(text), `Mission 6 contains ${text}`);
 ok(mission6.includes('60 mm × 40 mm') && mission6.includes('8 mm') && mission6.includes('3 mm') && mission6.includes('5 mm'), 'Mission 6 includes Level 1 classroom print limits');
 ok(mission6.includes('One Mission 6 print candidate per student'), 'Mission 6 limits print queue submissions');
