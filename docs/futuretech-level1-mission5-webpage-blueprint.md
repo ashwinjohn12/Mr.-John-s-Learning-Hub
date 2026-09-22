@@ -124,6 +124,10 @@ Do not show servo ports in the required pathway.
 
 **SENSOR PORT 1 — LIGHT SENSOR**
 
+Add a large text badge:
+
+**3 WIRES · S / + / –**
+
 Wire order:
 
 **yellow → S**  
@@ -138,6 +142,10 @@ Small label:
 
 **LED PORT 1 — SINGLE-COLOR LED**
 
+Add a large text badge:
+
+**2 WIRES · + / –**
+
 Wire order:
 
 **colored wire → +**  
@@ -146,6 +154,12 @@ Wire order:
 Small label:
 
 **OUTPUT**
+
+Add one explicit visual warning directly under both callouts:
+
+> **Do not swap these ports:** the 3-wire light sensor goes to **Sensor Port 1**; the 2-wire LED goes to **LED Port 1**.
+
+This distinction must be visible in text, terminal symbols, and wire count—not by color alone.
 
 ## Bottom power callout
 
@@ -181,7 +195,9 @@ Numbered steps:
 4. Connect the LED to **LED Port 1**:
    - colored wire → **+**
    - black wire → **–**
-5. Compare both connections to the diagram.
+5. Before powering on, do a **3-wire / 2-wire check**:
+   - Light Sensor = **3 wires** in **Sensor Port 1**
+   - LED = **2 wires** in **LED Port 1**
 6. Turn Hummingbird power ON only when you are ready to test.
 7. Turn power OFF again before removing or reconnecting any part.
 
@@ -211,25 +227,31 @@ Use three large linked cards:
 
 ## SENSE
 
-**Light Sensor 1**
+**Light Sensor 1 → number**
 
-> Measures the environment.
+> The sensor reports what it measures.
 
 ## THINK
 
-**Value + threshold + IF/ELSE**
+**Compare number to threshold**
 
-> Code decides which rule is true.
+> IF/ELSE chooses one of two responses.
 
 ## ACT
 
-**LED 1**
+**LED 1 → brightness**
 
-> Changes automatically.
+> The output changes automatically.
 
 Footer loop:
 
 **SENSE → THINK → ACT → REPEAT**
+
+Add one compact plain-language line directly below:
+
+> **Measure → compare → choose → respond → check again.**
+
+The visual should carry the explanation; surrounding prose should remain shorter than the visual itself.
 
 Do not add long robotics definitions.
 
@@ -306,15 +328,20 @@ Small mapping cue:
 Use three compact test cards:
 
 ### ROOM LIGHT
-> Press A and notice the value.
+> Press A. **Remember this number.**
 
 ### COVERED
-> Cover the sensor with your hand. Press A again.
+> Cover the sensor with your hand. Press A. **Remember this number.**
 
 ### BRIGHTER
 > Uncover it or move it toward a brighter area. Press A again.
 
-No formal table is required.
+Immediately below, add one tiny two-value memory strip:
+
+**MY COVERED VALUE: ____**  
+**MY UNCOVERED VALUE: ____**
+
+This is not a worksheet or formal data table. It exists only so students can choose a threshold without guessing.
 
 ## Success cue
 
@@ -359,7 +386,7 @@ Plain-language translation:
 
 Then state clearly:
 
-> **40 is only an example. Your room may need a different threshold.**
+> **40 is only an example. Your room may need a different threshold. Test and tune your threshold at the same HB station when possible.**
 
 ## Threshold-picking visual
 
@@ -375,9 +402,19 @@ Between them:
 
 **Choose a threshold somewhere between your two readings.**
 
+Add a three-step student rule:
+
+1. Find your lower reading.
+2. Find your higher reading.
+3. Pick a number **between them**.
+
 Example only:
 
 **25 ← 40 → 62**
+
+Then require one quick prediction:
+
+> **If the sensor reads 25, which branch should run? If it reads 62, which branch should run?**
 
 Do not present 40 as universally correct.
 
@@ -449,7 +486,7 @@ Caption:
 
 ## Success cue
 
-> ✓ Covering and uncovering the sensor changes the LED automatically without pressing a button.
+> ✓ Covering and uncovering the sensor changes the LED automatically in both directions without pressing a button.
 
 ---
 
@@ -518,7 +555,7 @@ Use the established scannable checklist:
 - ☐ **Start Hummingbird** is present
 - ☐ a variable stores the current light value
 - ☐ the system senses repeatedly
-- ☐ one threshold is used
+- ☐ one threshold is chosen from real sensor readings
 - ☐ IF/ELSE creates two different responses
 - ☐ the LED reacts automatically
 - ☐ the threshold works for this station/classroom
@@ -552,7 +589,7 @@ Use the standard orange TRY 4 card.
 
 Check in this order:
 
-**power → sensor wire order → Sensor Port 1 → LED wiring/port → current sensor value → threshold → IF/ELSE → newest code**
+**power → 3-wire sensor / 2-wire LED check → port numbers → read current sensor value → compare value to threshold → IF/ELSE → newest code**
 
 ## 2 — SIMULATE
 
@@ -574,7 +611,12 @@ Footer:
 
 Use a separate orange mini-card:
 
-> **LED never changes? Do not guess first. Read the sensor value, then compare it to your threshold.**
+> **LED never changes? Do not guess first.**
+>
+> 1. Read the current sensor value.
+> 2. Compare it to your threshold.
+> 3. Cover/uncover the sensor and check whether the value crosses the threshold.
+> 4. If the value crosses but the LED does not change, inspect the IF/ELSE and LED block.
 
 ## Station fault cue
 
@@ -664,7 +706,8 @@ Student identifies:
 - Sensor Port 1;
 - LED Port 1;
 - current sensor value;
-- threshold.
+- threshold;
+- one reason that threshold makes sense for the two readings.
 
 ## Check 2 — Explain the Decision
 
@@ -890,10 +933,11 @@ Use these exact support phrases when the concept repeats.
   3. LED Port 1 callout;
   4. power cue;
 - full wire-order text remains visible;
+- **3 WIRES · S/+/-** and **2 WIRES · +/-** badges remain visible above the wiring text;
 - Sense → Think → Act becomes a vertical sequence;
 - block-finder chips wrap;
 - code models become single-column;
-- threshold readings stack vertically with threshold between them;
+- covered / uncovered values and threshold stack vertically in the order **low reading → threshold → high reading**;
 - sensor-test cards become one column;
 - Stage 4 planning cards become one column;
 - Build It checklist becomes one column;
@@ -913,6 +957,7 @@ Apply all 390 px rules plus:
 - code blocks wrap safely;
 - nested IF/ELSE indentation remains visible but capped;
 - threshold example must not wrap into an ambiguous expression;
+- the two-value memory strip becomes two full-width rows;
 - TRY 4 diagnostic order may wrap into multiple lines without shrinking text;
 - theme cards become one column if needed;
 - Ready-for-Check cue remains full width;
@@ -926,7 +971,7 @@ Apply all 390 px rules plus:
 - meaningful heading hierarchy;
 - hardware diagram gets a descriptive `aria-label`;
 - wiring appears as plain text immediately below the diagram;
-- wire colors are always paired with terminal labels **S**, **+**, **–**;
+- wire colors are always paired with terminal labels **S**, **+**, **–** and wire-count text (**3 wires** vs **2 wires**);
 - Sense → Think → Act meaning is written, not color-only;
 - code models get useful `aria-label` text;
 - success/warning/concept cards include written meaning;
@@ -941,12 +986,14 @@ Apply all 390 px rules plus:
 Before implementation, a beginner should be able to answer:
 
 - What hardware do I need?
+- How can I tell the 3-wire sensor from the 2-wire LED before I connect them?
 - Where does the light sensor connect?
 - Which way do its wires go?
 - Where does the LED connect?
 - Which way do its wires go?
 - What does the sensor value mean?
 - What is a threshold?
+- How do I choose a threshold from my own two readings?
 - Why is 40 only an example?
 - What does IF/ELSE decide?
 - Why must the code keep sensing in `forever`?
@@ -959,6 +1006,47 @@ Before implementation, a beginner should be able to answer:
 - What gets powered off and returned at Reset?
 
 If any answer requires a long paragraph or teacher explanation, simplify the visual or support card before implementation.
+
+---
+
+# Final pre-implementation audit decisions
+
+## Grade 8/9 beginner perspective
+
+The blueprint passes after four guardrails:
+
+- Sensor Port 1 and LED Port 1 are distinguished by **port name, terminal labels, and wire count**: 3-wire sensor vs 2-wire LED.
+- Students keep two actual readings before choosing a threshold, so threshold selection is evidence-based rather than guesswork.
+- The threshold rule is procedural: **lower reading → higher reading → choose a number between them → predict both sides**.
+- Sense → Think → Act is carried primarily by the visual sequence **measure → compare → choose → respond → check again**, so the concept is not buried in prose.
+
+The two-code-model ceiling remains intact. The threshold comparison strip and two-value memory strip are support visuals, not additional code models.
+
+Stage 4 remains student-owned because students still choose the threshold, both LED brightness states, device theme, and meaning of the two states without receiving a finished Reactive Signal solution.
+
+## Classroom-teacher perspective
+
+The blueprint now reduces avoidable teacher intervention by:
+
+- adding a fast **3-wire sensor / 2-wire LED** pre-power check;
+- keeping students at the same HB station while tuning when possible because ambient light differs by location;
+- making TRY 4 start with a real sensor-value check rather than code guessing;
+- using a short troubleshooting sequence that separates **sensor/threshold problems** from **IF/ELSE/output problems**;
+- requiring students to explain why their threshold makes sense for their measured values at checkpoint.
+
+Hardware access remains separate from Ready-for-Check, and students keep individual MakeCode projects even when stations rotate.
+
+## Visual / mobile decision
+
+No additional major visual is needed. The four-visual ceiling remains appropriate.
+
+At 390 px, 375 px and 320 px, the following must remain visually unambiguous:
+
+- **3 WIRES · S/+/-** = Light Sensor / Sensor Port 1;
+- **2 WIRES · +/-** = LED / LED Port 1;
+- covered value → threshold → uncovered value;
+- SENSE → THINK → ACT → REPEAT;
+- visible IF/ELSE nesting in Code Model 2.
 
 ---
 
