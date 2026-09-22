@@ -175,7 +175,7 @@ for (const text of ['WORKS','UNDERSTANDS','IMPROVES','TRANSFERS']) ok(mission8.i
 for (const text of ['LEVEL 1 CREATOR CERTIFIED','CREATOR FOUNDATIONS COMPLETE','RETRY ONE SKILL','SUPPORT ROUTE','Level 1 Creator Passport']) ok(mission8.includes(text), `Mission 8 outcome contains ${text}`);
 ok(mission8.includes('physical print is NOT required for certification') || mission8.includes('A physical print is NOT required for certification'), 'Mission 8 makes physical printing unnecessary for certification');
 ok(mission8.includes('about 3–4 minutes'), 'Mission 8 keeps the certification conversation time-bounded');
-ok(mission8.includes('The showcase is not part of your certification mark'), 'Mission 8 keeps showcase optional and non-assessed');
+ok(mission8.includes('You are already certified. This part is just for sharing.'), 'Mission 8 keeps showcase optional and non-assessed');
 ok(mission8.includes('Save, Reset') && mission8.includes('Return'), 'Mission 8 contains cleanup and reset');
 ok(!mission8.includes('NEXT MISSION') && !mission8.includes('Checkpoint complete? Continue'), 'Mission 8 has no next-mission route');
 ok(!mission8.includes('LEVEL 02') && !mission8.includes('courses/futuretech-lab/builder/') && !mission8.includes('Builder Level'), 'Mission 8 does not expose Level 2');
