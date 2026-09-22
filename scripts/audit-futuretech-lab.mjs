@@ -123,7 +123,8 @@ for (const text of ['PATH A','PATH B','PATH C','SOFTWARE CREATOR','SYSTEMS BUILD
 ok(mission7.includes('https://makecode.microbit.org/'), 'Mission 7 links to MakeCode for micro:bit');
 ok(mission7.includes('https://arcade.makecode.com/'), 'Mission 7 links to MakeCode Arcade');
 ok(mission7.includes('https://www.tinkercad.com/3d-design/'), 'Mission 7 links to Tinkercad 3D Design');
-for (const text of ['MY PATH','MY CREATION','WHAT IT WILL DO','LEVEL 1 SKILLS','TOOLS &amp; MATERIALS','SUCCESS + CHALLENGE']) ok(mission7.includes(text), `Mission 7 Creator Plan contains ${text}`);
+for (const text of ['MY PATH','MY CREATION','WHAT IT WILL DO','LEVEL 1 SKILLS','SUCCESS + CHALLENGE']) ok(mission7.includes(text), `Mission 7 Creator Plan contains ${text}`);
+ok(mission7.includes('TOOLS') && mission7.includes('MATERIALS'), 'Mission 7 Creator Plan contains Tools and Materials prompt');
 for (const text of ['GO','SHRINK IT','REPLAN','WAITING FOR A GO CHECK?']) ok(mission7.includes(text), `Mission 7 approval flow contains ${text}`);
 for (const text of ['CODING — YOUR FIRST TARGET','ROBOTICS — YOUR FIRST TARGET','3D DESIGN — YOUR FIRST TARGET','DOES THE CORE IDEA WORK?']) ok(mission7.includes(text), `Mission 7 prototype flow contains ${text}`);
 for (const text of ['One meaningful input','One variable or changing value','One IF or IF/ELSE decision','One repeating behaviour or loop']) ok(mission7.includes(text), `Mission 7 Coding minimum contains ${text}`);
@@ -133,7 +134,8 @@ for (const text of ['STUCK? TRY 4','CHECK','TRACE','CHANGE ONE THING','TEST AGAI
 for (const text of ['Test It Like a Creator','I TESTED','I EXPECTED','WHAT HAPPENED','Change Something for a Reason','AFTER THE CHANGE']) ok(mission7.includes(text), `Mission 7 test/revision evidence contains ${text}`);
 for (const text of ['READY-FOR-CHECK','SHOW IT','EXPLAIN IT','TELL ME WHAT CHANGED','MISSION COMPLETE','RETRY ONE SKILL','SUPPORT ROUTE']) ok(mission7.includes(text), `Mission 7 checkpoint contains ${text}`);
 for (const text of ['SKILL PASSPORT','Creator Independence','I can plan a project that fits the tools and time available.','I can troubleshoot one part of a system at a time.','I can explain an important technical decision I made.']) ok(mission7.includes(text), `Mission 7 Skill Passport contains ${text}`);
-for (const text of ['Build Your Own. Help Each Other.','Save, Reset &amp; Return','MISSION 8 — CREATOR CERTIFICATION','COMING NEXT · PREVIEW']) ok(mission7.includes(text), `Mission 7 closeout contains ${text}`);
+for (const text of ['Build Your Own. Help Each Other.','MISSION 8 — CREATOR CERTIFICATION','COMING NEXT · PREVIEW']) ok(mission7.includes(text), `Mission 7 closeout contains ${text}`);
+ok(mission7.includes('Save, Reset') && mission7.includes('Return'), 'Mission 7 contains save/reset/return closeout');
 ok(!mission7.includes('href="mission-8-') && !mission7.includes('href="../mission-8-') && !mission7.includes('/mission-8-'), 'Mission 8 remains unlinked from Mission 7');
 ok(!level1.includes('mission-7-'), 'Mission 7 prototype remains unlinked from public Level 1');
 ok(!lab.includes('courses/futuretech-lab/builder/'), 'Level 2 remains unlinked');
