@@ -118,7 +118,7 @@ ok(!mission6.includes('Circuits') && !mission6.includes('Codeblocks') && !missio
 ok(level1.includes('mission-7-choose-your-path/'), 'Mission 7 is linked from Level 1 release candidate');
 ok(level1.includes('All 8 Level 1 missions are open now'), 'Level 1 release copy confirms all Level 1 missions are open');
 ok(level1.includes('mission-8-creator-certification/'), 'Mission 8 is linked from Level 1 release candidate');
-ok(level1.includes('Creator Certification') && level1.includes('COMING NEXT · PREVIEW'), 'Mission 8 remains a locked preview');
+ok(level1.includes('Creator Certification') && level1.includes('CREATOR CERTIFICATION'), 'Mission 8 is active as the Level 1 certification mission');
 ok(mission6.includes('Checkpoint complete? Continue') && mission6.includes('mission-7-choose-your-path/'), 'Mission 6 links to Mission 7 with checkpoint gate');
 
 const mission7 = readFileSync(files.mission7, 'utf8');
