@@ -16,10 +16,11 @@ const files = {
   mission4: 'dist/courses/futuretech-lab/creator-foundations/mission-4-robot-rookie/index.html',
   mission5: 'dist/courses/futuretech-lab/creator-foundations/mission-5-sense-think-act/index.html',
   mission6: 'dist/courses/futuretech-lab/creator-foundations/mission-6-design-it-print-it/index.html',
-  mission7: 'dist/courses/futuretech-lab/creator-foundations/mission-7-choose-your-path/index.html'
+  mission7: 'dist/courses/futuretech-lab/creator-foundations/mission-7-choose-your-path/index.html',
+  mission8: 'dist/courses/futuretech-lab/creator-foundations/mission-8-creator-certification/index.html'
 };
 
-for (const name of ['home','lab','level1','mission1','mission2','mission3','mission4','mission5','mission6','mission7']) ok(existsSync(files[name]), `${name} route exists`);
+for (const name of ['home','lab','level1','mission1','mission2','mission3','mission4','mission5','mission6','mission7','mission8']) ok(existsSync(files[name]), `${name} route exists`);
 
 const home = readFileSync(files.home, 'utf8');
 ok(home.includes('FutureTech Lab'), 'homepage names FutureTech Lab');
@@ -33,14 +34,14 @@ ok(lab.includes('Returning students continue from where they left off'), 'lab ex
 
 const level1 = readFileSync(files.level1, 'utf8');
 for (const text of ['Make It Happen','Make It Think','Build a Game','Robot Rookie','Sense → Think → Act','Design It. Print It.','Choose Your Path','Creator Certification']) ok(level1.includes(text), `Level 1 contains ${text}`);
-ok(level1.includes('Missions 1–7 are open now'), 'Level 1 clearly names open missions');
-ok(level1.includes('COMING NEXT · PREVIEW'), 'planned missions clearly marked preview');
+ok(level1.includes('All 8 Level 1 missions are open now'), 'Level 1 clearly states all Level 1 missions are open');
+ok(!level1.includes('COMING NEXT · PREVIEW'), 'Level 1 has no remaining locked mission preview');
 ok(level1.includes('simple loop'), 'Level 1 Mission 2 summary includes loop prerequisite');
 ok(level1.includes('mission-3-build-a-game/'), 'Mission 3 is linked from Level 1');
 ok(level1.includes('mission-4-robot-rookie/'), 'Mission 4 is linked from Level 1');
 ok(level1.includes('mission-5-sense-think-act/'), 'Mission 5 is linked from Level 1');
 ok(level1.includes('mission-6-design-it-print-it/'), 'Mission 6 is linked from Level 1');
-ok(level1.includes('Choose Your Path') && level1.includes('COMING NEXT · PREVIEW'), 'Missions 7–8 remain locked previews');
+ok(level1.includes('Creator Certification') && level1.includes('CREATOR CERTIFICATION'), 'Mission 8 is presented as the final certification mission');
 ok(level1.includes('Work independently by default'), 'Level 1 mission map reflects individual-first workflow');
 
 for (const [name, file] of [['mission1',files.mission1],['mission2',files.mission2],['mission3',files.mission3],['mission4',files.mission4],['mission5',files.mission5]]) {
@@ -115,9 +116,9 @@ ok(mission6.includes('A physical print is not required to finish Mission 6'), 'M
 ok(mission6.includes('Solid + Solid + Group') && mission6.includes('Solid + Hole + Group'), 'Mission 6 distinguishes join versus cut grouping');
 ok(!mission6.includes('Circuits') && !mission6.includes('Codeblocks') && !mission6.includes('Sim Lab'), 'Mission 6 required pathway excludes unrelated Tinkercad domains');
 ok(level1.includes('mission-7-choose-your-path/'), 'Mission 7 is linked from Level 1 release candidate');
-ok(level1.includes('Missions 1–7 are open now'), 'Level 1 release copy names Missions 1–7 as open');
-ok(!level1.includes('mission-8-'), 'Mission 8 remains unlinked from Level 1');
-ok(level1.includes('Creator Certification') && level1.includes('COMING NEXT · PREVIEW'), 'Mission 8 remains a locked preview');
+ok(level1.includes('All 8 Level 1 missions are open now'), 'Level 1 release copy confirms all Level 1 missions are open');
+ok(level1.includes('mission-8-creator-certification/'), 'Mission 8 is linked from Level 1 release candidate');
+ok(level1.includes('Creator Certification') && level1.includes('CREATOR CERTIFICATION'), 'Mission 8 is active as the Level 1 certification mission');
 ok(mission6.includes('Checkpoint complete? Continue') && mission6.includes('mission-7-choose-your-path/'), 'Mission 6 links to Mission 7 with checkpoint gate');
 
 const mission7 = readFileSync(files.mission7, 'utf8');
@@ -139,15 +140,57 @@ for (const text of ['Test It Like a Creator','I TESTED','I EXPECTED','WHAT HAPPE
 for (const text of ['READY-FOR-CHECK','SHOW IT','EXPLAIN IT','TELL ME WHAT CHANGED','MISSION COMPLETE','RETRY ONE SKILL','SUPPORT ROUTE']) ok(mission7.includes(text), `Mission 7 checkpoint contains ${text}`);
 ok(mission7.includes('ADD YOUR NAME TO THE CLASS READY-FOR-CHECK SYSTEM'), 'Mission 7 Ready-for-Check gives a real classroom action');
 for (const text of ['SKILL PASSPORT','Creator Independence','I can plan a project that fits the tools and time available.','I can troubleshoot one part of a system at a time.','I can explain an important technical decision I made.']) ok(mission7.includes(text), `Mission 7 Skill Passport contains ${text}`);
-for (const text of ['Build Your Own. Help Each Other.','MISSION 8 — CREATOR CERTIFICATION','COMING NEXT · PREVIEW']) ok(mission7.includes(text), `Mission 7 closeout contains ${text}`);
+ok(mission7.includes('Build Your Own. Help Each Other.'), 'Mission 7 preserves creator collaboration closeout');
+ok(!mission7.includes('COMING NEXT · PREVIEW') && !mission7.includes('Mission 8 is still locked'), 'Mission 7 removes stale Mission 8 preview');
 ok(mission7.includes('Save, Reset') && mission7.includes('Return'), 'Mission 7 contains save/reset/return closeout');
 ok((mission7.match(/Open only your path\./g) || []).length >= 2, 'Mission 7 repeatedly helps students ignore unused pathways');
 ok(mission7.includes('10–15 minutes'), 'Mission 7 keeps Creator Plan time-bounded');
 ok(mission7.includes('Make it work before you make it bigger, prettier or more complicated.'), 'Mission 7 prioritizes core prototype before expansion');
-ok(!mission7.includes('href="mission-8-') && !mission7.includes('href="../mission-8-') && !mission7.includes('/mission-8-'), 'Mission 8 remains unlinked from Mission 7');
+ok(mission7.includes('mission-8-creator-certification/'), 'Mission 7 links forward to Mission 8');
 ok(level1.includes('mission-7-choose-your-path/'), 'Mission 7 release candidate is active on Level 1');
 ok(!lab.includes('courses/futuretech-lab/builder/'), 'Level 2 remains unlinked');
 ok(!mission7.includes('courses/futuretech-lab/builder/') && !mission7.includes('LEVEL 02'), 'Mission 7 does not expose Level 2');
 
+const mission8 = readFileSync(files.mission8, 'utf8');
+for (let i=1;i<=6;i++) ok(mission8.includes(`id="stage-${i}"`), `mission8 stage-${i}`);
+for (const text of ['Retrieve It','Inspect It','Improve It','Prove It','Prepare to Certify','Creator Certification Check']) ok(mission8.includes(text), `Mission 8 contains ${text}`);
+ok(mission8.includes('FINAL MISSION'), 'Mission 8 hero identifies the final mission');
+ok(mission8.includes('THIS IS NOT ANOTHER PROJECT'), 'Mission 8 explicitly prevents a second major project');
+ok(mission8.includes('same Creator Challenge you used in Mission 7') && mission8.includes('STAY ON YOUR MISSION 7 PATH'), 'Mission 8 reuses the Mission 7 artifact and pathway');
+ok(!mission8.includes('Start a new project') && !mission8.includes('Choose a new path'), 'Mission 8 does not introduce a new-project workflow');
+for (const text of ['PATH A','PATH B','PATH C','SOFTWARE CREATOR','SYSTEMS BUILDER','PRODUCT DESIGNER']) ok(mission8.includes(text), `Mission 8 contains ${text}`);
+ok(!mission8.includes('<details class="path-detail coding" open') && !mission8.includes('<details class="path-detail robotics" open') && !mission8.includes('<details class="path-detail design" open'), 'Mission 8 does not auto-open a pathway');
+ok(mission8.includes('Open only your path.'), 'Mission 8 helps students ignore unused pathways');
+ok(mission8.includes('https://makecode.microbit.org/'), 'Mission 8 links to MakeCode for micro:bit');
+ok(mission8.includes('https://arcade.makecode.com/'), 'Mission 8 links to MakeCode Arcade');
+ok(mission8.includes('https://www.tinkercad.com/3d-design/'), 'Mission 8 links to Tinkercad 3D Design');
+for (const text of ['WORKS','NOTICE','CHOOSE','Pick ONE improvement that matters.','ONE CHANGE FOR A REASON']) ok(mission8.includes(text), `Mission 8 one-improvement flow contains ${text}`);
+for (const text of ['STUCK? TRY 4','CHECK','TRACE','CHANGE ONE THING','TEST AGAIN']) ok(mission8.includes(text), `Mission 8 TRY 4 contains ${text}`);
+ok(mission8.includes('ROBOTICS SAFETY') && mission8.includes('Safety problems do not require TRY 4 first'), 'Mission 8 includes the robotics safety exception');
+for (const text of ['I NOTICED','I CHANGED','I TESTED','AFTER THE CHANGE']) ok(mission8.includes(text), `Mission 8 concise evidence contains ${text}`);
+for (const text of ['RUN ONE CLEAN FINAL TEST','What did you test?','What happened?','How do you know it worked?']) ok(mission8.includes(text), `Mission 8 final proof contains ${text}`);
+ok(mission8.includes('STOP ADDING FEATURES'), 'Mission 8 stops feature accumulation after proof');
+for (const text of ['CERTIFICATION READY?','ADD YOUR NAME TO THE CLASS READY-FOR-CHECK SYSTEM']) ok(mission8.includes(text), `Mission 8 Ready-for-Check contains ${text}`);
+for (const text of ['SHOW IT','EXPLAIN IT','TELL WHAT YOU IMPROVED','PREDICT ONE CHANGE']) ok(mission8.includes(text), `Mission 8 certification flow contains ${text}`);
+for (const text of ['WORKS','UNDERSTANDS','IMPROVES','TRANSFERS']) ok(mission8.includes(text), `Mission 8 certification evidence contains ${text}`);
+for (const text of ['LEVEL 1 CREATOR CERTIFIED','CREATOR FOUNDATIONS COMPLETE','RETRY ONE SKILL','SUPPORT ROUTE','Level 1 Creator Passport']) ok(mission8.includes(text), `Mission 8 outcome contains ${text}`);
+ok(mission8.includes('physical print is NOT required for certification') || mission8.includes('A physical print is NOT required for certification'), 'Mission 8 makes physical printing unnecessary for certification');
+ok(mission8.includes('about 3–4 minutes'), 'Mission 8 keeps the certification conversation time-bounded');
+ok(mission8.includes('You are already certified. This part is just for sharing.'), 'Mission 8 keeps showcase optional and non-assessed');
+ok(mission8.includes('Save, Reset') && mission8.includes('Return'), 'Mission 8 contains cleanup and reset');
+ok(!mission8.includes('NEXT MISSION') && !mission8.includes('Checkpoint complete? Continue'), 'Mission 8 has no next-mission route');
+ok(mission7.includes('Checkpoint complete? Continue') && mission7.includes('mission-8-creator-certification/'), 'Mission 7 links to Mission 8 with checkpoint gate');
+ok(!mission8.includes('LEVEL 02') && !mission8.includes('courses/futuretech-lab/builder/') && !mission8.includes('Builder Level'), 'Mission 8 does not expose Level 2');
+ok(mission8.length < mission7.length, 'Mission 8 remains shorter than Mission 7');
+ok(level1.includes('mission-8-creator-certification/'), 'Mission 8 release candidate is active on Level 1');
+ok(level1.includes('All 8 Level 1 missions are open now'), 'Release candidate states all Level 1 missions are open');
+ok(mission7.includes('mission-8-creator-certification/'), 'Mission 7 release candidate links to Mission 8');
+ok(!lab.includes('courses/futuretech-lab/builder/'), 'Level 2 remains unlinked in the final Level 1 release candidate');
+ok(!level1.includes('courses/futuretech-lab/builder/') && !level1.includes('LEVEL 02'), 'Creator Foundations does not expose Level 2');
+ok(!mission8.includes('courses/futuretech-lab/builder/') && !mission8.includes('LEVEL 02'), 'Mission 8 does not expose Level 2');
+ok(mission8.includes('CREATOR FOUNDATIONS COMPLETE'), 'Mission 8 ends at Creator Foundations completion');
+
 console.log(`FutureTech Lab student usability audit passed: ${checks.length} checks.`);
+
+
 
