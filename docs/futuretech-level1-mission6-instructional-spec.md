@@ -835,7 +835,13 @@ or
 
 Students may submit **one Mission 6 Level 1 print candidate**.
 
-Printing happens later as the three classroom printers become available.
+Printing happens later as the classroom fabrication fleet becomes available:
+
+- **E3-01** — original Creality Ender-3;
+- **E3-02** — original Creality Ender-3;
+- **ART-01** — Snapmaker Artisan 3-in-1 with enclosure.
+
+Internal fleet details and routing rules are documented in `docs/futuretech-level1-mission6-fabrication-fleet-and-print-queue.md`.
 
 Printer order may depend on:
 
@@ -1118,11 +1124,25 @@ The queue is not the same as Ready-for-Check.
 
 Keep those two systems visually and operationally separate.
 
-## Three printers
+## Classroom fabrication fleet
 
-Because the classroom has three printers, Mission 6 should deliberately favor small models with short print times.
+The Mission 6 production fleet is:
 
-Do not create a first-mission expectation that the printers operate continuously during the 90-minute class.
+- **E3-01** — original Creality Ender-3; normal Level 1 PLA production;
+- **E3-02** — original Creality Ender-3; normal Level 1 PLA production;
+- **ART-01** — Snapmaker Artisan 3-in-1 with enclosure; overflow, batch, teacher-priority and future advanced-fabrication capacity.
+
+Manufacturer-verified capacity comfortably exceeds the frozen Mission 6 Maker Tag envelope on all three machines. The Ender-3 platform is 220 × 220 × 250 mm, while the Artisan provides a substantially larger 3D-printing work area.
+
+Therefore the existing **60 × 40 × 8 mm** Maker Tag limit remains a classroom queue / beginner-printability limit rather than a machine-capacity limit.
+
+Use **PLA** as the default Mission 6 material.
+
+Do not encourage larger Level 1 designs because ART-01 has more capacity.
+
+Detailed teacher-facing assignment, batching and failure-handling rules are in:
+
+`docs/futuretech-level1-mission6-fabrication-fleet-and-print-queue.md`
 
 ---
 
@@ -1139,10 +1159,12 @@ Before webpage implementation:
    - Export;
    - STL.
 2. Confirm the school's Tinkercad classroom/login workflow is ready.
-3. Confirm the actual classroom printer/slicer setup can reliably handle the proposed Level 1 queue limits.
-4. Adjust the classroom limits if printer/nozzle/material realities require it.
-5. Choose the actual student STL submission location before publishing the webpage.
-6. Confirm whether students may use Text in the required Build It pathway with the school's Tinkercad access/version.
+3. Use the verified classroom fleet IDs **E3-01**, **E3-02** and **ART-01** in teacher queue records.
+4. Keep the frozen **60 × 40 × 8 mm** Level 1 Maker Tag envelope unless real classroom slicing/printing evidence shows a problem.
+5. Use **PLA** as the default Mission 6 material.
+6. Confirm the actual classroom slicer profiles and local printer condition before each printing cycle.
+7. Choose the actual student STL submission location before publishing the webpage.
+8. Confirm whether students may use Text in the required Build It pathway with the school's Tinkercad access/version.
 
 ---
 
