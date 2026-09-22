@@ -1,9 +1,9 @@
 # FutureTech Level 1 Mission Design Standard
 
 **Status:** APPROVED / FROZEN INTERNAL STANDARD  
-**Approved baseline:** Missions 1–3 — *Make It Happen*, *Make It Think*, and *Build a Game* — as the frozen opening Level 1 sequence  
+**Approved baseline:** Missions 1–5 — *Make It Happen*, *Make It Think*, *Build a Game*, *Robot Rookie*, and *Sense → Think → Act* — as the frozen first phase of Level 1  
 **Applies to:** future Level 1 FutureTech student missions  
-**Does not authorize:** redesign of frozen Missions 1–3, public-site publishing, or beginning Mission 4.
+**Does not authorize:** redesign of frozen Missions 1–5, public-site publishing, or beginning Mission 6.
 
 ## 1. Core design rule
 
@@ -235,7 +235,7 @@ Keep the Reset section visually consistent across missions so students learn it 
 
 ## 13. Responsive behaviour
 
-Future mission pages must preserve the responsive behaviour demonstrated by Missions 1–2 and the shared mission frame.
+Future mission pages must preserve the responsive behaviour demonstrated by Missions 1–5 and the shared mission frame.
 
 Required:
 
@@ -306,5 +306,7 @@ If the answer to one of these is unclear, prefer a **small visual refinement or 
 - `src/pages/courses/futuretech-lab/creator-foundations/mission-1-make-it-happen.astro`
 - `src/pages/courses/futuretech-lab/creator-foundations/mission-2-make-it-think.astro`
 - `src/pages/courses/futuretech-lab/creator-foundations/mission-3-build-a-game.astro`
+- `src/pages/courses/futuretech-lab/creator-foundations/mission-4-robot-rookie.astro`
+- `src/pages/courses/futuretech-lab/creator-foundations/mission-5-sense-think-act.astro`
 
-Missions 1–3 are frozen together as the approved opening Level 1 sequence.
+Missions 1–5 are frozen together as the approved first phase of Level 1.
