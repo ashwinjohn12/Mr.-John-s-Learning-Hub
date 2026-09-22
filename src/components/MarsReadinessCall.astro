@@ -1,0 +1,116 @@
+---
+import { marsStatuses, marsSystems } from '../data/marsReadiness';
+interface Props {
+  operationNumber: string;
+  operationTitle: string;
+  systems: string[];
+}
+const { operationNumber, operationTitle, systems } = Astro.props;
+const availableSystems = marsSystems.filter((system) => systems.includes(system.id));
+---
+
+<form class="readiness-call" data-readiness-call data-operation={operationNumber} data-operation-title={operationTitle}>
+  <div class="readiness-call-heading">
+    <div>
+      <p class="mars-kicker">READINESS CALL</p>
+      <h3>What did today's evidence change?</h3>
+      <p class="readiness-guidance">Your status can stay the same. What matters is whether your evidence can defend it.</p>
+    </div>
+    <span class="save-state" aria-live="polite">Not saved yet</span>
+  </div>
+
+  <label class="field-label">
+    System under review
+    <select name="system">
+      {availableSystems.map((system) => <option value={system.id}>{system.label}</option>)}
+    </select>
+  </label>
+
+  <fieldset>
+    <legend>Choose the system readiness status your evidence supports right now.</legend>
+    <div class="status-choice-grid">
+      {marsStatuses.map((status) => (
+        <label class:list={['status-choice', 'status-' + status.id]}>
+          <input type="radio" name="status" value={status.id} required />
+          <span aria-hidden="true">{status.icon}</span>
+          <strong>{status.label}</strong>
+          <small>{status.short}</small>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+
+  <label class="field-label">
+    Best evidence from today
+    <textarea name="evidence" rows="3" maxlength="220" required placeholder="Use one specific piece of science evidence."></textarea>
+  </label>
+
+  <div class="readiness-actions">
+    <button class="mars-action" type="submit">Save evidence + status</button>
+    <button class="mars-action secondary" type="button" data-clear-readiness>Clear</button>
+  </div>
+</form>
+
+<script>
+  const STORAGE_KEY = 'mrjohn-mars-readiness-v1';
+
+  function readState() {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      return { systems: parsed.systems || {}, operations: parsed.operations || {} };
+    } catch {
+      return { systems: {}, operations: {} };
+    }
+  }
+
+  function writeState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  document.querySelectorAll('[data-readiness-call]').forEach((form) => {
+    const operation = form.dataset.operation;
+    const operationTitle = form.dataset.operationTitle;
+    const state = readState();
+    const existing = state.operations[operation];
+
+    if (existing) {
+      form.elements.system.value = existing.system;
+      const statusInput = form.querySelector('input[name="status"][value="' + existing.status + '"]');
+      if (statusInput) statusInput.checked = true;
+      form.elements.evidence.value = existing.evidence || '';
+      form.querySelector('.save-state').textContent = 'Saved on this device';
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const system = String(data.get('system') || '');
+      const status = String(data.get('status') || '');
+      const evidence = String(data.get('evidence') || '').trim();
+
+      if (!system || !status || !evidence) return;
+
+      const next = readState();
+      next.operations[operation] = { system, status, evidence, operationTitle };
+      next.systems[system] = { status, evidence, operation, operationTitle };
+      writeState(next);
+
+      form.querySelector('.save-state').textContent = 'Saved on this device';
+      window.dispatchEvent(new CustomEvent('mars:readiness-updated', { detail: { system } }));
+    });
+
+    const clearButton = form.querySelector('[data-clear-readiness]');
+    clearButton.addEventListener('click', () => {
+      const next = readState();
+      const previous = next.operations[operation];
+      delete next.operations[operation];
+      if (previous && next.systems[previous.system] && next.systems[previous.system].operation === operation) {
+        delete next.systems[previous.system];
+      }
+      writeState(next);
+      form.reset();
+      form.querySelector('.save-state').textContent = 'Not saved yet';
+      window.dispatchEvent(new CustomEvent('mars:readiness-updated'));
+    });
+  });
+</script>

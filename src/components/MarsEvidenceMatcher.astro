@@ -1,0 +1,150 @@
+<div class="evidence-matcher" data-evidence-matcher>
+  <div class="matcher-intro">
+    <p><strong>Match each observation to the strongest conclusion it can support.</strong> You can change your choices before checking.</p>
+  </div>
+
+  <div class="matcher-grid">
+    <section class="evidence-case" data-case data-correct="surface"
+      data-correct-feedback="Visible-light images can reveal surface features and patterns."
+      data-help="An optical image can show visible features, but it cannot identify exact chemical composition or Doppler motion by itself.">
+      <div class="evidence-visual optical-visual" aria-hidden="true">
+        <span class="planet-disc"></span><span class="surface-line one"></span><span class="surface-line two"></span>
+      </div>
+      <div>
+        <p class="case-label">EVIDENCE A // OPTICAL IMAGE</p>
+        <h4>Bright and dark surface features are visible.</h4>
+        <label>Best conclusion
+          <select aria-label="Evidence A best conclusion">
+            <option value="">Choose…</option>
+            <option value="surface">Surface structure and visible features</option>
+            <option value="composition">Exact chemical composition</option>
+            <option value="motion">Whether the object is approaching or receding</option>
+          </select>
+        </label>
+        <p class="case-feedback" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="evidence-case" data-case data-correct="composition"
+      data-correct-feedback="Patterns of spectral lines can identify elements or substances."
+      data-help="A spectrum provides composition evidence from its line pattern; it does not show surface shape or give an exact distance by itself.">
+      <div class="evidence-visual spectrum-visual" role="img" aria-label="A simplified continuous spectrum crossed by dark absorption lines">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div>
+        <p class="case-label">EVIDENCE B // SPECTRUM</p>
+        <h4>Specific dark lines appear in the spectrum.</h4>
+        <label>Best conclusion
+          <select aria-label="Evidence B best conclusion">
+            <option value="">Choose…</option>
+            <option value="surface">Surface shape only</option>
+            <option value="composition">Which elements or substances may be present</option>
+            <option value="distance">The object's exact distance from Earth</option>
+          </select>
+        </label>
+        <p class="case-feedback" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="evidence-case" data-case data-correct="radio"
+      data-correct-feedback="Radio observations reveal radiation that human eyes cannot see."
+      data-help="Strong radio emission gives us information outside visible light. It does not automatically tell us visible colour or physical size.">
+      <div class="evidence-visual radio-visual" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+      <div>
+        <p class="case-label">EVIDENCE C // RADIO OBSERVATION</p>
+        <h4>A source is strong at radio wavelengths but faint in visible light.</h4>
+        <label>Best conclusion
+          <select aria-label="Evidence C best conclusion">
+            <option value="">Choose…</option>
+            <option value="radio">It is giving us information our eyes cannot detect</option>
+            <option value="colour">It must look red to a human observer</option>
+            <option value="size">It must be physically small</option>
+          </select>
+        </label>
+        <p class="case-feedback" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="evidence-case" data-case data-correct="motion"
+      data-correct-feedback="A Doppler shift in spectral lines is evidence of motion toward or away from the observer."
+      data-help="The shifted line positions are motion evidence. They do not directly map mountains or give an exact surface temperature.">
+      <div class="evidence-visual doppler-visual" role="img" aria-label="A reference spectral line beside a second line shifted toward the red end of a simplified spectrum">
+        <span class="reference"></span><span class="shifted"></span>
+      </div>
+      <div>
+        <p class="case-label">EVIDENCE D // DOPPLER SHIFT</p>
+        <h4>Spectral lines have shifted compared with their laboratory positions.</h4>
+        <label>Best conclusion
+          <select aria-label="Evidence D best conclusion">
+            <option value="">Choose…</option>
+            <option value="temperature">Its exact surface temperature</option>
+            <option value="motion">Its motion toward or away from the observer</option>
+            <option value="surface">The shape of mountains on its surface</option>
+          </select>
+        </label>
+        <p class="case-feedback" aria-live="polite"></p>
+      </div>
+    </section>
+  </div>
+
+  <div class="matcher-actions">
+    <button type="button" class="mars-action" data-check-matcher>Check evidence</button>
+    <button type="button" class="mars-action secondary" data-reset-matcher>Reset</button>
+    <strong class="matcher-score" aria-live="polite">Not checked yet</strong>
+  </div>
+</div>
+
+<script>
+  const MATCHER_KEY = 'mrjohn-mars-evidence-matcher-v1';
+
+  document.querySelectorAll('[data-evidence-matcher]').forEach((matcher) => {
+    const cases = Array.from(matcher.querySelectorAll('[data-case]'));
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(MATCHER_KEY) || '[]');
+      cases.forEach((item, index) => {
+        if (saved[index]) item.querySelector('select').value = saved[index];
+      });
+    } catch {}
+
+    matcher.querySelector('[data-check-matcher]').addEventListener('click', () => {
+      let score = 0;
+      const saved = [];
+
+      cases.forEach((item) => {
+        const select = item.querySelector('select');
+        const feedback = item.querySelector('.case-feedback');
+        const value = select.value;
+        saved.push(value);
+
+        if (!value) {
+          feedback.textContent = 'Choose an answer first.';
+          feedback.dataset.state = 'empty';
+        } else if (value === item.dataset.correct) {
+          score += 1;
+          feedback.textContent = item.dataset.correctFeedback;
+          feedback.dataset.state = 'correct';
+        } else {
+          feedback.textContent = item.dataset.help;
+          feedback.dataset.state = 'try';
+        }
+      });
+
+      localStorage.setItem(MATCHER_KEY, JSON.stringify(saved));
+      matcher.querySelector('.matcher-score').textContent = score + ' / ' + cases.length + ' supported';
+    });
+
+    matcher.querySelector('[data-reset-matcher]').addEventListener('click', () => {
+      cases.forEach((item) => {
+        item.querySelector('select').value = '';
+        const feedback = item.querySelector('.case-feedback');
+        feedback.textContent = '';
+        delete feedback.dataset.state;
+      });
+      localStorage.removeItem(MATCHER_KEY);
+      matcher.querySelector('.matcher-score').textContent = 'Not checked yet';
+    });
+  });
+</script>

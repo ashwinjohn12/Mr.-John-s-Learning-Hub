@@ -1,0 +1,274 @@
+---
+import MarsProjectShell from '../../../../../../components/MarsProjectShell.astro';
+import MarsReadinessDashboard from '../../../../../../components/MarsReadinessDashboard.astro';
+import MarsOperation from '../../../../../../components/MarsOperation.astro';
+import MarsHazardAnalyzer from '../../../../../../components/MarsHazardAnalyzer.astro';
+import MarsLifeSupportFlow from '../../../../../../components/MarsLifeSupportFlow.astro';
+import MarsResourceTradeoff from '../../../../../../components/MarsResourceTradeoff.astro';
+import { surviveOperations } from '../../../../../../data/marsReadiness';
+---
+
+<MarsProjectShell
+  title="SURVIVE | MISSION: MARS — Are We Ready?"
+  description="Operations 09–12 of the Grade 9 Science Mars Readiness Program: Mars hazards, closed-loop life support, in-situ resource use, and water-recovery engineering."
+  activePhase="survive"
+>
+  <section class="phase-intro">
+    <div>
+      <p class="mars-kicker">PHASE 03 // SURVIVE</p>
+      <h1>Can humans stay alive?</h1>
+      <p>Getting to Mars is only useful if a crew can remain healthy and keep essential resources moving through a system that is far from Earth.</p>
+    </div>
+  </section>
+
+  <MarsReadinessDashboard compact={true} heading="Current systems picture" />
+
+  <nav class="phase-index" id="survive-operations" aria-label="SURVIVE operations">
+    {surviveOperations.map((operation) => (
+      <a href={'#operation-' + operation.number}>
+        <span>OPERATION {operation.number}</span>
+        <strong>{operation.title}</strong>
+        <small>{operation.question}</small>
+      </a>
+    ))}
+  </nav>
+
+  <MarsOperation
+    number="09"
+    id="identify-hazards"
+    title="Identify the Hazards"
+    question="What could actually threaten a human on the journey to Mars or on its surface?"
+    intelAgency="NASA"
+    intelTitle="Five hazards of human spaceflight"
+    intelStatus="ACTIVE"
+    intelSource="NASA Human Research Program — Five Hazards"
+    intelHref="https://www.nasa.gov/hrp/hazards/"
+    systems={['survival']}
+    returnAnchor="survive-operations"
+    returnLabel="SURVIVE"
+  >
+    <Fragment slot="problem-title">Robots can tolerate conditions that humans cannot.</Fragment>
+    <Fragment slot="problem">
+      <p>A crew would spend months travelling through deep space and then live in an environment with low pressure, an unbreathable atmosphere, reduced gravity, cold temperatures, limited water access, and increased radiation exposure.</p>
+      <p><strong>Your job:</strong> decide which hazards deserve the most attention, then revise your thinking when you see the evidence.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">A hazard matters because of the human need it threatens.</Fragment>
+    <Fragment slot="know">
+      <div class="mars-fact-grid">
+        <div class="fact-card"><strong>Pressure + atmosphere</strong><p>Mars's thin atmosphere is mostly carbon dioxide. Humans need pressurized spaces with breathable air.</p></div>
+        <div class="fact-card"><strong>Temperature + water</strong><p>Mars is cold, and usable water is a limited resource that must be stored, recovered, or extracted.</p></div>
+        <div class="fact-card"><strong>Gravity</strong><p>Mars gravity is about three-eighths of Earth's, so bodies must adapt to a different gravity field.</p></div>
+        <div class="fact-card"><strong>Radiation</strong><p>Beyond Earth's protective environment, astronauts receive much more exposure to space radiation.</p></div>
+      </div>
+      <p class="source-note">Grade 9 boundary: connect environmental conditions to human needs and technological responses. You do not need radiation-dose calculations, gas-law calculations, or detailed human physiology.</p>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <p>NASA groups long-duration human-spaceflight hazards into five categories: space radiation, isolation and confinement, distance from Earth, changing gravity fields, and hostile or closed environments. NASA also emphasizes that the hazards can interact and make one another harder to manage.</p>
+      <p><strong>Why it matters:</strong> surviving Mars is not one problem. It is a connected system of risks.</p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">Hazard Analyzer</Fragment>
+    <Fragment slot="analysis">
+      <MarsHazardAnalyzer />
+      <div class="transfer-check">
+        <strong>Exam transfer</strong>
+        <p>When a question describes a space technology, ask: <b>Which environmental difference creates the need for this technology?</b></p>
+      </div>
+    </Fragment>
+  </MarsOperation>
+
+  <MarsOperation
+    number="10"
+    id="close-loop"
+    title="Close the Loop"
+    question="What has to keep happening inside a spacecraft every minute?"
+    intelAgency="CANADIAN SPACE AGENCY + NASA"
+    intelTitle="Artemis II tested Orion life support with crew aboard"
+    intelStatus="DEMONSTRATED"
+    intelSource="CSA Artemis II — In-flight Milestones"
+    intelHref="https://www.asc-csa.gc.ca/eng/missions/artemis-ii/in-flight-milestones.asp"
+    systems={['survival']}
+    returnAnchor="survive-operations"
+    returnLabel="SURVIVE"
+  >
+    <Fragment slot="problem-title">A spacecraft has to replace functions that Earth normally provides.</Fragment>
+    <Fragment slot="problem">
+      <p>Crew members continuously use oxygen and water while producing carbon dioxide, wastewater, heat, and other waste. On a Mars mission, Earth cannot simply replace everything that gets used.</p>
+      <p><strong>Your job:</strong> trace what happens when one life-support subsystem stops working.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">Useful matter has to move through loops.</Fragment>
+    <Fragment slot="know">
+      <div class="evidence-key">
+        <div><strong>AIR</strong><span>Remove CO₂ and contaminants; replace oxygen used by the crew.</span></div>
+        <div><strong>WATER</strong><span>Collect wastewater and humidity, then treat and return usable water.</span></div>
+        <div><strong>SUPPORT</strong><span>Maintain pressure, ventilation, temperature, waste handling, monitoring, and power.</span></div>
+      </div>
+      <p><strong>Key idea:</strong> recycling does not create matter. A regenerative system uses energy and equipment to recover useful resources from waste streams.</p>
+      <p class="source-note">NASA's ECLSS includes water recovery, air revitalization, and oxygen generation. This lesson focuses on system relationships, not detailed electrolysis, Sabatier chemistry, or engineering equations.</p>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <p>Artemis II launched on April 1, 2026 with CSA astronaut Jeremy Hansen aboard. While Orion was still close to Earth, the crew checked systems that generate breathable air and remove carbon dioxide and water vapour. CSA reports that the checkouts confirmed the capabilities needed for the lunar flyby.</p>
+      <p><strong>Maturity check:</strong> demonstrating life support on a roughly nine-day lunar mission does not mean a multi-year Mars life-support system is solved.</p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">Life-Support Systems Flow</Fragment>
+    <Fragment slot="analysis">
+      <MarsLifeSupportFlow />
+      <div class="transfer-check">
+        <strong>Exam transfer</strong>
+        <p>If one subsystem in a closed environment fails, trace the <b>next consequence</b> instead of treating each component as independent.</p>
+      </div>
+    </Fragment>
+  </MarsOperation>
+
+  <MarsOperation
+    number="11"
+    id="use-mars-resources"
+    title="Use What Mars Provides"
+    question="Should we bring everything from Earth?"
+    intelAgency="NASA"
+    intelTitle="MOXIE produced oxygen from the Martian atmosphere"
+    intelStatus="DEMONSTRATED"
+    intelSource="NASA — MOXIE Completes Mars Mission"
+    intelHref="https://www.nasa.gov/solar-system/nasas-oxygen-generating-experiment-moxie-completes-mars-mission/"
+    systems={['survival', 'presence']}
+    returnAnchor="survive-operations"
+    returnLabel="SURVIVE"
+  >
+    <Fragment slot="problem-title">Every kilogram sent from Earth adds transportation demands.</Fragment>
+    <Fragment slot="problem">
+      <p>If useful resources already exist on Mars, future crews may be able to extract or manufacture some of what they need locally. But local production requires its own machines, energy, maintenance, and reliable access to resources.</p>
+      <p><strong>Your job:</strong> decide what should be brought, produced locally, or handled with a hybrid strategy.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">ISRU trades Earth dependence for local-system complexity.</Fragment>
+    <Fragment slot="know">
+      <p><strong>ISRU — in-situ resource utilization</strong> means using resources found at the destination to make useful products.</p>
+      <div class="mars-fact-grid">
+        <div class="fact-card"><strong>Oxygen</strong><p>Martian atmospheric CO₂ can be processed to produce oxygen.</p></div>
+        <div class="fact-card"><strong>Water</strong><p>Ice or other water-bearing deposits could become local water sources if they can be accessed and purified.</p></div>
+        <div class="fact-card"><strong>Propellant resources</strong><p>Locally produced oxygen and other resources could reduce some return-fuel material launched from Earth.</p></div>
+        <div class="fact-card"><strong>Materials</strong><p>Future missions may use local material for shielding or construction, but those capabilities are less mature.</p></div>
+      </div>
+      <p class="source-note"><strong>SPACE → EARTH:</strong> resource-recovery research can also support clean-water and other technologies in remote or supply-limited locations on Earth. <a href="https://www.asc-csa.gc.ca/eng/about/everyday-benefits-of-space-exploration/improving-our-day-to-day-lives.asp" target="_blank" rel="noreferrer">CSA everyday benefits ↗</a></p>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <p>MOXIE aboard Perseverance extracted oxygen from Mars's carbon-dioxide-rich atmosphere on 16 runs, producing 122 g total and reaching up to 12 g per hour at 98% purity or better.</p>
+      <p><strong>What was demonstrated:</strong> oxygen can be produced from Martian CO₂. <strong>What was not demonstrated:</strong> a crew-scale oxygen factory for a human Mars mission.</p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">Bring It / Make It / Hybrid</Fragment>
+    <Fragment slot="analysis">
+      <MarsResourceTradeoff />
+      <div class="transfer-check">
+        <strong>Exam transfer</strong>
+        <p>A strong technology answer includes <b>one advantage and one disadvantage</b>. Local production can reduce Earth dependence while increasing system complexity and failure risk.</p>
+      </div>
+    </Fragment>
+  </MarsOperation>
+
+  <MarsOperation
+    number="12"
+    id="recover-water"
+    title="Recover the Water"
+    question="How much of a limited resource can we recover?"
+    intelAgency="NASA"
+    intelTitle="ISS life support demonstrated about 98% total water recovery"
+    intelStatus="DEMONSTRATED"
+    intelSource="NASA — Water Recovery Milestone on the International Space Station"
+    intelHref="https://www.nasa.gov/missions/station/iss-research/nasa-achieves-water-recovery-milestone-on-international-space-station/"
+    systems={['survival']}
+    returnAnchor="survive-operations"
+    returnLabel="SURVIVE"
+  >
+    <Fragment slot="problem-title">Water is too valuable to treat as disposable.</Fragment>
+    <Fragment slot="problem">
+      <p>A Mars crew would need water for drinking, food preparation, hygiene, and other systems. Carrying replacement water from Earth would be expensive and slow.</p>
+      <p><strong>Your job:</strong> improve a model water-recovery system while keeping as much water as possible.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">Recovery and safety are not the same measurement.</Fragment>
+    <Fragment slot="know">
+      <div class="water-safety-callout">
+        <strong>CLEAR WATER IS NOT NECESSARILY SAFE WATER.</strong>
+        <p>Colour, clarity, and visible particles cannot prove that chemical or biological contaminants are gone.</p>
+      </div>
+
+      <div class="mars-fact-grid">
+        <div class="fact-card"><strong>Recovery</strong><p>How much water returns to the system instead of being lost?</p></div>
+        <div class="fact-card"><strong>Purification</strong><p>How effectively are unwanted substances removed or controlled?</p></div>
+      </div>
+
+      <div class="recovery-formula" aria-label="Water recovery percentage formula">
+        <span>RECOVERY %</span>
+        <strong>(recovered volume ÷ starting volume) × 100</strong>
+      </div>
+
+      <p class="source-note"><strong>ESA connection // IN DEVELOPMENT / PLANNED:</strong> MELiSSA and related ESA circular-life-support work continue developing more regenerative systems that turn waste streams into useful water, oxygen, and other resources. <a href="https://www.esa.int/Enabling_Support/Preparing_for_the_Future/Discovery_and_Preparation/From_waste_to_resource_ESA_funds_circular_economy_innovations_for_space" target="_blank" rel="noreferrer">ESA 2026 update ↗</a></p>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <p>NASA's ISS Environmental Control and Life Support System demonstrated about 98% total water recovery after adding brine-processing capability. The real system uses specialized treatment stages, sensors, and microbial control; unacceptable water is reprocessed.</p>
+      <p><strong>Why it matters:</strong> high recovery is useful only when the recovered water also meets strict quality standards.</p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">Physical Water-Recovery Challenge</Fragment>
+    <Fragment slot="analysis">
+      <div class="engineering-brief water-brief">
+        <div>
+          <p class="case-label">STANDARD TEAM MATERIALS</p>
+          <ul>
+            <li>2 clear cups or containers</li>
+            <li>funnel + coffee filter</li>
+            <li>cotton or filter material</li>
+            <li>clean gravel + clean sand</li>
+            <li>activated carbon if supplied</li>
+            <li>graduated cylinder + tray</li>
+            <li>standardized simulated wastewater</li>
+          </ul>
+        </div>
+        <div>
+          <p class="case-label">MEASURE BOTH</p>
+          <ul>
+            <li>starting water volume</li>
+            <li>recovered water volume</li>
+            <li>recovery percentage</li>
+            <li>visual clarity from 1–5</li>
+            <li>water lost in the system</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="engineering-cycle water-cycle" aria-label="Water recovery engineering cycle">
+        <div><span>1</span><strong>PLAN</strong><small>Choose material order and predict each job.</small></div>
+        <div><span>2</span><strong>TEST 1</strong><small>Run the standard sample and record data.</small></div>
+        <div><span>3</span><strong>ANALYZE</strong><small>Find the largest loss or weakness.</small></div>
+        <div><span>4</span><strong>REVISE</strong><small>Change one variable only.</small></div>
+        <div><span>5</span><strong>TEST 2</strong><small>Repeat with the same starting volume.</small></div>
+      </div>
+
+      <div class="screens-down water-warning">
+        <strong>SCREENS DOWN // TEST THE SYSTEM</strong>
+        <p>Use only the supplied simulated wastewater. <b>Do not drink any water from this activity</b>, even if it looks clear.</p>
+      </div>
+
+      <div class="transfer-check">
+        <strong>Individual engineering analysis</strong>
+        <p>Record which revision helped, what trade-off you observed, why you would not drink the recovered water, and one contaminant or safety problem this model cannot reliably detect or remove.</p>
+      </div>
+    </Fragment>
+  </MarsOperation>
+
+  <section class="phase-intro">
+    <div>
+      <p class="mars-kicker">PHASE 03 COMPLETE</p>
+      <h2>SURVIVE review complete</h2>
+      <p>Check that your Survival and Long-Term Presence evidence is saved and your Readiness Record is current. Then wait for your teacher before moving on to OPERATE & DECIDE.</p>
+    </div>
+  </section>
+</MarsProjectShell>

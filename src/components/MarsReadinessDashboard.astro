@@ -1,0 +1,141 @@
+---
+import { marsStatuses, marsSystems } from '../data/marsReadiness';
+interface Props {
+  compact?: boolean;
+  heading?: string;
+}
+const { compact = false, heading = 'Mars Readiness' } = Astro.props;
+---
+
+<section class:list={['mars-readiness-dashboard', { compact }]} data-mars-dashboard aria-labelledby="mars-readiness-heading">
+  <div class="dashboard-heading">
+    <div>
+      <p class="mars-kicker">SYSTEMS REVIEW</p>
+      <h2 id="mars-readiness-heading">{heading}</h2>
+    </div>
+    {!compact && <p>Statuses come from your evidence. They are not a score.</p>}
+  </div>
+
+  <div class="readiness-grid">
+    {marsSystems.map((system) => (
+      compact ? (
+        <div class="readiness-system-card compact-system-card" data-system={system.id}>
+          <span class="system-icon" aria-hidden="true">{system.icon}</span>
+          <span class="system-copy">
+            <strong>{system.label}</strong>
+          </span>
+          <span class="system-status status-insufficient" data-system-status={system.id}>
+            <span aria-hidden="true">○</span>
+            <span>Insufficient Evidence</span>
+          </span>
+        </div>
+      ) : (
+        <button class="readiness-system-card" type="button" data-system={system.id} aria-controls="mars-system-detail" aria-expanded="false">
+          <span class="system-icon" aria-hidden="true">{system.icon}</span>
+          <span class="system-copy">
+            <strong>{system.label}</strong>
+            <small>{system.question}</small>
+          </span>
+          <span class="system-status status-insufficient" data-system-status={system.id}>
+            <span aria-hidden="true">○</span>
+            <span>Insufficient Evidence</span>
+          </span>
+        </button>
+      )
+    ))}
+  </div>
+
+  {!compact && (
+    <div id="mars-system-detail" class="system-detail" aria-live="polite">
+      <p class="mars-kicker">SELECT A SYSTEM</p>
+      <h3>Evidence builds across the unit.</h3>
+      <p>Open a system to see the readiness status and all evidence you have saved for it so far.</p>
+    </div>
+  )}
+</section>
+
+<script define:vars={{ marsStatuses, marsSystems }}>
+  const STORAGE_KEY = 'mrjohn-mars-readiness-v1';
+
+  function readMarsState() {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      return {
+        systems: parsed.systems || {},
+        operations: parsed.operations || {}
+      };
+    } catch {
+      return { systems: {}, operations: {} };
+    }
+  }
+
+  function statusInfo(id) {
+    return marsStatuses.find((item) => item.id === id) || marsStatuses.find((item) => item.id === 'insufficient');
+  }
+
+  function systemInfo(id) {
+    return marsSystems.find((item) => item.id === id);
+  }
+
+  function safeText(value) {
+    const node = document.createElement('span');
+    node.textContent = String(value || '');
+    return node.innerHTML;
+  }
+
+  function renderDashboards() {
+    const state = readMarsState();
+    document.querySelectorAll('[data-mars-dashboard]').forEach((dashboard) => {
+      dashboard.querySelectorAll('[data-system-status]').forEach((node) => {
+        const id = node.getAttribute('data-system-status');
+        const saved = state.systems[id] || { status: 'insufficient' };
+        const info = statusInfo(saved.status);
+        node.className = 'system-status status-' + info.id;
+        node.innerHTML = '<span aria-hidden="true">' + info.icon + '</span><span>' + info.label + '</span>';
+      });
+    });
+  }
+
+  function renderDetail(systemId, detail) {
+    if (!detail) return;
+    const state = readMarsState();
+    const saved = state.systems[systemId] || { status: 'insufficient' };
+    const system = systemInfo(systemId);
+    const status = statusInfo(saved.status);
+    const evidenceItems = Object.values(state.operations)
+      .filter((item) => item.system === systemId && item.evidence)
+      .sort((a, b) => String(a.operationTitle || '').localeCompare(String(b.operationTitle || '')));
+
+    const evidenceMarkup = evidenceItems.length
+      ? '<div class="evidence-history-wrap"><strong>Evidence collected:</strong><ul class="evidence-history">' +
+        evidenceItems.map((item) =>
+          '<li><span>' + safeText(item.evidence) + '</span><small>' + safeText(item.operationTitle) + '</small></li>'
+        ).join('') +
+        '</ul></div>'
+      : '<p>No readiness evidence has been saved for this system yet.</p>';
+
+    detail.innerHTML =
+      '<p class="mars-kicker">CURRENT SYSTEM REVIEW</p>' +
+      '<h3>' + safeText(system.label) + '</h3>' +
+      '<p class="detail-status status-' + status.id + '"><strong>' + status.icon + ' ' + safeText(status.label) + '</strong> — ' + safeText(status.short) + '</p>' +
+      evidenceMarkup +
+      '<p class="detail-question">' + safeText(system.question) + '</p>';
+  }
+
+  document.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-mars-dashboard]:not(.compact) .readiness-system-card');
+    if (!button) return;
+    const dashboard = button.closest('[data-mars-dashboard]');
+    const detail = dashboard.querySelector('.system-detail');
+
+    dashboard.querySelectorAll('.readiness-system-card[aria-expanded]').forEach((item) => {
+      item.setAttribute('aria-expanded', item === button ? 'true' : 'false');
+    });
+
+    renderDetail(button.dataset.system, detail);
+  });
+
+  window.addEventListener('mars:readiness-updated', renderDashboards);
+  window.addEventListener('storage', renderDashboards);
+  renderDashboards();
+</script>

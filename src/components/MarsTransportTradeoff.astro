@@ -1,0 +1,144 @@
+<div class="travel-widget transport-tradeoff" data-transport-tradeoff>
+  <div class="travel-widget-heading">
+    <div>
+      <p class="mars-kicker">TRADE-OFF REVIEW</p>
+      <h4>Change the priorities. Then make your own transport decision.</h4>
+    </div>
+    <span class="model-disclaimer">SIMPLIFIED CLASSROOM COMPARISON</span>
+  </div>
+
+  <div class="transport-priorities">
+    <label>Travel time
+      <select data-priority="Travel time"><option>Lower</option><option selected>Important</option><option>Critical</option></select>
+    </label>
+    <label>Payload
+      <select data-priority="Payload"><option>Lower</option><option selected>Important</option><option>Critical</option></select>
+    </label>
+    <label>Propellant/resources
+      <select data-priority="Propellant/resources"><option>Lower</option><option selected>Important</option><option>Critical</option></select>
+    </label>
+    <label>Technology readiness
+      <select data-priority="Technology readiness"><option>Lower</option><option selected>Important</option><option>Critical</option></select>
+    </label>
+    <label>System complexity
+      <select data-priority="System complexity"><option>Lower</option><option selected>Important</option><option>Critical</option></select>
+    </label>
+    <label>Crew safety
+      <select data-priority="Crew safety"><option>Lower</option><option selected>Important</option><option>Critical</option></select>
+    </label>
+  </div>
+
+  <div class="priority-summary" aria-live="polite" data-priority-summary>
+    No single option wins automatically. Compare the evidence after you set your priorities.
+  </div>
+
+  <div class="transport-cards">
+    <article>
+      <p class="case-label">APPROACH A</p>
+      <h5>All-chemical</h5>
+      <dl>
+        <div><dt>Strengths</dt><dd>High thrust; chemical propulsion has extensive mission heritage.</dd></div>
+        <div><dt>Concerns</dt><dd>Large propellant needs; a human Mars transport architecture is not yet established.</dd></div>
+      </dl>
+    </article>
+    <article>
+      <p class="case-label">APPROACH B</p>
+      <h5>Nuclear thermal</h5>
+      <dl>
+        <div><dt>Strengths</dt><dd>High thrust with potential performance benefits for Mars transportation.</dd></div>
+        <div><dt>Concerns</dt><dd>Still under development; adds technical, testing, and safety challenges.</dd></div>
+      </dl>
+    </article>
+    <article>
+      <p class="case-label">APPROACH C</p>
+      <h5>Hybrid electric + chemical</h5>
+      <dl>
+        <div><dt>Strengths</dt><dd>Efficient electric propulsion can help move cargo over long durations; chemical propulsion can handle higher-thrust phases.</dd></div>
+        <div><dt>Concerns</dt><dd>Low electric-propulsion thrust and greater system complexity; several hybrid architectures remain under study.</dd></div>
+      </dl>
+    </article>
+  </div>
+
+  <fieldset class="transport-choice">
+    <legend>Your current choice</legend>
+    <label><input type="radio" name="transport-choice" value="All-chemical" /> All-chemical</label>
+    <label><input type="radio" name="transport-choice" value="Nuclear thermal" /> Nuclear thermal</label>
+    <label><input type="radio" name="transport-choice" value="Hybrid electric + chemical" /> Hybrid electric + chemical</label>
+  </fieldset>
+
+  <div class="tradeoff-prompts">
+    <label>Biggest strength
+      <input type="text" maxlength="120" data-strength placeholder="What evidence supports your choice?" />
+    </label>
+    <label>Most important concern
+      <input type="text" maxlength="120" data-concern placeholder="What could make you change your mind?" />
+    </label>
+  </div>
+
+  <div class="widget-actions">
+    <button type="button" class="mars-action" data-save-transport>Save transport review</button>
+    <p class="widget-feedback" data-transport-feedback aria-live="polite">The tool will not choose for you. Your explanation is the decision.</p>
+  </div>
+</div>
+
+<script>
+  const TRANSPORT_KEY = 'mrjohn-mars-transport-tradeoff-v1';
+
+  document.querySelectorAll('[data-transport-tradeoff]').forEach((root) => {
+    const prioritySelects = Array.from(root.querySelectorAll('[data-priority]'));
+    const summary = root.querySelector('[data-priority-summary]');
+    const strength = root.querySelector('[data-strength]');
+    const concern = root.querySelector('[data-concern]');
+    const feedback = root.querySelector('[data-transport-feedback]');
+
+    const renderSummary = () => {
+      const critical = prioritySelects.filter((select) => select.value === 'Critical').map((select) => select.dataset.priority);
+      const important = prioritySelects.filter((select) => select.value === 'Important').map((select) => select.dataset.priority);
+
+      if (critical.length) {
+        summary.textContent = 'Your critical priorities are: ' + critical.join(', ') + '. Use those priorities to compare the strengths and concerns below.';
+      } else if (important.length) {
+        summary.textContent = 'You marked no factor Critical. Your Important priorities are: ' + important.join(', ') + '. That can be defensible if you explain the balance.';
+      } else {
+        summary.textContent = 'All priorities are set to Lower. Raise at least one priority so your decision has a clear mission focus.';
+      }
+    };
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(TRANSPORT_KEY) || '{}');
+      if (saved.priorities) {
+        prioritySelects.forEach((select) => {
+          if (saved.priorities[select.dataset.priority]) select.value = saved.priorities[select.dataset.priority];
+        });
+      }
+      if (saved.choice) {
+        const input = root.querySelector('input[name="transport-choice"][value="' + saved.choice + '"]');
+        if (input) input.checked = true;
+      }
+      if (saved.strength) strength.value = saved.strength;
+      if (saved.concern) concern.value = saved.concern;
+    } catch {}
+
+    prioritySelects.forEach((select) => select.addEventListener('change', renderSummary));
+
+    root.querySelector('[data-save-transport]').addEventListener('click', () => {
+      const choice = root.querySelector('input[name="transport-choice"]:checked')?.value || '';
+      if (!choice || !strength.value.trim() || !concern.value.trim()) {
+        feedback.textContent = 'Choose an approach and record one strength and one concern before saving.';
+        return;
+      }
+
+      const priorities = {};
+      prioritySelects.forEach((select) => priorities[select.dataset.priority] = select.value);
+      localStorage.setItem(TRANSPORT_KEY, JSON.stringify({
+        priorities,
+        choice,
+        strength: strength.value.trim(),
+        concern: concern.value.trim()
+      }));
+      feedback.textContent = 'Transport review saved on this device. There is still no automatic winner—your evidence supports the choice.';
+    });
+
+    renderSummary();
+  });
+</script>

@@ -1,0 +1,234 @@
+<div class="survive-widget hazard-analyzer" data-hazard-analyzer>
+  <div class="survive-widget-heading">
+    <div>
+      <p class="mars-kicker">HAZARD REVIEW</p>
+      <h4>Prioritize first. Then use the evidence to revise.</h4>
+    </div>
+    <span class="model-disclaimer">NO SINGLE CORRECT RANKING</span>
+  </div>
+
+  <p class="widget-instruction">Place each hazard in a category before revealing the evidence. After you read the evidence, change any category that your reasoning no longer supports.</p>
+
+  <div class="hazard-list">
+    <article class="hazard-card" data-hazard="pressure">
+      <div class="hazard-card-main">
+        <div>
+          <p class="case-label">LOW PRESSURE</p>
+          <h5>Outside pressure is far below Earth's.</h5>
+        </div>
+        <label>
+          Your priority
+          <select data-hazard-select>
+            <option value="">Choose…</option>
+            <option>Critical</option>
+            <option>Serious</option>
+            <option>Manageable with established approaches</option>
+          </select>
+        </label>
+      </div>
+      <div class="hazard-evidence" data-hazard-evidence hidden>
+        <strong>What humans face</strong>
+        <p>People cannot survive unprotected at Martian surface pressure.</p>
+        <strong>System response</strong>
+        <p>Pressurized spacecraft, habitats, and suits must maintain a safe internal environment.</p>
+      </div>
+    </article>
+
+    <article class="hazard-card" data-hazard="atmosphere">
+      <div class="hazard-card-main">
+        <div>
+          <p class="case-label">UNBREATHABLE ATMOSPHERE</p>
+          <h5>Mars's atmosphere is mostly carbon dioxide.</h5>
+        </div>
+        <label>
+          Your priority
+          <select data-hazard-select>
+            <option value="">Choose…</option>
+            <option>Critical</option>
+            <option>Serious</option>
+            <option>Manageable with established approaches</option>
+          </select>
+        </label>
+      </div>
+      <div class="hazard-evidence" data-hazard-evidence hidden>
+        <strong>What humans face</strong>
+        <p>The external atmosphere cannot supply breathable oxygen.</p>
+        <strong>System response</strong>
+        <p>Life-support systems must provide oxygen and keep cabin air safe.</p>
+      </div>
+    </article>
+
+    <article class="hazard-card" data-hazard="temperature">
+      <div class="hazard-card-main">
+        <div>
+          <p class="case-label">TEMPERATURE</p>
+          <h5>Mars is cold and temperatures can vary widely.</h5>
+        </div>
+        <label>
+          Your priority
+          <select data-hazard-select>
+            <option value="">Choose…</option>
+            <option>Critical</option>
+            <option>Serious</option>
+            <option>Manageable with established approaches</option>
+          </select>
+        </label>
+      </div>
+      <div class="hazard-evidence" data-hazard-evidence hidden>
+        <strong>What humans face</strong>
+        <p>Humans and equipment must remain within safe operating temperatures.</p>
+        <strong>System response</strong>
+        <p>Habitats and suits need continuous thermal control.</p>
+      </div>
+    </article>
+
+    <article class="hazard-card" data-hazard="water">
+      <div class="hazard-card-main">
+        <div>
+          <p class="case-label">WATER ACCESS</p>
+          <h5>Useful water is not waiting in open lakes or rivers.</h5>
+        </div>
+        <label>
+          Your priority
+          <select data-hazard-select>
+            <option value="">Choose…</option>
+            <option>Critical</option>
+            <option>Serious</option>
+            <option>Manageable with established approaches</option>
+          </select>
+        </label>
+      </div>
+      <div class="hazard-evidence" data-hazard-evidence hidden>
+        <strong>What humans face</strong>
+        <p>Water is essential, heavy to transport, and difficult to replace from Earth.</p>
+        <strong>System response</strong>
+        <p>Crews need storage, recovery, purification, and possibly local extraction.</p>
+      </div>
+    </article>
+
+    <article class="hazard-card" data-hazard="gravity">
+      <div class="hazard-card-main">
+        <div>
+          <p class="case-label">REDUCED GRAVITY</p>
+          <h5>Mars gravity is about three-eighths of Earth's.</h5>
+        </div>
+        <label>
+          Your priority
+          <select data-hazard-select>
+            <option value="">Choose…</option>
+            <option>Critical</option>
+            <option>Serious</option>
+            <option>Manageable with established approaches</option>
+          </select>
+        </label>
+      </div>
+      <div class="hazard-evidence" data-hazard-evidence hidden>
+        <strong>What humans face</strong>
+        <p>Muscles, bones, balance, and movement adapt when gravity changes.</p>
+        <strong>System response</strong>
+        <p>Exercise, medical monitoring, and mission design must reduce health and performance risks.</p>
+      </div>
+    </article>
+
+    <article class="hazard-card" data-hazard="radiation">
+      <div class="hazard-card-main">
+        <div>
+          <p class="case-label">RADIATION</p>
+          <h5>Deep-space crews have much less natural shielding than people on Earth.</h5>
+        </div>
+        <label>
+          Your priority
+          <select data-hazard-select>
+            <option value="">Choose…</option>
+            <option>Critical</option>
+            <option>Serious</option>
+            <option>Manageable with established approaches</option>
+          </select>
+        </label>
+      </div>
+      <div class="hazard-evidence" data-hazard-evidence hidden>
+        <strong>What humans face</strong>
+        <p>Space radiation can damage the body during long missions.</p>
+        <strong>System response</strong>
+        <p>Mission planners need monitoring, shielding, storm-response procedures, and exposure limits.</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="widget-actions">
+    <button type="button" class="mars-action" data-reveal-hazards>Reveal evidence</button>
+    <button type="button" class="mars-action secondary" data-reset-hazards>Reset categories</button>
+    <p class="widget-feedback" data-hazard-feedback aria-live="polite">Make an initial call before revealing the evidence.</p>
+  </div>
+
+  <label class="survive-reflection">
+    Which hazard changed position after you examined the evidence? Why?
+    <textarea rows="3" maxlength="220" data-hazard-reflection placeholder="Use one specific piece of evidence."></textarea>
+  </label>
+
+  <button type="button" class="mars-action" data-save-hazards>Save hazard review</button>
+</div>
+
+<script>
+  const HAZARD_KEY = 'mrjohn-mars-hazard-analyzer-v1';
+
+  document.querySelectorAll('[data-hazard-analyzer]').forEach((root) => {
+    const cards = Array.from(root.querySelectorAll('[data-hazard]'));
+    const feedback = root.querySelector('[data-hazard-feedback]');
+    const reflection = root.querySelector('[data-hazard-reflection]');
+    let revealed = false;
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(HAZARD_KEY) || '{}');
+      if (saved.categories) {
+        cards.forEach((card) => {
+          const select = card.querySelector('[data-hazard-select]');
+          if (saved.categories[card.dataset.hazard]) select.value = saved.categories[card.dataset.hazard];
+        });
+      }
+      if (saved.reflection) reflection.value = saved.reflection;
+      if (saved.revealed) {
+        revealed = true;
+        cards.forEach((card) => card.querySelector('[data-hazard-evidence]').hidden = false);
+        feedback.textContent = 'Evidence revealed. Revise any category that your original reasoning no longer supports.';
+      }
+    } catch {}
+
+    root.querySelector('[data-reveal-hazards]').addEventListener('click', () => {
+      const missing = cards.filter((card) => !card.querySelector('[data-hazard-select]').value);
+      if (missing.length) {
+        feedback.textContent = 'Choose an initial category for all six hazards before revealing the evidence.';
+        return;
+      }
+      revealed = true;
+      cards.forEach((card) => card.querySelector('[data-hazard-evidence]').hidden = false);
+      feedback.textContent = 'Evidence revealed. Revise any category that your original reasoning no longer supports.';
+    });
+
+    root.querySelector('[data-reset-hazards]').addEventListener('click', () => {
+      cards.forEach((card) => {
+        card.querySelector('[data-hazard-select]').value = '';
+        card.querySelector('[data-hazard-evidence]').hidden = true;
+      });
+      reflection.value = '';
+      revealed = false;
+      localStorage.removeItem(HAZARD_KEY);
+      feedback.textContent = 'Make an initial call before revealing the evidence.';
+    });
+
+    root.querySelector('[data-save-hazards]').addEventListener('click', () => {
+      const categories = {};
+      cards.forEach((card) => categories[card.dataset.hazard] = card.querySelector('[data-hazard-select]').value);
+      if (Object.values(categories).some((value) => !value) || !reflection.value.trim() || !revealed) {
+        feedback.textContent = 'Review all six hazards, reveal the evidence, and record your revision reasoning before saving.';
+        return;
+      }
+      localStorage.setItem(HAZARD_KEY, JSON.stringify({
+        categories,
+        reflection: reflection.value.trim(),
+        revealed: true
+      }));
+      feedback.textContent = 'Hazard review saved on this device.';
+    });
+  });
+</script>

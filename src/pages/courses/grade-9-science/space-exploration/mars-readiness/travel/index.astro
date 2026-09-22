@@ -1,0 +1,254 @@
+---
+import MarsProjectShell from '../../../../../../components/MarsProjectShell.astro';
+import MarsReadinessDashboard from '../../../../../../components/MarsReadinessDashboard.astro';
+import MarsOperation from '../../../../../../components/MarsOperation.astro';
+import MarsOrbitModel from '../../../../../../components/MarsOrbitModel.astro';
+import MarsPositionLab from '../../../../../../components/MarsPositionLab.astro';
+import MarsTransportTradeoff from '../../../../../../components/MarsTransportTradeoff.astro';
+import { travelOperations } from '../../../../../../data/marsReadiness';
+---
+
+<MarsProjectShell
+  title="TRAVEL | MISSION: MARS — Are We Ready?"
+  description="Operations 05–08 of the Grade 9 Science Mars Readiness Program: orbital prediction, parallax and angular position, space transportation trade-offs, and Mars landing engineering."
+  activePhase="travel"
+>
+  <section class="phase-intro">
+    <div>
+      <p class="mars-kicker">PHASE 02 // TRAVEL</p>
+      <h1>Can we actually get there?</h1>
+      <p>Knowing Mars is not enough. A mission has to predict a moving target, know where it is, choose a transportation approach, and put its payload safely on the surface.</p>
+    </div>
+  </section>
+
+  <MarsReadinessDashboard compact={true} heading="Current systems picture" />
+
+  <nav class="phase-index" id="travel-operations" aria-label="TRAVEL operations">
+    {travelOperations.map((operation) => (
+      <a href={'#operation-' + operation.number}>
+        <span>OPERATION {operation.number}</span>
+        <strong>{operation.title}</strong>
+        <small>{operation.question}</small>
+      </a>
+    ))}
+  </nav>
+
+  <MarsOperation
+    number="05"
+    id="predict-target"
+    title="Predict the Target"
+    question="Why can't we just aim at Mars?"
+    intelAgency="NASA / JPL"
+    intelTitle="Mars launch opportunities"
+    intelStatus="ACTIVE"
+    intelSource="Mars 2020 Perseverance Launch Press Kit"
+    intelHref="https://www.jpl.nasa.gov/news/press_kits/mars_2020/launch/mission/"
+    systems={['navigation']}
+    returnAnchor="travel-operations"
+    returnLabel="TRAVEL"
+  >
+    <Fragment slot="problem-title">Mars will not stay where it is today.</Fragment>
+    <Fragment slot="problem">
+      <p>A spacecraft takes months to travel between Earth and Mars. During that time, both planets continue moving around the Sun.</p>
+      <p><strong>Your job:</strong> use a model to predict future position instead of aiming at where Mars appears at launch.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">A successful mission targets a moving world.</Fragment>
+    <Fragment slot="know">
+      <div class="mars-fact-grid">
+        <div class="fact-card"><strong>Orbit</strong><p>A repeating path around another body. Earth and Mars both orbit the Sun.</p></div>
+        <div class="fact-card"><strong>Different rates</strong><p>Earth completes an orbit faster than Mars, so the angle between the planets changes over time.</p></div>
+        <div class="fact-card"><strong>Prediction</strong><p>Mission planners use models to estimate where the destination will be when the spacecraft reaches it.</p></div>
+        <div class="fact-card"><strong>Launch opportunity</strong><p>Some Earth–Mars positions require less energy than others. Useful opportunities repeat roughly every 26 months.</p></div>
+      </div>
+      <p class="source-note"><strong>Grade 9 boundary:</strong> interpret and predict motion with models. You do not need transfer-orbit equations, orbital-speed calculations, or advanced mechanics.</p>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <p>Earth moves around the Sun faster than Mars and catches up with it about once every 26 months. NASA uses these repeating alignments to plan Mars launch opportunities that allow a relatively short, energy-efficient trip.</p>
+      <p><strong>Why it matters:</strong> timing is part of navigation. A mission launches based on where Mars will be—not just where it is now.</p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">Model the moving target</Fragment>
+    <Fragment slot="analysis">
+      <MarsOrbitModel />
+      <div class="transfer-check">
+        <strong>Exam transfer</strong>
+        <p>An eclipse or possible asteroid collision is a different context, but the reasoning is similar: scientists need evidence about <b>position</b>, <b>motion/direction</b>, and <b>time</b> to make a prediction.</p>
+      </div>
+    </Fragment>
+  </MarsOperation>
+
+  <MarsOperation
+    number="06"
+    id="find-position"
+    title="Find Your Position"
+    question="How do we know where something is in space?"
+    intelAgency="NASA"
+    intelTitle="The Deep Space Network tracks spacecraft"
+    intelStatus="ACTIVE"
+    intelSource="NASA Basics of Space Flight — Deep Space Network"
+    intelHref="https://science.nasa.gov/learn/basics-of-space-flight/chapter18-1/"
+    systems={['navigation']}
+    returnAnchor="travel-operations"
+    returnLabel="TRAVEL"
+  >
+    <Fragment slot="problem-title">Seeing an object is not enough.</Fragment>
+    <Fragment slot="problem">
+      <p>Mission teams need to describe where something appears, gather evidence about distance, and track how it is moving.</p>
+      <p><strong>Your job:</strong> match each navigation question to the kind of evidence that can answer it.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">Position, distance, and motion require different evidence.</Fragment>
+    <Fragment slot="know">
+      <div class="evidence-key">
+        <div><strong>WHERE?</strong><span><b>Angular coordinates</b>: azimuth describes direction around the horizon; altitude describes angle above the horizon.</span></div>
+        <div><strong>HOW FAR?</strong><span><b>Parallax</b>: a nearby object appears to shift more against a distant background when the observer changes position.</span></div>
+        <div><strong>HOW MOVING?</strong><span><b>Doppler evidence</b>: a shift in spectral or radio frequency can show motion toward or away from an observer.</span></div>
+      </div>
+      <p class="source-note">This class uses altitude and azimuth only. It does not require right ascension, declination, parsec calculations, or trigonometric parallax.</p>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <p>NASA's Deep Space Network uses giant radio antennas around Earth to communicate with and track distant spacecraft. Doppler measurements provide extremely precise evidence about line-of-sight velocity, while radio ranging provides distance information.</p>
+      <p><strong>Why it matters:</strong> real navigation combines several kinds of evidence rather than relying on one observation.</p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">Position Lab</Fragment>
+    <Fragment slot="analysis">
+      <MarsPositionLab />
+      <p class="source-note"><strong>Model limit:</strong> this classroom parallax model shows the basic geometric idea. Deep-space navigation uses much more precise radio measurements, timing, and mathematical models.</p>
+    </Fragment>
+  </MarsOperation>
+
+  <MarsOperation
+    number="07"
+    id="choose-transport"
+    title="Choose the Transport"
+    question="Is there one best way to travel to Mars?"
+    intelAgency="NASA"
+    intelTitle="Human Mars transportation is still an open trade space"
+    intelStatus="IN DEVELOPMENT / PLANNED"
+    intelSource="NASA Moon to Mars Architecture — Mars Trade Space"
+    intelHref="https://www.nasa.gov/moon-to-mars-architecture-mars-architecture-trade-space/"
+    systems={['transportation']}
+    returnAnchor="travel-operations"
+    returnLabel="TRAVEL"
+  >
+    <Fragment slot="problem-title">Every transportation choice solves one problem by creating another.</Fragment>
+    <Fragment slot="problem">
+      <p>A Mars transport system has to move people and cargo across millions of kilometres. Faster travel, larger payloads, lower propellant demands, proven technology, and simpler systems do not always point to the same design.</p>
+      <p><strong>Your job:</strong> identify the trade-offs and defend a current choice.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">Compare the science without pretending to be aerospace engineers.</Fragment>
+    <Fragment slot="know">
+      <div class="mars-fact-grid">
+        <div class="fact-card"><strong>Rocket propulsion</strong><p>Exhaust is accelerated one way and the rocket is pushed the other way. The basic principle is action–reaction.</p></div>
+        <div class="fact-card"><strong>Thrust</strong><p>Thrust changes a spacecraft's velocity. Different propulsion systems can produce very different levels of thrust.</p></div>
+        <div class="fact-card"><strong>Propellant + payload</strong><p>Transporting more mass and carrying propellant place major demands on the transportation system.</p></div>
+        <div class="fact-card"><strong>Mission fit</strong><p>NASA may eventually use different transport approaches for crew and cargo because their priorities are not identical.</p></div>
+      </div>
+      <p class="source-note">Do not calculate escape velocity, specific impulse, rocket mass ratios, or detailed nuclear-reactor physics in this project.</p>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <p>NASA's current Mars architecture keeps several propulsion options open, including chemical, nuclear thermal, nuclear electric, solar electric, and hybrid systems. NASA describes trade-offs in speed, cost, and technological maturity.</p>
+      <p><strong>Industry example — SpaceX Starship:</strong> SpaceX currently describes Mars cargo flights as starting no earlier than 2028 and relies on on-orbit refilling for its Mars architecture. SpaceX's 2026 update lists full ship-to-ship propellant transfer as a remaining flight milestone. That keeps Mars transport in <b>In Development / Planned</b>, not Demonstrated.</p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">Transportation trade-off review</Fragment>
+    <Fragment slot="analysis">
+      <MarsTransportTradeoff />
+    </Fragment>
+  </MarsOperation>
+
+  <MarsOperation
+    number="08"
+    id="land-payload"
+    title="Land the Payload"
+    question="Can we reach the surface without destroying the mission?"
+    intelAgency="NASA / JPL"
+    intelTitle="Perseverance demonstrated terrain-relative navigation"
+    intelStatus="DEMONSTRATED"
+    intelSource="NASA Terrain Relative Navigation — Landing Between the Hazards"
+    intelHref="https://science.nasa.gov/science-research/science-enabling-technology/technology-highlights/terrain-relative-navigation-landing-between-the-hazards/"
+    systems={['landing']}
+    returnAnchor="travel-operations"
+    returnLabel="TRAVEL"
+  >
+    <Fragment slot="problem-title">Reaching Mars is not the same as landing on Mars.</Fragment>
+    <Fragment slot="problem">
+      <p>A spacecraft arrives moving extremely fast and must survive entry, slow down, avoid dangerous terrain, and reach the surface with its payload intact.</p>
+      <p><strong>Your job:</strong> plan, test, and improve a model landing system using the same material limits as every other team.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">Real landing is a sequence: entry → descent → landing.</Fragment>
+    <Fragment slot="know">
+      <div class="landing-sequence" aria-label="Simplified entry descent and landing sequence">
+        <div><span>01</span><strong>ENTRY</strong><p>Heat protection and the atmosphere begin removing enormous speed.</p></div>
+        <div><span>02</span><strong>DESCENT</strong><p>Drag, parachutes, navigation, and powered systems can reduce speed and avoid hazards.</p></div>
+        <div><span>03</span><strong>LANDING</strong><p>The final system must reach the surface gently enough to protect the payload.</p></div>
+      </div>
+      <p class="source-note"><strong>Model limit:</strong> your classroom drop models impact protection, stability, testing, and revision. It does not reproduce Martian atmosphere, entry speed, heat, or gravity.</p>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <p>Perseverance successfully used Terrain-Relative Navigation during its 2021 landing. Cameras compared the ground below with onboard maps so the spacecraft could estimate its position and steer toward safer terrain.</p>
+      <p><strong>But human-scale landing is not solved:</strong> NASA's current Mars architecture still treats the much larger landers needed for people and heavy equipment as an open engineering challenge.</p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">Physical Mars Landing Challenge</Fragment>
+    <Fragment slot="analysis">
+      <div class="engineering-brief">
+        <div>
+          <p class="case-label">TEAM KIT</p>
+          <ul>
+            <li>2 sheets of paper</li>
+            <li>4 index cards</li>
+            <li>4 drinking straws</li>
+            <li>1 coffee filter</li>
+            <li>1 m string</li>
+            <li>a fixed amount of masking tape</li>
+            <li>one standardized non-food payload</li>
+          </ul>
+        </div>
+        <div>
+          <p class="case-label">SUCCESS CRITERIA</p>
+          <ul>
+            <li>keep the payload contained</li>
+            <li>reduce damaging impact</li>
+            <li>use only the supplied materials</li>
+            <li>land as close to the target as possible</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="engineering-cycle" aria-label="Engineering cycle">
+        <div><span>1</span><strong>PLAN</strong><small>Sketch + explain the protective idea.</small></div>
+        <div><span>2</span><strong>BUILD</strong><small>Build only what your team planned.</small></div>
+        <div><span>3</span><strong>TEST</strong><small>Record payload result and target distance.</small></div>
+        <div><span>4</span><strong>IMPROVE</strong><small>Make one evidence-based change.</small></div>
+        <div><span>5</span><strong>RETEST</strong><small>Use the same drop conditions.</small></div>
+      </div>
+
+      <div class="screens-down">
+        <strong>SCREENS DOWN // BUILD + TEST</strong>
+        <p>Your teacher or designated tester will run the drops from the fixed test station. Do not climb on desks, chairs, or other furniture.</p>
+      </div>
+
+      <div class="transfer-check">
+        <strong>Individual engineering analysis</strong>
+        <p>After Test 2, record which design change mattered most and identify one important feature of a real Mars landing that your model did not represent.</p>
+      </div>
+    </Fragment>
+  </MarsOperation>
+
+  <section class="phase-intro">
+    <div>
+      <p class="mars-kicker">PHASE 02 COMPLETE</p>
+      <h2>TRAVEL review complete</h2>
+      <p>Check that your Navigation, Transportation, and Landing evidence is saved and your Readiness Record is up to date. Then wait for your teacher before moving on to SURVIVE.</p>
+    </div>
+  </section>
+</MarsProjectShell>

@@ -1,0 +1,253 @@
+---
+import MarsProjectShell from '../../../../../../components/MarsProjectShell.astro';
+import MarsReadinessDashboard from '../../../../../../components/MarsReadinessDashboard.astro';
+import MarsOperation from '../../../../../../components/MarsOperation.astro';
+import MarsEvidenceMatcher from '../../../../../../components/MarsEvidenceMatcher.astro';
+import MarsIntelLegend from '../../../../../../components/MarsIntelLegend.astro';
+import { understandOperations } from '../../../../../../data/marsReadiness';
+---
+
+<MarsProjectShell
+  title="UNDERSTAND | MISSION: MARS — Are We Ready?"
+  description="Operations 01–04 of the Grade 9 Science Mars Readiness Program: cosmic scale, changing models, observation technologies, spectroscopy, and the evidence we have about Mars."
+  activePhase="understand"
+>
+  <section class="phase-intro">
+    <div>
+      <p class="mars-kicker">PHASE 01 // UNDERSTAND</p>
+      <h1>What do we know—and how do we know it?</h1>
+      <p>Before a human mission can be judged, the review team needs reliable evidence. These four Operations build the astronomy and observation tools needed for every later Mars decision.</p>
+    </div>
+  </section>
+
+  <MarsIntelLegend />
+
+  <MarsReadinessDashboard compact={true} heading="Current systems picture" />
+
+  <nav class="phase-index" id="understand-operations" aria-label="UNDERSTAND operations">
+    {understandOperations.map((operation) => (
+      <a href={'#operation-' + operation.number}>
+        <span>OPERATION {operation.number}</span>
+        <strong>{operation.title}</strong>
+        <small>{operation.question}</small>
+      </a>
+    ))}
+  </nav>
+
+  <MarsOperation
+    number="01"
+    id="locate-mars"
+    title="Locate Mars"
+    question="Where exactly are we trying to go?"
+    intelAgency="NASA"
+    intelTitle="Moon to Mars Architecture"
+    intelStatus="IN DEVELOPMENT / PLANNED"
+    intelSource="NASA Moon to Mars Architecture — Components"
+    intelHref="https://www.nasa.gov/moontomarsarchitecture-components/"
+    systems={['science']}
+  >
+    <Fragment slot="problem-title">Mars is one destination inside a much larger universe.</Fragment>
+    <Fragment slot="problem">
+      <p>A mission team has to describe its destination precisely. “Space” is not one place: matter is organized into planets, star systems, galaxies, nebulae, and larger structures.</p>
+      <p><strong>Your job:</strong> build a useful cosmic address for Mars and distinguish the kinds of objects that appear in space.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">Start with the structure, not the scale numbers.</Fragment>
+    <Fragment slot="know">
+      <div class="cosmic-address cosmic-address-four" aria-label="Cosmic address from Mars outward">
+        <div><small>DESTINATION</small><strong>Mars</strong></div>
+        <div><small>OUR STAR SYSTEM</small><strong>Solar System</strong></div>
+        <div><small>GALAXY</small><strong>Milky Way</strong></div>
+        <div><small>LARGEST FRAME</small><strong>Universe</strong></div>
+      </div>
+      <div class="mars-fact-grid">
+        <div class="fact-card"><strong>Star system</strong><p>One or more stars and the objects held with them by gravity. The Solar System is our star system.</p></div>
+        <div class="fact-card"><strong>Galaxy</strong><p>A huge gravitationally bound system containing stars and star systems, gas, dust, and other matter.</p></div>
+        <div class="fact-card"><strong>Nebula</strong><p>A cloud of gas and dust in space. Nebulae are usually structures within galaxies, not another level outside them.</p></div>
+        <div class="fact-card"><strong>Universe</strong><p>All space, matter, and energy. Galaxies and the structures inside them are part of the universe.</p></div>
+      </div>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <p>NASA's current Moon to Mars planning treats human exploration as a <strong>system of systems</strong>. Transportation, habitation, power, robotics, communication/navigation, mobility, and resource use all have to work together.</p>
+      <p><strong>Why it matters:</strong> we are looking at how the systems work together, not drawing a fantasy spacecraft.</p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">Cosmic address check</Fragment>
+    <Fragment slot="analysis">
+      <p>With a partner, explain why each statement is accurate or inaccurate. Use the science words above—not just “bigger” or “smaller.”</p>
+      <div class="model-grid">
+        <details class="model-card">
+          <summary><strong>“Mars is part of the Milky Way, so the Milky Way must be inside our Solar System.”</strong></summary>
+          <p><strong>Check:</strong> Reverse the relationship. The Solar System is our star system, and it is inside the Milky Way galaxy.</p>
+        </details>
+        <details class="model-card">
+          <summary><strong>“A nebula can be found inside a galaxy.”</strong></summary>
+          <p><strong>Check:</strong> Yes. Nebulae are clouds of gas and dust found within galaxies.</p>
+        </details>
+      </div>
+      <p class="source-note">Keep this at the model level. You do not need to memorize enormous distance values today; you need to know what the structures are and how they relate.</p>
+    </Fragment>
+  </MarsOperation>
+
+  <MarsOperation
+    number="02"
+    id="trust-evidence"
+    title="Trust the Evidence"
+    question="Why has our explanation of space changed?"
+    intelAgency="NASA + CANADIAN SPACE AGENCY"
+    intelTitle="Curiosity changes the Mars story when new evidence appears"
+    intelStatus="ACTIVE"
+    intelSource="Canadian Space Agency — APXS on Curiosity"
+    intelHref="https://www.asc-csa.gc.ca/eng/astronomy/mars/apxs.asp"
+    systems={['science']}
+  >
+    <Fragment slot="problem-title">Scientific models are useful because they can change.</Fragment>
+    <Fragment slot="problem">
+      <p>People have observed the sky for thousands of years. Different cultures have developed knowledge of celestial patterns for navigation, timekeeping, seasonal change, stories, ceremony, and understanding our place in the world.</p>
+      <p>Scientific models also changed as new observations allowed people to test which explanations better predicted motion in the sky.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">Observation comes before revision.</Fragment>
+    <Fragment slot="know">
+      <div class="model-grid">
+        <div class="model-card">
+          <strong>Geocentric model</strong>
+          <p>Places Earth at the centre of the model. It can describe some apparent motion but becomes complicated when observations of planets are added.</p>
+        </div>
+        <div class="model-card">
+          <strong>Heliocentric model</strong>
+          <p>Places the Sun at the centre of our planetary system. It provides a stronger model for explaining and predicting planetary motion.</p>
+        </div>
+      </div>
+      <p>The point is not to sort the past into “right” and “wrong.” The important idea is that <strong>scientific models are judged by evidence, explanatory power, and prediction</strong>.</p>
+      <p class="source-note"><strong>Indigenous sky knowledge:</strong> the University of Calgary's Rothney Astrophysical Observatory describes Blackfoot, Cree, and Métis sky knowledge in which long-term observations supported orientation, seasonal understanding, stories, and relationships with land. The Canadian Space Agency also recognizes multiple Indigenous ways of knowing about the sky. <a href="https://science.ucalgary.ca/rothney-observatory/community/indigenous-skies" target="_blank" rel="noreferrer">UCalgary Indigenous Skies ↗</a> · <a href="https://www.asc-csa.gc.ca/eng/youth-educators/indigenous-ways-of-knowing.asp" target="_blank" rel="noreferrer">CSA resource ↗</a></p>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <p>Curiosity is still working on Mars. As of February 1, 2026, Canada's APXS instrument had analyzed 1,761 Martian samples. In 2024, APXS confirmed elemental sulfur crystals inside a rock Curiosity cracked open—the first discovery of pure sulfur in this form on Mars.</p>
+      <p><strong>Why it matters:</strong> even a mature Mars mission can produce evidence that forces scientists to revise what they think happened there.</p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">Evidence test: which model earns more confidence?</Fragment>
+    <Fragment slot="analysis">
+      <p>Discuss these observations with a partner, then write one sentence explaining which model each piece of evidence supports more strongly.</p>
+      <div class="mars-fact-grid">
+        <div class="fact-card"><strong>Observation A</strong><p>Planets sometimes appear to reverse direction against the background stars before continuing their usual path.</p></div>
+        <div class="fact-card"><strong>Observation B</strong><p>Venus shows a full set of phases when observed carefully through a telescope.</p></div>
+        <div class="fact-card"><strong>Observation C</strong><p>A model makes accurate predictions about where a planet will appear months later.</p></div>
+        <div class="fact-card"><strong>Review standard</strong><p>Prefer the explanation that accounts for more observations with fewer special fixes.</p></div>
+      </div>
+      <details class="source-note">
+        <summary><strong>Need a checkpoint?</strong></summary>
+        <p>The heliocentric model explains retrograde motion as an apparent effect of planets moving at different orbital speeds and is consistent with the observed phases of Venus. Accurate prediction is one reason models earn confidence.</p>
+      </details>
+    </Fragment>
+  </MarsOperation>
+
+  <MarsOperation
+    number="03"
+    id="read-light"
+    title="Read the Light"
+    question="How can scientists learn about something they cannot touch?"
+    intelAgency="CANADIAN SPACE AGENCY"
+    intelTitle="APXS identifies elements in Martian rocks"
+    intelStatus="ACTIVE"
+    intelSource="Canadian Space Agency — APXS instrument"
+    intelHref="https://www.asc-csa.gc.ca/eng/astronomy/mars/apxs.asp"
+    systems={['science']}
+  >
+    <Fragment slot="problem-title">Most objects in space cannot be sampled directly.</Fragment>
+    <Fragment slot="problem">
+      <p>Scientists still need evidence about composition, motion, surface features, and conditions. Different observing tools collect different kinds of electromagnetic radiation, and a spectrum can reveal information hidden inside ordinary light.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">Different evidence answers different questions.</Fragment>
+    <Fragment slot="know">
+      <div class="mars-fact-grid">
+        <div class="fact-card"><strong>Optical telescope</strong><p>Collects visible light. Larger mirrors or lenses gather more light and reveal fainter or finer details.</p></div>
+        <div class="fact-card"><strong>Radio telescope</strong><p>Detects radio waves. It can reveal sources and structures that may be faint or invisible in ordinary visible-light images.</p></div>
+        <div class="fact-card"><strong>Spectrum</strong><p>Separates radiation by wavelength. Patterns of lines can act like evidence fingerprints for substances.</p></div>
+        <div class="fact-card"><strong>Doppler shift</strong><p>A shift in spectral features can provide evidence that an object is moving toward or away from the observer.</p></div>
+      </div>
+      <p class="source-note">Grade 9 boundary: interpret what the observation tells you. Do not calculate wavelength shifts or use advanced spectroscopy equations.</p>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <p>Canada's APXS sits on the end of Curiosity's robotic arm. It uses X-rays and alpha particles, then measures the energy released by a sample to identify the elements in Martian rocks and soil.</p>
+      <p><strong>Why it matters:</strong> “spectroscopy” is not just an astronomy vocabulary word. Missions use spectra to work out what distant or inaccessible material is made of.</p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">Evidence Matcher</Fragment>
+    <Fragment slot="analysis">
+      <MarsEvidenceMatcher />
+    </Fragment>
+  </MarsOperation>
+
+  <MarsOperation
+    number="04"
+    id="profile-mars"
+    title="Profile Mars"
+    question="What have robots taught us before humans arrive?"
+    intelAgency="NASA + CANADIAN SPACE AGENCY"
+    intelTitle="Robots are already building the Mars evidence base"
+    intelStatus="ACTIVE"
+    intelSource="NASA Mars overview"
+    intelHref="https://science.nasa.gov/mars/"
+    systems={['science']}
+  >
+    <Fragment slot="problem-title">Mars is known—but it is not Earth with red dirt.</Fragment>
+    <Fragment slot="problem">
+      <p>A human mission would face conditions that robotic explorers can tolerate more easily. Before judging travel or survival systems, the review team needs a concise evidence profile of the planet itself.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">First place Mars among the other bodies in our Solar System.</Fragment>
+    <Fragment slot="know">
+      <div class="solar-system-snapshot" aria-label="Solar System body groups">
+        <div><strong>Sun</strong><p>Our star: hot plasma and the dominant source of light and energy in the Solar System.</p></div>
+        <div><strong>Rocky planets</strong><p>Mercury, Venus, Earth, and Mars have solid surfaces made largely of rock and metal.</p></div>
+        <div><strong>Giant planets</strong><p>Jupiter and Saturn are gas giants; Uranus and Neptune are ice giants. Their composition and structure differ greatly from Earth's.</p></div>
+        <div><strong>Moons</strong><p>Natural satellites orbit planets or dwarf planets and can be rocky, icy, or a mixture of both.</p></div>
+        <div><strong>Small bodies</strong><p>Asteroids are mainly rocky or metallic; comets contain large amounts of ice and dust; dwarf planets also orbit the Sun.</p></div>
+      </div>
+      <p class="source-note"><strong>Where does the evidence come from?</strong> Telescopes, spectral analysis, spacecraft flybys, orbiters, landers, rovers, and physical samples such as meteorites all add different evidence about Solar System bodies.</p>
+
+      <h4 class="subsection-heading">Now zoom in on Mars.</h4>
+      <div class="mars-comparison-grid">
+        <div class="comparison-card"><strong>Atmosphere</strong><p>Mars has a very thin atmosphere made mostly of carbon dioxide. Humans cannot breathe it, and the low pressure changes how a habitat must be designed.</p></div>
+        <div class="comparison-card"><strong>Temperature</strong><p>Mars is a cold world with large temperature swings. Thermal control is a continuous systems problem.</p></div>
+        <div class="comparison-card"><strong>Gravity</strong><p>Mars surface gravity is about 38% of Earth's. That changes movement and raises long-duration human-health questions.</p></div>
+        <div class="comparison-card"><strong>Water</strong><p>Evidence shows a wetter ancient Mars. Water exists today mainly as ice at or below the surface; accessible liquid surface water is not available the way it is on Earth.</p></div>
+      </div>
+      <p class="source-note">Planetary profile source: <a href="https://science.nasa.gov/mars/facts/" target="_blank" rel="noreferrer">NASA Mars Facts ↗</a>. The goal is not memorizing every number; it is explaining how evidence about a body creates mission constraints.</p>
+      <p class="source-note maturity-note"><strong>TECH STATUS // IN DEVELOPMENT / PLANNED:</strong> ESA's Rosalind Franklin rover is planned for a late-2028 launch and is designed to drill as deep as two metres below the Martian surface while searching for signs of past life. <a href="https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/Exploration/ExoMars/FAQ_The_rebirth_of_ESA_s_ExoMars_Rosalind_Franklin_mission" target="_blank" rel="noreferrer">ESA mission update ↗</a></p>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <p>Perseverance and Curiosity are operating on Mars, while Canada's APXS continues collecting chemistry data with Curiosity.</p>
+      <p><strong>Why it matters:</strong> future human decisions should build from what robotic missions actually measure—not from artist concepts of Mars cities.</p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">Build a Mars Environmental Intelligence Brief</Fragment>
+    <Fragment slot="analysis">
+      <p>Choose four pieces of Mars evidence above. For each one, finish this reasoning chain in your Readiness Record:</p>
+      <div class="cosmic-address" style="grid-template-columns:repeat(3,1fr)">
+        <div><small>1 // EVIDENCE</small><strong>What is Mars like?</strong></div>
+        <div><small>2 // CONSEQUENCE</small><strong>Why does that matter to a human?</strong></div>
+        <div><small>3 // CONSTRAINT</small><strong>What system will have to solve it?</strong></div>
+      </div>
+      <details class="source-note">
+        <summary><strong>Example</strong></summary>
+        <p><strong>Evidence:</strong> Mars has a very thin atmosphere. → <strong>Consequence:</strong> humans cannot survive exposed to the surface. → <strong>Constraint:</strong> habitats and suits must maintain safe pressure and breathable air.</p>
+      </details>
+    </Fragment>
+  </MarsOperation>
+
+  <section class="phase-intro">
+    <div>
+      <p class="mars-kicker">PHASE 01 COMPLETE</p>
+      <h2>UNDERSTAND review complete</h2>
+      <p>Check that your Readiness Record is up to date. Then wait for your teacher before moving on to TRAVEL.</p>
+    </div>
+  </section>
+</MarsProjectShell>

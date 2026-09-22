@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import MarsPhaseNav from './MarsPhaseNav.astro';
+import '../styles/mars-readiness.css';
+
+interface Props {
+  title: string;
+  description: string;
+  activePhase?: 'hub' | 'understand' | 'travel' | 'survive' | 'operate';
+  availableThrough?: 'understand' | 'travel' | 'survive' | 'operate';
+}
+const { title, description, activePhase = 'hub', availableThrough = 'operate' } = Astro.props;
+const phaseLabel = activePhase === 'operate'
+  ? 'PHASE 04 // OPEN'
+  : activePhase === 'survive'
+    ? 'PHASE 03 // OPEN'
+    : activePhase === 'travel'
+      ? 'PHASE 02 // OPEN'
+      : activePhase === 'understand'
+        ? 'PHASE 01 // OPEN'
+        : 'PHASES 01–04 // OPEN';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title={title} description={description} themeColor="#ad4e32">
+  <div class="mars-shell" data-mars-readiness-root>
+    <a class="mars-skip-link" href="#mars-main">Skip to main content</a>
+
+    <Breadcrumbs items={[
+      { label: 'Home', href: base },
+      { label: 'Grade 9 Science' },
+      { label: 'MISSION: MARS' }
+    ]} />
+
+    <header class="mars-program-bar">
+      <a href={base + 'courses/grade-9-science/space-exploration/mars-readiness/'} class="mars-brand" aria-label="MISSION: MARS Readiness Hub">
+        <span class="mars-brand-mark" aria-hidden="true">M</span>
+        <span><strong>MISSION: MARS</strong><small>ARE WE READY?</small></span>
+      </a>
+      <span class="phase-chip">{phaseLabel}</span>
+    </header>
+
+    <MarsPhaseNav activePhase={activePhase} availableThrough={availableThrough} />
+
+    <main id="mars-main">
+      <slot />
+    </main>
+
+    <footer class="mars-footer">
+      <div>
+        <strong>MISSION: MARS // MARS READINESS PROGRAM</strong>
+        <p>Grade 9 Science · Space Exploration · Mr. John's Learning Hub</p>
+      </div>
+      <p>Real Mission Intel links to the original NASA, ESA, CSA, or university source so evidence can be checked.</p>
+    </footer>
+  </div>
+</BaseLayout>

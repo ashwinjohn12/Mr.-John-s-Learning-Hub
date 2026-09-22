@@ -1,0 +1,140 @@
+<div class="survive-widget resource-tradeoff" data-resource-tradeoff>
+  <div class="survive-widget-heading">
+    <div>
+      <p class="mars-kicker">ISRU TRADE-OFF REVIEW</p>
+      <h4>Bring it, make it on Mars, or use a hybrid approach?</h4>
+    </div>
+    <span class="model-disclaimer">QUALITATIVE CLASSROOM MODEL</span>
+  </div>
+
+  <p class="widget-instruction">ISRU means <strong>in-situ resource utilization</strong>: using resources found at the destination. Choose a strategy for each resource, then inspect the trade-offs. The indicators are qualitative—not mission calculations.</p>
+
+  <div class="resource-strategy-grid">
+    <fieldset data-resource="oxygen">
+      <legend>Oxygen</legend>
+      <label><input type="radio" name="resource-oxygen" value="bring" /> Bring from Earth</label>
+      <label><input type="radio" name="resource-oxygen" value="make" /> Produce on Mars</label>
+      <label><input type="radio" name="resource-oxygen" value="hybrid" checked /> Hybrid</label>
+    </fieldset>
+
+    <fieldset data-resource="water">
+      <legend>Water</legend>
+      <label><input type="radio" name="resource-water" value="bring" /> Bring from Earth</label>
+      <label><input type="radio" name="resource-water" value="make" /> Extract/recover locally</label>
+      <label><input type="radio" name="resource-water" value="hybrid" checked /> Hybrid</label>
+    </fieldset>
+
+    <fieldset data-resource="propellant">
+      <legend>Return propellant resources</legend>
+      <label><input type="radio" name="resource-propellant" value="bring" /> Bring from Earth</label>
+      <label><input type="radio" name="resource-propellant" value="make" /> Produce locally</label>
+      <label><input type="radio" name="resource-propellant" value="hybrid" checked /> Hybrid</label>
+    </fieldset>
+
+    <fieldset data-resource="materials">
+      <legend>Some shielding / structural material</legend>
+      <label><input type="radio" name="resource-materials" value="bring" /> Bring from Earth</label>
+      <label><input type="radio" name="resource-materials" value="make" /> Use local material</label>
+      <label><input type="radio" name="resource-materials" value="hybrid" checked /> Hybrid</label>
+    </fieldset>
+  </div>
+
+  <div class="resource-indicators" aria-live="polite">
+    <div><span>Launch mass pressure</span><strong data-indicator="mass">Moderate</strong></div>
+    <div><span>System complexity</span><strong data-indicator="complexity">Moderate</strong></div>
+    <div><span>Earth dependence</span><strong data-indicator="dependence">Moderate</strong></div>
+  </div>
+
+  <p class="priority-summary" data-resource-summary>Hybrid choices balance transported supplies with local production, but still require both launch mass and operating equipment.</p>
+
+  <div class="tradeoff-prompts">
+    <label>One resource we should make or extract on Mars
+      <input type="text" maxlength="100" data-resource-choice placeholder="Choose one resource and explain why." />
+    </label>
+    <label>Biggest risk of relying on Mars
+      <input type="text" maxlength="120" data-resource-risk placeholder="What could fail or be uncertain?" />
+    </label>
+  </div>
+
+  <div class="widget-actions">
+    <button type="button" class="mars-action" data-save-resources>Save ISRU review</button>
+    <p class="widget-feedback" data-resource-feedback aria-live="polite">There is no automatic best strategy. Your evidence supports the decision.</p>
+  </div>
+</div>
+
+<script>
+  const RESOURCE_KEY = 'mrjohn-mars-resource-tradeoff-v1';
+
+  document.querySelectorAll('[data-resource-tradeoff]').forEach((root) => {
+    const resources = Array.from(root.querySelectorAll('[data-resource]'));
+    const choiceInput = root.querySelector('[data-resource-choice]');
+    const riskInput = root.querySelector('[data-resource-risk]');
+    const feedback = root.querySelector('[data-resource-feedback]');
+    const summary = root.querySelector('[data-resource-summary]');
+
+    const labels = ['Lower', 'Moderate', 'Higher'];
+
+    const currentSelections = () => {
+      const result = {};
+      resources.forEach((fieldset) => {
+        result[fieldset.dataset.resource] = fieldset.querySelector('input:checked')?.value || 'hybrid';
+      });
+      return result;
+    };
+
+    const render = () => {
+      const selections = Object.values(currentSelections());
+      const counts = {
+        bring: selections.filter((value) => value === 'bring').length,
+        make: selections.filter((value) => value === 'make').length,
+        hybrid: selections.filter((value) => value === 'hybrid').length
+      };
+
+      const massIndex = Math.max(0, Math.min(2, Math.round((counts.bring * 2 + counts.hybrid) / 4)));
+      const complexityIndex = Math.max(0, Math.min(2, Math.round((counts.make * 2 + counts.hybrid) / 4)));
+      const dependenceIndex = Math.max(0, Math.min(2, Math.round((counts.bring * 2 + counts.hybrid) / 4)));
+
+      root.querySelector('[data-indicator="mass"]').textContent = labels[massIndex];
+      root.querySelector('[data-indicator="complexity"]').textContent = labels[complexityIndex];
+      root.querySelector('[data-indicator="dependence"]').textContent = labels[dependenceIndex];
+
+      if (counts.make >= 3) {
+        summary.textContent = 'Your plan relies heavily on local production. That can reduce launch mass and Earth dependence, but increases equipment, power, maintenance, and resource-access demands.';
+      } else if (counts.bring >= 3) {
+        summary.textContent = 'Your plan relies heavily on Earth. That reduces some local-processing complexity, but increases transported mass and dependence on supplies launched from home.';
+      } else {
+        summary.textContent = 'Your plan mixes transported supplies with local production. Hybrid strategies can spread risk, but require both launch capacity and operating equipment.';
+      }
+    };
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(RESOURCE_KEY) || '{}');
+      if (saved.selections) {
+        resources.forEach((fieldset) => {
+          const value = saved.selections[fieldset.dataset.resource];
+          const input = fieldset.querySelector('input[value="' + value + '"]');
+          if (input) input.checked = true;
+        });
+      }
+      if (saved.choice) choiceInput.value = saved.choice;
+      if (saved.risk) riskInput.value = saved.risk;
+    } catch {}
+
+    resources.forEach((fieldset) => fieldset.addEventListener('change', render));
+
+    root.querySelector('[data-save-resources]').addEventListener('click', () => {
+      if (!choiceInput.value.trim() || !riskInput.value.trim()) {
+        feedback.textContent = 'Record one local-resource choice and one important risk before saving.';
+        return;
+      }
+      localStorage.setItem(RESOURCE_KEY, JSON.stringify({
+        selections: currentSelections(),
+        choice: choiceInput.value.trim(),
+        risk: riskInput.value.trim()
+      }));
+      feedback.textContent = 'ISRU review saved on this device.';
+    });
+
+    render();
+  });
+</script>

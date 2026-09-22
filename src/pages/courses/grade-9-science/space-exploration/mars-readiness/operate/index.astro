@@ -1,0 +1,253 @@
+---
+import MarsProjectShell from '../../../../../../components/MarsProjectShell.astro';
+import MarsReadinessDashboard from '../../../../../../components/MarsReadinessDashboard.astro';
+import MarsOperation from '../../../../../../components/MarsOperation.astro';
+import MarsMissionTaskMatcher from '../../../../../../components/MarsMissionTaskMatcher.astro';
+import MarsNetworkBuilder from '../../../../../../components/MarsNetworkBuilder.astro';
+import MarsMissionCrisis from '../../../../../../components/MarsMissionCrisis.astro';
+import { operateOperations } from '../../../../../../data/marsReadiness';
+---
+
+<MarsProjectShell
+  title="OPERATE & DECIDE | MISSION: MARS — Are We Ready?"
+  description="Operations 13–16 of the Grade 9 Science Mars Readiness Program: robotic exploration, communication and navigation infrastructure, an integrated mission crisis, and the final evidence-based Mars readiness review."
+  activePhase="operate"
+>
+  <section class="phase-intro">
+    <div>
+      <p class="mars-kicker">PHASE 04 // OPERATE & DECIDE</p>
+      <h1>Could the mission work—and what should happen next?</h1>
+      <p>The final phase connects the systems. Choose how evidence is gathered, build the infrastructure that keeps a mission connected, respond to a serious systems problem, and then decide what the full body of evidence actually supports.</p>
+    </div>
+  </section>
+
+  <nav class="phase-index" id="operate-operations" aria-label="OPERATE & DECIDE operations">
+    {operateOperations.map((operation) => (
+      <a href={'#operation-' + operation.number}>
+        <span>OPERATION {operation.number}</span>
+        <strong>{operation.title}</strong>
+        <small>{operation.question}</small>
+      </a>
+    ))}
+  </nav>
+
+  <MarsOperation
+    number="13"
+    id="send-robots"
+    title="Send the Robots"
+    question="Which explorer should do which job?"
+    intelAgency="NASA / JPL"
+    intelTitle="Orbiters and rovers work together"
+    intelStatus="ACTIVE"
+    intelSource="NASA HiRISE Captures Perseverance on Mars"
+    intelHref="https://science.nasa.gov/photojournal/nasas-hirise-captures-perseverance-marking-a-milestone-on-mars/"
+    systems={['operations']}
+    returnAnchor="operate-operations"
+    returnLabel="OPERATE & DECIDE"
+  >
+    <Fragment slot="problem-title">No single spacecraft is best at every kind of investigation.</Fragment>
+    <Fragment slot="problem">
+      <p>An orbiter can repeatedly survey huge areas. A lander can monitor one site for months. A rover can travel between surface targets. Humans can respond flexibly to unexpected situations—but require far more transportation and life support.</p>
+      <p><strong>Your job:</strong> choose the investigation method that best matches each scientific or operational task.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">Choose the platform based on the evidence you need.</Fragment>
+    <Fragment slot="know">
+      <div class="mars-fact-grid">
+        <div class="fact-card"><strong>Orbiter</strong><p>Broad repeated coverage, remote sensing, mapping, and communication relay.</p></div>
+        <div class="fact-card"><strong>Stationary lander</strong><p>Long-duration measurements and direct observations at one fixed location.</p></div>
+        <div class="fact-card"><strong>Rover</strong><p>Mobility plus close-up imaging and direct measurements at several surface sites.</p></div>
+        <div class="fact-card"><strong>Human explorer</strong><p>Flexible judgement and tool use, but with much greater risk and life-support demands.</p></div>
+      </div>
+      <p><strong>Remote sensing</strong> means gathering information about an object or area without physically contacting it. At Mars, orbiters can use imaging, spectroscopy, radar, and other instruments to study the planet from above.</p>
+      <p class="source-note">Operation 03 asked what radiation can tell us. This Operation asks which <b>platform and method</b> should collect the evidence.</p>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <p>In June 2026, the HiRISE camera on NASA's Mars Reconnaissance Orbiter photographed Perseverance from orbit while the rover continued investigating the surface below. Perseverance's 2026 Mars Global Localization technology also matches rover camera views with orbital imagery to determine its location.</p>
+      <p><strong>Why it matters:</strong> orbital remote sensing and direct surface measurements can strengthen one another.</p>
+      <p class="source-note"><strong>IN DEVELOPMENT / PLANNED:</strong> ESA's Rosalind Franklin rover is scheduled for late 2028 and is designed to travel across Mars, drill as deep as 2 m, and analyze subsurface samples. <a href="https://www.esa.int/Newsroom/Press_Releases/ESA_to_search_for_life_on_Mars_with_ExoMars_Rosalind_Franklin_mission" target="_blank" rel="noreferrer">ESA mission overview ↗</a></p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">Mission Task Matcher</Fragment>
+    <Fragment slot="analysis">
+      <MarsMissionTaskMatcher />
+      <div class="transfer-check">
+        <strong>Exam transfer</strong>
+        <p>When comparing methods of gathering information, identify both <b>what the method does well</b> and <b>what evidence it cannot gather as effectively</b>.</p>
+      </div>
+    </Fragment>
+  </MarsOperation>
+
+  <MarsOperation
+    number="14"
+    id="build-network"
+    title="Build the Network"
+    question="How does a Mars mission stay connected and know where things are?"
+    intelAgency="NASA + COMMERCIAL INDUSTRY"
+    intelTitle="NASA is developing a next-generation Mars Telecommunications Network"
+    intelStatus="IN DEVELOPMENT / PLANNED"
+    intelSource="NASA Selects Blue Origin as Mars Telecommunications Network Provider"
+    intelHref="https://www.nasa.gov/news-release/nasa-selects-blue-origin-as-mars-telecommunications-network-provider/"
+    systems={['operations']}
+    returnAnchor="operate-operations"
+    returnLabel="OPERATE & DECIDE"
+  >
+    <Fragment slot="problem-title">Future Mars missions need infrastructure, not just vehicles.</Fragment>
+    <Fragment slot="problem">
+      <p>Surface crews and robots need to send data, receive commands, coordinate locally, and determine where they are. Mars does not currently have a GPS constellation like Earth.</p>
+      <p><strong>Your job:</strong> build a simplified communications network and use a three-reference position check.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">Artificial satellites can communicate, observe, and help establish position.</Fragment>
+    <Fragment slot="know">
+      <div class="mars-fact-grid">
+        <div class="fact-card"><strong>Communication</strong><p>Satellites can relay data between spacecraft, surface assets, and ground networks.</p></div>
+        <div class="fact-card"><strong>Navigation</strong><p>Earth GPS receivers compare signals from multiple satellites with known positions. Mars has no equivalent GPS constellation today.</p></div>
+        <div class="fact-card"><strong>Weather + monitoring</strong><p>Satellites can repeatedly observe changing conditions over large areas.</p></div>
+        <div class="fact-card"><strong>Remote sensing</strong><p>Orbiters gather science data from above without touching the surface.</p></div>
+      </div>
+
+      <div class="satellite-development" aria-label="Development of artificial satellites">
+        <div><span>EARLY SATELLITES</span><strong>Prove orbit + transmit basic signals</strong></div>
+        <div><span>SPECIALIZED SATELLITES</span><strong>Communication + weather observation</strong></div>
+        <div><span>NAVIGATION CONSTELLATIONS</span><strong>Multiple satellites support systems such as GPS</strong></div>
+        <div><span>PLANETARY ORBITERS</span><strong>Science + mapping + relay around worlds such as Mars</strong></div>
+      </div>
+
+      <p class="source-note"><strong>Current Mars relay:</strong> NASA's Mars Reconnaissance Orbiter and ESA's Trace Gas Orbiter can relay data for surface missions. The network builder below is simplified and does not represent every direct-to-Earth or backup communication path.</p>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <p>On September 1, 2026, NASA selected Blue Origin to develop a next-generation Mars Telecommunications Network. The planned orbiter is intended to provide high-bandwidth communications and navigation services for current and future Mars spacecraft, with delivery required no later than the end of 2028.</p>
+      <p><strong>Maturity check:</strong> the contract and architecture are real, but the new Mars network is not operational yet.</p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">Communication + Positioning Network</Fragment>
+    <Fragment slot="analysis">
+      <MarsNetworkBuilder />
+      <div class="transfer-check">
+        <strong>Exam transfer</strong>
+        <p>For a positioning problem, look for several known reference locations and identify the position consistent with <b>all</b> of the available distance or direction evidence.</p>
+      </div>
+    </Fragment>
+  </MarsOperation>
+
+  <MarsOperation
+    number="15"
+    id="respond-crisis"
+    title="Respond to the Crisis"
+    question="What do you protect when you cannot protect everything?"
+    intelAgency="NASA"
+    intelTitle="NASA selected fission as the primary power approach for initial human Mars surface missions"
+    intelStatus="IN DEVELOPMENT / PLANNED"
+    intelSource="NASA Mars Surface Power Technology Decision"
+    intelHref="https://www.nasa.gov/wp-content/uploads/2024/12/acr24-mars-surface-power-decision.pdf"
+    systems={['operations']}
+    returnAnchor="operate-operations"
+    returnLabel="OPERATE & DECIDE"
+  >
+    <Fragment slot="problem-title">Mission systems become hardest to manage when several problems happen at once.</Fragment>
+    <Fragment slot="problem">
+      <p>A power-distribution fault has reduced the Mars base's usable power at the same time that a solar-particle event is approaching. Your team cannot keep every system running normally.</p>
+      <p><strong>Your job:</strong> protect the crew and mission using only 50 of the usual 68 Mission Power Units.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">Risks include more than the Mars environment itself.</Fragment>
+    <Fragment slot="know">
+      <div class="mars-fact-grid">
+        <div class="fact-card"><strong>Space debris</strong><p>Debris can damage spacecraft, satellites, or critical hardware.</p></div>
+        <div class="fact-card"><strong>Fuel + resource demand</strong><p>Transportation and operations consume limited energy, materials, and replacement parts.</p></div>
+        <div class="fact-card"><strong>Spacecraft loss / disposal</strong><p>Systems can fail, and spacecraft end-of-life or reentry must also be planned responsibly.</p></div>
+        <div class="fact-card"><strong>Solar radiation</strong><p>Solar-particle events can increase risk to astronauts and electronics.</p></div>
+      </div>
+      <p class="source-note">Operation 09 focused on environmental hazards to human survival. This Operation combines broader mission risks with system interdependence.</p>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <p>NASA selected nuclear fission as the primary surface-power generation approach for initial crewed Mars missions. NASA's architecture work emphasizes the need for continuous, robust power across different landing sites and during difficult environmental conditions such as dust storms.</p>
+      <p><strong>Maturity check:</strong> this is a real architecture decision and an active technology-development area. No crewed Mars fission-power base exists today.</p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">SOL 137 — Mission Crisis</Fragment>
+    <Fragment slot="analysis">
+      <MarsMissionCrisis />
+    </Fragment>
+  </MarsOperation>
+
+  <MarsOperation
+    number="16"
+    id="make-call"
+    title="Make the Call"
+    question="After all the evidence, how ready are we actually?"
+    intelAgency="CANADIAN SPACE AGENCY"
+    intelTitle="Canada contributes science, robotics, and astronauts"
+    intelStatus="ACTIVE"
+    intelSource="CSA — Canada's APXS Contribution to Curiosity"
+    intelHref="https://www.asc-csa.gc.ca/eng/astronomy/mars/apxs.asp"
+    systems={[]}
+    returnAnchor="operate-operations"
+    returnLabel="OPERATE & DECIDE"
+    showReadinessCall={false}
+  >
+    <Fragment slot="problem-title">Your job is not to sell the mission. Your job is to decide what the evidence supports.</Fragment>
+    <Fragment slot="problem">
+      <p>You began the unit with predictions. You now have evidence about Mars science, navigation, transportation, landing, survival, resource use, communication, robotics, and mission operations.</p>
+      <p><strong>Your job:</strong> review all seven systems and make a final evidence-based readiness judgement.</p>
+    </Fragment>
+
+    <Fragment slot="know-title">A final decision has to include more than engineering.</Fragment>
+    <Fragment slot="know">
+      <div class="decision-factor-grid">
+        <div><strong>Scientific benefit</strong><p>What could robotic or human exploration help us learn?</p></div>
+        <div><strong>Cost + resource demand</strong><p>What equipment, energy, transportation, and long-term support would be required?</p></div>
+        <div><strong>Human risk</strong><p>Which hazards or failure modes remain difficult to control?</p></div>
+        <div><strong>Environmental responsibility</strong><p>How can missions protect Mars science and reduce harmful biological contamination?</p></div>
+        <div><strong>International / political questions</strong><p>How should countries and companies coordinate activities, safety, and access?</p></div>
+        <div><strong>Ethical / resource questions</strong><p>How should useful space resources be accessed without undermining science, safety, or future use?</p></div>
+      </div>
+
+      <p class="source-note"><strong>Current policy context:</strong> the Artemis Accords are one current framework for civil-space cooperation among participating countries. They include peaceful use, transparency, scientific-data sharing, space resources, avoiding harmful interference, and orbital-debris principles. They reinforce that resource activities should be carried out consistently with the Outer Space Treaty; they are not a single worldwide Mars law. <a href="https://www.nasa.gov/artemis-accords/" target="_blank" rel="noreferrer">NASA Artemis Accords overview ↗</a></p>
+
+      <p class="source-note"><strong>Planetary protection:</strong> NASA treats protecting exploration destinations and Earth from biological contamination as a real human-Mars architecture issue. <a href="https://www.nasa.gov/moontomarsarchitecture-whitepapers/" target="_blank" rel="noreferrer">NASA Moon to Mars planetary-protection work ↗</a></p>
+    </Fragment>
+
+    <Fragment slot="intel">
+      <div class="canada-contribution-grid">
+        <div><span>ACTIVE</span><strong>Mars science</strong><p>Canada's APXS continues analyzing Martian rocks and soils aboard Curiosity.</p></div>
+        <div><span>ACTIVE</span><strong>Space robotics</strong><p>Canadarm2 and Dextre continue supporting ISS operations and remote maintenance.</p></div>
+        <div><span>DEMONSTRATED 2026</span><strong>Astronaut program</strong><p>Jeremy Hansen became the first Canadian to travel around the Moon on Artemis II.</p></div>
+        <div><span>IN DEVELOPMENT</span><strong>Future robotics</strong><p>Canada is developing Canadarm3 for Gateway, including autonomous capabilities.</p></div>
+      </div>
+      <p><strong>Why it matters:</strong> Canada's contribution is not one Mars spacecraft. It is a record of science instruments, robotics, and human-spaceflight expertise that can support deeper-space exploration.</p>
+      <p class="source-note"><a href="https://www.asc-csa.gc.ca/eng/iss/canadarm2/about.asp" target="_blank" rel="noreferrer">Canadarm2 ↗</a> · <a href="https://www.asc-csa.gc.ca/eng/canadarm3/about.asp" target="_blank" rel="noreferrer">Canadarm3 ↗</a> · <a href="https://www.asc-csa.gc.ca/eng/missions/artemis-ii/" target="_blank" rel="noreferrer">Artemis II ↗</a></p>
+    </Fragment>
+
+    <Fragment slot="analysis-title">Final Mars Readiness Review</Fragment>
+    <Fragment slot="analysis">
+      <div id="final-readiness-dashboard">
+        <MarsReadinessDashboard heading="Review the evidence you collected" />
+      </div>
+
+      <div class="final-review-instructions">
+        <p class="mars-kicker">READINESS RECORD // PAGE 8</p>
+        <h4>Make your own final call for all seven systems.</h4>
+        <p>Use the dashboard evidence above. For each system, record one final status, your strongest evidence, and what still needs to happen. Your final status does not have to match the latest digital Readiness Call if the full unit evidence changes your judgement.</p>
+        <div class="final-status-key" aria-label="Final status choices">
+          <span>◆ Demonstrated</span><span>◒ Developing</span><span>▲ Major Challenge</span><span>○ Insufficient Evidence</span>
+        </div>
+        <blockquote>
+          <strong>Final individual response:</strong> Based on the evidence from this unit, what should humanity solve next before attempting a long-duration human Mars mission? Use evidence from at least three different Operations.
+        </blockquote>
+      </div>
+    </Fragment>
+  </MarsOperation>
+
+  <section class="phase-intro">
+    <div>
+      <p class="mars-kicker">PHASE 04 COMPLETE</p>
+      <h2>Instructional mission review complete</h2>
+      <p>Your four project phases are complete. Use the next class to finish, consolidate, and prepare for the unit review before the exam.</p>
+    </div>
+  </section>
+</MarsProjectShell>

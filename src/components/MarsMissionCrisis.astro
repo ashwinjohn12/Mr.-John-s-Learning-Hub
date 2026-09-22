@@ -1,0 +1,138 @@
+<div class="operate-widget mission-crisis" data-mission-crisis>
+  <div class="crisis-alert">
+    <p class="mars-kicker">SOL 137 // POWER EMERGENCY</p>
+    <h4>Only 50 of 68 Mission Power Units are available.</h4>
+    <p>A surface power-distribution fault has reduced usable power while a solar-particle event is approaching. Mission Power Units are a classroom decision model—not real spacecraft kilowatts.</p>
+  </div>
+
+  <div class="crisis-meter">
+    <span>POWER USED</span><strong data-power-used>68 / 50</strong>
+    <div class="power-bar"><i data-power-bar style="width:100%"></i></div>
+  </div>
+
+  <div class="crisis-systems">
+    <button type="button" data-crisis-system="life" data-power="18" aria-pressed="true"><strong>Core habitat life support</strong><span>18 units</span><small>OFF: breathable-air control deteriorates; crew survival is threatened.</small></button>
+    <button type="button" data-crisis-system="thermal" data-power="8" aria-pressed="true"><strong>Habitat thermal control</strong><span>8 units</span><small>OFF: safe habitat temperature cannot be maintained indefinitely.</small></button>
+    <button type="button" data-crisis-system="shelter" data-power="7" aria-pressed="true"><strong>Storm-shelter circulation + monitoring</strong><span>7 units</span><small>OFF: radiation shelter becomes much less safe during the event.</small></button>
+    <button type="button" data-crisis-system="comms" data-power="7" aria-pressed="true"><strong>Communications</strong><span>7 units</span><small>OFF: Earth coordination and data return are heavily reduced.</small></button>
+    <button type="button" data-crisis-system="water" data-power="6" aria-pressed="true"><strong>Water recovery</strong><span>6 units</span><small>OFF: stored-water reserves are consumed faster.</small></button>
+    <button type="button" data-crisis-system="isru" data-power="8" aria-pressed="true"><strong>ISRU oxygen production</strong><span>8 units</span><small>OFF: local resource production stops.</small></button>
+    <button type="button" data-crisis-system="rover" data-power="6" aria-pressed="true"><strong>Rover charging + operations</strong><span>6 units</span><small>OFF: surface field work stops.</small></button>
+    <button type="button" data-crisis-system="science" data-power="4" aria-pressed="true"><strong>Science instruments</strong><span>4 units</span><small>OFF: nonessential science data collection pauses.</small></button>
+    <button type="button" data-crisis-system="food" data-power="4" aria-pressed="true"><strong>Food-production experiment</strong><span>4 units</span><small>OFF: long-term food research is interrupted.</small></button>
+  </div>
+
+  <section class="crisis-consequences" aria-live="polite">
+    <p class="mars-kicker">CONSEQUENCES YOU ACCEPT</p>
+    <ul data-crisis-consequences><li>Everything is still powered, but the plan is 18 units over the available limit.</li></ul>
+  </section>
+
+  <div class="incident-fields">
+    <label>TEAM // Systems kept
+      <textarea rows="2" maxlength="240" data-incident-keep placeholder="List the systems your team kept powered."></textarea>
+    </label>
+    <label>TEAM // Systems paused
+      <textarea rows="2" maxlength="240" data-incident-pause placeholder="List the systems your team paused."></textarea>
+    </label>
+    <label>TEAM // Risk accepted
+      <textarea rows="3" maxlength="260" data-incident-risk placeholder="What consequence did your team knowingly accept, and why was it less serious than the alternatives right now?"></textarea>
+    </label>
+    <label>INDIVIDUAL // Hardest decision
+      <textarea rows="3" maxlength="280" data-incident-individual placeholder="Which system was hardest to reduce or shut down? Defend your reasoning with science from the unit."></textarea>
+    </label>
+  </div>
+
+  <div class="widget-actions">
+    <button type="button" class="mars-action" data-save-crisis>Save incident response</button>
+    <button type="button" class="mars-action secondary" data-reset-crisis>Reset power plan</button>
+    <p class="widget-feedback" data-crisis-feedback aria-live="polite">Turn off at least 18 units of demand. There is no automatic best answer.</p>
+  </div>
+</div>
+
+<script>
+  const CRISIS_KEY = 'mrjohn-mars-mission-crisis-v1';
+
+  document.querySelectorAll('[data-mission-crisis]').forEach((root) => {
+    const buttons = Array.from(root.querySelectorAll('[data-crisis-system]'));
+    const used = root.querySelector('[data-power-used]');
+    const bar = root.querySelector('[data-power-bar]');
+    const consequences = root.querySelector('[data-crisis-consequences]');
+    const feedback = root.querySelector('[data-crisis-feedback]');
+    const fields = {
+      keep: root.querySelector('[data-incident-keep]'),
+      pause: root.querySelector('[data-incident-pause]'),
+      risk: root.querySelector('[data-incident-risk]'),
+      individual: root.querySelector('[data-incident-individual]')
+    };
+
+    const isOn = (button) => button.getAttribute('aria-pressed') === 'true';
+    const currentPower = () => buttons.filter(isOn).reduce((sum, button) => sum + Number(button.dataset.power), 0);
+
+    const render = () => {
+      const total = currentPower();
+      used.textContent = total + ' / 50';
+      used.classList.toggle('over-budget', total > 50);
+      bar.style.width = Math.min(100, (total / 50) * 100) + '%';
+      bar.classList.toggle('over-budget', total > 50);
+
+      const off = buttons.filter((button) => !isOn(button));
+      const items = [];
+      if (total > 50) items.push('Power plan is still ' + (total - 50) + ' units over the available limit.');
+      else items.push('Power plan fits within the 50-unit limit with ' + (50 - total) + ' unit' + (50 - total === 1 ? '' : 's') + ' unused.');
+      off.forEach((button) => items.push(button.querySelector('small').textContent.replace(/^OFF:\s*/, '')));
+      consequences.innerHTML = items.map((item) => '<li>' + item + '</li>').join('');
+    };
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(CRISIS_KEY) || '{}');
+      if (saved.active) {
+        buttons.forEach((button) => button.setAttribute('aria-pressed', saved.active.includes(button.dataset.crisisSystem) ? 'true' : 'false'));
+      }
+      if (saved.keep) fields.keep.value = saved.keep;
+      if (saved.pause) fields.pause.value = saved.pause;
+      if (saved.risk) fields.risk.value = saved.risk;
+      if (saved.individual) fields.individual.value = saved.individual;
+    } catch {}
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const next = !isOn(button);
+        button.setAttribute('aria-pressed', next ? 'true' : 'false');
+        button.classList.toggle('paused', !next);
+        render();
+      });
+    });
+
+    root.querySelector('[data-save-crisis]').addEventListener('click', () => {
+      if (currentPower() > 50) {
+        feedback.textContent = 'Your plan is still over the 50-unit power limit. Pause more demand before submitting.';
+        return;
+      }
+      if (!fields.keep.value.trim() || !fields.pause.value.trim() || !fields.risk.value.trim() || !fields.individual.value.trim()) {
+        feedback.textContent = 'Complete the team incident fields and the individual justification before saving.';
+        return;
+      }
+      localStorage.setItem(CRISIS_KEY, JSON.stringify({
+        active: buttons.filter(isOn).map((button) => button.dataset.crisisSystem),
+        keep: fields.keep.value.trim(),
+        pause: fields.pause.value.trim(),
+        risk: fields.risk.value.trim(),
+        individual: fields.individual.value.trim()
+      }));
+      feedback.textContent = 'SOL 137 incident response saved on this device.';
+    });
+
+    root.querySelector('[data-reset-crisis]').addEventListener('click', () => {
+      buttons.forEach((button) => {
+        button.setAttribute('aria-pressed','true');
+        button.classList.remove('paused');
+      });
+      Object.values(fields).forEach((field) => field.value = '');
+      localStorage.removeItem(CRISIS_KEY);
+      feedback.textContent = 'Power plan reset. Turn off at least 18 units of demand.';
+      render();
+    });
+
+    render();
+  });
+</script>
