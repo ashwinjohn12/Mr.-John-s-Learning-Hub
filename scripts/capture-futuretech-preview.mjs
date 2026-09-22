@@ -38,13 +38,31 @@ try {
       const response = await page.goto(url, { waitUntil: 'networkidle' });
       const status = response?.status() ?? 0;
       const title = await page.title();
-      const metrics = await page.evaluate(() => ({
-        scrollWidth: document.documentElement.scrollWidth,
-        clientWidth: document.documentElement.clientWidth,
-        bodyScrollWidth: document.body.scrollWidth,
-        h1: document.querySelector('h1')?.textContent?.trim() || '',
-        mainTextLength: (document.querySelector('main')?.textContent || document.body.textContent || '').trim().length
-      }));
+      const metrics = await page.evaluate(() => {
+        const clientWidth = document.documentElement.clientWidth;
+        const overflowElements = [...document.querySelectorAll('body *')]
+          .map((el) => {
+            const r = el.getBoundingClientRect();
+            return {
+              tag: el.tagName.toLowerCase(),
+              cls: typeof el.className === 'string' ? el.className : '',
+              text: (el.textContent || '').trim().replace(/\s+/g,' ').slice(0,80),
+              left: Math.round(r.left),
+              right: Math.round(r.right),
+              width: Math.round(r.width)
+            };
+          })
+          .filter((x) => x.right > clientWidth + 2 || x.left < -2)
+          .slice(0,12);
+        return {
+          scrollWidth: document.documentElement.scrollWidth,
+          clientWidth,
+          bodyScrollWidth: document.body.scrollWidth,
+          h1: document.querySelector('h1')?.textContent?.trim() || '',
+          mainTextLength: (document.querySelector('main')?.textContent || document.body.textContent || '').trim().length,
+          overflowElements
+        };
+      });
 
       const horizontalOverflow = Math.max(metrics.scrollWidth, metrics.bodyScrollWidth) > metrics.clientWidth + 2;
       const hasContent = metrics.h1.length > 0 && metrics.mainTextLength > 100;
@@ -86,6 +104,7 @@ try {
         scrollWidth: metrics.scrollWidth,
         clientWidth: metrics.clientWidth,
         hasContent,
+        overflowElements: metrics.overflowElements,
         screenshot: filename,
         ok
       });
