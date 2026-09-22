@@ -34,14 +34,14 @@ ok(lab.includes('Returning students continue from where they left off'), 'lab ex
 
 const level1 = readFileSync(files.level1, 'utf8');
 for (const text of ['Make It Happen','Make It Think','Build a Game','Robot Rookie','Sense → Think → Act','Design It. Print It.','Choose Your Path','Creator Certification']) ok(level1.includes(text), `Level 1 contains ${text}`);
-ok(level1.includes('Missions 1–7 are open now'), 'Level 1 clearly names open missions');
-ok(level1.includes('COMING NEXT · PREVIEW'), 'planned missions clearly marked preview');
+ok(level1.includes('All 8 Level 1 missions are open now'), 'Level 1 clearly states all Level 1 missions are open');
+ok(!level1.includes('COMING NEXT · PREVIEW'), 'Level 1 has no remaining locked mission preview');
 ok(level1.includes('simple loop'), 'Level 1 Mission 2 summary includes loop prerequisite');
 ok(level1.includes('mission-3-build-a-game/'), 'Mission 3 is linked from Level 1');
 ok(level1.includes('mission-4-robot-rookie/'), 'Mission 4 is linked from Level 1');
 ok(level1.includes('mission-5-sense-think-act/'), 'Mission 5 is linked from Level 1');
 ok(level1.includes('mission-6-design-it-print-it/'), 'Mission 6 is linked from Level 1');
-ok(level1.includes('Creator Certification') && level1.includes('COMING NEXT · PREVIEW'), 'Mission 8 remains a locked preview');
+ok(level1.includes('Creator Certification') && level1.includes('CREATOR CERTIFICATION'), 'Mission 8 is presented as the final certification mission');
 ok(level1.includes('Work independently by default'), 'Level 1 mission map reflects individual-first workflow');
 
 for (const [name, file] of [['mission1',files.mission1],['mission2',files.mission2],['mission3',files.mission3],['mission4',files.mission4],['mission5',files.mission5]]) {
@@ -117,7 +117,7 @@ ok(mission6.includes('Solid + Solid + Group') && mission6.includes('Solid + Hole
 ok(!mission6.includes('Circuits') && !mission6.includes('Codeblocks') && !mission6.includes('Sim Lab'), 'Mission 6 required pathway excludes unrelated Tinkercad domains');
 ok(level1.includes('mission-7-choose-your-path/'), 'Mission 7 is linked from Level 1 release candidate');
 ok(level1.includes('Missions 1–7 are open now'), 'Level 1 release copy names Missions 1–7 as open');
-ok(!level1.includes('mission-8-'), 'Mission 8 remains unlinked from Level 1');
+ok(level1.includes('mission-8-creator-certification/'), 'Mission 8 is linked from Level 1 release candidate');
 ok(level1.includes('Creator Certification') && level1.includes('COMING NEXT · PREVIEW'), 'Mission 8 remains a locked preview');
 ok(mission6.includes('Checkpoint complete? Continue') && mission6.includes('mission-7-choose-your-path/'), 'Mission 6 links to Mission 7 with checkpoint gate');
 
@@ -178,12 +178,16 @@ ok(mission8.includes('about 3–4 minutes'), 'Mission 8 keeps the certification 
 ok(mission8.includes('You are already certified. This part is just for sharing.'), 'Mission 8 keeps showcase optional and non-assessed');
 ok(mission8.includes('Save, Reset') && mission8.includes('Return'), 'Mission 8 contains cleanup and reset');
 ok(!mission8.includes('NEXT MISSION') && !mission8.includes('Checkpoint complete? Continue'), 'Mission 8 has no next-mission route');
+ok(mission7.includes('Checkpoint complete? Continue') && mission7.includes('mission-8-creator-certification/'), 'Mission 7 links to Mission 8 with checkpoint gate');
 ok(!mission8.includes('LEVEL 02') && !mission8.includes('courses/futuretech-lab/builder/') && !mission8.includes('Builder Level'), 'Mission 8 does not expose Level 2');
 ok(mission8.length < mission7.length, 'Mission 8 remains shorter than Mission 7');
-ok(!level1.includes('mission-8-creator-certification/'), 'Mission 8 prototype remains unlinked from public Level 1');
-ok(level1.includes('Missions 1–7 are open now'), 'Public Level 1 wording remains Missions 1–7');
-ok(!mission7.includes('mission-8-creator-certification/'), 'Mission 7 does not link to private Mission 8');
-ok(!lab.includes('courses/futuretech-lab/builder/'), 'Level 2 remains unlinked while Mission 8 is private');
+ok(level1.includes('mission-8-creator-certification/'), 'Mission 8 release candidate is active on Level 1');
+ok(level1.includes('All 8 Level 1 missions are open now'), 'Release candidate states all Level 1 missions are open');
+ok(mission7.includes('mission-8-creator-certification/'), 'Mission 7 release candidate links to Mission 8');
+ok(!lab.includes('courses/futuretech-lab/builder/'), 'Level 2 remains unlinked in the final Level 1 release candidate');
+ok(!level1.includes('courses/futuretech-lab/builder/') && !level1.includes('LEVEL 02'), 'Creator Foundations does not expose Level 2');
+ok(!mission8.includes('courses/futuretech-lab/builder/') && !mission8.includes('LEVEL 02'), 'Mission 8 does not expose Level 2');
+ok(mission8.includes('CREATOR FOUNDATIONS COMPLETE'), 'Mission 8 ends at Creator Foundations completion');
 
 console.log(`FutureTech Lab student usability audit passed: ${checks.length} checks.`);
 
