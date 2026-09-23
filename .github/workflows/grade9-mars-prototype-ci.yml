@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - dev/grade9-space-mars-understand-prototype-20260920
-      - fix/grade9-mars-op01-02-student-scaffolds-20260923
   workflow_dispatch:
 
 permissions:
@@ -30,10 +29,8 @@ jobs:
       - name: Install locked dependencies
         run: npm ci
 
-      - name: Targeted revision scope
-        run: |
-          echo "Intentional locked-file revision: UNDERSTAND Operations 01-02 only."
-          git diff --name-only origin/main...HEAD
+      - name: Audit prototype scope and identity
+        run: node scripts/audit-grade9-mars-prototype.mjs
 
       - name: Build entire Learning Hub
         run: npm run build
