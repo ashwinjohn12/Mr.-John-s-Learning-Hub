@@ -195,16 +195,16 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
     <Fragment slot="know-title">Different evidence answers different questions.</Fragment>
     <Fragment slot="know">
       <div class="mars-fact-grid">
-        <div class="fact-card"><strong>Optical telescope</strong><p>Collects visible light. Larger mirrors or lenses gather more light and reveal fainter or finer details.</p></div>
-        <div class="fact-card"><strong>Radio telescope</strong><p>Detects radio waves. It can reveal sources and structures that may be faint or invisible in ordinary visible-light images.</p></div>
-        <div class="fact-card"><strong>Spectrum</strong><p>Separates radiation by wavelength. Patterns of lines can act like evidence fingerprints for substances.</p></div>
-        <div class="fact-card"><strong>Doppler shift</strong><p>A shift in spectral features can provide evidence that an object is moving toward or away from the observer.</p></div>
+        <div class="fact-card"><strong>Optical telescope</strong><p>Collects visible light. Larger mirrors or lenses gather more light and reveal fainter or finer details.</p><p><strong>By itself, this does not:</strong> identify exact chemical composition or show whether an object is moving toward or away from us.</p></div>
+        <div class="fact-card"><strong>Radio telescope</strong><p>Detects radio waves. It can reveal sources and structures that may be faint or invisible in ordinary visible-light images.</p><p><strong>By itself, this does not:</strong> tell us an object's visible colour or exact physical size.</p></div>
+        <div class="fact-card"><strong>Spectrum</strong><p>Separates radiation by wavelength. Patterns of lines can act like evidence fingerprints for substances.</p><p><strong>By itself, this does not:</strong> show surface shape or give an object's exact distance.</p></div>
+        <div class="fact-card"><strong>Doppler shift</strong><p>A shift in spectral features can provide evidence that an object is moving toward or away from the observer.</p><p><strong>By itself, this does not:</strong> map the object's surface or give its distance.</p></div>
       </div>
       <p class="source-note">Grade 9 boundary: interpret what the observation tells you. Do not calculate wavelength shifts or use advanced spectroscopy equations.</p>
     </Fragment>
 
     <Fragment slot="intel">
-      <p>Canada's APXS sits on the end of Curiosity's robotic arm. It uses X-rays and alpha particles, then measures the energy released by a sample to identify the elements in Martian rocks and soil.</p>
+      <p><strong>APXS is not a telescope.</strong> It is a close-range spectrometer placed near a rock or soil sample on the end of Curiosity's robotic arm. It uses X-rays and alpha particles, then measures the energy released by the sample to identify the elements in Martian rocks and soil.</p>
       <p><strong>Why it matters:</strong> “spectroscopy” is not just an astronomy vocabulary word. Missions use spectra to work out what distant or inaccessible material is made of.</p>
     </Fragment>
 
@@ -238,16 +238,16 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
         <div><strong>Rocky planets</strong><p>Mercury, Venus, Earth, and Mars have solid surfaces made largely of rock and metal.</p></div>
         <div><strong>Giant planets</strong><p>Jupiter and Saturn are gas giants; Uranus and Neptune are ice giants. Their composition and structure differ greatly from Earth's.</p></div>
         <div><strong>Moons</strong><p>Natural satellites orbit planets or dwarf planets and can be rocky, icy, or a mixture of both.</p></div>
-        <div><strong>Small bodies</strong><p>Asteroids are mainly rocky or metallic; comets contain large amounts of ice and dust; dwarf planets also orbit the Sun.</p></div>
+        <div><strong>Other Solar System bodies</strong><p>Asteroids are mainly rocky or metallic; comets contain large amounts of ice and dust; dwarf planets also orbit the Sun.</p></div>
       </div>
       <p class="source-note"><strong>Where does the evidence come from?</strong> Telescopes, spectral analysis, spacecraft flybys, orbiters, landers, rovers, and physical samples such as meteorites all add different evidence about Solar System bodies.</p>
 
       <h4 class="subsection-heading">Now zoom in on Mars.</h4>
       <div class="mars-comparison-grid">
-        <div class="comparison-card"><strong>Atmosphere</strong><p>Mars has a very thin atmosphere made mostly of carbon dioxide. Humans cannot breathe it, and the low pressure changes how a habitat must be designed.</p></div>
-        <div class="comparison-card"><strong>Temperature</strong><p>Mars is a cold world with large temperature swings. Thermal control is a continuous systems problem.</p></div>
-        <div class="comparison-card"><strong>Gravity</strong><p>Mars surface gravity is about 38% of Earth's. That changes movement and raises long-duration human-health questions.</p></div>
-        <div class="comparison-card"><strong>Water</strong><p>Evidence shows a wetter ancient Mars. Water exists today mainly as ice at or below the surface; accessible liquid surface water is not available the way it is on Earth.</p></div>
+        <div class="comparison-card"><strong>Atmosphere</strong><p>Mars has a very thin atmosphere made mostly of carbon dioxide. Surface pressure is far lower than Earth's.</p></div>
+        <div class="comparison-card"><strong>Temperature</strong><p>Mars is a cold world with large temperature swings.</p></div>
+        <div class="comparison-card"><strong>Gravity</strong><p>Mars surface gravity is about 38% of Earth's. Movement is different, and long-duration effects on the human body remain an important health question.</p></div>
+        <div class="comparison-card"><strong>Water</strong><p>Evidence shows a wetter ancient Mars. Water exists today mainly as ice at or below the surface; readily available liquid surface water is not present as it is on Earth.</p></div>
       </div>
       <p class="source-note">Planetary profile source: <a href="https://science.nasa.gov/mars/facts/" target="_blank" rel="noreferrer">NASA Mars Facts ↗</a>. The goal is not memorizing every number; it is explaining how evidence about a body creates mission constraints.</p>
       <p class="source-note maturity-note"><strong>TECH STATUS // IN DEVELOPMENT / PLANNED:</strong> ESA's Rosalind Franklin rover is planned for a late-2028 launch and is designed to drill as deep as two metres below the Martian surface while searching for signs of past life. <a href="https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/Exploration/ExoMars/FAQ_The_rebirth_of_ESA_s_ExoMars_Rosalind_Franklin_mission" target="_blank" rel="noreferrer">ESA mission update ↗</a></p>
@@ -266,8 +266,8 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
         <div><small>2 // CONSEQUENCE</small><strong>Why does that matter to a human?</strong></div>
         <div><small>3 // CONSTRAINT</small><strong>What system will have to solve it?</strong></div>
       </div>
-      <details class="source-note">
-        <summary><strong>Example</strong></summary>
+      <details class="source-note" open>
+        <summary><strong>Worked example — use this pattern for your own rows</strong></summary>
         <p><strong>Evidence:</strong> Mars has a very thin atmosphere. → <strong>Consequence:</strong> humans cannot survive exposed to the surface. → <strong>Constraint:</strong> habitats and suits must maintain safe pressure and breathable air.</p>
       </details>
     </Fragment>
