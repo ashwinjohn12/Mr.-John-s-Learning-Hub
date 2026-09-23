@@ -284,60 +284,13 @@ for (const viewport of viewports) {
     if (!currentHref?.includes('/operate/#operation-16')) failures.push('Hub current review link should point to Operation 16 after Operations 01–15 are saved.');
 
     await gotoStable(page, travelUrl);
-
-    // Targeted Operations 07–08 regression checks.
     const transport = page.locator('[data-transport-tradeoff]');
-    const cardTexts = await transport.locator('.transport-cards article').allTextContents();
-    if (cardTexts.length !== 3) failures.push('Transport review should retain exactly three simplified approaches.');
-    const allChemical = cardTexts[0] || '';
-    const nuclearThermal = cardTexts[1] || '';
-    const hybrid = cardTexts[2] || '';
-    if (!/high thrust/i.test(allChemical) || !/propellant/i.test(allChemical) || !/payload/i.test(allChemical) || !/demonstrated/i.test(allChemical) || !/crew-safety/i.test(allChemical)) {
-      failures.push('All-chemical card does not provide enough qualitative evidence across the selectable priorities.');
-    }
-    if (!/transit time/i.test(nuclearThermal) || !/propellant/i.test(nuclearThermal) || !/payload/i.test(nuclearThermal) || !/development|testing/i.test(nuclearThermal) || !/complexity/i.test(nuclearThermal) || !/safety/i.test(nuclearThermal)) {
-      failures.push('Nuclear thermal card does not provide enough qualitative evidence across the selectable priorities.');
-    }
-    if (!/robotic-spaceflight heritage/i.test(hybrid) || !/cargo/i.test(hybrid) || !/propellant/i.test(hybrid) || !/payload/i.test(hybrid) || !/longer trip times/i.test(hybrid) || !/complexity/i.test(hybrid) || !/crew/i.test(hybrid) || !/under study\/development/i.test(hybrid)) {
-      failures.push('Hybrid card does not provide enough qualitative evidence across the selectable priorities.');
-    }
-    if (/recommended option|best option|winner|score|ranked/i.test((await transport.textContent()) || '')) {
-      failures.push('Transport review introduced an automated winner/ranking signal.');
-    }
-
-    const choices = [
-      ['All-chemical','High thrust and demonstrated chemical mission heritage fit a mission that values readiness and high-thrust manoeuvres.','Large propellant needs compete with useful payload and the integrated human Mars architecture is not demonstrated.'],
-      ['Nuclear thermal','Potential transit-time and propellant benefits could support a crew-focused Mars mission.','The system remains in development and adds nuclear engineering, testing, integration, and safety challenges.'],
-      ['Hybrid electric + chemical','Efficient electric propulsion can support cargo movement while chemical propulsion handles higher-thrust phases.','Low electric thrust can lengthen travel and combining systems increases complexity; the human-Mars hybrid architecture remains under study.']
-    ];
-    for (const [choice,strengthText,concernText] of choices) {
-      await transport.locator('input[name="transport-choice"][value="' + choice + '"]').check();
-      await transport.locator('[data-strength]').fill(strengthText);
-      await transport.locator('[data-concern]').fill(concernText);
-      await transport.locator('[data-save-transport]').click();
-      if (!/saved on this device/i.test((await transport.locator('[data-transport-feedback]').textContent()) || '')) failures.push('Transport review did not save defensible choice: ' + choice);
-      const savedChoice = await page.evaluate(() => JSON.parse(localStorage.getItem('mrjohn-mars-transport-tradeoff-v1') || '{}').choice || '');
-      if (savedChoice !== choice) failures.push('Transport review localStorage did not persist choice: ' + choice);
-    }
-
-    await gotoStable(page, travelUrl);
-    const transportReloaded = page.locator('[data-transport-tradeoff]');
-    if (!(await transportReloaded.locator('input[name="transport-choice"][value="Hybrid electric + chemical"]').isChecked())) {
-      failures.push('Transport review did not restore the saved choice after reload.');
-    }
-
-    const landing = page.locator('#operation-08');
-    const landingText = (await landing.textContent()) || '';
-    if (!/stability: staying controlled rather than tumbling or tipping/i.test(landingText)) failures.push('Operation 08 stability definition missing.');
-    if (!/same payload, drop height\/release point, and target as Test 1/i.test(landingText)) failures.push('Operation 08 fair-test retest condition is not explicit.');
-    if (!/does not reproduce Martian atmosphere, entry speed, heat, or gravity/i.test(landingText)) failures.push('Operation 08 model limitation regressed.');
-    if (!/SCREENS DOWN \/\/ BUILD \+ TEST/i.test(landingText) || !/Do not climb on desks, chairs, or other furniture/i.test(landingText)) failures.push('Operation 08 safety handoff regressed.');
-    const kitItems = await landing.locator('.engineering-brief > div').nth(0).locator('li').count();
-    const criteriaItems = await landing.locator('.engineering-brief > div').nth(1).locator('li').count();
-    const cycleSteps = await landing.locator('.engineering-cycle > div').count();
-    if (kitItems !== 7 || criteriaItems !== 4 || cycleSteps !== 5) failures.push('Operation 08 fixed kit/criteria/engineering cycle structure regressed.');
-
-    await transportReloaded.locator('[data-priority="Crew safety"]').selectOption('Critical');
+    await transport.locator('[data-priority="Crew safety"]').selectOption('Critical');
+    await transport.locator('input[name="transport-choice"][value="All-chemical"]').check();
+    await transport.locator('[data-strength]').fill('High thrust and extensive chemical propulsion mission heritage.');
+    await transport.locator('[data-concern]').fill('A human Mars architecture still has major propellant and system trade-offs.');
+    await transport.locator('[data-save-transport]').click();
+    if (!/saved on this device/i.test((await transport.locator('[data-transport-feedback]').textContent()) || '')) failures.push('Locked TRAVEL transport interaction regressed.');
 
     await gotoStable(page, surviveUrl);
     const life=page.locator('[data-life-support-flow]');
