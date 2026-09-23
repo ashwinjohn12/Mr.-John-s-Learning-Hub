@@ -42,13 +42,23 @@ Use the smallest practical amount of paper. Default to **one team copy**, **reus
 **Important consolidation**
 - **Do not print a separate reconstruction sheet.** Students reconstruct/draw directly on the Native Species Card, matching the live mission.
 
-**Shared physical materials**
-- spoons
-- tweezers
-- clothespins/tongs
-- chopsticks
-- counters/objects
-- timer
+**Per-team physical materials for Class 1**
+- 1 spoon
+- 1 pair of tweezers
+- 1 clothespin/tongs
+- 1 pair of chopsticks
+- 36 identical plastic counters
+- 1 collection cup
+- 1 timer
+- 1 flat tray
+- 1 empty 6-well egg carton
+- about 1 m of loose yarn
+
+**Standard zone setup**
+- Open Ground — 12 counters spread across the flat tray
+- Narrow Spaces — 2 counters in each of the 6 egg-carton wells
+- Tangled Cover — 12 counters mixed through loose yarn
+- Trial time — 20 seconds; reset the zone to all 12 counters before changing structures
 
 **Chromebook dependency**
 - continent assignment

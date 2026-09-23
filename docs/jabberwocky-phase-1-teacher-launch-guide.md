@@ -20,7 +20,7 @@ Student sequence:
 ## MISSION MATERIALS MASTER LIST
 Use **shared stations, reused classroom materials and printed/printable records** before buying or duplicating specialized kits.
 - M1: shared thermometer(s), **one field sheet per team**, clipboards, string/markers; optional metre stick/light/moisture tools.
-- M2: shared spoons, tweezers, clothespins/tongs, chopsticks and counters; **one two-page Mission 2 packet per team (lab + Native Species Card)**. No separate reconstruction sheet is needed.
+- M2: per team for Class 1 — **1 spoon, 1 pair of tweezers, 1 clothespin/tongs, 1 pair of chopsticks, 36 identical plastic counters, 1 collection cup, 1 timer, 1 flat tray, 1 empty 6-well egg carton and about 1 m of loose yarn**; **one two-page Mission 2 packet per team (lab + Native Species Card)**. Set 12 counters in each zone. Use 20-second trials and reset to 12 between structures. No separate reconstruction sheet is needed.
 - M3: **reusable laminated Earth organism-card sets**, yarn/string, arrow markers; **one consumable Ecosystem Map per team**.
 - M4: **reusable laminated/sleeved 5×5 sampling page**, counters, dry-erase marker; **one consumable Ecosystem Change Record per team**; shared/digital local source pack.
 - M5: **reusable laminated six-zone Stowaway mat**, neutral + contrasting markers; one teacher pollutant/biomagnification model set; **one consumable JCEC Recommendation Board per team**.
@@ -32,6 +32,20 @@ Use **shared stations, reused classroom materials and printed/printable records*
 - Do not print separate M2 reconstruction sheets, repeated M3 cards, repeated M4 grids, repeated M5 spread mats, a pollutant worksheet, an M5 evidence-summary worksheet, or full local-source packs for every student.
 - Day 22 is the only planned individual print, and only if a clean individual science check is actually needed.
 - Full details: `docs/jabberwocky-phase1-final-materials-plan.md`.
+
+## Mission 2 continent → native species reference
+Students should normally see only the species tied to their saved continent. Mission 2 loads that species automatically and displays the first four approved clues.
+
+- **Gyre → Ridgeback Grazer**
+- **Brillig → Canopy Glider**
+- **Manxome → Tide Skipper**
+- **Slithy Toves → Dune Runner**
+- **Wabe → Snow Burrower**
+- **Bandersnatch → Plains Strider**
+- **Gimble → Barkclimber**
+- **Mimsy → Reedcrawler**
+
+**Class 1 timing check:** 5 min launch + 7 min science/model + 5 min setup + 18 min trials/reset + 7 min compare/debrief + 3 min cleanup = 45 minutes. If time is tight, protect one complete fair comparison in each zone and the structure/function conclusion.
 
 ## Mission 4 local-source pack
 Use specific, teacher-curated evidence; **do not ask students to invent or generalize an Indigenous perspective**. They describe what the specific source actually contributes.
@@ -47,8 +61,8 @@ For each class, the live teacher page / 25-Period Plan gives: **BEFORE CLASS · 
 - **Day 1 — CORE:** Team Setup → Team Directory confirmation → teacher continent assignment → student saves continent → Mission 1 launch.
 - **Day 2 — CORE:** M1 Earth Environmental Survey.
 - **Day 3 — CORE:** M1 Environment Profile — final M1 Team Record; M1 ✓.
-- **Day 4 — CORE:** M2 Survival Structures Lab.
-- **Day 5 — CORE:** M2 First Contact clue inference using the Native Species Card; no separate reconstruction sheet.
+- **Day 4 — CORE:** M2 Survival Structures Lab — 12 trials (4 structures × 3 zones), 20 seconds each, with 12 counters reset in each zone between structures.
+- **Day 5 — CORE:** M2 First Contact clue inference using the same Native Species Card; each saved continent automatically loads its assigned native species and first four approved clues; no separate reconstruction sheet.
 - **Day 6 — CORE:** M2 Native Species Card — final M2 Team Record; M2 ✓.
 - **Day 7 — CORE:** M3 How Food Webs Work with reusable Earth organism cards.
 - **Day 8 — CORE:** M3 Build Your Continent Food Web on one Ecosystem Map.
