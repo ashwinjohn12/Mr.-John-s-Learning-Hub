@@ -102,14 +102,14 @@
     const requirePrediction = (message = 'Move the prediction marker first. Then reveal the model position.') => {
       predictionSet = false;
       revealButton.disabled = true;
-      futureMarker.hidden = true;
+      futureMarker.setAttribute('hidden', '');
       feedback.textContent = message;
     };
 
     const markPredictionSet = () => {
       predictionSet = true;
       revealButton.disabled = false;
-      futureMarker.hidden = true;
+      futureMarker.setAttribute('hidden', '');
       feedback.textContent = 'Prediction set. Reveal the model position when you are ready.';
     };
 
@@ -151,7 +151,7 @@
       const actual = futureMarsAngle(day);
       let difference = Math.abs(prediction - actual);
       difference = Math.min(difference, 360 - difference);
-      futureMarker.hidden = false;
+      futureMarker.removeAttribute('hidden');
       localStorage.setItem(ORBIT_KEY, JSON.stringify({ day, prediction }));
 
       if (difference <= 30) {
