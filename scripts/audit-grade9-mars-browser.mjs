@@ -326,7 +326,7 @@ for (const viewport of viewports) {
       failures.push('Transport review did not restore the saved choice after reload.');
     }
 
-    const landing = page.locator('[data-operation="08"]');
+    const landing = page.locator('#operation-08');
     const landingText = (await landing.textContent()) || '';
     if (!/stability: staying controlled rather than tumbling or tipping/i.test(landingText)) failures.push('Operation 08 stability definition missing.');
     if (!/same payload, drop height\/release point, and target as Test 1/i.test(landingText)) failures.push('Operation 08 fair-test retest condition is not explicit.');
