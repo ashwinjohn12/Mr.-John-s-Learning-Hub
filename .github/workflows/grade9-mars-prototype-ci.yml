@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - dev/grade9-space-mars-understand-prototype-20260920
+      - fix/grade9-mars-op01-02-student-scaffolds-20260923
   workflow_dispatch:
 
 permissions:
