@@ -293,9 +293,108 @@ for (const viewport of viewports) {
     if (!/saved on this device/i.test((await transport.locator('[data-transport-feedback]').textContent()) || '')) failures.push('Locked TRAVEL transport interaction regressed.');
 
     await gotoStable(page, surviveUrl);
+
+    // Targeted Operations 09–10 regression checks.
+    const hazard = page.locator('[data-hazard-analyzer]');
+    const hazardCards = hazard.locator('[data-hazard]');
+    const hazardEvidence = hazard.locator('[data-hazard-evidence]');
+    const revealHazards = hazard.locator('[data-reveal-hazards]');
+    const hazardFeedback = hazard.locator('[data-hazard-feedback]');
+    const hazardSelects = hazard.locator('[data-hazard-select]');
+
+    if ((await hazardCards.count()) !== 6) failures.push('Hazard Analyzer should retain exactly six hazard cards.');
+    const initiallyVisibleEvidence = await hazardEvidence.evaluateAll(nodes => nodes.filter(node => !node.hidden).length);
+    if (initiallyVisibleEvidence !== 0) failures.push('Hazard evidence should remain hidden before initial categories are chosen.');
+
+    await hazardSelects.nth(0).selectOption({ label:'Serious' });
+    await revealHazards.click();
+    const prematurelyVisibleEvidence = await hazardEvidence.evaluateAll(nodes => nodes.filter(node => !node.hidden).length);
+    if (prematurelyVisibleEvidence !== 0) failures.push('Hazard evidence revealed before all six initial categories were chosen.');
+    if (!/all six hazards/i.test((await hazardFeedback.textContent()) || '')) failures.push('Hazard Analyzer should explain that all six initial categories are required.');
+
+    for (let i=0; i<6; i++) await hazardSelects.nth(i).selectOption({ label:'Serious' });
+    await revealHazards.click();
+    const visibleEvidence = await hazardEvidence.evaluateAll(nodes => nodes.filter(node => !node.hidden).length);
+    if (visibleEvidence !== 6) failures.push('Hazard evidence should reveal for all six cards after all initial categories are chosen.');
+
+    const hazardText = (await hazard.textContent()) || '';
+    if (!/current mission-design priority category/i.test(hazardText) || !/not universal scientific severity rankings/i.test(hazardText)) {
+      failures.push('Hazard Analyzer priority-category clarification missing.');
+    }
+    const systemResponseCount = (hazardText.match(/System response/g) || []).length;
+    const designNeedCount = (hazardText.match(/Design need/g) || []).length;
+    if (systemResponseCount !== 1 || designNeedCount !== 5) failures.push('Hazard Analyzer should retain one worked System response and five Design need prompts.');
+    if (!/changed category/i.test(hazardText)) failures.push('Hazard reflection should ask which hazard changed category.');
+
+    await hazardSelects.nth(0).selectOption({ label:'Critical' });
+    await hazard.locator('[data-hazard-reflection]').fill('Low pressure moved categories because the evidence shows humans cannot survive exposed and a pressurized environment is essential.');
+    await hazard.locator('[data-save-hazards]').click();
+    if (!/saved on this device/i.test((await hazardFeedback.textContent()) || '')) failures.push('Hazard Analyzer did not save revised category reasoning.');
+    const savedHazard = await page.evaluate(() => JSON.parse(localStorage.getItem('mrjohn-mars-hazard-analyzer-v1') || '{}'));
+    if (savedHazard.categories?.pressure !== 'Critical' || !savedHazard.revealed || !/low pressure/i.test(savedHazard.reflection || '')) {
+      failures.push('Hazard Analyzer localStorage did not preserve revised categories/reflection.');
+    }
+
+    const survivePageText = (await page.textContent('body')) || '';
+    if (!/five broad categories/i.test(survivePageText) || !/six classroom cards are not a second NASA classification/i.test(survivePageText)) {
+      failures.push('Operation 09 NASA broad-category clarification missing.');
+    }
+    if (!/three-eighths-Earth gravity describes the surface/i.test(survivePageText) || !/radiation can affect both the journey through deep space and surface operations/i.test(survivePageText)) {
+      failures.push('Operation 09 mission-phase clarification missing.');
+    }
+
     const life=page.locator('[data-life-support-flow]');
-    await life.locator('[data-toggle-system="water"]').click();
-    if (!/Stored-water demand rises/i.test((await life.locator('[data-system-consequences]').textContent()) || '')) failures.push('Locked SURVIVE life-support flow regressed.');
+    const lifeFeedback=life.locator('[data-life-support-feedback]');
+    const failureChoice=life.locator('[data-failure-choice]');
+    const failureReasoning=life.locator('[data-failure-reasoning]');
+
+    if (!/real spacecraft systems are not perfectly closed/i.test(survivePageText) ||
+        !/stored resources/i.test(survivePageText) ||
+        !/recycled resources/i.test(survivePageText) ||
+        !/local resources/i.test(survivePageText) ||
+        !/food supplies\/production and solid-waste management/i.test(survivePageText)) {
+      failures.push('Operation 10 closed-loop/resource-scope clarification missing.');
+    }
+
+    await failureChoice.selectOption('co2');
+    await failureReasoning.fill('If carbon dioxide removal fails, carbon dioxide builds up and cabin air becomes unsafe even if oxygen generation is still available.');
+    await life.locator('[data-save-life-support]').click();
+    if (!/test at least two different subsystem failures/i.test((await lifeFeedback.textContent()) || '')) failures.push('Life-support save should be blocked before two distinct failures are tested.');
+
+    const testFailure = async (id, expectedText) => {
+      const button=life.locator('[data-toggle-system="' + id + '"]');
+      await button.click();
+      const consequence=((await life.locator('[data-system-consequences]').textContent()) || '');
+      if (!expectedText.test(consequence)) failures.push('Life-support consequence missing for ' + id + ': ' + consequence);
+      await button.click();
+    };
+
+    await testFailure('co2', /CO₂ begins building up/i);
+    await life.locator('[data-save-life-support]').click();
+    if (!/test at least two different subsystem failures/i.test((await lifeFeedback.textContent()) || '')) failures.push('Life-support save should remain blocked after only one distinct failure.');
+
+    await testFailure('oxygen', /Oxygen reserves begin decreasing/i);
+    await testFailure('water', /Stored-water demand rises/i);
+    await testFailure('power', /Power loss stops the active CO₂-removal, oxygen-generation, and water-recovery equipment/i);
+
+    await life.locator('[data-save-life-support]').click();
+    if (!/saved on this device/i.test((await lifeFeedback.textContent()) || '')) failures.push('Life-support analysis did not save after multiple distinct failures were tested.');
+
+    const savedLife = await page.evaluate(() => JSON.parse(localStorage.getItem('mrjohn-mars-life-support-flow-v1') || '{}'));
+    if (savedLife.choice !== 'co2' || !/carbon dioxide/i.test(savedLife.reasoning || '') || !Array.isArray(savedLife.testedFailures) || savedLife.testedFailures.length < 4) {
+      failures.push('Life-support localStorage did not preserve reasoning and tested-failure history.');
+    }
+
+    await gotoStable(page, surviveUrl);
+    const lifeReloaded=page.locator('[data-life-support-flow]');
+    if ((await lifeReloaded.locator('[data-failure-choice]').inputValue()) !== 'co2' ||
+        !/carbon dioxide/i.test((await lifeReloaded.locator('[data-failure-reasoning]').inputValue()) || '')) {
+      failures.push('Life-support saved reasoning did not restore after reload.');
+    }
+    await lifeReloaded.locator('[data-save-life-support]').click();
+    if (!/saved on this device/i.test((await lifeReloaded.locator('[data-life-support-feedback]').textContent()) || '')) {
+      failures.push('Life-support tested-failure history did not restore sufficiently to support saved analysis after reload.');
+    }
 
     await gotoStable(page, understandUrl);
     const evidenceMatcher=page.locator('[data-evidence-matcher]');
