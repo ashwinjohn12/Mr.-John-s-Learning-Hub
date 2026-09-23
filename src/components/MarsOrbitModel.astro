@@ -14,6 +14,7 @@
       <desc id="orbit-desc">Circular orbit paths are used to show that Earth and Mars move around the Sun at different rates. The model is conceptual and not to scale.</desc>
       <circle class="orbit-path earth-path" cx="260" cy="180" r="92"></circle>
       <circle class="orbit-path mars-path" cx="260" cy="180" r="142"></circle>
+      <text class="orbit-label" x="355" y="55">↻ ORBIT DIRECTION</text>
       <circle class="sun-dot" cx="260" cy="180" r="18"></circle>
       <text class="orbit-label sun-label" x="260" y="184" text-anchor="middle">SUN</text>
       <g data-earth-marker>
@@ -43,14 +44,16 @@
     </label>
 
     <label>
-      Your predicted Mars angle
-      <input type="range" min="0" max="330" step="30" value="120" data-prediction-angle />
-      <output data-angle-output>120°</output>
+      Your predicted Mars position
+      <input type="range" min="0" max="360" step="15" value="45" data-prediction-angle />
+      <output data-angle-output>Marker 45°</output>
     </label>
   </div>
 
+  <p class="source-note"><strong>Model note:</strong> the degree control only places your marker in this conceptual model. You are not expected to calculate Mars's exact orbital angle.</p>
+
   <div class="widget-actions">
-    <button class="mars-action" type="button" data-check-orbit>Reveal model position</button>
+    <button class="mars-action" type="button" data-check-orbit disabled>Reveal model position</button>
     <button class="mars-action secondary" type="button" data-reset-orbit>Try another day</button>
     <p class="widget-feedback" data-orbit-feedback aria-live="polite">Predict first. Then reveal the model position.</p>
   </div>
@@ -74,6 +77,8 @@
     const predictionMarker = root.querySelector('[data-prediction-marker]');
     const futureMarker = root.querySelector('[data-mars-future-marker]');
     const feedback = root.querySelector('[data-orbit-feedback]');
+    const revealButton = root.querySelector('[data-check-orbit]');
+    let predictionSet = false;
 
     const cx = 260;
     const cy = 180;
@@ -94,16 +99,25 @@
     const futureMarsAngle = (day) => (startMars + (day / 687) * 360) % 360;
     const earthAngle = (day) => (day / 365) * 360 % 360;
 
-    const hideFuture = () => {
-      futureMarker.hidden = true;
-      feedback.textContent = 'Predict first. Then reveal the model position.';
+    const requirePrediction = (message = 'Move the prediction marker first. Then reveal the model position.') => {
+      predictionSet = false;
+      revealButton.disabled = true;
+      futureMarker.setAttribute('hidden', '');
+      feedback.textContent = message;
+    };
+
+    const markPredictionSet = () => {
+      predictionSet = true;
+      revealButton.disabled = false;
+      futureMarker.setAttribute('hidden', '');
+      feedback.textContent = 'Prediction set. Reveal the model position when you are ready.';
     };
 
     const render = () => {
       const day = Number(dayInput.value);
       const prediction = Number(predictionInput.value);
       dayOutput.textContent = 'Day ' + day;
-      angleOutput.textContent = prediction + '°';
+      angleOutput.textContent = 'Marker ' + prediction + '°';
       setMarker(earthMarker, earthR, earthAngle(day));
       setMarker(marsNowMarker, marsR, startMars);
       setMarker(predictionMarker, marsR, prediction);
@@ -117,22 +131,27 @@
     } catch {}
 
     dayInput.addEventListener('input', () => {
-      hideFuture();
       render();
+      requirePrediction('Mission day changed. Move the prediction marker again before revealing the model position.');
     });
 
     predictionInput.addEventListener('input', () => {
-      hideFuture();
       render();
+      markPredictionSet();
     });
 
-    root.querySelector('[data-check-orbit]').addEventListener('click', () => {
+    revealButton.addEventListener('click', () => {
+      if (!predictionSet) {
+        requirePrediction();
+        return;
+      }
+
       const day = Number(dayInput.value);
       const prediction = Number(predictionInput.value);
       const actual = futureMarsAngle(day);
       let difference = Math.abs(prediction - actual);
       difference = Math.min(difference, 360 - difference);
-      futureMarker.hidden = false;
+      futureMarker.removeAttribute('hidden');
       localStorage.setItem(ORBIT_KEY, JSON.stringify({ day, prediction }));
 
       if (difference <= 30) {
@@ -146,11 +165,13 @@
       const days = [120, 180, 240, 300];
       const current = Number(dayInput.value);
       dayInput.value = String(days[(days.indexOf(current) + 1) % days.length] || 180);
-      predictionInput.value = '120';
-      hideFuture();
+      predictionInput.value = String(startMars);
+      localStorage.removeItem(ORBIT_KEY);
       render();
+      requirePrediction('New mission day set. Move the prediction marker before revealing the model position.');
     });
 
     render();
+    requirePrediction();
   });
 </script>
