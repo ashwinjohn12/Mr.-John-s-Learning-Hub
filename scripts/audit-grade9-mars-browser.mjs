@@ -349,9 +349,9 @@ for (const viewport of viewports) {
     const failureReasoning=life.locator('[data-failure-reasoning]');
 
     if (!/real spacecraft systems are not perfectly closed/i.test(survivePageText) ||
-        !/stored resources/i.test(survivePageText) ||
-        !/recycled resources/i.test(survivePageText) ||
-        !/local resources/i.test(survivePageText) ||
+        !/resources brought with the mission and held in reserve/i.test(survivePageText) ||
+        !/resources recovered from crew outputs or waste and used again/i.test(survivePageText) ||
+        !/resources obtained from Mars itself/i.test(survivePageText) ||
         !/food supplies\/production and solid-waste management/i.test(survivePageText)) {
       failures.push('Operation 10 closed-loop/resource-scope clarification missing.');
     }
