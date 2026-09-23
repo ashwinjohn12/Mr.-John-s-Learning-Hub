@@ -284,6 +284,64 @@ for (const viewport of viewports) {
     if (!currentHref?.includes('/operate/#operation-16')) failures.push('Hub current review link should point to Operation 16 after Operations 01–15 are saved.');
 
     await gotoStable(page, travelUrl);
+
+    // Targeted Operations 05–06 regression checks.
+    const orbit = page.locator('[data-orbit-model]');
+    const revealOrbit = orbit.locator('[data-check-orbit]');
+    const missionDay = orbit.locator('[data-mission-day]');
+    const prediction = orbit.locator('[data-prediction-angle]');
+    const futureMarker = orbit.locator('[data-mars-future-marker]');
+
+    if (!(await revealOrbit.isDisabled())) failures.push('Orbit reveal should start disabled until the student deliberately sets a prediction.');
+    if ((await prediction.inputValue()) !== '45') failures.push('Orbit prediction marker should begin at Mars Day 0 position (45°).');
+
+    await prediction.fill('150');
+    if (await revealOrbit.isDisabled()) failures.push('Orbit reveal should enable after the student deliberately moves the prediction marker.');
+    await revealOrbit.click();
+    if (await futureMarker.getAttribute('hidden') !== null) failures.push('Orbit model position did not reveal after a deliberate prediction.');
+    const savedOrbit = await page.evaluate(() => JSON.parse(localStorage.getItem('mrjohn-mars-orbit-model-v1') || '{}'));
+    if (String(savedOrbit.prediction) !== '150' || String(savedOrbit.day) !== '180') failures.push('Orbit prediction did not persist expected day/prediction values.');
+
+    await gotoStable(page, travelUrl);
+    const orbitReloaded = page.locator('[data-orbit-model]');
+    if ((await orbitReloaded.locator('[data-prediction-angle]').inputValue()) !== '150') failures.push('Orbit prediction did not restore from localStorage.');
+    if (!(await orbitReloaded.locator('[data-check-orbit]').isDisabled())) failures.push('Reloaded orbit state should still require a fresh deliberate prediction before reveal.');
+
+    await orbitReloaded.locator('[data-mission-day]').fill('240');
+    if (!(await orbitReloaded.locator('[data-check-orbit]').isDisabled())) failures.push('Changing mission day should require a new prediction before reveal.');
+    if (await orbitReloaded.locator('[data-mars-future-marker]').getAttribute('hidden') === null) failures.push('Changing mission day should hide the previous model reveal.');
+    if (!/mission day changed/i.test((await orbitReloaded.locator('[data-orbit-feedback]').textContent()) || '')) failures.push('Mission-day change should explain that a new prediction is required.');
+
+    await orbitReloaded.locator('[data-prediction-angle]').fill('180');
+    await orbitReloaded.locator('[data-check-orbit]').click();
+    await orbitReloaded.locator('[data-reset-orbit]').click();
+    if ((await orbitReloaded.locator('[data-prediction-angle]').inputValue()) !== '45') failures.push('Try Another Day should reset prediction marker to the Day 0 Mars position.');
+    if (!(await orbitReloaded.locator('[data-check-orbit]').isDisabled())) failures.push('Try Another Day should require another deliberate prediction.');
+    const resetOrbitStorage = await page.evaluate(() => localStorage.getItem('mrjohn-mars-orbit-model-v1'));
+    if (resetOrbitStorage !== null) failures.push('Try Another Day should clear saved orbit prediction state.');
+
+    const positionLab = page.locator('[data-position-lab]');
+    const distanceRange = positionLab.locator('[data-parallax-distance]');
+    const target = positionLab.locator('[data-parallax-target]');
+    await distanceRange.fill('1');
+    await positionLab.locator('[data-view="A"]').click();
+    const nearA = await target.evaluate(el => parseFloat((el.style.transform.match(/-?\d+(?:\.\d+)?/) || ['0'])[0]));
+    await positionLab.locator('[data-view="B"]').click();
+    const nearB = await target.evaluate(el => parseFloat((el.style.transform.match(/-?\d+(?:\.\d+)?/) || ['0'])[0]));
+    await distanceRange.fill('3');
+    await positionLab.locator('[data-view="A"]').click();
+    const farA = await target.evaluate(el => parseFloat((el.style.transform.match(/-?\d+(?:\.\d+)?/) || ['0'])[0]));
+    await positionLab.locator('[data-view="B"]').click();
+    const farB = await target.evaluate(el => parseFloat((el.style.transform.match(/-?\d+(?:\.\d+)?/) || ['0'])[0]));
+    if (Math.abs(nearB - nearA) <= Math.abs(farB - farA)) failures.push('Position Lab parallax should show a larger viewpoint shift for the nearer target.');
+
+    await positionLab.locator('[data-azimuth]').fill('120');
+    await positionLab.locator('[data-altitude]').fill('35');
+    await positionLab.locator('[data-check-position]').click();
+    if (!/position acquired/i.test((await positionLab.locator('[data-position-feedback]').textContent()) || '')) failures.push('Position Lab did not accept azimuth 120° / altitude 35°.');
+    const savedPosition = await page.evaluate(() => JSON.parse(localStorage.getItem('mrjohn-mars-position-lab-v1') || '{}'));
+    if (String(savedPosition.azimuth) !== '120' || String(savedPosition.altitude) !== '35') failures.push('Position Lab did not persist angular-position values.');
+
     const transport = page.locator('[data-transport-tradeoff]');
     await transport.locator('[data-priority="Crew safety"]').selectOption('Critical');
     await transport.locator('input[name="transport-choice"][value="All-chemical"]').check();
