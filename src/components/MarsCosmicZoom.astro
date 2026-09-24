@@ -9,16 +9,16 @@
 
   <div class="op01-stage-strip" role="tablist" aria-label="Cosmic address levels">
     <button type="button" role="tab" id="op01-tab-mars" aria-controls="op01-stage-mars" aria-selected="true" data-cosmic-tab="mars">
-      <span>01</span><strong>Mars</strong>
+      <span>01</span><strong>Planet</strong>
     </button>
     <button type="button" role="tab" id="op01-tab-solar" aria-controls="op01-stage-solar" aria-selected="false" data-cosmic-tab="solar" tabindex="-1">
-      <span>02</span><strong>Solar System</strong>
+      <span>02</span><strong>Star system</strong>
     </button>
     <button type="button" role="tab" id="op01-tab-galaxy" aria-controls="op01-stage-galaxy" aria-selected="false" data-cosmic-tab="galaxy" tabindex="-1">
-      <span>03</span><strong>Milky Way</strong>
+      <span>03</span><strong>Galaxy</strong>
     </button>
     <button type="button" role="tab" id="op01-tab-universe" aria-controls="op01-stage-universe" aria-selected="false" data-cosmic-tab="universe" tabindex="-1">
-      <span>04</span><strong>Universe</strong>
+      <span>04</span><strong>Largest frame</strong>
     </button>
   </div>
 
@@ -93,25 +93,23 @@
     <button type="button" class="mars-action" data-zoom-out>Zoom Out →</button>
   </div>
 
-  <div class="op01-vocab-key" aria-label="Key cosmic structure vocabulary">
-    <div><strong>Star system</strong><span>Star(s) + objects held together by gravity. The Solar System is ours.</span></div>
-    <div><strong>Galaxy</strong><span>Huge system of stars, star systems, gas, dust, and other matter.</span></div>
-    <div><strong>Nebula</strong><span>Cloud of gas and dust usually found inside a galaxy.</span></div>
-    <div><strong>Universe</strong><span>Everything: space, matter, and energy.</span></div>
-  </div>
-
-  <details class="op01-more-detail">
-    <summary>More detail</summary>
-    <p>A nebula is not an extra outer level in Mars's address. Nebulae are regions of gas and dust that can exist within galaxies such as the Milky Way.</p>
+  <details class="op01-key-terms">
+    <summary>Key terms</summary>
+    <div class="op01-vocab-key" aria-label="Key cosmic structure vocabulary">
+      <div><strong>Star system</strong><span>Star(s) + objects held together by gravity. The Solar System is ours.</span></div>
+      <div><strong>Galaxy</strong><span>Many stars/star systems plus gas, dust, and other matter.</span></div>
+      <div><strong>Nebula</strong><span>Cloud of gas and dust usually found inside a galaxy.</span></div>
+      <div><strong>Universe</strong><span>All space, matter, and energy.</span></div>
+    </div>
   </details>
 
   <div class="op01-check-grid">
     <fieldset class="op01-check" data-nebula-check>
       <legend>Where does a nebula fit?</legend>
-      <label><input type="radio" name="op01-nebula" value="inside" /> It can exist inside a galaxy.</label>
-      <label><input type="radio" name="op01-nebula" value="outside-galaxy" /> It is the next level outside the Milky Way.</label>
-      <label><input type="radio" name="op01-nebula" value="between" /> It sits between the Solar System and the Milky Way.</label>
-      <label><input type="radio" name="op01-nebula" value="outside-universe" /> It exists outside the universe.</label>
+      <label><input type="radio" name="op01-nebula" value="inside" /> Inside a galaxy</label>
+      <label><input type="radio" name="op01-nebula" value="outside-galaxy" /> Next level outside the Milky Way</label>
+      <label><input type="radio" name="op01-nebula" value="between" /> Between Solar System and Milky Way</label>
+      <label><input type="radio" name="op01-nebula" value="outside-universe" /> Outside the universe</label>
       <button type="button" class="mars-action" data-check-nebula>Check structure</button>
       <p class="widget-feedback" data-nebula-feedback aria-live="polite"></p>
     </fieldset>
