@@ -64,7 +64,7 @@
 .op01-stage-strip button:focus-visible,
 .op01-check input:focus-visible,
 .op01-check select:focus-visible,
-.op01-more-detail summary:focus-visible {
+.op01-key-terms summary:focus-visible {
   outline: 3px solid rgba(50,109,149,.22);
   outline-offset: 2px;
 }
@@ -251,7 +251,7 @@
   display: grid;
   grid-template-columns: repeat(4,minmax(0,1fr));
   gap: .45rem;
-  margin-top: .8rem;
+  margin: 0 0 .65rem;
 }
 .op01-vocab-key > div {
   padding: .6rem;
@@ -271,21 +271,21 @@
   line-height: 1.38;
 }
 
-.op01-more-detail {
-  margin-top: .55rem;
+.op01-key-terms {
+  margin-top: .7rem;
   padding: 0 .65rem;
   border: 1px solid #c7cdd0;
   border-radius: 7px;
   background: #fff;
 }
-.op01-more-detail summary {
+.op01-key-terms summary {
   display: flex;
   min-height: 44px;
   align-items: center;
   cursor: pointer;
   font-weight: 800;
 }
-.op01-more-detail p {
+.op01-key-terms p {
   margin: 0 0 .65rem;
   color: #536069;
   font-size: .8rem;
