@@ -454,3 +454,82 @@
   .op03-evidence-key *,
   .op03-apxs-sequence * { transition:none !important; }
 }
+
+
+/* Authentic observation/data figures replace decorative pseudo-imagery. */
+.op03-tool-visual.authentic-evidence {
+  display: grid;
+  grid-template-rows: minmax(0,1fr) auto;
+  background: #11171b;
+}
+.op03-tool-visual.authentic-evidence img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 185px;
+  object-fit: cover;
+}
+.op03-tool-visual.spectrum-tool-visual.authentic-evidence img {
+  object-fit: contain;
+  background: #080a0c;
+}
+.op03-tool-visual.authentic-evidence figcaption,
+.op03-apxs-photo figcaption {
+  padding: .38rem .5rem;
+  background: #20272b;
+  color: #eef1f2;
+  font: 700 .56rem 'IBM Plex Mono', monospace;
+  line-height: 1.35;
+}
+
+.op03-apxs-photo {
+  position: relative;
+  margin: .75rem 0 0;
+  overflow: hidden;
+  border: 1px solid #bcc5ca;
+  border-radius: 10px;
+  background: #11171b;
+}
+.op03-apxs-photo img {
+  display: block;
+  width: 100%;
+  max-height: 380px;
+  object-fit: cover;
+}
+.op03-apxs-overlay {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  gap: .35rem;
+  align-items: center;
+  padding: .55rem;
+  background: #f7f5f0;
+}
+.op03-apxs-overlay span {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .25rem;
+  padding: .4rem;
+  border: 1px solid #c4cbcf;
+  border-radius: 6px;
+  background: #fff;
+  color: #455159;
+  font-size: .7rem;
+  font-weight: 750;
+  text-align: center;
+}
+.op03-apxs-overlay b {
+  color: var(--mars-rust);
+  font: 800 .62rem 'IBM Plex Mono', monospace;
+}
+.op03-apxs-overlay i {
+  color: var(--mars-rust);
+  font-style: normal;
+}
+@media (max-width: 720px) {
+  .op03-apxs-overlay {
+    grid-template-columns: 1fr;
+  }
+  .op03-apxs-overlay i { transform: rotate(90deg); justify-self: center; }
+}

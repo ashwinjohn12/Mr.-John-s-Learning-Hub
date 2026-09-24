@@ -459,3 +459,40 @@
     scroll-behavior: auto !important;
   }
 }
+
+
+/* Authentic-image correction: real NASA/JPL imagery for actual objects/data. */
+.op01-zoom-visual.authentic-evidence {
+  position: relative;
+  display: grid;
+  grid-template-rows: minmax(0,1fr) auto;
+  min-height: 285px;
+  background: #0f1417;
+}
+.op01-zoom-visual.authentic-evidence img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 245px;
+  object-fit: cover;
+}
+.op01-zoom-visual.mars-level.authentic-evidence img {
+  object-fit: contain;
+  background: #000;
+}
+.op01-zoom-visual.authentic-evidence figcaption {
+  padding: .38rem .5rem;
+  background: #20272b;
+  color: #eef1f2;
+  font: 700 .58rem 'IBM Plex Mono', monospace;
+  line-height: 1.35;
+  letter-spacing: .02em;
+}
+@media (max-width: 720px) {
+  .op01-zoom-visual.authentic-evidence,
+  .op01-zoom-visual.authentic-evidence img { min-height: 220px; }
+}
+@media (max-width: 390px) {
+  .op01-zoom-visual.authentic-evidence,
+  .op01-zoom-visual.authentic-evidence img { min-height: 190px; }
+}
