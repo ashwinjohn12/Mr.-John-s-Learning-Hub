@@ -5,6 +5,7 @@ import MarsOperation from '../../../../../../components/MarsOperation.astro';
 import MarsHazardAnalyzer from '../../../../../../components/MarsHazardAnalyzer.astro';
 import MarsLifeSupportFlow from '../../../../../../components/MarsLifeSupportFlow.astro';
 import MarsResourceTradeoff from '../../../../../../components/MarsResourceTradeoff.astro';
+import '../../../../../../styles/mars-survive-authentic-visuals.css';
 import { surviveOperations } from '../../../../../../data/marsReadiness';
 ---
 
@@ -66,8 +67,20 @@ import { surviveOperations } from '../../../../../../data/marsReadiness';
     </Fragment>
 
     <Fragment slot="intel">
-      <p>NASA groups long-duration human-spaceflight hazards into five broad categories: space radiation, isolation and confinement, distance from Earth, changing gravity fields, and hostile or closed environments. The six classroom cards are not a second NASA classification—they are specific environmental conditions being analyzed for this Mars mission. NASA also emphasizes that hazards can interact and make one another harder to manage.</p>
-      <p><strong>Why it matters:</strong> surviving Mars is not one problem. It is a connected system of risks.</p>
+      <div class="survive-intel-visual">
+        <figure class="survive-authentic-figure data-figure">
+          <img
+            src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/mars/downloadable_items/3/37374_Wimmer-1-pia17600.jpg?crop=faces%2Cfocalpoint&amp;fit=clip&amp;h=793&amp;w=1058"
+            alt="Curiosity RAD graph of measured radiation dose rate on the Martian surface across the rover's first 300 sols."
+            loading="lazy"
+          />
+          <figcaption>AUTHENTIC SCIENTIFIC DATA · Curiosity RAD measurements · NASA/JPL-Caltech/SwRI</figcaption>
+        </figure>
+        <div>
+          <p>NASA groups long-duration human-spaceflight hazards into five broad categories: space radiation, isolation and confinement, distance from Earth, changing gravity fields, and hostile or closed environments. The six classroom cards are specific Mars conditions, not a second NASA classification.</p>
+          <p><strong>Why it matters:</strong> radiation is a measured mission hazard, and surviving Mars is a connected system of risks. This graph is evidence—not a dose-calculation task.</p>
+        </div>
+      </div>
     </Fragment>
 
     <Fragment slot="analysis-title">Hazard Analyzer</Fragment>
@@ -119,8 +132,20 @@ import { surviveOperations } from '../../../../../../data/marsReadiness';
     </Fragment>
 
     <Fragment slot="intel">
-      <p>Artemis II launched on April 1, 2026 with CSA astronaut Jeremy Hansen aboard. While Orion was still close to Earth, the crew checked systems that generate breathable air and remove carbon dioxide and water vapour. CSA reports that the checkouts confirmed the capabilities needed for the lunar flyby.</p>
-      <p><strong>Maturity check:</strong> demonstrating life support on a roughly nine-day lunar mission does not mean a multi-year Mars life-support system is solved.</p>
+      <div class="survive-intel-visual">
+        <figure class="survive-authentic-figure">
+          <img
+            src="https://images-assets.nasa.gov/image/iss067e099373/iss067e099373~orig.jpg"
+            alt="NASA astronaut Jessica Watkins servicing life-support components inside the International Space Station Water Recovery System rack."
+            loading="lazy"
+          />
+          <figcaption>AUTHENTIC SPACEFLIGHT HARDWARE · ISS Water Recovery System · NASA</figcaption>
+        </figure>
+        <div>
+          <p>Artemis II demonstrated crewed deep-space life-support capability on a short lunar mission. The ISS provides another real example: crews actively operate and maintain water-recovery, air-revitalization, and oxygen-generation hardware.</p>
+          <p><strong>Maturity check:</strong> real ISS and Orion life support does not mean a multi-year Mars life-support system is solved. The Hub flow diagram explains the loop; the photograph shows real operating hardware.</p>
+        </div>
+      </div>
     </Fragment>
 
     <Fragment slot="analysis-title">Life-Support Systems Flow</Fragment>
@@ -167,8 +192,20 @@ import { surviveOperations } from '../../../../../../data/marsReadiness';
     </Fragment>
 
     <Fragment slot="intel">
-      <p>MOXIE aboard Perseverance extracted oxygen from Mars's carbon-dioxide-rich atmosphere on 16 runs, producing 122 g total and reaching up to 12 g per hour at 98% purity or better.</p>
-      <p><strong>What was demonstrated:</strong> oxygen can be produced from Martian CO₂. <strong>What was not demonstrated:</strong> a crew-scale oxygen factory for a human Mars mission.</p>
+      <div class="survive-intel-visual">
+        <figure class="survive-authentic-figure">
+          <img
+            src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA24203.jpg"
+            alt="The gold-plated MOXIE instrument installed inside NASA's Perseverance rover before launch to Mars."
+            loading="lazy"
+          />
+          <figcaption>AUTHENTIC MARS TECHNOLOGY · MOXIE inside Perseverance · NASA/JPL-Caltech</figcaption>
+        </figure>
+        <div>
+          <p>MOXIE aboard Perseverance extracted oxygen from Mars's carbon-dioxide-rich atmosphere on 16 runs, producing 122 g total and reaching up to 12 g per hour at 98% purity or better.</p>
+          <p><strong>DEMONSTRATED PRINCIPLE:</strong> oxygen can be produced from Martian CO₂. <strong>Not demonstrated:</strong> an operational crew-scale oxygen factory for a human Mars mission.</p>
+        </div>
+      </div>
     </Fragment>
 
     <Fragment slot="analysis-title">Bring It / Make It / Hybrid</Fragment>
@@ -224,8 +261,20 @@ import { surviveOperations } from '../../../../../../data/marsReadiness';
     </Fragment>
 
     <Fragment slot="intel">
-      <p>NASA's ISS Environmental Control and Life Support System demonstrated about 98% total water recovery after adding brine-processing capability. The real system uses specialized treatment stages, sensors, and microbial control; unacceptable water is reprocessed.</p>
-      <p><strong>Why it matters:</strong> high recovery is useful only when the recovered water also meets strict quality standards.</p>
+      <div class="survive-intel-visual">
+        <figure class="survive-authentic-figure">
+          <img
+            src="https://images-assets.nasa.gov/image/iss068e027924/iss068e027924~orig.jpg"
+            alt="JAXA astronaut Koichi Wakata working on water-recovery system components aboard the International Space Station."
+            loading="lazy"
+          />
+          <figcaption>AUTHENTIC SPACEFLIGHT HARDWARE · ISS water recovery · NASA/JAXA</figcaption>
+        </figure>
+        <div>
+          <p>NASA's ISS life-support system demonstrated about 98% total water recovery after brine-processing capability was added. Real spacecraft water recovery uses specialized treatment stages, sensors, quality checks, and microbial control.</p>
+          <p><strong>Why it matters:</strong> recovery quantity is not the same as purification or potability. The classroom filter models recovery and visible separation only; it does not produce drinking water.</p>
+        </div>
+      </div>
     </Fragment>
 
     <Fragment slot="analysis-title">Physical Water-Recovery Challenge</Fragment>
