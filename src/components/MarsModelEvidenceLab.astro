@@ -3,7 +3,10 @@
     <div class="model-compare-heading">
       <p class="mars-kicker">MODEL CHECK</p>
       <h4 id="model-compare-heading">Two ways people modeled planetary motion</h4>
-      <p>The goal is not to label people in the past as simply “right” or “wrong.” Test which model explains the observations more effectively.</p>
+      <details class="model-context">
+        <summary>Why compare models?</summary>
+        <p>The goal is not to label people in the past as simply “right” or “wrong.” Scientific models earn confidence when they explain evidence and make useful predictions.</p>
+      </details>
     </div>
 
     <div class="model-compare-grid">
@@ -21,7 +24,7 @@
           <circle class="model-venus" cx="129" cy="44" r="8"></circle>
           <circle class="model-mars" cx="63" cy="147" r="9"></circle>
         </svg>
-        <figcaption><strong>GEOCENTRIC MODEL</strong><span>Earth at the centre of the model</span></figcaption>
+        <figcaption><strong>GEOCENTRIC MODEL</strong><span>Earth-centred</span></figcaption>
       </figure>
 
       <figure class="model-diagram">
@@ -37,11 +40,11 @@
           <circle class="model-earth" cx="230" cy="132" r="10"></circle>
           <circle class="model-mars" cx="61" cy="91" r="9"></circle>
         </svg>
-        <figcaption><strong>HELIOCENTRIC MODEL</strong><span>Sun at the centre of our planetary system</span></figcaption>
+        <figcaption><strong>HELIOCENTRIC MODEL</strong><span>Sun-centred planetary system</span></figcaption>
       </figure>
     </div>
 
-    <p class="model-principle"><strong>Evidence rule:</strong> compare models by how well they explain observations and make testable predictions. <span>Diagrams are conceptual and not to scale.</span></p>
+    <p class="model-principle"><strong>Evidence rule:</strong> stronger models explain observations and make useful predictions. <span>Not to scale.</span></p>
   </section>
 
   <section class="evidence-lab" aria-labelledby="evidence-lab-heading">
@@ -62,7 +65,7 @@
     <section class="lab-panel" id="lab-retrograde" role="tabpanel" aria-labelledby="tab-retrograde" data-lab-panel="retrograde">
       <div class="lab-panel-heading">
         <div><span class="investigation-number">01</span><h5>Why can Mars look like it moves backward?</h5></div>
-        <p>Watch what changes when faster-moving Earth catches and passes Mars.</p>
+        <p>Watch faster-moving Earth catch Mars.</p>
       </div>
 
       <div class="retrograde-stage" data-retrograde-stage="0">
@@ -123,7 +126,7 @@
     <section class="lab-panel" id="lab-venus" role="tabpanel" aria-labelledby="tab-venus" data-lab-panel="venus" hidden>
       <div class="lab-panel-heading">
         <div><span class="investigation-number">02</span><h5>Why do the phases of Venus matter?</h5></div>
-        <p>Move Venus around the Sun and compare its position with what we see from Earth.</p>
+        <p>Move Venus and compare its position with its phase.</p>
       </div>
 
       <div class="venus-lab-layout">
@@ -154,7 +157,7 @@
           <span class="phase-kicker">VIEW FROM EARTH</span>
           <div class="venus-phase-disc phase-crescent" data-venus-phase role="img" aria-label="Crescent Venus phase"></div>
           <strong data-venus-phase-name>Crescent</strong>
-          <p data-venus-phase-copy>Only a small part of Venus's illuminated half faces Earth.</p>
+          <p data-venus-phase-copy>A small part of the lit half faces Earth.</p>
         </div>
       </div>
 
@@ -170,7 +173,7 @@
     <section class="lab-panel" id="lab-prediction" role="tabpanel" aria-labelledby="tab-prediction" data-lab-panel="prediction" hidden>
       <div class="lab-panel-heading">
         <div><span class="investigation-number">03</span><h5>What happens when a model makes a successful prediction?</h5></div>
-        <p>Compare a prediction with the later observation.</p>
+        <p>Compare a prediction with what is later observed.</p>
       </div>
 
       <div class="prediction-board">
@@ -181,7 +184,7 @@
         </div>
         <div class="prediction-copy">
           <strong>Prediction:</strong>
-          <p>The model predicts where Mars should appear one month later.</p>
+          <p>The model predicts Mars's future position.</p>
           <button type="button" class="mars-action" data-reveal-observation>Reveal observation</button>
           <p class="prediction-result" data-prediction-result aria-live="polite">Reveal the observation before making your judgement.</p>
         </div>
@@ -198,9 +201,9 @@
     </section>
 
     <div class="lab-evidence-summary">
-      <div><span>01</span><strong>Relative motion</strong><p>Earth's changing viewpoint can create apparent retrograde motion.</p></div>
-      <div><span>02</span><strong>Venus phases</strong><p>The full range of phases is consistent with Venus orbiting the Sun.</p></div>
-      <div><span>03</span><strong>Prediction</strong><p>Successful predictions increase confidence in a model.</p></div>
+      <div><span>01</span><strong>Relative motion</strong><p>Changing viewpoint can create apparent retrograde.</p></div>
+      <div><span>02</span><strong>Venus phases</strong><p>Full phase range supports a Sun-centred orbit.</p></div>
+      <div><span>03</span><strong>Prediction</strong><p>Success raises confidence.</p></div>
     </div>
     <p class="lab-conclusion"><strong>Strong scientific models explain evidence and make useful predictions.</strong></p>
   </section>
@@ -242,17 +245,17 @@
       {
         earth: [345, 252], mars: [455, 71], sight: [345, 252, 716, 34], apparent: [716, 34],
         title: 'Before Earth passes Mars',
-        copy: 'Both planets are moving forward. Notice where the sightline reaches the background stars.'
+        copy: 'Both planets move forward. Notice the sightline against the stars.'
       },
       {
         earth: [438, 226], mars: [468, 82], sight: [438, 226, 716, 118], apparent: [716, 118],
         title: 'Earth catches and passes Mars',
-        copy: 'Earth moves faster around the Sun. Our viewing angle to Mars shifts.'
+        copy: 'Earth moves faster, so our viewing angle to Mars shifts.'
       },
       {
         earth: [515, 177], mars: [477, 101], sight: [515, 177, 716, 190], apparent: [716, 190],
         title: 'After Earth passes Mars',
-        copy: 'Mars never reversed its orbit, but its apparent position shifted against the distant stars.'
+        copy: 'Mars kept orbiting forward while its apparent position shifted.'
       }
     ];
 
@@ -303,10 +306,10 @@
     });
 
     const venusStates = {
-      crescent: { point: [413,165], phase: 'Crescent', copy: "Only a small part of Venus's illuminated half faces Earth." },
-      half: { point: [285,37], phase: 'Half', copy: 'About half of the visible side is illuminated from Earth.' },
-      gibbous: { point: [195,74], phase: 'Gibbous', copy: 'Most of the visible side is illuminated.' },
-      full: { point: [157,165], phase: 'Nearly full', copy: 'From the far side of the Sun, Venus can appear mostly illuminated.' }
+      crescent: { point: [413,165], phase: 'Crescent', copy: 'A small part of the lit half faces Earth.' },
+      half: { point: [285,37], phase: 'Half', copy: 'About half of the visible side is lit.' },
+      gibbous: { point: [195,74], phase: 'Gibbous', copy: 'Most of the visible side is lit.' },
+      full: { point: [157,165], phase: 'Nearly full', copy: 'Venus can appear mostly illuminated.' }
     };
 
     const setVenus = (id) => {
