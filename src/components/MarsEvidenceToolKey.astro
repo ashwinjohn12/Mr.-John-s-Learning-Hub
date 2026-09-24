@@ -1,0 +1,161 @@
+<section class="op03-evidence-key" data-evidence-tool-key aria-labelledby="op03-evidence-key-heading">
+  <div class="op03-key-heading">
+    <div>
+      <p class="mars-kicker">QUESTION → EVIDENCE TOOL</p>
+      <h4 id="op03-evidence-key-heading">Question first. Evidence second.</h4>
+    </div>
+    <span class="model-disclaimer">GRADE 9 · CONCEPTUAL</span>
+  </div>
+
+  <div class="op03-question-tabs" role="tablist" aria-label="Scientific questions and evidence tools">
+    <button type="button" role="tab" id="op03-tab-optical" aria-controls="op03-panel-optical" aria-selected="true" data-evidence-tab="optical">
+      <span class="op03-tool-icon optical-icon" aria-hidden="true"><i></i></span>
+      <small>What does it</small><strong>LOOK LIKE?</strong>
+    </button>
+    <button type="button" role="tab" id="op03-tab-radio" aria-controls="op03-panel-radio" aria-selected="false" data-evidence-tab="radio" tabindex="-1">
+      <span class="op03-tool-icon radio-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+      <small>Eyes cannot</small><strong>SEE IT?</strong>
+    </button>
+    <button type="button" role="tab" id="op03-tab-spectrum" aria-controls="op03-panel-spectrum" aria-selected="false" data-evidence-tab="spectrum" tabindex="-1">
+      <span class="op03-tool-icon spectrum-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <small>What is it</small><strong>MADE OF?</strong>
+    </button>
+    <button type="button" role="tab" id="op03-tab-doppler" aria-controls="op03-panel-doppler" aria-selected="false" data-evidence-tab="doppler" tabindex="-1">
+      <span class="op03-tool-icon doppler-icon" aria-hidden="true"><i></i><b>↔</b></span>
+      <small>Toward</small><strong>OR AWAY?</strong>
+    </button>
+  </div>
+
+  <section class="op03-tool-panel" id="op03-panel-optical" role="tabpanel" aria-labelledby="op03-tab-optical" data-evidence-panel="optical">
+    <div class="op03-tool-visual optical-tool-visual" role="img" aria-label="A simplified visible-light view of a planet showing surface features and patterns.">
+      <span class="optical-disc"></span><i class="optical-mark one"></i><i class="optical-mark two"></i>
+    </div>
+    <div class="op03-tool-copy">
+      <p class="case-label">OPTICAL · VISIBLE LIGHT</p>
+      <h5>Visible structure</h5>
+      <div class="op03-can-cannot">
+        <p><strong>CAN:</strong> visible features and patterns</p>
+        <p><strong>NOT ALONE:</strong> exact composition or Doppler motion</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="op03-tool-panel" id="op03-panel-radio" role="tabpanel" aria-labelledby="op03-tab-radio" data-evidence-panel="radio" hidden>
+    <div class="op03-tool-visual radio-tool-visual" role="img" aria-label="A simplified radio-wave source shown with expanding wave arcs, representing evidence invisible to human eyes.">
+      <span class="radio-source"></span><i></i><i></i><i></i>
+    </div>
+    <div class="op03-tool-copy">
+      <p class="case-label">RADIO · RADIO WAVES</p>
+      <h5>Non-visible radio evidence</h5>
+      <div class="op03-can-cannot">
+        <p><strong>CAN:</strong> radio emission / hidden structures</p>
+        <p><strong>NOT ALONE:</strong> visible colour or exact size</p>
+      </div>
+      <p class="op03-misconception">Radio telescope ≠ sound detector.</p>
+    </div>
+  </section>
+
+  <section class="op03-tool-panel" id="op03-panel-spectrum" role="tabpanel" aria-labelledby="op03-tab-spectrum" data-evidence-panel="spectrum" hidden>
+    <div class="op03-tool-visual spectrum-tool-visual" role="img" aria-label="A simplified spectrum crossed by several dark spectral lines, representing composition evidence.">
+      <div class="spectrum-band"></div><span></span><span></span><span></span>
+    </div>
+    <div class="op03-tool-copy">
+      <p class="case-label">SPECTRUM · LINE PATTERNS</p>
+      <h5>Composition</h5>
+      <div class="op03-can-cannot">
+        <p><strong>CAN:</strong> composition from line patterns</p>
+        <p><strong>NOT ALONE:</strong> surface shape or exact distance</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="op03-tool-panel" id="op03-panel-doppler" role="tabpanel" aria-labelledby="op03-tab-doppler" data-evidence-panel="doppler" hidden>
+    <div class="op03-tool-visual doppler-tool-visual" role="img" aria-label="A reference spectral line beside a shifted line, representing evidence of motion toward or away from an observer.">
+      <div class="doppler-band"></div>
+      <span class="doppler-reference"></span><span class="doppler-shifted"></span>
+      <small>REFERENCE</small><small>SHIFTED</small>
+    </div>
+    <div class="op03-tool-copy">
+      <p class="case-label">DOPPLER · SHIFTED LINES</p>
+      <h5>Toward / away motion</h5>
+      <div class="op03-can-cannot">
+        <p><strong>CAN:</strong> relative toward/away motion</p>
+        <p><strong>NOT ALONE:</strong> exact distance or surface shape</p>
+      </div>
+    </div>
+  </section>
+
+  <details class="op03-retrieval-check">
+    <summary>Try a quick question → evidence match</summary>
+  <fieldset class="op03-question-check" data-tool-check>
+    <legend>Quick retrieval — choose a question, then pick the strongest evidence type.</legend>
+    <select data-question-select aria-label="Choose a scientific question">
+      <option value="">Choose a question…</option>
+      <option value="optical">What visible surface features are present?</option>
+      <option value="radio">What source or structure appears in radio waves?</option>
+      <option value="spectrum">Which elements or substances may be present?</option>
+      <option value="doppler">Is the object moving toward or away from us?</option>
+    </select>
+    <select data-tool-select aria-label="Choose the strongest evidence type">
+      <option value="">Choose evidence…</option>
+      <option value="optical">Optical</option>
+      <option value="radio">Radio</option>
+      <option value="spectrum">Spectrum</option>
+      <option value="doppler">Doppler shift</option>
+    </select>
+    <button type="button" class="mars-action" data-check-tool>Check match</button>
+    <p class="widget-feedback" data-tool-feedback aria-live="polite"></p>
+  </fieldset>
+  </details>
+</section>
+
+<script>
+  document.querySelectorAll('[data-evidence-tool-key]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll('[data-evidence-tab]'));
+    const panels = Array.from(root.querySelectorAll('[data-evidence-panel]'));
+
+    const setTab = (id, focus = false) => {
+      tabs.forEach((tab) => {
+        const active = tab.dataset.evidenceTab === id;
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+        if (active && focus) tab.focus();
+      });
+      panels.forEach((panel) => { panel.hidden = panel.dataset.evidencePanel !== id; });
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => setTab(tab.dataset.evidenceTab));
+      tab.addEventListener('keydown', (event) => {
+        if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+        event.preventDefault();
+        let next = index;
+        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = tabs.length - 1;
+        setTab(tabs[next].dataset.evidenceTab, true);
+      });
+    });
+
+    root.querySelector('[data-check-tool]').addEventListener('click', () => {
+      const question = root.querySelector('[data-question-select]').value;
+      const tool = root.querySelector('[data-tool-select]').value;
+      const feedback = root.querySelector('[data-tool-feedback]');
+
+      if (!question || !tool) {
+        feedback.textContent = 'Choose both a scientific question and an evidence type.';
+        feedback.dataset.state = 'empty';
+        return;
+      }
+
+      if (question === tool) {
+        feedback.textContent = 'Supported. The evidence type matches the scientific question.';
+        feedback.dataset.state = 'correct';
+      } else {
+        feedback.textContent = 'Recheck the question first. Which evidence type directly answers what the scientist is trying to find out?';
+        feedback.dataset.state = 'try';
+      }
+    });
+  });
+</script>

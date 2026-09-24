@@ -1,0 +1,376 @@
+<div class="model-evidence-lab" data-model-evidence-lab>
+  <section class="model-compare" aria-labelledby="model-compare-heading">
+    <div class="model-compare-heading">
+      <p class="mars-kicker">MODEL CHECK</p>
+      <h4 id="model-compare-heading">Two ways people modeled planetary motion</h4>
+      <details class="model-context">
+        <summary>Why compare models?</summary>
+        <p>The goal is not to label people in the past as simply “right” or “wrong.” Scientific models earn confidence when they explain evidence and make useful predictions.</p>
+      </details>
+    </div>
+
+    <div class="model-compare-grid">
+      <figure class="model-diagram">
+        <svg viewBox="0 0 320 220" role="img" aria-labelledby="geo-title geo-desc">
+          <title id="geo-title">Conceptual geocentric model</title>
+          <desc id="geo-desc">Earth is at the centre, with simplified circular paths for the Sun and planets around it. The diagram is not to scale.</desc>
+          <circle class="model-orbit" cx="160" cy="110" r="50"></circle>
+          <circle class="model-orbit" cx="160" cy="110" r="82"></circle>
+          <circle class="model-orbit" cx="160" cy="110" r="104"></circle>
+          <circle class="model-earth" cx="160" cy="110" r="15"></circle>
+          <text class="svg-label" x="160" y="143" text-anchor="middle">EARTH</text>
+          <circle class="model-sun" cx="210" cy="110" r="12"></circle>
+          <text class="svg-label" x="230" y="92">SUN</text>
+          <circle class="model-venus" cx="129" cy="44" r="8"></circle>
+          <circle class="model-mars" cx="63" cy="147" r="9"></circle>
+        </svg>
+        <figcaption><strong>GEOCENTRIC MODEL</strong><span>Earth-centred</span></figcaption>
+      </figure>
+
+      <figure class="model-diagram">
+        <svg viewBox="0 0 320 220" role="img" aria-labelledby="helio-title helio-desc">
+          <title id="helio-title">Conceptual heliocentric model</title>
+          <desc id="helio-desc">The Sun is at the centre, with simplified paths for Venus, Earth, and Mars around it. The diagram is not to scale.</desc>
+          <circle class="model-orbit" cx="160" cy="110" r="44"></circle>
+          <circle class="model-orbit" cx="160" cy="110" r="73"></circle>
+          <circle class="model-orbit" cx="160" cy="110" r="101"></circle>
+          <circle class="model-sun" cx="160" cy="110" r="15"></circle>
+          <text class="svg-label" x="160" y="145" text-anchor="middle">SUN</text>
+          <circle class="model-venus" cx="160" cy="66" r="8"></circle>
+          <circle class="model-earth" cx="230" cy="132" r="10"></circle>
+          <circle class="model-mars" cx="61" cy="91" r="9"></circle>
+        </svg>
+        <figcaption><strong>HELIOCENTRIC MODEL</strong><span>Sun-centred planetary system</span></figcaption>
+      </figure>
+    </div>
+
+    <p class="model-principle"><strong>Evidence rule:</strong> stronger models explain observations and make useful predictions. <span>Not to scale.</span></p>
+  </section>
+
+  <section class="evidence-lab" aria-labelledby="evidence-lab-heading">
+    <div class="lab-heading">
+      <div>
+        <p class="mars-kicker">MODEL EVIDENCE LAB</p>
+        <h4 id="evidence-lab-heading">Test the models with three pieces of evidence.</h4>
+      </div>
+      <span class="lab-progress" data-lab-progress>Investigation 1 of 3</span>
+    </div>
+
+    <div class="lab-tabs" role="tablist" aria-label="Model Evidence Lab investigations">
+      <button type="button" role="tab" aria-selected="true" aria-controls="lab-retrograde" id="tab-retrograde" data-lab-tab="retrograde">1 · Retrograde</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="lab-venus" id="tab-venus" data-lab-tab="venus" tabindex="-1">2 · Venus</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="lab-prediction" id="tab-prediction" data-lab-tab="prediction" tabindex="-1">3 · Prediction</button>
+    </div>
+
+    <section class="lab-panel" id="lab-retrograde" role="tabpanel" aria-labelledby="tab-retrograde" data-lab-panel="retrograde">
+      <div class="lab-panel-heading">
+        <div><span class="investigation-number">01</span><h5>Why can Mars look like it moves backward?</h5></div>
+        <p>Watch faster-moving Earth catch Mars.</p>
+      </div>
+
+      <div class="retrograde-stage" data-retrograde-stage="0">
+        <svg viewBox="0 0 760 340" role="img" aria-labelledby="retro-title retro-desc">
+          <title id="retro-title">Conceptual model of Earth passing Mars</title>
+          <desc id="retro-desc">Earth and Mars continue moving forward around the Sun. As Earth catches and passes Mars, the line of sight to Mars shifts against distant background stars, making Mars appear to move backward temporarily.</desc>
+          <defs>
+            <marker id="orbit-arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+              <path d="M0,0 L9,4.5 L0,9 z" class="orbit-arrowhead"></path>
+            </marker>
+          </defs>
+          <g class="star-field" aria-hidden="true">
+            <circle cx="610" cy="42" r="3"></circle><circle cx="663" cy="86" r="2"></circle><circle cx="714" cy="55" r="2.5"></circle>
+            <circle cx="625" cy="143" r="2"></circle><circle cx="690" cy="183" r="3"></circle><circle cx="730" cy="125" r="2"></circle>
+            <circle cx="620" cy="240" r="2.5"></circle><circle cx="676" cy="278" r="2"></circle><circle cx="724" cy="235" r="3"></circle>
+          </g>
+          <text class="background-label" x="615" y="320">DISTANT BACKGROUND STARS</text>
+          <circle class="retro-sun" cx="255" cy="170" r="24"></circle>
+          <text class="svg-label" x="255" y="211" text-anchor="middle">SUN</text>
+          <ellipse class="retro-orbit earth-orbit" cx="255" cy="170" rx="132" ry="105"></ellipse>
+          <ellipse class="retro-orbit mars-orbit" cx="255" cy="170" rx="220" ry="145"></ellipse>
+          <path class="orbit-direction" d="M 110 205 C 85 130, 130 70, 196 51" marker-end="url(#orbit-arrow)"></path>
+          <path class="orbit-direction" d="M 55 226 C 15 130, 80 30, 170 19" marker-end="url(#orbit-arrow)"></path>
+          <g data-earth-marker>
+            <circle class="retro-earth" r="13"></circle>
+            <text class="planet-label" x="0" y="31" text-anchor="middle">EARTH</text>
+          </g>
+          <g data-mars-marker>
+            <circle class="retro-mars" r="14"></circle>
+            <text class="planet-label" x="0" y="-23" text-anchor="middle">MARS</text>
+          </g>
+          <line class="sightline" data-sightline x1="0" y1="0" x2="0" y2="0"></line>
+          <circle class="apparent-marker" data-apparent-marker r="7"></circle>
+          <text class="apparent-label" data-apparent-label x="0" y="0">APPARENT POSITION</text>
+        </svg>
+        <div class="retrograde-readout" aria-live="polite">
+          <strong data-retro-stage-title>Before Earth passes Mars</strong>
+          <span data-retro-stage-copy>Both planets are moving forward. Notice where the sightline reaches the background stars.</span>
+        </div>
+      </div>
+
+      <div class="stage-controls" aria-label="Retrograde model stages">
+        <button type="button" class="mars-action secondary" data-retro-stage="0">Before</button>
+        <button type="button" class="mars-action secondary" data-retro-stage="1">Passing</button>
+        <button type="button" class="mars-action secondary" data-retro-stage="2">After</button>
+        <button type="button" class="mars-action" data-retro-play>▶ Play Earth Passing Mars</button>
+      </div>
+
+      <fieldset class="lab-question" data-question="retrograde">
+        <legend>What actually happens during apparent retrograde motion?</legend>
+        <label><input type="radio" name="retrograde-answer" value="reverse" /> Mars briefly reverses its orbit.</label>
+        <label><input type="radio" name="retrograde-answer" value="viewpoint" /> Both planets keep orbiting forward; Earth's changing viewpoint makes Mars appear to move backward.</label>
+        <button type="button" class="mars-action" data-check-question="retrograde">Check evidence</button>
+        <p class="lab-feedback" data-feedback="retrograde" aria-live="polite"></p>
+      </fieldset>
+    </section>
+
+    <section class="lab-panel" id="lab-venus" role="tabpanel" aria-labelledby="tab-venus" data-lab-panel="venus" hidden>
+      <div class="lab-panel-heading">
+        <div><span class="investigation-number">02</span><h5>Why do the phases of Venus matter?</h5></div>
+        <p>Move Venus and compare its position with its phase.</p>
+      </div>
+
+      <div class="venus-lab-layout">
+        <div class="venus-orbit-wrap">
+          <svg viewBox="0 0 680 330" role="img" aria-labelledby="venus-title venus-desc">
+            <title id="venus-title">Conceptual Sun, Venus, and Earth phase model</title>
+            <desc id="venus-desc">Venus is shown at selectable positions around the Sun while Earth remains to the right. The model connects Venus's orbital position with the illuminated phase seen from Earth.</desc>
+            <circle class="venus-orbit" cx="285" cy="165" r="128"></circle>
+            <circle class="venus-sun" cx="285" cy="165" r="25"></circle>
+            <text class="svg-label" x="285" y="206" text-anchor="middle">SUN</text>
+            <circle class="venus-earth" cx="610" cy="165" r="17"></circle>
+            <text class="svg-label" x="610" y="202" text-anchor="middle">EARTH</text>
+            <line class="earth-view-line" x1="592" y1="165" x2="450" y2="165"></line>
+            <g data-venus-marker>
+              <circle class="venus-planet" r="13"></circle>
+              <text class="planet-label" x="0" y="-22" text-anchor="middle">VENUS</text>
+            </g>
+          </svg>
+          <div class="venus-position-controls" aria-label="Choose a Venus position">
+            <button type="button" class="mars-action secondary" data-venus-position="crescent" aria-pressed="true">Near side</button>
+            <button type="button" class="mars-action secondary" data-venus-position="half" aria-pressed="false">Side</button>
+            <button type="button" class="mars-action secondary" data-venus-position="gibbous" aria-pressed="false">Far-side angle</button>
+            <button type="button" class="mars-action secondary" data-venus-position="full" aria-pressed="false">Far side</button>
+          </div>
+        </div>
+
+        <div class="venus-phase-readout" aria-live="polite">
+          <span class="phase-kicker">VIEW FROM EARTH</span>
+          <div class="venus-phase-disc phase-crescent" data-venus-phase role="img" aria-label="Crescent Venus phase"></div>
+          <strong data-venus-phase-name>Crescent</strong>
+          <p data-venus-phase-copy>A small part of the lit half faces Earth.</p>
+        </div>
+      </div>
+
+      <fieldset class="lab-question" data-question="venus">
+        <legend>Which model is the full range of Venus phases more consistent with?</legend>
+        <label><input type="radio" name="venus-answer" value="geocentric" /> The simplified geocentric model above</label>
+        <label><input type="radio" name="venus-answer" value="heliocentric" /> A heliocentric model where Venus orbits the Sun</label>
+        <button type="button" class="mars-action" data-check-question="venus">Check evidence</button>
+        <p class="lab-feedback" data-feedback="venus" aria-live="polite"></p>
+      </fieldset>
+    </section>
+
+    <section class="lab-panel" id="lab-prediction" role="tabpanel" aria-labelledby="tab-prediction" data-lab-panel="prediction" hidden>
+      <div class="lab-panel-heading">
+        <div><span class="investigation-number">03</span><h5>What happens when a model makes a successful prediction?</h5></div>
+        <p>Compare a prediction with what is later observed.</p>
+      </div>
+
+      <div class="prediction-board">
+        <div class="prediction-sky" role="img" aria-label="A model prediction marker on a simplified star field, with a hidden observation that can be revealed">
+          <span class="prediction-star one"></span><span class="prediction-star two"></span><span class="prediction-star three"></span><span class="prediction-star four"></span>
+          <span class="prediction-target"><i></i><b>MODEL PREDICTION</b></span>
+          <span class="observation-target" data-observation-target hidden><i></i><b>OBSERVATION</b></span>
+        </div>
+        <div class="prediction-copy">
+          <strong>Prediction:</strong>
+          <p>The model predicts Mars's future position.</p>
+          <button type="button" class="mars-action" data-reveal-observation>Reveal observation</button>
+          <p class="prediction-result" data-prediction-result aria-live="polite">Reveal the observation before making your judgement.</p>
+        </div>
+      </div>
+
+      <fieldset class="lab-question" data-question="prediction">
+        <legend>What does a successful prediction do?</legend>
+        <label><input type="radio" name="prediction-answer" value="increase" disabled /> It increases confidence because the model correctly anticipated a checkable observation.</label>
+        <label><input type="radio" name="prediction-answer" value="prove" disabled /> It permanently proves every part of the model.</label>
+        <label><input type="radio" name="prediction-answer" value="nothing" disabled /> It tells us nothing about the model.</label>
+        <button type="button" class="mars-action" data-check-question="prediction" disabled>Check evidence</button>
+        <p class="lab-feedback" data-feedback="prediction" aria-live="polite"></p>
+      </fieldset>
+    </section>
+
+    <div class="lab-evidence-summary">
+      <div><span>01</span><strong>Relative motion</strong><p>Changing viewpoint can create apparent retrograde.</p></div>
+      <div><span>02</span><strong>Venus phases</strong><p>Full phase range supports a Sun-centred orbit.</p></div>
+      <div><span>03</span><strong>Prediction</strong><p>Success raises confidence.</p></div>
+    </div>
+    <p class="lab-conclusion"><strong>Strong scientific models explain evidence and make useful predictions.</strong></p>
+  </section>
+</div>
+
+<script>
+  document.querySelectorAll('[data-model-evidence-lab]').forEach((lab) => {
+    const tabs = Array.from(lab.querySelectorAll('[data-lab-tab]'));
+    const panels = Array.from(lab.querySelectorAll('[data-lab-panel]'));
+    const progress = lab.querySelector('[data-lab-progress]');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const selectTab = (id, focus = false) => {
+      tabs.forEach((tab, index) => {
+        const active = tab.dataset.labTab === id;
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+        if (active) progress.textContent = 'Investigation ' + (index + 1) + ' of 3';
+      });
+      panels.forEach((panel) => { panel.hidden = panel.dataset.labPanel !== id; });
+      if (focus) tabs.find((tab) => tab.dataset.labTab === id)?.focus();
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectTab(tab.dataset.labTab));
+      tab.addEventListener('keydown', (event) => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        let next = index;
+        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = tabs.length - 1;
+        selectTab(tabs[next].dataset.labTab, true);
+      });
+    });
+
+    const retroStages = [
+      {
+        earth: [345, 252], mars: [455, 71], sight: [345, 252, 716, 34], apparent: [716, 34],
+        title: 'Before Earth passes Mars',
+        copy: 'Both planets move forward. Notice the sightline against the stars.'
+      },
+      {
+        earth: [438, 226], mars: [468, 82], sight: [438, 226, 716, 118], apparent: [716, 118],
+        title: 'Earth catches and passes Mars',
+        copy: 'Earth moves faster, so our viewing angle to Mars shifts.'
+      },
+      {
+        earth: [515, 177], mars: [477, 101], sight: [515, 177, 716, 190], apparent: [716, 190],
+        title: 'After Earth passes Mars',
+        copy: 'Mars kept orbiting forward while its apparent position shifted.'
+      }
+    ];
+
+    const setRetroStage = (index) => {
+      const stage = retroStages[index];
+      const earth = lab.querySelector('[data-earth-marker]');
+      const mars = lab.querySelector('[data-mars-marker]');
+      const line = lab.querySelector('[data-sightline]');
+      const marker = lab.querySelector('[data-apparent-marker]');
+      const label = lab.querySelector('[data-apparent-label]');
+      earth.setAttribute('transform', 'translate(' + stage.earth.join(' ') + ')');
+      mars.setAttribute('transform', 'translate(' + stage.mars.join(' ') + ')');
+      line.setAttribute('x1', stage.sight[0]); line.setAttribute('y1', stage.sight[1]);
+      line.setAttribute('x2', stage.sight[2]); line.setAttribute('y2', stage.sight[3]);
+      marker.setAttribute('cx', stage.apparent[0]); marker.setAttribute('cy', stage.apparent[1]);
+      label.setAttribute('x', stage.apparent[0] - 12); label.setAttribute('y', stage.apparent[1] - 13);
+      lab.querySelector('[data-retro-stage-title]').textContent = stage.title;
+      lab.querySelector('[data-retro-stage-copy]').textContent = stage.copy;
+      lab.querySelector('[data-retrograde-stage]').dataset.retrogradeStage = String(index);
+      lab.querySelectorAll('[data-retro-stage]').forEach((button) => {
+        button.setAttribute('aria-pressed', String(Number(button.dataset.retroStage) === index));
+      });
+    };
+
+    setRetroStage(0);
+    lab.querySelectorAll('[data-retro-stage]').forEach((button) => {
+      button.addEventListener('click', () => setRetroStage(Number(button.dataset.retroStage)));
+    });
+
+    let playTimer = null;
+    lab.querySelector('[data-retro-play]').addEventListener('click', () => {
+      if (playTimer) window.clearInterval(playTimer);
+      if (reduceMotion.matches) {
+        setRetroStage(2);
+        lab.querySelector('[data-retro-stage-copy]').textContent = 'Reduced-motion mode: final stage shown. Use Before, Passing, and After to inspect each step.';
+        return;
+      }
+      let step = 0;
+      setRetroStage(step);
+      playTimer = window.setInterval(() => {
+        step += 1;
+        setRetroStage(step);
+        if (step >= 2) {
+          window.clearInterval(playTimer);
+          playTimer = null;
+        }
+      }, 900);
+    });
+
+    const venusStates = {
+      crescent: { point: [413,165], phase: 'Crescent', copy: 'A small part of the lit half faces Earth.' },
+      half: { point: [285,37], phase: 'Half', copy: 'About half of the visible side is lit.' },
+      gibbous: { point: [195,74], phase: 'Gibbous', copy: 'Most of the visible side is lit.' },
+      full: { point: [157,165], phase: 'Nearly full', copy: 'Venus can appear mostly illuminated.' }
+    };
+
+    const setVenus = (id) => {
+      const state = venusStates[id];
+      lab.querySelector('[data-venus-marker]').setAttribute('transform', 'translate(' + state.point.join(' ') + ')');
+      const disc = lab.querySelector('[data-venus-phase]');
+      disc.className = 'venus-phase-disc phase-' + id;
+      disc.setAttribute('aria-label', state.phase + ' Venus phase');
+      lab.querySelector('[data-venus-phase-name]').textContent = state.phase;
+      lab.querySelector('[data-venus-phase-copy]').textContent = state.copy;
+      lab.querySelectorAll('[data-venus-position]').forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.venusPosition === id));
+      });
+    };
+
+    setVenus('crescent');
+    lab.querySelectorAll('[data-venus-position]').forEach((button) => {
+      button.addEventListener('click', () => setVenus(button.dataset.venusPosition));
+    });
+
+    lab.querySelector('[data-reveal-observation]').addEventListener('click', (event) => {
+      lab.querySelector('[data-observation-target]').hidden = false;
+      lab.querySelector('[data-prediction-result]').textContent = 'The observation lands close to the predicted location. Now judge what that evidence means.';
+      lab.querySelectorAll('input[name="prediction-answer"]').forEach((input) => { input.disabled = false; });
+      lab.querySelector('[data-check-question="prediction"]').disabled = false;
+      event.currentTarget.textContent = 'Observation revealed';
+      event.currentTarget.disabled = true;
+    });
+
+    const answers = {
+      retrograde: {
+        correct: 'viewpoint',
+        yes: 'Supported. Both planets keep moving forward; the apparent reversal comes from relative motion and a changing line of sight.',
+        no: 'Look again at the orbit arrows and the line of sight. Did either planet reverse its orbital direction?'
+      },
+      venus: {
+        correct: 'heliocentric',
+        yes: 'Supported. A full range from crescent through gibbous and nearly full is consistent with Venus orbiting the Sun.',
+        no: 'Inspect the far-side Venus positions. Which model naturally allows Venus to be on the far side of the Sun from Earth?'
+      },
+      prediction: {
+        correct: 'increase',
+        yes: 'Supported. A successful prediction increases confidence because the model anticipated an observation that could later be checked. It does not prove the model forever.',
+        no: 'Compare the prediction with the revealed observation. Matching evidence should affect confidence, but one success does not prove every part of a model.'
+      }
+    };
+
+    lab.querySelectorAll('[data-check-question]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const id = button.dataset.checkQuestion;
+        const selected = lab.querySelector('input[name="' + id + '-answer"]:checked')?.value || '';
+        const feedback = lab.querySelector('[data-feedback="' + id + '"]');
+        if (!selected) {
+          feedback.textContent = 'Choose an evidence-based answer first.';
+          feedback.dataset.state = 'empty';
+          return;
+        }
+        const correct = selected === answers[id].correct;
+        feedback.textContent = correct ? answers[id].yes : answers[id].no;
+        feedback.dataset.state = correct ? 'correct' : 'try';
+      });
+    });
+  });
+</script>

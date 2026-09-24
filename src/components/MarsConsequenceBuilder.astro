@@ -1,0 +1,98 @@
+<section class="mars-consequence-builder" data-consequence-builder aria-labelledby="consequence-builder-heading">
+  <div class="consequence-heading">
+    <div>
+      <p class="mars-kicker">MISSION CONSEQUENCE BUILDER</p>
+      <h4 id="consequence-builder-heading">Build one evidence → consequence → system connection.</h4>
+    </div>
+    <span class="model-disclaimer">PRACTICE</span>
+  </div>
+
+  <div class="consequence-flow" aria-label="Evidence to consequence to system response">
+    <span><b>1</b> MARS EVIDENCE</span>
+    <span aria-hidden="true">→</span>
+    <span><b>2</b> HUMAN CONSEQUENCE</span>
+    <span aria-hidden="true">→</span>
+    <span><b>3</b> SYSTEM RESPONSE</span>
+  </div>
+
+  <div class="consequence-controls">
+    <label>Evidence
+      <select data-evidence-select>
+        <option value="">Choose…</option>
+        <option value="pressure">Very low atmospheric pressure</option>
+        <option value="co2">Atmosphere mostly carbon dioxide</option>
+        <option value="cold">Cold conditions + large temperature swings</option>
+        <option value="gravity">Surface gravity ≈38% of Earth's</option>
+        <option value="water">Water is difficult to access and process</option>
+      </select>
+    </label>
+
+    <label>Consequence
+      <select data-consequence-select>
+        <option value="">Choose…</option>
+        <option value="exposure">Exposed humans cannot maintain safe body pressure.</option>
+        <option value="breathing">The atmosphere cannot provide breathable air.</option>
+        <option value="temperature">People/equipment can become too cold or experience unsafe temperature changes.</option>
+        <option value="health">Long-duration body effects remain a health concern.</option>
+        <option value="supply">An essential resource is difficult to replace locally.</option>
+        <option value="navigation">Humans cannot determine where north is.</option>
+      </select>
+    </label>
+
+    <label>System
+      <select data-system-select>
+        <option value="">Choose…</option>
+        <option value="pressure-system">Pressurized habitat / suit</option>
+        <option value="air-system">Oxygen supply + air revitalization</option>
+        <option value="thermal-system">Thermal control / insulation / heating</option>
+        <option value="health-system">Exercise + health monitoring / countermeasures</option>
+        <option value="water-system">Storage + recycling + local extraction/treatment</option>
+        <option value="communication-system">Communications relay network</option>
+      </select>
+    </label>
+  </div>
+
+  <button type="button" class="mars-action" data-check-consequence>Check connection</button>
+  <p class="widget-feedback consequence-feedback" data-consequence-feedback aria-live="polite"></p>
+</section>
+
+<script>
+  document.querySelectorAll('[data-consequence-builder]').forEach((root) => {
+    const correct = {
+      pressure: ['exposure','pressure-system'],
+      co2: ['breathing','air-system'],
+      cold: ['temperature','thermal-system'],
+      gravity: ['health','health-system'],
+      water: ['supply','water-system']
+    };
+
+    root.querySelector('[data-check-consequence]').addEventListener('click', () => {
+      const evidence = root.querySelector('[data-evidence-select]').value;
+      const consequence = root.querySelector('[data-consequence-select]').value;
+      const system = root.querySelector('[data-system-select]').value;
+      const feedback = root.querySelector('[data-consequence-feedback]');
+
+      if (!evidence || !consequence || !system) {
+        feedback.textContent = 'Complete all three parts of the connection first.';
+        feedback.dataset.state = 'empty';
+        return;
+      }
+
+      const [expectedConsequence, expectedSystem] = correct[evidence];
+      if (consequence === expectedConsequence && system === expectedSystem) {
+        feedback.textContent = 'Correct connection. Explain why it matters in your own words in the Readiness Record.';
+        feedback.dataset.state = 'correct';
+        return;
+      }
+
+      if (consequence === expectedConsequence) {
+        feedback.textContent = 'Your human consequence fits the evidence. Recheck which mission system directly responds to that problem.';
+        feedback.dataset.state = 'try';
+        return;
+      }
+
+      feedback.textContent = 'Start with the evidence. What does this condition directly do to a human or essential resource before choosing a system response?';
+      feedback.dataset.state = 'try';
+    });
+  });
+</script>
