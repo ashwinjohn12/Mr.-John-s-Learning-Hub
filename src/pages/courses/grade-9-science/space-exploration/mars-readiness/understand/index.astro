@@ -1,9 +1,7 @@
 ---
 import MarsProjectShell from '../../../../../../components/MarsProjectShell.astro';
-import MarsReadinessDashboard from '../../../../../../components/MarsReadinessDashboard.astro';
 import MarsOperation from '../../../../../../components/MarsOperation.astro';
 import MarsEvidenceMatcher from '../../../../../../components/MarsEvidenceMatcher.astro';
-import MarsIntelLegend from '../../../../../../components/MarsIntelLegend.astro';
 import MarsModelEvidenceLab from '../../../../../../components/MarsModelEvidenceLab.astro';
 import MarsCosmicZoom from '../../../../../../components/MarsCosmicZoom.astro';
 import MarsSolarSystemFamilies from '../../../../../../components/MarsSolarSystemFamilies.astro';
@@ -11,11 +9,12 @@ import MarsEnvironmentalDashboard from '../../../../../../components/MarsEnviron
 import MarsConsequenceBuilder from '../../../../../../components/MarsConsequenceBuilder.astro';
 import MarsEvidenceToolKey from '../../../../../../components/MarsEvidenceToolKey.astro';
 import MarsApxsSequence from '../../../../../../components/MarsApxsSequence.astro';
+import MarsUnderstandOverview from '../../../../../../components/MarsUnderstandOverview.astro';
 import '../../../../../../styles/mars-understand-op01-prototype.css';
 import '../../../../../../styles/mars-understand-op02-prototype.css';
 import '../../../../../../styles/mars-understand-op03-prototype.css';
 import '../../../../../../styles/mars-understand-op04-prototype.css';
-import { understandOperations } from '../../../../../../data/marsReadiness';
+import '../../../../../../styles/mars-understand-overview.css';
 ---
 
 <MarsProjectShell
@@ -23,27 +22,7 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
   description="Operations 01–04 of the Grade 9 Science Mars Readiness Program: cosmic scale, changing models, observation technologies, spectroscopy, and the evidence we have about Mars."
   activePhase="understand"
 >
-  <section class="phase-intro">
-    <div>
-      <p class="mars-kicker">PHASE 01 // UNDERSTAND</p>
-      <h1>What do we know—and how do we know it?</h1>
-      <p>Before a human mission can be judged, the review team needs reliable evidence. These four Operations build the astronomy and observation tools needed for every later Mars decision.</p>
-    </div>
-  </section>
-
-  <MarsIntelLegend />
-
-  <MarsReadinessDashboard compact={true} heading="Current systems picture" />
-
-  <nav class="phase-index" id="understand-operations" aria-label="UNDERSTAND operations">
-    {understandOperations.map((operation) => (
-      <a href={'#operation-' + operation.number}>
-        <span>OPERATION {operation.number}</span>
-        <strong>{operation.title}</strong>
-        <small>{operation.question}</small>
-      </a>
-    ))}
-  </nav>
+  <MarsUnderstandOverview />
 
   <MarsOperation
     number="01"
@@ -85,7 +64,7 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
         </div>
         <p>NASA plans connected capabilities; planning does not mean a human Mars mission is ready.</p>
         <details>
-          <summary>Architecture details + source</summary>
+          <summary>Mission details + source</summary>
           <p>NASA's Moon to Mars Architecture examines connected capabilities such as transportation, habitation, power, robotics, communication/navigation, mobility, and resource use. <a href="https://www.nasa.gov/moontomarsarchitecture-components/" target="_blank" rel="noreferrer">NASA Moon to Mars Architecture ↗</a></p>
         </details>
       </section>
@@ -161,7 +140,7 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
           <h4>APXS measures elements in Martian material.</h4>
           <p>Canada's APXS is a close-range spectrometer on Curiosity's arm—not a telescope. New elemental evidence can change explanations of Mars.</p>
           <details>
-            <summary>Mission details</summary>
+            <summary>Mission details + source</summary>
             <p>As of February 1, 2026, APXS had analyzed 1,761 Martian samples. In 2024, APXS helped confirm pure sulfur crystals in a rock Curiosity cracked open—evidence not previously seen in this form on Mars.</p>
             <p><a href="https://science.nasa.gov/resource/portrait-of-apxs-on-mars/" target="_blank" rel="noreferrer">NASA image and APXS context ↗</a></p>
           </details>
@@ -301,7 +280,7 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
       <MarsEnvironmentalDashboard />
 
       <details class="source-note">
-        <summary><strong>Sources + future Mars evidence</strong></summary>
+        <summary><strong>Mission details + source</strong></summary>
         <p>Planetary profile source: <a href="https://science.nasa.gov/mars/facts/" target="_blank" rel="noreferrer">NASA Mars Facts ↗</a>.</p>
         <p><strong>IN DEVELOPMENT / PLANNED:</strong> ESA's Rosalind Franklin rover is scheduled for a late-2028 launch. It is designed to drill as deep as two metres and analyze subsurface samples while searching for signs of past or present life. <a href="https://explorationscience.esa.int/project/exomars-rosalind-franklin-rfm/" target="_blank" rel="noreferrer">ESA mission overview ↗</a></p>
       </details>
