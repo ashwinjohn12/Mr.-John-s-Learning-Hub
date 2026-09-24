@@ -5,7 +5,11 @@ import MarsOperation from '../../../../../../components/MarsOperation.astro';
 import MarsEvidenceMatcher from '../../../../../../components/MarsEvidenceMatcher.astro';
 import MarsIntelLegend from '../../../../../../components/MarsIntelLegend.astro';
 import MarsModelEvidenceLab from '../../../../../../components/MarsModelEvidenceLab.astro';
+import MarsSolarSystemFamilies from '../../../../../../components/MarsSolarSystemFamilies.astro';
+import MarsEnvironmentalDashboard from '../../../../../../components/MarsEnvironmentalDashboard.astro';
+import MarsConsequenceBuilder from '../../../../../../components/MarsConsequenceBuilder.astro';
 import '../../../../../../styles/mars-understand-op02-prototype.css';
+import '../../../../../../styles/mars-understand-op04-prototype.css';
 import { understandOperations } from '../../../../../../data/marsReadiness';
 ---
 
@@ -255,50 +259,58 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
     intelHref="https://science.nasa.gov/mars/"
     systems={['science']}
   >
-    <Fragment slot="problem-title">Mars is known—but it is not Earth with red dirt.</Fragment>
+    <Fragment slot="problem-title">Build the environmental profile before judging the mission.</Fragment>
     <Fragment slot="problem">
-      <p>A human mission would face conditions that robotic explorers can tolerate more easily. Before judging travel or survival systems, the review team needs a concise evidence profile of the planet itself.</p>
+      <p>Mars is not Earth with red dirt. Human survival decisions must start with evidence about the planet's atmosphere, temperature, gravity, and water.</p>
+      <p><strong>Your job:</strong> inspect the evidence and connect each condition to the human problem it creates.</p>
     </Fragment>
 
-    <Fragment slot="know-title">First place Mars among the other bodies in our Solar System.</Fragment>
+    <Fragment slot="know-title">See where Mars belongs—then zoom in on the conditions.</Fragment>
     <Fragment slot="know">
-      <div class="solar-system-snapshot" aria-label="Solar System body groups">
-        <div><strong>Sun</strong><p>Our star: hot plasma and the dominant source of light and energy in the Solar System.</p></div>
-        <div><strong>Rocky planets</strong><p>Mercury, Venus, Earth, and Mars have solid surfaces made largely of rock and metal.</p></div>
-        <div><strong>Giant planets</strong><p>Jupiter and Saturn are gas giants; Uranus and Neptune are ice giants. Their composition and structure differ greatly from Earth's.</p></div>
-        <div><strong>Moons</strong><p>Natural satellites orbit planets or dwarf planets and can be rocky, icy, or a mixture of both.</p></div>
-        <div><strong>Other Solar System bodies</strong><p>Asteroids are mainly rocky or metallic; comets contain large amounts of ice and dust; dwarf planets also orbit the Sun.</p></div>
-      </div>
-      <p class="source-note"><strong>Where does the evidence come from?</strong> Telescopes, spectral analysis, spacecraft flybys, orbiters, landers, rovers, and physical samples such as meteorites all add different evidence about Solar System bodies.</p>
+      <MarsSolarSystemFamilies />
 
-      <h4 class="subsection-heading">Now zoom in on Mars.</h4>
-      <div class="mars-comparison-grid">
-        <div class="comparison-card"><strong>Atmosphere</strong><p>Mars has a very thin atmosphere made mostly of carbon dioxide. Surface pressure is far lower than Earth's.</p></div>
-        <div class="comparison-card"><strong>Temperature</strong><p>Mars is a cold world with large temperature swings.</p></div>
-        <div class="comparison-card"><strong>Gravity</strong><p>Mars surface gravity is about 38% of Earth's. Movement is different, and long-duration effects on the human body remain an important health question.</p></div>
-        <div class="comparison-card"><strong>Water</strong><p>Evidence shows a wetter ancient Mars. Water exists today mainly as ice at or below the surface; readily available liquid surface water is not present as it is on Earth.</p></div>
-      </div>
-      <p class="source-note">Planetary profile source: <a href="https://science.nasa.gov/mars/facts/" target="_blank" rel="noreferrer">NASA Mars Facts ↗</a>. The goal is not memorizing every number; it is explaining how evidence about a body creates mission constraints.</p>
-      <p class="source-note maturity-note"><strong>TECH STATUS // IN DEVELOPMENT / PLANNED:</strong> ESA's Rosalind Franklin rover is planned for a late-2028 launch and is designed to drill as deep as two metres below the Martian surface while searching for signs of past life. <a href="https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/Exploration/ExoMars/FAQ_The_rebirth_of_ESA_s_ExoMars_Rosalind_Franklin_mission" target="_blank" rel="noreferrer">ESA mission update ↗</a></p>
+      <MarsEnvironmentalDashboard />
+
+      <details class="source-note">
+        <summary><strong>Sources + future Mars evidence</strong></summary>
+        <p>Planetary profile source: <a href="https://science.nasa.gov/mars/facts/" target="_blank" rel="noreferrer">NASA Mars Facts ↗</a>.</p>
+        <p><strong>IN DEVELOPMENT / PLANNED:</strong> ESA's Rosalind Franklin rover is scheduled for a late-2028 launch. It is designed to drill as deep as two metres and analyze subsurface samples while searching for signs of past or present life. <a href="https://explorationscience.esa.int/project/exomars-rosalind-franklin-rfm/" target="_blank" rel="noreferrer">ESA mission overview ↗</a></p>
+      </details>
     </Fragment>
 
     <Fragment slot="intel">
-      <p>Perseverance and Curiosity are operating on Mars, while Canada's APXS continues collecting chemistry data with Curiosity.</p>
-      <p><strong>Why it matters:</strong> future human decisions should build from what robotic missions actually measure—not from artist concepts of Mars cities.</p>
+      <div class="intel-visual-layout">
+        <figure class="intel-image">
+          <img
+            src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA26574.jpg"
+            alt="NASA's Perseverance rover on the Martian surface with rocky terrain stretching into the background."
+            loading="lazy"
+          />
+          <figcaption>Perseverance on Mars • NASA/JPL-Caltech/MSSS</figcaption>
+        </figure>
+        <div class="intel-visual-copy">
+          <p class="mars-kicker">ROBOTIC EVIDENCE IS ACTIVE NOW</p>
+          <h4>Robots are building the evidence humans would depend on.</h4>
+          <p>Perseverance and Curiosity are active on Mars, measuring the planet from the surface. Canada's APXS continues adding elemental evidence with Curiosity.</p>
+          <details>
+            <summary>Mission details + source</summary>
+            <p>Perseverance investigates geology, past habitability, and samples. Curiosity continues long-duration science in Gale Crater, including chemistry measurements with APXS.</p>
+            <p><a href="https://www.jpl.nasa.gov/images/pia26574-dust-devil-photobombs-perseverances-selfie/" target="_blank" rel="noreferrer">JPL image source ↗</a> · <a href="https://science.nasa.gov/mars/" target="_blank" rel="noreferrer">NASA active Mars missions ↗</a> · <a href="https://www.asc-csa.gc.ca/eng/astronomy/mars/apxs.asp" target="_blank" rel="noreferrer">CSA APXS ↗</a></p>
+          </details>
+        </div>
+      </div>
     </Fragment>
 
-    <Fragment slot="analysis-title">Build a Mars Environmental Intelligence Brief</Fragment>
+    <Fragment slot="analysis-title">Turn Mars evidence into mission consequences.</Fragment>
     <Fragment slot="analysis">
-      <p>Choose four pieces of Mars evidence above. For each one, finish this reasoning chain in your Readiness Record:</p>
-      <div class="cosmic-address" style="grid-template-columns:repeat(3,1fr)">
-        <div><small>1 // EVIDENCE</small><strong>What is Mars like?</strong></div>
-        <div><small>2 // CONSEQUENCE</small><strong>Why does that matter to a human?</strong></div>
-        <div><small>3 // CONSTRAINT</small><strong>What system will have to solve it?</strong></div>
+      <MarsConsequenceBuilder />
+
+      <div class="readiness-record-bridge">
+        <strong>READINESS RECORD 2B</strong>
+        <p>Choose 3–4 Mars facts that matter most to a human mission. Explain the consequence and the system response in your own words.</p>
       </div>
-      <details class="source-note" open>
-        <summary><strong>Worked example — use this pattern for your own rows</strong></summary>
-        <p><strong>Evidence:</strong> Mars has a very thin atmosphere. → <strong>Consequence:</strong> humans cannot survive exposed to the surface. → <strong>Constraint:</strong> habitats and suits must maintain safe pressure and breathable air.</p>
-      </details>
+
+      <div class="readiness-transition">YOU HAVE THE EVIDENCE. MAKE THE CALL.</div>
     </Fragment>
   </MarsOperation>
 
