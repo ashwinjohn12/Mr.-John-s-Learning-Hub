@@ -2,7 +2,7 @@
   <div class="op03-key-heading">
     <div>
       <p class="mars-kicker">QUESTION → EVIDENCE TOOL</p>
-      <h4 id="op03-evidence-key-heading">Start with the scientific question.</h4>
+      <h4 id="op03-evidence-key-heading">Question first. Evidence second.</h4>
     </div>
     <span class="model-disclaimer">GRADE 9 · CONCEPTUAL</span>
   </div>
@@ -14,7 +14,7 @@
     </button>
     <button type="button" role="tab" id="op03-tab-radio" aria-controls="op03-panel-radio" aria-selected="false" data-evidence-tab="radio" tabindex="-1">
       <span class="op03-tool-icon radio-icon" aria-hidden="true"><i></i><i></i><i></i></span>
-      <small>What can eyes</small><strong>NOT SEE?</strong>
+      <small>Eyes cannot</small><strong>SEE IT?</strong>
     </button>
     <button type="button" role="tab" id="op03-tab-spectrum" aria-controls="op03-panel-spectrum" aria-selected="false" data-evidence-tab="spectrum" tabindex="-1">
       <span class="op03-tool-icon spectrum-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
@@ -22,7 +22,7 @@
     </button>
     <button type="button" role="tab" id="op03-tab-doppler" aria-controls="op03-panel-doppler" aria-selected="false" data-evidence-tab="doppler" tabindex="-1">
       <span class="op03-tool-icon doppler-icon" aria-hidden="true"><i></i><b>↔</b></span>
-      <small>Moving toward</small><strong>OR AWAY?</strong>
+      <small>Toward</small><strong>OR AWAY?</strong>
     </button>
   </div>
 
@@ -32,10 +32,10 @@
     </div>
     <div class="op03-tool-copy">
       <p class="case-label">OPTICAL · VISIBLE LIGHT</p>
-      <h5>Surface features and visible structure</h5>
+      <h5>Visible structure</h5>
       <div class="op03-can-cannot">
-        <p><strong>CAN HELP:</strong> visible features, shape, patterns</p>
-        <p><strong>NOT BY ITSELF:</strong> exact composition or Doppler motion</p>
+        <p><strong>CAN:</strong> visible features and patterns</p>
+        <p><strong>NOT ALONE:</strong> exact composition or Doppler motion</p>
       </div>
     </div>
   </section>
@@ -46,12 +46,12 @@
     </div>
     <div class="op03-tool-copy">
       <p class="case-label">RADIO · RADIO WAVES</p>
-      <h5>Sources and structures eyes may miss</h5>
+      <h5>Non-visible radio evidence</h5>
       <div class="op03-can-cannot">
-        <p><strong>CAN HELP:</strong> radio emission and non-visible structures</p>
-        <p><strong>NOT BY ITSELF:</strong> visible colour or exact physical size</p>
+        <p><strong>CAN:</strong> radio emission / hidden structures</p>
+        <p><strong>NOT ALONE:</strong> visible colour or exact size</p>
       </div>
-      <p class="op03-misconception">Radio telescopes detect radio waves. They do not “hear sound” in space.</p>
+      <p class="op03-misconception">Radio telescope ≠ sound detector.</p>
     </div>
   </section>
 
@@ -61,10 +61,10 @@
     </div>
     <div class="op03-tool-copy">
       <p class="case-label">SPECTRUM · LINE PATTERNS</p>
-      <h5>Composition clues</h5>
+      <h5>Composition</h5>
       <div class="op03-can-cannot">
-        <p><strong>CAN HELP:</strong> identify elements or substances from line patterns</p>
-        <p><strong>NOT BY ITSELF:</strong> surface shape or exact distance</p>
+        <p><strong>CAN:</strong> composition from line patterns</p>
+        <p><strong>NOT ALONE:</strong> surface shape or exact distance</p>
       </div>
     </div>
   </section>
@@ -77,14 +77,16 @@
     </div>
     <div class="op03-tool-copy">
       <p class="case-label">DOPPLER · SHIFTED LINES</p>
-      <h5>Motion toward or away</h5>
+      <h5>Toward / away motion</h5>
       <div class="op03-can-cannot">
-        <p><strong>CAN HELP:</strong> relative line-of-sight motion</p>
-        <p><strong>NOT BY ITSELF:</strong> exact distance or surface shape</p>
+        <p><strong>CAN:</strong> relative toward/away motion</p>
+        <p><strong>NOT ALONE:</strong> exact distance or surface shape</p>
       </div>
     </div>
   </section>
 
+  <details class="op03-retrieval-check">
+    <summary>Try a quick question → evidence match</summary>
   <fieldset class="op03-question-check" data-tool-check>
     <legend>Quick retrieval — choose a question, then pick the strongest evidence type.</legend>
     <select data-question-select aria-label="Choose a scientific question">
@@ -104,6 +106,7 @@
     <button type="button" class="mars-action" data-check-tool>Check match</button>
     <p class="widget-feedback" data-tool-feedback aria-live="polite"></p>
   </fieldset>
+  </details>
 </section>
 
 <script>
