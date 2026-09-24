@@ -14,42 +14,42 @@
       <legend>Oxygen</legend>
       <label><input type="radio" name="resource-oxygen" value="bring" /> Bring from Earth</label>
       <label><input type="radio" name="resource-oxygen" value="make" /> Produce on Mars</label>
-      <label><input type="radio" name="resource-oxygen" value="hybrid" checked /> Hybrid</label>
+      <label><input type="radio" name="resource-oxygen" value="hybrid" /> Hybrid</label>
     </fieldset>
 
     <fieldset data-resource="water">
       <legend>Water</legend>
       <label><input type="radio" name="resource-water" value="bring" /> Bring from Earth</label>
       <label><input type="radio" name="resource-water" value="make" /> Extract/recover locally</label>
-      <label><input type="radio" name="resource-water" value="hybrid" checked /> Hybrid</label>
+      <label><input type="radio" name="resource-water" value="hybrid" /> Hybrid</label>
     </fieldset>
 
     <fieldset data-resource="propellant">
       <legend>Return propellant resources</legend>
       <label><input type="radio" name="resource-propellant" value="bring" /> Bring from Earth</label>
       <label><input type="radio" name="resource-propellant" value="make" /> Produce locally</label>
-      <label><input type="radio" name="resource-propellant" value="hybrid" checked /> Hybrid</label>
+      <label><input type="radio" name="resource-propellant" value="hybrid" /> Hybrid</label>
     </fieldset>
 
     <fieldset data-resource="materials">
       <legend>Some shielding / structural material</legend>
       <label><input type="radio" name="resource-materials" value="bring" /> Bring from Earth</label>
       <label><input type="radio" name="resource-materials" value="make" /> Use local material</label>
-      <label><input type="radio" name="resource-materials" value="hybrid" checked /> Hybrid</label>
+      <label><input type="radio" name="resource-materials" value="hybrid" /> Hybrid</label>
     </fieldset>
   </div>
 
   <div class="resource-indicators" aria-live="polite">
-    <div><span>Launch mass pressure</span><strong data-indicator="mass">Moderate</strong></div>
-    <div><span>System complexity</span><strong data-indicator="complexity">Moderate</strong></div>
-    <div><span>Earth dependence</span><strong data-indicator="dependence">Moderate</strong></div>
+    <div><span>Launch mass pressure</span><strong data-indicator="mass">Pending</strong></div>
+    <div><span>System complexity</span><strong data-indicator="complexity">Pending</strong></div>
+    <div><span>Earth dependence</span><strong data-indicator="dependence">Pending</strong></div>
   </div>
 
-  <p class="priority-summary" data-resource-summary>Hybrid choices balance transported supplies with local production, but still require both launch mass and operating equipment.</p>
+  <p class="priority-summary" data-resource-summary>Choose Bring, Make, or Hybrid for all four resources to inspect the overall trade-offs.</p>
 
   <div class="tradeoff-prompts">
-    <label>One resource we should make or extract on Mars
-      <input type="text" maxlength="100" data-resource-choice placeholder="Choose one resource and explain why." />
+    <label>One resource decision we can defend
+      <input type="text" maxlength="140" data-resource-choice placeholder="Name the resource, state Bring / Make / Hybrid, and explain why." />
     </label>
     <label>Biggest risk of relying on Mars
       <input type="text" maxlength="120" data-resource-risk placeholder="What could fail or be uncertain?" />
@@ -77,13 +77,22 @@
     const currentSelections = () => {
       const result = {};
       resources.forEach((fieldset) => {
-        result[fieldset.dataset.resource] = fieldset.querySelector('input:checked')?.value || 'hybrid';
+        result[fieldset.dataset.resource] = fieldset.querySelector('input:checked')?.value || '';
       });
       return result;
     };
 
     const render = () => {
       const selections = Object.values(currentSelections());
+
+      if (selections.some((value) => !value)) {
+        root.querySelector('[data-indicator="mass"]').textContent = 'Pending';
+        root.querySelector('[data-indicator="complexity"]').textContent = 'Pending';
+        root.querySelector('[data-indicator="dependence"]').textContent = 'Pending';
+        summary.textContent = 'Choose Bring, Make, or Hybrid for all four resources to inspect the overall trade-offs.';
+        return;
+      }
+
       const counts = {
         bring: selections.filter((value) => value === 'bring').length,
         make: selections.filter((value) => value === 'make').length,
@@ -123,12 +132,17 @@
     resources.forEach((fieldset) => fieldset.addEventListener('change', render));
 
     root.querySelector('[data-save-resources]').addEventListener('click', () => {
+      const selections = currentSelections();
+      if (Object.values(selections).some((value) => !value)) {
+        feedback.textContent = 'Choose Bring, Make, or Hybrid for all four resources before saving.';
+        return;
+      }
       if (!choiceInput.value.trim() || !riskInput.value.trim()) {
-        feedback.textContent = 'Record one local-resource choice and one important risk before saving.';
+        feedback.textContent = 'Defend one resource decision and record one important risk before saving.';
         return;
       }
       localStorage.setItem(RESOURCE_KEY, JSON.stringify({
-        selections: currentSelections(),
+        selections,
         choice: choiceInput.value.trim(),
         risk: riskInput.value.trim()
       }));

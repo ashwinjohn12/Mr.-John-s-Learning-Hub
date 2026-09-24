@@ -162,6 +162,7 @@ import { surviveOperations } from '../../../../../../data/marsReadiness';
         <div class="fact-card"><strong>Propellant resources</strong><p>Locally produced oxygen and other resources could reduce some return-fuel material launched from Earth.</p></div>
         <div class="fact-card"><strong>Materials</strong><p>Future missions may use local material for shielding or construction, but those capabilities are less mature.</p></div>
       </div>
+      <p class="source-note maturity-note"><strong>MATURITY CHECK:</strong> MOXIE demonstrated the small-scale principle of producing oxygen from Martian atmospheric CO₂. It did not demonstrate a crew-scale oxygen plant. Human-scale Mars water extraction, propellant production, and local construction or shielding remain developing or future applications rather than demonstrated crew-scale systems on Mars.</p>
       <p class="source-note"><strong>SPACE → EARTH:</strong> resource-recovery research can also support clean-water and other technologies in remote or supply-limited locations on Earth. <a href="https://www.asc-csa.gc.ca/eng/about/everyday-benefits-of-space-exploration/improving-our-day-to-day-lives.asp" target="_blank" rel="noreferrer">CSA everyday benefits ↗</a></p>
     </Fragment>
 
@@ -204,13 +205,15 @@ import { surviveOperations } from '../../../../../../data/marsReadiness';
     <Fragment slot="know">
       <div class="water-safety-callout">
         <strong>CLEAR WATER IS NOT NECESSARILY SAFE WATER.</strong>
-        <p>Colour, clarity, and visible particles cannot prove that chemical or biological contaminants are gone.</p>
+        <p><strong>Potable means safe to drink.</strong> Colour, clarity, and visible particles cannot prove that dissolved chemicals, microorganisms, or other contaminants are gone.</p>
       </div>
 
       <div class="mars-fact-grid">
         <div class="fact-card"><strong>Recovery</strong><p>How much water returns to the system instead of being lost?</p></div>
         <div class="fact-card"><strong>Purification</strong><p>How effectively are unwanted substances removed or controlled?</p></div>
+        <div class="fact-card"><strong>Potability</strong><p>Whether water meets safety standards for drinking. This classroom challenge does not test potability.</p></div>
       </div>
+      <p class="source-note"><strong>MODEL LIMIT:</strong> the clean simulated wastewater in this challenge models water recovery and visible separation only. It does not reproduce the contaminants, treatment stages, sensors, or microbial controls used in real spacecraft water systems.</p>
 
       <div class="recovery-formula" aria-label="Water recovery percentage formula">
         <span>RECOVERY %</span>
@@ -233,9 +236,8 @@ import { surviveOperations } from '../../../../../../data/marsReadiness';
           <ul>
             <li>2 clear cups or containers</li>
             <li>funnel + coffee filter</li>
-            <li>cotton or filter material</li>
-            <li>clean gravel + clean sand</li>
-            <li>activated carbon if supplied</li>
+            <li>two matched sets of cotton/filter material, clean gravel, and clean sand — one dry set for each test</li>
+            <li>two matched portions of activated carbon if supplied</li>
             <li>graduated cylinder + tray</li>
             <li>standardized simulated wastewater</li>
           </ul>
@@ -252,17 +254,45 @@ import { surviveOperations } from '../../../../../../data/marsReadiness';
         </div>
       </div>
 
+      <div class="engineering-brief water-brief">
+        <div>
+          <p class="case-label">FILTER MATERIAL ROLES</p>
+          <ul>
+            <li><strong>Gravel / coarse material:</strong> mainly traps larger visible pieces.</li>
+            <li><strong>Sand, cotton, or finer filter material:</strong> can trap smaller visible particles, but may slow flow or hold more water.</li>
+            <li><strong>Activated carbon, if supplied:</strong> can adsorb some substances differently from simple particle filtration, but it does not make this classroom water potable.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="case-label">FAIR TEST RULES</p>
+          <ul>
+            <li>Use the same starting volume and standardized sample conditions.</li>
+            <li>Start each test with its own matched dry filter-media set.</li>
+            <li>Change one controlled variable only.</li>
+            <li>Use the same teacher-set collection time or endpoint for both tests.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="evidence-key" aria-label="Visual clarity scale">
+        <div><strong>CLARITY 1</strong><span>Very cloudy / many visible particles.</span></div>
+        <div><strong>CLARITY 3</strong><span>Some cloudiness / some visible particles.</span></div>
+        <div><strong>CLARITY 5</strong><span>Clearest / fewest visible particles.</span></div>
+      </div>
+      <p class="source-note"><strong>CLARITY IS APPEARANCE EVIDENCE ONLY:</strong> use the same lighting/background when possible. A higher clarity score does not show that the water is safe to drink.</p>
+      <p class="source-note"><strong>TRADE-OFFS COUNT AS EVIDENCE:</strong> a design may produce clearer-looking water but recover less of it. A worse Test 2 is still scientifically useful if the controlled comparison helps you explain what the revision changed.</p>
+
       <div class="engineering-cycle water-cycle" aria-label="Water recovery engineering cycle">
         <div><span>1</span><strong>PLAN</strong><small>Choose material order and predict each job.</small></div>
         <div><span>2</span><strong>TEST 1</strong><small>Run the standard sample and record data.</small></div>
         <div><span>3</span><strong>ANALYZE</strong><small>Find the largest loss or weakness.</small></div>
         <div><span>4</span><strong>REVISE</strong><small>Change one variable only.</small></div>
-        <div><span>5</span><strong>TEST 2</strong><small>Repeat with the same starting volume.</small></div>
+        <div><span>5</span><strong>TEST 2</strong><small>Repeat with the same starting volume and collection rule.</small></div>
       </div>
 
       <div class="screens-down water-warning">
         <strong>SCREENS DOWN // TEST THE SYSTEM</strong>
-        <p>Use only the supplied simulated wastewater. <b>Do not drink any water from this activity</b>, even if it looks clear.</p>
+        <p>Use only the supplied simulated wastewater. <b>Do not drink or taste any liquid from this activity, even if it looks clear.</b></p>
       </div>
 
       <div class="transfer-check">
