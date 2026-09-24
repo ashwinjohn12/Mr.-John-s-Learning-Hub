@@ -96,6 +96,7 @@
     const feedback = root.querySelector('[data-life-support-feedback]');
     const choice = root.querySelector('[data-failure-choice]');
     const reasoning = root.querySelector('[data-failure-reasoning]');
+    const testedFailures = new Set();
 
     const render = () => {
       root.querySelectorAll('[data-toggle-system]').forEach((button) => {
@@ -132,24 +133,42 @@
       const saved = JSON.parse(localStorage.getItem(LIFE_SUPPORT_KEY) || '{}');
       if (saved.choice) choice.value = saved.choice;
       if (saved.reasoning) reasoning.value = saved.reasoning;
+      if (Array.isArray(saved.testedFailures)) saved.testedFailures.forEach((id) => testedFailures.add(id));
     } catch {}
 
     root.querySelectorAll('[data-toggle-system]').forEach((button) => {
       button.addEventListener('click', () => {
         const id = button.dataset.toggleSystem;
+        const wasOnline = state[id];
         state[id] = !state[id];
+
+        if (wasOnline && !state[id] && (id === 'power' || state.power)) {
+          testedFailures.add(id);
+        }
+
         render();
+
+        if (testedFailures.size < 2) {
+          feedback.textContent = 'Test at least two different subsystem failures before saving your explanation.';
+        } else {
+          feedback.textContent = 'You have tested at least two different failures. Choose one chain to explain and save.';
+        }
       });
     });
 
     root.querySelector('[data-save-life-support]').addEventListener('click', () => {
+      if (testedFailures.size < 2) {
+        feedback.textContent = 'Test at least two different subsystem failures before saving your explanation.';
+        return;
+      }
       if (!choice.value || !reasoning.value.trim()) {
         feedback.textContent = 'Choose one failure and explain a cause-and-effect connection before saving.';
         return;
       }
       localStorage.setItem(LIFE_SUPPORT_KEY, JSON.stringify({
         choice: choice.value,
-        reasoning: reasoning.value.trim()
+        reasoning: reasoning.value.trim(),
+        testedFailures: Array.from(testedFailures)
       }));
       feedback.textContent = 'Life-support system analysis saved on this device.';
     });
