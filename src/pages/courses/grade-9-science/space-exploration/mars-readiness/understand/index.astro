@@ -4,6 +4,8 @@ import MarsReadinessDashboard from '../../../../../../components/MarsReadinessDa
 import MarsOperation from '../../../../../../components/MarsOperation.astro';
 import MarsEvidenceMatcher from '../../../../../../components/MarsEvidenceMatcher.astro';
 import MarsIntelLegend from '../../../../../../components/MarsIntelLegend.astro';
+import MarsModelEvidenceLab from '../../../../../../components/MarsModelEvidenceLab.astro';
+import '../../../../../../styles/mars-understand-op02-prototype.css';
 import { understandOperations } from '../../../../../../data/marsReadiness';
 ---
 
@@ -103,75 +105,103 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
     intelHref="https://www.asc-csa.gc.ca/eng/astronomy/mars/apxs.asp"
     systems={['science']}
   >
-    <Fragment slot="problem-title">Scientific models are useful because they can change.</Fragment>
+    <Fragment slot="problem-title">Models earn confidence from evidence.</Fragment>
     <Fragment slot="problem">
-      <p>People have observed the sky for thousands of years. Careful, repeated observations can build useful knowledge about direction, time, seasons, motion, and our relationships with the land and sky.</p>
-      <p>Scientific models also changed as new observations allowed people to test which explanations better predicted motion in the sky.</p>
+      <p>Scientific models are tools for explaining observations and making predictions. When new evidence fits one explanation better, scientists can revise which model they trust most.</p>
+      <p><strong>Your job:</strong> test two planetary models using observations you can see and check.</p>
     </Fragment>
 
-    <Fragment slot="know-title">Observation comes before revision.</Fragment>
+    <Fragment slot="know-title">Test the models instead of memorizing them.</Fragment>
     <Fragment slot="know">
-      <div class="model-grid">
-        <div class="model-card">
-          <strong>Geocentric model</strong>
-          <p>Places Earth at the centre of the model. It can describe some apparent motion but becomes complicated when observations of planets are added.</p>
-        </div>
-        <div class="model-card">
-          <strong>Heliocentric model</strong>
-          <p>Places the Sun at the centre of our planetary system. It provides a stronger model for explaining and predicting planetary motion.</p>
-        </div>
-      </div>
-      <p>The point is not to sort the past into “right” and “wrong.” The important idea is that <strong>scientific models are judged by evidence, explanatory power, and prediction</strong>.</p>
+      <MarsModelEvidenceLab />
 
-      <div class="model-grid">
-        <div class="model-card">
-          <strong>One concrete example — Métis wayfinding</strong>
-          <p>The University of Calgary's Rothney Astrophysical Observatory describes Métis travellers using Polaris—the North Star, <em>litwel di norr</em> in Michif—as a reliable north marker. Repeated observations of the Moon and seasonal constellations also connected sky patterns with time and seasonal activities.</p>
-          <p class="source-note">This is one example of knowledge built through repeated observation of land and sky. It is not a competing version of the geocentric/heliocentric model question. <a href="https://science.ucalgary.ca/rothney-observatory/community/indigenous-skies/rao-metis-website/north-star-wayfinding" target="_blank" rel="noreferrer">UCalgary Métis North Star Wayfinding ↗</a> · <a href="https://www.asc-csa.gc.ca/eng/youth-educators/indigenous-ways-of-knowing.asp" target="_blank" rel="noreferrer">CSA Indigenous Ways of Knowing ↗</a></p>
+      <section class="north-star-card" aria-labelledby="north-star-heading">
+        <div class="north-star-visual" role="img" aria-label="A simplified night sky with Polaris marked above a north direction line">
+          <span class="polaris" aria-hidden="true"></span>
+          <span class="polaris-label">POLARIS</span>
+          <span class="north-line" aria-hidden="true"></span>
+          <span class="north-label">NORTH</span>
         </div>
-        <div class="model-card">
-          <strong>What carries across both contexts?</strong>
-          <p>Observation matters. People notice patterns, compare what they see over time, and use those patterns to build knowledge that is useful in its own context.</p>
+        <div class="north-star-copy">
+          <p class="mars-kicker">OBSERVATION KNOWLEDGE</p>
+          <h4 id="north-star-heading">North Star wayfinding</h4>
+          <p>Métis travellers used Polaris—the North Star, <em>litwel di norr</em> in Michif—as a reliable north reference. Repeated observations of the Moon and seasonal sky also supported knowledge of time and seasonal activities.</p>
+          <p class="context-note"><strong>Context matters:</strong> this is an example of knowledge developed through repeated observation of land and sky. It is not another geocentric/heliocentric model.</p>
+          <details>
+            <summary>Sources and context</summary>
+            <p><a href="https://science.ucalgary.ca/rothney-observatory/community/indigenous-skies/rao-metis-website/north-star-wayfinding" target="_blank" rel="noreferrer">University of Calgary — Métis North Star Wayfinding ↗</a><br /><a href="https://www.asc-csa.gc.ca/eng/youth-educators/indigenous-ways-of-knowing.asp" target="_blank" rel="noreferrer">Canadian Space Agency — Indigenous Ways of Knowing ↗</a></p>
+          </details>
         </div>
-      </div>
-
-      <h4 class="subsection-heading">Why can an outer planet look like it moves backward?</h4>
-      <p>Earth and the outer planets keep moving forward in their orbits. But Earth travels around the Sun faster than Mars. When Earth catches and passes Mars, our <strong>line of sight</strong> to Mars shifts against the much more distant background stars.</p>
-      <div class="cosmic-address" style="grid-template-columns:repeat(3,1fr)" aria-label="Conceptual explanation of apparent retrograde motion">
-        <div><small>1 // BEFORE PASSING</small><strong>Earth catches Mars</strong><p>Both planets are still moving forward around the Sun.</p></div>
-        <div><small>2 // WHILE PASSING</small><strong>Our viewing angle shifts</strong><p>Mars appears to slide backward against the distant stars.</p></div>
-        <div><small>3 // AFTER PASSING</small><strong>Normal apparent motion returns</strong><p>Mars never reversed its orbit—the apparent reversal came from relative motion.</p></div>
-      </div>
-
-      <h4 class="subsection-heading">Why do the phases of Venus matter?</h4>
-      <p>Sunlight always illuminates half of Venus. As Venus moves around the Sun, Earth sees different amounts of that illuminated half. A full range of phases—including gibbous and nearly full—fits a model in which Venus orbits the Sun and is sometimes on the far side of the Sun from Earth.</p>
-      <div class="cosmic-address cosmic-address-four" aria-label="Conceptual Venus phase sequence">
-        <div><small>PHASE 1</small><strong>Crescent</strong><p>We see only a small part of the lit half.</p></div>
-        <div><small>PHASE 2</small><strong>Half</strong><p>About half of the visible side is lit.</p></div>
-        <div><small>PHASE 3</small><strong>Gibbous</strong><p>Most of the visible side is lit.</p></div>
-        <div><small>PHASE 4</small><strong>Nearly full</strong><p>Venus can appear mostly illuminated from Earth.</p></div>
-      </div>
-      <p class="source-note">Grade 9 boundary: use these observations to compare models. You do not need epicycles, orbital calculations, or advanced astronomy.</p>
+      </section>
     </Fragment>
 
     <Fragment slot="intel">
-      <p>Curiosity is still working on Mars. As of February 1, 2026, Canada's APXS instrument had analyzed 1,761 Martian samples. In 2024, APXS confirmed elemental sulfur crystals inside a rock Curiosity cracked open—the first discovery of pure sulfur in this form on Mars.</p>
-      <p><strong>Why it matters:</strong> historical observations changed our model of the Solar System, and modern Mars evidence can change our explanation of Mars. The scientific habit is the same: <strong>new evidence can force an explanation to be revised</strong>.</p>
+      <div class="intel-visual-layout">
+        <figure class="intel-image">
+          <img
+            src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/mars/downloadable_items/3/6/36338_gellert-1pia16160.jpg?crop=faces%2Cfocalpoint&amp;fit=clip&amp;h=738&amp;w=983"
+            alt="The APXS instrument on NASA's Curiosity rover with the Martian landscape behind it."
+            loading="lazy"
+          />
+          <figcaption>APXS on Curiosity • NASA/JPL-Caltech/MSSS</figcaption>
+        </figure>
+        <div class="intel-visual-copy">
+          <p class="mars-kicker">NEW EVIDENCE CAN CHANGE THE MARS STORY</p>
+          <h4>APXS measures what Martian material is made of.</h4>
+          <p>Canada's APXS is a close-range spectrometer on Curiosity's robotic arm—not a telescope. It measures elemental evidence in rocks and soil, and unexpected results can change scientists' explanations of Mars.</p>
+          <details>
+            <summary>Mission details</summary>
+            <p>As of February 1, 2026, APXS had analyzed 1,761 Martian samples. In 2024, APXS helped confirm pure sulfur crystals in a rock Curiosity cracked open—evidence not previously seen in this form on Mars.</p>
+            <p><a href="https://science.nasa.gov/resource/portrait-of-apxs-on-mars/" target="_blank" rel="noreferrer">NASA image and APXS context ↗</a></p>
+          </details>
+        </div>
+      </div>
     </Fragment>
 
-    <Fragment slot="analysis-title">Evidence test: which model earns more confidence?</Fragment>
+    <Fragment slot="analysis-title">What should make a model earn more confidence?</Fragment>
     <Fragment slot="analysis">
-      <p>Discuss the observations with a partner. Use the explanations above so your answer comes from evidence—not from guessing which model the teacher wants.</p>
-      <div class="mars-fact-grid">
-        <div class="fact-card"><strong>Observation A — apparent retrograde motion</strong><p>When Earth passes an outer planet, the planet can appear to move backward against the background stars even though it keeps moving forward in its orbit. <strong>Which model explains this more simply? Why?</strong></p></div>
-        <div class="fact-card"><strong>Observation B — phases of Venus</strong><p>Venus can appear crescent, half, gibbous, and nearly full. <strong>Which model is this range of phases more consistent with? Why?</strong></p></div>
-        <div class="fact-card"><strong>Observation C — successful prediction</strong><p>A model accurately predicts where a planet will appear months later. <strong>Why does a successful prediction increase confidence in the model?</strong></p></div>
-        <div class="fact-card"><strong>Review standard</strong><p>Prefer an explanation that accounts for more observations, makes successful predictions, and needs fewer special fixes.</p></div>
+      <section class="model-synthesis" data-model-synthesis aria-labelledby="model-synthesis-heading">
+        <p class="mars-kicker">EVIDENCE SYNTHESIS</p>
+        <h4 id="model-synthesis-heading">Choose every reason that strengthens confidence in a scientific model.</h4>
+        <p>Use what you just observed in the Model Evidence Lab.</p>
+        <div class="synthesis-options">
+          <label><input type="checkbox" value="observations" /> It explains observations well.</label>
+          <label><input type="checkbox" value="predictions" /> It makes successful testable predictions.</label>
+          <label><input type="checkbox" value="evidence" /> It accounts for more evidence with fewer unsupported fixes.</label>
+          <label><input type="checkbox" value="newer" /> It is newer, so it must be better.</label>
+        </div>
+        <div class="synthesis-actions">
+          <button type="button" class="mars-action" data-check-synthesis>Check reasoning</button>
+          <p class="synthesis-feedback" data-synthesis-feedback aria-live="polite"></p>
+        </div>
+      </section>
+
+      <div class="readiness-record-bridge">
+        <strong>READINESS RECORD 2A</strong>
+        <p>Write one sentence completing <b>“Scientific models can change when…”</b> Explain how evidence can strengthen or change a model.</p>
       </div>
-      <details class="source-note">
-        <summary><strong>Need a checkpoint?</strong></summary>
-        <p>The heliocentric model explains apparent retrograde motion through relative orbital motion and is consistent with the full range of observed Venus phases. Successful predictions increase confidence because the model correctly anticipates observations that can later be checked.</p>
-      </details>
+
+      <div class="readiness-transition">YOU HAVE THE EVIDENCE. MAKE THE CALL.</div>
+
+      <script>
+        document.querySelectorAll('[data-model-synthesis]').forEach((root) => {
+          root.querySelector('[data-check-synthesis]')?.addEventListener('click', () => {
+            const checked = Array.from(root.querySelectorAll('input:checked')).map((input) => input.value);
+            const needed = ['observations', 'predictions', 'evidence'];
+            const supported = needed.every((value) => checked.includes(value)) && !checked.includes('newer');
+            const feedback = root.querySelector('[data-synthesis-feedback]');
+            if (!checked.length) {
+              feedback.textContent = 'Choose the reasons supported by the evidence first.';
+              feedback.dataset.state = 'empty';
+              return;
+            }
+            feedback.textContent = supported
+              ? 'Supported. Strong models earn confidence by explaining evidence and making predictions—not simply by being newer.'
+              : 'Recheck the lab evidence. Ask what the model explained or predicted successfully; age by itself is not scientific evidence.';
+            feedback.dataset.state = supported ? 'correct' : 'try';
+          });
+        });
+      </script>
     </Fragment>
   </MarsOperation>
 
