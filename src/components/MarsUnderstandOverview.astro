@@ -1,0 +1,83 @@
+---
+import { marsStatuses, marsSystems } from '../data/marsReadiness';
+---
+
+<section class="understand-overview" aria-labelledby="understand-overview-heading">
+  <div class="understand-overview-copy">
+    <p class="mars-kicker">PHASE 01 // UNDERSTAND</p>
+    <h1 id="understand-overview-heading">What do we know—and how do we know it?</h1>
+    <p>Four investigations build the evidence you will use for every later Mars decision.</p>
+  </div>
+
+  <nav class="understand-op-nav" id="understand-operations" aria-label="UNDERSTAND operations">
+    <a href="#operation-01"><span>01</span><strong>LOCATE MARS</strong><small>Scale / cosmic address</small></a>
+    <a href="#operation-02"><span>02</span><strong>TRUST THE EVIDENCE</strong><small>Models / prediction</small></a>
+    <a href="#operation-03"><span>03</span><strong>READ THE LIGHT</strong><small>Observation / evidence</small></a>
+    <a href="#operation-04"><span>04</span><strong>PROFILE MARS</strong><small>Planet / mission constraints</small></a>
+  </nav>
+
+  <details class="understand-intel-legend">
+    <summary><strong>MISSION INTEL LABELS</strong><span>What do these mean?</span></summary>
+    <div class="understand-intel-grid">
+      <div><strong>ACTIVE</strong><span>Operating now.</span></div>
+      <div><strong>DEMONSTRATED</strong><span>Successfully tested, but not necessarily at human-mission scale.</span></div>
+      <div><strong>IN DEVELOPMENT / PLANNED</strong><span>Real engineering or mission work is underway, but it is not operational on Mars.</span></div>
+      <div><strong>ASPIRATIONAL</strong><span>A stated future goal that has not been demonstrated.</span></div>
+    </div>
+  </details>
+
+  <section class="understand-system-strip" data-understand-system-strip aria-labelledby="understand-system-heading">
+    <div class="understand-system-heading">
+      <div>
+        <p class="mars-kicker">SYSTEMS REVIEW</p>
+        <h2 id="understand-system-heading">Evidence builds across seven systems.</h2>
+      </div>
+      <p><strong>UNDERSTAND focus:</strong> Science Knowledge</p>
+    </div>
+    <div class="understand-system-grid">
+      {marsSystems.map((system) => (
+        <div class:list={['understand-system-pill', { focus: system.id === 'science' }]} data-system={system.id}>
+          <span class="understand-system-icon" aria-hidden="true">{system.icon}</span>
+          <span class="understand-system-label">{system.label}</span>
+          <span class="understand-system-status status-insufficient" data-understand-status={system.id}>
+            <span aria-hidden="true">○</span><span>Insufficient Evidence</span>
+          </span>
+        </div>
+      ))}
+    </div>
+  </section>
+</section>
+
+<script define:vars={{ marsStatuses }} >
+  const UNDERSTAND_STORAGE_KEY = 'mrjohn-mars-readiness-v1';
+
+  function readUnderstandState() {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(UNDERSTAND_STORAGE_KEY) || '{}');
+      return { systems: parsed.systems || {} };
+    } catch {
+      return { systems: {} };
+    }
+  }
+
+  function understandStatusInfo(id) {
+    return marsStatuses.find((item) => item.id === id) || marsStatuses.find((item) => item.id === 'insufficient');
+  }
+
+  function renderUnderstandStrip() {
+    const state = readUnderstandState();
+    document.querySelectorAll('[data-understand-system-strip]').forEach((strip) => {
+      strip.querySelectorAll('[data-understand-status]').forEach((node) => {
+        const id = node.getAttribute('data-understand-status');
+        const saved = state.systems[id] || { status: 'insufficient' };
+        const info = understandStatusInfo(saved.status);
+        node.className = 'understand-system-status status-' + info.id;
+        node.innerHTML = '<span aria-hidden="true">' + info.icon + '</span><span>' + info.label + '</span>';
+      });
+    });
+  }
+
+  window.addEventListener('mars:readiness-updated', renderUnderstandStrip);
+  window.addEventListener('storage', renderUnderstandStrip);
+  renderUnderstandStrip();
+</script>
