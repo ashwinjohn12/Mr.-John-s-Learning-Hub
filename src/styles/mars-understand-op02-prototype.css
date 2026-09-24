@@ -130,6 +130,29 @@
   color: #5a656c;
 }
 
+.model-context {
+  margin: .45rem 0 .7rem;
+  padding: 0 .65rem;
+  border: 1px solid #c4cbd0;
+  border-radius: 7px;
+  background: #fff;
+}
+
+.model-context summary {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.model-context p {
+  margin: 0 0 .65rem;
+  color: #536069;
+  font-size: .8rem;
+  line-height: 1.45;
+}
+
 .evidence-lab {
   overflow: hidden;
   background: #f8f7f3;
