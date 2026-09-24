@@ -1,0 +1,216 @@
+<section class="op01-cosmic-zoom" data-cosmic-zoom aria-labelledby="cosmic-zoom-heading">
+  <div class="op01-zoom-heading">
+    <div>
+      <p class="mars-kicker">COSMIC ZOOM</p>
+      <h4 id="cosmic-zoom-heading">Build Mars's address from the planet outward.</h4>
+    </div>
+    <span class="model-disclaimer">CONCEPTUAL · NOT TO SCALE</span>
+  </div>
+
+  <div class="op01-stage-strip" role="tablist" aria-label="Cosmic address levels">
+    <button type="button" role="tab" id="op01-tab-mars" aria-controls="op01-stage-mars" aria-selected="true" data-cosmic-tab="mars">
+      <span>01</span><strong>Mars</strong>
+    </button>
+    <button type="button" role="tab" id="op01-tab-solar" aria-controls="op01-stage-solar" aria-selected="false" data-cosmic-tab="solar" tabindex="-1">
+      <span>02</span><strong>Solar System</strong>
+    </button>
+    <button type="button" role="tab" id="op01-tab-galaxy" aria-controls="op01-stage-galaxy" aria-selected="false" data-cosmic-tab="galaxy" tabindex="-1">
+      <span>03</span><strong>Milky Way</strong>
+    </button>
+    <button type="button" role="tab" id="op01-tab-universe" aria-controls="op01-stage-universe" aria-selected="false" data-cosmic-tab="universe" tabindex="-1">
+      <span>04</span><strong>Universe</strong>
+    </button>
+  </div>
+
+  <div class="op01-zoom-stage-wrap">
+    <section class="op01-zoom-stage" id="op01-stage-mars" role="tabpanel" aria-labelledby="op01-tab-mars" data-cosmic-panel="mars">
+      <div class="op01-zoom-visual mars-level" role="img" aria-label="Mars shown as a rocky planet at the destination level of the cosmic address.">
+        <div class="op01-mars-disc" aria-hidden="true"><span></span><i></i></div>
+      </div>
+      <div class="op01-zoom-copy">
+        <p class="case-label">DESTINATION</p>
+        <h5>Mars</h5>
+        <p>A rocky planet.</p>
+      </div>
+    </section>
+
+    <section class="op01-zoom-stage" id="op01-stage-solar" role="tabpanel" aria-labelledby="op01-tab-solar" data-cosmic-panel="solar" hidden>
+      <div class="op01-zoom-visual solar-level" role="img" aria-label="A conceptual Solar System diagram with the Sun in the centre and Mars highlighted on one planetary orbit.">
+        <svg viewBox="0 0 600 300" aria-hidden="true">
+          <circle class="op01-sun" cx="300" cy="150" r="22"></circle>
+          <ellipse class="op01-orbit" cx="300" cy="150" rx="70" ry="45"></ellipse>
+          <ellipse class="op01-orbit" cx="300" cy="150" rx="110" ry="72"></ellipse>
+          <ellipse class="op01-orbit" cx="300" cy="150" rx="150" ry="98"></ellipse>
+          <ellipse class="op01-orbit op01-mars-orbit" cx="300" cy="150" rx="195" ry="126"></ellipse>
+          <circle class="op01-mars-marker" cx="452" cy="71" r="10"></circle>
+          <text class="op01-svg-label" x="467" y="66">MARS</text>
+        </svg>
+      </div>
+      <div class="op01-zoom-copy">
+        <p class="case-label">OUR STAR SYSTEM</p>
+        <h5>Solar System</h5>
+        <p>Mars orbits the Sun here.</p>
+      </div>
+    </section>
+
+    <section class="op01-zoom-stage" id="op01-stage-galaxy" role="tabpanel" aria-labelledby="op01-tab-galaxy" data-cosmic-panel="galaxy" hidden>
+      <div class="op01-zoom-visual galaxy-level" role="img" aria-label="A conceptual spiral galaxy representing the Milky Way, with a marker showing that our Solar System lies inside the galaxy.">
+        <svg viewBox="0 0 600 300" aria-hidden="true">
+          <g class="op01-galaxy-spiral" transform="translate(300 150)">
+            <ellipse rx="165" ry="62"></ellipse>
+            <ellipse rx="132" ry="45" transform="rotate(28)"></ellipse>
+            <ellipse rx="100" ry="34" transform="rotate(-30)"></ellipse>
+            <circle r="24"></circle>
+          </g>
+          <circle class="op01-you-are-here" cx="392" cy="117" r="8"></circle>
+          <text class="op01-svg-label" x="408" y="112">OUR SOLAR SYSTEM</text>
+        </svg>
+      </div>
+      <div class="op01-zoom-copy">
+        <p class="case-label">GALAXY</p>
+        <h5>Milky Way</h5>
+        <p>Our Solar System is one star system inside this galaxy.</p>
+      </div>
+    </section>
+
+    <section class="op01-zoom-stage" id="op01-stage-universe" role="tabpanel" aria-labelledby="op01-tab-universe" data-cosmic-panel="universe" hidden>
+      <div class="op01-zoom-visual universe-level" role="img" aria-label="A conceptual field of many galaxies representing the universe as the largest frame in Mars's cosmic address.">
+        <div class="op01-galaxy-field" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="op01-zoom-copy">
+        <p class="case-label">LARGEST FRAME</p>
+        <h5>Universe</h5>
+        <p>All space, matter, and energy.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="op01-zoom-controls">
+    <button type="button" class="mars-action secondary" data-zoom-in disabled>← Zoom In</button>
+    <strong data-zoom-position aria-live="polite">Mars · 1 of 4</strong>
+    <button type="button" class="mars-action" data-zoom-out>Zoom Out →</button>
+  </div>
+
+  <div class="op01-vocab-key" aria-label="Key cosmic structure vocabulary">
+    <div><strong>Star system</strong><span>Star(s) + objects held together by gravity. The Solar System is ours.</span></div>
+    <div><strong>Galaxy</strong><span>Huge system of stars, star systems, gas, dust, and other matter.</span></div>
+    <div><strong>Nebula</strong><span>Cloud of gas and dust usually found inside a galaxy.</span></div>
+    <div><strong>Universe</strong><span>Everything: space, matter, and energy.</span></div>
+  </div>
+
+  <details class="op01-more-detail">
+    <summary>More detail</summary>
+    <p>A nebula is not an extra outer level in Mars's address. Nebulae are regions of gas and dust that can exist within galaxies such as the Milky Way.</p>
+  </details>
+
+  <div class="op01-check-grid">
+    <fieldset class="op01-check" data-nebula-check>
+      <legend>Where does a nebula fit?</legend>
+      <label><input type="radio" name="op01-nebula" value="inside" /> It can exist inside a galaxy.</label>
+      <label><input type="radio" name="op01-nebula" value="outside-galaxy" /> It is the next level outside the Milky Way.</label>
+      <label><input type="radio" name="op01-nebula" value="between" /> It sits between the Solar System and the Milky Way.</label>
+      <label><input type="radio" name="op01-nebula" value="outside-universe" /> It exists outside the universe.</label>
+      <button type="button" class="mars-action" data-check-nebula>Check structure</button>
+      <p class="widget-feedback" data-nebula-feedback aria-live="polite"></p>
+    </fieldset>
+
+    <fieldset class="op01-check op01-address-check" data-address-check>
+      <legend>Rebuild Mars's address</legend>
+      <div class="op01-address-row">
+        <strong>Mars</strong><span aria-hidden="true">→</span>
+        <select aria-label="Second level in Mars's cosmic address" data-address-slot="solar">
+          <option value="">Choose…</option><option value="solar">Solar System</option><option value="galaxy">Milky Way</option><option value="universe">Universe</option>
+        </select>
+        <span aria-hidden="true">→</span>
+        <select aria-label="Third level in Mars's cosmic address" data-address-slot="galaxy">
+          <option value="">Choose…</option><option value="solar">Solar System</option><option value="galaxy">Milky Way</option><option value="universe">Universe</option>
+        </select>
+        <span aria-hidden="true">→</span>
+        <select aria-label="Fourth level in Mars's cosmic address" data-address-slot="universe">
+          <option value="">Choose…</option><option value="solar">Solar System</option><option value="galaxy">Milky Way</option><option value="universe">Universe</option>
+        </select>
+      </div>
+      <button type="button" class="mars-action" data-check-address>Check address</button>
+      <p class="widget-feedback" data-address-feedback aria-live="polite"></p>
+    </fieldset>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-cosmic-zoom]').forEach((root) => {
+    const order = ['mars','solar','galaxy','universe'];
+    const labels = { mars:'Mars', solar:'Solar System', galaxy:'Milky Way', universe:'Universe' };
+    const tabs = Array.from(root.querySelectorAll('[data-cosmic-tab]'));
+    const panels = Array.from(root.querySelectorAll('[data-cosmic-panel]'));
+    const zoomIn = root.querySelector('[data-zoom-in]');
+    const zoomOut = root.querySelector('[data-zoom-out]');
+    const position = root.querySelector('[data-zoom-position]');
+    let index = 0;
+
+    const setStage = (next, focus = false) => {
+      index = Math.max(0, Math.min(order.length - 1, next));
+      const id = order[index];
+      tabs.forEach((tab) => {
+        const selected = tab.dataset.cosmicTab === id;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        if (selected && focus) tab.focus();
+      });
+      panels.forEach((panel) => { panel.hidden = panel.dataset.cosmicPanel !== id; });
+      zoomIn.disabled = index === 0;
+      zoomOut.disabled = index === order.length - 1;
+      position.textContent = labels[id] + ' · ' + (index + 1) + ' of 4';
+    };
+
+    zoomIn.addEventListener('click', () => setStage(index - 1));
+    zoomOut.addEventListener('click', () => setStage(index + 1));
+    tabs.forEach((tab, tabIndex) => {
+      tab.addEventListener('click', () => setStage(tabIndex));
+      tab.addEventListener('keydown', (event) => {
+        if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+        event.preventDefault();
+        let next = tabIndex;
+        if (event.key === 'ArrowRight') next = (tabIndex + 1) % tabs.length;
+        if (event.key === 'ArrowLeft') next = (tabIndex - 1 + tabs.length) % tabs.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = tabs.length - 1;
+        setStage(next, true);
+      });
+    });
+
+    root.querySelector('[data-check-nebula]').addEventListener('click', () => {
+      const selected = root.querySelector('input[name="op01-nebula"]:checked')?.value || '';
+      const feedback = root.querySelector('[data-nebula-feedback]');
+      if (!selected) {
+        feedback.textContent = 'Choose where a nebula fits first.';
+        feedback.dataset.state = 'empty';
+      } else if (selected === 'inside') {
+        feedback.textContent = 'Supported. A nebula can exist inside a galaxy. It is not another outer level in Mars\'s cosmic address.';
+        feedback.dataset.state = 'correct';
+      } else {
+        feedback.textContent = 'Recheck the nesting. A nebula is a cloud of gas and dust that can exist within a galaxy; it is not a separate outer address level.';
+        feedback.dataset.state = 'try';
+      }
+    });
+
+    root.querySelector('[data-check-address]').addEventListener('click', () => {
+      const expected = ['solar','galaxy','universe'];
+      const values = Array.from(root.querySelectorAll('[data-address-slot]')).map((select) => select.value);
+      const feedback = root.querySelector('[data-address-feedback]');
+      if (values.some((value) => !value)) {
+        feedback.textContent = 'Complete all three levels first.';
+        feedback.dataset.state = 'empty';
+        return;
+      }
+      const correct = values.every((value, i) => value === expected[i]);
+      feedback.textContent = correct
+        ? 'Supported. Mars → Solar System → Milky Way → Universe.'
+        : 'Use the Cosmic Zoom again. Each step should move outward to the structure that contains the one before it.';
+      feedback.dataset.state = correct ? 'correct' : 'try';
+    });
+
+    setStage(0);
+  });
+</script>
