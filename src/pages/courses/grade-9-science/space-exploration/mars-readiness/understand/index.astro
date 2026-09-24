@@ -5,9 +5,11 @@ import MarsOperation from '../../../../../../components/MarsOperation.astro';
 import MarsEvidenceMatcher from '../../../../../../components/MarsEvidenceMatcher.astro';
 import MarsIntelLegend from '../../../../../../components/MarsIntelLegend.astro';
 import MarsModelEvidenceLab from '../../../../../../components/MarsModelEvidenceLab.astro';
+import MarsCosmicZoom from '../../../../../../components/MarsCosmicZoom.astro';
 import MarsSolarSystemFamilies from '../../../../../../components/MarsSolarSystemFamilies.astro';
 import MarsEnvironmentalDashboard from '../../../../../../components/MarsEnvironmentalDashboard.astro';
 import MarsConsequenceBuilder from '../../../../../../components/MarsConsequenceBuilder.astro';
+import '../../../../../../styles/mars-understand-op01-prototype.css';
 import '../../../../../../styles/mars-understand-op02-prototype.css';
 import '../../../../../../styles/mars-understand-op04-prototype.css';
 import { understandOperations } from '../../../../../../data/marsReadiness';
@@ -52,48 +54,50 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
     intelHref="https://www.nasa.gov/moontomarsarchitecture-components/"
     systems={['science']}
   >
-    <Fragment slot="problem-title">Mars is one destination inside a much larger universe.</Fragment>
+    <Fragment slot="problem-title">“Space” is not one location.</Fragment>
     <Fragment slot="problem">
-      <p>A mission team has to describe its destination precisely. “Space” is not one place: matter is organized into planets, star systems, galaxies, nebulae, and larger structures.</p>
-      <p><strong>Your job:</strong> build a useful cosmic address for Mars and distinguish the kinds of objects that appear in space.</p>
+      <p>Build Mars's cosmic address from the planet outward. Focus on how the structures contain one another—not on memorizing enormous distances.</p>
     </Fragment>
 
-    <Fragment slot="know-title">Start with the structure, not the scale numbers.</Fragment>
+    <Fragment slot="know-title">Zoom outward to see where Mars fits.</Fragment>
     <Fragment slot="know">
-      <div class="cosmic-address cosmic-address-four" aria-label="Cosmic address from Mars outward">
-        <div><small>DESTINATION</small><strong>Mars</strong></div>
-        <div><small>OUR STAR SYSTEM</small><strong>Solar System</strong></div>
-        <div><small>GALAXY</small><strong>Milky Way</strong></div>
-        <div><small>LARGEST FRAME</small><strong>Universe</strong></div>
-      </div>
-      <div class="mars-fact-grid">
-        <div class="fact-card"><strong>Star system</strong><p>One or more stars and the objects held with them by gravity. The Solar System is our star system.</p></div>
-        <div class="fact-card"><strong>Galaxy</strong><p>A huge gravitationally bound system containing stars and star systems, gas, dust, and other matter.</p></div>
-        <div class="fact-card"><strong>Nebula</strong><p>A cloud of gas and dust in space. Nebulae are usually structures within galaxies, not another level outside them.</p></div>
-        <div class="fact-card"><strong>Universe</strong><p>All space, matter, and energy. Galaxies and the structures inside them are part of the universe.</p></div>
-      </div>
+      <MarsCosmicZoom />
     </Fragment>
 
     <Fragment slot="intel">
-      <p>NASA's current Moon to Mars planning treats human exploration as a <strong>system of systems</strong>. Transportation, habitation, power, robotics, communication/navigation, mobility, and resource use all have to work together.</p>
-      <p><strong>Why it matters:</strong> we are looking at how the systems work together, not drawing a fantasy spacecraft.</p>
+      <section class="op01-intel-systems" aria-labelledby="op01-intel-systems-heading">
+        <div class="op01-intel-heading">
+          <div>
+            <p class="mars-kicker">SYSTEM OF SYSTEMS</p>
+            <h4 id="op01-intel-systems-heading">A human Mars mission needs more than a spacecraft.</h4>
+          </div>
+        </div>
+        <div class="op01-system-flow" aria-label="Transportation, habitation, power, robotics, communication and navigation, and resources must work together">
+          <span>TRANSPORTATION</span><i aria-hidden="true">→</i>
+          <span>HABITATION</span><i aria-hidden="true">→</i>
+          <span>POWER</span><i aria-hidden="true">→</i>
+          <span>ROBOTICS</span><i aria-hidden="true">→</i>
+          <span>COMMUNICATION / NAVIGATION</span><i aria-hidden="true">→</i>
+          <span>RESOURCES</span>
+        </div>
+        <p>NASA's Moon to Mars planning connects many mission systems. Planning a system is not the same as having an operational human Mars mission.</p>
+        <details>
+          <summary>Architecture details + source</summary>
+          <p>NASA's Moon to Mars Architecture examines connected capabilities such as transportation, habitation, power, robotics, communication/navigation, mobility, and resource use. <a href="https://www.nasa.gov/moontomarsarchitecture-components/" target="_blank" rel="noreferrer">NASA Moon to Mars Architecture ↗</a></p>
+        </details>
+      </section>
     </Fragment>
 
-    <Fragment slot="analysis-title">Cosmic address check</Fragment>
+    <Fragment slot="analysis-title">Rebuild the address and place a nebula.</Fragment>
     <Fragment slot="analysis">
-      <p>With a partner, explain why each statement is accurate or inaccurate. Use the science words above—not just “bigger” or “smaller.”</p>
-      <div class="model-grid">
-        <details class="model-card">
-          <summary><strong>“Mars is part of the Milky Way, so the Milky Way must be inside our Solar System.”</strong></summary>
-          <p><strong>Check:</strong> Reverse the relationship. The Solar System is our star system, and it is inside the Milky Way galaxy.</p>
-        </details>
-        <details class="model-card">
-          <summary><strong>“A nebula can be found inside a galaxy.”</strong></summary>
-          <p><strong>Check:</strong> Yes. Nebulae are clouds of gas and dust found within galaxies.</p>
-        </details>
+      <div class="readiness-record-bridge">
+        <strong>READINESS RECORD 2A</strong>
+        <p>Rebuild <b>Mars → Solar System → Milky Way → Universe</b>, then explain where a nebula can be found.</p>
       </div>
-      <p class="source-note">Keep this at the model level. You do not need to memorize enormous distance values today; you need to know what the structures are and how they relate.</p>
-      <p class="source-note maturity-note"><strong>READINESS TIP:</strong> <em>Insufficient Evidence</em> is a valid scientific call today. Knowing where Mars fits in the universe does not yet tell us whether our Science Knowledge is strong enough for a human mission.</p>
+
+      <p class="source-note maturity-note"><strong>READINESS TIP:</strong> <em>Insufficient Evidence</em> is a valid scientific call today. Locating Mars does not yet prove that our Science Knowledge is ready for a human mission.</p>
+
+      <div class="readiness-transition">YOU HAVE THE EVIDENCE. MAKE THE CALL.</div>
     </Fragment>
   </MarsOperation>
 
