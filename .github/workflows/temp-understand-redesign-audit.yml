@@ -1,0 +1,61 @@
+name: Temporary UNDERSTAND Redesign Audit
+
+on:
+  push:
+    branches:
+      - redesign/grade9-mars-understand-op02-prototype-20260924
+
+permissions:
+  contents: read
+
+jobs:
+  understand-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout exact redesign branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Build entire Learning Hub
+        run: npm run build
+
+      - name: Install browser audit runtime
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Start branch-local preview
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4321 > /tmp/understand-preview.log 2>&1 &
+          echo $! > /tmp/understand-preview.pid
+          for i in {1..40}; do
+            if curl -fsS http://127.0.0.1:4321/Mr.-John-s-Learning-Hub/courses/grade-9-science/space-exploration/mars-readiness/understand/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/understand-preview.log
+          exit 1
+
+      - name: Run whole-phase responsive interaction audit
+        run: node scripts/temp-audit-understand-redesign.mjs
+
+      - name: Upload audit screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: understand-redesign-audit
+          path: artifacts/understand-redesign
+          retention-days: 7
