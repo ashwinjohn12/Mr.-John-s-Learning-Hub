@@ -1,0 +1,63 @@
+<section class="solar-family-map" data-solar-families aria-labelledby="solar-family-heading">
+  <div class="solar-family-heading">
+    <div>
+      <p class="mars-kicker">SOLAR SYSTEM FAMILY MAP</p>
+      <h4 id="solar-family-heading">Where does Mars belong?</h4>
+    </div>
+    <p>Select a family to inspect it.</p>
+  </div>
+
+  <div class="solar-family-strip">
+    <button type="button" class="family-node sun-family" data-family="sun" aria-pressed="false">
+      <span class="family-symbol sun-symbol" aria-hidden="true"></span>
+      <strong>Sun</strong><small>our star</small>
+    </button>
+
+    <button type="button" class="family-node rocky-family" data-family="rocky" aria-pressed="true">
+      <span class="planet-row" aria-hidden="true">
+        <i class="mercury"></i><i class="venus"></i><i class="earth"></i><i class="mars highlighted"></i>
+      </span>
+      <strong>Rocky planets</strong><small>Mercury · Venus · Earth · <b>Mars</b></small>
+    </button>
+
+    <button type="button" class="family-node giant-family" data-family="giants" aria-pressed="false">
+      <span class="planet-row giant-row" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <strong>Giant planets</strong><small>Jupiter · Saturn · Uranus · Neptune</small>
+    </button>
+
+    <button type="button" class="family-node moon-family" data-family="moons" aria-pressed="false">
+      <span class="moon-symbol" aria-hidden="true"></span>
+      <strong>Moons</strong><small>natural satellites</small>
+    </button>
+
+    <button type="button" class="family-node other-family" data-family="other" aria-pressed="false">
+      <span class="other-symbol" aria-hidden="true">◆ ◇ •</span>
+      <strong>Other bodies</strong><small>asteroids · comets · dwarf planets</small>
+    </button>
+  </div>
+
+  <div class="family-readout" data-family-readout aria-live="polite">
+    <strong>Rocky planets</strong>
+    <p>Mercury, Venus, Earth, and Mars have solid surfaces made largely of rock and metal. Mars belongs here.</p>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-solar-families]').forEach((root) => {
+    const copy = {
+      sun: ['Sun', 'The Sun is our star and the main source of light and energy in the Solar System.'],
+      rocky: ['Rocky planets', 'Mercury, Venus, Earth, and Mars have solid surfaces made largely of rock and metal. Mars belongs here.'],
+      giants: ['Giant planets', 'Jupiter and Saturn are gas giants; Uranus and Neptune are ice giants. Their structures differ greatly from rocky planets.'],
+      moons: ['Moons', 'Moons are natural satellites that orbit planets or dwarf planets. They can be rocky, icy, or mixed.'],
+      other: ['Other bodies', 'Asteroids, comets, and dwarf planets are different kinds of Solar System bodies with their own compositions and orbits.']
+    };
+    const readout = root.querySelector('[data-family-readout]');
+    root.querySelectorAll('[data-family]').forEach((button) => {
+      button.addEventListener('click', () => {
+        root.querySelectorAll('[data-family]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        const [title, text] = copy[button.dataset.family];
+        readout.innerHTML = '<strong>' + title + '</strong><p>' + text + '</p>';
+      });
+    });
+  });
+</script>
