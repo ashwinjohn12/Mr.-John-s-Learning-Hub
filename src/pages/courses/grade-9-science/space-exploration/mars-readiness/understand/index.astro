@@ -9,8 +9,11 @@ import MarsCosmicZoom from '../../../../../../components/MarsCosmicZoom.astro';
 import MarsSolarSystemFamilies from '../../../../../../components/MarsSolarSystemFamilies.astro';
 import MarsEnvironmentalDashboard from '../../../../../../components/MarsEnvironmentalDashboard.astro';
 import MarsConsequenceBuilder from '../../../../../../components/MarsConsequenceBuilder.astro';
+import MarsEvidenceToolKey from '../../../../../../components/MarsEvidenceToolKey.astro';
+import MarsApxsSequence from '../../../../../../components/MarsApxsSequence.astro';
 import '../../../../../../styles/mars-understand-op01-prototype.css';
 import '../../../../../../styles/mars-understand-op02-prototype.css';
+import '../../../../../../styles/mars-understand-op03-prototype.css';
 import '../../../../../../styles/mars-understand-op04-prototype.css';
 import { understandOperations } from '../../../../../../data/marsReadiness';
 ---
@@ -224,30 +227,53 @@ import { understandOperations } from '../../../../../../data/marsReadiness';
     intelHref="https://www.asc-csa.gc.ca/eng/astronomy/mars/apxs.asp"
     systems={['science']}
   >
-    <Fragment slot="problem-title">Most objects in space cannot be sampled directly.</Fragment>
+    <Fragment slot="problem-title">Different evidence answers different questions.</Fragment>
     <Fragment slot="problem">
-      <p>Scientists still need evidence about composition, motion, surface features, and conditions. Different observing tools collect different kinds of electromagnetic radiation, and a spectrum can reveal information hidden inside ordinary light.</p>
+      <p>Scientists cannot directly sample most objects in space. They choose evidence based on what they need to find out: appearance, non-visible signals, composition, or motion.</p>
     </Fragment>
 
-    <Fragment slot="know-title">Different evidence answers different questions.</Fragment>
+    <Fragment slot="know-title">Start with the question, then choose the evidence.</Fragment>
     <Fragment slot="know">
-      <div class="mars-fact-grid">
-        <div class="fact-card"><strong>Optical telescope</strong><p>Collects visible light. Larger mirrors or lenses gather more light and reveal fainter or finer details.</p><p><strong>By itself, this does not:</strong> identify exact chemical composition or show whether an object is moving toward or away from us.</p></div>
-        <div class="fact-card"><strong>Radio telescope</strong><p>Detects radio waves. It can reveal sources and structures that may be faint or invisible in ordinary visible-light images.</p><p><strong>By itself, this does not:</strong> tell us an object's visible colour or exact physical size.</p></div>
-        <div class="fact-card"><strong>Spectrum</strong><p>Separates radiation by wavelength. Patterns of lines can act like evidence fingerprints for substances.</p><p><strong>By itself, this does not:</strong> show surface shape or give an object's exact distance.</p></div>
-        <div class="fact-card"><strong>Doppler shift</strong><p>A shift in spectral features can provide evidence that an object is moving toward or away from the observer.</p><p><strong>By itself, this does not:</strong> map the object's surface or give its distance.</p></div>
-      </div>
-      <p class="source-note">Grade 9 boundary: interpret what the observation tells you. Do not calculate wavelength shifts or use advanced spectroscopy equations.</p>
+      <MarsEvidenceToolKey />
+
+      <MarsApxsSequence />
+
+      <p class="source-note">Grade 9 boundary: interpret what the evidence can support. No wavelength, Doppler-speed, or advanced spectroscopy calculations are required.</p>
     </Fragment>
 
     <Fragment slot="intel">
-      <p><strong>APXS is not a telescope.</strong> It is a close-range spectrometer placed near a rock or soil sample on the end of Curiosity's robotic arm. It uses X-rays and alpha particles, then measures the energy released by the sample to identify the elements in Martian rocks and soil.</p>
-      <p><strong>Why it matters:</strong> “spectroscopy” is not just an astronomy vocabulary word. Missions use spectra to work out what distant or inaccessible material is made of.</p>
+      <div class="intel-visual-layout">
+        <figure class="intel-image">
+          <img
+            src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA16160.jpg"
+            alt="The APXS instrument on NASA's Curiosity rover with the Martian landscape behind it."
+            loading="lazy"
+          />
+          <figcaption>APXS on Curiosity • NASA/JPL-Caltech/MSSS</figcaption>
+        </figure>
+        <div class="intel-visual-copy">
+          <p class="mars-kicker">CANADIAN INSTRUMENT · ACTIVE</p>
+          <h4>APXS turns nearby rock into element evidence.</h4>
+          <p>Canada's APXS measures characteristic energy from Martian material to identify elements. It shows how spectroscopy can answer a composition question even when ordinary appearance cannot.</p>
+          <details>
+            <summary>Mission details + source</summary>
+            <p>APXS is mounted on Curiosity's robotic arm and placed close to rocks or soil. It uses X-rays and alpha particles, then measures energy released by the sample.</p>
+            <p><a href="https://www.asc-csa.gc.ca/eng/astronomy/mars/apxs.asp" target="_blank" rel="noreferrer">Canadian Space Agency — APXS ↗</a> · <a href="https://www.jpl.nasa.gov/images/pia16160-portrait-of-apxs-on-mars/" target="_blank" rel="noreferrer">NASA/JPL image source ↗</a></p>
+          </details>
+        </div>
+      </div>
     </Fragment>
 
     <Fragment slot="analysis-title">Evidence Matcher</Fragment>
     <Fragment slot="analysis">
       <MarsEvidenceMatcher />
+
+      <div class="readiness-record-bridge">
+        <strong>READINESS RECORD 2A</strong>
+        <p>For Optical, Radio, Spectrum, and Doppler, record what scientific question each evidence type can help answer.</p>
+      </div>
+
+      <div class="readiness-transition">YOU HAVE THE EVIDENCE. MAKE THE CALL.</div>
     </Fragment>
   </MarsOperation>
 
