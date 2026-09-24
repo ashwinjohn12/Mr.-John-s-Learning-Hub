@@ -267,6 +267,24 @@
 .doppler-tool-visual small:nth-of-type(1){left:35%}
 .doppler-tool-visual small:nth-of-type(2){left:58%}
 
+.op03-retrieval-check {
+  margin-top: .75rem;
+  padding: 0 .65rem;
+  border: 1px solid #c6cdd0;
+  border-radius: 8px;
+  background: #fff;
+}
+.op03-retrieval-check summary {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 800;
+}
+.op03-retrieval-check .op03-question-check {
+  margin: 0 0 .65rem;
+}
+
 .op03-question-check {
   display:grid;
   grid-template-columns:minmax(0,1fr) minmax(0,.75fr) auto;
