@@ -340,7 +340,7 @@
   height: 235px;
   background: linear-gradient(180deg,#cf805b 0 33%,#9c664e 33% 100%);
 }
-.surface-line {
+.mars-water-surface {
   position: absolute;
   left: 0; right: 0; top: 33%;
   height: 4px;
@@ -444,8 +444,10 @@
   margin: .55rem 0 0;
   min-height: 1.2rem;
 }
-.widget-feedback[data-state="correct"] { color: #2f6542; }
-.widget-feedback[data-state="try"] { color: #7a4b24; }
+.mars-env-dashboard .widget-feedback[data-state="correct"],
+.mars-consequence-builder .widget-feedback[data-state="correct"] { color: #2f6542; }
+.mars-env-dashboard .widget-feedback[data-state="try"],
+.mars-consequence-builder .widget-feedback[data-state="try"] { color: #7a4b24; }
 
 @media (max-width: 980px) {
   .solar-family-strip { grid-template-columns: repeat(3,minmax(0,1fr)); }
