@@ -235,3 +235,16 @@
     text-align: right;
   }
 }
+
+
+/* Consistent accessible disclosure targets across the redesigned UNDERSTAND operations. */
+.mars-operation details > summary {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  cursor: pointer;
+}
+.mars-operation details > summary:focus-visible {
+  outline: 3px solid rgba(50,109,149,.18);
+  outline-offset: 2px;
+}
