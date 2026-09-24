@@ -1,0 +1,42 @@
+name: Temporary Mars Whole-Unit Visual Audit
+on:
+  push:
+    branches:
+      - integrate/grade9-mars-ops05-16-authentic-visuals-20260924
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Full Learning Hub build
+        run: npm run build
+      - name: Browser runtime
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Preview
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4321 >/tmp/unit-preview.log 2>&1 &
+          for i in {1..50}; do
+            curl -fsS http://127.0.0.1:4321/Mr.-John-s-Learning-Hub/courses/grade-9-science/space-exploration/mars-readiness/understand/ >/dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/unit-preview.log
+          exit 1
+      - name: Whole-unit audit
+        run: node scripts/temp-audit-mars-whole-unit-visuals.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mars-whole-unit-visual-audit
+          path: artifacts/mars-whole-unit-visual-audit
+          retention-days: 7
