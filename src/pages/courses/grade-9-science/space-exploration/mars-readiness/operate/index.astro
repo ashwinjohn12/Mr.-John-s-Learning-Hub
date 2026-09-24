@@ -5,6 +5,8 @@ import MarsOperation from '../../../../../../components/MarsOperation.astro';
 import MarsMissionTaskMatcher from '../../../../../../components/MarsMissionTaskMatcher.astro';
 import MarsNetworkBuilder from '../../../../../../components/MarsNetworkBuilder.astro';
 import MarsMissionCrisis from '../../../../../../components/MarsMissionCrisis.astro';
+import '../../../../../../styles/mars-operate-authentic-visuals.css';
+import '../../../../../../styles/mars-operate-authentic-visuals.css';
 import { operateOperations } from '../../../../../../data/marsReadiness';
 ---
 
@@ -64,9 +66,21 @@ import { operateOperations } from '../../../../../../data/marsReadiness';
     </Fragment>
 
     <Fragment slot="intel">
-      <p>In June 2026, the HiRISE camera on NASA's Mars Reconnaissance Orbiter photographed Perseverance from orbit while the rover continued investigating the surface below. Perseverance's 2026 Mars Global Localization technology also matches rover camera views with orbital imagery to determine its location.</p>
-      <p><strong>Why it matters:</strong> orbital remote sensing and direct surface measurements can strengthen one another.</p>
-      <p class="source-note"><strong>IN DEVELOPMENT / PLANNED:</strong> ESA's Rosalind Franklin rover is scheduled for late 2028 and is designed to travel across Mars, drill as deep as 2 m, and analyze subsurface samples. <a href="https://www.esa.int/Newsroom/Press_Releases/ESA_to_search_for_life_on_Mars_with_ExoMars_Rosalind_Franklin_mission" target="_blank" rel="noreferrer">ESA mission overview ↗</a></p>
+      <div class="operate-intel-visual">
+        <figure class="operate-authentic-figure data-figure">
+          <img
+            src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/photojournal/pia/pia26/pia26726/PIA26726.jpg?crop=faces%2Cfocalpoint&amp;fit=clip&amp;h=1042&amp;w=1920"
+            alt="HiRISE orbital image of Mars showing Perseverance as a small green speck with rover tracks visible on the surface."
+            loading="lazy"
+          />
+          <figcaption>AUTHENTIC ORBITAL SCIENTIFIC DATA · HiRISE sees Perseverance · NASA/JPL-Caltech/UArizona</figcaption>
+        </figure>
+        <div>
+          <p>In June 2026, the HiRISE camera on Mars Reconnaissance Orbiter photographed Perseverance from orbit while the rover continued investigating the surface below.</p>
+          <p><strong>Why it matters:</strong> orbiters provide broad remote observations; rovers provide direct local measurements. The two evidence scales strengthen one another.</p>
+          <p class="source-note"><strong>IN DEVELOPMENT / PLANNED:</strong> ESA's Rosalind Franklin rover is scheduled for late 2028 and is designed to drill as deep as 2 m and analyze subsurface samples. <a href="https://www.esa.int/Newsroom/Press_Releases/ESA_to_search_for_life_on_Mars_with_ExoMars_Rosalind_Franklin_mission" target="_blank" rel="noreferrer">ESA mission overview ↗</a></p>
+        </div>
+      </div>
     </Fragment>
 
     <Fragment slot="analysis-title">Mission Task Matcher</Fragment>
@@ -122,8 +136,20 @@ import { operateOperations } from '../../../../../../data/marsReadiness';
     </Fragment>
 
     <Fragment slot="intel">
-      <p>On September 1, 2026, NASA selected Blue Origin to develop a next-generation Mars Telecommunications Network. The planned orbiter is intended to provide high-bandwidth communications and navigation services for current and future Mars spacecraft, with delivery required no later than the end of 2028.</p>
-      <p><strong>Maturity check:</strong> the contract and architecture are real, but the new Mars network is not operational yet.</p>
+      <div class="operate-intel-visual">
+        <figure class="operate-authentic-figure">
+          <img
+            src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/photojournal/pia/pia26/pia26778/PIA26778.jpg?crop=faces%2Cfocalpoint&amp;fit=clip&amp;h=1649&amp;w=2200"
+            alt="NASA's completed Deep Space Station 23 radio antenna at the Goldstone Deep Space Network complex in California in 2026."
+            loading="lazy"
+          />
+          <figcaption>AUTHENTIC COMMUNICATIONS HARDWARE · DSS-23 · NASA/JPL-Caltech</figcaption>
+        </figure>
+        <div>
+          <p>NASA's Deep Space Network uses real antennas like DSS-23 to track, command, and receive data from distant spacecraft. The network diagram below teaches topology; this photograph shows real communications infrastructure.</p>
+          <p><strong>Maturity check:</strong> NASA's planned next-generation Mars Telecommunications Network is real development work, but it is not operational yet. Earth's GPS satellites remain an Earth-centered constellation, not a Mars surface-navigation system.</p>
+        </div>
+      </div>
     </Fragment>
 
     <Fragment slot="analysis-title">Communication + Positioning Network</Fragment>
@@ -168,8 +194,18 @@ import { operateOperations } from '../../../../../../data/marsReadiness';
     </Fragment>
 
     <Fragment slot="intel">
-      <p>NASA selected nuclear fission as the primary surface-power generation approach for initial crewed Mars missions. NASA's architecture work emphasizes the need for continuous, robust power across different landing sites and during difficult environmental conditions such as dust storms.</p>
-      <p><strong>Maturity check:</strong> this is a real architecture decision and an active technology-development area. No crewed Mars fission-power base exists today.</p>
+      <div class="operate-power-evidence">
+        <div class="operate-test-record">
+          <span>AUTHENTIC TEST RECORD · KRUSTY</span>
+          <strong>28-hour full-power ground demonstration</strong>
+          <p>NASA and NNSA completed the Kilopower Reactor Using Stirling Technology ground test in 2018, including startup, full-power operation, shutdown, and simulated component failures.</p>
+          <a href="https://www.nasa.gov/news-release/demonstration-proves-nuclear-fission-system-can-provide-space-exploration-power/" target="_blank" rel="noreferrer">NASA test record ↗</a>
+        </div>
+        <div>
+          <p>NASA selected nuclear fission as the primary surface-power approach for initial crewed Mars mission architecture studies because continuous power is needed across sites and environmental conditions.</p>
+          <p><strong>Maturity check:</strong> KRUSTY demonstrated ground-test fission-power technology. It did <b>not</b> demonstrate an operational crewed Mars reactor base.</p>
+        </div>
+      </div>
     </Fragment>
 
     <Fragment slot="analysis-title">SOL 137 — Mission Crisis</Fragment>
@@ -216,14 +252,38 @@ import { operateOperations } from '../../../../../../data/marsReadiness';
     </Fragment>
 
     <Fragment slot="intel">
-      <div class="canada-contribution-grid">
-        <div><span>ACTIVE</span><strong>Mars science</strong><p>Canada's APXS continues analyzing Martian rocks and soils aboard Curiosity.</p></div>
-        <div><span>ACTIVE</span><strong>Space robotics</strong><p>Canadarm2 and Dextre continue supporting ISS operations and remote maintenance.</p></div>
-        <div><span>DEMONSTRATED 2026</span><strong>Astronaut program</strong><p>Jeremy Hansen became the first Canadian to travel around the Moon on Artemis II.</p></div>
-        <div><span>IN DEVELOPMENT</span><strong>Future robotics</strong><p>Canada is developing Canadarm3 for Gateway, including autonomous capabilities.</p></div>
+      <div class="canada-contribution-grid canada-visual-grid">
+        <article>
+          <figure class="operate-authentic-figure">
+            <img src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA16160.jpg" alt="Canada's APXS instrument on Curiosity's robotic arm with the Martian landscape behind it." loading="lazy" />
+            <figcaption>AUTHENTIC MARS SCIENCE HARDWARE · APXS · NASA/JPL-Caltech/MSSS</figcaption>
+          </figure>
+          <span>ACTIVE</span><strong>Mars science</strong><p>Canada's APXS continues analyzing Martian rocks and soils aboard Curiosity.</p>
+        </article>
+        <article>
+          <figure class="operate-authentic-figure">
+            <img src="https://www.asc-csa.gc.ca/eng/multimedia/search/image/download/19301" alt="Dextre attached to Canadarm2 outside the International Space Station above Earth." loading="lazy" />
+            <figcaption>AUTHENTIC SPACE ROBOTICS · Canadarm2 + Dextre · NASA</figcaption>
+          </figure>
+          <span>ACTIVE</span><strong>Space robotics</strong><p>Canadarm2 and Dextre continue supporting ISS operations and remote maintenance.</p>
+        </article>
+        <article>
+          <figure class="operate-authentic-figure portrait-figure">
+            <img src="https://www.asc-csa.gc.ca/eng/multimedia/search/image/download/19939" alt="CSA astronaut Jeremy Hansen in his spacesuit leaving crew quarters with his Artemis II crewmates before launch on April 1, 2026." loading="lazy" />
+            <figcaption>AUTHENTIC MISSION PHOTOGRAPH · Artemis II launch day · CSA</figcaption>
+          </figure>
+          <span>DEMONSTRATED 2026</span><strong>Astronaut program</strong><p>Jeremy Hansen became the first Canadian to travel around the Moon on Artemis II.</p>
+        </article>
+        <article>
+          <figure class="operate-authentic-figure concept-figure">
+            <img src="https://www.asc-csa.gc.ca/eng/multimedia/search/image/download/12642" alt="Official artist concept of Canadarm3 mounted on Gateway in lunar orbit." loading="lazy" />
+            <figcaption>OFFICIAL ARTIST CONCEPT · IN DEVELOPMENT · CSA/NASA</figcaption>
+          </figure>
+          <span>IN DEVELOPMENT</span><strong>Future robotics</strong><p>Canada is developing Canadarm3 for Gateway, with delivery targeted no earlier than 2029.</p>
+        </article>
       </div>
-      <p><strong>Why it matters:</strong> Canada's contribution is not one Mars spacecraft. It is a record of science instruments, robotics, and human-spaceflight expertise that can support deeper-space exploration.</p>
-      <p class="source-note"><a href="https://www.asc-csa.gc.ca/eng/iss/canadarm2/about.asp" target="_blank" rel="noreferrer">Canadarm2 ↗</a> · <a href="https://www.asc-csa.gc.ca/eng/canadarm3/about.asp" target="_blank" rel="noreferrer">Canadarm3 ↗</a> · <a href="https://www.asc-csa.gc.ca/eng/missions/artemis-ii/" target="_blank" rel="noreferrer">Artemis II ↗</a></p>
+      <p><strong>Why it matters:</strong> Canada's contribution is not one Mars spacecraft. It is a record of science instruments, demonstrated robotics, human-spaceflight experience, and future technology development that can support deeper-space exploration.</p>
+      <p class="source-note"><a href="https://www.asc-csa.gc.ca/eng/astronomy/mars/apxs.asp" target="_blank" rel="noreferrer">APXS ↗</a> · <a href="https://www.asc-csa.gc.ca/eng/iss/canadarm2/about.asp" target="_blank" rel="noreferrer">Canadarm2 ↗</a> · <a href="https://www.asc-csa.gc.ca/eng/canadarm3/about.asp" target="_blank" rel="noreferrer">Canadarm3 ↗</a> · <a href="https://www.asc-csa.gc.ca/eng/missions/artemis-ii/" target="_blank" rel="noreferrer">Artemis II ↗</a></p>
     </Fragment>
 
     <Fragment slot="analysis-title">Final Mars Readiness Review</Fragment>
