@@ -1,0 +1,156 @@
+<section class="mars-env-dashboard" data-env-dashboard aria-labelledby="env-dashboard-heading">
+  <div class="env-dashboard-heading">
+    <div>
+      <p class="mars-kicker">MARS ENVIRONMENTAL DASHBOARD</p>
+      <h4 id="env-dashboard-heading">Four conditions a human mission must solve.</h4>
+    </div>
+    <span class="env-instruction">Select a condition.</span>
+  </div>
+
+  <div class="env-tabs" role="tablist" aria-label="Mars environmental evidence">
+    <button type="button" role="tab" aria-selected="true" aria-controls="env-atmosphere" id="env-tab-atmosphere" data-env-tab="atmosphere">
+      <span class="env-icon atmosphere-icon" aria-hidden="true">◎</span><strong>Atmosphere</strong>
+    </button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="env-temperature" id="env-tab-temperature" data-env-tab="temperature" tabindex="-1">
+      <span class="env-icon temp-icon" aria-hidden="true">↧</span><strong>Temperature</strong>
+    </button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="env-gravity" id="env-tab-gravity" data-env-tab="gravity" tabindex="-1">
+      <span class="env-icon gravity-icon" aria-hidden="true">↓</span><strong>Gravity</strong>
+    </button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="env-water" id="env-tab-water" data-env-tab="water" tabindex="-1">
+      <span class="env-icon water-icon" aria-hidden="true">◒</span><strong>Water</strong>
+    </button>
+  </div>
+
+  <section class="env-panel" id="env-atmosphere" role="tabpanel" aria-labelledby="env-tab-atmosphere" data-env-panel="atmosphere">
+    <div class="env-visual atmosphere-visual" role="img" aria-label="Earth has a much taller pressure bar than Mars, showing that Mars surface pressure is far lower. A separate label states that Mars atmosphere is mostly carbon dioxide.">
+      <div class="pressure-bars">
+        <div><span class="bar earth-pressure"></span><strong>EARTH</strong><small>higher surface pressure</small></div>
+        <div><span class="bar mars-pressure"></span><strong>MARS</strong><small>very low surface pressure</small></div>
+      </div>
+      <div class="composition-chip"><strong>MARS AIR</strong><span>mostly CO₂</span></div>
+    </div>
+    <div class="env-copy">
+      <p class="case-label">TWO DIFFERENT PROBLEMS</p>
+      <h5>Thin atmosphere ≠ breathable atmosphere</h5>
+      <p><strong>Pressure:</strong> Mars surface pressure is far below Earth's.</p>
+      <p><strong>Composition:</strong> the atmosphere is mostly carbon dioxide, not breathable air.</p>
+      <p class="misconception-guard">A habitat must solve both pressure and air composition.</p>
+    </div>
+  </section>
+
+  <section class="env-panel" id="env-temperature" role="tabpanel" aria-labelledby="env-tab-temperature" data-env-panel="temperature" hidden>
+    <div class="env-visual temperature-visual" role="img" aria-label="A thermometer graphic emphasizes a cold environment and a wide swing between colder and less cold conditions.">
+      <div class="thermometer"><span class="thermo-fill"></span></div>
+      <div class="temperature-labels"><strong>COLD WORLD</strong><span>large temperature swings</span></div>
+    </div>
+    <div class="env-copy">
+      <p class="case-label">THERMAL CONTROL</p>
+      <h5>Mars is cold and temperatures vary.</h5>
+      <p>People and equipment need systems that maintain safe operating temperatures.</p>
+      <details><summary>Need more detail?</summary><p>The goal is the mission consequence, not memorizing exact daily temperature numbers.</p></details>
+    </div>
+  </section>
+
+  <section class="env-panel" id="env-gravity" role="tabpanel" aria-labelledby="env-tab-gravity" data-env-panel="gravity" hidden>
+    <div class="env-visual gravity-visual" role="img" aria-label="Earth gravity is shown as 100 percent and Mars surface gravity as about 38 percent of Earth's.">
+      <div class="gravity-person earth-person"><span class="person-shape" aria-hidden="true"></span><strong>EARTH</strong><b>100%</b></div>
+      <div class="gravity-person mars-person"><span class="person-shape" aria-hidden="true"></span><strong>MARS</strong><b>≈38%</b></div>
+    </div>
+    <div class="env-copy">
+      <p class="case-label">REDUCED GRAVITY</p>
+      <h5>Mars still has gravity.</h5>
+      <p>Surface gravity is about 38% of Earth's. Long-duration effects on the human body remain an important health question.</p>
+      <p class="misconception-guard">38% gravity does not mean a person loses mass or becomes weightless.</p>
+    </div>
+  </section>
+
+  <section class="env-panel" id="env-water" role="tabpanel" aria-labelledby="env-tab-water" data-env-panel="water" hidden>
+    <div class="env-visual water-visual" role="img" aria-label="A Mars surface cross-section shows dry surface material with ice and water-bearing deposits below the surface.">
+      <div class="mars-ground">
+        <span class="surface-line"></span>
+        <span class="ice-pocket one">ICE</span>
+        <span class="ice-pocket two">ICE</span>
+        <span class="subsurface-label">SUBSURFACE</span>
+      </div>
+    </div>
+    <div class="env-copy">
+      <p class="case-label">ACCESS MATTERS</p>
+      <h5>Mars has water evidence, but not an open supply.</h5>
+      <p>Evidence shows a wetter ancient Mars. Water today is found mainly as ice or water-bearing deposits at or below the surface.</p>
+      <p class="misconception-guard">Evidence of water does not mean astronauts can find stable liquid water flowing on the surface.</p>
+    </div>
+  </section>
+
+  <fieldset class="env-human-check" data-env-check>
+    <legend>Quick check — which human problem best matches the condition you are viewing?</legend>
+    <select aria-label="Choose the strongest human problem">
+      <option value="">Choose…</option>
+      <option value="pressure-air">Safe pressure and breathable air must be maintained.</option>
+      <option value="thermal">Humans and equipment need thermal control.</option>
+      <option value="health">Long-duration body effects need monitoring and countermeasures.</option>
+      <option value="resource">Water must be stored, recycled, or accessed and processed.</option>
+      <option value="radio">Radio communication stops because of Mars conditions.</option>
+    </select>
+    <button type="button" class="mars-action" data-check-env>Check connection</button>
+    <p class="widget-feedback" data-env-feedback aria-live="polite"></p>
+  </fieldset>
+</section>
+
+<script>
+  document.querySelectorAll('[data-env-dashboard]').forEach((root) => {
+    const answers = {
+      atmosphere: 'pressure-air',
+      temperature: 'thermal',
+      gravity: 'health',
+      water: 'resource'
+    };
+    const tabs = Array.from(root.querySelectorAll('[data-env-tab]'));
+    const panels = Array.from(root.querySelectorAll('[data-env-panel]'));
+    let active = 'atmosphere';
+
+    const setTab = (id, focus = false) => {
+      active = id;
+      tabs.forEach((tab, index) => {
+        const selected = tab.dataset.envTab === id;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        if (selected && focus) tab.focus();
+      });
+      panels.forEach((panel) => { panel.hidden = panel.dataset.envPanel !== id; });
+      root.querySelector('[data-env-check] select').value = '';
+      root.querySelector('[data-env-feedback]').textContent = '';
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => setTab(tab.dataset.envTab));
+      tab.addEventListener('keydown', (event) => {
+        if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+        event.preventDefault();
+        let next = index;
+        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = tabs.length - 1;
+        setTab(tabs[next].dataset.envTab, true);
+      });
+    });
+
+    root.querySelector('[data-check-env]').addEventListener('click', () => {
+      const value = root.querySelector('[data-env-check] select').value;
+      const feedback = root.querySelector('[data-env-feedback]');
+      if (!value) {
+        feedback.textContent = 'Choose the strongest human problem first.';
+        feedback.dataset.state = 'empty';
+        return;
+      }
+      if (value === answers[active]) {
+        feedback.textContent = 'Supported. The evidence and human problem match. Next, think about what mission system would have to respond.';
+        feedback.dataset.state = 'correct';
+      } else {
+        feedback.textContent = 'Recheck the visual evidence. Which human need is directly affected by this condition?';
+        feedback.dataset.state = 'try';
+      }
+    });
+  });
+</script>
