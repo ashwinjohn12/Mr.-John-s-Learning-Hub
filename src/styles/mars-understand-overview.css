@@ -1,0 +1,237 @@
+/* Global UNDERSTAND cleanup — phase framing only. */
+
+.understand-overview {
+  display: grid;
+  gap: .75rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.understand-overview-copy {
+  padding: 1.15rem 1.25rem;
+  border-left: 6px solid var(--mars-rust);
+  background: #fff;
+}
+
+.understand-overview-copy h1 {
+  margin: .18rem 0 .35rem;
+  font-size: clamp(2rem,4.5vw,3.5rem);
+  letter-spacing: -.045em;
+}
+
+.understand-overview-copy p:last-child {
+  max-width: 760px;
+  margin: 0;
+  color: #57636a;
+  line-height: 1.5;
+}
+
+.understand-op-nav {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: .5rem;
+}
+
+.understand-op-nav a {
+  display: grid;
+  min-height: 82px;
+  align-content: center;
+  gap: .15rem;
+  padding: .65rem .7rem;
+  border: 1px solid #c3c9cc;
+  border-radius: 9px;
+  background: #fff;
+  color: var(--mars-carbon) !important;
+  text-decoration: none;
+}
+
+.understand-op-nav a:hover,
+.understand-op-nav a:focus-visible {
+  border-color: var(--mars-rust);
+  outline: 3px solid rgba(173,78,50,.14);
+  outline-offset: 1px;
+}
+
+.understand-op-nav span {
+  color: var(--mars-rust);
+  font: 800 .64rem 'IBM Plex Mono',monospace;
+}
+
+.understand-op-nav strong {
+  font-size: .78rem;
+  line-height: 1.2;
+}
+
+.understand-op-nav small {
+  color: #667178;
+  font-size: .68rem;
+  line-height: 1.3;
+}
+
+.understand-intel-legend {
+  padding: 0 .75rem;
+  border: 1px solid #b9c7d0;
+  border-radius: 9px;
+  background: #edf5f9;
+}
+
+.understand-intel-legend summary {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  gap: .6rem;
+  cursor: pointer;
+}
+
+.understand-intel-legend summary strong {
+  color: var(--mars-blue);
+  font: 800 .67rem 'IBM Plex Mono',monospace;
+  letter-spacing: .04em;
+}
+
+.understand-intel-legend summary span {
+  color: #4f5c64;
+  font-size: .78rem;
+}
+
+.understand-intel-grid {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: .4rem;
+  padding: 0 0 .7rem;
+}
+
+.understand-intel-grid > div {
+  padding: .5rem .55rem;
+  border: 1px solid #c6d5de;
+  border-radius: 7px;
+  background: rgba(255,255,255,.72);
+}
+
+.understand-intel-grid strong {
+  display: block;
+  color: var(--mars-blue);
+  font: 800 .61rem 'IBM Plex Mono',monospace;
+}
+
+.understand-intel-grid span {
+  display: block;
+  margin-top: .18rem;
+  color: #536069;
+  font-size: .7rem;
+  line-height: 1.35;
+}
+
+.understand-system-strip {
+  padding: .75rem;
+  border: 1px solid #c5c9cb;
+  border-radius: 12px;
+  background: rgba(255,255,255,.92);
+}
+
+.understand-system-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-bottom: .55rem;
+}
+
+.understand-system-heading h2 {
+  margin: .12rem 0 0;
+  font-size: 1.08rem;
+}
+
+.understand-system-heading > p {
+  margin: 0;
+  color: #59666d;
+  font-size: .74rem;
+}
+
+.understand-system-grid {
+  display: grid;
+  grid-template-columns: repeat(7,minmax(0,1fr));
+  gap: .35rem;
+}
+
+.understand-system-pill {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .25rem .38rem;
+  min-width: 0;
+  padding: .45rem;
+  border: 1px solid #cbd0d2;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.understand-system-pill.focus {
+  border-color: var(--mars-blue);
+  background: var(--mars-blue-soft);
+}
+
+.understand-system-icon {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--mars-steel);
+  border-radius: 50%;
+  color: var(--mars-blue);
+  font: 800 .72rem 'IBM Plex Mono',monospace;
+}
+
+.understand-system-label {
+  align-self: center;
+  min-width: 0;
+  font-size: .69rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.understand-system-status {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: .25rem;
+  align-items: center;
+  color: #6e7478;
+  font: 700 .56rem 'IBM Plex Mono',monospace;
+  line-height: 1.25;
+}
+
+.understand-system-status.status-demonstrated { color:#255f88; }
+.understand-system-status.status-developing { color:#896017; }
+.understand-system-status.status-challenge { color:var(--mars-rust); }
+.understand-system-status.status-insufficient { color:#6e7478; }
+
+.understand-intel-legend summary:focus-visible {
+  outline: 3px solid rgba(50,109,149,.18);
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .understand-op-nav { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .understand-intel-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .understand-system-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+}
+
+@media (max-width: 620px) {
+  .understand-overview-copy { padding: 1rem; }
+  .understand-system-heading { display: grid; align-items: start; }
+  .understand-system-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+
+@media (max-width: 390px) {
+  .understand-op-nav,
+  .understand-intel-grid { grid-template-columns: 1fr; }
+  .understand-op-nav a { min-height: 66px; }
+  .understand-system-grid { grid-template-columns: 1fr; }
+  .understand-system-pill {
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+  }
+  .understand-system-status {
+    grid-column: auto;
+    justify-self: end;
+    text-align: right;
+  }
+}
