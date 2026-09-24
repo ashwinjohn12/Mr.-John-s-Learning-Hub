@@ -25,7 +25,8 @@ const viewports = [
 ];
 
 async function basicAudit(name, width, height) {
-  const page = await browser.newPage({ viewport: { width, height } });
+  const auditContext = await browser.newContext({ viewport: { width, height } });
+  const page = await auditContext.newPage();
   const consoleErrors = [];
   const pageErrors = [];
   page.on('console', (msg) => { if (msg.type() === 'error') consoleErrors.push(msg.text()); });
@@ -67,6 +68,7 @@ async function basicAudit(name, width, height) {
   report.viewports.push({ name, width, height, ...data, consoleErrors, pageErrors });
   if (consoleErrors.length || pageErrors.length) report.errors.push({ name, consoleErrors, pageErrors });
   await page.close();
+  await auditContext.close();
 }
 
 for (const [name,width,height] of viewports) await basicAudit(name,width,height);
@@ -137,7 +139,8 @@ for (const [name,width,height] of viewports) await basicAudit(name,width,height)
   out.op02 = { retroFeedback, phase, venusFeedback, predBefore, predictionFeedback, synthesisFeedback };
 
   // Reduced-motion check for retrograde Play.
-  const rmPage = await context.newPage({ reducedMotion: 'reduce' });
+  const rmContext = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
+  const rmPage = await rmContext.newPage();
   await rmPage.goto(URL, { waitUntil: 'domcontentloaded' });
   const rmOp2 = rmPage.locator('[data-operation="02"]');
   await rmOp2.locator('[data-retro-play]').click();
@@ -146,6 +149,7 @@ for (const [name,width,height] of viewports) await basicAudit(name,width,height)
     copy: await rmOp2.locator('[data-retro-stage-copy]').textContent()
   };
   await rmPage.close();
+  await rmContext.close();
 
   // Operation 03 question key + unchanged Evidence Matcher.
   const op3 = page.locator('[data-operation="03"]');
