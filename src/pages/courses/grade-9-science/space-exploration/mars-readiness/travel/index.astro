@@ -5,6 +5,7 @@ import MarsOperation from '../../../../../../components/MarsOperation.astro';
 import MarsOrbitModel from '../../../../../../components/MarsOrbitModel.astro';
 import MarsPositionLab from '../../../../../../components/MarsPositionLab.astro';
 import MarsTransportTradeoff from '../../../../../../components/MarsTransportTradeoff.astro';
+import '../../../../../../styles/mars-travel-authentic-visuals.css';
 import { travelOperations } from '../../../../../../data/marsReadiness';
 ---
 
@@ -65,8 +66,20 @@ import { travelOperations } from '../../../../../../data/marsReadiness';
     </Fragment>
 
     <Fragment slot="intel">
-      <p>Earth moves around the Sun faster than Mars and catches up with it about once every 26 months. NASA uses these repeating alignments to plan Mars launch opportunities that allow a relatively short, energy-efficient trip.</p>
-      <p><strong>Why it matters:</strong> timing is part of navigation. A mission launches based on where Mars will be—not just where it is now.</p>
+      <div class="travel-intel-visual">
+        <figure class="travel-authentic-figure">
+          <img
+            src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/mars/downloadable_items/4/5/45110_liftOff-panorama-original.jpg?crop=faces%2Cfocalpoint&amp;fit=clip&amp;h=1400&amp;w=2100"
+            alt="United Launch Alliance Atlas V rocket lifting off in July 2020 carrying NASA's Perseverance rover to Mars."
+            loading="lazy"
+          />
+          <figcaption>AUTHENTIC MISSION PHOTOGRAPH · Mars 2020 launch · United Launch Alliance</figcaption>
+        </figure>
+        <div>
+          <p>Earth moves around the Sun faster than Mars and catches up with it about once every 26 months. NASA uses these repeating alignments to plan Mars launch opportunities that allow a relatively short, energy-efficient trip.</p>
+          <p><strong>Why it matters:</strong> this real launch happened during a planned Mars opportunity. The orbit model—not the photograph—explains the geometry.</p>
+        </div>
+      </div>
     </Fragment>
 
     <Fragment slot="analysis-title">Model the moving target</Fragment>
@@ -110,8 +123,20 @@ import { travelOperations } from '../../../../../../data/marsReadiness';
     </Fragment>
 
     <Fragment slot="intel">
-      <p>NASA's Deep Space Network uses giant radio antennas around Earth to communicate with and track distant spacecraft. Doppler measurements provide extremely precise evidence about line-of-sight velocity, while radio ranging provides distance information.</p>
-      <p><strong>Why it matters:</strong> real navigation combines several kinds of evidence rather than relying on one observation.</p>
+      <div class="travel-intel-visual">
+        <figure class="travel-authentic-figure">
+          <img
+            src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/photojournal/pia/pia26/pia26778/PIA26778.jpg?crop=faces%2Cfocalpoint&amp;fit=clip&amp;h=1000&amp;w=1400"
+            alt="NASA's completed Deep Space Station 23 radio antenna at the Goldstone Deep Space Network complex in California in 2026."
+            loading="lazy"
+          />
+          <figcaption>AUTHENTIC MISSION HARDWARE · DSS-23 · NASA/JPL-Caltech</figcaption>
+        </figure>
+        <div>
+          <p>NASA's Deep Space Network uses giant radio antennas around Earth to communicate with and track distant spacecraft. Doppler measurements provide extremely precise evidence about line-of-sight velocity, while radio ranging provides distance information.</p>
+          <p><strong>Why it matters:</strong> the classroom models teach geometry; real deep-space navigation uses hardware like this plus precision radio measurements and timing.</p>
+        </div>
+      </div>
     </Fragment>
 
     <Fragment slot="analysis-title">Position Lab</Fragment>
@@ -153,8 +178,32 @@ import { travelOperations } from '../../../../../../data/marsReadiness';
     </Fragment>
 
     <Fragment slot="intel">
-      <p>NASA's current Mars architecture keeps several propulsion options open, including chemical, nuclear thermal, nuclear electric, solar electric, and hybrid systems. NASA describes trade-offs in speed, cost, and technological maturity.</p>
-      <p><strong>Industry example — SpaceX Starship:</strong> SpaceX currently describes Mars cargo flights as starting no earlier than 2028 and relies on on-orbit refilling for its Mars architecture. SpaceX's 2026 update lists full ship-to-ship propellant transfer as a remaining flight milestone. That keeps Mars transport in <b>In Development / Planned</b>, not Demonstrated.</p>
+      <div class="travel-propulsion-gallery">
+        <figure class="travel-authentic-figure">
+          <img
+            src="https://assets.science.nasa.gov/dynamicimage/assets/science/psd/mars/downloadable_items/4/5/45110_liftOff-panorama-original.jpg?crop=faces%2Cfocalpoint&amp;fit=clip&amp;h=900&amp;w=1350"
+            alt="Atlas V chemical rocket launching NASA's Mars 2020 Perseverance mission."
+            loading="lazy"
+          />
+          <figcaption><strong>CHEMICAL · DEMONSTRATED</strong><span>Real Mars launch hardware · ULA</span></figcaption>
+        </figure>
+        <figure class="travel-authentic-figure">
+          <img
+            src="https://science.nasa.gov/wp-content/uploads/2023/09/pia24030.jpg"
+            alt="Operating Hall-effect electric thruster glowing blue beside a similar non-operating thruster used for NASA's Psyche mission."
+            loading="lazy"
+          />
+          <figcaption><strong>SOLAR ELECTRIC · DEMONSTRATED HARDWARE</strong><span>Psyche Hall thruster · NASA/JPL-Caltech</span></figcaption>
+        </figure>
+        <div class="travel-development-card">
+          <span>NUCLEAR THERMAL · DEVELOPMENT TESTING</span>
+          <strong>Real ground hardware, not human Mars transport</strong>
+          <p>NASA completed cold-flow testing of a full-scale, non-nuclear, flight-like reactor engineering development unit in 2025. Human Mars nuclear-thermal transport has not been demonstrated.</p>
+          <a href="https://www.nasa.gov/directorates/stmd/tech-demo-missions-program/space-nuclear-propulsion-snp/nasa-testing-advances-space-nuclear-propulsion-capabilities/" target="_blank" rel="noreferrer">NASA test program ↗</a>
+        </div>
+      </div>
+      <p>NASA's Mars architecture keeps several propulsion options open because speed, propellant, payload, technology readiness, complexity, and crew safety create different trade-offs.</p>
+      <p><strong>Industry example — SpaceX Starship:</strong> SpaceX's Mars architecture still depends on future milestones such as ship-to-ship propellant transfer, so human Mars transport remains <b>In Development / Planned</b>.</p>
     </Fragment>
 
     <Fragment slot="analysis-title">Transportation trade-off review</Fragment>
@@ -195,8 +244,20 @@ import { travelOperations } from '../../../../../../data/marsReadiness';
     </Fragment>
 
     <Fragment slot="intel">
-      <p>Perseverance successfully used Terrain-Relative Navigation during its 2021 landing. Cameras compared the ground below with onboard maps so the spacecraft could estimate its position and steer toward safer terrain.</p>
-      <p><strong>But human-scale landing is not solved:</strong> NASA's current Mars architecture still treats the much larger landers needed for people and heavy equipment as an open engineering challenge.</p>
+      <div class="travel-intel-visual">
+        <figure class="travel-authentic-figure">
+          <img
+            src="https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA23970.jpg"
+            alt="Perseverance Terrain-Relative Navigation hazard map of Jezero Crater, with safer terrain shown in blue, hazardous terrain in red, and the rover's landing site marked in green."
+            loading="lazy"
+          />
+          <figcaption>AUTHENTIC MISSION / ENGINEERING DATA · TRN hazard map · NASA/JPL-Caltech</figcaption>
+        </figure>
+        <div>
+          <p>Perseverance used Terrain-Relative Navigation during its 2021 landing. Cameras compared the ground below with onboard maps so the spacecraft could estimate its position and steer toward safer terrain.</p>
+          <p><strong>But human-scale landing is not solved:</strong> Perseverance demonstrated TRN at rover scale; the much larger landers needed for people and heavy equipment remain an engineering challenge.</p>
+        </div>
+      </div>
     </Fragment>
 
     <Fragment slot="analysis-title">Physical Mars Landing Challenge</Fragment>
