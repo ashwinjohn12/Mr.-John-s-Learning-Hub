@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+
+interface Props {
+  missionNumber: string;
+  title: string;
+  subtitle?: string;
+  phase?: string;
+  missionCount?: number;
+  description: string;
+}
+
+const {
+  missionNumber,
+  title,
+  subtitle = '',
+  phase = 'FOUNDATIONS',
+  missionCount = 16,
+  description
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title={`Mission ${missionNumber}: ${title} | FutureTech Level 1`} description={description} themeColor="#312e81">
+  <div class="ftl1-shell">
+    <a class="skip-link" href="#mission-main">Skip to mission</a>
+
+    <Breadcrumbs items={[
+      {label:'Home',href:base},
+      {label:'FutureTech Lab',href:`${base}courses/futuretech-lab/`},
+      {label:'Level 1',href:`${base}courses/futuretech-lab/creator-foundations/`},
+      {label:`Mission ${missionNumber}`}
+    ]} />
+
+    <header class="ftl1-topbar" aria-label="FutureTech Level 1 navigation">
+      <a class="ftl1-brand" href={`${base}courses/futuretech-lab/creator-foundations/`}>
+        <span>FUTURETECH</span>
+        <small>LEVEL 1</small>
+      </a>
+      <nav class="ftl1-global-nav" aria-label="FutureTech navigation">
+        <a href={`${base}courses/futuretech-lab/creator-foundations/`}>Missions</a>
+        <a href="#mission-passport">Passport</a>
+        <a href="#creator-extension">Challenge</a>
+        <a href="#mission-help">Help</a>
+      </nav>
+    </header>
+
+    <section class="ftl1-mission-heading" aria-labelledby="mission-title">
+      <p class="ftl1-eyebrow">{phase} · MISSION {missionNumber} OF {missionCount}</p>
+      <h1 id="mission-title">{title}</h1>
+      {subtitle && <p class="ftl1-subtitle">{subtitle}</p>}
+    </section>
+
+    <main id="mission-main" class="ftl1-content">
+      <slot />
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  .ftl1-shell{
+    --ft-bg:#f5f7fb;
+    --ft-surface:#ffffff;
+    --ft-surface-2:#eef2ff;
+    --ft-ink:#172033;
+    --ft-muted:#64748b;
+    --ft-line:#dbe3ef;
+    --ft-indigo:#4338ca;
+    --ft-indigo-dark:#312e81;
+    --ft-cyan:#0891b2;
+    --ft-green:#15803d;
+    --ft-amber:#b45309;
+    --ft-red:#b91c1c;
+    max-width:1180px;
+    margin:0 auto;
+    padding:1rem 1rem 3rem;
+    color:var(--ft-ink);
+  }
+  .skip-link{
+    position:fixed;
+    left:1rem;
+    top:-5rem;
+    z-index:1000;
+    padding:.7rem .9rem;
+    border-radius:10px;
+    background:#111827;
+    color:#fff;
+    font-weight:800;
+    text-decoration:none;
+  }
+  .skip-link:focus{top:1rem}
+  .ftl1-topbar{
+    position:sticky;
+    top:.5rem;
+    z-index:40;
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+    align-items:center;
+    margin:.6rem 0 1rem;
+    padding:.65rem .75rem;
+    border:1px solid rgba(219,227,239,.9);
+    border-radius:15px;
+    background:rgba(255,255,255,.94);
+    box-shadow:0 8px 28px rgba(15,23,42,.07);
+    backdrop-filter:blur(12px);
+  }
+  .ftl1-brand{display:grid;text-decoration:none;line-height:1;color:var(--ft-indigo-dark)}
+  .ftl1-brand span{font:950 .83rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}
+  .ftl1-brand small{margin-top:.2rem;color:var(--ft-muted);font:800 .6rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.16em}
+  .ftl1-global-nav{display:flex;gap:.25rem;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+  .ftl1-global-nav a{
+    padding:.54rem .66rem;
+    border-radius:9px;
+    color:#334155;
+    font-size:.8rem;
+    font-weight:850;
+    text-decoration:none;
+  }
+  .ftl1-global-nav a:hover{background:#eef2ff;color:var(--ft-indigo-dark)}
+  .ftl1-mission-heading{padding:1rem .25rem .65rem}
+  .ftl1-eyebrow{
+    margin:0 0 .35rem;
+    color:var(--ft-indigo);
+    font:900 .68rem ui-monospace,SFMono-Regular,Menlo,monospace;
+    letter-spacing:.12em;
+  }
+  .ftl1-mission-heading h1{
+    margin:0;
+    max-width:900px;
+    font-size:clamp(2rem,5vw,3.7rem);
+    line-height:1;
+    letter-spacing:-.045em;
+  }
+  .ftl1-subtitle{margin:.65rem 0 0;color:var(--ft-muted);font-size:clamp(1rem,2vw,1.12rem);font-weight:700}
+  .ftl1-content{min-width:0}
+  .ftl1-shell :focus-visible{outline:3px solid #06b6d4;outline-offset:3px}
+  @media(max-width:720px){
+    .ftl1-shell{padding:.65rem .65rem 2.5rem}
+    .ftl1-topbar{position:static;align-items:flex-start}
+    .ftl1-global-nav{gap:.05rem}
+    .ftl1-global-nav a{padding:.48rem .5rem;font-size:.74rem}
+  }
+  @media(max-width:520px){
+    .ftl1-topbar{display:grid}
+    .ftl1-global-nav{justify-content:flex-start}
+    .ftl1-mission-heading h1{font-size:2.2rem}
+  }
+</style>
