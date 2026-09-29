@@ -1,28 +1,359 @@
 ---
-import FutureTechMissionFrame from '../../../../components/FutureTechMissionFrame.astro';
+import FutureTechLevel1MissionShell from '../../../../components/FutureTechLevel1MissionShell.astro';
 ---
-<FutureTechMissionFrame
+
+<FutureTechLevel1MissionShell
   missionNumber="1"
-  title="Make It Happen"
-  tagline="Code your first micro:bit and make it respond to you."
-  question="How can I give a tiny computer instructions and make it respond to me?"
-  success="I can create code, run it on a micro:bit, make it respond to an input, and explain what my code is doing."
-  nextTitle="Mission 2 — Make It Think"
-  nextHref="../mission-2-make-it-think/"
+  title="Welcome to FutureTech: Debug the System"
+  subtitle="Find the fault. Fix the system. Prove your fix works."
+  phase="FOUNDATIONS"
+  missionCount={16}
+  description="FutureTech Level 1 Mission 1: learn how to troubleshoot by comparing expected and actual behaviour, changing one thing, testing, and explaining the evidence."
 >
-  <section id="stage-1" class="stage"><div class="stage-head"><span class="stage-number">01</span><div><p class="stage-kicker">GET READY</p><h2 class="stage-title">Set Up</h2></div></div><p class="intro">Grab your tools, find the four parts you will use today, and make sure your station is ready.</p><div class="check-list"><span>☐ Computer</span><span>☐ micro:bit</span><span>☐ USB data cable</span><span>☐ Mission page open</span></div><p class="concept">Find these four parts: Button A · Button B · 5×5 LED display · USB port.</p><div class="step-grid"><article class="step-card"><strong>Button A + Button B</strong><p>These are <b>inputs</b>. You press them to give information to the program.</p></article><article class="step-card"><strong>LED display</strong><p>This is an <b>output</b>. Your program can make it show images, numbers, and words.</p></article></div><p class="success"><b>Individual mission:</b> build, test, and explain your own code. Work with another student only for a brief troubleshooting check if TRY 4 sends you there.</p><p class="mini-label">Maker rules</p><div class="check-list"><span>☐ Handle equipment carefully</span><span>☐ Keep food and drinks away</span><span>☐ Never force a connection</span><span>☐ Return everything when finished</span></div></section>
-  <section id="stage-2" class="stage"><div class="stage-head"><span class="stage-number">02</span><div><p class="stage-kicker">FIRST SUCCESS</p><h2 class="stage-title">First Code</h2></div></div><p class="intro">Create a tiny program, test it on screen, then send it to the real micro:bit.</p><div class="step-grid"><article class="step-card"><strong>1 — Open MakeCode</strong><p>Open <a class="external" href="https://makecode.microbit.org/" target="_blank" rel="noreferrer">MakeCode for micro:bit ↗</a>. Choose <b>New Project</b>. Name it <code>FirstName_L1_M1</code>.</p></article><article class="step-card"><strong>2 — Make your first program</strong><p>Put <code>show string</code> inside <code>on start</code>. Type your initials.</p></article><article class="step-card"><strong>3 — Test the simulator</strong><p>Your initials should scroll across the virtual micro:bit on screen.</p></article><article class="step-card"><strong>4 — Run it for real</strong><p>Connect the micro:bit with USB. Click <b>Download</b> and send the newest program to the device.</p></article></div>
-    <aside class="code-model" aria-label="Visual MakeCode model for first code"><div class="code-model-head"><span>CODE MODEL</span><strong>Compare your workspace to this</strong></div><div class="block-finder"><span><b>Basic</b> → show string</span><span><b>On start</b> is already on the workspace</span></div><div class="code-columns one"><div class="code-stack"><div class="mk-block event">on start</div><div class="mk-block basic indent">show string <span class="value">“AJ”</span></div></div></div><p class="code-model-note">Your initials can be different. The important part is that <b>show string</b> is inside <b>on start</b>.</p></aside>
-    <p class="success">✓ Success looks like this: your initials scroll across the real micro:bit.</p><p class="warning">If it does not work: compare your blocks to the model, test the simulator, check the cable, then download the newest version again.</p><p class="concept">Mini Check: point to the <b>output</b>. The LED display is the output because it shows the result of the program.</p></section>
-  <section id="stage-3" class="stage"><div class="stage-head"><span class="stage-number">03</span><div><p class="stage-kicker">INPUT → CODE → OUTPUT</p><h2 class="stage-title">Make It React</h2></div></div><div class="route"><span>INPUT: Button</span><span>CODE: Event</span><span>OUTPUT: LED display</span></div><div class="step-grid"><article class="step-card"><strong>Challenge A — Button A</strong><p>Add <code>on button A pressed</code>. Put <code>show icon</code> inside it. Pick any icon.</p></article><article class="step-card"><strong>Challenge B — Button B</strong><p>Add <code>on button B pressed</code>. Make it show something different.</p></article><article class="step-card"><strong>Challenge C — Sequence</strong><p>Make one button run at least three instructions. Example: image → pause → image.</p></article><article class="step-card"><strong>What is a sequence?</strong><p>A <b>sequence</b> is a set of instructions happening in order.</p></article></div>
-    <aside class="code-model" aria-label="Visual MakeCode model for button events and sequence"><div class="code-model-head"><span>CODE MODEL</span><strong>Your blocks can look like this</strong></div><div class="block-finder"><span><b>Input</b> → on button pressed</span><span><b>Basic</b> → show icon</span><span><b>Basic</b> → pause</span><span><b>Basic</b> → show string</span></div><div class="code-columns"><div class="code-stack"><div class="mk-block input">on button <span class="value">A</span> pressed</div><div class="mk-block basic indent">show icon <span class="value">♥</span></div><div class="mk-block basic indent">pause <span class="value">500 ms</span></div><div class="mk-block basic indent">show icon <span class="value">☺</span></div></div><div class="code-stack"><div class="mk-block input">on button <span class="value">B</span> pressed</div><div class="mk-block basic indent">show string <span class="value">“AJ”</span></div></div></div><p class="code-model-note">This is one example, not an answer you must copy. Your two buttons should do different things, and one event needs a three-step sequence.</p></aside>
-    <p class="success">✓ Before moving on: test A, test B, and run the program on the physical micro:bit.</p><p class="warning">If an animation changes too fast, add a pause between images. If something does not run, use TRY 4 and compare the order of your blocks to the model.</p></section>
-  <section id="stage-4" class="stage"><div class="stage-head"><span class="stage-number">04</span><div><p class="stage-kicker">YOUR CREATION</p><h2 class="stage-title">Build It — Interactive Badge</h2></div></div><p class="intro">Create a digital badge that tells us something about you. It must react differently to Button A and Button B.</p><div class="check-list"><span>☐ Button A works</span><span>☐ Button B works</span><span>☐ The responses are different</span><span>☐ One response uses a sequence</span><span>☐ It runs on the real micro:bit</span><span>☐ You changed it to make it yours</span></div><p class="mini-label">Need an idea?</p><div class="step-grid"><article class="step-card"><strong>Idea 1</strong><p>A = favourite activity · B = initials + animation.</p></article><article class="step-card"><strong>Idea 2</strong><p>A = happy face · B = favourite number.</p></article></div><div class="try4"><strong>STUCK? TRY 4</strong><p>1. CHECK — compare your blocks to the code model. 2. SIMULATE the newest code. 3. DOWNLOAD the newest version. 4. PARTNER — briefly explain expected vs actual to a nearby student. Still stuck? Ask for help and say what you already tried.</p></div></section>
-  <section id="stage-5" class="stage"><div class="stage-head"><span class="stage-number">05</span><div><p class="stage-kicker">OPTIONAL CHALLENGE</p><h2 class="stage-title">Level It Up</h2></div></div><p class="intro">Only after Build It works. Choose one while you wait for your checkpoint.</p><div class="level-grid"><article class="level-card"><strong>Shake It</strong><p>Make shaking the micro:bit trigger an output.</p></article><article class="level-card"><strong>A + B</strong><p>Add a third response when A and B are pressed together.</p></article><article class="level-card"><strong>Animator</strong><p>Create an animation with at least five frames.</p></article><article class="level-card"><strong>Explorer</strong><p>Find another MakeCode input and make it work.</p></article></div><p class="success">When every Build It box is checked, add your name to the Ready-for-Check queue. Keep Leveling Up until you are called.</p></section>
-  <section id="stage-6" class="stage checkpoint"><div class="stage-head"><span class="stage-number">06</span><div><p class="stage-kicker">SHOW WHAT YOU KNOW</p><h2 class="stage-title">Checkpoint</h2></div></div><p class="intro">Bring your micro:bit and open your code when you are called. Each student completes the checkpoint individually.</p><div class="step-grid"><article class="step-card"><strong>Check 1 — Make It Work</strong><p>Press A or B. Identify the <b>input</b> and the <b>output</b>.</p></article><article class="step-card"><strong>Check 2 — Explain It</strong><p>Point to one event. Explain what makes that code run.</p></article><article class="step-card"><strong>Check 3 — Change It</strong><p>Make one small change chosen by the teacher. Test the new version.</p></article><article class="step-card"><strong>After Your Check</strong><p><b>MISSION COMPLETE</b> · <b>RETRY ONE SKILL</b> · <b>SUPPORT ROUTE</b></p></article></div></section>
-  <section class="stage passport"><div class="stage-head"><span class="stage-number">✓</span><div><p class="stage-kicker">SKILL PASSPORT</p><h2 class="stage-title">Mission 1 Skills</h2></div></div><div class="check-list"><span>☐ I can run code on a micro:bit</span><span>☐ I can use an input</span><span>☐ I can create an output</span><span>☐ I can use an event and sequence</span><span>☐ I can change and test my code</span></div></section>
-  <section class="stage reset"><div class="stage-head"><span class="stage-number">↺</span><div><p class="stage-kicker">LEAVE IT READY</p><h2 class="stage-title">Reset</h2></div></div><div class="check-list"><span>☐ Project saved correctly</span><span>☐ micro:bit back in the numbered kit</span><span>☐ USB cable loosely coiled</span><span>☐ Kit complete and workspace clear</span><span>☐ Damage or missing equipment reported</span></div><p class="concept">Exit question: What is one thing you made the micro:bit do today?</p></section>
-</FutureTechMissionFrame>
-<style is:global>
-.code-model{margin:.8rem 0;padding:.9rem;border:1px solid #c7d2fe;border-radius:15px;background:linear-gradient(135deg,#f8faff,#f5f3ff)}.code-model-head{display:flex;justify-content:space-between;gap:.75rem;align-items:center;margin-bottom:.55rem}.code-model-head span{color:#6d28d9;font:900 .66rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em}.code-model-head strong{color:#26324a;font-size:.9rem}.block-finder{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.7rem}.block-finder span{padding:.34rem .5rem;border:1px solid #dbe3ef;border-radius:999px;background:#fff;color:#52617a;font-size:.72rem;font-weight:750}.block-finder b{color:#5b21b6}.code-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;align-items:start}.code-columns.one{grid-template-columns:minmax(0,520px)}.code-stack{display:grid;gap:.28rem;padding:.65rem;border-radius:12px;background:#111827}.mk-block{width:max-content;max-width:100%;padding:.48rem .62rem;border-radius:7px;color:#fff;font:800 .78rem/1.25 ui-monospace,SFMono-Regular,Menlo,monospace;box-shadow:inset 0 -2px rgba(0,0,0,.16)}.mk-block.event{background:#7c3aed}.mk-block.input{background:#c026d3}.mk-block.basic{background:#2563eb}.mk-block.indent{margin-left:1rem}.mk-block .value{display:inline-block;margin-left:.18rem;padding:.05rem .3rem;border-radius:4px;background:rgba(255,255,255,.2)}.code-model-note{margin:.6rem 0 0;color:#59677c;font-size:.82rem;line-height:1.45}.code-model-note b{color:#37205f}@media(max-width:680px){.code-model-head{display:grid}.code-columns,.code-columns.one{grid-template-columns:1fr}.mk-block{width:100%;box-sizing:border-box}.mk-block.indent{width:calc(100% - .75rem);margin-left:.75rem}}
+  <div class="mission-app" data-mission-app>
+    <nav class="stage-stepper" aria-label="Mission stages" data-stage-nav>
+      {['GET','LEARN','TRY','BUILD','PROVE','CHECK'].map((stage, index) => (
+        <button type="button" data-stage-button={index} aria-current={index === 0 ? 'step' : undefined}>
+          <span class="stage-state" aria-hidden="true">{index === 0 ? '●' : '○'}</span>
+          <span>{stage}</span>
+        </button>
+      ))}
+    </nav>
+
+    <div class="mission-layout">
+      <div class="mission-workspace">
+        <section class="mission-state" data-stage-panel="0" aria-labelledby="get-title">
+          <div class="state-topline"><span>GET</span><strong>System Test Failed</strong></div>
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <p class="status-chip status-fail">SYSTEM TEST FAILED</p>
+              <h2 id="get-title">The delivery unit missed its target.</h2>
+              <p>The delivery unit should reach the target. It doesn't.</p>
+              <p class="hero-command"><strong>Find the problem. Fix it. Prove it.</strong></p>
+              <div class="success-mini" aria-label="Mission success criteria">
+                <span>Find the first fault</span>
+                <span>Change only what is needed</span>
+                <span>Test the fix</span>
+                <span>Explain the evidence</span>
+              </div>
+            </div>
+            <div class="simulator-card compact" data-simulator="get">
+              <div class="sim-head">
+                <div><span>CALIBRATION PREVIEW</span><strong>Delivery Unit 01</strong></div>
+                <p class="sim-status" data-sim-status>READY FOR TEST</p>
+              </div>
+              <div class="sim-grid" data-grid role="img" aria-label="Calibration map. Start at bottom left. Intended route passes Checkpoint A and finishes at Delivery Zone B."></div>
+              <div class="sim-actions">
+                <button class="btn secondary" type="button" data-run-sim="get">RUN TEST</button>
+                <button class="btn replay" type="button" data-replay-sim="get" hidden>REPLAY</button>
+              </div>
+            </div>
+          </div>
+          <button class="btn primary next-state" type="button" data-go-stage="1">START MISSION</button>
+        </section>
+
+        <section class="mission-state" data-stage-panel="1" aria-labelledby="learn-title" hidden>
+          <div class="state-topline"><span>LEARN</span><strong>Debug Like a Creator</strong></div>
+          <h2 id="learn-title">How FutureTech works</h2>
+          <div class="mission-cycle" aria-label="FutureTech mission cycle">
+            <span><b>GET</b><small>Know the problem</small></span><i aria-hidden="true">→</i>
+            <span><b>LEARN</b><small>See the skill</small></span><i aria-hidden="true">→</i>
+            <span><b>TRY</b><small>Follow a model</small></span><i aria-hidden="true">→</i>
+            <span><b>BUILD</b><small>Use it yourself</small></span><i aria-hidden="true">→</i>
+            <span><b>PROVE</b><small>Show you understand</small></span><i aria-hidden="true">→</i>
+            <span><b>CHECK</b><small>Show evidence</small></span>
+          </div>
+
+          <article class="process-card">
+            <div class="process-copy">
+              <p class="eyebrow">DEBUG LIKE A CREATOR</p>
+              <h3>Debugging is not guessing. It is testing.</h3>
+              <div class="debug-cycle" aria-label="Debugging cycle">
+                <span><b>EXPECT</b><small>What should happen?</small></span><i aria-hidden="true">→</i>
+                <span><b>OBSERVE</b><small>What actually happened?</small></span><i aria-hidden="true">→</i>
+                <span><b>CHANGE ONE THING</b><small>Make a purposeful change.</small></span><i aria-hidden="true">→</i>
+                <span><b>TEST</b><small>Run it again.</small></span>
+              </div>
+              <p class="quiet">Sometimes you know exactly what should happen. Sometimes you only know what should <strong>not</strong> happen. Tests still give you evidence.</p>
+            </div>
+            <div class="micro-model" aria-label="Worked debugging model">
+              <div class="model-state"><span>EXPECT</span><strong class="lamp green">GREEN</strong></div>
+              <div class="model-state"><span>OBSERVE</span><strong class="lamp red">RED</strong></div>
+              <div class="model-state"><span>CHANGE</span><strong>RED → GREEN</strong></div>
+              <div class="model-state"><span>TEST</span><strong class="lamp green">PASSED</strong></div>
+            </div>
+          </article>
+
+          <article class="try4-learn">
+            <div><p class="eyebrow">WHEN YOU GET STUCK</p><h3>TRY 4</h3></div>
+            <div class="try4-row">
+              <span><b>1 · RE-READ</b><small>What should happen?</small></span>
+              <span><b>2 · CHECK</b><small>Compare with the model.</small></span>
+              <span><b>3 · TEST</b><small>Change one thing.</small></span>
+              <span><b>4 · ASK</b><small>Explain what you expected, what happened, and what you tried.</small></span>
+            </div>
+          </article>
+
+          <aside class="fast-banner" aria-label="Returning student fast track">
+            <div><span>⚡ RETURNING CREATOR?</span><strong>Already comfortable troubleshooting?</strong></div>
+            <button class="btn ghost" type="button" data-open-fast-track>TRY FAST TRACK</button>
+          </aside>
+
+          <button class="btn primary next-state" type="button" data-go-stage="2">CONTINUE TO TRY</button>
+        </section>
+
+        <section class="mission-state" data-stage-panel="2" aria-labelledby="try-title" hidden>
+          <div class="state-topline"><span>TRY</span><strong>Guided Fault</strong></div>
+          <h2 id="try-title">Try it once with support.</h2>
+          <p class="state-intro">This test has one fault. <strong>Run it first.</strong> Then find where the commands stop matching the route.</p>
+          <div class="simulator-card" data-simulator="try">
+            <div class="sim-head"><div><span>GUIDED CALIBRATION</span><strong>Short Route</strong></div><p class="sim-status" data-sim-status>READY FOR TEST</p></div>
+            <div class="sim-two-col">
+              <div><div class="sim-grid" data-grid role="img" aria-label="Guided calibration route. Start at bottom left and reach the target near the centre."></div><p class="route-text">Target route: move east two spaces, turn north, move two spaces, then stop.</p></div>
+              <div class="command-panel"><p class="eyebrow">COMMAND STACK</p><div class="command-stack" data-commands></div></div>
+            </div>
+            <div class="sim-actions"><button class="btn primary" type="button" data-run-sim="try">RUN TEST</button><button class="btn replay" type="button" data-replay-sim="try" hidden>REPLAY</button></div>
+            <div class="sim-feedback" data-sim-feedback aria-live="polite"></div>
+            <div class="edit-panel" data-edit-panel hidden></div>
+          </div>
+          <details class="hint-card"><summary>Need a hint?</summary><p>Look at the <strong>first change in direction</strong>.</p></details>
+          <div class="completion-actions" data-try-complete hidden><p class="success-note"><strong>FIXED ✓</strong> You used evidence to find the fault.</p><button class="btn primary" type="button" data-go-stage="3">GO TO BUILD</button></div>
+        </section>
+
+        <section class="mission-state" data-stage-panel="3" aria-labelledby="build-title" hidden>
+          <div class="state-topline"><span>BUILD</span><strong>Systems Calibration</strong></div>
+          <h2 id="build-title">Repair the calibration route.</h2>
+          <p class="state-intro">Pass <strong>Checkpoint A</strong> and stop inside <strong>Delivery Zone B</strong>. One command is wrong.</p>
+          <div class="success-strip" aria-label="Build success criteria"><span>Pass Checkpoint A</span><span>Stop in Delivery Zone B</span><span>Change only what is needed</span><span>Explain why</span></div>
+          <div class="simulator-card feature" data-simulator="build">
+            <div class="sim-head"><div><span>SYSTEMS CALIBRATION</span><strong>Delivery Unit 01</strong></div><p class="sim-status" data-sim-status>READY FOR TEST</p></div>
+            <div class="sim-two-col">
+              <div><div class="sim-grid" data-grid role="img" aria-label="Systems calibration map. Start at bottom left. Pass Checkpoint A, travel north, then east, and finish inside Delivery Zone B."></div><p class="route-text">Intended route: east to Checkpoint A → north → east to Delivery Zone B.</p></div>
+              <div class="command-panel"><p class="eyebrow">COMMAND STACK</p><div class="command-stack" data-commands></div></div>
+            </div>
+            <div class="sim-actions"><button class="btn primary" type="button" data-run-sim="build">RUN TEST</button><button class="btn replay" type="button" data-replay-sim="build" hidden>REPLAY</button></div>
+            <div class="sim-feedback" data-sim-feedback aria-live="polite"></div>
+            <div class="edit-panel" data-edit-panel hidden></div>
+          </div>
+          <details class="hint-card" data-build-hint><summary>Need a hint?</summary><p>Watch the system until the <strong>first moment</strong> it stops matching the intended route.</p><button class="btn text-button" type="button" data-open-support>OPEN SUPPORT ROUTE</button></details>
+          <div class="completion-actions" data-build-complete hidden><p class="success-note"><strong>CALIBRATION PASSED ✓</strong> The system works. Now prove you understand why.</p><button class="btn primary" type="button" data-go-stage="4">PROVE IT</button></div>
+        </section>
+
+        <section class="mission-state" data-stage-panel="4" aria-labelledby="prove-title" hidden>
+          <div class="state-topline"><span>PROVE</span><strong>Predict · Fix · Test</strong></div>
+          <h2 id="prove-title">New system. New fault.</h2>
+          <p class="state-intro">This time, <strong>predict the problem before you change anything.</strong></p>
+          <div class="simulator-card" data-simulator="prove">
+            <div class="sim-head"><div><span>INDEPENDENT TEST</span><strong>Evidence Route</strong></div><p class="sim-status" data-sim-status>READY FOR TEST</p></div>
+            <div class="sim-two-col">
+              <div><div class="sim-grid" data-grid role="img" aria-label="Independent calibration route. Start at bottom left. Move east, then north, then east into the target."></div><p class="route-text">Intended route: east one → north two → east two → stop.</p></div>
+              <div class="command-panel"><p class="eyebrow">COMMAND STACK</p><div class="command-stack" data-commands></div></div>
+            </div>
+            <div class="sim-actions"><button class="btn primary" type="button" data-run-sim="prove">RUN TEST</button><button class="btn replay" type="button" data-replay-sim="prove" hidden>REPLAY</button></div>
+            <div class="sim-feedback" data-sim-feedback aria-live="polite"></div>
+            <form class="prediction-form" data-prediction-form hidden>
+              <label><span>Which command do you think causes the first problem?</span><select data-predict-command required></select></label>
+              <label><span>Why?</span><input type="text" data-predict-why maxlength="120" placeholder="I think it is the problem because…" required /></label>
+              <label><span>What should happen after your fix?</span><input type="text" data-predict-result maxlength="100" placeholder="The unit should…" required /></label>
+              <button class="btn secondary" type="submit">LOCK IN PREDICTION</button>
+            </form>
+            <div class="edit-panel" data-edit-panel hidden></div>
+            <div class="compare-panel" data-compare-panel hidden>
+              <p><strong>Did the test match your prediction?</strong></p>
+              <div class="choice-row"><button type="button" class="btn choice" data-compare="yes">YES</button><button type="button" class="btn choice" data-compare="partly">PARTLY</button><button type="button" class="btn choice" data-compare="no">NO</button></div>
+              <label data-next-test-wrap hidden><span>What would you test next?</span><input type="text" data-next-test maxlength="100" placeholder="Next I would test…" /></label>
+            </div>
+          </div>
+          <details class="hint-card"><summary>Need a hint?</summary><p>Find the <strong>earliest movement</strong> that does not match the intended route.</p></details>
+          <div class="completion-actions" data-prove-complete hidden><p class="success-note"><strong>EVIDENCE FOUND ✓</strong> You tested a prediction instead of guessing.</p><button class="btn primary" type="button" data-go-stage="5">SHOW YOUR EVIDENCE</button></div>
+        </section>
+
+        <section class="mission-state" data-stage-panel="5" aria-labelledby="check-title" hidden>
+          <div class="state-topline"><span>CHECK</span><strong>Show Your Evidence</strong></div>
+          <h2 id="check-title">Keep it short. Show your reasoning.</h2>
+          <form class="evidence-card" data-evidence-form>
+            <label><span>I changed:</span><input name="changed" maxlength="90" placeholder="TURN RIGHT → TURN LEFT" required /></label>
+            <label><span>Because:</span><input name="because" maxlength="130" placeholder="the route first went wrong at the turn" required /></label>
+            <label><span>My test showed:</span><input name="showed" maxlength="130" placeholder="the unit reached the target" required /></label>
+            <label><span>If it still failed, I would test:</span><input name="next" maxlength="130" placeholder="the next command after the first mismatch" required /></label>
+            <button class="btn primary" type="submit">SUBMIT EVIDENCE</button>
+          </form>
+          <div class="saved-card" data-evidence-saved hidden aria-live="polite">
+            <p class="status-chip status-pass">EVIDENCE SAVED ✓</p>
+            <h3>Ready for teacher check</h3>
+            <p>Be ready to answer one quick question:</p>
+            <blockquote>Show me where the first failure happened.</blockquote>
+            <details class="teacher-check">
+              <summary>Teacher check</summary>
+              <label><span>Skill Passport status</span><select data-passport-rating><option value="P">P — Proficient</option><option value="D">D — Developing</option><option value="E">E — Emerging</option><option value="NY">NY — Not Yet</option></select></label>
+              <div class="teacher-actions"><button class="btn verify" type="button" data-teacher-verify>VERIFY MISSION</button><button class="btn ghost" type="button" data-teacher-retry>ONE MORE TRY</button></div>
+            </details>
+          </div>
+
+          <section class="creator-extension" id="creator-extension" data-creator-extension hidden aria-labelledby="creator-title">
+            <p class="eyebrow">🌟 CREATOR EXTENSION</p><h3 id="creator-title">Break It on Purpose</h3>
+            <p>Create <strong>one fair bug</strong>. It must have one clear cause and be fixable with today's skills.</p>
+            <label><span>My intended bug:</span><input type="text" data-creator-bug maxlength="100" placeholder="I will change…" /></label>
+            <div class="creator-actions"><button class="btn secondary" type="button" data-create-bug>CREATE BUG</button><button class="btn ghost" type="button" data-hand-partner disabled>HAND TO PARTNER</button></div>
+            <div class="creator-partner" data-creator-partner hidden>
+              <p><strong>Partner:</strong> diagnose the system before changing it.</p>
+              <label><span>I think the fault is… because…</span><input type="text" data-partner-prediction maxlength="140" /></label>
+              <button class="btn secondary" type="button" data-partner-test>TEST MY FIX</button>
+              <label data-creator-reflect-wrap hidden><span>Creator: what made your bug easy or difficult to find?</span><input type="text" data-creator-reflect maxlength="140" /></label>
+            </div>
+          </section>
+
+          <section class="mission-complete" id="mission-passport" data-mission-complete hidden aria-live="polite">
+            <p class="status-chip status-pass">MISSION 1 VERIFIED ✓</p><h3>Skill Passport updated</h3>
+            <div class="passport-row"><span><b>Independence</b> · Troubleshoots systematically</span><strong data-rating-output>P</strong></div>
+            <p class="debug-reminder">EXPECT → OBSERVE → CHANGE ONE THING → TEST</p>
+            <div class="next-preview"><span>NEXT</span><strong>Mission 2 — Control It</strong><p>Computers follow instructions exactly.</p></div>
+            <a class="btn primary link-btn" href="./">RETURN TO MISSION MAP</a>
+          </section>
+        </section>
+      </div>
+
+      <aside class="mission-tools" id="mission-help" aria-label="Mission tools">
+        <section><p class="eyebrow">MISSION TOOLS</p><h2>Need help?</h2><button class="tool-button" type="button" data-open-try4><span>TRY 4</span><small>Re-read · Check · Test · Ask</small></button><button class="tool-button muted" type="button" data-open-backup><span>TECH NOT WORKING?</span><small>Use the Backup Route</small></button></section>
+        <section class="passport-mini" aria-label="Current Skill Passport target"><p class="eyebrow">SKILL PASSPORT</p><strong>Troubleshoots systematically</strong><small data-passport-mini>Evidence not submitted yet.</small></section>
+      </aside>
+    </div>
+
+    <dialog class="mission-dialog" data-try4-dialog aria-labelledby="try4-dialog-title">
+      <form method="dialog"><button class="dialog-close" value="close" aria-label="Close TRY 4">×</button><p class="eyebrow">WHEN YOU GET STUCK</p><h2 id="try4-dialog-title">TRY 4</h2>
+        <div class="try4-dialog-grid"><span><b>1 · RE-READ</b><small>What should happen?</small></span><span><b>2 · CHECK</b><small>Compare with the model.</small></span><span><b>3 · TEST</b><small>Change one thing.</small></span><span><b>4 · ASK</b><small>Explain what you expected, what happened, and what you already tried.</small></span></div>
+        <button class="btn primary" value="close">BACK TO MISSION</button>
+      </form>
+    </dialog>
+
+    <dialog class="mission-dialog support-dialog" data-support-dialog aria-labelledby="support-title">
+      <form method="dialog"><button class="dialog-close" value="close" aria-label="Close Support Route">×</button><p class="eyebrow">SUPPORT ROUTE</p><h2 id="support-title">Find the first break.</h2>
+        <section class="support-level" data-support-level="1"><span>1 · COMPARE</span><p>Compare the intended route with the actual route. <strong>Where do they first stop matching?</strong></p><div class="compare-mini"><div><b>INTENDED</b><span>east → north → east</span></div><div><b>ACTUAL</b><span>east → north → west</span></div></div><button class="btn secondary" type="button" data-more-support="2">I NEED MORE HELP</button></section>
+        <section class="support-level" data-support-level="2" hidden><span>2 · NARROW IT DOWN</span><p>The first wrong movement happens around the <strong>second turn</strong>. Compare the turn command with the route.</p><button class="btn secondary" type="button" data-more-support="3">I NEED MORE HELP</button></section>
+        <section class="support-level" data-support-level="3" hidden><span>3 · TRACE IT</span><div class="trace-table" role="table" aria-label="Command trace"><div role="row"><b role="cell">1</b><span role="cell">FORWARD 2</span><span role="cell">correct</span></div><div role="row"><b role="cell">2</b><span role="cell">TURN LEFT</span><span role="cell">correct</span></div><div role="row"><b role="cell">3</b><span role="cell">FORWARD 2</span><span role="cell">correct</span></div><div role="row"><b role="cell">4</b><span role="cell">TURN LEFT</span><span role="cell">check this movement</span></div></div><p class="quiet">Return to BUILD and choose the correction yourself.</p></section>
+        <button class="btn primary" value="close">BACK TO BUILD</button>
+      </form>
+    </dialog>
+
+    <dialog class="mission-dialog" data-fast-dialog aria-labelledby="fast-title">
+      <form method="dialog" class="fast-dialog-form"><button class="dialog-close" value="close" aria-label="Close Fast Track">×</button><p class="eyebrow">⚡ RETURNING CREATOR</p><h2 id="fast-title">Fast Track</h2><p>The final failure is not always where the real problem begins. Find the <strong>first true fault</strong>.</p>
+        <div class="simulator-card" data-simulator="fast"><div class="sim-head"><div><span>FAST TRACK</span><strong>Root-Cause Test</strong></div><p class="sim-status" data-sim-status>READY FOR TEST</p></div>
+          <div class="sim-two-col"><div><div class="sim-grid" data-grid role="img" aria-label="Fast Track route with one root cause and one later command that looks suspicious but is correct."></div><p class="route-text">Find the earliest true cause, not the final symptom.</p></div><div class="command-panel"><p class="eyebrow">COMMAND STACK</p><div class="command-stack" data-commands></div></div></div>
+          <div class="sim-actions"><button class="btn primary" type="button" data-run-sim="fast">RUN TEST</button></div><div class="sim-feedback" data-sim-feedback aria-live="polite"></div>
+          <div class="fast-predict" data-fast-predict hidden><label><span>I think the first true fault is:</span><select data-fast-command></select></label><label><span>Why is the later suspicious command not the root cause?</span><input type="text" data-fast-why maxlength="130" /></label><button class="btn secondary" type="button" data-fast-lock>LOCK IN PREDICTION</button></div><div class="edit-panel" data-edit-panel hidden></div>
+        </div><div class="fast-result" data-fast-result hidden></div>
+      </form>
+    </dialog>
+
+    <dialog class="mission-dialog backup-dialog" data-backup-dialog aria-labelledby="backup-title">
+      <form method="dialog"><button class="dialog-close" value="close" aria-label="Close Backup Route">×</button><p class="eyebrow">TECH NOT WORKING?</p><h2 id="backup-title">Backup Route</h2><p>Use the same calibration thinking without the animation.</p>
+        <ol><li>Read one command at a time.</li><li>Trace the unit on the route.</li><li>Circle the first mismatch.</li><li>Change one command.</li><li>Trace it again.</li></ol>
+        <div class="backup-static"><div><b>BUILD route</b><p>Start bottom-left → east two → north two → east two → Delivery Zone B.</p></div><div><b>Commands</b><p>FORWARD 2 · TURN LEFT · FORWARD 2 · TURN LEFT · FORWARD 2 · STOP</p></div></div>
+        <p class="quiet"><strong>Teacher option:</strong> use printed command cards and a small token on the same route.</p><button class="btn primary" value="close">BACK TO MISSION</button>
+      </form>
+    </dialog>
+
+    <div class="sr-only" aria-live="polite" data-live-region></div>
+  </div>
+</FutureTechLevel1MissionShell>
+
+<style>
+.mission-app{--indigo:#4338ca;--indigo-dark:#312e81;--ink:#172033;--muted:#64748b;--line:#dbe3ef;--soft:#f8fafc;--green:#15803d}
+.stage-stepper{position:sticky;top:5.25rem;z-index:30;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.35rem;margin:.65rem 0 .8rem;padding:.38rem;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.96);box-shadow:0 7px 22px rgba(15,23,42,.05);backdrop-filter:blur(8px)}
+.stage-stepper button{display:flex;justify-content:center;gap:.38rem;align-items:center;min-height:42px;border:0;border-radius:9px;background:transparent;color:#64748b;font:850 .76rem/1 system-ui,sans-serif;cursor:pointer}.stage-stepper button[aria-current="step"]{background:#eef2ff;color:var(--indigo-dark)}.stage-stepper button[data-complete="true"]{color:#166534}.stage-stepper button:disabled{opacity:.38;cursor:not-allowed}
+.mission-layout{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:.85rem;align-items:start}.mission-workspace{min-width:0}.mission-state{padding:clamp(1rem,2.5vw,1.5rem);border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:0 10px 34px rgba(15,23,42,.045)}
+.state-topline{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-bottom:.8rem;color:var(--muted);font-size:.72rem;font-weight:900;letter-spacing:.09em}.state-topline span{color:var(--indigo)}.mission-state h2{margin:.15rem 0 .5rem;font-size:clamp(1.55rem,3.5vw,2.25rem);letter-spacing:-.03em}.mission-state h3{margin:.15rem 0 .4rem;font-size:1.2rem}.state-intro,.hero-copy>p{color:var(--muted);line-height:1.55}
+.hero-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(360px,1.1fr);gap:1rem;align-items:center}.hero-copy h2{font-size:clamp(1.8rem,4vw,2.8rem)}.hero-command{font-size:1.08rem}
+.status-chip{display:inline-flex;width:max-content;margin:0 0 .6rem;padding:.38rem .55rem;border-radius:999px;font:900 .68rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em}.status-fail{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}.status-pass{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0}
+.success-mini,.success-strip{display:flex;gap:.4rem;flex-wrap:wrap;margin:.8rem 0}.success-mini span,.success-strip span{padding:.38rem .52rem;border:1px solid #dbe3ef;border-radius:999px;background:#f8fafc;color:#475569;font-size:.74rem;font-weight:800}
+.btn{display:inline-flex;justify-content:center;align-items:center;min-height:44px;padding:.68rem .85rem;border:1px solid transparent;border-radius:11px;font-weight:900;cursor:pointer;text-decoration:none;box-sizing:border-box}.btn.primary{background:var(--indigo);color:#fff}.btn.primary:hover{background:var(--indigo-dark)}.btn.secondary{background:#eef2ff;border-color:#c7d2fe;color:#3730a3}.btn.ghost{background:#fff;border-color:#cbd5e1;color:#334155}.btn.replay,.btn.choice{background:#fff;border-color:#cbd5e1;color:#475569}.btn.verify{background:#166534;color:#fff}.btn.text-button{min-height:38px;padding:.45rem .6rem;background:#fff;border-color:#fed7aa;color:#9a3412}.next-state{margin-top:.9rem}.eyebrow{margin:0;color:var(--indigo);font:900 .66rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}.quiet{color:var(--muted);font-size:.88rem;line-height:1.5}
+.mission-cycle{display:flex;gap:.32rem;align-items:stretch;margin:.8rem 0 1rem;overflow-x:auto;padding-bottom:.25rem}.mission-cycle span{display:grid;gap:.2rem;min-width:105px;padding:.65rem;border:1px solid #dbe3ef;border-radius:12px;background:#f8fafc}.mission-cycle b{color:var(--indigo-dark);font-size:.76rem}.mission-cycle small{color:var(--muted);font-size:.69rem;line-height:1.3}.mission-cycle i,.debug-cycle i{align-self:center;color:#94a3b8;font-style:normal}
+.process-card{display:grid;grid-template-columns:1.15fr .85fr;gap:.8rem;padding:.9rem;border:1px solid #c7d2fe;border-radius:16px;background:linear-gradient(135deg,#fff,#f5f3ff)}.debug-cycle{display:flex;gap:.35rem;align-items:stretch;margin:.7rem 0;overflow-x:auto}.debug-cycle span{display:grid;gap:.2rem;min-width:125px;padding:.55rem .6rem;border-radius:10px;background:#fff;border:1px solid #ddd6fe}.debug-cycle b{color:#3730a3;font-size:.7rem}.debug-cycle small{color:#64748b;font-size:.68rem;line-height:1.25}
+.micro-model{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;align-content:center}.model-state{display:grid;gap:.25rem;padding:.7rem;border-radius:11px;background:#111827;color:#fff}.model-state>span{color:#cbd5e1;font-size:.62rem;font-weight:900;letter-spacing:.08em}.lamp{width:max-content;padding:.2rem .38rem;border-radius:6px;font:900 .74rem ui-monospace,SFMono-Regular,Menlo,monospace}.lamp.green{background:#dcfce7;color:#166534}.lamp.red{background:#fee2e2;color:#991b1b}
+.try4-learn{display:grid;grid-template-columns:auto 1fr;gap:.8rem;margin-top:.8rem;padding:.8rem;border:1px solid #fed7aa;border-radius:14px;background:#fff7ed}.try4-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem}.try4-row span{display:grid;gap:.18rem;padding:.52rem;background:#fff;border-radius:9px;border:1px solid #fed7aa}.try4-row b{color:#9a3412;font-size:.68rem}.try4-row small{color:#7c2d12;font-size:.68rem;line-height:1.25}
+.fast-banner{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-top:.8rem;padding:.72rem .8rem;border-radius:13px;background:#ecfeff;border:1px solid #a5f3fc}.fast-banner div{display:grid;gap:.1rem}.fast-banner span{color:#155e75;font-size:.68rem;font-weight:900}.fast-banner strong{color:#164e63}
+.simulator-card{margin:.8rem 0;padding:.85rem;border:1px solid #dbe3ef;border-radius:17px;background:#f8fafc;overflow:hidden}.simulator-card.feature{border-color:#c7d2fe;background:linear-gradient(135deg,#fff,#f8faff)}.simulator-card.compact{margin:0}.sim-head{display:flex;justify-content:space-between;gap:.8rem;align-items:center;margin-bottom:.7rem}.sim-head div{display:grid;gap:.1rem}.sim-head span{color:#64748b;font-size:.62rem;font-weight:900;letter-spacing:.09em}.sim-head strong{color:#1e293b}.sim-status{margin:0;padding:.32rem .45rem;border-radius:8px;background:#e2e8f0;color:#334155;font:850 .66rem ui-monospace,SFMono-Regular,Menlo,monospace}
+.sim-two-col{display:grid;grid-template-columns:minmax(300px,1fr) minmax(210px,.65fr);gap:.8rem;align-items:start}.sim-grid{position:relative;display:grid;grid-template-columns:repeat(5,1fr);aspect-ratio:1/1;max-height:390px;border:1px solid #cbd5e1;border-radius:13px;background:#fff;overflow:hidden}.sim-cell{position:relative;display:grid;place-items:center;border-right:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;min-width:0}.sim-cell:nth-child(5n){border-right:0}.sim-cell:nth-last-child(-n+5){border-bottom:0}.sim-cell.intended::after{content:"";position:absolute;inset:34%;border-radius:999px;background:#c7d2fe}.sim-cell.actual::before{content:"";position:absolute;inset:41%;border-radius:999px;background:#0f766e;z-index:2}.sim-cell.actual.intended::before{inset:39%;outline:2px solid #fff}
+.map-label{position:relative;z-index:5;padding:.15rem .25rem;border-radius:5px;background:#fff;color:#334155;font-size:.57rem;font-weight:950;box-shadow:0 1px 4px rgba(15,23,42,.12);text-align:center}.map-label.start{background:#e0e7ff;color:#3730a3}.map-label.checkpoint{background:#fef3c7;color:#92400e}.map-label.target{background:#dcfce7;color:#166534}
+.unit-marker{position:absolute;z-index:8;width:32px;height:32px;display:grid;place-items:center;border-radius:9px;background:#111827;color:#67e8f9;font-size:.7rem;font-weight:950;box-shadow:0 4px 12px rgba(15,23,42,.24)}.unit-marker::before{content:"▲";display:block;transform:rotate(var(--unit-rotation,90deg))}.route-text{margin:.5rem 0 0;color:#64748b;font-size:.74rem;line-height:1.35}
+.command-panel{min-width:0}.command-stack{display:grid;gap:.38rem;margin-top:.45rem}.command-card{display:grid;grid-template-columns:30px 1fr;gap:.5rem;align-items:center;width:100%;padding:.55rem .6rem;border:1px solid #dbe3ef;border-radius:10px;background:#fff;color:#1e293b;text-align:left;font-weight:850;cursor:pointer}.command-card:disabled{cursor:default}.command-card .num{display:grid;place-items:center;width:28px;height:28px;border-radius:7px;background:#eef2ff;color:#4338ca;font:900 .67rem ui-monospace,SFMono-Regular,Menlo,monospace}.command-card.running{border-color:#06b6d4;box-shadow:0 0 0 2px rgba(6,182,212,.12)}.command-card.selected{border-color:#6366f1;background:#eef2ff}.command-card.edited{border-color:#f59e0b;background:#fffbeb}
+.sim-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.7rem}.sim-feedback{min-height:1.4rem;margin-top:.55rem;color:#475569;font-weight:750;font-size:.86rem}.edit-panel{margin-top:.65rem;padding:.7rem;border:1px solid #c7d2fe;border-radius:12px;background:#eef2ff}
+.edit-panel label,.prediction-form label,.evidence-card label,.creator-extension label,.teacher-check label,.fast-predict label,.compare-panel label{display:grid;gap:.28rem;color:#334155;font-size:.8rem;font-weight:850}input,select{width:100%;min-height:44px;padding:.58rem .65rem;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#172033;font:inherit;box-sizing:border-box}.edit-panel .edit-row{display:grid;grid-template-columns:1fr auto;gap:.5rem;align-items:end}
+.hint-card{margin:.75rem 0;border:1px solid #fed7aa;border-radius:12px;background:#fff7ed}.hint-card summary{padding:.65rem .75rem;color:#9a3412;font-weight:900;cursor:pointer}.hint-card p{margin:0;padding:0 .75rem .65rem;color:#7c2d12}.hint-card .btn{margin:0 .75rem .75rem}.success-note{padding:.65rem .75rem;border:1px solid #bbf7d0;border-radius:11px;background:#f0fdf4;color:#166534}.completion-actions{margin-top:.75rem}
+.prediction-form{display:grid;gap:.6rem;margin-top:.75rem;padding:.75rem;border:1px solid #c7d2fe;border-radius:12px;background:#eef2ff}.choice-row{display:flex;gap:.45rem;flex-wrap:wrap}.compare-panel{display:grid;gap:.55rem;margin-top:.7rem;padding:.7rem;border-radius:12px;background:#f1f5f9}
+.evidence-card{display:grid;gap:.7rem;margin-top:.8rem;padding:.9rem;border:1px solid #dbe3ef;border-radius:15px;background:#f8fafc}.saved-card{margin-top:.8rem;padding:.9rem;border:1px solid #bbf7d0;border-radius:15px;background:#f0fdf4}.saved-card blockquote{margin:.6rem 0;padding:.6rem .7rem;border-left:4px solid #16a34a;background:#fff;color:#166534;font-weight:850}.teacher-check{margin-top:.75rem;padding:.65rem;border:1px solid #bbf7d0;border-radius:10px;background:#fff}.teacher-check summary{font-weight:900;cursor:pointer}.teacher-check label{margin:.65rem 0}.teacher-actions{display:flex;gap:.45rem;flex-wrap:wrap}
+.creator-extension{margin-top:1rem;padding:.9rem;border:1px solid #a5f3fc;border-radius:15px;background:#ecfeff}.creator-extension>p{color:#155e75}.creator-actions{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.6rem}.creator-partner{display:grid;gap:.55rem;margin-top:.7rem;padding:.7rem;border-radius:11px;background:#fff;border:1px solid #bae6fd}
+.mission-complete{margin-top:1rem;padding:1rem;border:1px solid #c7d2fe;border-radius:17px;background:linear-gradient(135deg,#eef2ff,#fff)}.passport-row{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:.75rem;border-radius:11px;background:#fff;border:1px solid #dbe3ef}.passport-row strong{display:grid;place-items:center;width:42px;height:42px;border-radius:10px;background:#312e81;color:#fff}.debug-reminder{font-weight:950;color:#3730a3;letter-spacing:.03em}.next-preview{display:grid;gap:.15rem;margin:.8rem 0;padding:.75rem;border-radius:11px;background:#111827;color:#fff}.next-preview span{color:#67e8f9;font-size:.65rem;font-weight:900;letter-spacing:.09em}.next-preview p{margin:0;color:#cbd5e1}.link-btn{width:max-content}
+.mission-tools{display:grid;gap:.7rem;position:sticky;top:9.2rem}.mission-tools section{padding:.78rem;border:1px solid #dbe3ef;border-radius:14px;background:#fff}.mission-tools h2{margin:.1rem 0 .55rem;font-size:1.1rem}.tool-button{display:grid;gap:.15rem;width:100%;margin:.4rem 0 0;padding:.62rem;border:1px solid #c7d2fe;border-radius:10px;background:#eef2ff;color:#3730a3;text-align:left;cursor:pointer}.tool-button span{font-weight:950}.tool-button small{color:#5b5f88}.tool-button.muted{border-color:#e2e8f0;background:#f8fafc;color:#475569}.tool-button.muted small{color:#64748b}.passport-mini{display:grid;gap:.25rem}.passport-mini strong{font-size:.84rem}.passport-mini small{color:#64748b;line-height:1.35}
+.mission-dialog{width:min(760px,calc(100vw - 2rem));max-height:calc(100vh - 2rem);padding:0;border:0;border-radius:18px;background:#fff;color:#172033;box-shadow:0 22px 70px rgba(15,23,42,.25)}.mission-dialog::backdrop{background:rgba(15,23,42,.6)}.mission-dialog>form{position:relative;padding:1rem;overflow:auto;max-height:calc(100vh - 2rem)}.dialog-close{position:absolute;right:.7rem;top:.6rem;width:38px;height:38px;border:0;border-radius:9px;background:#f1f5f9;color:#334155;font-size:1.4rem;cursor:pointer}
+.try4-dialog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin:.7rem 0}.try4-dialog-grid span{display:grid;gap:.25rem;padding:.7rem;border:1px solid #fed7aa;border-radius:11px;background:#fff7ed}.try4-dialog-grid b{color:#9a3412}.try4-dialog-grid small{color:#7c2d12;line-height:1.35}
+.support-level{padding:.75rem;border:1px solid #dbe3ef;border-radius:12px;background:#f8fafc;margin:.65rem 0}.support-level>span{color:#4338ca;font-size:.68rem;font-weight:950;letter-spacing:.08em}.compare-mini{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin:.55rem 0}.compare-mini div{display:grid;gap:.2rem;padding:.6rem;background:#fff;border:1px solid #dbe3ef;border-radius:9px}.compare-mini b{font-size:.67rem}.compare-mini span{font-size:.82rem;color:#475569}.trace-table{display:grid;border:1px solid #dbe3ef;border-radius:9px;overflow:hidden}.trace-table>div{display:grid;grid-template-columns:40px 1fr 1fr;gap:.4rem;padding:.45rem .55rem;background:#fff;border-bottom:1px solid #e2e8f0}.trace-table>div:last-child{border-bottom:0}.trace-table span{font-size:.8rem}
+.fast-dialog-form>p{color:#64748b}.fast-predict{display:grid;gap:.55rem;margin-top:.65rem;padding:.7rem;background:#ecfeff;border-radius:11px}.fast-result{margin-top:.7rem;padding:.7rem;border-radius:11px;background:#f1f5f9}.backup-dialog ol{color:#475569;line-height:1.6}.backup-static{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}.backup-static div{padding:.7rem;border:1px solid #dbe3ef;border-radius:10px;background:#f8fafc}.backup-static p{margin:.3rem 0 0;color:#475569;line-height:1.45}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+@media(max-width:900px){.mission-layout{grid-template-columns:1fr}.mission-tools{position:static;grid-template-columns:1fr 1fr}.stage-stepper{top:.4rem}.hero-grid{grid-template-columns:1fr}.sim-two-col{grid-template-columns:1fr 230px}}
+@media(max-width:700px){.stage-stepper{position:static;display:flex;overflow-x:auto;justify-content:flex-start}.stage-stepper button{min-width:74px}.process-card{grid-template-columns:1fr}.try4-learn{grid-template-columns:1fr}.try4-row{grid-template-columns:1fr 1fr}.sim-two-col{grid-template-columns:1fr}.sim-grid{max-height:none}.mission-tools{grid-template-columns:1fr}.fast-banner{display:grid}.edit-panel .edit-row{grid-template-columns:1fr}.backup-static{grid-template-columns:1fr}}
+@media(max-width:480px){.mission-state{padding:.8rem}.try4-row,.try4-dialog-grid{grid-template-columns:1fr}.mission-cycle,.debug-cycle{margin-right:-.35rem}.success-strip span,.success-mini span{font-size:.69rem}.simulator-card{padding:.65rem}.sim-head{display:grid}.sim-status{width:max-content}.teacher-actions,.creator-actions{display:grid}.teacher-actions .btn,.creator-actions .btn{width:100%}.passport-row{align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){.unit-marker{transition:none!important}.btn,.stage-stepper button{scroll-behavior:auto!important}}
 </style>
+
+<script>
+const STORAGE_KEY='futuretech-level1-mission1-v2';
+const configs={
+ get:{start:[0,4],dir:1,target:[4,2],checkpoint:[2,4],intended:[{t:'F',v:2},{t:'L'},{t:'F',v:2},{t:'R'},{t:'F',v:2},{t:'STOP'}],commands:[{t:'F',v:2},{t:'L'},{t:'F',v:2},{t:'L'},{t:'F',v:2},{t:'STOP'}],fault:3,correct:{t:'R'}},
+ try:{start:[0,4],dir:1,target:[2,2],intended:[{t:'F',v:2},{t:'L'},{t:'F',v:2},{t:'STOP'}],commands:[{t:'F',v:2},{t:'R'},{t:'F',v:2},{t:'STOP'}],fault:1,correct:{t:'L'}},
+ build:{start:[0,4],dir:1,target:[4,2],checkpoint:[2,4],intended:[{t:'F',v:2},{t:'L'},{t:'F',v:2},{t:'R'},{t:'F',v:2},{t:'STOP'}],commands:[{t:'F',v:2},{t:'L'},{t:'F',v:2},{t:'L'},{t:'F',v:2},{t:'STOP'}],fault:3,correct:{t:'R'}},
+ prove:{start:[0,4],dir:1,target:[3,2],intended:[{t:'F',v:1},{t:'L'},{t:'F',v:2},{t:'R'},{t:'F',v:2},{t:'STOP'}],commands:[{t:'F',v:1},{t:'L'},{t:'F',v:1},{t:'R'},{t:'F',v:2},{t:'STOP'}],fault:2,correct:{t:'F',v:2}},
+ fast:{start:[0,4],dir:1,target:[4,2],checkpoint:[2,4],intended:[{t:'F',v:2},{t:'L'},{t:'F',v:2},{t:'R'},{t:'F',v:2},{t:'STOP'}],commands:[{t:'F',v:2},{t:'L'},{t:'F',v:1},{t:'R'},{t:'F',v:2},{t:'STOP'}],fault:2,suspicious:3,correct:{t:'F',v:2}}
+};
+const app=document.querySelector('[data-mission-app]');
+if(app){
+ const state=loadState();let currentStage=Math.min(Math.max(state.stage??0,0),5);const unlocked=new Set(state.unlocked??[0]);unlocked.add(0);
+ if(state.tryFixed)unlocked.add(3);if(state.buildFixed||state.fastVerified)unlocked.add(4);if(state.proveFixed)unlocked.add(5);let supportLevel=state.supportLevel??0;
+ const runtime={};Object.entries(configs).forEach(([name,cfg])=>runtime[name]={commands:cfg.commands.map(c=>({...c})),hasRun:false,selected:null,predictionLocked:false});
+ initSimulators();restoreEvidence();showStage(currentStage,false);if(state.evidenceSubmitted)showEvidenceSaved();if(state.verified)showMissionComplete(state.rating||'P');
+ document.querySelectorAll('[data-go-stage]').forEach(btn=>btn.addEventListener('click',()=>{const t=Number(btn.dataset.goStage);unlockStage(t);showStage(t)}));
+ document.querySelectorAll('[data-stage-button]').forEach(btn=>btn.addEventListener('click',()=>{const t=Number(btn.dataset.stageButton);if(unlocked.has(t)||t<=currentStage)showStage(t)}));
+ document.querySelectorAll('[data-run-sim]').forEach(btn=>btn.addEventListener('click',()=>runSim(btn.dataset.runSim,false)));document.querySelectorAll('[data-replay-sim]').forEach(btn=>btn.addEventListener('click',()=>runSim(btn.dataset.replaySim,true)));
+ const try4=document.querySelector('[data-try4-dialog]');document.querySelectorAll('[data-open-try4]').forEach(btn=>btn.addEventListener('click',()=>try4?.showModal()));
+ const backup=document.querySelector('[data-backup-dialog]');document.querySelectorAll('[data-open-backup]').forEach(btn=>btn.addEventListener('click',()=>backup?.showModal()));
+ const support=document.querySelector('[data-support-dialog]');document.querySelectorAll('[data-open-support]').forEach(btn=>btn.addEventListener('click',()=>{supportLevel=Math.max(supportLevel,1);state.supportLevel=supportLevel;saveState();renderSupport();support?.showModal()}));document.querySelectorAll('[data-more-support]').forEach(btn=>btn.addEventListener('click',()=>{supportLevel=Math.max(supportLevel,Number(btn.dataset.moreSupport));state.supportLevel=supportLevel;saveState();renderSupport()}));
+ const fast=document.querySelector('[data-fast-dialog]');document.querySelectorAll('[data-open-fast-track]').forEach(btn=>btn.addEventListener('click',()=>fast?.showModal()));document.querySelector('[data-fast-lock]')?.addEventListener('click',lockFast);
+ document.querySelector('[data-prediction-form]')?.addEventListener('submit',e=>{e.preventDefault();const form=e.currentTarget;const cmd=Number(form.querySelector('[data-predict-command]').value);const why=form.querySelector('[data-predict-why]').value.trim();const result=form.querySelector('[data-predict-result]').value.trim();if(!why||!result||Number.isNaN(cmd))return;runtime.prove.selected=cmd;runtime.prove.predictionLocked=true;state.provePrediction={cmd,why,result};saveState();renderCommands('prove');openEditor('prove',cmd);announce('Prediction locked. Make one change, then test it.')});
+ document.querySelectorAll('[data-compare]').forEach(btn=>btn.addEventListener('click',()=>{const answer=btn.dataset.compare;state.proveCompare=answer;const wrap=document.querySelector('[data-next-test-wrap]');if(wrap)wrap.hidden=answer==='yes';if(answer==='yes'&&state.proveFixed)document.querySelector('[data-prove-complete]').hidden=false;saveState()}));
+ document.querySelector('[data-evidence-form]')?.addEventListener('submit',e=>{e.preventDefault();state.evidence=Object.fromEntries(new FormData(e.currentTarget).entries());state.evidenceSubmitted=true;saveState();showEvidenceSaved();announce('Evidence saved. Ready for teacher check.')});
+ document.querySelector('[data-teacher-verify]')?.addEventListener('click',()=>{const rating=document.querySelector('[data-passport-rating]')?.value||'P';state.verified=true;state.rating=rating;saveState();showMissionComplete(rating);announce('Mission 1 verified.')});
+ document.querySelector('[data-teacher-retry]')?.addEventListener('click',()=>{state.verified=false;saveState();unlockStage(4);showStage(4);announce('Return to Prove for one more try.')});
+ document.querySelector('[data-create-bug]')?.addEventListener('click',()=>{const text=document.querySelector('[data-creator-bug]')?.value.trim();const hand=document.querySelector('[data-hand-partner]');if(text&&hand){hand.disabled=false;announce('Fair bug recorded. Hand the challenge to a partner.')}});
+ document.querySelector('[data-hand-partner]')?.addEventListener('click',()=>{document.querySelector('[data-creator-partner]').hidden=false});document.querySelector('[data-partner-test]')?.addEventListener('click',()=>{if(document.querySelector('[data-partner-prediction]')?.value.trim())document.querySelector('[data-creator-reflect-wrap]').hidden=false});
+ renderSupport();
+
+ function loadState(){try{const raw=localStorage.getItem(STORAGE_KEY);return raw?JSON.parse(raw):{stage:0,unlocked:[0]}}catch{return{stage:0,unlocked:[0]}}}
+ function saveState(){state.stage=currentStage;state.unlocked=[...unlocked].sort((a,b)=>a-b);try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch{}}
+ function unlockStage(i){unlocked.add(i);saveState();updateStageUI()}
+ function showStage(i,scroll=true){if(!(unlocked.has(i)||i<=currentStage))return;currentStage=i;document.querySelectorAll('[data-stage-panel]').forEach(p=>p.hidden=Number(p.dataset.stagePanel)!==i);saveState();updateStageUI();if(scroll)window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
+ function updateStageUI(){document.querySelectorAll('[data-stage-button]').forEach(btn=>{const i=Number(btn.dataset.stageButton);const complete=i<currentStage||(i===2&&state.tryFixed)||(i===3&&(state.buildFixed||state.fastVerified))||(i===4&&state.proveFixed)||(i===5&&state.evidenceSubmitted);btn.disabled=!(unlocked.has(i)||i<=currentStage);btn.dataset.complete=String(Boolean(complete));i===currentStage?btn.setAttribute('aria-current','step'):btn.removeAttribute('aria-current');const icon=btn.querySelector('.stage-state');if(icon)icon.textContent=complete?'✓':i===currentStage?'●':'○'})}
+ function initSimulators(){document.querySelectorAll('[data-simulator]').forEach(sim=>{const name=sim.dataset.simulator;if(!configs[name])return;drawGrid(name);renderCommands(name);if(name==='prove')fillSelect(document.querySelector('[data-predict-command]'),configs.prove.commands);if(name==='fast')fillSelect(document.querySelector('[data-fast-command]'),configs.fast.commands)})}
+ function drawGrid(name,actual=[]){const sim=document.querySelector(`[data-simulator="${name}"]`);if(!sim)return;const grid=sim.querySelector('[data-grid]');const cfg=configs[name];const intended=execute(cfg.intended,cfg.start,cfg.dir).path;grid.innerHTML='';for(let y=0;y<5;y++){for(let x=0;x<5;x++){const cell=document.createElement('div');cell.className='sim-cell';cell.dataset.x=String(x);cell.dataset.y=String(y);if(has(intended,x,y))cell.classList.add('intended');if(has(actual,x,y))cell.classList.add('actual');if(cfg.start[0]===x&&cfg.start[1]===y)cell.append(label('START','start'));if(cfg.checkpoint&&cfg.checkpoint[0]===x&&cfg.checkpoint[1]===y)cell.append(label('A','checkpoint'));if(cfg.target[0]===x&&cfg.target[1]===y)cell.append(label(name==='try'||name==='prove'?'TARGET':'ZONE B','target'));grid.append(cell)}}placeUnit(grid,cfg.start[0],cfg.start[1],cfg.dir)}
+ function label(text,cls){const el=document.createElement('span');el.className=`map-label ${cls}`;el.textContent=text;return el}
+ function placeUnit(grid,x,y,dir){grid.querySelector('.unit-marker')?.remove();const cell=grid.querySelector(`[data-x="${x}"][data-y="${y}"]`);if(!cell)return;const m=document.createElement('span');m.className='unit-marker';m.setAttribute('aria-hidden','true');m.style.setProperty('--unit-rotation',`${dir*90}deg`);cell.append(m)}
+ function renderCommands(name){const sim=document.querySelector(`[data-simulator="${name}"]`),stack=sim?.querySelector('[data-commands]');if(!stack)return;stack.innerHTML='';runtime[name].commands.forEach((cmd,i)=>{const b=document.createElement('button');b.type='button';b.className='command-card';b.innerHTML=`<span class="num">${i+1}</span><span>${text(cmd)}</span>`;if(runtime[name].selected===i)b.classList.add('selected');if(state[`${name}Edited`]===i)b.classList.add('edited');b.disabled=!runtime[name].hasRun||name==='get'||(name==='prove'&&!runtime.prove.predictionLocked)||(name==='fast'&&!runtime.fast.predictionLocked);b.addEventListener('click',()=>selectCommand(name,i));stack.append(b)})}
+ function text(c){if(c.t==='F')return`FORWARD ${c.v??1}`;if(c.t==='L')return'TURN LEFT';if(c.t==='R')return'TURN RIGHT';return'STOP'}
+ function execute(commands,start,dir){let x=start[0],y=start[1],d=dir;const path=[[x,y]],steps=[];for(let i=0;i<commands.length;i++){const c=commands[i];if(c.t==='L')d=(d+3)%4;if(c.t==='R')d=(d+1)%4;if(c.t==='F'){for(let n=0;n<(c.v||1);n++){if(d===0)y--;if(d===1)x++;if(d===2)y++;if(d===3)x--;path.push([x,y])}}steps.push({x,y,dir:d,command:i});if(c.t==='STOP')break}return{x,y,dir:d,path,steps}}
+ function has(path,x,y){return path.some(p=>p[0]===x&&p[1]===y)}
+ async function runSim(name){const sim=document.querySelector(`[data-simulator="${name}"]`),cfg=configs[name],rt=runtime[name];if(!sim||!cfg)return;const status=sim.querySelector('[data-sim-status]'),feedback=sim.querySelector('[data-sim-feedback]'),replay=sim.querySelector(`[data-replay-sim="${name}"]`);status.textContent='TESTING…';if(feedback)feedback.textContent='';const result=execute(rt.commands,cfg.start,cfg.dir);drawGrid(name,result.path);renderCommands(name);const grid=sim.querySelector('[data-grid]'),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;for(const step of result.steps){sim.querySelectorAll('.command-card').forEach((c,i)=>c.classList.toggle('running',i===step.command));placeUnit(grid,step.x,step.y,step.dir);if(!reduced)await wait(300)}sim.querySelectorAll('.command-card').forEach(c=>c.classList.remove('running'));rt.hasRun=true;renderCommands(name);if(replay)replay.hidden=false;const passed=result.x===cfg.target[0]&&result.y===cfg.target[1];status.textContent=passed?(name==='build'?'CALIBRATION PASSED ✓':name==='prove'?'EVIDENCE FOUND ✓':'FIXED ✓'):(name==='build'?'CALIBRATION FAILED':'TEST FAILED');if(name==='get')status.textContent='SYSTEM TEST FAILED';else if(name==='try')handleTry(passed,feedback);else if(name==='build')handleBuild(passed,feedback);else if(name==='prove')handleProve(passed,feedback);else if(name==='fast')handleFast(passed,feedback);announce(status.textContent)}
+ function selectCommand(name,i){runtime[name].selected=i;renderCommands(name);if(name==='try'){const f=document.querySelector('[data-simulator="try"] [data-sim-feedback]');if(i===configs.try.fault){f.textContent='That is where the route first goes wrong. Choose the correction.';openEditor('try',i)}else f.textContent='Not yet. Compare the route again.'}else if(name==='build')openEditor('build',i);else if(name==='prove'&&runtime.prove.predictionLocked&&i===runtime.prove.selected)openEditor('prove',i);else if(name==='fast'&&runtime.fast.predictionLocked&&i===runtime.fast.selected)openEditor('fast',i)}
+ function openEditor(name,i){const sim=document.querySelector(`[data-simulator="${name}"]`),panel=sim?.querySelector('[data-edit-panel]');if(!panel)return;const current=runtime[name].commands[i],opts=[{t:'F',v:1},{t:'F',v:2},{t:'L'},{t:'R'},{t:'STOP'}].filter(c=>text(c)!==text(current));panel.hidden=false;panel.innerHTML=`<div class="edit-row"><label><span>Replace Command ${i+1}</span><select data-replacement>${opts.map((c,j)=>`<option value="${j}">${text(c)}</option>`).join('')}</select></label><button class="btn secondary" type="button" data-apply-change>MAKE CHANGE</button></div>`;panel.querySelector('[data-apply-change]').addEventListener('click',()=>{const j=Number(panel.querySelector('[data-replacement]').value);runtime[name].commands[i]={...opts[j]};state[`${name}Edited`]=i;panel.hidden=true;renderCommands(name);sim.querySelector('[data-sim-status]').textContent='CHANGE READY TO TEST';announce('Change ready to test.')})}
+ function handleTry(passed,f){if(passed){state.tryFixed=true;unlockStage(3);document.querySelector('[data-try-complete]').hidden=false;if(f)f.textContent='Fixed. The route now matches the target.';saveState()}else if(f)f.textContent='Select the command where the route first goes wrong.'}
+ function handleBuild(passed,f){if(passed){state.buildFixed=true;unlockStage(4);document.querySelector('[data-build-complete]').hidden=false;if(f)f.textContent='Calibration passed. Your change repaired the route.';saveState()}else if(f)f.textContent='Find the first mismatch. Select one command, make one change, then test again.'}
+ function handleProve(passed,f){const form=document.querySelector('[data-prediction-form]');if(!runtime.prove.predictionLocked){form.hidden=false;if(f)f.textContent='Now predict the first faulty command before changing anything.';return}document.querySelector('[data-compare-panel]').hidden=false;if(passed){state.proveFixed=true;unlockStage(5);if(f)f.textContent='Your change fixed the route. Compare the result with your prediction.';saveState()}else{document.querySelector('[data-next-test-wrap]').hidden=false;if(f)f.textContent='That did not fully fix it. Use the new evidence to decide what you would test next.'}}
+ function lockFast(){const command=Number(document.querySelector('[data-fast-command]')?.value),why=document.querySelector('[data-fast-why]')?.value.trim();if(Number.isNaN(command)||!why)return;runtime.fast.selected=command;runtime.fast.predictionLocked=true;renderCommands('fast');openEditor('fast',command);announce('Fast Track prediction locked. Make one change and test it.')}
+ function handleFast(passed,f){const predict=document.querySelector('[data-fast-predict]'),result=document.querySelector('[data-fast-result]');if(!runtime.fast.predictionLocked){predict.hidden=false;if(f)f.textContent='Find the first true cause. A later command looks suspicious but is correct.';return}result.hidden=false;if(passed&&runtime.fast.selected===configs.fast.fault){state.fastVerified=true;unlockStage(4);saveState();result.innerHTML='<p class="success-note"><strong>FAST TRACK VERIFIED ✓</strong> You found the root cause instead of the final symptom.</p><button class="btn primary" type="button" data-fast-to-prove>GO TO PROVE</button>';result.querySelector('[data-fast-to-prove]').addEventListener('click',()=>{document.querySelector('[data-fast-dialog]')?.close();showStage(4)})}else{result.innerHTML='<p><strong>NOT YET.</strong> Continue with Systems Calibration and use the standard route.</p><button class="btn secondary" type="button" data-fast-to-build>GO TO BUILD</button>';result.querySelector('[data-fast-to-build]').addEventListener('click',()=>{document.querySelector('[data-fast-dialog]')?.close();unlockStage(3);showStage(3)})}}
+ function fillSelect(select,commands){if(select)select.innerHTML='<option value="">Choose a command…</option>'+commands.map((c,i)=>`<option value="${i}">${i+1} · ${text(c)}</option>`).join('')}
+ function renderSupport(){document.querySelectorAll('[data-support-level]').forEach(s=>s.hidden=Number(s.dataset.supportLevel)>supportLevel)}
+ function restoreEvidence(){if(!state.evidence)return;const form=document.querySelector('[data-evidence-form]');Object.entries(state.evidence).forEach(([k,v])=>{const input=form?.elements.namedItem(k);if(input)input.value=String(v)})}
+ function showEvidenceSaved(){document.querySelector('[data-evidence-saved]').hidden=false;document.querySelector('[data-creator-extension]').hidden=false;const mini=document.querySelector('[data-passport-mini]');if(mini)mini.textContent='Evidence submitted · ready for teacher check.'}
+ function showMissionComplete(rating){document.querySelector('[data-mission-complete]').hidden=false;document.querySelector('[data-rating-output]').textContent=rating;const mini=document.querySelector('[data-passport-mini]');if(mini)mini.textContent=`${rating} · Mission verified.`}
+ function announce(msg){const live=document.querySelector('[data-live-region]');if(live){live.textContent='';requestAnimationFrame(()=>live.textContent=msg)}}
+ function wait(ms){return new Promise(r=>setTimeout(r,ms))}
+}
+</script>
