@@ -9,6 +9,7 @@ on:
       - 'src/pages/index.astro'
       - 'src/pages/courses/futuretech-lab/**'
       - 'src/components/FutureTechMissionFrame.astro'
+      - 'src/components/FutureTechLevel1MissionShell.astro'
       - 'scripts/audit-futuretech-lab.mjs'
       - '.github/workflows/futuretech-lab-ci.yml'
 
