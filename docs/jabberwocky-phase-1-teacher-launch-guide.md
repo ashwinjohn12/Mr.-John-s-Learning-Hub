@@ -21,7 +21,7 @@ Student sequence:
 Use **shared stations, reused classroom materials and printed/printable records** before buying or duplicating specialized kits.
 - M1: shared thermometer(s), **one field sheet per team**, clipboards, string/markers; optional metre stick/light/moisture tools.
 - M2: per team for Class 1 — **1 spoon, 1 pair of tweezers, 1 clothespin/tongs, 1 pair of chopsticks, 36 identical plastic counters, 1 collection cup, 1 timer, 1 flat tray, 1 empty 6-well egg carton and about 1 m of loose yarn**; **one two-page Mission 2 packet per team (lab + Native Species Card)**. Set 12 counters in each zone. Use 20-second trials and reset to 12 between structures. No separate reconstruction sheet is needed.
-- M3: **reusable laminated Earth organism-card sets**, yarn/string, arrow markers; **one consumable Ecosystem Map per team**.
+- M3: **reusable laminated Earth organism-card sets**; for Class 1, each team needs **7 organism cards, 6 short yarn/string pieces, 6 arrow markers or sticky-note arrows and 1 pencil**. For seven teams, prepare **49 cards, 42 strings and 42 arrows**. Keep cards flat on tables; no whole-class yarn web is required. **One consumable Ecosystem Map per team** is used in Classes 2–4.
 - M4: **reusable laminated/sleeved 5×5 sampling page**, counters, dry-erase marker; **one consumable Ecosystem Change Record per team**; shared/digital local source pack.
 - M5: **reusable laminated six-zone Stowaway mat**, neutral + contrasting markers; one teacher pollutant/biomagnification model set; **one consumable JCEC Recommendation Board per team**.
 
@@ -64,7 +64,7 @@ For each class, the live teacher page / 25-Period Plan gives: **BEFORE CLASS · 
 - **Day 4 — CORE:** M2 Survival Structures Lab — 12 trials (4 structures × 3 zones), 20 seconds each, with 12 counters reset in each zone between structures.
 - **Day 5 — CORE:** M2 First Contact clue inference using the same Native Species Card; each saved continent automatically loads its assigned native species and first four approved clues; no separate reconstruction sheet.
 - **Day 6 — CORE:** M2 Native Species Card — final M2 Team Record; M2 ✓.
-- **Day 7 — CORE:** M3 How Food Webs Work with reusable Earth organism cards.
+- **Day 7 — CORE:** M3 How Food Webs Work with reusable Earth organism cards. Build six feeding links per team; predator/prey is a relationship, not a permanent organism category. Keep the decomposer visible but separate from the six feeding arrows in this simplified model.
 - **Day 8 — CORE:** M3 Build Your Continent Food Web on one Ecosystem Map.
 - **Day 9 — CORE:** M3 ecosystem-change reasoning on the same map.
 - **Day 10 — CORE:** M3 Matter Moves Too; same Ecosystem Map + compact Teacher Report Copy; M3 ✓.
