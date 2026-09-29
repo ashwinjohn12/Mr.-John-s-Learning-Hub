@@ -17,7 +17,7 @@ page.on('console', msg => { if (msg.type()==='error') console.log('BROWSER CONSO
 page.on('pageerror', err => console.log('PAGE ERROR:', err.message));
 
 await page.goto(URL,{waitUntil:'networkidle'});
-ok((await page.locator('h1').innerText()).includes('Debug the System'),'production page is Mission 1 Debug the System');
+ok((await page.locator('#mission-title').innerText()).includes('Debug the System'),'production page is Mission 1 Debug the System');
 await page.evaluate(k=>localStorage.removeItem(k),STORAGE_KEY);
 await page.reload({waitUntil:'networkidle'});
 
