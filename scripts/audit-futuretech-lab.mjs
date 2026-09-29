@@ -45,7 +45,7 @@ ok(level1.includes('REDESIGN PENDING'), 'unbuilt Missions 2–16 remain explicit
 ok(!level1.includes('All 8 Level 1 missions are open now'), 'old eight-mission release state is removed');
 ok(!level1.includes('courses/futuretech-lab/builder/'), 'Level 1 does not expose Level 2');
 
-const mission1 = readFileSync(files.mission1, 'utf8');
+const mission1 = readFileSync('src/pages/courses/futuretech-lab/creator-foundations/mission-1-make-it-happen.astro', 'utf8');
 for (const text of ['GET','LEARN','TRY','BUILD','PROVE','CHECK']) ok(mission1.includes(text), `Mission 1 includes stage ${text}`);
 ok(mission1.includes('Welcome to FutureTech: Debug the System'), 'Mission 1 uses production-locked title');
 ok(mission1.includes('SYSTEM TEST FAILED'), 'GET opens with the failed-system hook');
