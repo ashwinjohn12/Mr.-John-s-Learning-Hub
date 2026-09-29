@@ -1,7 +1,7 @@
 
 import { chromium } from 'playwright';
 
-const URL='https://ashwinjohn12.github.io/Mr.-John-s-Learning-Hub/courses/futuretech-lab/creator-foundations/mission-1-make-it-happen/?release=b565f95c7236cb6661866d3839b236b028cbccff';
+const URL='https://ashwinjohn12.github.io/Mr.-John-s-Learning-Hub/courses/futuretech-lab/creator-foundations/mission-1-make-it-happen/?release=7c6d1a3afd2de383b94f5351175c75c9cc65a4ec';
 const checks=[];
 function ok(condition,label,detail=''){if(!condition)throw new Error('SMOKE FAILED: '+label+(detail?' | '+detail:''));checks.push(label);console.log('PASS',label);}
 async function stage(page){return ((await page.locator('[data-stage-button][aria-current="step"]').textContent())||'').trim();}
