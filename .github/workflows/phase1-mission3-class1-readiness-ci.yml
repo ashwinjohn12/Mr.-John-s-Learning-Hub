@@ -1,0 +1,40 @@
+name: Temporary Phase 1 Mission 3 Class 1 Readiness
+
+on:
+  push:
+    branches:
+      - fix/phase1-mission3-class1-readiness-20260929
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify Mission 3 Class 1 readiness
+        run: |
+          set -euo pipefail
+          PAGE=src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-3/index.astro
+          GUIDE=src/pages/courses/grade-7-science/jabberwocky/phase-1/teacher-launch-guide/index.astro
+          DOC=docs/jabberwocky-phase-1-teacher-launch-guide.md
+          MATERIALS=docs/jabberwocky-phase1-final-materials-plan.md
+          grep -q "relationship</strong>, not a permanent type of animal" "$PAGE"
+          grep -q "Grass (producer) → Rabbit (consumer)" "$PAGE"
+          grep -q "Grasshopper (prey) → Mouse (predator)" "$PAGE"
+          grep -q "6 short pieces of yarn/string" "$PAGE"
+          grep -q "do not force it into these six feeding arrows" "$PAGE"
+          grep -q "Rabbit and Grasshopper lose a direct producer connection first" "$PAGE"
+          grep -q "49 cards, 42 strings and 42 arrows" "$GUIDE"
+          grep -q "49 cards, 42 strings and 42 arrows" "$DOC"
+          grep -q "42 short string pieces" "$MATERIALS"
+      - name: Phase 1 readiness audit
+        run: npm run audit:jabberwocky-phase1
+      - name: Phase 1 data audit
+        run: npm run audit:jabberwocky-phase1-data
+      - name: Full production build
+        run: npm run build
