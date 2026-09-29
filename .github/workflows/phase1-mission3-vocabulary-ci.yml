@@ -1,0 +1,37 @@
+name: Temporary Phase 1 Mission 3 Vocabulary Verification
+
+on:
+  push:
+    branches:
+      - fix/phase1-mission3-science-vocabulary-20260929
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify Mission 3 scientific vocabulary
+        run: |
+          set -euo pipefail
+          PAGE=src/pages/courses/grade-7-science/jabberwocky/phase-1/mission-3/index.astro
+          GUIDE=src/pages/courses/grade-7-science/jabberwocky/phase-1/teacher-launch-guide/index.astro
+          ! grep -q "food → eater" "$PAGE"
+          ! grep -q "food to its eater" "$PAGE"
+          ! grep -q "food → eater" "$GUIDE"
+          grep -q "PRODUCER / PREY" "$PAGE"
+          grep -q "CONSUMER / PREDATOR" "$PAGE"
+          grep -q "Predator and prey" "$PAGE"
+          grep -q "producer/prey → consumer/predator" "$PAGE"
+          grep -q "producer/prey → consumer/predator" "$GUIDE"
+      - name: Phase 1 readiness audit
+        run: npm run audit:jabberwocky-phase1
+      - name: Phase 1 data audit
+        run: npm run audit:jabberwocky-phase1-data
+      - name: Full production build
+        run: npm run build
