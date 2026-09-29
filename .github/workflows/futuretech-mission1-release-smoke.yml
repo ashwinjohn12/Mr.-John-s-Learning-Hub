@@ -1,0 +1,22 @@
+
+name: FutureTech Mission 1 Release Smoke
+
+on:
+  push:
+    branches:
+      - 'test/futuretech-mission1-release-smoke-20260929'
+
+jobs:
+  deployed-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node scripts/smoke-futuretech-mission1-release.mjs
