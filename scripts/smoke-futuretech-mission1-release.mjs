@@ -1,7 +1,7 @@
 
 import { chromium } from 'playwright';
 
-const URL='https://ashwinjohn12.github.io/Mr.-John-s-Learning-Hub/courses/futuretech-lab/creator-foundations/mission-1-make-it-happen/';
+const URL='https://ashwinjohn12.github.io/Mr.-John-s-Learning-Hub/courses/futuretech-lab/creator-foundations/mission-1-make-it-happen/?release=b565f95c7236cb6661866d3839b236b028cbccff';
 const checks=[];
 function ok(condition,label,detail=''){if(!condition)throw new Error('SMOKE FAILED: '+label+(detail?' | '+detail:''));checks.push(label);console.log('PASS',label);}
 async function stage(page){return ((await page.locator('[data-stage-button][aria-current="step"]').textContent())||'').trim();}
@@ -9,7 +9,7 @@ async function reset(page){await page.evaluate(()=>localStorage.removeItem('futu
 async function selectText(locator,text){const v=await locator.evaluate((el,t)=>{const o=[...el.options].find(x=>x.textContent.includes(t));return o?o.value:null},text);if(v===null)throw new Error('option missing '+text);await locator.selectOption(v);}
 const browser=await chromium.launch({headless:true});
 const context=await browser.newContext({viewport:{width:1366,height:768}});
-const page=await context.newPage();
+const page=await context.newPage();await page.setExtraHTTPHeaders({'Cache-Control':'no-cache','Pragma':'no-cache'});
 const pageErrors=[];page.on('pageerror',e=>pageErrors.push(String(e)));
 for(let i=0;i<24;i++){await page.goto(URL,{waitUntil:'networkidle'});if((await page.title()).includes('Debug the System'))break;await page.waitForTimeout(5000);}
 ok((await page.title()).includes('Debug the System'),'live release title');
