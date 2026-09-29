@@ -76,11 +76,19 @@ Use the smallest practical amount of paper. Default to **one team copy**, **reus
 **Later years / future classes**
 - Print **Page 2 only** once reusable card sets exist.
 
-**Shared physical materials**
-- laminated organism cards
-- short yarn/string
-- arrow markers
-- pencils
+**Class 1 per-team materials**
+- 7 laminated Earth organism cards
+- 6 short yarn/string pieces (one per feeding clue)
+- 6 arrow markers or sticky-note arrows
+- 1 pencil
+
+**Seven-team class total**
+- 49 organism cards
+- 42 short string pieces
+- 42 arrow markers
+- 7 pencils
+
+Keep each team's cards flat on the table rather than building one whole-class standing yarn web. The Fungi & Bacteria decomposer card stays visible but is not forced into the six feeding-arrow connections in this simplified Class 1 model.
 
 **Chromebook dependency**
 - continent organisms and feeding evidence
