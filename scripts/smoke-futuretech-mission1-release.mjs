@@ -46,3 +46,5 @@ for(const item of [['projector',1920,1080],['chromebook',1366,768],['tablet',768
 ok(pageErrors.length===0,'no uncaught JS errors',pageErrors.join(' | '));
 console.log('RELEASE SMOKE PASSED: '+checks.length+' checks.');
 await browser.close();
+
+// rerun after production hotfix b565f95c7236cb6661866d3839b236b028cbccff
