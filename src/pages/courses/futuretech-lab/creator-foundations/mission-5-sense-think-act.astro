@@ -30,7 +30,7 @@ import FutureTechMissionFrame from '../../../../components/FutureTechMissionFram
 
     <p class="mini-label">Hummingbird Bit — one sensor + one output</p>
     <figure class="mission-visual">
-      <img src="/resources/futuretech/level1/mission-5/light-sensor-led-wiring.jpg" alt="Authentic Hummingbird Bit wiring guide showing the light sensor connected to Sensor Port 1 and the single-color LED connected to LED Port 1. The light sensor uses three wires: yellow to S, red to positive, and black to negative. The LED uses two wires: colored wire to positive and black to negative." width="1600" height="900" decoding="async" />
+      <img src={import.meta.env.BASE_URL + 'resources/futuretech/level1/mission-5/light-sensor-led-wiring.jpg'} alt="Authentic Hummingbird Bit wiring guide showing the light sensor connected to Sensor Port 1 and the single-color LED connected to LED Port 1. The light sensor uses three wires: yellow to S, red to positive, and black to negative. The LED uses two wires: colored wire to positive and black to negative." width="1600" height="900" decoding="async" />
       <figcaption>Check the 3-wire sensor and 2-wire LED before powering on.</figcaption>
     </figure>
     <div class="warning swap-warning"><b>DO NOT SWAP THE PORTS:</b> Light Sensor → <b>Sensor Port 1</b>: yellow → <b>S</b> · red → <b>+</b> · black → <b>–</b>. LED → <b>LED Port 1</b>: colored wire → <b>+</b> · black → <b>–</b>.</div>
@@ -40,7 +40,7 @@ import FutureTechMissionFrame from '../../../../components/FutureTechMissionFram
     <div class="io-grid"><article><strong>INPUT · LIGHT SENSOR</strong><p>Measures light and gives your program a number.</p></article><article><strong>OUTPUT · LED</strong><p>Changes brightness when your code tells it to.</p></article></div>
 
     <figure class="mission-visual">
-      <img src="/resources/futuretech/level1/mission-5/sense-think-act.jpg" alt="Sense Think Act concept diagram showing the light sensor producing a value, the program comparing that value to a threshold with IF or ELSE, and the LED changing brightness as the output. The cycle repeats." width="1600" height="900" loading="lazy" decoding="async" />
+      <img src={import.meta.env.BASE_URL + 'resources/futuretech/level1/mission-5/sense-think-act.jpg'} alt="Sense Think Act concept diagram showing the light sensor producing a value, the program comparing that value to a threshold with IF or ELSE, and the LED changing brightness as the output. The cycle repeats." width="1600" height="900" loading="lazy" decoding="async" />
       <figcaption>The sensor gives the value. The code decides. The LED acts.</figcaption>
     </figure>
     <p class="visual-companion"><b>SENSE</b> = read a light value · <b>THINK</b> = compare the value to a threshold · <b>ACT</b> = change the LED response.</p>
