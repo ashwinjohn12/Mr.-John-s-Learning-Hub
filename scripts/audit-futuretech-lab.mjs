@@ -60,7 +60,11 @@ ok(mission1.includes('mission-2-make-it-think/'), 'Mission 1 links to Mission 2'
 
 const mission2 = readFileSync(files.mission2, 'utf8');
 ok(mission2.includes('https://makecode.microbit.org/'), 'Mission 2 links directly to MakeCode');
-ok(mission2.includes('SET replaces. CHANGE adjusts.'), 'Mission 2 preserves set/change support');
+const setChangeFigure = mission2.match(/<figure\b[^>]*\bid="ft-m2-01"[^>]*>[\s\S]*?<\/figure>/)?.[0] ?? '';
+ok(mission2.includes('SET replaces. CHANGE adjusts.') || (
+  setChangeFigure.includes('<figcaption') &&
+  setChangeFigure.includes('SET replaces the remembered value. CHANGE adjusts the value that is already there.')
+), 'Mission 2 preserves set/change support');
 ok(mission2.includes('TRUE') && mission2.includes('FALSE'), 'Mission 2 preserves IF true/false support');
 ok(mission2.includes('repeat 3 times'), 'Mission 2 explicitly teaches a simple repeat loop');
 ok(mission2.includes('The special result uses one repeat loop'), 'Mission 2 Build It requires loop application');
@@ -191,6 +195,5 @@ ok(!mission8.includes('courses/futuretech-lab/builder/') && !mission8.includes('
 ok(mission8.includes('CREATOR FOUNDATIONS COMPLETE'), 'Mission 8 ends at Creator Foundations completion');
 
 console.log(`FutureTech Lab student usability audit passed: ${checks.length} checks.`);
-
 
 
