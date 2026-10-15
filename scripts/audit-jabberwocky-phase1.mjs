@@ -100,7 +100,8 @@ for (const day of flexDays) check(teacherPage.includes(`day:${day},`), `Teacher 
 for (const token of ['BEFORE CLASS','MATERIALS','STUDENTS SEE / DO','KEY SCIENCE','TEACHER EMPHASIS','COLLECT / ASSESS','IF TIME RUNS OUT']) check(teacherPage.includes(token), `Teacher Launch Guide includes planning field: ${token}`);
 for (const token of ['MISSION MATERIALS MASTER LIST','FORMATIVE','CHECKPOINT','MAJOR SYNTHESIS','55%','30%','15%']) check(teacherPage.includes(token), `Teacher Launch Guide includes assessment/materials element: ${token}`);
 check(teacherPageLower.includes('thermometer'), 'Teacher materials plan includes shared thermometer access');
-for (const material of ['tweezers','yarn/string','5×5 grid','JCEC Recommendation Board']) check(teacherPage.includes(material), `Teacher materials plan includes: ${material}`);
+for (const material of ['tweezers','yarn/string','JCEC Recommendation Board']) check(teacherPage.includes(material), `Teacher materials plan includes: ${material}`);
+check(!teacherPage.includes('5×5 grid'), 'Teacher materials plan excludes the retired population sampling grid');
 check(teacherPageLower.includes('six-zone') && teacherPageLower.includes('no cups required'), 'Teacher materials plan replaces six cups/team with a printable six-zone Stowaway mat');
 check(teacherPageLower.includes('shared stations') && teacherPageLower.includes('reused') && teacherPageLower.includes('printed'), 'Teacher materials plan prioritizes shared, reused and printable materials');
 
