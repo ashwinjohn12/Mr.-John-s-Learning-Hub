@@ -59,9 +59,9 @@ check(missions[2].includes('print-mission3-packet'), 'Mission 3 includes printab
 check(missions[2].includes('Ecosystem Map'), 'Mission 3 ends with Ecosystem Map');
 check(missions[2].includes('WATER PATH') && missions[2].includes('CARBON PATH'), 'Mission 3 contains water and carbon cycling');
 check(missions[2].includes('can be reused and cycled'), 'Mission 3 distinguishes matter cycling from energy flow');
-check(missions[3].includes('print-mission4-packet'), 'Mission 4 includes printable sampling/change packet');
+check(missions[3].includes('print-mission4-packet') && !missions[3].includes('Population Sampling'), 'Mission 4 includes only the Ecosystem Change Record printable');
 check(missions[3].includes('Ecosystem Change Record'), 'Mission 4 ends with Ecosystem Change Record');
-check(missions[3].includes('Do not invent or generalize an Indigenous perspective'), 'Mission 4 preserves authentic Indigenous-source safeguard');
+check(!missions[3].includes('Earth Connection') && !missions[3].includes('earth-block'), 'Mission 4 excludes the retired Earth Connection activity');
 check(missions[3].includes('Population') && missions[3].includes('Succession'), 'Mission 4 includes population and succession science');
 const mission5Lower = missions[4].toLowerCase();
 check(missions[4].includes('print-mission5-board'), 'Mission 5 includes printable Recommendation Board');
